@@ -1,0 +1,47 @@
+<resources>
+
+    <style name="AppTheme.NoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:statusBarColor">@color/colorPrimaryDark</item>
+        <item name="android:windowBackground">@color/colorWindowBackground</item>
+    </style>
+
+    <style name="AccentButton" parent="AppTheme">
+        <item name="colorButtonNormal">@color/Red</item>
+        <item name="android:textColorPrimary">@color/colorTextColorPrimary</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:colorBackground">@color/colorWindowBackground</item>
+        <item name="android:navigationBarColor">@android:color/black</item>
+    </style>
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:navigationBarColor">?android:attr/colorPrimaryDark</item>
+    </style>
+
+    <style name="AppTheme.AnimDialog.SlideUpDown" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:windowEnterAnimation">@anim/anim_slide_in_up</item>
+        <item name="android:windowExitAnimation">@anim/anim_slide_out_down</item>
+    </style>
+
+    <style name="AppTheme.AnimDialog.SlideLeftRight" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:windowEnterAnimation">@anim/anim_slide_in_left</item>
+        <item name="android:windowExitAnimation">@anim/anim_slide_out_right</item>
+    </style>
+
+    <style name="AppTheme.AnimDialog.SlideRightLeft" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:windowEnterAnimation">@anim/anim_slide_in_right</item>
+        <item name="android:windowExitAnimation">@anim/anim_slide_out_left</item>
+    </style>
+
+    <style name="AppTheme.AnimDialog.SlideDownUp" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:windowEnterAnimation">@anim/anim_slide_in_down</item>
+        <item name="android:windowExitAnimation">@anim/anim_slide_out_up</item>
+    </style>
+
+</resources>
