@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:keepScreenOn="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:background="@drawable/ic_style_button_round_corners_default"
+            android:clickable="true"
+            android:padding="@dimen/activity_padding">
+
+            <android.support.v7.widget.AppCompatTextView
+                style="@style/AppTheme.TextView_Title"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_centerInParent="true"
+                android:gravity="start|center"
+                android:text="@string/app_name" />
+
+            <android.support.v7.widget.AppCompatImageView
+                android:layout_width="@dimen/icon_size_min_ex"
+                android:layout_height="@dimen/icon_size_min_ex"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerInParent="true"
+                android:gravity="center|end"
+                app:srcCompat="@drawable/ic_vector_next" />
+
+        </RelativeLayout>
+
+        <include layout="@layout/view_item_vertical_separate" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="?actionBarSize">
+
+            <include layout="@layout/view_recycler_view" />
+
+            <RelativeLayout
+                android:id="@id/layout_relative"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/ic_style_button_round_corners_default"
+                android:clickable="true"
+                android:visibility="visible">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="center"
+                    android:background="@android:color/transparent"
+                    android:orientation="vertical">
+
+                    <android.support.v7.widget.AppCompatImageView
+                        android:layout_width="@dimen/icon_size_big"
+                        android:layout_height="@dimen/icon_size_big"
+                        android:layout_gravity="center_horizontal"
+                        app:srcCompat="@drawable/ic_vector_comment" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="@dimen/activity_margin_min"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <android.support.v7.widget.AppCompatImageView
+                            android:layout_width="@dimen/icon_size_min_ex_ex"
+                            android:layout_height="@dimen/icon_size_min_ex_ex"
+                            android:layout_gravity="center_vertical"
+                            app:srcCompat="@drawable/ic_vector_reload" />
+
+                        <TextView
+                            style="@style/AppTheme.TextView_Sub_Title"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="@dimen/activity_margin_min"
+                            android:layout_marginStart="@dimen/activity_margin_min"
+                            android:text="Tap to try reloading comments" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:layout_alignParentBottom="true"
+        android:padding="@dimen/activity_padding_min">
+
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@id/editText"
+            style="@style/AppTheme.TextInputEditText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_gravity="center_vertical"
+            android:layout_toLeftOf="@id/button_ok"
+            android:layout_toStartOf="@id/button_ok"
+            android:bufferType="editable"
+            android:hint="@string/str_WriteAComment"
+            android:inputType="text"
+            android:maxLines="2"
+            android:minLines="1">
+
+            <requestFocus />
+
+        </android.support.v7.widget.AppCompatEditText>
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@id/button_ok"
+            android:layout_width="@dimen/icon_size_min"
+            android:layout_height="@dimen/icon_size_min"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/activity_margin_min"
+            android:layout_marginRight="@dimen/activity_margin_min"
+            android:background="@drawable/ic_style_button_round_corners_default"
+            android:clickable="true"
+            android:scaleType="centerInside"
+            app:srcCompat="@drawable/ic_vector_send" />
+
+    </RelativeLayout>
+</RelativeLayout>

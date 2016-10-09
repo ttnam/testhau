@@ -1,0 +1,68 @@
+<resources>
+
+    <dimen name="app_bar_height">256dp</dimen>
+    <dimen name="app_bar_height_min">172dp</dimen>
+
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="text_margin">16dp</dimen>
+
+    <dimen name="image_height">192dp</dimen>
+    <dimen name="image_medium_height">256dp</dimen>
+    <dimen name="image_big_height">320dp</dimen>
+
+    <dimen name="card_view">96dp</dimen>
+    <dimen name="card_view_big">128dp</dimen>
+    <dimen name="dividerHeight">8dp</dimen>
+    <dimen name="dividerHeight_min">4dp</dimen>
+
+    <dimen name="text_size_title">14sp</dimen>
+    <dimen name="text_size_sub_title">12sp</dimen>
+
+    <dimen name="buttonBigBorders">24dp</dimen>
+    <dimen name="buttonBorders">5dp</dimen>
+    <dimen name="cardCornerRadius">5dp</dimen>
+    <dimen name="cardElevation">2dp</dimen>
+
+    <dimen name="activity_padding_min">8dp</dimen>
+    <dimen name="activity_padding_min_Top">8dp</dimen>
+    <dimen name="activity_padding_min_Right">8dp</dimen>
+    <dimen name="activity_padding_min_Bottom">8dp</dimen>
+    <dimen name="activity_padding_min_Left">8dp</dimen>
+
+    <dimen name="activity_padding">16dp</dimen>
+    <dimen name="activity_paddingTop">16dp</dimen>
+    <dimen name="activity_paddingRight">16dp</dimen>
+    <dimen name="activity_paddingBottom">16dp</dimen>
+    <dimen name="activity_paddingLeft">16dp</dimen>
+
+    <dimen name="activity_margin_min">8dp</dimen>
+    <dimen name="activity_margin_min_Top">8dp</dimen>
+    <dimen name="activity_margin_min_Right">8dp</dimen>
+    <dimen name="activity_margin_min_Bottom">8dp</dimen>
+    <dimen name="activity_margin_min_Left">8dp</dimen>
+
+    <dimen name="activity_margin">16dp</dimen>
+    <dimen name="activity_marginTop">16dp</dimen>
+    <dimen name="activity_marginRight">6dp</dimen>
+    <dimen name="activity_marginBottom">16dp</dimen>
+    <dimen name="activity_marginLeft">16dp</dimen>
+
+    <dimen name="activity_margin_big">24dp</dimen>
+    <dimen name="activity_margin_big_Top">24dp</dimen>
+    <dimen name="activity_margin_big_Right">24dp</dimen>
+    <dimen name="activity_margin_big_Bottom">24dp</dimen>
+    <dimen name="activity_margin_big_Left">24dp</dimen>
+
+
+    <dimen name="icon_size">48dp</dimen>
+
+    <dimen name="icon_size_min">32dp</dimen>
+    <dimen name="icon_size_min_ex">24dp</dimen>
+    <dimen name="icon_size_min_ex_ex">16dp</dimen>
+    <dimen name="icon_size_min_si_ex_ex">8dp</dimen>
+
+    <dimen name="icon_size_big">64dp</dimen>
+    <dimen name="icon_size_big_ex">96dp</dimen>
+    <dimen name="icon_size_big_ex_ex">128dp</dimen>
+
+</resources>
