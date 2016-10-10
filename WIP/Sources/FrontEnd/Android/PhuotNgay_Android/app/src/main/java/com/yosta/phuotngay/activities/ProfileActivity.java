@@ -3,7 +3,6 @@ package com.yosta.phuotngay.activities;
 import android.content.Intent;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -12,7 +11,7 @@ import com.yosta.circleimageview.CircleImageView;
 import com.yosta.phuotngay.R;
 import com.yosta.phuotngay.activities.interfaces.ActivityBehavior;
 import com.yosta.phuotngay.config.AppConfig;
-import com.yosta.phuotngay.helpers.AppUtils;
+import com.yosta.phuotngay.helpers.UIUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -74,8 +73,8 @@ public class ProfileActivity extends ActivityBehavior {
     @Override
     public void onApplyFont() {
         super.onApplyFont();
-        AppUtils.setFont(this, "fonts/Lato-Regular.ttf", txtMembership, txtGender, txtPhotoNumber, txtFriendsNumber);
-        AppUtils.setFont(this, "fonts/Lato-Black.ttf", txtFollow, txtExperience, txtOverview, txtPhotos, textAccountName, txtToolbarTitle);
+        UIUtils.setFont(this, "fonts/Lato-Regular.ttf", txtMembership, txtGender, txtPhotoNumber, txtFriendsNumber);
+        UIUtils.setFont(this, UIUtils.FONT_LATO_BLACK, txtFollow, txtExperience, txtOverview, txtPhotos, textAccountName, txtToolbarTitle);
     }
 
     @Override

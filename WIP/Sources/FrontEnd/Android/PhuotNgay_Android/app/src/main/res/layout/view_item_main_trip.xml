@@ -82,9 +82,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:padding="@dimen/activity_padding_min"
+                android:paddingTop="@dimen/activity_padding_min"
                 android:text="NAM DU VIETNAM"
                 android:textAllCaps="true"
+                android:textSize="18sp"
                 android:textStyle="bold" />
 
             <android.support.v7.widget.AppCompatTextView
@@ -93,20 +94,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:padding="@dimen/activity_padding_min"
+                android:paddingTop="@dimen/activity_padding_min"
                 android:text="From 500K"
-                android:textAllCaps="false"
+                android:textAllCaps="true"
                 android:textColor="@color/Green"
                 android:textStyle="bold" />
 
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="@dimen/activity_margin_min"
-                android:background="@drawable/ic_style_button_round_corners_orange_none"
-                android:text="See more"
-                android:textColor="@android:color/white"
-                android:textStyle="bold" />
         </LinearLayout>
     </LinearLayout>
 

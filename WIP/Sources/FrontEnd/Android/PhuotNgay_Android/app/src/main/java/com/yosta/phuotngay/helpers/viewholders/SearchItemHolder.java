@@ -5,7 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.yosta.phuotngay.R;
-import com.yosta.phuotngay.helpers.AppUtils;
+import com.yosta.phuotngay.helpers.UIUtils;
 import com.yosta.phuotngay.models.views.SearchItemView;
 
 /**
@@ -30,8 +30,8 @@ public class SearchItemHolder extends RecyclerView.ViewHolder {
         txtTitle = (AppCompatTextView) itemView.findViewById(R.id.textView_title);
         textView = (AppCompatTextView) itemView.findViewById(R.id.textView);
 
-        AppUtils.setFont(itemView.getContext(), "fonts/Lato-Heavy.ttf", txtTitle);
-        AppUtils.setFont(itemView.getContext(), "fonts/Lato-Medium.ttf", textView);
+        UIUtils.setFont(itemView.getContext(), UIUtils.FONT_LATO_HEAVY, txtTitle);
+        UIUtils.setFont(itemView.getContext(), UIUtils.FONT_LATO_MEDIUM, textView);
     }
 
     public void onSetEvent(SearchItemView searchItem) {

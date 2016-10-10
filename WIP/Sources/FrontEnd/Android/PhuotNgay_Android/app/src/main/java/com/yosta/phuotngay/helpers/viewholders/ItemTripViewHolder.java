@@ -7,13 +7,11 @@ import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.yosta.phuotngay.R;
 import com.yosta.phuotngay.activities.SightDetailActivity;
-import com.yosta.phuotngay.activities.dialogs.DialogComment;
-import com.yosta.phuotngay.helpers.AppUtils;
+import com.yosta.phuotngay.helpers.UIUtils;
 import com.yosta.phuotngay.models.views.ItemTripView;
 
 /**
@@ -36,9 +34,8 @@ public class ItemTripViewHolder extends RecyclerView.ViewHolder {
         //txtPhotos = (AppCompatTextView) itemView.findViewById(R.id.textView);
         txtDescription = (AppCompatTextView) itemView.findViewById(R.id.textView_description);
 
-        AppUtils.setFont(context, "fonts/Lato-Bold.ttf", txtTitle);
-        //AppUtils.setFont(context, "fonts/Lato-Regular.ttf", txtPhotos);
-        AppUtils.setFont(context, "fonts/Lato-Heavy.ttf", txtDescription);
+        UIUtils.setFont(context, UIUtils.FONT_LATO_BOLD, txtTitle);
+        UIUtils.setFont(context, UIUtils.FONT_LATO_HEAVY, txtDescription);
     }
 
     public void onSetEvent(ItemTripView note) {

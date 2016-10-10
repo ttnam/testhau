@@ -4,6 +4,8 @@ import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
 
 import com.yosta.phuotngay.R;
 import com.yosta.phuotngay.activities.interfaces.ActivityBehavior;
@@ -17,15 +19,19 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class SightDetailActivity extends ActivityBehavior {
+    /*
+        @BindView(R.id.textView)
+        AppCompatTextView txtFollow;
 
-    @BindView(R.id.textView)
-    AppCompatTextView txtFollow;
+        @BindView(R.id.textView_description)
+        AppCompatTextView txtLocation;
 
-    @BindView(R.id.textView_description)
-    AppCompatTextView txtLocation;
-
+        */
     @BindView(R.id.textView_title)
     AppCompatTextView txtTitle;
+
+    @BindView(R.id.web_view)
+    WebView webView;
 
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
@@ -40,16 +46,27 @@ public class SightDetailActivity extends ActivityBehavior {
 
         commentAdapter = new CommentAdapter(this);
 
+        onInitializeWebView();
         onInitializeRecyclerView();
         onInitializeData();
-
     }
 
+    private void onInitializeWebView() {
+        WebSettings settings = webView.getSettings();
+        settings.setJavaScriptEnabled(false);
+        settings.setDefaultTextEncodingName("utf-8");
+    }
 
     private void onInitializeData() {
         for (int i = 0; i < 2; i++) {
             commentAdapter.addComment(new Comment());
         }
+        String prefix = "<html><body><p style=\"text-align: justify\">";
+        String postfix = "</p></body></html>";
+        String content = "Nếu bạn đã thấy sông trăng, hãy đến Nam Du vào ngày rằm để thấy biển trăng. Từ trên cao nhìn xuống, trăng tỏa sáng cả một vùng trời, đẹp và thơ mộng biết bao.";
+
+        webView.loadData(prefix + content + postfix, "text/html; charset=utf-8", "utf-8");
+        txtTitle.setText("Nam Du, thiên đường nơi cực Nam Tổ quốc");
     }
 
     private void onInitializeRecyclerView() {
@@ -65,12 +82,12 @@ public class SightDetailActivity extends ActivityBehavior {
     @Override
     public void onApplyFont() {
         super.onApplyFont();
-        AppUtils.setFont(this, "fonts/Lato-Heavy.ttf", txtTitle);
+        //AppUtils.setFont(this, "fonts/Lato-Heavy.ttf", txtTitle);
     }
-
+/*
     @OnClick(R.id.img_back)
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-    }
+    }*/
 }

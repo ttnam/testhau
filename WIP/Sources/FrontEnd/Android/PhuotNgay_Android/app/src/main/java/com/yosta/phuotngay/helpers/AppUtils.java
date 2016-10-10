@@ -83,30 +83,6 @@ public class AppUtils {
                 .show();
     }
 
-    public static void setFont(Context context, String fontName, TextView... textView) {
-        for (TextView aTextView : textView) {
-            Typeface font = Typeface.createFromAsset(context.getAssets(), fontName);
-            aTextView.setTypeface(font);
-        }
-    }
-    public static void setFont(Context context, String fontName, AppCompatTextView... textViews) {
-        for (AppCompatTextView aTextView : textViews) {
-            Typeface font = Typeface.createFromAsset(context.getAssets(), fontName);
-            aTextView.setTypeface(font);
-        }
-    }
-    public static void setFont(Context context, String fontName, Button... buttons) {
-        for (Button button : buttons) {
-            Typeface font = Typeface.createFromAsset(context.getAssets(), fontName);
-            button.setTypeface(font);
-        }
-    }
-
-    public static void setFont(Context context, CheckBox checkBox, String fontName) {
-        Typeface font = Typeface.createFromAsset(context.getAssets(), fontName);
-        checkBox.setTypeface(font);
-    }
-
     public static String getAppVersion(Context context) {
         PackageManager manager = context.getPackageManager();
         PackageInfo info = null;
