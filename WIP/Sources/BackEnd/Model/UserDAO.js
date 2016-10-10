@@ -195,30 +195,50 @@ module.exports = function() {
 
 			that.getFollowers(userId, function(followers){
 				try {
-					var follower =  {
-			            userId : userId_2,
-			            userName : user.userName,
-			            avatar : user.avatar
-			        };
+					var follow = true;
+					for(var i in followers){					
+						if (followers[i].userId == userId_2) {
+							follow = false;
+							break;
+						}	
+					}
 
-			        if (followers.length > 0) 
-						followers.push(follower);
+					if (follow)
+						database.collection(that.collection).update({ userId : userId }, 
+							{ $push:{ followers : {
+								userId : userId_2,
+					            userName : user.userName,
+					            avatar : user.avatar
+							} } }, function(err, reply) {
+							try {
+								if (err)
+									throw err;
+								if (reply.result.ok == 1) 
+									callback(true);
+								else 
+									callback(false);
+							}
+							catch(err) {
+								callback(-1);
+							}
+						});
 					else 
-						followers = [follower];
-
-					database.collection(that.collection).update({ userId : userId }, { $set:{ followers : followers } }, function(err, reply) {
-						try {
-							if (err)
-								throw err;
-							if (reply.result.ok == 1) 
-								callback(true);
-							else 
-								callback(false);
-						}
-						catch(err) {
-							callback(-1);
-						}
-					});
+						database.collection(that.collection).update({ userId : userId }, 
+							{ $pull:{ followers : {
+								userId : userId_2
+							} } }, function(err, reply) {
+							try {
+								if (err)
+									throw err;
+								if (reply.result.ok == 1) 
+									callback(true);
+								else 
+									callback(false);
+							}
+							catch(err) {
+								callback(-1);
+							}
+						});
 				}
 				catch(err) {
 					callback(-1);
