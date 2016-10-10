@@ -43,7 +43,7 @@ module.exports = function(app) {
 	app.post(url + '/token', function(req, res) {
 		if (!req.body.hasOwnProperty('token')) {
 		    res.statusCode = 400;
-		    return res.send('Error 400: Add comment syntax incorrect.');
+		    return res.send('Error 400: Check token syntax incorrect.');
 		}
 
 		userDAO.checkExpireToken(req.body.token, function(result, userId) {
@@ -59,7 +59,7 @@ module.exports = function(app) {
 	app.post(url + '/album', function(req, res) {
 		if (!req.body.hasOwnProperty('token')) {
 		    res.statusCode = 400;
-		    return res.send('Error 400: Add comment syntax incorrect.');
+		    return res.send('Error 400: Get album syntax incorrect.');
 		}
 
 		userDAO.checkExpireToken(req.body.token, function(result, userId) {
@@ -87,7 +87,7 @@ module.exports = function(app) {
 	app.post(url + '/followers', function(req, res) {
 		if (!req.body.hasOwnProperty('token')) {
 		    res.statusCode = 400;
-		    return res.send('Error 400: Add comment syntax incorrect.');
+		    return res.send('Error 400: Get followers syntax incorrect.');
 		}
 
 		userDAO.checkExpireToken(req.body.token, function(result, userId) {
@@ -115,7 +115,7 @@ module.exports = function(app) {
 	app.post(url + '/isFolloweds', function(req, res) {
 		if (!req.body.hasOwnProperty('token')) {
 		    res.statusCode = 400;
-		    return res.send('Error 400: Add comment syntax incorrect.');
+		    return res.send('Error 400: Get isFolloweds syntax incorrect.');
 		}
 
 		userDAO.checkExpireToken(req.body.token, function(result, userId) {
@@ -143,7 +143,7 @@ module.exports = function(app) {
 	app.post(url + '/comments/:viewId', function(req, res) {
 		if(!req.body.hasOwnProperty('token') || !req.body.hasOwnProperty('content')) {
 		    res.statusCode = 400;
-		    return res.send('Error 400: Add comment syntax incorrect.');
+		    return res.send('Error 400: Post comment syntax incorrect.');
 		}
 
 	    userDAO.checkExpireToken(req.body.token, function(result, userId) {
@@ -171,10 +171,10 @@ module.exports = function(app) {
 	});
 
 	app.put(url, function(req, res) {
-		if (!req.body.hasOwnProperty('token') && !req.body.hasOwnProperty('userName') 
-			&& !req.body.hasOwnProperty('avatar') && !req.body.hasOwnProperty('gender')) {
+		if (!req.body.hasOwnProperty('token') || !req.body.hasOwnProperty('userName') 
+			|| !req.body.hasOwnProperty('avatar') || !req.body.hasOwnProperty('gender')) {
 		    res.statusCode = 400;
-		    return res.send('Error 400: Add comment syntax incorrect.');
+		    return res.send('Error 400: Update info user syntax incorrect.');
 		}
 
 		userDAO.checkExpireToken(req.body.token, function(result, userId) {
@@ -202,7 +202,7 @@ module.exports = function(app) {
 	app.put(url + '/follows/:userId', function(req, res) {
 		if (!req.body.hasOwnProperty('token')) {
 		    res.statusCode = 400;
-		    return res.send('Error 400: Add comment syntax incorrect.');
+		    return res.send('Error 400: Follow user syntax incorrect.');
 		}
 
 		userDAO.checkExpireToken(req.body.token, function(result, userId) {
@@ -228,9 +228,9 @@ module.exports = function(app) {
 	});
 
 	app.put(url + '/album/:imageId', function(req, res) {
-		if (!req.body.hasOwnProperty('token') && !req.body.hasOwnProperty('description')) {
+		if (!req.body.hasOwnProperty('token') || !req.body.hasOwnProperty('description')) {
 		    res.statusCode = 400;
-		    return res.send('Error 400: Add comment syntax incorrect.');
+		    return res.send('Error 400: Update image syntax incorrect.');
 		}
 
 		userDAO.checkExpireToken(req.body.token, function(result, userId) {
@@ -258,7 +258,7 @@ module.exports = function(app) {
 	app.delete(url + '/comments/:viewId', function(req, res) {
 		if(!req.body.hasOwnProperty('token') || !req.body.hasOwnProperty('createdTime')) {
 		    res.statusCode = 400;
-		    return res.send('Error 400: Add comment syntax incorrect.');
+		    return res.send('Error 400: Delete comment syntax incorrect.');
 		}
 
 	    userDAO.checkExpireToken(req.body.token, function(result, userId) {
