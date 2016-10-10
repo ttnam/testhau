@@ -170,8 +170,9 @@ module.exports = function(app) {
 		});
 	});
 
-	app.put(url + '/update', function(req, res) {
-		if (!req.body.hasOwnProperty('token') && !req.body.hasOwnProperty('userName') && !req.body.hasOwnProperty('avatar') && !req.body.hasOwnProperty('gender')) {
+	app.put(url, function(req, res) {
+		if (!req.body.hasOwnProperty('token') && !req.body.hasOwnProperty('userName') 
+			&& !req.body.hasOwnProperty('avatar') && !req.body.hasOwnProperty('gender')) {
 		    res.statusCode = 400;
 		    return res.send('Error 400: Add comment syntax incorrect.');
 		}
