@@ -30,7 +30,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MenuSettingFragment extends Fragment {
+public class SettingFragment extends Fragment {
 
     @BindView(R.id.layout_profile)
     LinearLayout layoutProfile;
@@ -106,6 +106,7 @@ public class MenuSettingFragment extends Fragment {
     public void onCallProfile() {
         getActivity().startActivity(new Intent(getActivity(), ProfileActivity.class));
         getActivity().overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+        getActivity().finish();
     }
 
     @OnClick(R.id.layout_rating)

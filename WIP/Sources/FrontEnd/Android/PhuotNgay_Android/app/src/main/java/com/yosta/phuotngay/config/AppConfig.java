@@ -93,4 +93,9 @@ public class AppConfig extends Application {
     public User getCurrentUser() {
         return mUser;
     }
+
+    public boolean userLogout() {
+        return mPresUtils.removeSettings(SharedPresUtils.KEY_USER_TOKEN);
+    }
+
 }

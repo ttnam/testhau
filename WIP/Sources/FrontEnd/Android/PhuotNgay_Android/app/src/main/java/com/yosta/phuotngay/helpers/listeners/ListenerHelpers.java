@@ -19,6 +19,7 @@ import com.squareup.picasso.Target;
 import com.yosta.materialdialog.ChoiceDialog;
 import com.yosta.phuotngay.R;
 import com.yosta.phuotngay.adapters.MenuAdapter;
+import com.yosta.phuotngay.config.AppConfig;
 import com.yosta.phuotngay.helpers.AppUtils;
 import com.yosta.phuotngay.helpers.SharedPresUtils;
 import com.yosta.phuotngay.helpers.menu.MenuItem;
@@ -65,6 +66,7 @@ public class ListenerHelpers {
 
         }
     };
+
     public static TextView.OnEditorActionListener onEditorSearchChange = new TextView.OnEditorActionListener() {
         @Override
         public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {

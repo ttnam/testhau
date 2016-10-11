@@ -4,13 +4,16 @@ import android.content.Intent;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.squareup.picasso.Picasso;
 import com.yosta.circleimageview.CircleImageView;
+import com.yosta.materialdialog.StandardDialog;
 import com.yosta.phuotngay.R;
 import com.yosta.phuotngay.activities.interfaces.ActivityBehavior;
 import com.yosta.phuotngay.config.AppConfig;
 import com.yosta.phuotngay.helpers.UIUtils;
+import com.yosta.phuotngay.helpers.listeners.ListenerHelpers;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -84,6 +87,12 @@ public class ProfileActivity extends ActivityBehavior {
     }
 
     @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        //startActivity(new Intent(this, MainActivity.class));
+    }
+
+    @Override
     public void onApplyData() {
         super.onApplyData();
 
@@ -121,4 +130,28 @@ public class ProfileActivity extends ActivityBehavior {
         onBackPressed();
     }
 
+    @OnClick(R.id.layout_logout)
+    public void onShowLogout() {
+        new StandardDialog(this)
+                .setButtonsColor(getResources().getColor(R.color.Red))
+                .setCancelable(false)
+                .setTopColorRes(android.R.color.white)
+                .setTopColor(getResources().getColor(android.R.color.white))
+                .setTopColorRes(R.color.BlueTitle)
+                .setIcon(R.drawable.ic_vector_logout)
+                .setMessage("If you like or even dislike this app, Please rate for us. Thank you!!")
+                .setNegativeButton("No, thanks!", null)
+                .setPositiveButton("Logout", onLogout)
+                .show();
+    }
+
+    private View.OnClickListener onLogout = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            AppConfig appConfig = (AppConfig) getApplication();
+            appConfig.userLogout();
+            startActivity(new Intent(getApplicationContext(), SplashActivity.class));
+            finish();
+        }
+    };
 }

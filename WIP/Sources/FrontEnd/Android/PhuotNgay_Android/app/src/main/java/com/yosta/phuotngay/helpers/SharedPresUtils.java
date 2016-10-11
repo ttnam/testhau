@@ -99,11 +99,13 @@ public class SharedPresUtils {
         return true;
     }
 
-    public boolean removeSettings(String key) {
+    public boolean removeSettings(String... keys) {
         if (preferences == null) return false;
 
         SharedPreferences.Editor editor = preferences.edit();
-        editor.remove(key);
+        for (String key : keys) {
+            editor.remove(key);
+        }
         editor.apply();
 
         return true;

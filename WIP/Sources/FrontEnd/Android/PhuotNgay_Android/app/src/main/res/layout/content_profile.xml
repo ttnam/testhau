@@ -83,6 +83,7 @@
 
                 <android.support.v7.widget.AppCompatTextView
                     android:id="@+id/txt_gender"
+                    style="@style/AppTheme.TextView_Title.Normal"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center_vertical"
@@ -90,8 +91,7 @@
                     android:layout_marginStart="@dimen/activity_margin"
                     android:gravity="center|start"
                     android:text="asdasdasd"
-                    android:textAllCaps="true"
-                    style="@style/AppTheme.TextView_Title.Normal"/>
+                    android:textAllCaps="true" />
 
             </LinearLayout>
 
@@ -108,14 +108,14 @@
 
                 <android.support.v7.widget.AppCompatTextView
                     android:id="@+id/txt_membership"
+                    style="@style/AppTheme.TextView_Title.Normal"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="@dimen/activity_margin"
                     android:layout_marginStart="@dimen/activity_margin"
                     android:gravity="start|center"
-                    android:text="Member since Sep 2016"
-                    style="@style/AppTheme.TextView_Title.Normal" />
+                    android:text="Member since Sep 2016" />
 
             </LinearLayout>
         </LinearLayout>
@@ -192,35 +192,28 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/layout_logout"
+            style="@style/Style_Menu_Item.Press"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/activity_margin_min"
-            android:background="@android:color/white"
-            android:orientation="vertical">
+            android:orientation="horizontal">
 
-            <LinearLayout
-                style="@style/Style_Menu_Item.Press"
+            <android.support.v7.widget.AppCompatImageView
+                android:layout_width="@dimen/icon_size_min_ex"
+                android:layout_height="@dimen/icon_size_min_ex"
+                android:layout_gravity="center_vertical"
+                app:srcCompat="@drawable/ic_vector_logout" />
+
+            <android.support.v7.widget.AppCompatTextView
+                style="@style/AppTheme.TextView_Title.Bold"
                 android:layout_width="match_parent"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/activity_margin"
+                android:layout_marginStart="@dimen/activity_margin"
+                android:text="Logout" />
 
-                <android.support.v7.widget.AppCompatImageView
-                    android:layout_width="@dimen/icon_size_min_ex"
-                    android:layout_height="@dimen/icon_size_min_ex"
-                    android:layout_gravity="center_vertical"
-                    app:srcCompat="@drawable/ic_vector_logout" />
-
-                <android.support.v7.widget.AppCompatTextView
-                    style="@style/AppTheme.TextView_Title.Bold"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="@dimen/activity_margin"
-                    android:layout_marginStart="@dimen/activity_margin"
-                    android:text="Logout" />
-
-            </LinearLayout>
         </LinearLayout>
-
     </LinearLayout>
 
 </android.support.v4.widget.NestedScrollView>

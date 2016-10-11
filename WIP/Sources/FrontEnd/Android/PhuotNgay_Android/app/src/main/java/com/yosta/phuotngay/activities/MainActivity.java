@@ -9,7 +9,7 @@ import com.yosta.phuotngay.activities.interfaces.ActivityBehavior;
 import com.yosta.phuotngay.adapters.ViewPagerAdapter;
 import com.yosta.phuotngay.animations.ZoomOutPageTransformer;
 import com.yosta.phuotngay.fragments.HomeFragment;
-import com.yosta.phuotngay.fragments.MenuSettingFragment;
+import com.yosta.phuotngay.fragments.SettingFragment;
 import com.yosta.phuotngay.fragments.NoConnectionFragment;
 
 import butterknife.BindView;
@@ -63,7 +63,7 @@ public class MainActivity extends ActivityBehavior {
         viewPager.setAdapter(adapter);
         adapter.addFrag(new HomeFragment());
         adapter.addFrag(new NoConnectionFragment());
-        adapter.addFrag(new MenuSettingFragment());
+        adapter.addFrag(new SettingFragment());
     }
 
     @OnClick(R.id.textView)
