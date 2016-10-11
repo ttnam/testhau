@@ -1,6 +1,7 @@
 package com.yosta.phuotngay.config;
 
 import android.app.Application;
+import android.text.TextUtils;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.yosta.phuotngay.helpers.SharedPresUtils;
@@ -27,7 +28,6 @@ public class AppConfig extends Application {
         this.mUser = new User();
         this.mUser.setName(mPresUtils.getSettingString(SharedPresUtils.KEY_USER_NAME));
         this.mUser.setUserId(mPresUtils.getSettingString(SharedPresUtils.KEY_USER_ID));
-        this.mUser.setToken(mPresUtils.getSettingString(SharedPresUtils.KEY_USER_TOKEN));
         this.mUser.setGender(mPresUtils.getSettingString(SharedPresUtils.KEY_USER_GENDER));
         this.mUser.setLink(mPresUtils.getSettingString(SharedPresUtils.KEY_USER_LINK_PROFILE));
         this.mUser.setCoverUrl(mPresUtils.getSettingString(SharedPresUtils.KEY_USER_COVER_URL));
@@ -43,7 +43,8 @@ public class AppConfig extends Application {
     }
 
     public boolean IsUserLogin() {
-        return this.mUser.IsValid();
+        String token = getCurrentUserToken();
+        return (token != null && !TextUtils.isEmpty(token));
     }
 
     public void setCurrentUserId(String userId) {
@@ -51,9 +52,12 @@ public class AppConfig extends Application {
         mPresUtils.saveSetting(SharedPresUtils.KEY_USER_ID, userId);
     }
 
-    public void setCurrentUserToken(String token) {
-        this.mUser.setToken(token);
-        mPresUtils.saveSetting(SharedPresUtils.KEY_USER_TOKEN, token);
+    public boolean setCurrentUserToken(String token) {
+        return mPresUtils.saveSetting(SharedPresUtils.KEY_USER_TOKEN, token);
+    }
+
+    public String getCurrentUserToken() {
+        return mPresUtils.getSettingString(SharedPresUtils.KEY_USER_TOKEN);
     }
 
     public void setCurrentUserCoverUrl(String coverUrl) {

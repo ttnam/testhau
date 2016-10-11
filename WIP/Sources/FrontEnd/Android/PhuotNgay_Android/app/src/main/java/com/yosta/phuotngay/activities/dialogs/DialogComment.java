@@ -136,11 +136,6 @@ public class DialogComment extends Dialog implements DialogBehavior {
         }
     }
 
-    @Override
-    public void onClose() {
-
-    }
-
     @OnClick(R.id.button_ok)
     public void onSendComment() {
         String cmtContent = editText.getText().toString();

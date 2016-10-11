@@ -15,8 +15,7 @@
         <android.support.v7.widget.AppCompatImageView
             android:layout_width="@dimen/icon_size_big_ex"
             android:layout_height="@dimen/icon_size_big_ex"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
+            android:layout_centerInParent="true"
             android:scaleType="centerInside"
             app:srcCompat="@drawable/ic_launcher_blue" />
 
@@ -134,10 +133,11 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:background="@drawable/ic_style_button_round_none_default"
+        android:clickable="true">
 
         <android.support.v7.widget.AppCompatTextView
-            style="@style/AppTheme.TextView_Title"
+            style="@style/AppTheme.TextView_Title.Bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -145,7 +145,6 @@
             android:layout_alignParentTop="true"
             android:layout_gravity="center"
             android:layout_margin="@dimen/activity_margin"
-            android:background="@drawable/ic_style_button_round_corners_default"
             android:gravity="center"
             android:text="@string/str_forgotPwd"
             android:textAllCaps="true"

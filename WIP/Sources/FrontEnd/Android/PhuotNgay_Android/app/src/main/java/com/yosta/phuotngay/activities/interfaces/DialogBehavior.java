@@ -15,6 +15,5 @@ public interface DialogBehavior {
 
     void onApplyEvents();
 
-    void onClose();
 
 }

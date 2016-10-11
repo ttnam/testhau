@@ -22,7 +22,6 @@ public class User implements Serializable {
     private String mEmail = null;
     private String mCoverUrl = null;
     private String mAvatarUrl = null;
-    private String mAccessToken = null;
     private String mLink = null;
     private String mGender = null;
 
@@ -38,19 +37,8 @@ public class User implements Serializable {
         this.mAvatarUrl = avatarUrl;
     }
 
-    public boolean IsValid() {
-        return (this.mUserID != null && this.mCoverUrl != null &&
-                this.mAvatarUrl != null && this.mAccessToken != null &&
-                !TextUtils.isEmpty(this.mUserID) && !TextUtils.isEmpty(this.mCoverUrl)
-                && !TextUtils.isEmpty(this.mAvatarUrl) && !TextUtils.isEmpty(this.mAccessToken));
-    }
-
     public void setLink(String link) {
         this.mLink = link;
-    }
-
-    public void setToken(String token) {
-        this.mAccessToken = token;
     }
 
     public void setEmail(String email) {

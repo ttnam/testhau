@@ -20,7 +20,7 @@
             android:orientation="vertical">
 
             <TextView
-                style="@style/AppTheme.TextView_Title"
+                style="@style/AppTheme.TextView_Title.Bold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/activity_padding"
@@ -31,9 +31,7 @@
                 android:id="@+id/layout_profile"
                 style="@style/Style_Menu_Item.Press"
                 android:layout_width="match_parent"
-                android:orientation="horizontal"
-                android:paddingLeft="@dimen/activity_padding"
-                android:paddingStart="@dimen/activity_padding">
+                android:orientation="horizontal">
 
                 <android.support.v7.widget.AppCompatImageView
                     android:layout_width="@dimen/icon_size_min_ex"
@@ -42,7 +40,7 @@
                     app:srcCompat="@drawable/ic_vector_profile" />
 
                 <TextView
-                    style="@style/AppTheme.TextView_Title"
+                    style="@style/AppTheme.TextView_Title.Bold"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -56,9 +54,7 @@
             <LinearLayout
                 style="@style/Style_Menu_Item.Press"
                 android:layout_width="match_parent"
-                android:orientation="horizontal"
-                android:layout_marginBottom="@dimen/activity_margin_min"
-                android:paddingLeft="@dimen/activity_padding">
+                android:orientation="horizontal">
 
                 <android.support.v7.widget.AppCompatImageView
                     android:layout_width="@dimen/icon_size_min_ex"
@@ -67,11 +63,12 @@
                     app:srcCompat="@drawable/ic_vector_works" />
 
                 <TextView
-                    style="@style/AppTheme.TextView_Title"
+                    style="@style/AppTheme.TextView_Title.Bold"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="@dimen/activity_margin"
+                    android:layout_marginStart="@dimen/activity_margin"
                     android:text="How it works"
                     android:textStyle="normal" />
 
@@ -87,7 +84,7 @@
             android:orientation="vertical">
 
             <TextView
-                style="@style/AppTheme.TextView_Title"
+                style="@style/AppTheme.TextView_Title.Bold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/activity_padding"
@@ -99,8 +96,7 @@
                 android:id="@+id/layout_rating"
                 style="@style/Style_Menu_Item.Press"
                 android:layout_width="match_parent"
-                android:orientation="horizontal"
-                android:paddingLeft="@dimen/activity_padding">
+                android:orientation="horizontal">
 
                 <android.support.v7.widget.AppCompatImageView
                     android:layout_width="@dimen/icon_size_min_ex"
@@ -109,11 +105,12 @@
                     app:srcCompat="@drawable/ic_vector_rate" />
 
                 <TextView
-                    style="@style/AppTheme.TextView_Title"
+                    style="@style/AppTheme.TextView_Title.Bold"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="@dimen/activity_margin"
+                    android:layout_marginStart="@dimen/activity_margin"
                     android:text="Rate Us"
                     android:textStyle="normal" />
 
@@ -122,9 +119,7 @@
             <LinearLayout
                 style="@style/Style_Menu_Item.Press"
                 android:layout_width="match_parent"
-                android:layout_marginBottom="@dimen/activity_margin_min"
-                android:orientation="horizontal"
-                android:paddingLeft="@dimen/activity_padding">
+                android:orientation="horizontal">
 
                 <android.support.v7.widget.AppCompatImageView
                     android:layout_width="@dimen/icon_size_min_ex"
@@ -133,11 +128,12 @@
                     app:srcCompat="@drawable/ic_vector_facebook" />
 
                 <TextView
-                    style="@style/AppTheme.TextView_Title"
+                    style="@style/AppTheme.TextView_Title.Bold"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="@dimen/activity_margin"
+                    android:layout_marginStart="@dimen/activity_margin"
                     android:text="Share on Facebook"
                     android:textStyle="normal" />
 
@@ -153,7 +149,7 @@
             android:orientation="vertical">
 
             <TextView
-                style="@style/AppTheme.TextView_Title"
+                style="@style/AppTheme.TextView_Title.Bold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/activity_padding"
@@ -162,14 +158,10 @@
 
             <LinearLayout
                 android:id="@+id/layout_auto_sync"
+                style="@style/Style_Menu_Item.Press"
                 android:layout_width="match_parent"
                 android:layout_height="?actionBarSize"
-                android:background="@drawable/ic_style_button_round_corners_default"
-                android:clickable="true"
-                android:orientation="horizontal"
-                android:paddingBottom="@dimen/activity_padding_min"
-                android:paddingLeft="@dimen/activity_padding"
-                android:paddingTop="@dimen/activity_padding_min">
+                android:orientation="horizontal">
 
                 <android.support.v7.widget.AppCompatImageView
                     android:layout_width="@dimen/icon_size_min_ex"
@@ -182,6 +174,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="@dimen/activity_margin"
+                    android:layout_marginStart="@dimen/activity_margin"
                     android:baselineAligned="false"
                     android:orientation="horizontal"
                     android:weightSum="6">
@@ -195,7 +188,7 @@
                         android:orientation="vertical">
 
                         <TextView
-                            style="@style/AppTheme.TextView_Title"
+                            style="@style/AppTheme.TextView_Title.Bold"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
@@ -216,6 +209,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
+                        android:layout_marginEnd="@dimen/activity_margin"
                         android:layout_marginRight="@dimen/activity_margin"
                         android:layout_weight="3"
                         android:orientation="vertical">
@@ -236,11 +230,9 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_marginBottom="@dimen/activity_margin_min"
                 style="@style/Style_Menu_Item.Press"
                 android:layout_width="match_parent"
-                android:orientation="horizontal"
-                android:paddingLeft="@dimen/activity_padding">
+                android:orientation="horizontal">
 
                 <android.support.v7.widget.AppCompatImageView
                     android:layout_width="@dimen/icon_size_min_ex"
@@ -249,11 +241,12 @@
                     app:srcCompat="@drawable/ic_vector_delete" />
 
                 <TextView
-                    style="@style/AppTheme.TextView_Title"
+                    style="@style/AppTheme.TextView_Title.Bold"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="@dimen/activity_margin"
+                    android:layout_marginStart="@dimen/activity_margin"
                     android:text="Clear Search History"
                     android:textStyle="normal" />
 
@@ -269,7 +262,7 @@
             android:orientation="vertical">
 
             <TextView
-                style="@style/AppTheme.TextView_Title"
+                style="@style/AppTheme.TextView_Title.Bold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/activity_padding"
@@ -280,8 +273,7 @@
                 android:id="@+id/layout_change_language"
                 style="@style/Style_Menu_Item.Press"
                 android:layout_width="match_parent"
-                android:orientation="horizontal"
-                android:paddingLeft="@dimen/activity_padding">
+                android:orientation="horizontal">
 
                 <android.support.v7.widget.AppCompatImageView
                     android:layout_width="@dimen/icon_size_min_ex"
@@ -297,11 +289,12 @@
                     android:orientation="vertical">
 
                     <TextView
-                        style="@style/AppTheme.TextView_Title"
+                        style="@style/AppTheme.TextView_Title.Bold"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="@dimen/activity_margin"
+                        android:layout_marginStart="@dimen/activity_margin"
                         android:text="@string/str_language"
                         android:textStyle="bold" />
 
@@ -312,6 +305,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="@dimen/activity_margin"
+                        android:layout_marginStart="@dimen/activity_margin"
                         android:text="@string/str_action_change_language_title"
                         android:textStyle="italic" />
 
@@ -323,8 +317,7 @@
                 android:id="@+id/layout_notify"
                 style="@style/Style_Menu_Item.Press"
                 android:layout_width="match_parent"
-                android:orientation="horizontal"
-                android:paddingLeft="@dimen/activity_padding">
+                android:orientation="horizontal">
 
                 <android.support.v7.widget.AppCompatImageView
                     android:layout_width="@dimen/icon_size_min_ex"
@@ -337,6 +330,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="@dimen/activity_margin"
+                    android:layout_marginStart="@dimen/activity_margin"
                     android:baselineAligned="false"
                     android:orientation="horizontal"
                     android:weightSum="6">
@@ -350,7 +344,7 @@
                         android:orientation="vertical">
 
                         <TextView
-                            style="@style/AppTheme.TextView_Title"
+                            style="@style/AppTheme.TextView_Title.Bold"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
@@ -393,8 +387,7 @@
             <LinearLayout
                 style="@style/Style_Menu_Item.Press"
                 android:layout_width="match_parent"
-                android:orientation="horizontal"
-                android:paddingLeft="@dimen/activity_padding">
+                android:orientation="horizontal">
 
                 <android.support.v7.widget.AppCompatImageView
                     android:layout_width="@dimen/icon_size_min_ex"
@@ -403,11 +396,12 @@
                     app:srcCompat="@drawable/ic_vector_help" />
 
                 <TextView
-                    style="@style/AppTheme.TextView_Title"
+                    style="@style/AppTheme.TextView_Title.Bold"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="@dimen/activity_margin"
+                    android:layout_marginStart="@dimen/activity_margin"
                     android:text="@string/str_help"
                     android:textStyle="normal" />
 
@@ -417,8 +411,7 @@
                 android:id="@+id/layout_about"
                 style="@style/Style_Menu_Item.Press"
                 android:layout_width="match_parent"
-                android:orientation="horizontal"
-                android:paddingLeft="@dimen/activity_padding">
+                android:orientation="horizontal">
 
                 <android.support.v7.widget.AppCompatImageView
                     android:layout_width="@dimen/icon_size_min_ex"
@@ -427,11 +420,12 @@
                     app:srcCompat="@mipmap/ic_launcher" />
 
                 <TextView
-                    style="@style/AppTheme.TextView_Title"
+                    style="@style/AppTheme.TextView_Title.Bold"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="@dimen/activity_margin"
+                    android:layout_marginStart="@dimen/activity_margin"
                     android:text="@string/str_about"
                     android:textStyle="normal" />
 
@@ -440,8 +434,7 @@
             <LinearLayout
                 style="@style/Style_Menu_Item.Press"
                 android:layout_width="match_parent"
-                android:orientation="horizontal"
-                android:paddingLeft="@dimen/activity_padding">
+                android:orientation="horizontal">
 
                 <android.support.v7.widget.AppCompatImageView
                     android:layout_width="@dimen/icon_size_min_ex"
@@ -450,15 +443,17 @@
                     app:srcCompat="@drawable/ic_vector_update" />
 
                 <TextView
-                    style="@style/AppTheme.TextView_Title"
+                    style="@style/AppTheme.TextView_Title.Bold"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="@dimen/activity_margin"
+                    android:layout_marginStart="@dimen/activity_margin"
                     android:text="Check For Updates"
                     android:textStyle="normal" />
 
             </LinearLayout>
+
         </LinearLayout>
 
     </LinearLayout>

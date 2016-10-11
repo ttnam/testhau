@@ -29,7 +29,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
-                android:background="@drawable/ic_style_button_round_corners_default"
+                android:background="@drawable/ic_style_button_round_none_default"
                 android:clickable="true"
                 android:gravity="center"
                 android:padding="@dimen/activity_padding"
@@ -43,7 +43,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
-                android:background="@drawable/ic_style_button_round_corners_default"
+                android:background="@drawable/ic_style_button_round_none_default"
                 android:clickable="true"
                 android:gravity="center"
                 android:padding="@dimen/activity_padding"
@@ -73,11 +73,7 @@
             <LinearLayout
                 style="@style/Style_Menu_Item.NonPress"
                 android:layout_width="match_parent"
-                android:orientation="horizontal"
-                android:paddingEnd="@dimen/activity_padding"
-                android:paddingLeft="@dimen/activity_padding"
-                android:paddingRight="@dimen/activity_padding"
-                android:paddingStart="@dimen/activity_padding">
+                android:orientation="horizontal">
 
                 <android.support.v7.widget.AppCompatImageView
                     android:layout_width="@dimen/icon_size_min_ex"
@@ -87,7 +83,6 @@
 
                 <android.support.v7.widget.AppCompatTextView
                     android:id="@+id/txt_gender"
-                    style="@style/AppTheme.TextView_Title"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center_vertical"
@@ -96,18 +91,14 @@
                     android:gravity="center|start"
                     android:text="asdasdasd"
                     android:textAllCaps="true"
-                    android:textStyle="normal" />
+                    style="@style/AppTheme.TextView_Title.Normal"/>
 
             </LinearLayout>
 
             <LinearLayout
                 style="@style/Style_Menu_Item.NonPress"
                 android:layout_width="match_parent"
-                android:orientation="horizontal"
-                android:paddingEnd="@dimen/activity_padding"
-                android:paddingLeft="@dimen/activity_padding"
-                android:paddingRight="@dimen/activity_padding"
-                android:paddingStart="@dimen/activity_padding">
+                android:orientation="horizontal">
 
                 <android.support.v7.widget.AppCompatImageView
                     android:layout_width="@dimen/icon_size_min_ex"
@@ -117,7 +108,6 @@
 
                 <android.support.v7.widget.AppCompatTextView
                     android:id="@+id/txt_membership"
-                    style="@style/AppTheme.TextView_Title"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center_vertical"
@@ -125,7 +115,7 @@
                     android:layout_marginStart="@dimen/activity_margin"
                     android:gravity="start|center"
                     android:text="Member since Sep 2016"
-                    android:textStyle="normal" />
+                    style="@style/AppTheme.TextView_Title.Normal" />
 
             </LinearLayout>
         </LinearLayout>
@@ -150,11 +140,7 @@
             <LinearLayout
                 style="@style/Style_Menu_Item.Press"
                 android:layout_width="match_parent"
-                android:orientation="horizontal"
-                android:paddingEnd="@dimen/activity_padding"
-                android:paddingLeft="@dimen/activity_padding"
-                android:paddingRight="@dimen/activity_padding"
-                android:paddingStart="@dimen/activity_padding">
+                android:orientation="horizontal">
 
                 <android.support.v7.widget.AppCompatImageView
                     android:layout_width="@dimen/icon_size_min_ex"
@@ -164,7 +150,7 @@
 
                 <android.support.v7.widget.AppCompatTextView
                     android:id="@+id/txt_photo_number"
-                    style="@style/AppTheme.TextView_Title"
+                    style="@style/AppTheme.TextView_Title.Bold"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -192,7 +178,7 @@
 
                 <android.support.v7.widget.AppCompatTextView
                     android:id="@+id/txt_friends_number"
-                    style="@style/AppTheme.TextView_Title"
+                    style="@style/AppTheme.TextView_Title.Bold"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -200,6 +186,37 @@
                     android:layout_marginStart="@dimen/activity_margin"
                     android:text="Friends"
                     android:textStyle="normal" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_margin_min"
+            android:background="@android:color/white"
+            android:orientation="vertical">
+
+            <LinearLayout
+                style="@style/Style_Menu_Item.Press"
+                android:layout_width="match_parent"
+                android:orientation="horizontal">
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:layout_width="@dimen/icon_size_min_ex"
+                    android:layout_height="@dimen/icon_size_min_ex"
+                    android:layout_gravity="center_vertical"
+                    app:srcCompat="@drawable/ic_vector_logout" />
+
+                <android.support.v7.widget.AppCompatTextView
+                    style="@style/AppTheme.TextView_Title.Bold"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/activity_margin"
+                    android:layout_marginStart="@dimen/activity_margin"
+                    android:text="Logout" />
 
             </LinearLayout>
         </LinearLayout>

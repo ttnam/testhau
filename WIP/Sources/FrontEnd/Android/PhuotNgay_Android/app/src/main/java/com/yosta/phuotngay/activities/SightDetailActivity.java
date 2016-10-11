@@ -8,6 +8,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 
 import com.yosta.phuotngay.R;
+import com.yosta.phuotngay.activities.dialogs.DialogComment;
 import com.yosta.phuotngay.activities.interfaces.ActivityBehavior;
 import com.yosta.phuotngay.adapters.CommentAdapter;
 import com.yosta.phuotngay.helpers.AppUtils;
@@ -51,6 +52,12 @@ public class SightDetailActivity extends ActivityBehavior {
         onInitializeData();
     }
 
+    @Override
+    public void onApplyFont() {
+        super.onApplyFont();
+        //AppUtils.setFont(this, "fonts/Lato-Heavy.ttf", txtTitle);
+    }
+
     private void onInitializeWebView() {
         WebSettings settings = webView.getSettings();
         settings.setJavaScriptEnabled(false);
@@ -79,15 +86,9 @@ public class SightDetailActivity extends ActivityBehavior {
         recyclerView.setAdapter(commentAdapter);
     }
 
-    @Override
-    public void onApplyFont() {
-        super.onApplyFont();
-        //AppUtils.setFont(this, "fonts/Lato-Heavy.ttf", txtTitle);
+    @OnClick(R.id.layout_comment)
+    public void onShowCommentDialog() {
+        DialogComment dialogComment = new DialogComment(this);
+        dialogComment.show();
     }
-/*
-    @OnClick(R.id.img_back)
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-    }*/
 }

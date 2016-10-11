@@ -38,7 +38,7 @@
                 android:padding="@dimen/activity_padding">
 
                 <android.support.v7.widget.AppCompatTextView
-                    style="@style/AppTheme.TextView_Title"
+                    style="@style/AppTheme.TextView_Title.Bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
@@ -78,7 +78,7 @@
 
             <android.support.v7.widget.AppCompatTextView
                 android:id="@id/textView_title"
-                style="@style/AppTheme.TextView_Title"
+                style="@style/AppTheme.TextView_Title.Bold"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
@@ -90,7 +90,7 @@
 
             <android.support.v7.widget.AppCompatTextView
                 android:id="@id/textView_description"
-                style="@style/AppTheme.TextView_Title"
+                style="@style/AppTheme.TextView_Title.Bold"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"

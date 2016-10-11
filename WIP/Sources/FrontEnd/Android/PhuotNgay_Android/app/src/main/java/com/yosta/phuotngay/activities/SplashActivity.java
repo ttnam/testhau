@@ -1,5 +1,6 @@
 package com.yosta.phuotngay.activities;
 
+import android.content.Intent;
 import android.support.v7.widget.AppCompatImageView;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.TextView;
@@ -10,6 +11,7 @@ import com.yosta.phuotngay.activities.dialogs.DialogRegister;
 import com.yosta.phuotngay.activities.interfaces.ActivityBehavior;
 import com.yosta.phuotngay.animations.YoYo;
 import com.yosta.phuotngay.animations.bouncing_entrances.BounceInRightAnimator;
+import com.yosta.phuotngay.config.AppConfig;
 import com.yosta.phuotngay.helpers.UIUtils;
 
 import butterknife.BindView;
@@ -32,13 +34,11 @@ public class SplashActivity extends ActivityBehavior {
         setContentView(R.layout.activity_splash);
         ButterKnife.bind(this);
 
-        UIUtils.setFont(this, UIUtils.FONT_LATO_ITALIC, textView);
-
-        /*AppConfig appConfig = (AppConfig) getApplication();
+        AppConfig appConfig = (AppConfig) getApplication();
         if (appConfig.IsUserLogin()) {
             startActivity(new Intent(this, MainActivity.class));
             onClose();
-        }*/
+        }
 
         loginDialog = new DialogLogin(this);
     }
@@ -66,5 +66,13 @@ public class SplashActivity extends ActivityBehavior {
     protected void onPause() {
         super.onPause();
         loginDialog.dismiss();
+    }
+
+    @Override
+    public void onApplyFont() {
+        super.onApplyFont();
+
+        UIUtils.setFont(this, UIUtils.FONT_LATO_ITALIC, textView);
+
     }
 }

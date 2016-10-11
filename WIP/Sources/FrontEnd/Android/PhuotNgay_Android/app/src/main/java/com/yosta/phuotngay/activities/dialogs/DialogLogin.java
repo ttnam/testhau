@@ -3,14 +3,13 @@ package com.yosta.phuotngay.activities.dialogs;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
-import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
@@ -19,15 +18,21 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.yosta.materialdialog.ProgressDialog;
 import com.yosta.phuotngay.R;
 import com.yosta.phuotngay.activities.MainActivity;
 import com.yosta.phuotngay.activities.interfaces.DialogBehavior;
+import com.yosta.phuotngay.config.AppConfig;
 import com.yosta.phuotngay.helpers.AppUtils;
+import com.yosta.phuotngay.helpers.SharedPresUtils;
 import com.yosta.phuotngay.helpers.UIUtils;
+import com.yosta.phuotngay.services.PhuotNgayApiService;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by Phuc-Hau Nguyen on 8/31/2016.
@@ -43,32 +48,38 @@ public class DialogLogin extends Dialog implements DialogBehavior {
     @BindView(R.id.button_ok)
     Button buttonLogin;
 
-    private int iCheckNet = 0;
     private boolean isEmailEmpty = true;
     private boolean isPassEmpty = true;
 
-    private Activity owner = null;
+    private Activity ownerActivity = null;
 
     public DialogLogin(Context context) {
         super(context, R.style.AppTheme_CustomDialog);
+        onAttachedWindow(context);
+        setCancelable(true);
+    }
+
+    public DialogLogin(Context context, boolean isCancelable) {
+        super(context, R.style.AppTheme_CustomDialog);
+        setCancelable(isCancelable);
         onAttachedWindow(context);
     }
 
     @Override
     public void onAttachedToWindow() {
         super.onAttachedToWindow();
-        owner = getOwnerActivity();
+        ownerActivity = getOwnerActivity();
     }
 
     @Override
     public void onAttachedWindow(Context context) {
         Window window = getWindow();
         if (window != null) {
-            window.getAttributes().windowAnimations = R.style.AppTheme_AnimDialog_SlideDownUp;
+            window.getAttributes().windowAnimations = R.style.AppTheme_AnimDialog_SlideRightLeft;
         }
-        owner = (context instanceof Activity) ? (Activity) context : null;
-        if (owner != null)
-            setOwnerActivity(owner);
+        ownerActivity = (context instanceof Activity) ? (Activity) context : null;
+        if (ownerActivity != null)
+            setOwnerActivity(ownerActivity);
     }
 
     @Override
@@ -81,7 +92,6 @@ public class DialogLogin extends Dialog implements DialogBehavior {
         /*callbackManager = CallbackManager.Factory.create();
         loginButton.setReadPermissions("public_profile,email");
         */
-
         onApplyComponents();
 
         onApplyData();
@@ -91,11 +101,6 @@ public class DialogLogin extends Dialog implements DialogBehavior {
 
     private void checkInputIsValidWhenTyping() {
         buttonLogin.setEnabled((!isEmailEmpty && !isPassEmpty));
-    }
-
-    @Override
-    public void onClose() {
-        dismiss();
     }
 
     @Override
@@ -145,54 +150,68 @@ public class DialogLogin extends Dialog implements DialogBehavior {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent keyEvent) {
                 if ((keyEvent != null && (keyEvent.getKeyCode() == KeyEvent.KEYCODE_ENTER))
                         || (actionId == EditorInfo.IME_ACTION_DONE)) {
-
-                    onLogin();
+                    onLogin(v);
                 }
                 return false;
             }
         });
+        buttonLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (checkInputIsValid()) {
+                    if (AppUtils.isNetworkConnected(getContext())) {
+                        onLogin(v);
+                    } else {
+                        // TODO
+                        AppUtils.showSnackBarNotify(v, "Lost connection! Please check again!");
+                    }
+                }
+            }
+        });
+    }
 
+    private void onLogin(final View v) {
+        String userName = txtEmail.getText().toString();
+        String passWord = txtPwd.getText().toString();
+        final DialogProgress dialogProgress = new DialogProgress(ownerActivity, false);
+        dialogProgress.show();
+        PhuotNgayApiService.getInstance(ownerActivity)
+                .ApiLogin(userName, passWord, new Callback<String>() {
+                    @Override
+                    public void onResponse(Call<String> call, Response<String> response) {
+                        int code = response.code();
+                        if (code == 200) {
+
+                            String token = response.body();
+                            if (token != null && !TextUtils.isEmpty(token)) {
+
+                                AppConfig appConfig = (AppConfig) ownerActivity.getApplication();
+                                if (appConfig.setCurrentUserToken(token)) {
+                                    if (isShowing()) dismiss();
+                                    ownerActivity.finish();
+                                    ownerActivity.startActivity(new Intent(ownerActivity, MainActivity.class));
+                                }
+                            } else {
+                                // TODO
+                                AppUtils.showSnackBarNotify(v, "The account that you've entered is incorrect. FORGOT PASSWORD!");
+                            }
+
+                        }
+                        dialogProgress.dismiss();
+                    }
+
+                    @Override
+                    public void onFailure(Call<String> call, Throwable t) {
+                        AppUtils.showSnackBarNotify(v, t.getMessage());
+                        dialogProgress.dismiss();
+                        if (isShowing()) dismiss();
+                    }
+                });
     }
 
     @Override
     public void onApplyComponents() {
-        /*directionDetector = new SwipeDirectionDetector(owner) {
-            @Override
-            public void onDirectionDetected(Direction direction) {
-                mDirection = direction;
-            }
-        };
-        swipeDismissListener = new SwipeToDismissListener(dialogView, this, this);*/
-    }
 
-    @OnClick(R.id.button_ok)
-    public void onLogin() {
-        if (checkInputIsValid()) {
-            if (AppUtils.isNetworkConnected(getContext())) {
-                callNextAction();
-            } else {
-                // Check network connection
-                if (iCheckNet % 10 == 0) {
-                    new AlertDialog.Builder(getContext())
-                            .setTitle("Lost network connection")
-                            .setMessage("No worries - you can still use SAM. Points will sync one you get back online.")
-                            .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int whichButton) {
-                                    dialog.dismiss();
-                                }
-                            }).show();
-                }
-            }
-            iCheckNet++;
-        }
-    }
-
-    private void callNextAction() {
-        String userName = txtEmail.getText().toString();
-        String passWord = txtPwd.getText().toString();
-        owner.startActivity(new Intent(getContext(), MainActivity.class));
-        dismiss();
-        owner.onBackPressed();
     }
 
     private boolean checkInputIsValid() {
@@ -284,5 +303,4 @@ public class DialogLogin extends Dialog implements DialogBehavior {
         );
     }
 */
-
 }

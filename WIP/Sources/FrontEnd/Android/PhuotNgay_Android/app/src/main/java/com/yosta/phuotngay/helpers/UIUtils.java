@@ -28,7 +28,7 @@ public class UIUtils {
     public static String FONT_LATO_LIGHT = "fonts/Lato-Light.ttf";
     public static String FONT_LATO_MEDIUM = "fonts/Lato-Medium.ttf";
     public static String FONT_LATO_THIN = "fonts/Lato-Thin.ttf";
-    public static String FONT_LATO_ITALIC = "fonts/Lato-Italic";
+    public static String FONT_LATO_ITALIC = "fonts/Lato-Italic.ttf";
 
     private static ArrayList<IValidate> emailValidates = new ArrayList<>(
             Arrays.asList(new EmptyValidate(), new EmailValidate()));

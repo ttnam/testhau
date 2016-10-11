@@ -12,6 +12,7 @@ import android.view.Window;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+
 import com.yosta.phuotngay.R;
 import com.yosta.phuotngay.activities.interfaces.DialogBehavior;
 import com.yosta.phuotngay.adapters.SearchItemAdapter;
@@ -78,10 +79,10 @@ public class DialogSearch extends Dialog implements DialogBehavior {
         onApplyEvents();
     }
 
-    @Override
     @OnClick(R.id.image)
-    public void onClose() {
-        dismiss();
+    @Override
+    public void dismiss() {
+        super.dismiss();
     }
 
     private void onInitializeRecyclerView() {

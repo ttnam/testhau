@@ -32,7 +32,7 @@
 
             <android.support.v7.widget.AppCompatTextView
                 android:id="@id/textView"
-                style="@style/AppTheme.TextView_Title"
+                style="@style/AppTheme.TextView_Title.Bold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/activity_margin_min"

@@ -1,4 +1,4 @@
-<resources >
+<resources>
 
     <style name="AppTheme" parent="Theme.AppCompat.Light">
         <item name="colorPrimary">@color/colorPrimary</item>
@@ -86,27 +86,39 @@
         <item name="android:textColor">@color/colorPrimary</item>
     </style>
 
-    <style name="AppTheme.TextView_Title" parent="AppTheme">
+    <style name="AppTheme.TextView_Title.Bold" parent="AppTheme">
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">@dimen/text_size_title</item>
         <item name="android:textColor">@color/colorTextColorPrimary</item>
     </style>
 
-    <style name="AppTheme.TextView_Sub_Title" parent="AppTheme.TextView_Title">
+    <style name="AppTheme.TextView_Title.Normal" parent="AppTheme">
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">@dimen/text_size_title</item>
+        <item name="android:textColor">@color/colorTextColorPrimary</item>
+    </style>
+
+    <style name="AppTheme.TextView_Sub_Title" parent="AppTheme.TextView_Title.Bold">
         <item name="android:textSize">@dimen/text_size_sub_title</item>
         <item name="android:textStyle">normal</item>
         <item name="android:textColor">@color/colorTextColorSecondary</item>
     </style>
 
-    <style name="Style_Menu_Item.Press" parent="AppTheme.TextView_Title">
+    <style name="Style_Menu_Item.Press" parent="AppTheme.TextView_Title.Bold">
         <item name="android:layout_height">?actionBarSize</item>
-        <item name="android:background">@drawable/ic_style_button_round_corners_default</item>
+        <item name="android:paddingLeft">@dimen/activity_padding</item>
+        <item name="android:paddingRight">@dimen/activity_padding</item>
+        <item name="android:background">@drawable/ic_style_button_round_none_default</item>
         <item name="android:clickable">true</item>
     </style>
-    <style name="Style_Menu_Item.NonPress" parent="AppTheme.TextView_Title">
+
+    <style name="Style_Menu_Item.NonPress" parent="AppTheme.TextView_Title.Bold">
         <item name="android:layout_height">?actionBarSize</item>
+        <item name="android:paddingLeft">@dimen/activity_padding</item>
+        <item name="android:paddingRight">@dimen/activity_padding</item>
         <item name="android:background">@android:color/white</item>
     </style>
+
     <style name="Style_ExpandedTitleTextAppearance">
         <item name="android:textColor">@color/colorPrimary</item>
     </style>
@@ -133,6 +145,7 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:textColorPrimary">@color/Red</item>
     </style>
+
     <style name="AppTheme.TextInputLayout" parent="@android:style/TextAppearance">
         <item name="android:textColor">@color/colorAccent</item>
     </style>
@@ -168,4 +181,12 @@
         <item name="android:windowExitAnimation">@anim/anim_slide_out_up</item>
     </style>
 
+    <style name="AppTheme.AnimDialog.Grow" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="@android:windowEnterAnimation">@anim/anim_grow_in</item>
+        <item name="@android:windowExitAnimation">@anim/anim_grow_out</item>
+    </style>
+
+    <style name="AppTheme.CircularProgress" parent="Theme.AppCompat.Light">
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
 </resources>

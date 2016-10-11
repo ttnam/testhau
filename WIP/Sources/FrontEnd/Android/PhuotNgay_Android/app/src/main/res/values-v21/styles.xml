@@ -44,4 +44,32 @@
         <item name="android:windowExitAnimation">@anim/anim_slide_out_up</item>
     </style>
 
+    <style name="AppTheme.AnimDialog.Grow" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="@android:windowEnterAnimation">@anim/anim_grow_in</item>
+        <item name="@android:windowExitAnimation">@anim/anim_grow_out</item>
+    </style>
+
+    <style name="AppTheme.LinearProgress" parent="Theme.AppCompat.Light">
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:progressBackgroundTint">@color/colorAccentDark</item>
+    </style>
+
+    <style name="Style_Menu_Item.Press" parent="AppTheme.TextView_Title.Bold">
+        <item name="android:layout_height">?actionBarSize</item>
+        <item name="android:paddingLeft">@dimen/activity_padding</item>
+        <item name="android:paddingRight">@dimen/activity_padding</item>
+        <item name="android:paddingEnd">@dimen/activity_padding</item>
+        <item name="android:paddingStart">@dimen/activity_padding</item>
+        <item name="android:background">@drawable/ic_style_button_round_none_default</item>
+        <item name="android:clickable">true</item>
+    </style>
+
+    <style name="Style_Menu_Item.NonPress" parent="AppTheme.TextView_Title.Bold">
+        <item name="android:layout_height">?actionBarSize</item>
+        <item name="android:paddingLeft">@dimen/activity_padding</item>
+        <item name="android:paddingRight">@dimen/activity_padding</item>
+        <item name="android:paddingEnd">@dimen/activity_padding</item>
+        <item name="android:paddingStart">@dimen/activity_padding</item>
+        <item name="android:background">@android:color/white</item>
+    </style>
 </resources>

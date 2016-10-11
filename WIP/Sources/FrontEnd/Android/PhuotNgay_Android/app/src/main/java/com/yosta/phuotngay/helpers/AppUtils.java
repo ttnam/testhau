@@ -74,11 +74,12 @@ public class AppUtils {
             View v,
             String msg,
             String action,
+            int duratian,
             View.OnClickListener listener) {
 
         Snackbar.make(v, Html.fromHtml("<font color=\"white\">" + msg + "</font>"), Snackbar.LENGTH_SHORT)
                 .setAction(action, listener)
-                .setDuration(Snackbar.LENGTH_LONG)
+                .setDuration(duratian)
                 .setActionTextColor(ColorStateList.valueOf(Color.GREEN))
                 .show();
     }

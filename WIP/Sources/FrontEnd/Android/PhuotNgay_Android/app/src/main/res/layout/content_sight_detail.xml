@@ -29,7 +29,7 @@
                 android:orientation="horizontal">
 
                 <android.support.v7.widget.AppCompatTextView
-                    style="@style/AppTheme.TextView_Title"
+                    style="@style/AppTheme.TextView_Title.Bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -62,7 +62,7 @@
 
                 <android.support.v7.widget.AppCompatTextView
                     android:id="@id/textView_title"
-                    style="@style/AppTheme.TextView_Title"
+                    style="@style/AppTheme.TextView_Title.Bold"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center|start"
@@ -117,6 +117,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
+                        android:id="@+id/layout_comment"
                         android:background="@drawable/ic_style_button_round_none_default"
                         android:clickable="true">
 

@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 import com.yosta.circleimageview.CircleImageView;
@@ -46,9 +45,6 @@ public class ProfileActivity extends ActivityBehavior {
     @BindView(R.id.textView)
     AppCompatTextView textAccountName;
 
-    @BindView(R.id.txt_toolbar_title)
-    AppCompatTextView txtToolbarTitle;
-
     @BindView(R.id.txt_gender)
     AppCompatTextView txtGender;
 
@@ -74,7 +70,7 @@ public class ProfileActivity extends ActivityBehavior {
     public void onApplyFont() {
         super.onApplyFont();
         UIUtils.setFont(this, "fonts/Lato-Regular.ttf", txtMembership, txtGender, txtPhotoNumber, txtFriendsNumber);
-        UIUtils.setFont(this, UIUtils.FONT_LATO_BLACK, txtFollow, txtExperience, txtOverview, txtPhotos, textAccountName, txtToolbarTitle);
+        UIUtils.setFont(this, UIUtils.FONT_LATO_BLACK, txtFollow, txtExperience, txtOverview, txtPhotos, textAccountName);
     }
 
     @Override
@@ -95,7 +91,6 @@ public class ProfileActivity extends ActivityBehavior {
         Picasso.with(this).load(this.appConfig.getCurrentUser().getAvatarUrl()).into(imageAvatar);
 
         txtGender.setText(this.appConfig.getCurrentUser().getGender());
-        txtToolbarTitle.setText(this.appConfig.getCurrentUser().getUserName());
         textAccountName.setText(this.appConfig.getCurrentUser().getUserName());
 
         txtPhotoNumber.setText("1.5K photos");
@@ -126,19 +121,4 @@ public class ProfileActivity extends ActivityBehavior {
         onBackPressed();
     }
 
-    @Override
-    @OnClick(R.id.imageBack)
-    public void onBackPressed() {
-        super.onBackPressed();
-    }
-
-    @OnClick(R.id.img_edit)
-    public void onEdit() {
-        Toast.makeText(ProfileActivity.this, "onEdit", Toast.LENGTH_SHORT).show();
-    }
-
-    @OnClick(R.id.img_logout)
-    public void onLogout() {
-        Toast.makeText(ProfileActivity.this, "onLogout", Toast.LENGTH_SHORT).show();
-    }
 }
