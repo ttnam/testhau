@@ -12,7 +12,7 @@ import com.yosta.materialdialog.StandardDialog;
 import com.yosta.phuotngay.R;
 import com.yosta.phuotngay.activities.interfaces.ActivityBehavior;
 import com.yosta.phuotngay.config.AppConfig;
-import com.yosta.phuotngay.helpers.globalapp.UIUtils;
+import com.yosta.phuotngay.globalapp.UIUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -99,7 +99,7 @@ public class ProfileActivity extends ActivityBehavior {
         Picasso.with(this).load(this.appConfig.getCurrentUser().getAvatarUrl()).into(imageAvatar);
 
         txtGender.setText(this.appConfig.getCurrentUser().getGender());
-        textAccountName.setText(this.appConfig.getCurrentUser().getUserName());
+        textAccountName.setText(this.appConfig.getCurrentUser().getName());
 
         txtPhotoNumber.setText("1.5K photos");
         txtFriendsNumber.setText("2K friends");

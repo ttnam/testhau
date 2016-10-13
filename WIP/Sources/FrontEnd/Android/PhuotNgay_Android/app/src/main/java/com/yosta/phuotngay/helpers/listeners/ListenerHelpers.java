@@ -17,8 +17,8 @@ import com.squareup.picasso.Target;
 import com.yosta.materialdialog.ChoiceDialog;
 import com.yosta.phuotngay.R;
 import com.yosta.phuotngay.adapters.MenuAdapter;
-import com.yosta.phuotngay.helpers.globalapp.AppUtils;
-import com.yosta.phuotngay.helpers.globalapp.SharedPresUtils;
+import com.yosta.phuotngay.globalapp.AppUtils;
+import com.yosta.phuotngay.globalapp.SharedPresUtils;
 import com.yosta.phuotngay.helpers.menu.MenuItem;
 
 import java.io.File;

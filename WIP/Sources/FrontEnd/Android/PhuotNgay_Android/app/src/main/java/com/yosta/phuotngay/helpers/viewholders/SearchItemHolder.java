@@ -5,8 +5,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.yosta.phuotngay.R;
-import com.yosta.phuotngay.helpers.globalapp.UIUtils;
-import com.yosta.phuotngay.models.views.SearchItemView;
+import com.yosta.phuotngay.globalapp.UIUtils;
+import com.yosta.phuotngay.view.SearchItemView;
 
 /**
  * Created by Phuc-Hau Nguyen on 8/25/2016.

@@ -21,8 +21,8 @@ import com.yosta.phuotngay.R;
 import com.yosta.phuotngay.activities.MainActivity;
 import com.yosta.phuotngay.activities.interfaces.DialogBehavior;
 import com.yosta.phuotngay.config.AppConfig;
-import com.yosta.phuotngay.helpers.globalapp.AppUtils;
-import com.yosta.phuotngay.helpers.globalapp.UIUtils;
+import com.yosta.phuotngay.globalapp.AppUtils;
+import com.yosta.phuotngay.globalapp.UIUtils;
 import com.yosta.phuotngay.services.PhuotNgayApiService;
 
 import butterknife.BindView;

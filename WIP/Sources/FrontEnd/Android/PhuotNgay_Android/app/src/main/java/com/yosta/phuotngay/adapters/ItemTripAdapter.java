@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 
 import com.yosta.phuotngay.R;
 import com.yosta.phuotngay.helpers.viewholders.ItemTripViewHolder;
-import com.yosta.phuotngay.models.views.ItemTripView;
+import com.yosta.phuotngay.view.ItemTripView;
 
 import java.util.ArrayList;
 import java.util.List;

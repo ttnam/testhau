@@ -13,13 +13,10 @@ import com.yosta.phuotngay.activities.interfaces.ActivityBehavior;
 import com.yosta.phuotngay.animations.YoYo;
 import com.yosta.phuotngay.animations.bouncing_entrances.BounceInRightAnimator;
 import com.yosta.phuotngay.config.AppConfig;
-import com.yosta.phuotngay.helpers.globalapp.AppUtils;
-import com.yosta.phuotngay.helpers.globalapp.UIUtils;
-import com.yosta.phuotngay.models.images.Images;
-import com.yosta.phuotngay.models.user.Token;
+import com.yosta.phuotngay.globalapp.AppUtils;
+import com.yosta.phuotngay.globalapp.UIUtils;
+import com.yosta.phuotngay.model.user.Token;
 import com.yosta.phuotngay.services.PhuotNgayApiService;
-
-import java.net.HttpURLConnection;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -77,9 +74,7 @@ public class SplashActivity extends ActivityBehavior {
     @Override
     public void onApplyFont() {
         super.onApplyFont();
-
         UIUtils.setFont(this, UIUtils.FONT_LATO_ITALIC, textView);
-
     }
 
     private void IsUserVerified() {
@@ -88,7 +83,7 @@ public class SplashActivity extends ActivityBehavior {
         if (token != null && !TextUtils.isEmpty(token)) {
 
             if (AppUtils.isNetworkConnected(this)) {
-                /*PhuotNgayApiService.getInstance(this).ApiVerify(new Token(token), new Callback<Boolean>() {
+                PhuotNgayApiService.getInstance(this).ApiVerify(new Token(token), new Callback<Boolean>() {
                     @Override
                     public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                         if (response.code() == 200) {
@@ -106,24 +101,12 @@ public class SplashActivity extends ActivityBehavior {
                     public void onFailure(Call<Boolean> call, Throwable t) {
                         onMoveToMainActivity();
                     }
-                });*/
-                PhuotNgayApiService.getInstance(this).ApiAlbum(new Token(token), new Callback<Images>() {
-                    @Override
-                    public void onResponse(Call<Images> call, Response<Images> response) {
-                        int code = response.code();
-                        if (code == HttpURLConnection.HTTP_OK) {
-                            Images images = response.body();
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<Images> call, Throwable t) {
-                        String td = t.getMessage();
-                    }
                 });
+            } else {
+                onMoveToMainActivity();
             }
         } else {
-            //Login();
+            Login();
         }
     }
 

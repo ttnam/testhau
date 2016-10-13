@@ -8,8 +8,8 @@ import android.view.ViewGroup;
 
 import com.yosta.phuotngay.R;
 import com.yosta.phuotngay.helpers.viewholders.ImageGalleryViewHolder;
-import com.yosta.phuotngay.models.base.ModelBehavior;
-import com.yosta.phuotngay.models.views.ImageGalleryView;
+import com.yosta.phuotngay.view.base.ViewBehavior;
+import com.yosta.phuotngay.view.ImageGalleryView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +17,7 @@ import java.util.List;
 public class ImageGalleryAdapter extends RecyclerView.Adapter<ImageGalleryViewHolder> {
 
     private Context mContext;
-    private List<ModelBehavior> behaviorList;
+    private List<ViewBehavior> behaviorList;
 
     public ImageGalleryAdapter(Context context) {
         this.mContext = context;

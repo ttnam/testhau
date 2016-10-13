@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import com.yosta.phuotngay.R;
 import com.yosta.phuotngay.adapters.ItemTripAdapter;
 import com.yosta.phuotngay.helpers.listeners.RecyclerItemClickListener;
-import com.yosta.phuotngay.models.views.ItemTripView;
+import com.yosta.phuotngay.view.ItemTripView;
 import com.yosta.phuotngay.helpers.viewholders.DividerItemDecoration;
 
 import butterknife.BindView;

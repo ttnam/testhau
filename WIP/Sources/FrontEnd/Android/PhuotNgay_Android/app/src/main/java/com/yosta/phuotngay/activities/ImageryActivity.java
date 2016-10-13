@@ -11,7 +11,7 @@ import com.yosta.phuotngay.activities.interfaces.ActivityBehavior;
 import com.yosta.phuotngay.adapters.ImageGalleryAdapter;
 import com.yosta.phuotngay.helpers.listeners.RecyclerItemClickListener;
 import com.yosta.phuotngay.helpers.viewholders.DividerItemDecoration;
-import com.yosta.phuotngay.models.views.ImageGalleryView;
+import com.yosta.phuotngay.view.ImageGalleryView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

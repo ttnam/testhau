@@ -20,9 +20,9 @@ import com.yosta.phuotngay.adapters.CommentAdapter;
 import com.yosta.phuotngay.animations.YoYo;
 import com.yosta.phuotngay.animations.fading_entrances.FadeInAnimator;
 import com.yosta.phuotngay.config.message.NetworkMessage;
-import com.yosta.phuotngay.helpers.globalapp.AppUtils;
-import com.yosta.phuotngay.helpers.globalapp.UIUtils;
-import com.yosta.phuotngay.models.comments.Comment;
+import com.yosta.phuotngay.globalapp.AppUtils;
+import com.yosta.phuotngay.globalapp.UIUtils;
+import com.yosta.phuotngay.model.comment.Comment;
 import com.yosta.phuotngay.helpers.viewholders.DividerItemDecoration;
 
 import org.greenrobot.eventbus.EventBus;

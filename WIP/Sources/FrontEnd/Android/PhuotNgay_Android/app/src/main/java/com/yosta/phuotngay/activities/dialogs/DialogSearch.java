@@ -11,7 +11,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Window;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.EditText;
-import android.widget.RelativeLayout;
 
 import com.yosta.phuotngay.R;
 import com.yosta.phuotngay.activities.interfaces.DialogBehavior;
@@ -20,7 +19,7 @@ import com.yosta.phuotngay.animations.YoYo;
 import com.yosta.phuotngay.animations.sliders.SlideInLeftAnimator;
 import com.yosta.phuotngay.animations.sliders.SlideInRightAnimator;
 import com.yosta.phuotngay.helpers.listeners.ListenerHelpers;
-import com.yosta.phuotngay.models.views.SearchItemView;
+import com.yosta.phuotngay.view.SearchItemView;
 import com.yosta.phuotngay.helpers.viewholders.DividerItemDecoration;
 
 import butterknife.BindView;

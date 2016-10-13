@@ -3,8 +3,8 @@ package com.yosta.phuotngay.config;
 import android.app.Application;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
-import com.yosta.phuotngay.helpers.globalapp.SharedPresUtils;
-import com.yosta.phuotngay.models.user.User;
+import com.yosta.phuotngay.globalapp.SharedPresUtils;
+import com.yosta.phuotngay.model.user.User;
 
 /**
  * Created by Phuc-Hau Nguyen on 9/13/2016.
