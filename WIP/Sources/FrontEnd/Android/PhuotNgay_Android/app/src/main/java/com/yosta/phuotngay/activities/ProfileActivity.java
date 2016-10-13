@@ -99,7 +99,7 @@ public class ProfileActivity extends ActivityBehavior {
         Picasso.with(this).load(this.appConfig.getCurrentUser().getAvatarUrl()).into(imageAvatar);
 
         txtGender.setText(this.appConfig.getCurrentUser().getGender());
-        textAccountName.setText(this.appConfig.getCurrentUser().getUserName());
+        textAccountName.setText(this.appConfig.getCurrentUser().getName());
 
         txtPhotoNumber.setText("1.5K photos");
         txtFriendsNumber.setText("2K friends");

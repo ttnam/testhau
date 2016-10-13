@@ -8,7 +8,7 @@ import android.view.View;
 import com.yosta.circleimageview.CircleImageView;
 import com.yosta.phuotngay.R;
 import com.yosta.phuotngay.helpers.globalapp.AppUtils;
-import com.yosta.phuotngay.models.comments.Comment;
+import com.yosta.phuotngay.models.comment.Comment;
 
 /**
  * Created by Phuc-Hau Nguyen on 8/25/2016.

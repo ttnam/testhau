@@ -2,9 +2,8 @@ package com.yosta.phuotngay.services;
 
 import com.google.gson.JsonObject;
 import com.yosta.phuotngay.models.base.RequestResponse;
-import com.yosta.phuotngay.models.followers.Follower;
-import com.yosta.phuotngay.models.followers.Followers;
-import com.yosta.phuotngay.models.images.Images;
+import com.yosta.phuotngay.models.follower.Followers;
+import com.yosta.phuotngay.models.photo.Photos;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -37,7 +36,7 @@ public interface PhuotNgayApiInterface {
 
     @POST(API_ALBUM)
     @Headers("Content-Type: application/json")
-    Call<Images> apiAlbum(@Body JsonObject baseUser);
+    Call<Photos> apiAlbum(@Body JsonObject baseUser);
 
     @POST(API_FOLLOWERS)
     @Headers("Content-Type: application/json")

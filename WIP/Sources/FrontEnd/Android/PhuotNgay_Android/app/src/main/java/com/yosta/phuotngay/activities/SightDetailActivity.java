@@ -12,7 +12,7 @@ import com.yosta.phuotngay.activities.dialogs.DialogComment;
 import com.yosta.phuotngay.activities.interfaces.ActivityBehavior;
 import com.yosta.phuotngay.adapters.CommentAdapter;
 import com.yosta.phuotngay.helpers.viewholders.DividerItemDecoration;
-import com.yosta.phuotngay.models.comments.Comment;
+import com.yosta.phuotngay.models.comment.Comment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

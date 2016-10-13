@@ -8,8 +8,8 @@ import com.google.gson.JsonParser;
 import com.yosta.phuotngay.helpers.globalapp.SharedPresUtils;
 import com.yosta.phuotngay.models.BaseUser;
 import com.yosta.phuotngay.models.base.RequestResponse;
-import com.yosta.phuotngay.models.followers.Followers;
-import com.yosta.phuotngay.models.images.Images;
+import com.yosta.phuotngay.models.follower.Followers;
+import com.yosta.phuotngay.models.photo.Photos;
 import com.yosta.phuotngay.models.user.Token;
 import com.yosta.phuotngay.models.user.User;
 
@@ -73,10 +73,10 @@ public class PhuotNgayApiService {
         apiVerifyCall.enqueue(callback);
     }
 
-    public void ApiAlbum(Token token, Callback<Images> callback) {
+    public void ApiAlbum(Token token, Callback<Photos> callback) {
         jsonSamples = mGson.toJson(token);
         JsonObject object = mParser.parse(jsonSamples).getAsJsonObject();
-        Call<Images> imagesCall = apiInterface.apiAlbum(object);
+        Call<Photos> imagesCall = apiInterface.apiAlbum(object);
         imagesCall.enqueue(callback);
     }
 

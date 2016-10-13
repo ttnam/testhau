@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.yosta.phuotngay.R;
-import com.yosta.phuotngay.models.comments.Comment;
+import com.yosta.phuotngay.models.comment.Comment;
 import com.yosta.phuotngay.helpers.viewholders.CommentHolder;
 
 import java.util.ArrayList;

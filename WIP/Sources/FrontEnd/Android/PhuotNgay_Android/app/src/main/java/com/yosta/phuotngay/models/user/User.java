@@ -5,31 +5,45 @@ import android.support.annotation.RequiresPermission;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class User implements Serializable {
 
     public static String permission = "email,name,gender,cover,picture.type(large),link";
 
     @RequiresPermission
-    @SerializedName(value = "userId")
+    @SerializedName(value = "user_id")
     private String mUserID = null;
 
-    @SerializedName(value = "userName")
+    @SerializedName(value = "token")
+    private String mToken = null;
+
+    @SerializedName(value = "user_name")
     private String mUserName = null;
 
-    private String mEmail = null;
+    @SerializedName(value = "cover")
     private String mCoverUrl = null;
 
     @SerializedName(value = "avatar")
     private String mAvatarUrl = null;
 
-    private String mLink = null;
+    @SerializedName(value = "email")
+    private String mEmail = null;
 
     @SerializedName(value = "gender")
     private String mGender = null;
 
-    @SerializedName(value = "token")
-    private String mToken = null;
+    @SerializedName(value = "followers")
+    private List<User> mFollowers = null;
+
+    @SerializedName(value = "followings")
+    private List<User> mFollowings = null;
+
+    @SerializedName(value = "is_active")
+    private boolean mIsActive = false;
+
+    private String mMembership = null;
+
 
     public void setUserId(String userId) {
         this.mUserID = userId;
@@ -41,10 +55,6 @@ public class User implements Serializable {
 
     public void setAvatarUrl(String avatarUrl) {
         this.mAvatarUrl = avatarUrl;
-    }
-
-    public void setLink(String link) {
-        this.mLink = link;
     }
 
     public void setEmail(String email) {
