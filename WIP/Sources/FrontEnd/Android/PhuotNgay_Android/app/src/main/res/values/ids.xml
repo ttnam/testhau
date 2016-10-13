@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="button_ok" type="id" />
+    <item name="button_no" type="id" />
+    <item name="fab" type="id" />
+    <item name="tabs" type="id" />
+    <item name="editText" type="id" />
+    <item name="textView" type="id" />
+    <item name="textView_time" type="id" />
+    <item name="textView_title" type="id" />
+    <item name="textView_description" type="id" />
+    <item name="image" type="id" />
+    <item name="web_view" type="id" />
+
+    <item name="layout" type="id" />
+    <item name="layout_fragment" type="id" />
+    <item name="layout_relative" type="id" />
+    <item name="layout_recycler" type="id" />
+    <item name="layout_linear" type="id" />
+
+    <item name="dialog_title" type="id" />
+    <item name="viewpager" type="id" />
+    <item name="toolbar" type="id" />
+    <item name="swipe_layout" type="id" />
+    <item name="recycler_view" type="id" />
+    <item name="bound_observable" type="id" />
+    <item name="app_bar" type="id" />
+    <item name="toolbar_layout" type="id" />
+
+</resources>
