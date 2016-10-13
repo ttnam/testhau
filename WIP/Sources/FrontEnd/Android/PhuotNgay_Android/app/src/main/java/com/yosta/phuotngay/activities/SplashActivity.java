@@ -13,9 +13,9 @@ import com.yosta.phuotngay.activities.interfaces.ActivityBehavior;
 import com.yosta.phuotngay.animations.YoYo;
 import com.yosta.phuotngay.animations.bouncing_entrances.BounceInRightAnimator;
 import com.yosta.phuotngay.config.AppConfig;
-import com.yosta.phuotngay.helpers.globalapp.AppUtils;
-import com.yosta.phuotngay.helpers.globalapp.UIUtils;
-import com.yosta.phuotngay.models.user.Token;
+import com.yosta.phuotngay.globalapp.AppUtils;
+import com.yosta.phuotngay.globalapp.UIUtils;
+import com.yosta.phuotngay.model.user.Token;
 import com.yosta.phuotngay.services.PhuotNgayApiService;
 
 import butterknife.BindView;

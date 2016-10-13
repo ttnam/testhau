@@ -1,9 +1,9 @@
 package com.yosta.phuotngay.services;
 
 import com.google.gson.JsonObject;
-import com.yosta.phuotngay.models.base.RequestResponse;
-import com.yosta.phuotngay.models.follower.Followers;
-import com.yosta.phuotngay.models.photo.Photos;
+import com.yosta.phuotngay.model.RequestResponse;
+import com.yosta.phuotngay.model.follower.Followers;
+import com.yosta.phuotngay.model.photo.Photos;
 
 import retrofit2.Call;
 import retrofit2.http.Body;

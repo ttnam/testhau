@@ -11,8 +11,8 @@ import android.widget.RelativeLayout;
 
 import com.yosta.phuotngay.R;
 import com.yosta.phuotngay.activities.SightDetailActivity;
-import com.yosta.phuotngay.helpers.globalapp.UIUtils;
-import com.yosta.phuotngay.models.views.ItemTripView;
+import com.yosta.phuotngay.globalapp.UIUtils;
+import com.yosta.phuotngay.view.ItemTripView;
 
 /**
  * Created by Phuc-Hau Nguyen on 8/25/2016.

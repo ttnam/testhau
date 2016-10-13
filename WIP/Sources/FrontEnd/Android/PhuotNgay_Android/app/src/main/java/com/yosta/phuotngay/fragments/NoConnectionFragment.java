@@ -15,7 +15,7 @@ import com.yosta.phuotngay.animations.YoYo;
 import com.yosta.phuotngay.animations.attention.BounceAnimator;
 import com.yosta.phuotngay.animations.attention.FlashAnimator;
 import com.yosta.phuotngay.animations.attention.ShakeAnimator;
-import com.yosta.phuotngay.helpers.globalapp.AppUtils;
+import com.yosta.phuotngay.globalapp.AppUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.yosta.phuotngay.R;
-import com.yosta.phuotngay.models.views.SearchItemView;
+import com.yosta.phuotngay.view.SearchItemView;
 import com.yosta.phuotngay.helpers.viewholders.SearchItemHolder;
 
 import java.util.ArrayList;

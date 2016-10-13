@@ -20,10 +20,10 @@ import com.yosta.phuotngay.activities.MainActivity;
 import com.yosta.phuotngay.activities.ProfileActivity;
 import com.yosta.phuotngay.activities.WebViewActivity;
 import com.yosta.phuotngay.adapters.MenuAdapter;
-import com.yosta.phuotngay.helpers.globalapp.AppUtils;
+import com.yosta.phuotngay.globalapp.AppUtils;
 import com.yosta.phuotngay.helpers.listeners.ListenerHelpers;
-import com.yosta.phuotngay.helpers.globalapp.SharedPresUtils;
-import com.yosta.phuotngay.models.AppSetting;
+import com.yosta.phuotngay.globalapp.SharedPresUtils;
+import com.yosta.phuotngay.model.AppSetting;
 import com.yosta.phuotngay.helpers.menu.MenuItem;
 
 import butterknife.BindView;

@@ -13,7 +13,7 @@ import com.facebook.imagepipeline.common.ResizeOptions;
 import com.facebook.imagepipeline.request.ImageRequest;
 import com.facebook.imagepipeline.request.ImageRequestBuilder;
 import com.yosta.phuotngay.R;
-import com.yosta.phuotngay.models.views.ImageGalleryView;
+import com.yosta.phuotngay.view.ImageGalleryView;
 
 /**
  * Created by Phuc-Hau Nguyen on 8/25/2016.

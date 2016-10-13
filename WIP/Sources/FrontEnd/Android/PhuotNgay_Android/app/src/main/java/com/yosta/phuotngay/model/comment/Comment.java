@@ -1,0 +1,54 @@
+package com.yosta.phuotngay.model.comment;
+
+import com.google.gson.annotations.SerializedName;
+import com.yosta.phuotngay.view.base.ViewBehavior;
+
+/**
+ * Created by Phuc-Hau Nguyen on 8/25/2016.
+ */
+public class Comment extends ViewBehavior {
+
+    @SerializedName(value = "comment_id")
+    private String mCommentId = null;
+
+    @SerializedName(value = "created_time")
+    private String mTime = null;
+
+    @SerializedName(value = "message")
+    private String mMessage = null;
+
+    @SerializedName(value = "from")
+    private String mUserId = null;
+
+    @SerializedName(value = "place")
+    private String mPlaceId = null;
+
+    public Comment() {
+        this.mCommentId = null;
+        this.mTime = null;
+        this.mUserId = null;
+        this.mPlaceId = null;
+    }
+
+
+    public String getMessage() {
+        return mMessage;
+    }
+
+    public void setMessage(String mMessage) {
+        this.mMessage = mMessage;
+    }
+
+    @Override
+    public String toString() {
+        return this.mMessage;
+    }
+
+    public String getCreatedTime() {
+        return mTime;
+    }
+
+    public void setCreatedTime(String mTime) {
+        this.mTime = mTime;
+    }
+}
