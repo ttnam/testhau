@@ -12,8 +12,7 @@ import com.yosta.materialdialog.StandardDialog;
 import com.yosta.phuotngay.R;
 import com.yosta.phuotngay.activities.interfaces.ActivityBehavior;
 import com.yosta.phuotngay.config.AppConfig;
-import com.yosta.phuotngay.helpers.UIUtils;
-import com.yosta.phuotngay.helpers.listeners.ListenerHelpers;
+import com.yosta.phuotngay.helpers.globalapp.UIUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

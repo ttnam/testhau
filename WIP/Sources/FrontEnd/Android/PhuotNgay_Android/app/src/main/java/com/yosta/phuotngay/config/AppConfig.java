@@ -1,10 +1,9 @@
 package com.yosta.phuotngay.config;
 
 import android.app.Application;
-import android.text.TextUtils;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
-import com.yosta.phuotngay.helpers.SharedPresUtils;
+import com.yosta.phuotngay.helpers.globalapp.SharedPresUtils;
 import com.yosta.phuotngay.models.user.User;
 
 /**
@@ -42,9 +41,14 @@ public class AppConfig extends Application {
         super.onLowMemory();
     }
 
-    public boolean IsUserLogin() {
+    private String getCurrentUserToken() {
+        return mPresUtils.getSettingString(SharedPresUtils.KEY_USER_TOKEN);
+    }
+
+    public String IsUserLogin() {
         String token = getCurrentUserToken();
-        return (token != null && !TextUtils.isEmpty(token));
+        // TODO : Email
+        return token;
     }
 
     public void setCurrentUserId(String userId) {
@@ -54,10 +58,6 @@ public class AppConfig extends Application {
 
     public boolean setCurrentUserToken(String token) {
         return mPresUtils.saveSetting(SharedPresUtils.KEY_USER_TOKEN, token);
-    }
-
-    public String getCurrentUserToken() {
-        return mPresUtils.getSettingString(SharedPresUtils.KEY_USER_TOKEN);
     }
 
     public void setCurrentUserCoverUrl(String coverUrl) {

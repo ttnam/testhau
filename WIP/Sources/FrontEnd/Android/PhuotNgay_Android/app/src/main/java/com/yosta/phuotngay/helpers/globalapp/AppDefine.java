@@ -1,4 +1,4 @@
-package com.yosta.phuotngay.helpers;
+package com.yosta.phuotngay.helpers.globalapp;
 
 import java.util.HashMap;
 

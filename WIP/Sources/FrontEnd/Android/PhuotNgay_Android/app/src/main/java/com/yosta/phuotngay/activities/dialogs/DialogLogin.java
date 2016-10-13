@@ -9,7 +9,6 @@ import android.support.design.widget.TextInputEditText;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
@@ -18,14 +17,12 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.yosta.materialdialog.ProgressDialog;
 import com.yosta.phuotngay.R;
 import com.yosta.phuotngay.activities.MainActivity;
 import com.yosta.phuotngay.activities.interfaces.DialogBehavior;
 import com.yosta.phuotngay.config.AppConfig;
-import com.yosta.phuotngay.helpers.AppUtils;
-import com.yosta.phuotngay.helpers.SharedPresUtils;
-import com.yosta.phuotngay.helpers.UIUtils;
+import com.yosta.phuotngay.helpers.globalapp.AppUtils;
+import com.yosta.phuotngay.helpers.globalapp.UIUtils;
 import com.yosta.phuotngay.services.PhuotNgayApiService;
 
 import butterknife.BindView;

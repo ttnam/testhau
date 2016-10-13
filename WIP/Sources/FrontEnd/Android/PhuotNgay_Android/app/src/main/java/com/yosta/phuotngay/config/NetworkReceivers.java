@@ -3,10 +3,9 @@ package com.yosta.phuotngay.config;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.widget.Toast;
 
 import com.yosta.phuotngay.config.message.NetworkMessage;
-import com.yosta.phuotngay.helpers.AppUtils;
+import com.yosta.phuotngay.helpers.globalapp.AppUtils;
 
 import org.greenrobot.eventbus.EventBus;
 

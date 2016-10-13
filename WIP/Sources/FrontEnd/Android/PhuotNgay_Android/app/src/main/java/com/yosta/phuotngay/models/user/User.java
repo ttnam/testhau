@@ -1,29 +1,35 @@
 package com.yosta.phuotngay.models.user;
 
 import android.support.annotation.RequiresPermission;
-import android.text.TextUtils;
 
-import com.yosta.phuotngay.helpers.SharedPresUtils;
-import com.yosta.phuotngay.helpers.listeners.ListenerHelpers;
+import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 
 public class User implements Serializable {
 
     public static String permission = "email,name,gender,cover,picture.type(large),link";
 
     @RequiresPermission
+    @SerializedName(value = "userId")
     private String mUserID = null;
-    private String mFullName = null;
+
+    @SerializedName(value = "userName")
+    private String mUserName = null;
+
     private String mEmail = null;
     private String mCoverUrl = null;
+
+    @SerializedName(value = "avatar")
     private String mAvatarUrl = null;
+
     private String mLink = null;
+
+    @SerializedName(value = "gender")
     private String mGender = null;
+
+    @SerializedName(value = "token")
+    private String mToken = null;
 
     public void setUserId(String userId) {
         this.mUserID = userId;
@@ -50,7 +56,7 @@ public class User implements Serializable {
     }
 
     public void setName(String name) {
-        this.mFullName = name;
+        this.mUserName = name;
     }
 
     public String getCoverUrl() {
@@ -61,8 +67,8 @@ public class User implements Serializable {
         return this.mAvatarUrl;
     }
 
-    public String getUserName() {
-        return this.mFullName;
+    public String getName() {
+        return this.mUserName;
     }
 
     public String getGender() {

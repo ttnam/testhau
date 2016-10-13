@@ -4,9 +4,7 @@ import android.content.Context;
 import android.content.ContextWrapper;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
-import android.os.Environment;
 import android.support.annotation.NonNull;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -19,18 +17,13 @@ import com.squareup.picasso.Target;
 import com.yosta.materialdialog.ChoiceDialog;
 import com.yosta.phuotngay.R;
 import com.yosta.phuotngay.adapters.MenuAdapter;
-import com.yosta.phuotngay.config.AppConfig;
-import com.yosta.phuotngay.helpers.AppUtils;
-import com.yosta.phuotngay.helpers.SharedPresUtils;
+import com.yosta.phuotngay.helpers.globalapp.AppUtils;
+import com.yosta.phuotngay.helpers.globalapp.SharedPresUtils;
 import com.yosta.phuotngay.helpers.menu.MenuItem;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 
 /**
  * Created by Phuc-Hau Nguyen on 9/6/2016.

@@ -2,6 +2,7 @@ package com.yosta.phuotngay.activities;
 
 import android.content.Intent;
 import android.support.v7.widget.AppCompatImageView;
+import android.text.TextUtils;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.TextView;
 
@@ -12,11 +13,20 @@ import com.yosta.phuotngay.activities.interfaces.ActivityBehavior;
 import com.yosta.phuotngay.animations.YoYo;
 import com.yosta.phuotngay.animations.bouncing_entrances.BounceInRightAnimator;
 import com.yosta.phuotngay.config.AppConfig;
-import com.yosta.phuotngay.helpers.UIUtils;
+import com.yosta.phuotngay.helpers.globalapp.AppUtils;
+import com.yosta.phuotngay.helpers.globalapp.UIUtils;
+import com.yosta.phuotngay.models.images.Images;
+import com.yosta.phuotngay.models.user.Token;
+import com.yosta.phuotngay.services.PhuotNgayApiService;
+
+import java.net.HttpURLConnection;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class SplashActivity extends ActivityBehavior {
 
@@ -34,13 +44,9 @@ public class SplashActivity extends ActivityBehavior {
         setContentView(R.layout.activity_splash);
         ButterKnife.bind(this);
 
-        AppConfig appConfig = (AppConfig) getApplication();
-        if (appConfig.IsUserLogin()) {
-            startActivity(new Intent(this, MainActivity.class));
-            onClose();
-        }
-
+        IsUserVerified();
         loginDialog = new DialogLogin(this);
+
     }
 
     @Override
@@ -74,5 +80,55 @@ public class SplashActivity extends ActivityBehavior {
 
         UIUtils.setFont(this, UIUtils.FONT_LATO_ITALIC, textView);
 
+    }
+
+    private void IsUserVerified() {
+        final AppConfig appConfig = (AppConfig) getApplication();
+        String token = appConfig.IsUserLogin();
+        if (token != null && !TextUtils.isEmpty(token)) {
+
+            if (AppUtils.isNetworkConnected(this)) {
+                /*PhuotNgayApiService.getInstance(this).ApiVerify(new Token(token), new Callback<Boolean>() {
+                    @Override
+                    public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                        if (response.code() == 200) {
+                            boolean IsVerified = response.body();
+                            if (IsVerified) {
+                                onMoveToMainActivity();
+                            } else {
+                                appConfig.userLogout();
+                                Login();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Boolean> call, Throwable t) {
+                        onMoveToMainActivity();
+                    }
+                });*/
+                PhuotNgayApiService.getInstance(this).ApiAlbum(new Token(token), new Callback<Images>() {
+                    @Override
+                    public void onResponse(Call<Images> call, Response<Images> response) {
+                        int code = response.code();
+                        if (code == HttpURLConnection.HTTP_OK) {
+                            Images images = response.body();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Images> call, Throwable t) {
+                        String td = t.getMessage();
+                    }
+                });
+            }
+        } else {
+            //Login();
+        }
+    }
+
+    private void onMoveToMainActivity() {
+        startActivity(new Intent(this, MainActivity.class));
+        onClose();
     }
 }

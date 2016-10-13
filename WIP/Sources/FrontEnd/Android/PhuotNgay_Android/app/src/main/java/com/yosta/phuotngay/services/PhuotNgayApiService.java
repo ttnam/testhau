@@ -1,11 +1,17 @@
 package com.yosta.phuotngay.services;
 
 import android.app.Activity;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.yosta.phuotngay.helpers.SharedPresUtils;
+import com.yosta.phuotngay.helpers.globalapp.SharedPresUtils;
 import com.yosta.phuotngay.models.BaseUser;
+import com.yosta.phuotngay.models.base.RequestResponse;
+import com.yosta.phuotngay.models.followers.Followers;
+import com.yosta.phuotngay.models.images.Images;
+import com.yosta.phuotngay.models.user.Token;
+import com.yosta.phuotngay.models.user.User;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -25,6 +31,7 @@ public class PhuotNgayApiService {
 
     private Gson mGson = null;
     private JsonParser mParser = null;
+    private String jsonSamples = null;
 
     private PhuotNgayApiService() {
         Retrofit retrofit = new Retrofit.Builder()
@@ -53,9 +60,45 @@ public class PhuotNgayApiService {
     }
 
     public void ApiLogin(String username, String password, Callback<String> callback) {
-        String json = mGson.toJson(new BaseUser(username, password));
-        JsonObject object = mParser.parse(json).getAsJsonObject();
+        jsonSamples = mGson.toJson(new BaseUser(username, password));
+        JsonObject object = mParser.parse(jsonSamples).getAsJsonObject();
         Call<String> userCall = apiInterface.apiLogin(object);
         userCall.enqueue(callback);
     }
+
+    public void ApiVerify(Token token, Callback<Boolean> callback) {
+        jsonSamples = mGson.toJson(token);
+        JsonObject object = mParser.parse(jsonSamples).getAsJsonObject();
+        Call<Boolean> apiVerifyCall = apiInterface.apiVerify(object);
+        apiVerifyCall.enqueue(callback);
+    }
+
+    public void ApiAlbum(Token token, Callback<Images> callback) {
+        jsonSamples = mGson.toJson(token);
+        JsonObject object = mParser.parse(jsonSamples).getAsJsonObject();
+        Call<Images> imagesCall = apiInterface.apiAlbum(object);
+        imagesCall.enqueue(callback);
+    }
+
+    public void ApiFollowers(Token token, Callback<Followers> callback) {
+        jsonSamples = mGson.toJson(token);
+        JsonObject object = mParser.parse(jsonSamples).getAsJsonObject();
+        Call<Followers> followersCall = apiInterface.apiFollowers(object);
+        followersCall.enqueue(callback);
+    }
+
+    public void ApiSubscribers(Token token, Callback<Followers> callback) {
+        jsonSamples = mGson.toJson(token);
+        JsonObject object = mParser.parse(jsonSamples).getAsJsonObject();
+        Call<Followers> subscribersCall = apiInterface.apiSubscribers(object);
+        subscribersCall.enqueue(callback);
+    }
+
+    public void ApiUpdate(User user, Callback<RequestResponse> callback) {
+        jsonSamples = mGson.toJson(user);
+        JsonObject object = mParser.parse(jsonSamples).getAsJsonObject();
+        Call<RequestResponse> update = apiInterface.apiUpdate(object);
+        update.enqueue(callback);
+    }
 }
+

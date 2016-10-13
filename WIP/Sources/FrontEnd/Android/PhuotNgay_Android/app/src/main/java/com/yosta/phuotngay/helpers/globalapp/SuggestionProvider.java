@@ -1,4 +1,4 @@
-package com.yosta.phuotngay.helpers;
+package com.yosta.phuotngay.helpers.globalapp;
 
 import android.content.SearchRecentSuggestionsProvider;
 import android.provider.SearchRecentSuggestions;

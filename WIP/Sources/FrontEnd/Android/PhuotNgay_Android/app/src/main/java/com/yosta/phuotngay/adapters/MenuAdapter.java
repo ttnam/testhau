@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.yosta.phuotngay.R;
-import com.yosta.phuotngay.helpers.SharedPresUtils;
+import com.yosta.phuotngay.helpers.globalapp.SharedPresUtils;
 import com.yosta.phuotngay.helpers.menu.MenuItem;
 
 import java.util.ArrayList;
