@@ -1,10 +1,18 @@
 package com.yosta.phuotngay.config;
 
 import android.app.Application;
+import android.text.TextUtils;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.yosta.phuotngay.globalapp.AppUtils;
 import com.yosta.phuotngay.globalapp.SharedPresUtils;
+import com.yosta.phuotngay.model.user.Token;
 import com.yosta.phuotngay.model.user.User;
+import com.yosta.phuotngay.services.PhuotNgayApiService;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by Phuc-Hau Nguyen on 9/13/2016.
@@ -28,7 +36,6 @@ public class AppConfig extends Application {
         this.mUser.setName(mPresUtils.getSettingString(SharedPresUtils.KEY_USER_NAME));
         this.mUser.setUserId(mPresUtils.getSettingString(SharedPresUtils.KEY_USER_ID));
         this.mUser.setGender(mPresUtils.getSettingString(SharedPresUtils.KEY_USER_GENDER));
-        this.mUser.setLink(mPresUtils.getSettingString(SharedPresUtils.KEY_USER_LINK_PROFILE));
         this.mUser.setCoverUrl(mPresUtils.getSettingString(SharedPresUtils.KEY_USER_COVER_URL));
         this.mUser.setAvatarUrl(mPresUtils.getSettingString(SharedPresUtils.KEY_USER_AVATAR_URL));
     }
@@ -68,11 +75,6 @@ public class AppConfig extends Application {
     public void setCurrentUserAvatarUrl(String avatarUrl) {
         this.mUser.setAvatarUrl(avatarUrl);
         mPresUtils.saveSetting(SharedPresUtils.KEY_USER_AVATAR_URL, avatarUrl);
-    }
-
-    public void setCurrentUserLink(String link) {
-        this.mUser.setLink(link);
-        mPresUtils.saveSetting(SharedPresUtils.KEY_USER_LINK_PROFILE, link);
     }
 
     public void setCurrentUserEmail(String email) {
