@@ -13,31 +13,31 @@ import java.io.Serializable;
 public class Place implements Serializable {
 
     @SerializedName(value = "place_id")
-    private String mPlaceId;
+    private String mPlaceId = null;;
 
     @SerializedName(value = "name")
-    private String mName;
+    private String mName = null;
 
     @SerializedName(value = "location_name")
-    private String mLocationName;
+    private String mLocationName = null;
 
     @SerializedName(value = "position")
-    private float[] mPosition;
+    private float[] mPosition = null;
 
     @SerializedName(value = "rating")
-    private int mRating;
+    private int mRating = 0;
 
     @SerializedName(value = "cover")
-    private String mCover;
+    private String mCover = null;
 
     @SerializedName(value = "content")
-    private String mContent;
+    private String mContent = null;
 
     @SerializedName(value = "albums")
-    private Albums mAlbumIds;
+    private Albums mAlbumIds = null;
 
     @SerializedName(value = "comments")
-    private Comments mCommentsId;
+    private Comments mCommentsId = null;
 
     @SerializedName(value = "from")
     private String mUserId = null;
@@ -46,5 +46,11 @@ public class Place implements Serializable {
     private boolean mIsActive = false;
 
     public Place() {
+        this.mIsActive = false;
+
+    }
+
+    public String getName() {
+        return mName;
     }
 }

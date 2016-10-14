@@ -10,9 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.yosta.phuotngay.R;
-import com.yosta.phuotngay.adapters.ItemTripAdapter;
+import com.yosta.phuotngay.adapters.PlaceAdapter;
 import com.yosta.phuotngay.helpers.listeners.RecyclerItemClickListener;
-import com.yosta.phuotngay.view.ItemTripView;
+import com.yosta.phuotngay.model.place.Place;
 import com.yosta.phuotngay.helpers.viewholders.DividerItemDecoration;
 
 import butterknife.BindView;
@@ -20,7 +20,7 @@ import butterknife.ButterKnife;
 
 public class HomeFragment extends Fragment {
 
-    private ItemTripAdapter itemTripAdapter = null;
+    private PlaceAdapter placeAdapter = null;
 
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
@@ -34,7 +34,7 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.view_fragment_home, container, false);
         ButterKnife.bind(this, rootView);
-        this.itemTripAdapter = new ItemTripAdapter(container.getContext());
+        this.placeAdapter = new PlaceAdapter(container.getContext());
 
         // RecyclerView
         recyclerView.setHasFixedSize(true);
@@ -46,7 +46,7 @@ public class HomeFragment extends Fragment {
                 container.getContext(), LinearLayoutManager.VERTICAL, false);
 
         recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setAdapter(itemTripAdapter);
+        recyclerView.setAdapter(placeAdapter);
         recyclerView.addOnItemTouchListener(
                 new RecyclerItemClickListener(getContext(), new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
@@ -64,9 +64,9 @@ public class HomeFragment extends Fragment {
                 customLoadMoreDataFromApi(page);
             }
         });*/
-        itemTripAdapter.clear();
+        placeAdapter.clear();
         for (int i = 0; i < 10; i++) {
-            itemTripAdapter.addTrip(new ItemTripView());
+            placeAdapter.addPlace(new Place());
         }
         /*// RecyclerView Near
         SnapHelper snapHelper = new LinearSnapHelper();

@@ -24,12 +24,14 @@ public class MainActivity extends ActivityBehavior {
     @BindView(R.id.viewpager)
     ViewPager viewPager;
 
+    private DialogSearch searchDialog = null;
+
     @Override
     public void onApplyComponents() {
         super.onApplyComponents();
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-
+        searchDialog = new DialogSearch(this);
         // startActivity(new Intent(this, ImageryActivity.class));
 
         onApplyViewPager();
@@ -68,7 +70,8 @@ public class MainActivity extends ActivityBehavior {
 
     @OnClick(R.id.textView)
     public void onShowSearchDialog() {
-        DialogSearch searchDialog = new DialogSearch(this);
-        searchDialog.show();
+        if (!searchDialog.isShowing()) {
+            searchDialog.show();
+        }
     }
 }

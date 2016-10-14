@@ -13,6 +13,7 @@
     <item name="web_view" type="id" />
 
     <item name="layout" type="id" />
+    <item name="container_item" type="id" />
     <item name="layout_fragment" type="id" />
     <item name="layout_relative" type="id" />
     <item name="layout_recycler" type="id" />

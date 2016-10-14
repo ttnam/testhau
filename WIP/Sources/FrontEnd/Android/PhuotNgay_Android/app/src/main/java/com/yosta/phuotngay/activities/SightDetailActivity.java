@@ -10,9 +10,9 @@ import android.webkit.WebView;
 import com.yosta.phuotngay.R;
 import com.yosta.phuotngay.activities.dialogs.DialogComment;
 import com.yosta.phuotngay.activities.interfaces.ActivityBehavior;
-import com.yosta.phuotngay.adapters.CommentAdapter;
 import com.yosta.phuotngay.helpers.viewholders.DividerItemDecoration;
 import com.yosta.phuotngay.model.comment.Comment;
+import com.yosta.phuotngay.adapters.CommentAdapter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

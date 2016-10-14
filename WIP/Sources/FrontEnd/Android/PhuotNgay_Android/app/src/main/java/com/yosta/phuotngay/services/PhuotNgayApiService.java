@@ -8,7 +8,6 @@ import com.google.gson.JsonParser;
 import com.yosta.phuotngay.globalapp.SharedPresUtils;
 import com.yosta.phuotngay.model.BaseUser;
 import com.yosta.phuotngay.model.RequestResponse;
-import com.yosta.phuotngay.model.follower.Followers;
 import com.yosta.phuotngay.model.photo.Photos;
 import com.yosta.phuotngay.model.user.Token;
 import com.yosta.phuotngay.model.user.User;
@@ -80,19 +79,6 @@ public class PhuotNgayApiService {
         imagesCall.enqueue(callback);
     }
 
-    public void ApiFollowers(Token token, Callback<Followers> callback) {
-        jsonSamples = mGson.toJson(token);
-        JsonObject object = mParser.parse(jsonSamples).getAsJsonObject();
-        Call<Followers> followersCall = apiInterface.apiFollowers(object);
-        followersCall.enqueue(callback);
-    }
-
-    public void ApiSubscribers(Token token, Callback<Followers> callback) {
-        jsonSamples = mGson.toJson(token);
-        JsonObject object = mParser.parse(jsonSamples).getAsJsonObject();
-        Call<Followers> subscribersCall = apiInterface.apiSubscribers(object);
-        subscribersCall.enqueue(callback);
-    }
 
     public void ApiUpdate(User user, Callback<RequestResponse> callback) {
         jsonSamples = mGson.toJson(user);

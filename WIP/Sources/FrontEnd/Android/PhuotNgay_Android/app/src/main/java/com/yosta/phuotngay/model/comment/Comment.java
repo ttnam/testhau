@@ -20,6 +20,9 @@ public class Comment extends ViewBehavior {
     @SerializedName(value = "from")
     private String mUserId = null;
 
+    @SerializedName(value = "user_name")
+    private String mUserName = null;
+
     @SerializedName(value = "place")
     private String mPlaceId = null;
 
@@ -28,6 +31,10 @@ public class Comment extends ViewBehavior {
         this.mTime = null;
         this.mUserId = null;
         this.mPlaceId = null;
+    }
+
+    public Comment(String mMessage) {
+        this.mMessage = mMessage;
     }
 
 
@@ -39,16 +46,20 @@ public class Comment extends ViewBehavior {
         this.mMessage = mMessage;
     }
 
-    @Override
-    public String toString() {
-        return this.mMessage;
-    }
-
     public String getCreatedTime() {
         return mTime;
     }
 
+    public String getUserName() {
+        return mUserName;
+    }
+
+
     public void setCreatedTime(String mTime) {
         this.mTime = mTime;
+    }
+    @Override
+    public String toString() {
+        return this.mMessage;
     }
 }
