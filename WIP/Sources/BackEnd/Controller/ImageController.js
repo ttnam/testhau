@@ -8,7 +8,7 @@ module.exports = function(app) {
         imageDAO.getById(req.params.imageId, function(result) {
             if (result == -1) {
                 res.statusCode = 500;
-                return res.send('Error 500: Get view server error.');
+                return res.send('Error 500: Get details of image server error.');
             }
 
             res.json(result); 
