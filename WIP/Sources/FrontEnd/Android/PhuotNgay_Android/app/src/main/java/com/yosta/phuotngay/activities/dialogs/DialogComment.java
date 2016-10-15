@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.Window;
 import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.RelativeLayout;
 
 import com.yosta.phuotngay.R;
@@ -127,7 +128,7 @@ public class DialogComment extends Dialog implements DialogBehavior {
         }
     }
 
-    @Subscribe (threadMode = ThreadMode.MAIN)
+    @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(NetworkMessage networkMessage) {
         if (networkMessage.IsConnected()) {
             layoutRelative.setVisibility(View.GONE);
@@ -139,12 +140,14 @@ public class DialogComment extends Dialog implements DialogBehavior {
     @OnClick(R.id.button_ok)
     public void onSendComment() {
         String cmtContent = editText.getText().toString();
-        if (UIUtils.IsCommentAccepted(cmtContent)) {
+        if (UIUtils.isCommentAccepted(cmtContent)) {
+
             int index = commentsAdapter.addComment(new Comment(cmtContent));
             recyclerView.scrollToPosition(index);
+
+            onCloseVirtualKeyboard();
         }
         editText.clearFocus();
-        //editText.setText("");
     }
 
     @Override
@@ -165,5 +168,14 @@ public class DialogComment extends Dialog implements DialogBehavior {
                 .interpolate(new AccelerateDecelerateInterpolator())
                 .playOn(layoutRelative);
         onToggleUI(AppUtils.isNetworkConnected(getContext()));
+    }
+
+    private void onCloseVirtualKeyboard() {
+        InputMethodManager inputManager =
+                (InputMethodManager) ownerActivity.
+                        getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputManager.hideSoftInputFromWindow(
+                this.getCurrentFocus().getWindowToken(),
+                InputMethodManager.HIDE_NOT_ALWAYS);
     }
 }

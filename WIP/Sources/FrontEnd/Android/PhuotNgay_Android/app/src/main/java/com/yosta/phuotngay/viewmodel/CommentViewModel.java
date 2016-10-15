@@ -2,29 +2,39 @@ package com.yosta.phuotngay.viewmodel;
 
 import android.content.Context;
 import android.databinding.BaseObservable;
+import android.databinding.Bindable;
 
+import com.yosta.phuotngay.globalapp.AppUtils;
 import com.yosta.phuotngay.model.comment.Comment;
 
 public class CommentViewModel extends BaseObservable {
 
-    private Context context;
+    private Context mContext;
     private Comment comment;
 
     public CommentViewModel(Context context, Comment comment) {
         this.comment = comment;
-        this.context = context;
+        this.mContext = context;
     }
 
+    @Bindable
     public String getMessage() {
-
         return comment.getMessage();
     }
-    public String getAuthor() {
 
+    @Bindable
+    public String getAuthor() {
         return comment.getUserName();
     }
-    public String getCreatedTime() {
 
+    @Bindable
+    public String getCreatedTime() {
         return comment.getCreatedTime();
+    }
+
+
+    @Bindable
+    public boolean isInternetConnected() {
+        return AppUtils.isNetworkConnected(mContext);
     }
 }

@@ -13,7 +13,8 @@ import java.io.Serializable;
 public class Place implements Serializable {
 
     @SerializedName(value = "place_id")
-    private String mPlaceId = null;;
+    private String mPlaceId = null;
+    ;
 
     @SerializedName(value = "name")
     private String mName = null;
@@ -52,5 +53,10 @@ public class Place implements Serializable {
 
     public String getName() {
         return mName;
+    }
+
+    public String getCover() {
+        this.mCover = "http://cdn.meme.am/instances/60677654.jpg";
+        return this.mCover;
     }
 }

@@ -59,6 +59,14 @@ android {
         exclude 'META-INF/notice.txt'
         exclude 'META-INF/ASL2.0'
     }
+    productFlavors {
+        dev {
+            minSdkVersion 16
+        }
+        prod {
+            minSdkVersion 16
+        }
+    }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_7
         targetCompatibility JavaVersion.VERSION_1_7

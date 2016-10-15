@@ -3,6 +3,8 @@ package com.yosta.phuotngay.model.comment;
 import com.google.gson.annotations.SerializedName;
 import com.yosta.phuotngay.view.base.ViewBehavior;
 
+import java.util.Calendar;
+
 /**
  * Created by Phuc-Hau Nguyen on 8/25/2016.
  */
@@ -47,6 +49,7 @@ public class Comment extends ViewBehavior {
     }
 
     public String getCreatedTime() {
+        mTime = Calendar.getInstance().getTime().toString();
         return mTime;
     }
 

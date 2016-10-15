@@ -71,7 +71,9 @@
     <string name="str_gps_off"> GPS is off </string>
     <string name="str_access_sync">Access every where</string>
     <string name="str_auto_sync">Auto sync</string>
-    <string name="message_login_stay"> Log in to <b>EventHub</b> to see all events.</string>
+
+    <string name="message_will_appear_when_online"> Will appear when online </string>
+
     <string name="message_login"><i>Stay connected to see all events your friends are attending.</i></string>
     <string name="message_no_internet"> No internet connection </string>
     <string name="message_nothing_to_show"> Nothing to show! </string>
