@@ -36,14 +36,18 @@ public class SplashActivity extends ActivityBehavior {
     private DialogLogin loginDialog = null;
 
     @Override
+    protected void onStart() {
+        super.onStart();
+
+        loginDialog = new DialogLogin(this);
+    }
+
+    @Override
     public void onApplyComponents() {
         super.onApplyComponents();
         setContentView(R.layout.activity_splash);
         ButterKnife.bind(this);
-
         IsUserVerified();
-        loginDialog = new DialogLogin(this);
-
     }
 
     @Override
@@ -81,7 +85,6 @@ public class SplashActivity extends ActivityBehavior {
         final AppConfig appConfig = (AppConfig) getApplication();
         String token = appConfig.IsUserLogin();
         if (token != null && !TextUtils.isEmpty(token)) {
-
             if (AppUtils.isNetworkConnected(this)) {
                 PhuotNgayApiService.getInstance(this).ApiVerify(new Token(token), new Callback<Boolean>() {
                     @Override

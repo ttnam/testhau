@@ -55,7 +55,7 @@ public class UIUtils {
         return true;
     }
 
-    public static boolean IsCommentAccepted(String text) {
+    public static boolean isCommentAccepted(String text) {
         for (IValidate cmt : commentValidates) {
             if (!cmt.IsValid(text))
                 return false;

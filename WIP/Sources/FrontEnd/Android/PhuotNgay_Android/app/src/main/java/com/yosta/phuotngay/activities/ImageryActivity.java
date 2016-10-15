@@ -41,7 +41,7 @@ public class ImageryActivity extends ActivityBehavior {
     @Override
     public void onApplyComponents() {
         super.onApplyComponents();
-        setContentView(R.layout.activity_fresco);
+        setContentView(R.layout.activity_imagery);
         ButterKnife.bind(this);
         galleryAdapter = new ImageGalleryAdapter(this);
 

@@ -19,6 +19,7 @@ import android.support.design.widget.Snackbar;
 import android.text.Html;
 import android.util.Base64;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 
 import com.yosta.phuotngay.R;
 import com.yosta.phuotngay.adapters.MenuAdapter;
@@ -136,28 +137,29 @@ public class AppUtils {
     public static boolean StandardizeLoginValue(String response) {
         return Boolean.parseBoolean(response.substring((response.indexOf(':') + 2), response.length() - 1));
     }
-/*
-    public static void onCallLoginDialog(final Context context) {
 
-        String msgContent = context.getString(R.string.message_login);
-        String tittle = context.getString(R.string.str_login).toUpperCase();
+    /*
+        public static void onCallLoginDialog(final Context context) {
 
-        new StandardDialog(context).setIcon(R.drawable.ic_vector_person_white)
-                .setTopColorRes(R.color.colorPrimaryDark)
-                .setButtonsColorRes(R.color.colorPrimaryDark)
-                .setTitleGravity(Gravity.CENTER)
-                .setTitle(tittle)
-                .setMessage(msgContent)
-                .setPositiveButton(R.string.str_login, new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        context.startActivity(new Intent(context, LoginActivity.class));
-                    }
-                })
-                .setNegativeButton(android.R.string.cancel, null)
-                .show();
+            String msgContent = context.getString(R.string.message_login);
+            String tittle = context.getString(R.string.str_login).toUpperCase();
 
-    }*/
+            new StandardDialog(context).setIcon(R.drawable.ic_vector_person_white)
+                    .setTopColorRes(R.color.colorPrimaryDark)
+                    .setButtonsColorRes(R.color.colorPrimaryDark)
+                    .setTitleGravity(Gravity.CENTER)
+                    .setTitle(tittle)
+                    .setMessage(msgContent)
+                    .setPositiveButton(R.string.str_login, new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            context.startActivity(new Intent(context, LoginActivity.class));
+                        }
+                    })
+                    .setNegativeButton(android.R.string.cancel, null)
+                    .show();
+
+        }*/
     public static
     @Nullable
     MenuAdapter LoadListMenuAction(Context context, @AnyRes int textArrID, @AnyRes int iconArrID) {
@@ -201,5 +203,4 @@ public class AppUtils {
         }
         return keyHash;
     }
-
 }
