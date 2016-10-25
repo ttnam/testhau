@@ -56,20 +56,20 @@
 
     <style name="Style_Menu_Item.Press" parent="AppTheme.TextView_Title.Bold">
         <item name="android:layout_height">?actionBarSize</item>
-        <item name="android:paddingLeft">@dimen/activity_padding</item>
-        <item name="android:paddingRight">@dimen/activity_padding</item>
-        <item name="android:paddingEnd">@dimen/activity_padding</item>
-        <item name="android:paddingStart">@dimen/activity_padding</item>
+        <item name="android:paddingLeft">@dimen/margin_x2</item>
+        <item name="android:paddingRight">@dimen/margin_x2</item>
+        <item name="android:paddingEnd">@dimen/margin_x2</item>
+        <item name="android:paddingStart">@dimen/margin_x2</item>
         <item name="android:background">@drawable/ic_style_button_round_none_default</item>
         <item name="android:clickable">true</item>
     </style>
 
     <style name="Style_Menu_Item.NonPress" parent="AppTheme.TextView_Title.Bold">
         <item name="android:layout_height">?actionBarSize</item>
-        <item name="android:paddingLeft">@dimen/activity_padding</item>
-        <item name="android:paddingRight">@dimen/activity_padding</item>
-        <item name="android:paddingEnd">@dimen/activity_padding</item>
-        <item name="android:paddingStart">@dimen/activity_padding</item>
+        <item name="android:paddingLeft">@dimen/margin_x2</item>
+        <item name="android:paddingRight">@dimen/margin_x2</item>
+        <item name="android:paddingEnd">@dimen/margin_x2</item>
+        <item name="android:paddingStart">@dimen/margin_x2</item>
         <item name="android:background">@android:color/white</item>
     </style>
 </resources>

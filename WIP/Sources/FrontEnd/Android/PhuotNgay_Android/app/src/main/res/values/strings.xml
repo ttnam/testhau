@@ -37,7 +37,7 @@
     <string name="profile">Profile</string>
     <string name="str_home">Home</string>
     <string name="str_login"> Login </string>
-    <string name="str_register">Register </string>
+    <string name="str_submit"> Submit </string>
 
     <string name="str_sign_up">Sign Up</string>
     <string name="str_logout">Log out</string>

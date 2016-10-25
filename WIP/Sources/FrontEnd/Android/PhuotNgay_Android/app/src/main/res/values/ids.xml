@@ -12,6 +12,8 @@
     <item name="image" type="id" />
     <item name="web_view" type="id" />
 
+    <item name="item_click_support" type="id" />
+
     <item name="layout" type="id" />
     <item name="container_item" type="id" />
     <item name="layout_fragment" type="id" />

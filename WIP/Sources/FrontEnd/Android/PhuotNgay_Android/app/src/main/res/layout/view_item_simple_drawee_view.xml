@@ -2,9 +2,9 @@
 <com.facebook.drawee.view.SimpleDraweeView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:id="@+id/simple_drawee_view"
-    android:layout_width="256dp"
-    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_centerInParent="true"
     fresco:actualImageScaleType="focusCrop"
     fresco:fadeDuration="300"
-    fresco:placeholderImage="@color/Gray"
-    fresco:viewAspectRatio="1.33" />
+    fresco:placeholderImage="@color/Gray" />

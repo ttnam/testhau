@@ -11,7 +11,7 @@
         android:orientation="vertical">
 
         <include
-            layout="@layout/view_header_info"
+            layout="@layout/view_item_header_info"
             android:layout_width="match_parent"
             android:layout_height="@dimen/app_bar_height" />
 
@@ -32,7 +32,7 @@
                 android:background="@drawable/ic_style_button_round_none_default"
                 android:clickable="true"
                 android:gravity="center"
-                android:padding="@dimen/activity_padding"
+                android:padding="@dimen/margin_x2"
                 android:text="Followers"
                 android:textAllCaps="true" />
 
@@ -46,7 +46,7 @@
                 android:background="@drawable/ic_style_button_round_none_default"
                 android:clickable="true"
                 android:gravity="center"
-                android:padding="@dimen/activity_padding"
+                android:padding="@dimen/margin_x2"
                 android:text="Photos"
                 android:textAllCaps="true" />
 
@@ -56,7 +56,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/activity_margin_min"
+            android:layout_marginTop="@dimen/margin"
             android:background="@android:color/white"
             android:orientation="vertical">
 
@@ -66,7 +66,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center|start"
-                android:padding="@dimen/activity_padding"
+                android:padding="@dimen/margin_x2"
                 android:text="OVERVIEW"
                 android:textAllCaps="true" />
 
@@ -76,8 +76,8 @@
                 android:orientation="horizontal">
 
                 <android.support.v7.widget.AppCompatImageView
-                    android:layout_width="@dimen/icon_size_min_ex"
-                    android:layout_height="@dimen/icon_size_min_ex"
+                    android:layout_width="@dimen/icon_size_x3"
+                    android:layout_height="@dimen/icon_size_x3"
                     android:layout_gravity="center_vertical"
                     app:srcCompat="@drawable/ic_vector_gender" />
 
@@ -87,8 +87,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="@dimen/activity_margin"
-                    android:layout_marginStart="@dimen/activity_margin"
+                    android:layout_marginLeft="@dimen/margin_x2"
+                    android:layout_marginStart="@dimen/margin_x2"
                     android:gravity="center|start"
                     android:text="asdasdasd"
                     android:textAllCaps="true" />
@@ -101,8 +101,8 @@
                 android:orientation="horizontal">
 
                 <android.support.v7.widget.AppCompatImageView
-                    android:layout_width="@dimen/icon_size_min_ex"
-                    android:layout_height="@dimen/icon_size_min_ex"
+                    android:layout_width="@dimen/icon_size_x3"
+                    android:layout_height="@dimen/icon_size_x3"
                     android:layout_gravity="center_vertical"
                     app:srcCompat="@mipmap/ic_launcher" />
 
@@ -112,8 +112,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="@dimen/activity_margin"
-                    android:layout_marginStart="@dimen/activity_margin"
+                    android:layout_marginLeft="@dimen/margin_x2"
+                    android:layout_marginStart="@dimen/margin_x2"
                     android:gravity="start|center"
                     android:text="Member since Sep 2016" />
 
@@ -123,7 +123,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/activity_margin_min"
+            android:layout_marginTop="@dimen/margin"
             android:background="@android:color/white"
             android:orientation="vertical">
 
@@ -133,7 +133,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center|start"
-                android:padding="@dimen/activity_padding"
+                android:padding="@dimen/margin_x2"
                 android:text="EXPERIENCE"
                 android:textAllCaps="true" />
 
@@ -143,8 +143,8 @@
                 android:orientation="horizontal">
 
                 <android.support.v7.widget.AppCompatImageView
-                    android:layout_width="@dimen/icon_size_min_ex"
-                    android:layout_height="@dimen/icon_size_min_ex"
+                    android:layout_width="@dimen/icon_size_x3"
+                    android:layout_height="@dimen/icon_size_x3"
                     android:layout_gravity="center_vertical"
                     app:srcCompat="@drawable/ic_vector_photos" />
 
@@ -154,8 +154,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="@dimen/activity_margin"
-                    android:layout_marginStart="@dimen/activity_margin"
+                    android:layout_marginLeft="@dimen/margin_x2"
+                    android:layout_marginStart="@dimen/margin_x2"
                     android:text="Photos"
                     android:textStyle="normal" />
 
@@ -165,14 +165,14 @@
                 style="@style/Style_Menu_Item.Press"
                 android:layout_width="match_parent"
                 android:orientation="horizontal"
-                android:paddingEnd="@dimen/activity_padding"
-                android:paddingLeft="@dimen/activity_padding"
-                android:paddingRight="@dimen/activity_padding"
-                android:paddingStart="@dimen/activity_padding">
+                android:paddingEnd="@dimen/margin_x2"
+                android:paddingLeft="@dimen/margin_x2"
+                android:paddingRight="@dimen/margin_x2"
+                android:paddingStart="@dimen/margin_x2">
 
                 <android.support.v7.widget.AppCompatImageView
-                    android:layout_width="@dimen/icon_size_min_ex"
-                    android:layout_height="@dimen/icon_size_min_ex"
+                    android:layout_width="@dimen/icon_size_x3"
+                    android:layout_height="@dimen/icon_size_x3"
                     android:layout_gravity="center_vertical"
                     app:srcCompat="@drawable/ic_vector_friends" />
 
@@ -182,8 +182,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="@dimen/activity_margin"
-                    android:layout_marginStart="@dimen/activity_margin"
+                    android:layout_marginLeft="@dimen/margin_x2"
+                    android:layout_marginStart="@dimen/margin_x2"
                     android:text="Friends"
                     android:textStyle="normal" />
 
@@ -195,12 +195,12 @@
             android:id="@+id/layout_logout"
             style="@style/Style_Menu_Item.Press"
             android:layout_width="match_parent"
-            android:layout_marginTop="@dimen/activity_margin_min"
+            android:layout_marginTop="@dimen/margin"
             android:orientation="horizontal">
 
             <android.support.v7.widget.AppCompatImageView
-                android:layout_width="@dimen/icon_size_min_ex"
-                android:layout_height="@dimen/icon_size_min_ex"
+                android:layout_width="@dimen/icon_size_x3"
+                android:layout_height="@dimen/icon_size_x3"
                 android:layout_gravity="center_vertical"
                 app:srcCompat="@drawable/ic_vector_logout" />
 
@@ -209,8 +209,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="@dimen/activity_margin"
-                android:layout_marginStart="@dimen/activity_margin"
+                android:layout_marginLeft="@dimen/margin_x2"
+                android:layout_marginStart="@dimen/margin_x2"
                 android:text="Logout" />
 
         </LinearLayout>

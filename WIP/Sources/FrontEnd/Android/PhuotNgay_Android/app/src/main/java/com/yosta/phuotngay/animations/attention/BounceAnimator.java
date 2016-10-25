@@ -29,10 +29,25 @@ import com.nineoldandroids.animation.ObjectAnimator;
 import com.yosta.phuotngay.animations.BaseViewAnimator;
 
 public class BounceAnimator extends BaseViewAnimator {
+
+    private int h1 = 30, h2 = 15;
+
+    public BounceAnimator(){
+        this.h1 = 20;
+        this.h2 = 15;
+    }
+    public BounceAnimator(int h1, int h2) {
+        this.h1 = h1;
+        this.h2 = h2;
+    }
+
     @Override
     public void prepare(View target) {
         getAnimatorAgent().playTogether(
-                ObjectAnimator.ofFloat(target, "translationY", 0, 0, -30, 0, -15, 0, 0)
+                ObjectAnimator.ofFloat(target, "translationY",
+                        0, 0,
+                        -h1, 0,
+                        -h2, 0, 0)
         );
     }
 }

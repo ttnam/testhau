@@ -51,25 +51,25 @@
         -->
 
         <activity
-            android:name=".activities.MainActivity"
+            android:name=".MainActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
         <activity
-            android:name=".activities.ProfileActivity"
+            android:name=".ProfileActivity"
             android:label="@string/app_name"
             android:launchMode="singleTop"
-            android:parentActivityName=".activities.MainActivity"
+            android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.yosta.phuotngay.activities.MainActivity" />
+                android:value="com.yosta.phuotngay.MainActivity" />
         </activity>
         <activity
-            android:name=".activities.SplashActivity"
+            android:name=".SplashActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.FullscreenTheme">
@@ -80,27 +80,27 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.WebViewActivity"
+            android:name=".WebViewActivity"
             android:launchMode="singleTop"
-            android:parentActivityName=".activities.MainActivity"
+            android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.FullscreenTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.yosta.phuotngay.activities.MainActivity" />
+                android:value="com.yosta.phuotngay.MainActivity" />
         </activity>
         <activity
-            android:name=".activities.SightDetailActivity"
+            android:name=".PlaceDetailActivity"
             android:launchMode="singleTop"
-            android:parentActivityName=".activities.MainActivity"
+            android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.yosta.phuotngay.activities.MainActivity" />
+                android:value="com.yosta.phuotngay.MainActivity" />
         </activity>
         <activity
-            android:name=".activities.ImageryActivity"
+            android:name=".ImageryActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />

@@ -76,46 +76,46 @@
 
     <style name="AppTheme.TextView_Title.ColorPrimary" parent="AppTheme">
         <item name="android:textStyle">bold</item>
-        <item name="android:textSize">@dimen/text_size_title</item>
+        <item name="android:textSize">@dimen/text_size_v1</item>
         <item name="android:textColor">@color/colorPrimaryDark</item>
     </style>
 
     <style name="AppTheme.TextView_Sub_Title.ColorPrimary" parent="AppTheme.TextView_Title.ColorPrimary">
-        <item name="android:textSize">@dimen/text_size_sub_title</item>
+        <item name="android:textSize">@dimen/text_size</item>
         <item name="android:textStyle">normal</item>
         <item name="android:textColor">@color/colorPrimary</item>
     </style>
 
     <style name="AppTheme.TextView_Title.Bold" parent="AppTheme">
         <item name="android:textStyle">bold</item>
-        <item name="android:textSize">@dimen/text_size_title</item>
+        <item name="android:textSize">@dimen/text_size_v1</item>
         <item name="android:textColor">@color/colorTextColorPrimary</item>
     </style>
 
     <style name="AppTheme.TextView_Title.Normal" parent="AppTheme">
         <item name="android:textStyle">normal</item>
-        <item name="android:textSize">@dimen/text_size_title</item>
+        <item name="android:textSize">@dimen/text_size_v1</item>
         <item name="android:textColor">@color/colorTextColorPrimary</item>
     </style>
 
     <style name="AppTheme.TextView_Sub_Title" parent="AppTheme.TextView_Title.Bold">
-        <item name="android:textSize">@dimen/text_size_sub_title</item>
+        <item name="android:textSize">@dimen/text_size</item>
         <item name="android:textStyle">normal</item>
         <item name="android:textColor">@color/colorTextColorSecondary</item>
     </style>
 
     <style name="Style_Menu_Item.Press" parent="AppTheme.TextView_Title.Bold">
         <item name="android:layout_height">?actionBarSize</item>
-        <item name="android:paddingLeft">@dimen/activity_padding</item>
-        <item name="android:paddingRight">@dimen/activity_padding</item>
+        <item name="android:paddingLeft">@dimen/margin_x2</item>
+        <item name="android:paddingRight">@dimen/margin_x2</item>
         <item name="android:background">@drawable/ic_style_button_round_none_default</item>
         <item name="android:clickable">true</item>
     </style>
 
     <style name="Style_Menu_Item.NonPress" parent="AppTheme.TextView_Title.Bold">
         <item name="android:layout_height">?actionBarSize</item>
-        <item name="android:paddingLeft">@dimen/activity_padding</item>
-        <item name="android:paddingRight">@dimen/activity_padding</item>
+        <item name="android:paddingLeft">@dimen/margin_x2</item>
+        <item name="android:paddingRight">@dimen/margin_x2</item>
         <item name="android:background">@android:color/white</item>
     </style>
 

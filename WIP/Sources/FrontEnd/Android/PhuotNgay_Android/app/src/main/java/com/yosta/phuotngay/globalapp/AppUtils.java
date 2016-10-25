@@ -19,11 +19,10 @@ import android.support.design.widget.Snackbar;
 import android.text.Html;
 import android.util.Base64;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 
 import com.yosta.phuotngay.R;
-import com.yosta.phuotngay.adapters.MenuAdapter;
-import com.yosta.phuotngay.helpers.menu.MenuItem;
+import com.yosta.phuotngay.adapter.MenuAdapter;
+import com.yosta.phuotngay.helper.menu.MenuItem;
 
 import java.io.Serializable;
 import java.security.MessageDigest;

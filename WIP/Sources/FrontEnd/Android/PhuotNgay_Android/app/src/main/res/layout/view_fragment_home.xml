@@ -1,79 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@id/layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/colorWindowBackground"
-    android:fillViewport="true"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+    android:layout_height="match_parent">
 
-    <LinearLayout
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:background="@color/colorWindowBackground"
+        android:fillViewport="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <FrameLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/image_big_height"
-            android:layout_marginBottom="@dimen/activity_margin_min">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-            <android.support.v7.widget.AppCompatImageView
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                app:srcCompat="@drawable/ic_sample" />
+                android:layout_height="@dimen/image_height_v2"
+                android:layout_marginBottom="@dimen/margin">
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:alpha="0.3"
-                android:background="@android:color/black" />
+                <android.support.v7.widget.AppCompatImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@drawable/ic_sample" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="@dimen/activity_margin"
-                android:orientation="vertical"
-                android:padding="@dimen/activity_padding">
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:alpha="0.3"
+                    android:background="@android:color/black" />
 
-
-                <android.support.v7.widget.AppCompatTextView
-                    style="@style/AppTheme.TextView_Title.Bold"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:maxLines="3"
-                    android:minLines="1"
-                    android:text="Explore. Discover. Live. GO NOW!"
-                    android:textColor="@android:color/white"
-                    android:textSize="24sp" />
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/margin_x2"
+                    android:orientation="vertical"
+                    android:padding="@dimen/margin_x2">
 
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="?actionBarSize"
-                    android:layout_marginTop="@dimen/activity_margin_min"
-                    android:background="@drawable/ic_style_button_round_big_corners_cyan_none"
-                    android:text="Phượt Ngay"
-                    android:textColor="@android:color/white"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
 
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="?actionBarSize"
-                    android:layout_marginTop="@dimen/activity_margin_min"
-                    android:background="@drawable/ic_style_button_round_big_corners_white_none"
-                    android:text="Phượt Ngay"
-                    android:textColor="@color/Cyan"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+                    <android.support.v7.widget.AppCompatTextView
+                        style="@style/AppTheme.TextView_Title.Bold"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:maxLines="3"
+                        android:minLines="1"
+                        android:text="Explore. Discover. Live. GO NOW!"
+                        android:textColor="@android:color/white"
+                        android:textSize="24sp" />
 
-            </LinearLayout>
-        </FrameLayout>
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="?actionBarSize"
+                        android:layout_marginTop="@dimen/margin"
+                        android:background="@drawable/ic_style_button_round_big_corners_cyan_none"
+                        android:text="Phượt Ngay"
+                        android:textColor="@android:color/white"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
 
-        <include layout="@layout/view_recycler_view" />
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="?actionBarSize"
+                        android:layout_marginTop="@dimen/margin"
+                        android:background="@drawable/ic_style_button_round_big_corners_white_none"
+                        android:text="Phượt Ngay"
+                        android:textColor="@color/Cyan"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
 
-    </LinearLayout>
+                </LinearLayout>
+            </FrameLayout>
 
-</android.support.v4.widget.NestedScrollView>
+            <include layout="@layout/view_recycler_view" />
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+</android.support.v4.widget.SwipeRefreshLayout>

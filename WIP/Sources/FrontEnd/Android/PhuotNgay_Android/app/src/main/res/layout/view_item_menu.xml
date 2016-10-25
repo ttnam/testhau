@@ -8,13 +8,13 @@
 
     <ImageView
         android:id="@+id/menu_img"
-        android:layout_width="@dimen/icon_size"
-        android:layout_height="@dimen/icon_size"
+        android:layout_width="@dimen/icon_size_x3"
+        android:layout_height="@dimen/icon_size_x3"
         android:layout_gravity="center_vertical"
-        android:layout_marginBottom="@dimen/activity_margin_min"
-        android:layout_marginLeft="@dimen/activity_margin_big"
-        android:layout_marginStart="@dimen/activity_margin_big"
-        android:layout_marginTop="@dimen/activity_margin_min"
+        android:layout_marginBottom="@dimen/margin"
+        android:layout_marginLeft="@dimen/margin_x3"
+        android:layout_marginStart="@dimen/margin_x3"
+        android:layout_marginTop="@dimen/margin"
         android:contentDescription="@string/app_name"
         android:scaleType="centerInside" />
 
@@ -23,10 +23,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:layout_marginLeft="@dimen/activity_margin"
-        android:layout_marginStart="@dimen/activity_margin"
+        android:layout_marginLeft="@dimen/margin_x2"
+        android:layout_marginStart="@dimen/margin_x2"
         android:textColor="@color/colorTextColorPrimary"
-        android:textSize="@dimen/text_size_title"
+        android:textSize="@dimen/text_size_v1"
         android:textStyle="bold" />
 </LinearLayout>
 

@@ -12,6 +12,7 @@
         android:id="@id/container_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin"
         app:cardCornerRadius="@dimen/cardCornerRadius"
         app:cardElevation="@dimen/cardElevation">
 
@@ -22,15 +23,14 @@
 
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/image_medium_height">
+                android:layout_height="@dimen/image_height_v1">
 
                 <android.support.v7.widget.AppCompatImageView
                     android:id="@id/image"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:onClick="@{place.onClickOpen}"
-                    app:srcCompat="@{place.srcCompat}"
-                    android:scaleType="centerCrop" />
+                    android:scaleType="centerCrop"
+                    app:imageUrl="@{place.imageUrl}" />
 
                 <View
                     android:layout_width="match_parent"
@@ -38,37 +38,70 @@
                     android:alpha="0.3"
                     android:background="@android:color/black" />
 
+                <android.support.v7.widget.AppCompatTextView
+                    style="@style/AppTheme.TextView_Title.Bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|end"
+                    android:layout_margin="@dimen/margin"
+                    android:padding="@dimen/margin"
+                    android:text="August, 2016"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/text_size_v2"
+                    android:textStyle="bold"
+                    app:font="@{`OpenSans-Bold`}" />
+
             </FrameLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="@drawable/ic_style_button_round_none_default"
+                android:clickable="true"
                 android:orientation="vertical"
-                android:padding="@dimen/activity_padding">
+                android:padding="@dimen/margin">
 
                 <android.support.v7.widget.AppCompatTextView
-                    android:id="@id/textView_title"
                     style="@style/AppTheme.TextView_Title.Bold"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:paddingTop="@dimen/activity_padding_min"
-                    android:text="@{place.getName}"
-                    android:textAllCaps="true"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
+                    android:paddingLeft="@dimen/margin"
+                    android:paddingRight="@dimen/margin"
+                    android:paddingTop="@dimen/margin"
+                    android:text="Nam du | Viet Nam"
+                    android:textSize="@dimen/text_size_v2"
+                    android:textStyle="bold"
+                    app:font="@{`OpenSans-Bold`}" />
 
-                <android.support.v7.widget.AppCompatTextView
-                    android:id="@id/textView_description"
-                    style="@style/AppTheme.TextView_Title.Bold"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:paddingTop="@dimen/activity_padding_min"
-                    android:text="@{place.getDescription}"
-                    android:textAllCaps="true"
-                    android:textColor="@color/Green"
-                    android:textStyle="bold" />
+                    android:orientation="horizontal"
+                    android:padding="@dimen/margin">
+
+                    <android.support.v7.widget.AppCompatTextView
+                        style="@style/AppTheme.TextView_Sub_Title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="36 photos"
+                        app:font="@{`Lato-Heavy`}" />
+
+                    <android.support.v7.widget.AppCompatImageView
+                        android:layout_width="@dimen/icon_size_x2"
+                        android:layout_height="@dimen/icon_size_x2"
+                        android:layout_marginEnd="@dimen/margin"
+                        android:layout_marginLeft="@dimen/margin"
+                        android:layout_marginRight="@dimen/margin"
+                        android:layout_marginStart="@dimen/margin"
+                        app:srcCompat="@drawable/ic_vector_arrow_down" />
+
+                    <android.support.v7.widget.AppCompatTextView
+                        style="@style/AppTheme.TextView_Sub_Title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="6 videos"
+                        app:font="@{`Lato-Heavy`}" />
+                </LinearLayout>
 
             </LinearLayout>
         </LinearLayout>

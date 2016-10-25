@@ -8,10 +8,10 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
-import com.yosta.phuotngay.helpers.validate.EmailValidate;
-import com.yosta.phuotngay.helpers.validate.EmptyValidate;
-import com.yosta.phuotngay.helpers.validate.IValidate;
-import com.yosta.phuotngay.helpers.validate.LengthValidate;
+import com.yosta.phuotngay.helper.validate.EmailValidate;
+import com.yosta.phuotngay.helper.validate.EmptyValidate;
+import com.yosta.phuotngay.helper.validate.IValidate;
+import com.yosta.phuotngay.helper.validate.LengthValidate;
 
 import java.util.ArrayList;
 import java.util.Arrays;

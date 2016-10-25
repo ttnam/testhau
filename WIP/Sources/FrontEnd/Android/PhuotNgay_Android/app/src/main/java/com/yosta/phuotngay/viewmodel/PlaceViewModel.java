@@ -1,62 +1,52 @@
 package com.yosta.phuotngay.viewmodel;
 
-import android.content.Context;
-import android.content.Intent;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
-import android.databinding.BindingAdapter;
-import android.support.v7.widget.AppCompatImageView;
-import android.text.Html;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.view.View;
-import android.widget.ImageView;
-
-import com.squareup.picasso.Picasso;
-import com.yosta.phuotngay.R;
-import com.yosta.phuotngay.activities.SightDetailActivity;
-import com.yosta.phuotngay.model.place.Place;
+import com.yosta.phuotngay.BR;
 
 public class PlaceViewModel extends BaseObservable {
 
-    private Context mContext = null;
-    private Place mPlace = null;
+    private String name = null;
+    private String imageUrl = null;
 
-    public PlaceViewModel(Context context, Place place) {
-        this.mContext = context;
-        this.mPlace = place;
-    }
+    private String description = null;
 
-    public String getSrcCompat() {
-        return this.mPlace.getCover();
-    }
-
-    @BindingAdapter({"srcCompat"})
-    public static void loadImage(AppCompatImageView imageView, String srcCompat) {
-        Picasso.with(imageView.getContext())
-                .load(srcCompat)
-                //.placeholder(R.drawable.ic_sample)
-                .into(imageView);
+    public PlaceViewModel(String name, String imageUrl, String description) {
+        this.name = name;
+        this.imageUrl = imageUrl;
+        this.description = description;
     }
 
     @Bindable
-    public Spannable getName() {
-        // return mPlace.getName();
-        return new SpannableString(
-                Html.fromHtml("ĐẢO NAM DU | <i>VIỆT NAM</i>"));
+    public String getName() {
+        return name;
     }
 
     @Bindable
-    public Spannable getDescription() {
-        return new SpannableString(Html.fromHtml("From 500K"));
+    public void setName(String name) {
+        this.name = name;
+        notifyPropertyChanged(BR.name);
     }
 
-    public View.OnClickListener onClickOpen() {
-        return new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mContext.startActivity(new Intent(mContext, SightDetailActivity.class));
-            }
-        };
+    @Bindable
+    public String getImageUrl() {
+        return this.imageUrl;
+    }
+
+    @Bindable
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+        notifyPropertyChanged(BR.imageUrl);
+    }
+
+    @Bindable
+    public String getDescription() {
+        return description;
+    }
+
+    @Bindable
+    public void setDescription(String description) {
+        this.description = description;
+        notifyPropertyChanged(BR.description);
     }
 }

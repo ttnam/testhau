@@ -13,15 +13,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/ic_style_button_round_corners_default"
-            android:padding="@dimen/activity_padding">
+            android:padding="@dimen/margin_x2">
 
             <android.support.v7.widget.AppCompatImageView
                 android:id="@id/image"
-                android:layout_width="@dimen/icon_size_min"
-                android:layout_height="@dimen/icon_size_min"
+                android:layout_width="@dimen/icon_size"
+                android:layout_height="@dimen/icon_size"
                 android:layout_gravity="center_vertical"
-                android:layout_marginEnd="@dimen/activity_margin_min"
-                android:layout_marginRight="@dimen/activity_margin_min"
+                android:layout_marginEnd="@dimen/margin"
+                android:layout_marginRight="@dimen/margin"
                 android:background="@drawable/ic_style_button_round_corners_default"
                 android:clickable="true"
                 app:srcCompat="@drawable/ic_vector_back_blue" />
