@@ -1,0 +1,219 @@
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWindowBackground"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include
+            layout="@layout/view_item_header_info"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/app_bar_height" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/txt_followers"
+                style="@style/AppTheme.TextView_Title.ColorPrimary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:background="@drawable/ic_style_button_round_none_default"
+                android:clickable="true"
+                android:gravity="center"
+                android:padding="@dimen/margin_x2"
+                android:text="Followers"
+                android:textAllCaps="true" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/txt_photos"
+                style="@style/AppTheme.TextView_Title.ColorPrimary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:background="@drawable/ic_style_button_round_none_default"
+                android:clickable="true"
+                android:gravity="center"
+                android:padding="@dimen/margin_x2"
+                android:text="Photos"
+                android:textAllCaps="true" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin"
+            android:background="@android:color/white"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/txt_overview"
+                style="@style/AppTheme.TextView_Title.ColorPrimary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center|start"
+                android:padding="@dimen/margin_x2"
+                android:text="OVERVIEW"
+                android:textAllCaps="true" />
+
+            <LinearLayout
+                style="@style/Style_Menu_Item.NonPress"
+                android:layout_width="match_parent"
+                android:orientation="horizontal">
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:layout_width="@dimen/icon_size_x3"
+                    android:layout_height="@dimen/icon_size_x3"
+                    android:layout_gravity="center_vertical"
+                    app:srcCompat="@drawable/ic_vector_gender" />
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/txt_gender"
+                    style="@style/AppTheme.TextView_Title.Normal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/margin_x2"
+                    android:layout_marginStart="@dimen/margin_x2"
+                    android:gravity="center|start"
+                    android:text="asdasdasd"
+                    android:textAllCaps="true" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/Style_Menu_Item.NonPress"
+                android:layout_width="match_parent"
+                android:orientation="horizontal">
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:layout_width="@dimen/icon_size_x3"
+                    android:layout_height="@dimen/icon_size_x3"
+                    android:layout_gravity="center_vertical"
+                    app:srcCompat="@mipmap/ic_launcher" />
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/txt_membership"
+                    style="@style/AppTheme.TextView_Title.Normal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/margin_x2"
+                    android:layout_marginStart="@dimen/margin_x2"
+                    android:gravity="start|center"
+                    android:text="Member since Sep 2016" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin"
+            android:background="@android:color/white"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/txt_experience"
+                style="@style/AppTheme.TextView_Title.ColorPrimary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center|start"
+                android:padding="@dimen/margin_x2"
+                android:text="EXPERIENCE"
+                android:textAllCaps="true" />
+
+            <LinearLayout
+                style="@style/Style_Menu_Item.Press"
+                android:layout_width="match_parent"
+                android:orientation="horizontal">
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:layout_width="@dimen/icon_size_x3"
+                    android:layout_height="@dimen/icon_size_x3"
+                    android:layout_gravity="center_vertical"
+                    app:srcCompat="@drawable/ic_vector_photos" />
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/txt_photo_number"
+                    style="@style/AppTheme.TextView_Title.Bold"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/margin_x2"
+                    android:layout_marginStart="@dimen/margin_x2"
+                    android:text="Photos"
+                    android:textStyle="normal" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/Style_Menu_Item.Press"
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:paddingEnd="@dimen/margin_x2"
+                android:paddingLeft="@dimen/margin_x2"
+                android:paddingRight="@dimen/margin_x2"
+                android:paddingStart="@dimen/margin_x2">
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:layout_width="@dimen/icon_size_x3"
+                    android:layout_height="@dimen/icon_size_x3"
+                    android:layout_gravity="center_vertical"
+                    app:srcCompat="@drawable/ic_vector_friends" />
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/txt_friends_number"
+                    style="@style/AppTheme.TextView_Title.Bold"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/margin_x2"
+                    android:layout_marginStart="@dimen/margin_x2"
+                    android:text="Friends"
+                    android:textStyle="normal" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_logout"
+            style="@style/Style_Menu_Item.Press"
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/margin"
+            android:orientation="horizontal">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:layout_width="@dimen/icon_size_x3"
+                android:layout_height="@dimen/icon_size_x3"
+                android:layout_gravity="center_vertical"
+                app:srcCompat="@drawable/ic_vector_logout" />
+
+            <android.support.v7.widget.AppCompatTextView
+                style="@style/AppTheme.TextView_Title.Bold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/margin_x2"
+                android:layout_marginStart="@dimen/margin_x2"
+                android:text="Logout" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+</android.support.v4.widget.NestedScrollView>

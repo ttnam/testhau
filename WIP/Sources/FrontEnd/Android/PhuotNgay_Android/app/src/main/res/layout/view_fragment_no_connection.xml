@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@id/layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@id/image"
+            android:layout_width="@dimen/icon_size_x4"
+            android:layout_height="@dimen/icon_size_x4"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="@dimen/margin"
+            android:contentDescription="@string/app_name"
+            app:srcCompat="@drawable/ic_launcher_blue" />
+
+        <TextView
+            style="@style/AppTheme.TextView_Title.Bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:text="@string/message_nothing_to_show"
+            android:textAllCaps="true" />
+
+        <TextView
+            android:id="@id/textView"
+            style="@style/AppTheme.TextView_Sub_Title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:text="@string/message_please_connect_internet" />
+    </LinearLayout>
+
+</RelativeLayout>
