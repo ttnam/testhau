@@ -51,16 +51,13 @@ module.exports = function() {
 				if (err)
 					throw err;
 
-				var comments = reply.comments;
-				var comment = {
-					userId : user.userId,
-					avatar : user.avatar,	
-					content : content,
-					createdTime : new Date().getTime()
-				};
-				comments.push(comment);
-
-				database.collection(that.collection).update({ viewId : viewId }, { $set:{ comments : comments } }, function(err, reply) {
+				database.collection(that.collection).update({ viewId : viewId }, 
+					{ $push:{ comments : {
+						userId : user.userId,
+						avatar : user.avatar,	
+						content : content,
+						createdTime : new Date().getTime()
+					} } }, function(err, reply) {
 					try {
 						if (err)
 							throw err;
