@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.neenbedankt.android-apt'
+apply plugin: 'realm-android'
 apply from: "$rootProject.projectDir/buildsystem/library.gradle"
 
 buildscript {
@@ -9,6 +10,8 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:2.2.0'
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
+        classpath "io.realm:realm-gradle-plugin:2.1.1"
+        classpath 'com.google.gms:google-services:3.0.0'
     }
 }
 repositories {
@@ -24,7 +27,19 @@ allprojects {
 }
 android {
 
-    final MIN_SDK = 16
+    compileSdkVersion Integer.parseInt(project.ANDROID_BUILD_SDK_VERSION)
+    buildToolsVersion project.ANDROID_BUILD_TOOLS_VERSION
+    defaultConfig {
+        applicationId 'com.yosta.phuotngay'
+
+        // Defines the minimum API level required to run the app.
+        minSdkVersion Integer.parseInt(project.ANDROID_BUILD_MIN_SDK_VERSION)
+        // Specifies the API level used to test the app.
+        targetSdkVersion Integer.parseInt(project.ANDROID_BUILD_TARGET_SDK_VERSION)
+        versionCode 1 // Defines the version number of your app.
+        versionName "1.0" // Defines a user-friendly version name for your app.
+        vectorDrawables.useSupportLibrary = true
+    }
 
     signingConfigs {
         config {
@@ -38,22 +53,12 @@ android {
             keyPassword KEY_PASSWORD
         }
     }
-    compileSdkVersion 25
-    buildToolsVersion "24.0.3"
-    defaultConfig {
-        applicationId 'com.yosta.phuotngay'
-        minSdkVersion MIN_SDK // Defines the minimum API level required to run the app.
-        targetSdkVersion 25 // Specifies the API level used to test the app.
-        versionCode 1 // Defines the version number of your app.
-        versionName "1.0" // Defines a user-friendly version name for your app.
-        vectorDrawables.useSupportLibrary = true
-    }
     aaptOptions {
         additionalParameters "--no-version-vectors"
     }
     buildTypes {
         release {
-            minifyEnabled true // Enables code shrinking for the release build type.
+            minifyEnabled false // Enables code shrinking for the release build type.
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             debuggable false
             signingConfig signingConfigs.config
@@ -63,16 +68,10 @@ android {
     packagingOptions {
         exclude 'META-INF/DEPENDENCIES'
         exclude 'META-INF/NOTICE'
-        exclude 'META-INF/LICENCE'
-        exclude 'META-INF/LICENSE'
-        exclude 'META-INF/DEPENDENCIES'
         exclude 'META-INF/LICENSE'
         exclude 'META-INF/LICENSE.txt'
-        exclude 'META-INF/license.txt'
-        exclude 'META-INF/NOTICE'
         exclude 'META-INF/NOTICE.txt'
-        exclude 'META-INF/notice.txt'
-        exclude 'META-INF/ASL2.0'
+        exclude 'META-INF/LICENSE-FIREBASE.txt'
     }
     productFlavors {
         free {
@@ -82,10 +81,10 @@ android {
             applicationId 'com.yosta.phuotngay.paid'
         }
         dev {
-            minSdkVersion MIN_SDK
+            minSdkVersion Integer.parseInt(project.ANDROID_BUILD_MIN_SDK_VERSION)
         }
         prod {
-            minSdkVersion MIN_SDK
+            minSdkVersion Integer.parseInt(project.ANDROID_BUILD_MIN_SDK_VERSION)
         }
     }
     compileOptions {
@@ -129,8 +128,13 @@ dependencies {
     // Retrofit
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
     compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
-    compile 'com.squareup.retrofit2:retrofit:2.1.0'
-    compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
+
+    // Gson
+    compile 'com.google.code.gson:gson:2.4'
+    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
+
+    // OkHTTP
+    compile 'com.squareup.okhttp3:okhttp:3.4.1'
 
     // Google Dagger 2
     apt "com.google.dagger:dagger-compiler:$DAGGER_VERSION"
@@ -162,18 +166,18 @@ dependencies {
     // Glide
     compile 'com.github.bumptech.glide:glide:3.7.0'
 
-    // Gson
-    compile 'com.google.code.gson:gson:2.4'
-    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
-
-    // RxJava
-    compile 'io.reactivex:rxjava:1.1.6'
+    //RxAndroid
     compile 'io.reactivex:rxandroid:1.2.1'
-
-    // OkHTTP
-    compile 'com.squareup.okhttp3:okhttp:3.4.1'
+    compile 'io.reactivex:rxjava:1.1.6'
 
     // FB Fresco
     compile 'com.facebook.fresco:fresco:0.14.1'
 
+    // Firebase
+    compile 'com.google.firebase:firebase-core:9.8.0'
+    compile 'com.google.firebase:firebase-database:9.8.0'
+    compile 'com.google.firebase:firebase-auth:9.8.0'
+
 }
+apply plugin: 'com.google.gms.google-services'
+
