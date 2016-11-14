@@ -1,10 +1,6 @@
 package com.yosta.phuotngay.helpers.listeners;
 
 import android.content.Context;
-import android.content.ContextWrapper;
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
-import android.support.annotation.NonNull;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -12,16 +8,18 @@ import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import com.yosta.materialdialog.ChoiceDialog;
+import com.yosta.phuotngay.R;
+import com.yosta.phuotngay.adapters.MenuAdapter;
+import com.yosta.phuotngay.helpers.app.AppUtils;
+import com.yosta.phuotngay.helpers.menu.MenuItem;
 
 /**
  * Created by Phuc-Hau Nguyen on 9/6/2016.
  */
 public class ListenerHelpers {
 
- /*   public static CompoundButton.OnCheckedChangeListener SwitchSync = new CompoundButton.OnCheckedChangeListener() {
+    public static CompoundButton.OnCheckedChangeListener SwitchSync = new CompoundButton.OnCheckedChangeListener() {
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
             if (isChecked) {
@@ -43,7 +41,7 @@ public class ListenerHelpers {
                         .show();
             }
         }
-    };*/
+    };
     public static View.OnClickListener onRating = new View.OnClickListener() {
         @Override
         public void onClick(View v) {

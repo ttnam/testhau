@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.yosta.phuotngay.activities.LoginActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@id/image_view"
+            android:layout_width="@dimen/icon_size_x16"
+            android:layout_height="@dimen/icon_size_x16"
+            android:layout_gravity="center"
+            app:srcCompat="@mipmap/ic_launcher" />
+
+        <LinearLayout
+            android:id="@+id/btn_google"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:layout_margin="@dimen/margin_x3"
+            android:background="@drawable/ic_style_button_round_corners_default"
+            android:clickable="true"
+            android:orientation="horizontal"
+            android:padding="@dimen/margin">
+
+            <TextView
+                style="@style/AppTheme.TextView_Title.Bold"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="Google" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/btn_facebook"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:layout_marginLeft="@dimen/margin_x3"
+            android:layout_marginRight="@dimen/margin_x3"
+            android:background="@drawable/ic_style_button_round_corners_default"
+            android:clickable="true"
+            android:orientation="horizontal"
+            android:padding="@dimen/margin">
+
+            <TextView
+                style="@style/AppTheme.TextView_Title.Bold"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="Facebook" />
+
+            <com.facebook.login.widget.LoginButton
+                android:id="@+id/button_facebook_login"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:visibility="gone" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/btn_google_logout"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:layout_marginLeft="@dimen/margin_x3"
+            android:layout_marginRight="@dimen/margin_x3"
+            android:background="@drawable/ic_style_button_round_corners_default"
+            android:clickable="true"
+            android:orientation="horizontal"
+            android:padding="@dimen/margin">
+
+            <TextView
+                style="@style/AppTheme.TextView_Title.Bold"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="Google Logout" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/btn_facebook_logout"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:layout_marginLeft="@dimen/margin_x3"
+            android:layout_marginRight="@dimen/margin_x3"
+            android:background="@drawable/ic_style_button_round_corners_default"
+            android:clickable="true"
+            android:orientation="horizontal"
+            android:padding="@dimen/margin">
+
+            <TextView
+                style="@style/AppTheme.TextView_Title.Bold"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="Facebook Logout" />
+
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>
