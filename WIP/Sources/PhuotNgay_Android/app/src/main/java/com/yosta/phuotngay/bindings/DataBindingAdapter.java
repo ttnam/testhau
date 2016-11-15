@@ -1,4 +1,4 @@
-package com.yosta.phuotngay.viewmodel;
+package com.yosta.phuotngay.bindings;
 
 import android.databinding.BindingAdapter;
 import android.support.v7.widget.AppCompatImageView;

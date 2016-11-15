@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.yosta.phuotngay.R;
 import com.yosta.phuotngay.helpers.app.SharedPresUtils;
-import com.yosta.phuotngay.helpers.menu.MenuItem;
+import com.yosta.phuotngay.models.menu.MenuItem;
 
 import java.util.ArrayList;
 

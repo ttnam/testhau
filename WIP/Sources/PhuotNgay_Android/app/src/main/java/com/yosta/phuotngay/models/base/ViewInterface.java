@@ -1,4 +1,4 @@
-package com.yosta.phuotngay.models;
+package com.yosta.phuotngay.models.base;
 
 /**
  * Created by Phuc-Hau Nguyen on 9/8/2016.

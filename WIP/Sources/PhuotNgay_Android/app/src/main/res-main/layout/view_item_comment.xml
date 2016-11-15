@@ -7,7 +7,7 @@
 
         <variable
             name="comment"
-            type="com.yosta.phuotngay.viewmodel.CommentViewModel" />
+            type="com.yosta.phuotngay.bindings.CommentBinding" />
     </data>
 
     <LinearLayout

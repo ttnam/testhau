@@ -1,4 +1,4 @@
-package com.yosta.phuotngay.models;
+package com.yosta.phuotngay.models.base;
 
 import java.io.Serializable;
 

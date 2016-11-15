@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 
 import com.yosta.phuotngay.R;
 import com.yosta.phuotngay.models.note.Note;
-import com.yosta.phuotngay.viewmodel.NoteViewHolder;
+import com.yosta.phuotngay.models.viewholder.NoteViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;

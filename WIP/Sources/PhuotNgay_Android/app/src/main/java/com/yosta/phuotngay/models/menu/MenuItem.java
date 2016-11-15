@@ -1,4 +1,4 @@
-package com.yosta.phuotngay.models.app.menu;
+package com.yosta.phuotngay.models.menu;
 
 public class MenuItem {
 

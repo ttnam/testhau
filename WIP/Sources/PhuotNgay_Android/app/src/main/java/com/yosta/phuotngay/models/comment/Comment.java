@@ -1,7 +1,7 @@
 package com.yosta.phuotngay.models.comment;
 
 import com.google.gson.annotations.SerializedName;
-import com.yosta.phuotngay.models.ViewBehavior;
+import com.yosta.phuotngay.models.base.ViewBehavior;
 
 import java.util.Calendar;
 

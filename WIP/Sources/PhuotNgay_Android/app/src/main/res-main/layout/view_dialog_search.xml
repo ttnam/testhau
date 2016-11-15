@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_style_button_round_corners_default"
+            android:padding="@dimen/margin_x2">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@id/image"
+                android:layout_width="@dimen/icon_size"
+                android:layout_height="@dimen/icon_size"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="@dimen/margin"
+                android:layout_marginRight="@dimen/margin"
+                android:background="@drawable/ic_style_button_round_corners_default"
+                android:clickable="true"
+                app:srcCompat="@drawable/ic_vector_back_blue" />
+
+            <EditText
+                android:id="@id/editText"
+                style="@style/AppTheme.TextView_Title.Bold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="start|center"
+                android:imeOptions="actionSearch"
+                android:inputType="text|textCapSentences|textAutoCorrect"
+                android:searchSuggestAuthority="com.yosta.SuggestionProvider"
+                android:searchSuggestSelection=" ?"
+                android:text="@string/app_name" />
+
+        </LinearLayout>
+
+        <include layout="@layout/view_item_vertical_separate" />
+
+        <include layout="@layout/view_recycler_view" />
+
+
+    </LinearLayout>
+
+</RelativeLayout>

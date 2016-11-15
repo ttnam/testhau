@@ -5,7 +5,7 @@
 
         <variable
             name="trip"
-            type="com.yosta.phuotngay.viewmodel.TripViewModel" />
+            type="com.yosta.phuotngay.bindings.TripViewModel" />
     </data>
 
     <android.support.v7.widget.CardView xmlns:app="http://schemas.android.com/apk/res-auto"

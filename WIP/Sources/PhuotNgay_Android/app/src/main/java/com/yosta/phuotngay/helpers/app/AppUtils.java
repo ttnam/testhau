@@ -22,7 +22,7 @@ import android.view.View;
 
 import com.yosta.phuotngay.R;
 import com.yosta.phuotngay.adapters.MenuAdapter;
-import com.yosta.phuotngay.helpers.menu.MenuItem;
+import com.yosta.phuotngay.models.menu.MenuItem;
 
 import java.io.Serializable;
 import java.security.MessageDigest;

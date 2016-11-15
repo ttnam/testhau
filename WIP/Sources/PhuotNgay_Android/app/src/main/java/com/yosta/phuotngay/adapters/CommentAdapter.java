@@ -8,9 +8,9 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.yosta.phuotngay.R;
+import com.yosta.phuotngay.bindings.CommentBinding;
 import com.yosta.phuotngay.databinding.ViewItemCommentBinding;
 import com.yosta.phuotngay.models.comment.Comment;
-import com.yosta.phuotngay.viewmodel.CommentViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +42,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.BindingH
     @Override
     public void onBindViewHolder(BindingHolder holder, int position) {
         ViewItemCommentBinding commentBinding = (ViewItemCommentBinding) holder.binding;
-        commentBinding.setComment(new CommentViewModel(mContext, mComments.get(position)));
+        commentBinding.setComment(new CommentBinding(mContext, mComments.get(position)));
     }
 
     @Override

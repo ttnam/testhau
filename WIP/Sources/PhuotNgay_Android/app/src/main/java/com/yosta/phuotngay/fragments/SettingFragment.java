@@ -23,7 +23,7 @@ import com.yosta.phuotngay.adapters.MenuAdapter;
 import com.yosta.phuotngay.helpers.app.AppUtils;
 import com.yosta.phuotngay.helpers.app.SharedPresUtils;
 import com.yosta.phuotngay.helpers.listeners.ListenerHelpers;
-import com.yosta.phuotngay.helpers.menu.MenuItem;
+import com.yosta.phuotngay.models.menu.MenuItem;
 import com.yosta.phuotngay.models.app.AppSetting;
 
 import butterknife.BindView;

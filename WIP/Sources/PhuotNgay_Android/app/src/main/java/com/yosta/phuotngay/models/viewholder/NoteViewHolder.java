@@ -1,4 +1,4 @@
-package com.yosta.phuotngay.viewmodel;
+package com.yosta.phuotngay.models.viewholder;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;

@@ -12,7 +12,7 @@ import com.yosta.materialdialog.ChoiceDialog;
 import com.yosta.phuotngay.R;
 import com.yosta.phuotngay.adapters.MenuAdapter;
 import com.yosta.phuotngay.helpers.app.AppUtils;
-import com.yosta.phuotngay.helpers.menu.MenuItem;
+import com.yosta.phuotngay.models.menu.MenuItem;
 
 /**
  * Created by Phuc-Hau Nguyen on 9/6/2016.

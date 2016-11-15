@@ -19,7 +19,7 @@ import com.yosta.phuotngay.helpers.decoration.SpacesItemDecoration;
 import com.yosta.phuotngay.helpers.listeners.ItemClickSupport;
 import com.yosta.phuotngay.interfaces.ActivityBehavior;
 import com.yosta.phuotngay.models.note.Note;
-import com.yosta.phuotngay.viewmodel.ImageryView;
+import com.yosta.phuotngay.models.viewholder.ImageryView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
