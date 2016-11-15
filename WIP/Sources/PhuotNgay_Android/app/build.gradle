@@ -1,14 +1,13 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.neenbedankt.android-apt'
 apply plugin: 'realm-android'
-apply from: "$rootProject.projectDir/buildsystem/library.gradle"
 
 buildscript {
     repositories {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.0'
+        classpath 'com.android.tools.build:gradle:2.2.2'
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
         classpath "io.realm:realm-gradle-plugin:2.1.1"
         classpath 'com.google.gms:google-services:3.0.0'
@@ -112,12 +111,11 @@ android {
                     'src/main/res-screen/login',
                     'src/main/res-screen/home',
                     'src/main/res-screen/trip',
+                    'src/main/res-screen/profile',
             ]
         }
     }
 }
-
-def library = ext.library;
 
 dependencies {
     final DAGGER_VERSION = '2.7'
@@ -141,12 +139,12 @@ dependencies {
     provided 'org.glassfish:javax.annotation:10.0-b28'
 
     // Google Support
-    compile "${library.support_v4}"
-    compile "${library.support_design}"
-    compile "${library.support_compat_v7}"
-    compile "${library.support_card_view}"
-    compile "${library.support_recycler_view}"
-    compile "${library.support_annotations}"
+    compile "com.android.support:support-v4:24.2.1"
+    compile "com.android.support:design:24.2.1"
+    compile "com.android.support:appcompat-v7:24.2.1"
+    compile "com.android.support:cardview-v7:24.2.1"
+    compile "com.android.support:recyclerview-v7:24.2.1"
+    compile "com.android.support:support-annotations:24.2.1"
     compile 'jp.wasabeef:recyclerview-animators:2.2.3'
 
     // Facebook

@@ -17,6 +17,7 @@ import com.yosta.materialdialog.ChoiceDialog;
 import com.yosta.materialdialog.StandardDialog;
 import com.yosta.phuotngay.R;
 import com.yosta.phuotngay.activities.MainActivity;
+import com.yosta.phuotngay.activities.ProfileActivity;
 import com.yosta.phuotngay.activities.WebViewActivity;
 import com.yosta.phuotngay.adapters.MenuAdapter;
 import com.yosta.phuotngay.helpers.app.AppUtils;
@@ -103,9 +104,9 @@ public class SettingFragment extends Fragment {
 
     @OnClick(R.id.layout_profile)
     public void onCallProfile() {
-        /*getActivity().startActivity(new Intent(getActivity(), ProfileActivity.class));
+        getActivity().startActivity(new Intent(getActivity(), ProfileActivity.class));
         getActivity().overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
-        getActivity().finish();*/
+        getActivity().finish();
     }
 
     @OnClick(R.id.layout_rating)
