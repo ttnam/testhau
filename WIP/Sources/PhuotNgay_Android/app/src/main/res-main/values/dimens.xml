@@ -38,8 +38,5 @@
     <dimen name="icon_size_x8">64dp</dimen>
     <dimen name="icon_size_x9">72dp</dimen>
     <dimen name="icon_size_x16">128dp</dimen>
-    <!-- Default screen margins, per the Android Design guidelines. -->
-    <dimen name="activity_horizontal_margin">16dp</dimen>
-    <dimen name="activity_vertical_margin">16dp</dimen>
 
 </resources>

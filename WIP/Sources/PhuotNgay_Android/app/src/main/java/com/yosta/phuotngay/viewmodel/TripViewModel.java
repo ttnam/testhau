@@ -4,14 +4,14 @@ import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import com.yosta.phuotngay.BR;
 
-public class PlaceViewModel extends BaseObservable {
+public class TripViewModel extends BaseObservable {
 
     private String name = null;
     private String imageUrl = null;
 
     private String description = null;
 
-    public PlaceViewModel(String name, String imageUrl, String description) {
+    public TripViewModel(String name, String imageUrl, String description) {
         this.name = name;
         this.imageUrl = imageUrl;
         this.description = description;

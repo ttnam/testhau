@@ -1,4 +1,4 @@
-package com.yosta.phuotngay.models.place;
+package com.yosta.phuotngay.models.trip;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -8,7 +8,7 @@ import java.io.Serializable;
  * Created by Phuc-Hau Nguyen on 10/13/2016.
  */
 
-public class Place implements Serializable {
+public class Trip implements Serializable {
 
     @SerializedName(value = "place_id")
     private String mPlaceId = null;
@@ -43,7 +43,7 @@ public class Place implements Serializable {
     @SerializedName(value = "is_active")
     private boolean mIsActive = false;
 
-    public Place() {
+    public Trip() {
         this.mIsActive = false;
 
     }
