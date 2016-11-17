@@ -1,44 +1,40 @@
 package com.yosta.phuotngay.activities.dialogs;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
-import android.os.Bundle;
-import android.support.v7.widget.AppCompatEditText;
-import android.support.v7.widget.AppCompatImageView;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.View;
-import android.view.Window;
-import android.view.animation.AccelerateDecelerateInterpolator;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.RelativeLayout;
 
-import com.yosta.phuotngay.R;
-import com.yosta.phuotngay.adapters.CommentAdapter;
-import com.yosta.phuotngay.animations.YoYo;
-import com.yosta.phuotngay.animations.fading_entrances.FadeInAnimator;
-import com.yosta.phuotngay.configs.message.NetworkMessage;
-import com.yosta.phuotngay.helpers.app.AppUtils;
-import com.yosta.phuotngay.helpers.app.UIUtils;
 import com.yosta.phuotngay.interfaces.DialogBehavior;
-import com.yosta.phuotngay.models.comment.Comment;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 /**
  * Created by Phuc-Hau Nguyen on 8/31/2016.
  */
 public class DialogComment extends Dialog implements DialogBehavior {
 
-    @BindView(R.id.recycler_view)
+    public DialogComment(Context context) {
+        super(context);
+    }
+
+    @Override
+    public void onAttachedWindow(Context context) {
+
+    }
+
+    @Override
+    public void onApplyComponents() {
+
+    }
+
+    @Override
+    public void onApplyData() {
+
+    }
+
+    @Override
+    public void onApplyEvents() {
+
+    }
+
+   /* @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
 
     @BindView(R.id.layout)
@@ -175,5 +171,5 @@ public class DialogComment extends Dialog implements DialogBehavior {
         inputManager.hideSoftInputFromWindow(
                 this.getCurrentFocus().getWindowToken(),
                 InputMethodManager.HIDE_NOT_ALWAYS);
-    }
+    }*/
 }

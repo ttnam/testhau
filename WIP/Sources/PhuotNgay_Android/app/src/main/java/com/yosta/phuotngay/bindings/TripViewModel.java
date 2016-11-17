@@ -1,4 +1,4 @@
-package com.yosta.phuotngay.models.viewholder;
+package com.yosta.phuotngay.bindings;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;

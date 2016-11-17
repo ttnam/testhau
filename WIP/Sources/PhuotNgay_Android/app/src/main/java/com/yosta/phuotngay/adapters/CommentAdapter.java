@@ -1,26 +1,11 @@
 package com.yosta.phuotngay.adapters;
 
-import android.content.Context;
-import android.databinding.DataBindingUtil;
-import android.databinding.ViewDataBinding;
-import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.ViewGroup;
-
-import com.yosta.phuotngay.R;
-import com.yosta.phuotngay.bindings.CommentBinding;
-import com.yosta.phuotngay.databinding.ViewItemCommentBinding;
-import com.yosta.phuotngay.models.comment.Comment;
-
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Created by Phuc-Hau Nguyen on 10/14/2016.
  */
 
-public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.BindingHolder> {
-
+public class CommentAdapter /* extends RecyclerView.Adapter<CommentAdapter.BindingHolder>*/ {
+/*
     private Context mContext;
     private List<Comment> mComments;
 
@@ -74,5 +59,5 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.BindingH
             super(binding.getRoot());
             this.binding = binding;
         }
-    }
+    }*/
 }

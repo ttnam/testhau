@@ -27,7 +27,7 @@
                 app:srcCompat="@drawable/ic_vector_back_blue" />
 
             <EditText
-                android:id="@id/editText"
+                android:id="@id/edit_text"
                 style="@style/AppTheme.TextView_Title.Bold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

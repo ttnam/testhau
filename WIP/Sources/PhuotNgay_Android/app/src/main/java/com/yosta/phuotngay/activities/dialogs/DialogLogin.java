@@ -18,13 +18,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.yosta.phuotngay.R;
-import com.yosta.phuotngay.MainActivity;
-import com.yosta.phuotngay.interfaces.DialogBehavior;
-import com.yosta.phuotngay.config.AppConfig;
-import com.yosta.phuotngay.globalapp.AppUtils;
-import com.yosta.phuotngay.globalapp.UIUtils;
-import com.yosta.phuotngay.services.PhuotNgayApiService;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit2.Call;
@@ -34,7 +27,8 @@ import retrofit2.Response;
 /**
  * Created by Phuc-Hau Nguyen on 8/31/2016.
  */
-public class DialogLogin extends Dialog implements DialogBehavior {
+public class DialogLogin /*extends Dialog implements DialogBehavior */{
+/*
 
     @BindView(R.id.textView)
     TextInputEditText txtEmail;
@@ -86,9 +80,11 @@ public class DialogLogin extends Dialog implements DialogBehavior {
         // FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.view_dialog_login);
         ButterKnife.bind(this);
-        /*callbackManager = CallbackManager.Factory.create();
-        loginButton.setReadPermissions("public_profile,email");
         */
+/*callbackManager = CallbackManager.Factory.create();
+        loginButton.setReadPermissions("public_profile,email");
+        *//*
+
         onApplyComponents();
 
         onApplyData();
@@ -219,6 +215,7 @@ public class DialogLogin extends Dialog implements DialogBehavior {
         }
         return UIUtils.IsEmailAccepted(txtEmail, true) && UIUtils.IsPasswordAccepted(txtPwd, true);
     }
+*/
 
 /*@OnClick(R.id.button_no)
     public void onFacebookLogin() {

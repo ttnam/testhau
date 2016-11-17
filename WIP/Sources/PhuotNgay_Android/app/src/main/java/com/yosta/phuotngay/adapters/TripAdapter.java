@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import com.yosta.phuotngay.R;
 import com.yosta.phuotngay.databinding.ViewItemPlaceBinding;
 import com.yosta.phuotngay.models.trip.Trip;
-import com.yosta.phuotngay.models.viewholder.TripViewModel;
+import com.yosta.phuotngay.bindings.TripViewModel;
 
 import java.util.ArrayList;
 import java.util.List;

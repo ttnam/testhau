@@ -1,21 +1,8 @@
-package com.yosta.phuotngay.adapter;
+package com.yosta.phuotngay.adapters;
 
-import android.content.Context;
-import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+public class SearchItemAdapter /*extends RecyclerView.Adapter<SearchItemHolder>*/ {
 
-import com.yosta.phuotngay.R;
-import com.yosta.phuotngay.view.SearchItemView;
-import com.yosta.phuotngay.helper.viewholders.SearchItemHolder;
-
-import java.util.ArrayList;
-import java.util.List;
-
-public class SearchItemAdapter extends RecyclerView.Adapter<SearchItemHolder> {
-
-    private Context mContext;
+  /*  private Context mContext;
     private List<SearchItemView> mViewsList;
 
     public SearchItemAdapter(Context context) {
@@ -53,6 +40,6 @@ public class SearchItemAdapter extends RecyclerView.Adapter<SearchItemHolder> {
     @Override
     public int getItemCount() {
         return mViewsList.size();
-    }
+    }*/
 }
 

@@ -14,12 +14,9 @@ import android.widget.EditText;
 
 import com.yosta.phuotngay.R;
 import com.yosta.phuotngay.interfaces.DialogBehavior;
-import com.yosta.phuotngay.adapter.SearchItemAdapter;
 import com.yosta.phuotngay.animations.YoYo;
 import com.yosta.phuotngay.animations.sliders.SlideInLeftAnimator;
 import com.yosta.phuotngay.animations.sliders.SlideInRightAnimator;
-import com.yosta.phuotngay.helper.listeners.ListenerHelpers;
-import com.yosta.phuotngay.view.SearchItemView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -28,8 +25,8 @@ import butterknife.OnClick;
 /**
  * Created by Phuc-Hau Nguyen on 8/31/2016.
  */
-public class DialogSearch extends Dialog implements DialogBehavior {
-
+public class DialogSearch /*extends Dialog implements DialogBehavior */{
+/*
     @BindView(R.id.image)
     AppCompatImageView imgBack;
 
@@ -119,5 +116,5 @@ public class DialogSearch extends Dialog implements DialogBehavior {
         for (int i = 0; i < 10; i++) {
             searchItemAdapter.addView(new SearchItemView());
         }
-    }
+    }*/
 }
