@@ -73,20 +73,24 @@
             android:theme="@style/AppTheme.Fullscreen" />
         <activity
             android:name=".activities.LoginActivity"
-            android:theme="@style/AppTheme.Fullscreen" />
+            android:theme="@style/AppTheme.Fullscreen">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".activities.WebViewActivity"
             android:theme="@style/AppTheme.Fullscreen" />
         <activity
             android:name=".activities.TripDetailActivity"
             android:theme="@style/AppTheme.Fullscreen" />
-        <activity android:name=".activities.ProfileActivity"
-            android:theme="@style/AppTheme.Fullscreen" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <activity
+            android:name=".activities.ProfileActivity"
+            android:theme="@style/AppTheme.Fullscreen">
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 
