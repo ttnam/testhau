@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:contentDescription="@string/app_author" />
+        android:contentDescription="@string/all_app_author" />
 
     <TextView
         android:id="@+id/ld_top_title"
