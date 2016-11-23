@@ -15,7 +15,7 @@
         android:layout_marginLeft="@dimen/margin_x3"
         android:layout_marginStart="@dimen/margin_x3"
         android:layout_marginTop="@dimen/margin"
-        android:contentDescription="@string/app_name"
+        android:contentDescription="@string/all_app_name"
         android:scaleType="centerInside" />
 
     <TextView

@@ -56,7 +56,7 @@ public class SettingFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.view_fragment_setting, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_setting, container, false);
         ButterKnife.bind(this, rootView);
         return rootView;
     }
@@ -98,7 +98,7 @@ public class SettingFragment extends Fragment {
         }
 
         // Language
-        int lang = (presUtils.getSettingInt(SharedPresUtils.KEY_LANGUAGE) == 0) ? R.string.str_vi : R.string.str_en;
+        int lang = (presUtils.getSettingInt(SharedPresUtils.KEY_LANGUAGE) == 0) ? R.string.setting_language_vietnamese : R.string.setting_language_english;
         txtLang.setText(getResources().getString(lang));
     }
 

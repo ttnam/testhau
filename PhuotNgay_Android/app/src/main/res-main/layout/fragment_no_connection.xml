@@ -18,7 +18,7 @@
             android:layout_height="@dimen/icon_size_x4"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="@dimen/margin"
-            android:contentDescription="@string/app_name"
+            android:contentDescription="@string/all_app_name"
             app:srcCompat="@drawable/ic_launcher_blue" />
 
         <TextView
@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:gravity="center"
-            android:text="@string/message_nothing_to_show"
+            android:text="@string/error_message_nothing_to_show"
             android:textAllCaps="true" />
 
         <TextView

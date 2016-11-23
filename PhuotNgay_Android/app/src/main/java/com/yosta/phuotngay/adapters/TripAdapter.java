@@ -8,9 +8,9 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.yosta.phuotngay.R;
-import com.yosta.phuotngay.databinding.ViewItemPlaceBinding;
-import com.yosta.phuotngay.models.trip.Trip;
 import com.yosta.phuotngay.bindings.TripViewModel;
+import com.yosta.phuotngay.databinding.ItemPlaceBinding;
+import com.yosta.phuotngay.models.trip.Trip;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,9 +32,9 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.BindingHolder>
     @Override
     public BindingHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        ViewItemPlaceBinding placeBinding = DataBindingUtil.inflate(
+        ItemPlaceBinding placeBinding = DataBindingUtil.inflate(
                 LayoutInflater.from(parent.getContext()),
-                R.layout.view_item_place,
+                R.layout.item_place,
                 parent, false);
 
         return new BindingHolder(placeBinding);
@@ -42,7 +42,7 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.BindingHolder>
 
     @Override
     public void onBindViewHolder(BindingHolder holder, int position) {
-        ViewItemPlaceBinding placeBinding = (ViewItemPlaceBinding) holder.binding;
+        ItemPlaceBinding placeBinding = (ItemPlaceBinding) holder.binding;
 
         placeBinding.setTrip(new TripViewModel(
                 "NAM DU | VIỆT NAM",
@@ -76,7 +76,7 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.BindingHolder>
 
         private ViewDataBinding binding = null;
 
-        public BindingHolder(ViewItemPlaceBinding binding) {
+        public BindingHolder(ItemPlaceBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
         }

@@ -23,7 +23,7 @@ public class DialogSamples extends Dialog {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.view_item_place_header);
+        setContentView(R.layout.item_place_header);
         ButterKnife.bind(this);
     }
 }

@@ -30,7 +30,7 @@ public class ImageryAdapter extends RecyclerView.Adapter<ImageryViewHolder> {
     public ImageryViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View itemLayoutView = LayoutInflater.from(mContext)
-                .inflate(R.layout.view_item_simple_drawee_view, null);
+                .inflate(R.layout.item_simple_drawee_view, null);
 
         DisplayMetrics displaymetrics = new DisplayMetrics();
         ((Activity) mContext).getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);

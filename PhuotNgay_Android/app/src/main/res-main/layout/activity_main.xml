@@ -26,7 +26,7 @@
                     android:layout_height="match_parent"
                     android:layout_centerInParent="true"
                     android:gravity="center"
-                    android:text="Home" />
+                    android:text="@string/str_home" />
 
             </RelativeLayout>
         </android.support.v7.widget.Toolbar>
@@ -51,7 +51,7 @@
             android:layout_gravity="bottom"
             android:orientation="vertical">
 
-            <include layout="@layout/view_item_vertical_separate" />
+            <include layout="@layout/layout_separate_vertical" />
 
             <android.support.design.widget.TabLayout
                 android:id="@id/tabs"

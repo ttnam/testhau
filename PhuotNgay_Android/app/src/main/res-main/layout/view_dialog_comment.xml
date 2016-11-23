@@ -25,7 +25,7 @@
                 android:layout_alignParentStart="true"
                 android:layout_centerInParent="true"
                 android:gravity="start|center"
-                android:text="@string/app_name" />
+                android:text="@string/all_app_name" />
 
             <android.support.v7.widget.AppCompatImageView
                 android:layout_width="@dimen/icon_size"
@@ -38,14 +38,14 @@
 
         </RelativeLayout>
 
-        <include layout="@layout/view_item_vertical_separate" />
+        <include layout="@layout/layout_separate_vertical" />
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="?actionBarSize">
 
-            <include layout="@layout/view_recycler_view" />
+            <include layout="@layout/layout_recycler_view" />
 
             <RelativeLayout
                 android:id="@id/layout"

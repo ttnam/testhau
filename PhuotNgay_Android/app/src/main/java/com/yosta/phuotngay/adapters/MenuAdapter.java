@@ -38,7 +38,7 @@ public class MenuAdapter extends ArrayAdapter<MenuItem> {
 
             if (convertView == null) {
 
-                convertView = LayoutInflater.from(this.context).inflate(R.layout.view_item_menu, null);
+                convertView = LayoutInflater.from(this.context).inflate(R.layout.item_menu, null);
 
                 viewHolder = new MenuItemViewHolder(convertView);
 

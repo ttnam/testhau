@@ -37,13 +37,13 @@
                 android:inputType="text|textCapSentences|textAutoCorrect"
                 android:searchSuggestAuthority="com.yosta.SuggestionProvider"
                 android:searchSuggestSelection=" ?"
-                android:text="@string/app_name" />
+                android:text="@string/all_app_name" />
 
         </LinearLayout>
 
-        <include layout="@layout/view_item_vertical_separate" />
+        <include layout="@layout/layout_separate_vertical" />
 
-        <include layout="@layout/view_recycler_view" />
+        <include layout="@layout/layout_recycler_view" />
 
 
     </LinearLayout>

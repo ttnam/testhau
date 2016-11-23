@@ -77,7 +77,7 @@
                 </LinearLayout>
             </FrameLayout>
 
-            <include layout="@layout/view_recycler_view" />
+            <include layout="@layout/layout_recycler_view" />
 
         </LinearLayout>
 

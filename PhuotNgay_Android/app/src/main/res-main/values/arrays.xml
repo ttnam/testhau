@@ -14,17 +14,16 @@
 
     /* internet */
     <string-array name="internet_item_text">
-        <item>@string/str_wifi</item>
-        <item>@string/str_3g</item>
+        <item>@string/setting_wifi</item>
+        <item>@string/setting_3g</item>
     </string-array>
     <integer-array name="internet_item_icon">
         <item>@drawable/ic_england</item>
         <item>@drawable/ic_vietnam</item>
     </integer-array>
-    /* language */
     <string-array name="language_item_text">
-        <item>@string/str_en</item>
-        <item>@string/str_vi</item>
+        <item>@string/setting_language_english</item>
+        <item>@string/setting_language_vietnamese</item>
     </string-array>
     <integer-array name="language_item_icon">
         <item>@drawable/ic_england</item>

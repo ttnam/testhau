@@ -35,7 +35,7 @@ public class NoConnectionFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.view_fragment_no_connection, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_no_connection, container, false);
         ButterKnife.bind(this, rootView);
         return rootView;
     }
@@ -51,7 +51,7 @@ public class NoConnectionFragment extends Fragment {
                     .duration(600)
                     .interpolate(new AccelerateDecelerateInterpolator())
                     .playOn(textView);
-            Toast.makeText(getContext(), getString(R.string.message_no_internet), Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), getString(R.string.error_message_no_internet), Toast.LENGTH_SHORT).show();
         }
     }
 }
