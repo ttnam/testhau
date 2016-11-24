@@ -8,7 +8,6 @@
     <string name="all_app_author" tools:ignore="MissingTranslation"> &#169; YosTa 2016 </string>
     <string name="all_app_version" tools:ignore="MissingTranslation">Version</string>
 
-
     <string name="profile"> Profile                             </string>
     <string name="profile_email"> Email                         </string>
     <string name="profile_sign_up"> Sign Up                     </string>
@@ -18,6 +17,8 @@
     <string name="profile_follow"> Follow                       </string>
     <string name="profile_followed"> Followed                   </string>
     <string name="profile_forgotPwd"> Forgot password?          </string>
+    <string name="profile_login_facebook"> Sign up or login with <b>Facebook</b>  </string>
+    <string name="profile_login_google"> Sign up or login with <b>Google</b>  </string>
 
     <string name="setting"> Setting                             </string>
     <string name="setting_basic_settings"> Basic settings       </string>

@@ -1,4 +1,4 @@
-package com.yosta.phuotngay.models.viewholder;
+package com.yosta.phuotngay.models.view;
 
 import com.yosta.phuotngay.models.base.ViewBehavior;
 
@@ -6,6 +6,7 @@ import com.yosta.phuotngay.models.base.ViewBehavior;
  * Created by Phuc-Hau Nguyen on 8/25/2016.
  */
 public class ImageryView extends ViewBehavior {
+
     private String URL = null;
 
     public ImageryView(String URL) {

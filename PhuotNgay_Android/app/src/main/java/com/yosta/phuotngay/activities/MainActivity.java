@@ -42,16 +42,17 @@ public class MainActivity extends ActivityBehavior {
         if (tab != null) {
             tab.setIcon(getResources().getDrawable(R.drawable.ic_style_tab_home));
         }
-
         if ((tab = tabLayout.getTabAt(1)) != null) {
-            tab.setIcon(getResources().getDrawable(R.drawable.ic_style_tab_group));
+            tab.setIcon(getResources().getDrawable(R.drawable.ic_style_tab_search));
         }
-
         if ((tab = tabLayout.getTabAt(2)) != null) {
-            tab.setIcon(getResources().getDrawable(R.drawable.ic_style_tab_noti));
+            tab.setIcon(getResources().getDrawable(R.drawable.ic_style_tab_trip));
         }
         if ((tab = tabLayout.getTabAt(3)) != null) {
-            tab.setIcon(getResources().getDrawable(R.drawable.ic_style_tab_menu));
+            tab.setIcon(getResources().getDrawable(R.drawable.ic_style_tab_noti));
+        }
+        if ((tab = tabLayout.getTabAt(4)) != null) {
+            tab.setIcon(getResources().getDrawable(R.drawable.ic_style_tab_menu ));
         }
         tabLayout.setSmoothScrollingEnabled(true);
     }
@@ -61,6 +62,7 @@ public class MainActivity extends ActivityBehavior {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(adapter);
         adapter.addFrag(new TripFragment());
+        adapter.addFrag(new NoConnectionFragment());
         adapter.addFrag(new NoConnectionFragment());
         adapter.addFrag(new NoConnectionFragment());
         adapter.addFrag(new SettingFragment());

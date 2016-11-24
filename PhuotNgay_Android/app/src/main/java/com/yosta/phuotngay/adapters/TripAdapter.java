@@ -56,12 +56,12 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.BindingHolder>
         return mTrips.size();
     }
 
-    public void addPlaces(List<Trip> trips) {
+    public void adds(List<Trip> trips) {
         mTrips.addAll(trips);
         notifyDataSetChanged();
     }
 
-    public int addPlace(Trip trip) {
+    public int add(Trip trip) {
         mTrips.add(trip);
         int index = mTrips.size() - 1;
         notifyItemChanged(index);
@@ -72,7 +72,7 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.BindingHolder>
         mTrips.clear();
     }
 
-    public static class BindingHolder extends RecyclerView.ViewHolder {
+    static class BindingHolder extends RecyclerView.ViewHolder {
 
         private ViewDataBinding binding = null;
 
