@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="ms_padding_sm">8dp</dimen>
+    <dimen name="ms_padding">24dp</dimen>
+    <dimen name="ms_icon">10dp</dimen>
+    <dimen name="ms_padding_min">12dp</dimen>
+</resources>

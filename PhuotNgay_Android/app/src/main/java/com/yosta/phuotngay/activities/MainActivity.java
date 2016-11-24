@@ -6,6 +6,8 @@ import android.support.v4.view.ViewPager;
 import com.yosta.phuotngay.R;
 import com.yosta.phuotngay.adapters.ViewPagerAdapter;
 import com.yosta.phuotngay.animations.ZoomOutPageTransformer;
+import com.yosta.phuotngay.fragments.OwnTripFragment;
+import com.yosta.phuotngay.fragments.SearchFragment;
 import com.yosta.phuotngay.fragments.TripFragment;
 import com.yosta.phuotngay.fragments.NoConnectionFragment;
 import com.yosta.phuotngay.fragments.SettingFragment;
@@ -62,8 +64,8 @@ public class MainActivity extends ActivityBehavior {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(adapter);
         adapter.addFrag(new TripFragment());
-        adapter.addFrag(new NoConnectionFragment());
-        adapter.addFrag(new NoConnectionFragment());
+        adapter.addFrag(new SearchFragment());
+        adapter.addFrag(new OwnTripFragment());
         adapter.addFrag(new NoConnectionFragment());
         adapter.addFrag(new SettingFragment());
     }

@@ -2,33 +2,37 @@ package com.yosta.phuotngay.fragments;
 
 import android.content.Context;
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.LinearSnapHelper;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SnapHelper;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.yosta.phuotngay.R;
 import com.yosta.phuotngay.activities.TripDetailActivity;
+import com.yosta.phuotngay.activities.dialogs.DialogFilter;
 import com.yosta.phuotngay.adapters.FilterAdapter;
 import com.yosta.phuotngay.adapters.TripAdapter;
+import com.yosta.phuotngay.databinding.FragmentTripBinding;
 import com.yosta.phuotngay.helpers.decoration.SpacesItemDecoration;
 import com.yosta.phuotngay.helpers.listeners.RecyclerItemClickListener;
 import com.yosta.phuotngay.models.trip.Trip;
 import com.yosta.phuotngay.models.view.FilterView;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator;
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 
@@ -46,25 +50,44 @@ public class TripFragment extends Fragment {
     @BindView(R.id.layout)
     LinearLayout layoutFilter;
 
+
     private TripAdapter placeAdapter = null;
     private FilterAdapter filterAdapter = null;
+    private Context mContext = null;
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
+    }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mContext = getContext();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_home, container, false);
+
+        View rootView = inflater.inflate(R.layout.fragment_trip, container, false);
+
+      /*  FragmentTripBinding binding = DataBindingUtil.inflate(
+                inflater, R.layout.fragment_trip, container, false);
+*/
         ButterKnife.bind(this, rootView);
         Context context = container.getContext();
         this.placeAdapter = new TripAdapter(context);
         this.filterAdapter = new FilterAdapter(context);
-
         onInitializeView(context);
         onInitializeData();
-
         return rootView;
     }
 
@@ -108,7 +131,7 @@ public class TripFragment extends Fragment {
     private void onInitializeData() {
 
         placeAdapter.clear();
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 10; i++) {
             placeAdapter.add(new Trip());
         }
 
@@ -143,4 +166,21 @@ public class TripFragment extends Fragment {
             }
         }
     });
+
+    @OnClick(R.id.btn_filter)
+    public void onCallToFilterDialog() {
+        DialogFilter dialogFilter = new DialogFilter(this.mContext);
+        dialogFilter.show();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(DialogFilter.Filter filter) {
+        if (filter != null) {
+            this.filterAdapter.clear();
+            this.filterAdapter.add(new FilterView(filter.mDuringTime));
+            this.filterAdapter.add(new FilterView(filter.mSortBy));
+            this.filterAdapter.notifyDataSetChanged();
+            this.layoutFilter.setVisibility(View.VISIBLE);
+        }
+    }
 }

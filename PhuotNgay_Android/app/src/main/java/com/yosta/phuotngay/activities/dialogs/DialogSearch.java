@@ -1,4 +1,3 @@
-package com.yosta.phuotngay.dialog;
 
 import android.app.Activity;
 import android.app.Dialog;

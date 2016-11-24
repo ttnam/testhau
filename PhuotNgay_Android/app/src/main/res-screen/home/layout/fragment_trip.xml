@@ -2,6 +2,7 @@
 <layout>
 
     <data>
+        <import type="android.graphics.drawable.Drawable"/>
 
     </data>
 
@@ -47,6 +48,7 @@
                     app:font="@{`Lato-Bold`}" />
 
                 <android.support.v7.widget.AppCompatImageButton
+                    android:id="@+id/btn_filter"
                     android:layout_width="@dimen/icon_size_x3"
                     android:layout_height="@dimen/icon_size_x3"
                     android:layout_alignParentEnd="true"
@@ -57,8 +59,6 @@
                     android:background="@android:color/transparent"
                     android:scaleType="centerInside"
                     app:srcCompat="@drawable/ic_vector_filter" />
-
-                <include layout="@layout/layout_separate_vertical" />
 
             </RelativeLayout>
 
