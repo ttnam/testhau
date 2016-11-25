@@ -3,6 +3,7 @@
     <item name="button" type="id" />
     <item name="web_view" type="id" />
     <item name="edit_text" type="id" />
+    <item name="card_view" type="id" />
     <item name="text_view" type="id" />
     <item name="image_view" type="id" />
     <item name="container_item" type="id" />

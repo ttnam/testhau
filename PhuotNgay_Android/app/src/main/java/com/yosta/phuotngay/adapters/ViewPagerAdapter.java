@@ -3,6 +3,7 @@ package com.yosta.phuotngay.adapters;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.util.SparseArray;
 
 import java.util.HashMap;
 
@@ -12,7 +13,8 @@ import java.util.HashMap;
 
 public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
-    private final HashMap<Integer, Fragment> mFragmentList = new HashMap<>();
+    SparseArray<Fragment> mFragmentList = new SparseArray<>();
+
     private int index = 0;
 
     public ViewPagerAdapter(FragmentManager manager) {

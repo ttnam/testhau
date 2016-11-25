@@ -25,6 +25,7 @@
                 android:orientation="vertical">
 
                 <android.support.v7.widget.AppCompatImageButton
+                    android:id="@+id/btn_create"
                     android:layout_width="@dimen/icon_size_x3"
                     android:layout_height="@dimen/icon_size_x3"
                     android:layout_alignParentLeft="true"

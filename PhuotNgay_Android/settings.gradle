@@ -1,1 +1,1 @@
-include ':app', ':materialdialog', ':circleimageview', ':materialspinner'
+include ':app', ':materialdialog', ':materialspinner', ':circleimageview'

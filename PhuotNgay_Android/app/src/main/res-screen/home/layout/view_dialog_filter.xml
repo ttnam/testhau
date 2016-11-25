@@ -2,11 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="@dimen/margin">
+    android:orientation="vertical">
 
     <TextView
-        style="@style/AppTheme.TextView_Sub_Title.ColorPrimary"
+        style="@style/AppTheme.TextView_Title.Bold.ColorPrimary"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
         android:gravity="center"
@@ -81,7 +80,7 @@
 
         <TextView
             android:id="@+id/tv_cancel"
-            style="@style/AppTheme.TextView_Sub_Title.ColorPrimary"
+            style="@style/AppTheme.TextView_Title.Bold.ColorPrimary"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
@@ -97,7 +96,7 @@
 
         <TextView
             android:id="@+id/tv_apply"
-            style="@style/AppTheme.TextView_Sub_Title.ColorPrimary"
+            style="@style/AppTheme.TextView_Title.Bold.ColorPrimary"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"

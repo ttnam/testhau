@@ -122,25 +122,24 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     // Local binary dependency
     testCompile 'junit:junit:4.12'
-
+    compile project(':materialdialog')
+    compile project(':materialspinner')
+    compile project(':circleimageview')
     // Retrofit
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
     compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
-
     // Gson
     compile 'com.google.code.gson:gson:2.4'
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
     // OkHTTP
     compile 'com.squareup.okhttp3:okhttp:3.4.1'
-
     // Google Dagger 2
-    apt "com.google.dagger:dagger-compiler:$DAGGER_VERSION"
-    compile "com.google.dagger:dagger:$DAGGER_VERSION"
-    provided 'javax.annotation:jsr250-api:1.0'
     compile 'com.google.dagger:dagger:2.0-SNAPSHOT'
+    compile "com.google.dagger:dagger:$DAGGER_VERSION"
     apt 'com.google.dagger:dagger-compiler:2.0-SNAPSHOT'
+    apt "com.google.dagger:dagger-compiler:$DAGGER_VERSION"
+    provided 'javax.annotation:jsr250-api:1.0'
     provided 'org.glassfish:javax.annotation:10.0-b28'
-
     // Google Support
     compile 'com.android.support:support-v4:24.2.1'
     compile 'com.android.support:design:24.2.1'
@@ -149,17 +148,14 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:24.2.1'
     compile 'com.android.support:support-annotations:24.2.1'
     compile 'jp.wasabeef:recyclerview-animators:2.2.3'
-
     // Facebook
     compile 'com.facebook.android:facebook-android-sdk:[4,5)'
     compile 'org.greenrobot:eventbus:3.0.0'
     compile 'com.nineoldandroids:library:2.4.0'
     compile 'com.daimajia.easing:library:1.0.1@aar'
-
     // Butter knife
     compile 'com.jakewharton:butterknife:8.4.0'
     apt 'com.jakewharton:butterknife-compiler:8.4.0'
-
     // Glide
     compile 'com.github.bumptech.glide:glide:3.7.0'
     //RxAndroid
@@ -172,9 +168,7 @@ dependencies {
     compile 'com.google.firebase:firebase-database:9.8.0'
     compile 'com.google.firebase:firebase-auth:9.8.0'
     compile 'com.google.android.gms:play-services-auth:9.8.0'
-    compile project(':materialdialog')
-    compile project(':circleimageview')
-    compile project(':materialspinner')
+
 }
 apply plugin: 'com.google.gms.google-services'
 

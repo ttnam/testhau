@@ -18,6 +18,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.text.Html;
 import android.util.Base64;
+import android.util.DisplayMetrics;
 import android.view.View;
 
 import com.yosta.phuotngay.R;
@@ -200,5 +201,16 @@ public class AppUtils {
 
         }
         return keyHash;
+    }
+
+    public static int getScreenHeight(Activity activity) {
+        DisplayMetrics displaymetrics = new DisplayMetrics();
+        activity.getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+        return displaymetrics.heightPixels;
+    }
+    public static int getScreenWidth(Activity activity) {
+        DisplayMetrics displaymetrics = new DisplayMetrics();
+        activity.getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+        return displaymetrics.widthPixels;
     }
 }

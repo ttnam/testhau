@@ -2,7 +2,6 @@ package com.yosta.phuotngay.fragments;
 
 import android.content.Context;
 import android.content.Intent;
-import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -16,11 +15,12 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.yosta.phuotngay.R;
+import com.yosta.phuotngay.activities.CreateTripActivity;
+import com.yosta.phuotngay.activities.OwnTripActivity;
 import com.yosta.phuotngay.activities.TripDetailActivity;
 import com.yosta.phuotngay.activities.dialogs.DialogFilter;
 import com.yosta.phuotngay.adapters.FilterAdapter;
 import com.yosta.phuotngay.adapters.TripAdapter;
-import com.yosta.phuotngay.databinding.FragmentTripBinding;
 import com.yosta.phuotngay.helpers.decoration.SpacesItemDecoration;
 import com.yosta.phuotngay.helpers.listeners.RecyclerItemClickListener;
 import com.yosta.phuotngay.models.trip.Trip;
@@ -182,5 +182,10 @@ public class TripFragment extends Fragment {
             this.filterAdapter.notifyDataSetChanged();
             this.layoutFilter.setVisibility(View.VISIBLE);
         }
+    }
+
+    @OnClick(R.id.btn_create)
+    public void onCallToCreation() {
+        startActivity(new Intent(mContext, CreateTripActivity.class));
     }
 }
