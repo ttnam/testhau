@@ -1,7 +1,0 @@
-<resources>
-    <plurals name="activities">
-        <item quantity="zero">No activities</item>
-        <item quantity="one">1 activity</item>
-        <item quantity="other">%d activities</item>
-    </plurals>
-</resources>

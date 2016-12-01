@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="profile_forgotPwd">Quên mật khẩu?</string>
-    <string name="str_WriteAComment">Viết nhận xét</string>
-    <string name="str_write_a_comment_while_offline">Viết nhận xét ngay khi offline</string>
-</resources>
-
