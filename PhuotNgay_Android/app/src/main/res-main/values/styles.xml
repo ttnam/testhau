@@ -1,0 +1,232 @@
+<resources>
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@color/colorWindowBackground</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@color/colorWindowBackground</item>
+    </style>
+
+    <style name="AppTheme.TabLayout" parent="Widget.Design.TabLayout">
+        <item name="tabIndicatorColor">@color/colorAccent</item>
+        <item name="tabBackground">@color/colorPrimary</item>
+    </style>
+
+    <style name="AppTheme.TabLayout.NoColor" parent="Widget.Design.TabLayout">
+        <item name="tabIndicatorColor">@color/colorAccent</item>
+        <item name="tabBackground">@android:color/white</item>
+    </style>
+
+    <style name="AppTheme.Fullscreen" parent="AppTheme.NoActionBar">
+        <item name="android:windowActionBarOverlay">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@color/colorWindowBackground</item>
+    </style>
+
+    <style name="AppTheme.DialogWindowTitle" parent="@android:style/TextAppearance.Holo.DialogWindowTitle">
+        <item name="android:textStyle">italic</item>
+    </style>
+
+    <style name="AppTheme.AlertDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorAccent">@color/colorPrimary</item>
+        <item name="android:windowTitleStyle">@style/AppTheme.DialogWindowTitle</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="AppTheme.Dialog" parent="@android:style/Theme.Translucent.NoTitleBar">
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:padding">0dp</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:background">@android:color/white</item>
+    </style>
+
+    <style name="Style_MaterialSearch" parent="@android:style/Theme.Dialog">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:backgroundDimAmount">0.7</item>
+    </style>
+
+    <style name="Style_NameTextView" parent="AppTheme">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+    </style>
+
+    <style name="Style_StatusTextView" parent="AppTheme">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/BlueTitle</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="AppTheme.TextView_Title.ColorPrimary" parent="AppTheme">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/text_size_v1</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+    </style>
+
+    <style name="AppTheme.TextView_Sub_Title.ColorPrimary" parent="AppTheme.TextView_Title.ColorPrimary">
+        <item name="android:textSize">@dimen/text_size</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+
+    <style name="AppTheme.TextView_Title.Bold" parent="AppTheme">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/text_size_v1</item>
+        <item name="android:textColor">@color/colorTextColorPrimary</item>
+    </style>
+
+    <style name="AppTheme.TextView_Title.Bold.ColorPrimary" parent="AppTheme">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/text_size_v1</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+
+    <style name="AppTheme.TextView_Title.Bold.White" parent="AppTheme">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/text_size_v2</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="AppTheme.TextView_Title.Normal.White" parent="AppTheme">
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">@dimen/text_size_v2</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="AppTheme.TextView_Sub_Title.Normal.White" parent="AppTheme">
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">@dimen/text_size_v2</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="AppTheme.TextView_Title.Normal" parent="AppTheme">
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">@dimen/text_size_v1</item>
+        <item name="android:textColor">@color/colorTextColorPrimary</item>
+    </style>
+
+    <style name="AppTheme.TextView_Sub_Title" parent="AppTheme.TextView_Title.Bold">
+        <item name="android:textSize">@dimen/text_size</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">@color/colorTextColorSecondary</item>
+    </style>
+
+    <style name="AppTheme.TextView_Sub_Title.Bold" parent="AppTheme.TextView_Title.Bold">
+        <item name="android:textSize">@dimen/text_size</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/colorTextColorSecondary</item>
+    </style>
+
+    <style name="AppTheme.TextView_Sub_Title.Bold.ColorPrimary" parent="AppTheme.TextView_Title.Bold">
+        <item name="android:textSize">@dimen/text_size</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+
+    <style name="Style_Menu_Item.Press" parent="AppTheme.TextView_Title.Bold">
+        <item name="android:layout_height">?actionBarSize</item>
+        <item name="android:paddingLeft">@dimen/margin_x2</item>
+        <item name="android:paddingRight">@dimen/margin_x2</item>
+        <item name="android:background">@drawable/ic_style_button_round_none_default</item>
+        <item name="android:clickable">true</item>
+    </style>
+
+    <style name="Style_Menu_Item.NonPress" parent="AppTheme.TextView_Title.Bold">
+        <item name="android:layout_height">?actionBarSize</item>
+        <item name="android:paddingLeft">@dimen/margin_x2</item>
+        <item name="android:paddingRight">@dimen/margin_x2</item>
+        <item name="android:background">@android:color/white</item>
+    </style>
+
+    <style name="Style_ExpandedTitleTextAppearance">
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+
+    <style name="AccentButton" parent="AppTheme">
+        <item name="colorButtonNormal">@color/Red</item>
+        <item name="android:textColorPrimary">@color/colorTextColorPrimary</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:colorBackground">@color/colorWindowBackground</item>
+    </style>
+
+    <style name="FAB" parent="AppTheme">
+        <item name="backgroundTint">?attr/colorAccent</item>
+        <item name="android:layout_margin">16dp</item>
+        <item name="android:layout_marginTop">0dp</item>
+        <item name="android:layout_marginRight">8dp</item>
+        <item name="android:layout_marginBottom">0dp</item>
+        <item name="android:clickable">true</item>
+        <item name="borderWidth">0dp</item>
+    </style>
+
+    <style name="AppCompatAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textColorPrimary">@color/Red</item>
+    </style>
+
+    <style name="AppTheme.TextInputLayout" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@color/colorAccent</item>
+    </style>
+
+    <style name="AppTheme.TextInputEditText" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">@color/colorPrimary</item>
+        <item name="colorControlActivated">@color/colorAccent</item>
+    </style>
+
+    <style name="AppTheme.CustomDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@drawable/ic_style_dialog</item>
+    </style>
+
+    <style name="AppTheme.AnimDialog.SlideUpDown" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:windowEnterAnimation">@anim/anim_slide_in_up</item>
+        <item name="android:windowExitAnimation">@anim/anim_slide_out_down</item>
+    </style>
+
+    <style name="AppTheme.AnimDialog.SlideLeftRight" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:windowEnterAnimation">@anim/anim_slide_in_left</item>
+        <item name="android:windowExitAnimation">@anim/anim_slide_out_right</item>
+    </style>
+
+    <style name="AppTheme.AnimDialog.SlideRightLeft" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:windowEnterAnimation">@anim/anim_slide_in_right</item>
+        <item name="android:windowExitAnimation">@anim/anim_slide_out_left</item>
+    </style>
+
+    <style name="AppTheme.AnimDialog.SlideDownUp" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:windowEnterAnimation">@anim/anim_slide_in_down</item>
+        <item name="android:windowExitAnimation">@anim/anim_slide_out_up</item>
+    </style>
+
+    <style name="AppTheme.AnimDialog.Grow" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="@android:windowEnterAnimation">@anim/anim_grow_in</item>
+        <item name="@android:windowExitAnimation">@anim/anim_grow_out</item>
+    </style>
+
+    <style name="AppTheme.CircularProgress" parent="Theme.AppCompat.Light">
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="ButtonStyle" parent="Base.Widget.AppCompat.Button.Colored">
+        <item name="colorButtonNormal">@color/colorAccent</item>
+    </style>
+</resources>
