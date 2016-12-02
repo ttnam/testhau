@@ -1,7 +1,9 @@
 package com.yosta.phuotngay.activities;
 
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.view.View;
 import android.widget.TextView;
 
 import com.yosta.phuotngay.R;
@@ -13,12 +15,12 @@ import com.yosta.phuotngay.fragments.TripFragment;
 import com.yosta.phuotngay.fragments.NoConnectionFragment;
 import com.yosta.phuotngay.fragments.SettingFragment;
 import com.yosta.phuotngay.interfaces.ActivityBehavior;
+import com.yosta.phuotngay.ui.customview.OwnToolBar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MainActivity extends ActivityBehavior {
-
 
     @BindView(R.id.tabs)
     TabLayout mTabLayout;
@@ -26,8 +28,9 @@ public class MainActivity extends ActivityBehavior {
     @BindView(R.id.view_pager)
     ViewPager mViewPager;
 
-    @BindView(R.id.text_view)
-    TextView mTvTitle;
+
+    @BindView(R.id.layout)
+    OwnToolBar mOwnToolbar;
 
     @Override
     public void onApplyComponents() {
@@ -78,19 +81,37 @@ public class MainActivity extends ActivityBehavior {
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 switch (position) {
                     case 0:
-                        mTvTitle.setText("Trang chủ");
+                        mOwnToolbar.setBinding(
+                                "Trang chủ",
+                                R.drawable.ic_vector_add,
+                                R.drawable.ic_vector_filter,
+                                new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        startActivity(new Intent(MainActivity.this, CreateTripActivity.class));
+                                    }
+                                },
+                                new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+
+                                    }
+                                }
+                        );
                         break;
                     case 1:
-                        mTvTitle.setText("Tìm kiếm");
+                        mOwnToolbar.setBinding("Tìm kiếm", Integer.MIN_VALUE , Integer.MIN_VALUE , null, null);
                         break;
                     case 2:
-                        mTvTitle.setText("Hành trình của bạn");
+                        mOwnToolbar.setBinding("Hành trình của bạn", Integer.MIN_VALUE , Integer.MIN_VALUE , null, null);
                         break;
                     case 3:
-                        mTvTitle.setText("Thông báo");
+                        mOwnToolbar.setBinding("Thông báo", Integer.MIN_VALUE , Integer.MIN_VALUE , null, null);
                         break;
                     case 4:
-                        mTvTitle.setText("Cài đặt");
+                        mOwnToolbar.setBinding(getString(R.string.setting),
+                                Integer.MIN_VALUE ,
+                                Integer.MIN_VALUE , null, null);
                         break;
                 }
             }

@@ -13,59 +13,12 @@
             android:layout_marginBottom="?actionBarSize"
             android:orientation="vertical">
 
-            <LinearLayout
+            <com.yosta.phuotngay.ui.customview.OwnToolBar
+                android:id="@id/layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="top"
-                android:orientation="vertical">
+                android:layout_height="?actionBarSize" />
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="?actionBarSize"
-                    android:background="@android:color/white"
-                    android:orientation="vertical">
-
-                    <android.support.v7.widget.AppCompatImageButton
-                        android:id="@+id/btn_create"
-                        android:layout_width="@dimen/icon_size_x3"
-                        android:layout_height="@dimen/icon_size_x3"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentStart="true"
-                        android:layout_centerInParent="true"
-                        android:layout_marginLeft="@dimen/margin_x2"
-                        android:layout_marginStart="@dimen/margin_x2"
-                        android:background="@android:color/transparent"
-                        android:scaleType="centerInside"
-                        app:srcCompat="@drawable/ic_vector_add" />
-
-                    <android.support.v7.widget.AppCompatImageButton
-                        android:id="@+id/btn_filter"
-                        android:layout_width="@dimen/icon_size_x3"
-                        android:layout_height="@dimen/icon_size_x3"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerInParent="true"
-                        android:layout_marginEnd="@dimen/margin_x2"
-                        android:layout_marginRight="@dimen/margin_x2"
-                        android:background="@android:color/transparent"
-                        android:scaleType="centerInside"
-                        app:srcCompat="@drawable/ic_vector_filter" />
-
-                    <TextView
-                        android:id="@id/text_view"
-                        style="@style/AppTheme.TextView_Title.Bold"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_alignParentTop="true"
-                        android:layout_centerHorizontal="true"
-                        android:gravity="center"
-                        android:text="@string/str_home" />
-
-                </RelativeLayout>
-
-                <include layout="@layout/layout_separate_vertical" />
-
-            </LinearLayout>
+            <include layout="@layout/layout_separate_vertical" />
 
             <android.support.v4.view.ViewPager
                 android:id="@id/view_pager"

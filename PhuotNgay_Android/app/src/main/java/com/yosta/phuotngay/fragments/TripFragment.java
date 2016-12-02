@@ -181,9 +181,4 @@ public class TripFragment extends Fragment {
             this.layoutFilter.setVisibility(View.VISIBLE);
         }
     }
-
-    @OnClick(R.id.btn_create)
-    public void onCallToCreation() {
-        startActivity(new Intent(mContext, CreateTripActivity.class));
-    }
 }

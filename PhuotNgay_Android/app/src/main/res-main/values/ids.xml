@@ -15,4 +15,8 @@
     <item name="recycler_view" type="id" />
     <item name="tabs" type="id" />
     <item name="bound_observable" type="id" />
+
+    <item name="button_left" type="id" />
+    <item name="button_right" type="id" />
+
 </resources>

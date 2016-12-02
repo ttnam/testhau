@@ -11,9 +11,4 @@ public class CreateTripActivity extends ActivityBehavior {
         setContentView(R.layout.activity_create_trip);
         ButterKnife.bind(this);
     }
-
-    @Override
-    public void onApplyData() {
-        super.onApplyData();
-    }
 }
