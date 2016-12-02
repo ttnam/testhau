@@ -16,12 +16,6 @@ public class AppDefine {
 
     }
 
-    public enum FilterType {
-        All,
-        Happening,
-        ComingUp
-    }
-
     public static HashMap<Integer, String> MONTH_IN_YEAR() {
 
         _MONTH_IN_YEAR.put(1, "JAN");

@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.firebase.client.Firebase;
 import com.yosta.phuotngay.R;
 import com.yosta.phuotngay.activities.CreateTripActivity;
 import com.yosta.phuotngay.activities.OwnTripActivity;
@@ -21,6 +22,9 @@ import com.yosta.phuotngay.activities.TripDetailActivity;
 import com.yosta.phuotngay.activities.dialogs.DialogFilter;
 import com.yosta.phuotngay.adapters.FilterAdapter;
 import com.yosta.phuotngay.adapters.TripAdapter;
+import com.yosta.phuotngay.firebase.FirebaseDefine;
+import com.yosta.phuotngay.firebase.FirebaseTripAdapter;
+import com.yosta.phuotngay.firebase.FirebaseUtils;
 import com.yosta.phuotngay.helpers.decoration.SpacesItemDecoration;
 import com.yosta.phuotngay.helpers.listeners.RecyclerItemClickListener;
 import com.yosta.phuotngay.models.trip.Trip;
@@ -50,10 +54,12 @@ public class TripFragment extends Fragment {
     @BindView(R.id.layout)
     LinearLayout layoutFilter;
 
-
-    private TripAdapter placeAdapter = null;
+    // private TripAdapter placeAdapter = null;
     private FilterAdapter filterAdapter = null;
     private Context mContext = null;
+
+    private FirebaseUtils firebaseUtils = null;
+    private FirebaseTripAdapter tripAdapter = null;
 
     @Override
     public void onStart() {
@@ -71,7 +77,7 @@ public class TripFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mContext = getContext();
+        this.mContext = getContext();
     }
 
     @Override
@@ -79,24 +85,21 @@ public class TripFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_trip, container, false);
 
-      /*  FragmentTripBinding binding = DataBindingUtil.inflate(
-                inflater, R.layout.fragment_trip, container, false);
-*/
         ButterKnife.bind(this, rootView);
-        Context context = container.getContext();
-        this.placeAdapter = new TripAdapter(context);
-        this.filterAdapter = new FilterAdapter(context);
-        onInitializeView(context);
-        onInitializeData();
+        // this.placeAdapter = new TripAdapter(context);
+        this.firebaseUtils = FirebaseUtils.initializeWith(mContext);
+        this.tripAdapter = new FirebaseTripAdapter(mContext, this.firebaseUtils.TRIPRef());
+        this.filterAdapter = new FilterAdapter(mContext);
+        onInitializeView();
+        /*onInitializeData();*/
         return rootView;
     }
 
-    private void onInitializeView(Context context) {
-        onInitializeTrip(context);
+    private void onInitializeView() {
+        onInitializeTrip(mContext);
 
         this.swipeRefreshLayout.setColorSchemeResources(R.color.Red, R.color.Orange, R.color.Pink);
         this.swipeRefreshLayout.setOnRefreshListener(refreshListener);
-
         onInitializeFilter();
     }
 
@@ -110,7 +113,8 @@ public class TripFragment extends Fragment {
                 context, 2, GridLayoutManager.VERTICAL, false);
         this.rvTrip.setNestedScrollingEnabled(false);
         this.rvTrip.setLayoutManager(layoutManager);
-        this.rvTrip.setAdapter(placeAdapter);
+//        this.rvTrip.setAdapter(placeAdapter);
+        this.rvTrip.setAdapter(this.tripAdapter);
         this.rvTrip.addOnItemTouchListener(tripItemClickListener);
     }
 
@@ -127,14 +131,14 @@ public class TripFragment extends Fragment {
         this.rvFilter.setAdapter(filterAdapter);
         this.rvFilter.addOnItemTouchListener(filterItemClickListener);
     }
-
+/*
     private void onInitializeData() {
 
         placeAdapter.clear();
         for (int i = 0; i < 10; i++) {
             placeAdapter.add(new Trip());
         }
-    }
+    }*/
 
     private SwipeRefreshLayout.OnRefreshListener refreshListener = new SwipeRefreshLayout.OnRefreshListener() {
         @Override
