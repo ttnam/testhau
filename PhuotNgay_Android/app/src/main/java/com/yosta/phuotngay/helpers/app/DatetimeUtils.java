@@ -1,5 +1,6 @@
 package com.yosta.phuotngay.helpers.app;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -13,5 +14,10 @@ public class DatetimeUtils {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(milis);
         return calendar.getTime();
+    }
+
+    public static String getTime(Date date) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("EEE MMM dd yyyy");// java.util.Locale.getDefault());
+        return dateFormat.format(date);
     }
 }

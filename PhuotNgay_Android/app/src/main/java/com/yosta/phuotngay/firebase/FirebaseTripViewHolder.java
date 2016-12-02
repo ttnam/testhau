@@ -34,7 +34,9 @@ public class FirebaseTripViewHolder extends RecyclerView.ViewHolder {
     public void onBind(FirebaseTrip trip) {
         this.mTvTitle.setText(trip.getName());
         Glide.with(mContext).load(trip.getCover()).into(this.mImageView);
-        this.mTvCreatedTime.setText(
-                DatetimeUtils.timeStampToDate(trip.getCreatedTime()).toString());
+        String time = DatetimeUtils.getTime(
+                DatetimeUtils.timeStampToDate(
+                        trip.getCreatedTime()));
+        this.mTvCreatedTime.setText(time);
     }
 }

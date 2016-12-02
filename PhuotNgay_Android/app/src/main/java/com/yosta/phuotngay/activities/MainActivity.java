@@ -6,7 +6,6 @@ import android.widget.TextView;
 
 import com.yosta.phuotngay.R;
 import com.yosta.phuotngay.adapters.ViewPagerAdapter;
-import com.yosta.phuotngay.animations.DepthPageTransformer;
 import com.yosta.phuotngay.animations.ZoomOutPageTransformer;
 import com.yosta.phuotngay.fragments.OwnTripFragment;
 import com.yosta.phuotngay.fragments.SearchFragment;
@@ -73,7 +72,7 @@ public class MainActivity extends ActivityBehavior {
         adapter.addFrag(new SettingFragment());
 
         this.mViewPager.setAdapter(adapter);
-        this.mViewPager.setPageTransformer(true, new DepthPageTransformer());
+        this.mViewPager.setPageTransformer(true, new ZoomOutPageTransformer());
         this.mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
