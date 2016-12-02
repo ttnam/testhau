@@ -86,12 +86,10 @@ public class TripFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_trip, container, false);
 
         ButterKnife.bind(this, rootView);
-        // this.placeAdapter = new TripAdapter(context);
         this.firebaseUtils = FirebaseUtils.initializeWith(mContext);
         this.tripAdapter = new FirebaseTripAdapter(mContext, this.firebaseUtils.TRIPRef());
         this.filterAdapter = new FilterAdapter(mContext);
         onInitializeView();
-        /*onInitializeData();*/
         return rootView;
     }
 
@@ -113,7 +111,6 @@ public class TripFragment extends Fragment {
                 context, 2, GridLayoutManager.VERTICAL, false);
         this.rvTrip.setNestedScrollingEnabled(false);
         this.rvTrip.setLayoutManager(layoutManager);
-//        this.rvTrip.setAdapter(placeAdapter);
         this.rvTrip.setAdapter(this.tripAdapter);
         this.rvTrip.addOnItemTouchListener(tripItemClickListener);
     }
@@ -131,14 +128,6 @@ public class TripFragment extends Fragment {
         this.rvFilter.setAdapter(filterAdapter);
         this.rvFilter.addOnItemTouchListener(filterItemClickListener);
     }
-/*
-    private void onInitializeData() {
-
-        placeAdapter.clear();
-        for (int i = 0; i < 10; i++) {
-            placeAdapter.add(new Trip());
-        }
-    }*/
 
     private SwipeRefreshLayout.OnRefreshListener refreshListener = new SwipeRefreshLayout.OnRefreshListener() {
         @Override
@@ -164,12 +153,6 @@ public class TripFragment extends Fragment {
             }
         }
     });
-
-    @OnClick(R.id.btn_filter)
-    public void onCallToFilterDialog() {
-        DialogFilter dialogFilter = new DialogFilter(this.mContext);
-        dialogFilter.show();
-    }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(DialogFilter.Filter filter) {

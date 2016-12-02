@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.yosta.phuotngay.R;
+import com.yosta.phuotngay.activities.dialogs.DialogChooseImage;
+import com.yosta.phuotngay.activities.dialogs.DialogFilter;
 import com.yosta.phuotngay.adapters.ViewPagerAdapter;
 import com.yosta.phuotngay.animations.ZoomOutPageTransformer;
 import com.yosta.phuotngay.fragments.OwnTripFragment;
@@ -94,24 +96,27 @@ public class MainActivity extends ActivityBehavior {
                                 new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
-
+                                        /*DialogFilter dialogFilter = new DialogFilter(MainActivity.this);
+                                        dialogFilter.show();*/
+                                        DialogChooseImage dialog = new DialogChooseImage(MainActivity.this);
+                                        dialog.show();
                                     }
                                 }
                         );
                         break;
                     case 1:
-                        mOwnToolbar.setBinding("Tìm kiếm", Integer.MIN_VALUE , Integer.MIN_VALUE , null, null);
+                        mOwnToolbar.setBinding("Tìm kiếm", Integer.MIN_VALUE, Integer.MIN_VALUE, null, null);
                         break;
                     case 2:
-                        mOwnToolbar.setBinding("Hành trình của bạn", Integer.MIN_VALUE , Integer.MIN_VALUE , null, null);
+                        mOwnToolbar.setBinding("Hành trình của bạn", Integer.MIN_VALUE, Integer.MIN_VALUE, null, null);
                         break;
                     case 3:
-                        mOwnToolbar.setBinding("Thông báo", Integer.MIN_VALUE , Integer.MIN_VALUE , null, null);
+                        mOwnToolbar.setBinding("Thông báo", Integer.MIN_VALUE, Integer.MIN_VALUE, null, null);
                         break;
                     case 4:
                         mOwnToolbar.setBinding(getString(R.string.setting),
-                                Integer.MIN_VALUE ,
-                                Integer.MIN_VALUE , null, null);
+                                Integer.MIN_VALUE,
+                                Integer.MIN_VALUE, null, null);
                         break;
                 }
             }
