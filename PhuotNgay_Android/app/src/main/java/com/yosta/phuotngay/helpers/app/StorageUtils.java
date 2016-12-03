@@ -7,33 +7,39 @@ import android.content.res.Resources;
 import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
 
+import com.google.gson.Gson;
+import com.yosta.phuotngay.models.user.User;
+
 import java.util.Locale;
 
 /**
  * Created by nphau on 9/27/2015.
  */
-public class SharedPresUtils {
+public class StorageUtils {
 
+    public static final String KEY_USER = "KEY_USER";
     public static final String KEY_USER_ID = "KEY_USER_ID";
     public static final String KEY_LANGUAGE = "LANGUAGE";
     public static final String KEY_USER_NAME = "KEY_USER_NAME";
     public static final String KEY_USER_EMAIL = "KEY_USER_EMAIL";
+    public static final String KEY_USER_MEMBER_SHIP = "KEY_USER_MEMBER_SHIP";
     public static final String KEY_USER_TOKEN = "KEY_USER_TOKEN";
     public static final String KEY_USER_GENDER = "KEY_USER_GENDER";
     public static final String KEY_APP_SETTING = "KEY_APP_SETTING";
     public static final String KEY_USER_COVER_URL = "KEY_USER_COVER_URL";
     public static final String KEY_USER_AVATAR_URL = "KEY_USER_AVATAR_URL";
-    public static final String KEY_USER_LINK_PROFILE = "KEY_USER_LINK_PROFILE";
+
+
     public static int KEY_LANGUAGE_MODE = 1;
 
     private Context mContext;
     private SharedPreferences preferences = null;
 
-    public SharedPresUtils(Application application) {
+    public StorageUtils(Application application) {
         preferences = PreferenceManager.getDefaultSharedPreferences(application);
     }
 
-    public SharedPresUtils(Context context) {
+    public StorageUtils(Context context) {
         this.mContext = context;
         preferences = PreferenceManager.getDefaultSharedPreferences(mContext);
     }
@@ -55,7 +61,7 @@ public class SharedPresUtils {
     public void changeAppLanguage() {
         try {
             saveSetting(KEY_LANGUAGE, KEY_LANGUAGE_MODE);
-            String keyText = (SharedPresUtils.KEY_LANGUAGE_MODE == 0) ? "vi" : "en";
+            String keyText = (StorageUtils.KEY_LANGUAGE_MODE == 0) ? "vi" : "en";
             Resources res = this.mContext.getResources();
             DisplayMetrics dm = res.getDisplayMetrics();
             android.content.res.Configuration conf = res.getConfiguration();
@@ -115,4 +121,15 @@ public class SharedPresUtils {
         return saveSetting(KEY_APP_SETTING, json);
     }
 
+    public User getUser() {
+        Gson gson = new Gson();
+        String json = getSettingString(KEY_USER);
+        return gson.fromJson(json, User.class);
+    }
+
+    public void setUser(User user) {
+        Gson gson = new Gson();
+        String json = gson.toJson(user);
+        saveSetting(KEY_USER, json);
+    }
 }

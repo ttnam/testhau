@@ -6,6 +6,8 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -14,8 +16,6 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="com.android.browser.permission.READ_HISTORY_BOOKMARKS" />
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
-    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
-    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
 
     <uses-feature
         android:name="android.hardware.location"
@@ -77,23 +77,32 @@
             android:theme="@style/AppTheme.Fullscreen" />
         <activity
             android:name=".activities.LoginActivity"
-            android:theme="@style/AppTheme.Fullscreen" />
+            android:theme="@style/AppTheme.Fullscreen">
+
+        </activity>
         <activity
             android:name=".activities.WebViewActivity"
             android:theme="@style/AppTheme.Fullscreen" />
+
         <activity
             android:name=".activities.TripDetailActivity"
             android:theme="@style/AppTheme.Fullscreen" />
+
         <activity
             android:name=".activities.ProfileActivity"
-            android:theme="@style/AppTheme.Fullscreen" />
+            android:launchMode="singleInstance"
+            android:theme="@style/AppTheme.Fullscreen">
+
+        </activity>
+
         <activity
             android:name=".activities.OwnTripActivity"
             android:theme="@style/AppTheme.Fullscreen" />
 
         <activity
             android:name=".activities.CreateTripActivity"
-            android:theme="@style/AppTheme.Fullscreen"/>
+            android:theme="@style/AppTheme.Fullscreen" />
+
     </application>
 
 </manifest>

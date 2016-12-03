@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="text_view" type="id" />
+    <item name="image_view" type="id" />
+    <item name="image_left" type="id" />
+    <item name="image_right" type="id" />
+</resources>

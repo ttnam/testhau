@@ -1,6 +1,7 @@
 package com.yosta.phuotngay.ui.customview;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -10,8 +11,6 @@ import android.widget.TextView;
 
 import com.yosta.phuotngay.R;
 
-import org.jetbrains.annotations.NotNull;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -20,6 +19,9 @@ import butterknife.ButterKnife;
  */
 
 public class OwnToolBar extends LinearLayout {
+
+    public static final int TYPE_TITLE_CENTER = R.layout.layout_tool_bar;
+    public static final int TYPE_TITLE_LEFT = R.layout.layout_tool_bar_lr;
 
     @BindView(R.id.text_view)
     TextView tvTitle;
@@ -36,8 +38,22 @@ public class OwnToolBar extends LinearLayout {
 
     public OwnToolBar(Context context, AttributeSet attrs) {
         super(context, attrs);
+        TypedArray array = context.getTheme().obtainStyledAttributes(
+                attrs, R.styleable.OwnToolBar, 0, 0);
 
-        ButterKnife.bind(this, LayoutInflater.from(context).inflate(R.layout.layout_tool_bar, this, true));
+        try {
+            int layout = array.getInteger(R.styleable.OwnToolBar_layoutType, 0);
+            ButterKnife.bind(this, LayoutInflater
+                    .from(context)
+                    .inflate((layout == 0) ? TYPE_TITLE_CENTER : TYPE_TITLE_LEFT, this, true));
+
+        } finally {
+            array.recycle();
+        }
+    }
+
+    public OwnToolBar(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
     }
 
     public void setBinding(String title, int drawableLeft, int drawableRight,

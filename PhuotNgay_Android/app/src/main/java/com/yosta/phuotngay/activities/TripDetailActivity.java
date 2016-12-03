@@ -1,5 +1,6 @@
 package com.yosta.phuotngay.activities;
 
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
@@ -39,8 +40,12 @@ public class TripDetailActivity extends ActivityBehavior {
     @BindView(R.id.rv_note)
     RecyclerView rvNote;
 
-    private ImageryAdapter imageryAdapter = null;
-    private NoteAdapter noteAdapter = null;
+    @BindView(R.id.layout)
+    SwipeRefreshLayout swipeRefreshLayout;
+
+    // private ImageryAdapter imageryAdapter = null;
+    /*private NoteAdapter noteAdapter = null;*/
+
 
     @Override
     public void onApplyComponents() {
@@ -51,8 +56,8 @@ public class TripDetailActivity extends ActivityBehavior {
         if (window != null) {
             window.getAttributes().windowAnimations = R.style.AppTheme_AnimDialog_SlideLeftRight;
         }
-        imageryAdapter = new ImageryAdapter(this);
-        noteAdapter = new NoteAdapter(this);
+        //imageryAdapter = new ImageryAdapter(this);
+        /*noteAdapter = new NoteAdapter(this);*/
 
         onInitializeWebView();
         onInitializeRecyclerView();
@@ -66,30 +71,30 @@ public class TripDetailActivity extends ActivityBehavior {
     }
 
     private void onInitializeData() {
-        for (int i = 0; i < 20; i++) {
+        /*for (int i = 0; i < 20; i++) {
             imageryAdapter.addImage(new ImageryView("https://travel.com.vn/images/destination/Large/dg_150723_vung_tau.jpg"));
-        }
+        }*/
         String prefix = "<html><body><p style=\"text-align: justify\">";
         String postfix = "</p></body></html>";
         String content = "Nếu bạn đã thấy sông trăng, hãy đến Nam Du vào ngày rằm để thấy biển trăng. Từ trên cao nhìn xuống, trăng tỏa sáng cả một vùng trời, đẹp và thơ mộng biết bao.";
 
         webView.loadData(prefix + content + postfix, "text/html; charset=utf-8", "utf-8");
         txtTitle.setText("Nam Du, thiên đường nơi cực Nam Tổ quốc");
-
+/*
         for (int i = 0; i < 20; i++) {
             noteAdapter.add(new Note());
-        }
+        }*/
     }
 
     private void onInitializeRecyclerView() {
-        recyclerView.setHasFixedSize(true);
+      /*  recyclerView.setHasFixedSize(true);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.addItemDecoration(new SpacesItemDecoration(2));
         recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setRecycledViewPool(new RecyclerView.RecycledViewPool());
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2,
                 GridLayoutManager.HORIZONTAL, false));
-        recyclerView.setAdapter(imageryAdapter);
+        recyclerView.setAdapter(imageryAdapter);*/
 
         rvNote.setHasFixedSize(true);
         rvNote.setItemAnimator(new DefaultItemAnimator());
@@ -100,7 +105,7 @@ public class TripDetailActivity extends ActivityBehavior {
                 GridLayoutManager.HORIZONTAL, false));
         SnapHelper snapHelper = new LinearSnapHelper();
         snapHelper.attachToRecyclerView(rvNote);
-        rvNote.setAdapter(noteAdapter);
+        /*rvNote.setAdapter(noteAdapter);*/
         ItemClickSupport.addTo(rvNote).setOnItemClickListener(
                 new ItemClickSupport.OnItemClickListener() {
                     @Override
@@ -116,5 +121,17 @@ public class TripDetailActivity extends ActivityBehavior {
     public void onShowCommentDialog() {
         DialogComment dialogComment = new DialogComment(this);
         dialogComment.show();
+    }
+
+    @Override
+    public void onApplyEvents() {
+        super.onApplyEvents();
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
     }
 }

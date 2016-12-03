@@ -21,7 +21,7 @@ import com.yosta.phuotngay.activities.ProfileActivity;
 import com.yosta.phuotngay.activities.WebViewActivity;
 import com.yosta.phuotngay.adapters.MenuAdapter;
 import com.yosta.phuotngay.helpers.app.AppUtils;
-import com.yosta.phuotngay.helpers.app.SharedPresUtils;
+import com.yosta.phuotngay.helpers.app.StorageUtils;
 import com.yosta.phuotngay.helpers.listeners.ListenerHelpers;
 import com.yosta.phuotngay.models.menu.MenuItem;
 import com.yosta.phuotngay.models.app.AppSetting;
@@ -47,7 +47,7 @@ public class SettingFragment extends Fragment {
     @BindView(R.id.txt_lang)
     TextView txtLang;
 
-    private SharedPresUtils presUtils = null;
+    private StorageUtils presUtils = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -66,7 +66,7 @@ public class SettingFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         //
-        presUtils = new SharedPresUtils(getActivity());
+        presUtils = new StorageUtils(getActivity());
         switchSync.setOnCheckedChangeListener(ListenerHelpers.SwitchSync);
     }
 
@@ -98,7 +98,7 @@ public class SettingFragment extends Fragment {
         }
 
         // Language
-        int lang = (presUtils.getSettingInt(SharedPresUtils.KEY_LANGUAGE) == 0) ? R.string.setting_language_vietnamese : R.string.setting_language_english;
+        int lang = (presUtils.getSettingInt(StorageUtils.KEY_LANGUAGE) == 0) ? R.string.setting_language_vietnamese : R.string.setting_language_english;
         txtLang.setText(getResources().getString(lang));
     }
 
@@ -106,7 +106,6 @@ public class SettingFragment extends Fragment {
     public void onCallProfile() {
         getActivity().startActivity(new Intent(getActivity(), ProfileActivity.class));
         getActivity().overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
-        getActivity().finish();
     }
 
     @OnClick(R.id.layout_rating)

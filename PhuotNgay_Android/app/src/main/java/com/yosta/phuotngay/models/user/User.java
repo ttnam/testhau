@@ -5,11 +5,8 @@ import android.support.annotation.RequiresPermission;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
-import java.util.List;
 
 public class User implements Serializable {
-
-    public static String permission = "email,name,gender,cover,picture.type(large),link";
 
     @RequiresPermission
     @SerializedName(value = "user_id")
@@ -31,57 +28,80 @@ public class User implements Serializable {
     private String mEmail = null;
 
     @SerializedName(value = "gender")
-    private String mGender = null;
+    private int mGender = -1;
 
-    @SerializedName(value = "followers")
-    private List<User> mFollowers = null;
-
-    @SerializedName(value = "followings")
-    private List<User> mFollowings = null;
-
-    @SerializedName(value = "is_active")
-    private boolean mIsActive = false;
-
+    @SerializedName(value = "member_ship")
     private String mMembership = null;
 
-
-    public void setUserId(String userId) {
-        this.mUserID = userId;
+    public User() {
     }
 
-    public void setCoverUrl(String coverUrl) {
-        this.mCoverUrl = coverUrl;
+    public String getUserId() {
+        return mUserID;
     }
 
-    public void setAvatarUrl(String avatarUrl) {
-        this.mAvatarUrl = avatarUrl;
+    public void setUserId(String mUserID) {
+        this.mUserID = mUserID;
     }
 
-    public void setEmail(String email) {
-        this.mEmail = email;
+    public String getToken() {
+        return mToken;
     }
 
-    public void setGender(String gender) {
-        this.mGender = gender;
+    public void setToken(String mToken) {
+        this.mToken = mToken;
     }
 
-    public void setName(String name) {
-        this.mUserName = name;
+    public String getUserName() {
+        return mUserName;
+    }
+
+    public void setUserName(String mUserName) {
+        this.mUserName = mUserName;
     }
 
     public String getCoverUrl() {
-        return this.mCoverUrl;
+        return mCoverUrl;
+    }
+
+    public void setCoverUrl(String mCoverUrl) {
+        this.mCoverUrl = mCoverUrl;
     }
 
     public String getAvatarUrl() {
-        return this.mAvatarUrl;
+        return mAvatarUrl;
     }
 
-    public String getName() {
-        return this.mUserName;
+    public void setAvatarUrl(String mAvatarUrl) {
+        this.mAvatarUrl = mAvatarUrl;
     }
 
-    public String getGender() {
-        return this.mGender;
+    public String getEmail() {
+        return mEmail;
+    }
+
+    public void setEmail(String mEmail) {
+        this.mEmail = mEmail;
+    }
+
+    public int getGender() {
+        return mGender;
+    }
+
+    public void setGender(int mGender) {
+        this.mGender = mGender;
+    }
+
+    public String getMembership() {
+        return mMembership;
+    }
+
+    public void setMembership(String mMembership) {
+        this.mMembership = mMembership;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s - %s", mUserID, mEmail);
     }
 }

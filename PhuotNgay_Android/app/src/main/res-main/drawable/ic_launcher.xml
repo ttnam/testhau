@@ -5,9 +5,6 @@
     android:width="512dp"
     android:height="512dp">
     <path
-        android:pathData="M429 512L83 512C37.2 512 0 474.9 0 429L0 83C0 37.1 37.1 0 83 0l346 0c45.8 0 83 37.1 83 83l0 346c0 45.9 -37.1 83 -83 83z"
-        android:fillColor="#b8d0ff" />
-    <path
         android:pathData="M112.4 186.1l-60.6 0c-3.5 0 -6.3 -2.8 -6.3 -6.3 0 -3.5 2.8 -6.3 6.3 -6.3l60.6 0c3.5 0 6.3 2.8 6.3 6.3 0 3.5 -2.8 6.3 -6.3 6.3z"
         android:fillColor="#556d8e" />
     <path

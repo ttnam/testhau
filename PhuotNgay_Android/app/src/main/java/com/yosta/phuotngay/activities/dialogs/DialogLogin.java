@@ -247,12 +247,12 @@ public class DialogLogin /*extends Dialog implements DialogBehavior */{
                                                 if (data.has("picture")) {
                                                     String profilePicUrl = data.getJSONObject("picture").getJSONObject("data").getString("url");
                                                     appConfig.setCurrentUserAvatarUrl(profilePicUrl);
-                                                    ListenerHelpers.saveImage(getApplicationContext(), SharedPresUtils.KEY_USER_AVATAR_URL, profilePicUrl, "profile");
+                                                    ListenerHelpers.saveImage(getApplicationContext(), StorageUtils.KEY_USER_AVATAR_URL, profilePicUrl, "profile");
                                                 }
                                                 if (data.has("cover")) {
                                                     String coverUrl = data.getJSONObject("cover").getString("source");
                                                     appConfig.setCurrentUserCoverUrl(coverUrl);
-                                                    ListenerHelpers.saveImage(getApplicationContext(), SharedPresUtils.KEY_USER_COVER_URL, coverUrl, "cover");
+                                                    ListenerHelpers.saveImage(getApplicationContext(), StorageUtils.KEY_USER_COVER_URL, coverUrl, "cover");
                                                 }
                                                 if (data.has("name")) {
                                                     String name = data.getString("name");

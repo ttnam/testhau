@@ -1,9 +1,21 @@
 package com.yosta.phuotngay.activities;
 
-import com.yosta.phuotngay.R;
-import com.yosta.phuotngay.interfaces.ActivityBehavior;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
+import android.view.View;
+import android.widget.EditText;
 
+import com.yosta.phuotngay.R;
+import com.yosta.phuotngay.adapters.ViewPagerAdapter;
+import com.yosta.phuotngay.animations.ZoomOutPageTransformer;
+import com.yosta.phuotngay.fragments.ProfileTripFragment;
+import com.yosta.phuotngay.fragments.ProfileBaseInfoFragment;
+import com.yosta.phuotngay.interfaces.ActivityBehavior;
+import com.yosta.phuotngay.ui.customview.OwnToolBar;
+
+import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class ProfileActivity extends ActivityBehavior {
 
@@ -38,16 +50,38 @@ public class ProfileActivity extends ActivityBehavior {
     AppCompatTextView txtGender;
 
     @BindView(R.id.txt_photos)
-    AppCompatTextView txtPhotos;
+    AppCompatTextView txtPhotos;*/
 
-    private AppConfig appConfig = null;*/
+    @BindView(R.id.layout)
+    OwnToolBar ownToolBar;
+
+    @BindView(R.id.tabs)
+    TabLayout mTabLayout;
+
+    @BindView(R.id.view_pager)
+    ViewPager mViewPager;
 
     @Override
     public void onApplyComponents() {
         super.onApplyComponents();
         setContentView(R.layout.activity_profile);
         ButterKnife.bind(this);
-        // this.appConfig = (AppConfig) getApplication();
+        onApplyViewPager();
+        onApplyTabLayout();
+
+
+        ownToolBar.setBinding("Nguyễn Phúc Hậu", R.drawable.ic_vector_add, R.drawable.ic_vector_add,
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                    }
+                }, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                    }
+                });
     }
 
     @Override
@@ -142,4 +176,27 @@ public class ProfileActivity extends ActivityBehavior {
             finish();
         }
     };*/
+
+    private void onApplyTabLayout() {
+
+        this.mTabLayout.setupWithViewPager(mViewPager);
+
+        TabLayout.Tab tab = this.mTabLayout.getTabAt(0);
+        if (tab != null) {
+            tab.setIcon(getResources().getDrawable(R.drawable.ic_style_tab_home));
+        }
+        if ((tab = this.mTabLayout.getTabAt(1)) != null) {
+            tab.setIcon(getResources().getDrawable(R.drawable.ic_style_tab_search));
+        }
+        this.mTabLayout.setSmoothScrollingEnabled(true);
+    }
+
+    private void onApplyViewPager() {
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        adapter.addFrag(new ProfileBaseInfoFragment());
+        adapter.addFrag(new ProfileTripFragment());
+
+        this.mViewPager.setAdapter(adapter);
+        this.mViewPager.setPageTransformer(true, new ZoomOutPageTransformer());
+    }
 }
