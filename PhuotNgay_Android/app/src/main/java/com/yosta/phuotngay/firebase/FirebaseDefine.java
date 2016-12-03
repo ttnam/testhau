@@ -6,4 +6,5 @@ package com.yosta.phuotngay.firebase;
 
 public class FirebaseDefine {
     public static final String FIREBASE_TRIP = "TRIP";
+    public static final String FIREBASE_USER = "USER";
 }

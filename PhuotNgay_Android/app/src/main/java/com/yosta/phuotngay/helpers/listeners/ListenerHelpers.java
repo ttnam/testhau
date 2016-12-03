@@ -35,7 +35,7 @@ public class ListenerHelpers {
                         .setItems(internetAdapter, new ChoiceDialog.OnItemSelectedListener<MenuItem>() {
                             @Override
                             public void onItemSelected(int position, MenuItem item) {
-                                //SharedPresUtils.KEY_LANGUAGE_MODE = position;
+                                //StorageUtils.KEY_LANGUAGE_MODE = position;
                             }
                         })
                         .show();
@@ -77,7 +77,7 @@ public class ListenerHelpers {
                         FileOutputStream fileOutputStream = new FileOutputStream(file);
                         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fileOutputStream);
                         fileOutputStream.close();
-                        SharedPresUtils.saveSetting(mContext, mType, directory.getAbsolutePath());
+                        StorageUtils.saveSetting(mContext, mType, directory.getAbsolutePath());
                     } catch (IOException e) {
                         e.printStackTrace();
                     }

@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.yosta.phuotngay.R;
-import com.yosta.phuotngay.helpers.app.SharedPresUtils;
+import com.yosta.phuotngay.helpers.app.StorageUtils;
 import com.yosta.phuotngay.models.menu.MenuItem;
 
 import java.util.ArrayList;
@@ -21,7 +21,7 @@ import butterknife.ButterKnife;
 public class MenuAdapter extends ArrayAdapter<MenuItem> {
 
     private Context context;
-    private SharedPresUtils sharedPresUtils;
+    private StorageUtils sharedPresUtils;
 
     public MenuAdapter(Context context, ArrayList<MenuItem> objects) {
         super(context, 0, objects);
@@ -74,7 +74,7 @@ public class MenuAdapter extends ArrayAdapter<MenuItem> {
             txtName.setText(menu.getName());
 
             if (menuName.equalsIgnoreCase("account")) {
-                // SharedPresUtils utils = new SharedPresUtils(activity);
+                // StorageUtils utils = new StorageUtils(activity);
                 /*User user = sharedPresUtils.getUserPrefs();
                 String name = user.getName();
                 if (!name.isEmpty()) {

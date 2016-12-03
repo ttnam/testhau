@@ -3,7 +3,7 @@
 
     <string name="facebook_app_id">323952681287686</string>
     <string name="fb_login_protocol_scheme">fb323952681287686</string>
-
+    <string name="google_client_id">145961843290-00jqtvt29asf2c5ckv2e2egrouvli4ho.apps.googleusercontent.com</string>
     <string name="all_app_name" tools:ignore="MissingTranslation">Fusway</string>
     <string name="all_app_author" tools:ignore="MissingTranslation"> &#169; YosTa 2016 </string>
     <string name="all_app_version" tools:ignore="MissingTranslation">Version</string>

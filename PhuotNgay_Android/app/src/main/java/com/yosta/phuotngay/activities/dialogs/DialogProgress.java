@@ -26,11 +26,16 @@ public class DialogProgress extends Dialog implements DialogBehavior {
 
     private Activity ownerActivity = null;
 
+    public DialogProgress(Context context) {
+        super(context);
+        setCancelable(true);
+        setCanceledOnTouchOutside(true);
+    }
+
     public DialogProgress(Context context,
                           boolean isCanceledOnTouchOutside,
                           boolean isCancelable) {
         super(context, R.style.AppTheme_CustomDialog);
-        setCancelable(true);
         onAttachedWindow(context);
         setCancelable(isCancelable);
         setCanceledOnTouchOutside(isCanceledOnTouchOutside);

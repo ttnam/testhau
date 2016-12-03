@@ -51,4 +51,12 @@ public class FirebaseUtils {
     public DatabaseReference TRIPRef() {
         return TRIP().getRef();
     }
+
+    public DatabaseReference USER() {
+        return this.mReference.child(FirebaseDefine.FIREBASE_USER);
+    }
+
+    public DatabaseReference USERRef() {
+        return TRIP().getRef();
+    }
 }

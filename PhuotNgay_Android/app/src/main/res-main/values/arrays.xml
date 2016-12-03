@@ -14,6 +14,12 @@
         <item>Năm này</item>
     </string-array>
 
+    <string-array name="arr_gender">
+        <item>Male</item>
+        <item>Female</item>
+        <item>Not Specified</item>
+    </string-array>
+
     <string-array name="arr_sort_by">
         <item>Điểm đánh giá</item>
         <item>Số lượt đi</item>

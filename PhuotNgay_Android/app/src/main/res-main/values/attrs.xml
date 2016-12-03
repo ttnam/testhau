@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
     <!-- Declare custom theme attributes that allow changing which styles are
@@ -9,4 +10,10 @@
         <attr name="metaButtonBarButtonStyle" format="reference" />
     </declare-styleable>
 
+    <declare-styleable name="OwnToolBar">
+        <attr name="layoutType" format="enum" >
+            <enum name="title_center" value="0" />
+            <enum name="title_left" value="1" />
+        </attr>
+    </declare-styleable>
 </resources>

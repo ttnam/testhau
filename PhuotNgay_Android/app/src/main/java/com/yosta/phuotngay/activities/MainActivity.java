@@ -30,7 +30,6 @@ public class MainActivity extends ActivityBehavior {
     @BindView(R.id.view_pager)
     ViewPager mViewPager;
 
-
     @BindView(R.id.layout)
     OwnToolBar mOwnToolbar;
 
