@@ -78,4 +78,11 @@ public class OwnToolBar extends LinearLayout {
             this.btnRight.setImageResource(drawableRight);
         }
     }
+
+    public AppCompatImageView getLeftButton() {
+        return this.btnLeft;
+    }
+    public AppCompatImageView getRightButton() {
+        return this.btnRight;
+    }
 }
