@@ -1,29 +1,28 @@
 package com.yosta.phuotngay.activities;
 
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.yosta.materialspinner.MaterialSpinner;
 import com.yosta.phuotngay.R;
-import com.yosta.phuotngay.adapters.ViewPagerAdapter;
-import com.yosta.phuotngay.animations.ZoomOutPageTransformer;
-import com.yosta.phuotngay.fragments.ProfileTripFragment;
-import com.yosta.phuotngay.fragments.ProfileBaseInfoFragment;
+import com.yosta.phuotngay.activities.dialogs.DialogChooseImage;
 import com.yosta.phuotngay.interfaces.ActivityBehavior;
 import com.yosta.phuotngay.ui.customview.OwnToolBar;
+
+import java.util.Arrays;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ProfileActivity extends ActivityBehavior {
 
     /*@BindView(R.id.image)
     AppCompatImageView imageCover;
-
-    @BindView(R.id.image_avatar)
-    CircleImageView imageAvatar;
 
     @BindView(R.id.txt_overview)
     AppCompatTextView txtOverview;
@@ -52,36 +51,40 @@ public class ProfileActivity extends ActivityBehavior {
     @BindView(R.id.txt_photos)
     AppCompatTextView txtPhotos;*/
 
+    @BindView(R.id.spinner_gender)
+    MaterialSpinner spinnerGender;
+
+    @BindView(R.id.image_avatar)
+    CircleImageView imageAvatar;
+
     @BindView(R.id.layout)
     OwnToolBar ownToolBar;
 
-    @BindView(R.id.tabs)
-    TabLayout mTabLayout;
+    private List<String> mGender = null;
 
-    @BindView(R.id.view_pager)
-    ViewPager mViewPager;
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
 
     @Override
     public void onApplyComponents() {
         super.onApplyComponents();
         setContentView(R.layout.activity_profile);
         ButterKnife.bind(this);
-        onApplyViewPager();
-        onApplyTabLayout();
 
-
-        ownToolBar.setBinding("Nguyễn Phúc Hậu", R.drawable.ic_vector_add, R.drawable.ic_vector_add,
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-
-                    }
-                }, new View.OnClickListener() {
+        ownToolBar.setBinding("Nguyễn Phúc Hậu", Integer.MIN_VALUE, R.drawable.ic_vector_menu,
+                null, new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
 
                     }
                 });
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
     }
 
     @Override
@@ -95,32 +98,38 @@ public class ProfileActivity extends ActivityBehavior {
         /*UIUtils.setFont(this, "fonts/Lato-Regular.ttf", txtMembership, txtGender, txtPhotoNumber, txtFriendsNumber);
         UIUtils.setFont(this, UIUtils.FONT_LATO_BLACK, txtFollow, txtExperience, txtOverview, txtPhotos, textAccountName);*/
     }
-/*
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id) {
-            case android.R.id.home:
+            case android.R.id.home: {
                 onBackPressed();
+                break;
+            }
         }
         return super.onOptionsItemSelected(item);
     }
-*/
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        //startActivity(new Intent(this, MainActivity.class));
     }
 
     @Override
     public void onApplyData() {
         super.onApplyData();
-/*
-        Picasso.with(this).load(this.appConfig.getCurrentUser().getCoverUrl()).into(imageCover);
-        Picasso.with(this).load(this.appConfig.getCurrentUser().getAvatarUrl()).into(imageAvatar);
+        this.mGender = Arrays.asList(getResources().getStringArray(R.array.arr_gender));
+        this.spinnerGender.setItems(this.mGender);
 
+        Glide.with(this)
+                .load(R.drawable.ic_avatar)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .dontAnimate()
+                .error(R.drawable.ic_vector_profile)
+                .into(imageAvatar);
+
+/*
         txtGender.setText(this.appConfig.getCurrentUser().getGender());
         textAccountName.setText(this.appConfig.getCurrentUser().getName());
 
@@ -128,6 +137,11 @@ public class ProfileActivity extends ActivityBehavior {
         txtFriendsNumber.setText("2K friends");*/
     }
 
+    @OnClick(R.id.image_avatar)
+    public void onChangeAvatar() {
+        DialogChooseImage dialogChooseImage = new DialogChooseImage(this);
+        dialogChooseImage.show();
+    }
 /*
     @OnClick(R.id.image)
     public void onChangeCover() {
@@ -135,12 +149,6 @@ public class ProfileActivity extends ActivityBehavior {
         //dialog.setTitle("Change Cover");
         dialog.show();
     }
-
-    @OnClick(R.id.image_avatar)
-    public void onChangeAvatar() {
-        ContextMenuDialog dialog = new ContextMenuDialog(this);
-        dialog.show();
-    }*/
 /*
     @OnClick(R.id.txt_followers)
     public void onShowFollowers() {
@@ -176,27 +184,4 @@ public class ProfileActivity extends ActivityBehavior {
             finish();
         }
     };*/
-
-    private void onApplyTabLayout() {
-
-        this.mTabLayout.setupWithViewPager(mViewPager);
-
-        TabLayout.Tab tab = this.mTabLayout.getTabAt(0);
-        if (tab != null) {
-            tab.setIcon(getResources().getDrawable(R.drawable.ic_style_tab_home));
-        }
-        if ((tab = this.mTabLayout.getTabAt(1)) != null) {
-            tab.setIcon(getResources().getDrawable(R.drawable.ic_style_tab_search));
-        }
-        this.mTabLayout.setSmoothScrollingEnabled(true);
-    }
-
-    private void onApplyViewPager() {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFrag(new ProfileBaseInfoFragment());
-        adapter.addFrag(new ProfileTripFragment());
-
-        this.mViewPager.setAdapter(adapter);
-        this.mViewPager.setPageTransformer(true, new ZoomOutPageTransformer());
-    }
 }
