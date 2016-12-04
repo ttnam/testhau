@@ -1,10 +1,13 @@
 package com.yosta.phuotngay.activities;
 
+import android.Manifest;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,6 +20,9 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.yosta.materialspinner.MaterialSpinner;
 import com.yosta.phuotngay.R;
 import com.yosta.phuotngay.activities.dialogs.DialogChooseImage;
@@ -25,6 +31,7 @@ import com.yosta.phuotngay.models.app.MessageInfo;
 import com.yosta.phuotngay.models.app.MessageType;
 import com.yosta.phuotngay.ui.customview.OwnToolBar;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
@@ -36,9 +43,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
+import permissions.dispatcher.NeedsPermission;
+import permissions.dispatcher.RuntimePermissions;
 
-import static android.provider.MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE;
-
+@RuntimePermissions
 public class ProfileActivity extends ActivityBehavior {
 
     /*@BindView(R.id.image)
@@ -138,11 +146,6 @@ public class ProfileActivity extends ActivityBehavior {
         super.onApplyData();
         this.mGender = Arrays.asList(getResources().getStringArray(R.array.arr_gender));
         this.spinnerGender.setItems(this.mGender);
-
-        Glide.with(this)
-                .load(R.drawable.ic_avatar).diskCacheStrategy(DiskCacheStrategy.ALL)
-                .dontAnimate().error(R.drawable.ic_vector_profile)
-                .into(imageAvatar);
     }
 
     @OnClick(R.id.image_avatar)
@@ -154,86 +157,81 @@ public class ProfileActivity extends ActivityBehavior {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(MessageInfo messageInfo) {
         if (messageInfo.getMessage() == MessageType.TAKE_PHOTO) {
-            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            // fileUri = FileUtlis.getOutputMediaFile(MEDIA_TYPE_IMAGE, IMAGE_DIRECTORY_NAME);
-            //intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
-            startActivityForResult(intent, MessageType.TAKE_PHOTO);
+            ProfileActivityPermissionsDispatcher.showCameraWithCheck(this);
         }
         if (messageInfo.getMessage() == MessageType.FROM_GALLERY) {
-            Intent i = new Intent(Intent.ACTION_PICK,
-                    android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-            startActivityForResult(i, MessageType.FROM_GALLERY);
+            ProfileActivityPermissionsDispatcher.showGalleryWithCheck(this);
         }
+    }
+
+    @NeedsPermission({Manifest.permission.CAMERA,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.READ_EXTERNAL_STORAGE})
+    void showCamera() {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(intent, MessageType.TAKE_PHOTO);
+    }
+
+    @NeedsPermission({Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.READ_EXTERNAL_STORAGE})
+    void showGallery() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), MessageType.FROM_GALLERY);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
                 case MessageType.FROM_GALLERY:
-                    Uri selectedImage = data.getData();
-                    String tmp = selectedImage.getPath();
-                    String id = tmp.substring((tmp.contains(":")) ?
-                            (tmp.lastIndexOf(":") + 1) :
-                            (tmp.lastIndexOf("/") + 1));
-
-                    String[] column = {MediaStore.Images.Media.DATA};
-                    String sel = MediaStore.Images.Media._ID + "=?";
-                    Cursor cursor = getContentResolver().
-                            query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                                    column, sel, new String[]{id}, null);
-                    assert cursor != null;
-                    int columnIndex = cursor.getColumnIndex(column[0]);
-                    String filename;
-                    if (cursor.moveToFirst()) {
-                        filename = cursor.getString(columnIndex);
-                        Toast.makeText(ProfileActivity.this, filename, Toast.LENGTH_LONG).show();
-                    }
-                    cursor.close();
-                    Glide.with(this)
-                            .load(selectedImage).error(R.drawable.ic_launcher)
-                            .diskCacheStrategy(DiskCacheStrategy.ALL)
-                            .override(128, 128).centerCrop()
-                            .into(imageAvatar);
-                    break;
-                case MessageType.TAKE_PHOTO:
-                    String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss")
-                            .format(new Date());
-                    String file_path = Environment
-                            .getExternalStorageDirectory().getAbsolutePath() +
-                            "/PhuotNgay";
-                    File dir = new File(file_path);
-                    if (!dir.exists())
-                        dir.mkdirs();
-                    File file = new File(dir, "image_" + timeStamp + ".jpg");
+                    Uri uri = data.getData();
                     try {
-                        FileOutputStream fOut = new FileOutputStream(file);
-
-                        fOut.flush();
-                        fOut.close();
-
-                        MediaStore.Images.Media.insertImage(getContentResolver(),
-                                file.getAbsolutePath(), file.getName(), file.getName());
-
-                        filename = file.toString();
-
-                        Glide.with(this).load(file)
+                        Glide.with(ProfileActivity.this).load(uri)
                                 .error(R.drawable.ic_launcher)
                                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                                .centerCrop()
+                                .override(128, 128).centerCrop()
+                                .into(imageAvatar);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                case MessageType.TAKE_PHOTO: {
+                    try {
+                        Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
+                        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+                        thumbnail.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
+                        File destination = new File(Environment.getExternalStorageDirectory(),
+                                System.currentTimeMillis() + ".jpg");
+                        FileOutputStream fo;
+                        destination.createNewFile();
+                        fo = new FileOutputStream(destination);
+                        fo.write(bytes.toByteArray());
+                        fo.close();
+                        Glide.with(ProfileActivity.this).load(destination)
+                                .error(R.drawable.ic_launcher)
+                                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                                .override(128, 128).centerCrop()
                                 .into(imageAvatar);
 
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                     break;
+                }
             }
         }
     }
 
-/*
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        ProfileActivityPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
+    }
+
+    /*
 
     @OnClick(R.id.layout_logout)
     public void onShowLogout() {

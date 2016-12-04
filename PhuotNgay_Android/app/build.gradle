@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.neenbedankt.android-apt'
+apply plugin: 'android-apt'
 
 buildscript {
     repositories {
@@ -186,6 +187,10 @@ dependencies {
 
     // Circle Image View
     compile 'de.hdodenhof:circleimageview:2.1.0'
+
+    // Permissions Dispatcher
+    compile 'com.github.hotchemi:permissionsdispatcher:2.2.0'
+    apt 'com.github.hotchemi:permissionsdispatcher-processor:2.2.0'
 }
 apply plugin: 'com.google.gms.google-services'
 
