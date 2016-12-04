@@ -14,20 +14,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-import com.firebase.client.Firebase;
 import com.yosta.phuotngay.R;
-import com.yosta.phuotngay.activities.CreateTripActivity;
-import com.yosta.phuotngay.activities.OwnTripActivity;
 import com.yosta.phuotngay.activities.TripDetailActivity;
 import com.yosta.phuotngay.activities.dialogs.DialogFilter;
 import com.yosta.phuotngay.adapters.FilterAdapter;
-import com.yosta.phuotngay.adapters.TripAdapter;
-import com.yosta.phuotngay.firebase.FirebaseDefine;
 import com.yosta.phuotngay.firebase.FirebaseTripAdapter;
 import com.yosta.phuotngay.firebase.FirebaseUtils;
 import com.yosta.phuotngay.helpers.decoration.SpacesItemDecoration;
 import com.yosta.phuotngay.helpers.listeners.RecyclerItemClickListener;
-import com.yosta.phuotngay.models.trip.Trip;
 import com.yosta.phuotngay.models.view.FilterView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -36,7 +30,6 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator;
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 

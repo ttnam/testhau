@@ -4,7 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-import com.yosta.phuotngay.configs.message.NetworkMessage;
+import com.yosta.phuotngay.models.app.NetworkMessage;
 import com.yosta.phuotngay.helpers.app.AppUtils;
 
 import org.greenrobot.eventbus.EventBus;

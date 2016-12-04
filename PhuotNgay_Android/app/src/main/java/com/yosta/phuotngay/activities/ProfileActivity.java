@@ -2,15 +2,20 @@ package com.yosta.phuotngay.activities;
 
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import com.yosta.materialspinner.MaterialSpinner;
 import com.yosta.phuotngay.R;
 import com.yosta.phuotngay.activities.dialogs.DialogChooseImage;
 import com.yosta.phuotngay.interfaces.ActivityBehavior;
+import com.yosta.phuotngay.models.app.MessageInfo;
+import com.yosta.phuotngay.models.app.MessageType;
 import com.yosta.phuotngay.ui.customview.OwnToolBar;
-
 import java.util.Arrays;
 import java.util.List;
 
@@ -65,6 +70,7 @@ public class ProfileActivity extends ActivityBehavior {
     @Override
     protected void onStart() {
         super.onStart();
+        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -84,6 +90,7 @@ public class ProfileActivity extends ActivityBehavior {
 
     @Override
     protected void onStop() {
+        EventBus.getDefault().unregister(this);
         super.onStop();
     }
 
@@ -112,11 +119,6 @@ public class ProfileActivity extends ActivityBehavior {
     }
 
     @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-    }
-
-    @Override
     public void onApplyData() {
         super.onApplyData();
         this.mGender = Arrays.asList(getResources().getStringArray(R.array.arr_gender));
@@ -128,13 +130,6 @@ public class ProfileActivity extends ActivityBehavior {
                 .dontAnimate()
                 .error(R.drawable.ic_vector_profile)
                 .into(imageAvatar);
-
-/*
-        txtGender.setText(this.appConfig.getCurrentUser().getGender());
-        textAccountName.setText(this.appConfig.getCurrentUser().getName());
-
-        txtPhotoNumber.setText("1.5K photos");
-        txtFriendsNumber.setText("2K friends");*/
     }
 
     @OnClick(R.id.image_avatar)
@@ -142,6 +137,17 @@ public class ProfileActivity extends ActivityBehavior {
         DialogChooseImage dialogChooseImage = new DialogChooseImage(this);
         dialogChooseImage.show();
     }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(MessageInfo messageInfo) {
+        if (messageInfo.getMessage() == MessageType.TAKE_PHOTO) {
+            Toast.makeText(this, "TAKE_PHOTO", Toast.LENGTH_SHORT).show();
+        }
+        if (messageInfo.getMessage() == MessageType.FROM_GALLERY) {
+            Toast.makeText(this, "FROM_GALLERY", Toast.LENGTH_SHORT).show();
+        }
+    }
+
 /*
     @OnClick(R.id.image)
     public void onChangeCover() {

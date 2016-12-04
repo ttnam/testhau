@@ -1,6 +1,5 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.neenbedankt.android-apt'
-apply plugin: 'realm-android'
 
 buildscript {
     repositories {
@@ -9,7 +8,6 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:2.2.2'
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
-        classpath "io.realm:realm-gradle-plugin:2.1.1"
         classpath 'com.google.gms:google-services:3.0.0'
     }
 }
@@ -122,18 +120,23 @@ android {
 dependencies {
     final DAGGER_VERSION = '2.7'
     compile fileTree(include: ['*.jar'], dir: 'libs')
+
     // Local binary dependency
     testCompile 'junit:junit:4.12'
     compile project(':materialdialog')
     compile project(':materialspinner')
+
     // Retrofit
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
     compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
+
     // Gson
     compile 'com.google.code.gson:gson:2.4'
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
+
     // OkHTTP
     compile 'com.squareup.okhttp3:okhttp:3.4.1'
+
     // Google Dagger 2
     compile 'com.google.dagger:dagger:2.0-SNAPSHOT'
     compile "com.google.dagger:dagger:$DAGGER_VERSION"
@@ -141,6 +144,7 @@ dependencies {
     apt "com.google.dagger:dagger-compiler:$DAGGER_VERSION"
     provided 'javax.annotation:jsr250-api:1.0'
     provided 'org.glassfish:javax.annotation:10.0-b28'
+
     // Google Support
     compile 'com.android.support:support-v4:24.2.1'
     compile 'com.android.support:design:24.2.1'
@@ -149,22 +153,29 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:24.2.1'
     compile 'com.android.support:support-annotations:24.2.1'
     compile 'jp.wasabeef:recyclerview-animators:2.2.3'
+
     // Facebook
     compile 'com.facebook.android:facebook-android-sdk:[4,5)'
-    compile 'org.greenrobot:eventbus:3.0.0'
     compile 'com.nineoldandroids:library:2.4.0'
     compile 'com.daimajia.easing:library:1.0.1@aar'
 
+    // Event bus
+    compile 'org.greenrobot:eventbus:3.0.0'
+
+    // Butter Knife
     compile 'com.jakewharton:butterknife:8.4.0'
     apt 'com.jakewharton:butterknife-compiler:8.4.0'
 
     // Glide
     compile 'com.github.bumptech.glide:glide:3.7.0'
+
     //RxAndroid
     compile 'io.reactivex:rxandroid:1.2.1'
     compile 'io.reactivex:rxjava:1.1.6'
+
     // FB Fresco
     compile 'com.facebook.fresco:fresco:0.14.1'
+
     // Firebase
     compile 'com.google.firebase:firebase-core:10.0.0'
     compile 'com.google.firebase:firebase-database:10.0.0'
@@ -172,6 +183,7 @@ dependencies {
     compile 'com.firebaseui:firebase-ui-database:1.0.1'
     compile 'com.firebase:firebase-client-android:2.3.1'
     compile 'com.google.android.gms:play-services-auth:10.0.0'
+
     // Circle Image View
     compile 'de.hdodenhof:circleimageview:2.1.0'
 }

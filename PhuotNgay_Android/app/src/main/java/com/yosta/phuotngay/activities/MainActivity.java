@@ -95,9 +95,7 @@ public class MainActivity extends ActivityBehavior {
                                 new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
-                                        /*DialogFilter dialogFilter = new DialogFilter(MainActivity.this);
-                                        dialogFilter.show();*/
-                                        DialogChooseImage dialog = new DialogChooseImage(MainActivity.this);
+                                        DialogFilter dialog = new DialogFilter(MainActivity.this);
                                         dialog.show();
                                     }
                                 }
