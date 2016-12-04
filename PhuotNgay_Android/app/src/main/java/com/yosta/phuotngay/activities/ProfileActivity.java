@@ -1,14 +1,22 @@
 package com.yosta.phuotngay.activities;
 
+import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
 import com.yosta.materialspinner.MaterialSpinner;
 import com.yosta.phuotngay.R;
 import com.yosta.phuotngay.activities.dialogs.DialogChooseImage;
@@ -16,13 +24,20 @@ import com.yosta.phuotngay.interfaces.ActivityBehavior;
 import com.yosta.phuotngay.models.app.MessageInfo;
 import com.yosta.phuotngay.models.app.MessageType;
 import com.yosta.phuotngay.ui.customview.OwnToolBar;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
+
+import static android.provider.MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE;
 
 public class ProfileActivity extends ActivityBehavior {
 
@@ -125,10 +140,8 @@ public class ProfileActivity extends ActivityBehavior {
         this.spinnerGender.setItems(this.mGender);
 
         Glide.with(this)
-                .load(R.drawable.ic_avatar)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .dontAnimate()
-                .error(R.drawable.ic_vector_profile)
+                .load(R.drawable.ic_avatar).diskCacheStrategy(DiskCacheStrategy.ALL)
+                .dontAnimate().error(R.drawable.ic_vector_profile)
                 .into(imageAvatar);
     }
 
@@ -141,30 +154,86 @@ public class ProfileActivity extends ActivityBehavior {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(MessageInfo messageInfo) {
         if (messageInfo.getMessage() == MessageType.TAKE_PHOTO) {
-            Toast.makeText(this, "TAKE_PHOTO", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            // fileUri = FileUtlis.getOutputMediaFile(MEDIA_TYPE_IMAGE, IMAGE_DIRECTORY_NAME);
+            //intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
+            startActivityForResult(intent, MessageType.TAKE_PHOTO);
         }
         if (messageInfo.getMessage() == MessageType.FROM_GALLERY) {
-            Toast.makeText(this, "FROM_GALLERY", Toast.LENGTH_SHORT).show();
+            Intent i = new Intent(Intent.ACTION_PICK,
+                    android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            startActivityForResult(i, MessageType.FROM_GALLERY);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case MessageType.FROM_GALLERY:
+                    Uri selectedImage = data.getData();
+                    String tmp = selectedImage.getPath();
+                    String id = tmp.substring((tmp.contains(":")) ?
+                            (tmp.lastIndexOf(":") + 1) :
+                            (tmp.lastIndexOf("/") + 1));
+
+                    String[] column = {MediaStore.Images.Media.DATA};
+                    String sel = MediaStore.Images.Media._ID + "=?";
+                    Cursor cursor = getContentResolver().
+                            query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                                    column, sel, new String[]{id}, null);
+                    assert cursor != null;
+                    int columnIndex = cursor.getColumnIndex(column[0]);
+                    String filename;
+                    if (cursor.moveToFirst()) {
+                        filename = cursor.getString(columnIndex);
+                        Toast.makeText(ProfileActivity.this, filename, Toast.LENGTH_LONG).show();
+                    }
+                    cursor.close();
+                    Glide.with(this)
+                            .load(selectedImage).error(R.drawable.ic_launcher)
+                            .diskCacheStrategy(DiskCacheStrategy.ALL)
+                            .override(128, 128).centerCrop()
+                            .into(imageAvatar);
+                    break;
+                case MessageType.TAKE_PHOTO:
+                    String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss")
+                            .format(new Date());
+                    String file_path = Environment
+                            .getExternalStorageDirectory().getAbsolutePath() +
+                            "/PhuotNgay";
+                    File dir = new File(file_path);
+                    if (!dir.exists())
+                        dir.mkdirs();
+                    File file = new File(dir, "image_" + timeStamp + ".jpg");
+                    try {
+                        FileOutputStream fOut = new FileOutputStream(file);
+
+                        fOut.flush();
+                        fOut.close();
+
+                        MediaStore.Images.Media.insertImage(getContentResolver(),
+                                file.getAbsolutePath(), file.getName(), file.getName());
+
+                        filename = file.toString();
+
+                        Glide.with(this).load(file)
+                                .error(R.drawable.ic_launcher)
+                                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                                .centerCrop()
+                                .into(imageAvatar);
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    break;
+            }
         }
     }
 
 /*
-    @OnClick(R.id.image)
-    public void onChangeCover() {
-        ContextMenuDialog dialog = new ContextMenuDialog(this);
-        //dialog.setTitle("Change Cover");
-        dialog.show();
-    }
-/*
-    @OnClick(R.id.txt_followers)
-    public void onShowFollowers() {
-    }
-
-    @OnClick(R.id.txt_photos)
-    public void onShowPhotos() {
-        startActivity(new Intent(this, ImageryActivity.class));
-        onBackPressed();
-    }
 
     @OnClick(R.id.layout_logout)
     public void onShowLogout() {
