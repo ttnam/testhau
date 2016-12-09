@@ -1,31 +1,26 @@
 package com.yosta.phuotngay.activities;
 
 import android.content.Intent;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearSnapHelper;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SnapHelper;
-import android.view.View;
 import android.view.Window;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 
 import com.bumptech.glide.Glide;
 import com.yosta.phuotngay.R;
-import com.yosta.phuotngay.activities.dialogs.DialogComment;
+import com.yosta.phuotngay.adapters.TimelineAdapter;
 import com.yosta.phuotngay.helpers.app.AppUtils;
 import com.yosta.phuotngay.helpers.decoration.SpacesItemDecoration;
-import com.yosta.phuotngay.helpers.listeners.ItemClickSupport;
 import com.yosta.phuotngay.interfaces.ActivityBehavior;
 import com.yosta.phuotngay.models.trip.FirebaseTrip;
+import com.yosta.phuotngay.models.view.TimelineView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
+import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 
 public class TripDetailActivity extends ActivityBehavior {
 
@@ -36,17 +31,12 @@ public class TripDetailActivity extends ActivityBehavior {
     WebView webView;
 
     @BindView(R.id.recycler_view)
-    RecyclerView recyclerView;
-
-    @BindView(R.id.rv_note)
     RecyclerView rvNote;
-
-    @BindView(R.id.layout)
-    SwipeRefreshLayout swipeRefreshLayout;
-
 
     @BindView(R.id.image_view)
     AppCompatImageView imageCover;
+
+    private TimelineAdapter mTimelineAdapter = null;
 
     @Override
     public void onApplyComponents() {
@@ -58,8 +48,9 @@ public class TripDetailActivity extends ActivityBehavior {
             window.getAttributes().windowAnimations = R.style.AppTheme_AnimDialog_SlideLeftRight;
         }
         onInitializeWebView();
-        onInitializeRecyclerView();
+        onApplyRecyclerView();
         onInitializeData();
+
     }
 
     private void onInitializeWebView() {
@@ -81,44 +72,27 @@ public class TripDetailActivity extends ActivityBehavior {
         txtTitle.setText(trip.getName());
 
         Glide.with(this).load(trip.getCover()).into(imageCover);
+
+        this.mTimelineAdapter = new TimelineAdapter(this);
+        this.mTimelineAdapter.clear();
+        for (int i = 0; i < 100; i++) {
+            this.mTimelineAdapter.add(new TimelineView(""));
+        }
     }
 
-    private void onInitializeRecyclerView() {
-        rvNote.setHasFixedSize(true);
-        rvNote.setItemAnimator(new DefaultItemAnimator());
-        rvNote.addItemDecoration(new SpacesItemDecoration(2));
-        rvNote.setNestedScrollingEnabled(false);
-        rvNote.setRecycledViewPool(new RecyclerView.RecycledViewPool());
-        rvNote.setLayoutManager(new GridLayoutManager(this, 1,
-                GridLayoutManager.HORIZONTAL, false));
-        SnapHelper snapHelper = new LinearSnapHelper();
-        snapHelper.attachToRecyclerView(rvNote);
-        ItemClickSupport.addTo(rvNote).setOnItemClickListener(
-                new ItemClickSupport.OnItemClickListener() {
-                    @Override
-                    public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-                        // do it
-                    }
-                }
-        );
-
-    }
-
-    @OnClick(R.id.layout_comment)
-    public void onShowCommentDialog() {
-        DialogComment dialogComment = new DialogComment(this);
-        dialogComment.show();
+    private void onApplyRecyclerView() {
+        this.rvNote.setAdapter(this.mTimelineAdapter);
+        this.rvNote.setHasFixedSize(true);
+        this.rvNote.setItemAnimator(new SlideInUpAnimator());
+        this.rvNote.setRecycledViewPool(new RecyclerView.RecycledViewPool());
+        this.rvNote.addItemDecoration(new SpacesItemDecoration(0));
+        this.rvNote.setNestedScrollingEnabled(false);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        this.rvNote.setLayoutManager(layoutManager);
     }
 
     @Override
     public void onApplyEvents() {
         super.onApplyEvents();
-
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                swipeRefreshLayout.setRefreshing(false);
-            }
-        });
     }
 }
