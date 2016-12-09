@@ -18,7 +18,7 @@ public class DatetimeUtils {
     }
 
     public static String getTime(Date date) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd mm yyyy");// java.util.Locale.getDefault());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd MM yyyy");// java.util.Locale.getDefault());
         return dateFormat.format(date);
     }
 }

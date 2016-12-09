@@ -7,6 +7,9 @@ import com.google.firebase.database.Query;
 import com.yosta.phuotngay.R;
 import com.yosta.phuotngay.models.trip.FirebaseTrip;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Phuc-Hau Nguyen on 12/1/2016.
  */
