@@ -3,8 +3,17 @@ package com.yosta.phuotngay.firebase;
 import android.app.Activity;
 import android.content.Context;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.yosta.phuotngay.helpers.app.SearchTripHelper;
+import com.yosta.phuotngay.models.trip.FirebaseTrip;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * Created by Phuc-Hau Nguyen on 12/1/2016.
@@ -49,7 +58,26 @@ public class FirebaseUtils {
     }
 
     public DatabaseReference TRIPRef() {
-        return TRIP().getRef();
+        DatabaseReference ref = TRIP().getRef();
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Iterator<DataSnapshot> trips = dataSnapshot.getChildren().iterator();
+                FirebaseTrip trip = null;
+                List<FirebaseTrip> result = new ArrayList<>();
+                while (trips.hasNext()) {
+                    trip = trips.next().getValue(FirebaseTrip.class);
+                    result.add(trip);
+                }
+                SearchTripHelper.init(result);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        return  ref;
     }
 
     public DatabaseReference USER() {
