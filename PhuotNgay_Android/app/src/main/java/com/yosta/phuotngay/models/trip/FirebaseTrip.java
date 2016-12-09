@@ -30,6 +30,22 @@ public class FirebaseTrip implements Serializable {
         this.arrive = arrive;
     }
 
+    public String getCover() {
+        return cover;
+    }
+
+    public void setCover(String cover) {
+        this.cover = cover;
+    }
+
+    public long getCreated_time() {
+        return created_time;
+    }
+
+    public void setCreated_time(long created_time) {
+        this.created_time = created_time;
+    }
+
     public FirebaseLocation getDepart() {
         return depart;
     }
@@ -49,15 +65,9 @@ public class FirebaseTrip implements Serializable {
     public String getFrom() {
         return from;
     }
-    public int getRating() {
-        return rating;
-    }
 
-    public long getCreatedTime() {
-        return created_time;
-    }
-    public String getCover() {
-        return cover;
+    public void setFrom(String from) {
+        this.from = from;
     }
 
     public String getName() {
@@ -66,5 +76,13 @@ public class FirebaseTrip implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
     }
 }
