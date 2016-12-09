@@ -1,5 +1,6 @@
 package com.yosta.phuotngay.fragments;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,14 +15,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.google.gson.Gson;
 import com.yosta.phuotngay.R;
 import com.yosta.phuotngay.activities.TripDetailActivity;
 import com.yosta.phuotngay.activities.dialogs.DialogFilter;
 import com.yosta.phuotngay.adapters.FilterAdapter;
 import com.yosta.phuotngay.firebase.FirebaseTripAdapter;
 import com.yosta.phuotngay.firebase.FirebaseUtils;
+import com.yosta.phuotngay.helpers.app.AppUtils;
 import com.yosta.phuotngay.helpers.decoration.SpacesItemDecoration;
 import com.yosta.phuotngay.helpers.listeners.RecyclerItemClickListener;
+import com.yosta.phuotngay.models.trip.FirebaseTrip;
 import com.yosta.phuotngay.models.view.FilterView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -47,10 +51,10 @@ public class TripFragment extends Fragment {
     @BindView(R.id.layout)
     LinearLayout layoutFilter;
 
-    // private TripAdapter placeAdapter = null;
     private FilterAdapter filterAdapter = null;
-    private Context mContext = null;
 
+    private Context mContext = null;
+    private Activity mActivity = null;
     private FirebaseUtils firebaseUtils = null;
     private FirebaseTripAdapter tripAdapter = null;
 
@@ -71,6 +75,7 @@ public class TripFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.mContext = getContext();
+        this.mActivity = getActivity();
     }
 
     @Override
@@ -132,7 +137,12 @@ public class TripFragment extends Fragment {
     private RecyclerItemClickListener tripItemClickListener = new RecyclerItemClickListener(getContext(), new RecyclerItemClickListener.OnItemClickListener() {
         @Override
         public void onItemClick(View view, int position) {
-            startActivity(new Intent(getActivity(), TripDetailActivity.class));
+            FirebaseTrip trip = tripAdapter.getItem(position);
+
+            Intent intent = new Intent(getActivity(), TripDetailActivity.class);
+            intent.putExtra(AppUtils.EXTRA_TRIP, trip);
+
+            startActivity(intent);
         }
     });
 

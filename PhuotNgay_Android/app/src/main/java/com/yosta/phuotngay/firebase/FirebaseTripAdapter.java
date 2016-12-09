@@ -24,4 +24,5 @@ public class FirebaseTripAdapter extends FirebaseRecyclerAdapter<FirebaseTrip, F
     protected void populateViewHolder(FirebaseTripViewHolder viewHolder, FirebaseTrip model, int position) {
         viewHolder.onBind(model);
     }
+
 }

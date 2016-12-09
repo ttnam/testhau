@@ -1,6 +1,8 @@
 package com.yosta.phuotngay.activities;
 
+import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
@@ -12,15 +14,14 @@ import android.view.Window;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 
+import com.bumptech.glide.Glide;
 import com.yosta.phuotngay.R;
 import com.yosta.phuotngay.activities.dialogs.DialogComment;
-import com.yosta.phuotngay.adapters.ImageryAdapter;
-import com.yosta.phuotngay.adapters.NoteAdapter;
+import com.yosta.phuotngay.helpers.app.AppUtils;
 import com.yosta.phuotngay.helpers.decoration.SpacesItemDecoration;
 import com.yosta.phuotngay.helpers.listeners.ItemClickSupport;
 import com.yosta.phuotngay.interfaces.ActivityBehavior;
-import com.yosta.phuotngay.models.note.Note;
-import com.yosta.phuotngay.models.view.ImageryView;
+import com.yosta.phuotngay.models.trip.FirebaseTrip;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -43,9 +44,9 @@ public class TripDetailActivity extends ActivityBehavior {
     @BindView(R.id.layout)
     SwipeRefreshLayout swipeRefreshLayout;
 
-    // private ImageryAdapter imageryAdapter = null;
-    /*private NoteAdapter noteAdapter = null;*/
 
+    @BindView(R.id.image_view)
+    AppCompatImageView imageCover;
 
     @Override
     public void onApplyComponents() {
@@ -56,9 +57,6 @@ public class TripDetailActivity extends ActivityBehavior {
         if (window != null) {
             window.getAttributes().windowAnimations = R.style.AppTheme_AnimDialog_SlideLeftRight;
         }
-        //imageryAdapter = new ImageryAdapter(this);
-        /*noteAdapter = new NoteAdapter(this);*/
-
         onInitializeWebView();
         onInitializeRecyclerView();
         onInitializeData();
@@ -71,31 +69,21 @@ public class TripDetailActivity extends ActivityBehavior {
     }
 
     private void onInitializeData() {
-        /*for (int i = 0; i < 20; i++) {
-            imageryAdapter.addImage(new ImageryView("https://travel.com.vn/images/destination/Large/dg_150723_vung_tau.jpg"));
-        }*/
+
+        Intent intent = this.getIntent();
+        FirebaseTrip trip = (FirebaseTrip) intent.getSerializableExtra(AppUtils.EXTRA_TRIP);
+
         String prefix = "<html><body><p style=\"text-align: justify\">";
         String postfix = "</p></body></html>";
-        String content = "Nếu bạn đã thấy sông trăng, hãy đến Nam Du vào ngày rằm để thấy biển trăng. Từ trên cao nhìn xuống, trăng tỏa sáng cả một vùng trời, đẹp và thơ mộng biết bao.";
+        String content = trip.getDescription();
 
         webView.loadData(prefix + content + postfix, "text/html; charset=utf-8", "utf-8");
-        txtTitle.setText("Nam Du, thiên đường nơi cực Nam Tổ quốc");
-/*
-        for (int i = 0; i < 20; i++) {
-            noteAdapter.add(new Note());
-        }*/
+        txtTitle.setText(trip.getName());
+
+        Glide.with(this).load(trip.getCover()).into(imageCover);
     }
 
     private void onInitializeRecyclerView() {
-      /*  recyclerView.setHasFixedSize(true);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.addItemDecoration(new SpacesItemDecoration(2));
-        recyclerView.setNestedScrollingEnabled(false);
-        recyclerView.setRecycledViewPool(new RecyclerView.RecycledViewPool());
-        recyclerView.setLayoutManager(new GridLayoutManager(this, 2,
-                GridLayoutManager.HORIZONTAL, false));
-        recyclerView.setAdapter(imageryAdapter);*/
-
         rvNote.setHasFixedSize(true);
         rvNote.setItemAnimator(new DefaultItemAnimator());
         rvNote.addItemDecoration(new SpacesItemDecoration(2));
@@ -105,7 +93,6 @@ public class TripDetailActivity extends ActivityBehavior {
                 GridLayoutManager.HORIZONTAL, false));
         SnapHelper snapHelper = new LinearSnapHelper();
         snapHelper.attachToRecyclerView(rvNote);
-        /*rvNote.setAdapter(noteAdapter);*/
         ItemClickSupport.addTo(rvNote).setOnItemClickListener(
                 new ItemClickSupport.OnItemClickListener() {
                     @Override

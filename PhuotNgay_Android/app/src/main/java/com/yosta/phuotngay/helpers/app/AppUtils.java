@@ -21,6 +21,7 @@ import android.util.Base64;
 import android.util.DisplayMetrics;
 import android.view.View;
 
+import com.google.gson.Gson;
 import com.yosta.phuotngay.R;
 import com.yosta.phuotngay.adapters.MenuAdapter;
 import com.yosta.phuotngay.models.menu.MenuItem;
@@ -33,6 +34,7 @@ import java.util.ArrayList;
 public class AppUtils {
 
     public static final String EXTRA_INTENT = "EXTRA_INTENT";
+    public static final String EXTRA_TRIP = "EXTRA_TRIP";
 
     private static boolean isWifiConnected(Context context) {
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -208,6 +210,7 @@ public class AppUtils {
         activity.getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
         return displaymetrics.heightPixels;
     }
+
     public static int getScreenWidth(Activity activity) {
         DisplayMetrics displaymetrics = new DisplayMetrics();
         activity.getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
