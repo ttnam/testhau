@@ -32,7 +32,7 @@ public class AppConfig extends Application {
     }
 
     public void setUserId(String userId) {
-        mUser.setUserId(userId);
+        mUser.setUserID(userId);
     }
 
     public void setEmail(String email) {
@@ -40,23 +40,7 @@ public class AppConfig extends Application {
     }
 
     public void setUserName(String userName) {
-        mUser.setUserName(userName);
-    }
-
-    public void setCoverUrl(String coverUrl) {
-        mUser.setCoverUrl(coverUrl);
-    }
-
-    public void setAvatarUrl(String avatarUrl) {
-        mUser.setAvatarUrl(avatarUrl);
-    }
-
-    public void setMembership(String userId) {
-        mUser.setMembership(userId);
-    }
-
-    public void setGender(int gender) {
-        mUser.setGender(gender);
+        mUser.setUsername(userName);
     }
 
     public void saveUser() {

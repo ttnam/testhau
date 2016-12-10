@@ -9,6 +9,7 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -24,8 +25,8 @@ import com.yosta.materialspinner.MaterialSpinner;
 import com.yosta.phuotngay.R;
 import com.yosta.phuotngay.activities.dialogs.DialogChooseImage;
 import com.yosta.phuotngay.firebase.FirebaseUtils;
-import com.yosta.phuotngay.firebase.model.FirebaseTrip;
 import com.yosta.phuotngay.firebase.model.FirebaseUser;
+import com.yosta.phuotngay.helpers.app.DatetimeUtils;
 import com.yosta.phuotngay.interfaces.ActivityBehavior;
 import com.yosta.phuotngay.models.app.MessageInfo;
 import com.yosta.phuotngay.models.app.MessageType;
@@ -47,35 +48,14 @@ import permissions.dispatcher.RuntimePermissions;
 @RuntimePermissions
 public class ProfileActivity extends ActivityBehavior {
 
-    /*@BindView(R.id.image)
-    AppCompatImageView imageCover;
+    @BindView(R.id.tvUserName)
+    TextView tvUserName;
 
-    @BindView(R.id.txt_overview)
-    AppCompatTextView txtOverview;
+    @BindView(R.id.tV_member_ship)
+    TextView txtMembership;
 
-    @BindView(R.id.txt_experience)
-    AppCompatTextView txtExperience;
-
-    @BindView(R.id.txt_followers)
-    AppCompatTextView txtFollow;
-
-    @BindView(R.id.txt_membership)
-    AppCompatTextView txtMembership;
-
-    @BindView(R.id.txt_photo_number)
-    AppCompatTextView txtPhotoNumber;
-
-    @BindView(R.id.txt_friends_number)
-    AppCompatTextView txtFriendsNumber;
-
-    @BindView(R.id.textView)
-    AppCompatTextView textAccountName;
-
-    @BindView(R.id.txt_gender)
-    AppCompatTextView txtGender;
-
-    @BindView(R.id.txt_photos)
-    AppCompatTextView txtPhotos;*/
+    @BindView(R.id.tV_email)
+    TextView tVEmail;
 
     @BindView(R.id.spinner_gender)
     MaterialSpinner spinnerGender;
@@ -93,7 +73,6 @@ public class ProfileActivity extends ActivityBehavior {
     protected void onStart() {
         super.onStart();
         EventBus.getDefault().register(this);
-        this.mFirebaseUtils = FirebaseUtils.initializeWith(this);
     }
 
     @Override
@@ -102,7 +81,12 @@ public class ProfileActivity extends ActivityBehavior {
         setContentView(R.layout.activity_profile);
         ButterKnife.bind(this);
 
-        ownToolBar.setBinding("Nguyễn Phúc Hậu", Integer.MIN_VALUE, R.drawable.ic_vector_menu,
+        this.mFirebaseUtils = FirebaseUtils.initializeWith(this);
+
+        this.ownToolBar.setBinding(
+                "Nguyễn Phúc Hậu",
+                Integer.MIN_VALUE,
+                R.drawable.ic_vector_menu,
                 null, new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -148,14 +132,14 @@ public class ProfileActivity extends ActivityBehavior {
         this.mGender = Arrays.asList(getResources().getStringArray(R.array.arr_gender));
         this.spinnerGender.setItems(this.mGender);
 
-        String uid = "";
+        String uid = "KGSdIvQ1ESWOJfHPJYqkCeX1juf2";
         this.mFirebaseUtils.USER().child(uid).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     FirebaseUser user = dataSnapshot.getValue(FirebaseUser.class);
                     if (user != null) {
-
+                        onUpdateUserInfo(user);
                     }
                 }
             }
@@ -250,6 +234,21 @@ public class ProfileActivity extends ActivityBehavior {
         ProfileActivityPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
     }
 
+    private void onUpdateUserInfo(FirebaseUser user) {
+
+        Glide.with(ProfileActivity.this).load(user.getAvatar())
+                .error(R.drawable.ic_launcher)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .override(128, 128).centerCrop()
+                .into(imageAvatar);
+
+        tvUserName.setText(user.getUsername());
+        txtMembership.setText(DatetimeUtils.getTime(
+                DatetimeUtils.timeStampToDate(
+                        user.getMembership())));
+        tVEmail.setText(user.getEmail());
+        spinnerGender.setSelectedIndex((int) user.getGender());
+    }
     /*
 
     @OnClick(R.id.layout_logout)

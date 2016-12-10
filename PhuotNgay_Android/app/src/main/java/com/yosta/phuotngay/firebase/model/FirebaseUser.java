@@ -13,95 +13,91 @@ public class FirebaseUser implements Serializable {
     private String mUserID = null;
 
     @SerializedName(value = "token")
-    private String mToken = null;
+    private String token = null;
 
-    @SerializedName(value = "user_name")
-    private String mUserName = null;
+    private String username = null;
+    private String cover = null;
+    private String avatar = null;
+    private String email = null;
+    private long gender = -1;
+    private long membership = 0;
 
-    @SerializedName(value = "cover")
-    private String mCoverUrl = null;
-
-    @SerializedName(value = "avatar")
-    private String mAvatarUrl = null;
-
-    @SerializedName(value = "email")
-    private String mEmail = null;
-
-    @SerializedName(value = "gender")
-    private int mGender = -1;
-
-    @SerializedName(value = "member_ship")
-    private String mMembership = null;
+    private BaseUserInfo followers;
+    private BaseUserInfo followings;
 
     public FirebaseUser() {
     }
 
-    public String getUserId() {
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public String getUserID() {
         return mUserID;
     }
 
-    public void setUserId(String mUserID) {
+    public void setUserID(String mUserID) {
         this.mUserID = mUserID;
     }
 
-    public String getToken() {
-        return mToken;
+    public String getUsername() {
+        return username;
     }
 
-    public void setToken(String mToken) {
-        this.mToken = mToken;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public String getUserName() {
-        return mUserName;
+    public long getMembership() {
+        return membership;
     }
 
-    public void setUserName(String mUserName) {
-        this.mUserName = mUserName;
+    public void setMembership(long membership) {
+        this.membership = membership;
     }
 
-    public String getCoverUrl() {
-        return mCoverUrl;
+    public String getCover() {
+        return cover;
     }
 
-    public void setCoverUrl(String mCoverUrl) {
-        this.mCoverUrl = mCoverUrl;
+    public void setCover(String cover) {
+        this.cover = cover;
     }
 
-    public String getAvatarUrl() {
-        return mAvatarUrl;
+    public String getAvatar() {
+        return avatar;
     }
 
-    public void setAvatarUrl(String mAvatarUrl) {
-        this.mAvatarUrl = mAvatarUrl;
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
     public String getEmail() {
-        return mEmail;
+        return email;
     }
 
-    public void setEmail(String mEmail) {
-        this.mEmail = mEmail;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public int getGender() {
-        return mGender;
+    public long getGender() {
+        return gender;
     }
 
-    public void setGender(int mGender) {
-        this.mGender = mGender;
-    }
-
-    public String getMembership() {
-        return mMembership;
-    }
-
-    public void setMembership(String mMembership) {
-        this.mMembership = mMembership;
+    public void setGender(long gender) {
+        this.gender = gender;
     }
 
     @Override
     public String toString() {
-        return String.format("%s - %s", mUserID, mEmail);
+        return String.format("%s - %s - %s", mUserID, username, email);
+    }
+
+    public class BaseUserInfo {
+        private String userid;
     }
 }

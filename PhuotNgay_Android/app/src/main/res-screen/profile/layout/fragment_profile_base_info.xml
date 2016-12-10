@@ -37,6 +37,7 @@
                 android:text="Member Ship" />
 
             <TextView
+                android:id="@+id/tV_member_ship"
                 style="@style/AppTheme.TextView_Title.Bold.ColorPrimary"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -69,6 +70,7 @@
             app:srcCompat="@drawable/ic_vector_email" />
 
         <TextView
+            android:id="@+id/tV_email"
             style="@style/AppTheme.TextView_Title.Bold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

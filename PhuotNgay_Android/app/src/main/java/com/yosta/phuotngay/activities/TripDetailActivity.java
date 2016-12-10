@@ -29,9 +29,9 @@ public class TripDetailActivity extends ActivityBehavior {
 
     @BindView(R.id.web_view)
     WebView webView;
-
+/*
     @BindView(R.id.recycler_view)
-    RecyclerView rvNote;
+    RecyclerView rvNote;*/
 
     @BindView(R.id.image_view)
     AppCompatImageView imageCover;
@@ -48,7 +48,7 @@ public class TripDetailActivity extends ActivityBehavior {
             window.getAttributes().windowAnimations = R.style.AppTheme_AnimDialog_SlideLeftRight;
         }
         onInitializeWebView();
-        onApplyRecyclerView();
+        // onApplyRecyclerView();
         onInitializeData();
 
     }
@@ -79,6 +79,7 @@ public class TripDetailActivity extends ActivityBehavior {
             this.mTimelineAdapter.add(new TimelineView(""));
         }
     }
+/*
 
     private void onApplyRecyclerView() {
         this.rvNote.setAdapter(this.mTimelineAdapter);
@@ -90,6 +91,7 @@ public class TripDetailActivity extends ActivityBehavior {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         this.rvNote.setLayoutManager(layoutManager);
     }
+*/
 
     @Override
     public void onApplyEvents() {

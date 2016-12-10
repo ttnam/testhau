@@ -30,6 +30,7 @@ public class FirebaseUtils {
             this.mReference = FirebaseDatabase.getInstance().getReference();
         }
     }
+
     public static FirebaseUtils initializeWith(Context context) {
         if (mInstance == null) {
             mInstance = new FirebaseUtils(context);
@@ -61,7 +62,7 @@ public class FirebaseUtils {
 
             }
         });
-        return  ref;
+        return ref;
     }
 
     public DatabaseReference USER() {
