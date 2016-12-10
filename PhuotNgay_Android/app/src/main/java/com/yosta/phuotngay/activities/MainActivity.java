@@ -44,6 +44,12 @@ public class MainActivity extends ActivityBehavior {
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        this.mViewPager.setCurrentItem(0, true);
+    }
+
     private void onApplyTabLayout() {
 
         this.mTabLayout.setupWithViewPager(mViewPager);
@@ -66,6 +72,7 @@ public class MainActivity extends ActivityBehavior {
         }
         this.mTabLayout.setSmoothScrollingEnabled(true);
     }
+
 
     private void onApplyViewPager() {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());

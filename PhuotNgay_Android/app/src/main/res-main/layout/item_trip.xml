@@ -27,15 +27,30 @@
                 android:alpha="0.3"
                 android:background="@android:color/black" />
 
-            <TextView
-                android:id="@+id/tv_created_time"
-                style="@style/AppTheme.TextView_Sub_Title.Bold"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|end"
                 android:layout_margin="@dimen/margin"
-                android:padding="@dimen/margin"
-                android:textColor="@android:color/white" />
+                android:orientation="horizontal">
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:layout_width="@dimen/icon_size_x2"
+                    android:layout_height="@dimen/icon_size_x2"
+                    android:layout_gravity="center"
+                    app:srcCompat="@drawable/ic_vector_calendar" />
+
+
+                <TextView
+                    android:id="@+id/tv_created_time"
+                    style="@style/AppTheme.TextView_Sub_Title.Bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:paddingLeft="@dimen/margin"
+                    android:textColor="@android:color/white" />
+            </LinearLayout>
+
 
         </FrameLayout>
 
@@ -50,10 +65,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
+                android:ellipsize="end"
                 android:gravity="center"
-                android:paddingLeft="@dimen/margin"
-                android:paddingRight="@dimen/margin"
-                android:paddingTop="@dimen/margin" />
+                android:maxLines="2"
+                android:minLines="1"
+                android:padding="@dimen/margin" />
 
         </LinearLayout>
     </LinearLayout>
