@@ -3,12 +3,15 @@ package com.yosta.phuotngay.activities;
 import android.content.Intent;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.yosta.phuotngay.R;
 import com.yosta.phuotngay.adapters.TripAdapter;
+import com.yosta.phuotngay.firebase.model.FirebaseTrip;
 import com.yosta.phuotngay.firebase.model.FirebaseTrips;
 import com.yosta.phuotngay.helpers.app.AppUtils;
 import com.yosta.phuotngay.helpers.decoration.SpacesItemDecoration;
+import com.yosta.phuotngay.helpers.listeners.RecyclerItemClickListener;
 import com.yosta.phuotngay.interfaces.ActivityBehavior;
 
 import butterknife.BindView;
@@ -56,6 +59,17 @@ public class SearchActivity extends ActivityBehavior {
         this.rvTrip.setNestedScrollingEnabled(false);
         this.rvTrip.setLayoutManager(layoutManager);
         this.rvTrip.setAdapter(this.tripAdapter);
-
+        this.rvTrip.addOnItemTouchListener(tripItemClickListener);
     }
+
+    private RecyclerItemClickListener tripItemClickListener = new RecyclerItemClickListener(this,
+            new RecyclerItemClickListener.OnItemClickListener() {
+                @Override
+                public void onItemClick(View view, int position) {
+                    FirebaseTrip trip = tripAdapter.getItem(position);
+                    Intent intent = new Intent(SearchActivity.this, TripDetailActivity.class);
+                    intent.putExtra(AppUtils.EXTRA_TRIP, trip);
+                    startActivity(intent);
+                }
+            });
 }

@@ -47,18 +47,25 @@ public class TripAdapter extends RecyclerView.Adapter<FirebaseTripViewHolder> {
     }
 
     public void adds(List<FirebaseTrip> trips) {
-        mTrips.addAll(trips);
+        this.mTrips.addAll(trips);
         notifyDataSetChanged();
     }
 
+    public FirebaseTrip getItem(int position) {
+        if (position < 1 || position >= getItemCount()) {
+            return null;
+        }
+        return this.mTrips.get(position);
+    }
+
     public int add(FirebaseTrip trip) {
-        mTrips.add(trip);
-        int index = mTrips.size() - 1;
+        this.mTrips.add(trip);
+        int index = this.mTrips.size() - 1;
         notifyItemChanged(index);
         return index;
     }
 
     public void clear() {
-        mTrips.clear();
+        this.mTrips.clear();
     }
 }
