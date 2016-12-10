@@ -20,17 +20,9 @@ import java.util.List;
  */
 public class FirebaseUtils {
 
-    private Activity mActivity = null;
     private Context mContext = null;
     private DatabaseReference mReference = null;
     private static FirebaseUtils mInstance = null;
-
-    private FirebaseUtils(Activity activity) {
-        this.mActivity = activity;
-        if (this.mReference == null) {
-            this.mReference = FirebaseDatabase.getInstance().getReference();
-        }
-    }
 
     private FirebaseUtils(Context context) {
         this.mContext = context;
@@ -38,14 +30,6 @@ public class FirebaseUtils {
             this.mReference = FirebaseDatabase.getInstance().getReference();
         }
     }
-
-    public static FirebaseUtils initializeWith(Activity activity) {
-        if (mInstance == null) {
-            mInstance = new FirebaseUtils(activity);
-        }
-        return mInstance;
-    }
-
     public static FirebaseUtils initializeWith(Context context) {
         if (mInstance == null) {
             mInstance = new FirebaseUtils(context);
@@ -63,7 +47,7 @@ public class FirebaseUtils {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Iterator<DataSnapshot> trips = dataSnapshot.getChildren().iterator();
-                FirebaseTrip trip = null;
+                FirebaseTrip trip;
                 List<FirebaseTrip> result = new ArrayList<>();
                 while (trips.hasNext()) {
                     trip = trips.next().getValue(FirebaseTrip.class);

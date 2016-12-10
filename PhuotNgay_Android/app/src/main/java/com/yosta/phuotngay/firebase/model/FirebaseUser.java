@@ -1,4 +1,4 @@
-package com.yosta.phuotngay.models.user;
+package com.yosta.phuotngay.firebase.model;
 
 import android.support.annotation.RequiresPermission;
 
@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-public class User implements Serializable {
+public class FirebaseUser implements Serializable {
 
     @RequiresPermission
     @SerializedName(value = "user_id")
@@ -33,7 +33,7 @@ public class User implements Serializable {
     @SerializedName(value = "member_ship")
     private String mMembership = null;
 
-    public User() {
+    public FirebaseUser() {
     }
 
     public String getUserId() {

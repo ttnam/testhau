@@ -74,7 +74,7 @@ public class MenuAdapter extends ArrayAdapter<MenuItem> {
 
             if (menuName.equalsIgnoreCase("account")) {
                 // StorageUtils utils = new StorageUtils(activity);
-                /*User user = sharedPresUtils.getUserPrefs();
+                /*FirebaseUser user = sharedPresUtils.getUserPrefs();
                 String name = user.getName();
                 if (!name.isEmpty()) {
                     txtName.setText(name);

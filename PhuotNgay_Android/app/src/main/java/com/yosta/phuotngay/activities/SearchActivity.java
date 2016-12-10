@@ -42,34 +42,34 @@ public class SearchActivity extends ActivityBehavior {
         super.onApplyComponents();
         setContentView(R.layout.activity_search);
         ButterKnife.bind(this);
+
         this.tripAdapter = new TripAdapter(this);
+
         onInitializeTrip();
     }
 
     private void onInitializeTrip() {
 
         this.rvTrip.setHasFixedSize(true);
-        this.rvTrip.setItemAnimator(new SlideInUpAnimator());
-        this.rvTrip.setRecycledViewPool(new RecyclerView.RecycledViewPool());
-        this.rvTrip.addItemDecoration(new SpacesItemDecoration(3));
-
-        GridLayoutManager layoutManager = new GridLayoutManager(
-                this, 2, GridLayoutManager.VERTICAL, false);
-
         this.rvTrip.setNestedScrollingEnabled(false);
-        this.rvTrip.setLayoutManager(layoutManager);
+        this.rvTrip.setItemAnimator(new SlideInUpAnimator());
+        ///this.rvTrip.addOnItemTouchListener(tripItemClickListener);
+        this.rvTrip.addItemDecoration(new SpacesItemDecoration(3));
+        this.rvTrip.setRecycledViewPool(new RecyclerView.RecycledViewPool());
+        this.rvTrip.setLayoutManager(new GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false));
         this.rvTrip.setAdapter(this.tripAdapter);
-        this.rvTrip.addOnItemTouchListener(tripItemClickListener);
     }
-
+/*
     private RecyclerItemClickListener tripItemClickListener = new RecyclerItemClickListener(this,
             new RecyclerItemClickListener.OnItemClickListener() {
                 @Override
                 public void onItemClick(View view, int position) {
                     FirebaseTrip trip = tripAdapter.getItem(position);
-                    Intent intent = new Intent(SearchActivity.this, TripDetailActivity.class);
-                    intent.putExtra(AppUtils.EXTRA_TRIP, trip);
-                    startActivity(intent);
+                    if (trip != null) {
+                        Intent intent = new Intent(SearchActivity.this, TripDetailActivity.class);
+                        intent.putExtra(AppUtils.EXTRA_TRIP, trip);
+                        startActivity(intent);
+                    }
                 }
-            });
+            });*/
 }

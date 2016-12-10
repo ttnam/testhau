@@ -1,10 +1,9 @@
 package com.yosta.phuotngay.configs;
 
 import android.app.Application;
-import android.content.res.Configuration;
 
+import com.yosta.phuotngay.firebase.model.FirebaseUser;
 import com.yosta.phuotngay.helpers.app.StorageUtils;
-import com.yosta.phuotngay.models.user.User;
 
 /**
  * Created by Phuc-Hau Nguyen on 11/9/2016.
@@ -12,7 +11,7 @@ import com.yosta.phuotngay.models.user.User;
 
 public class AppConfig extends Application {
 
-    private static User mUser = null;
+    private static FirebaseUser mUser = null;
     private StorageUtils storageUtils = null;
 
     @Override
@@ -28,7 +27,7 @@ public class AppConfig extends Application {
         super.onLowMemory();
     }
 
-    public User getUser() {
+    public FirebaseUser getUser() {
         return mUser;
     }
 

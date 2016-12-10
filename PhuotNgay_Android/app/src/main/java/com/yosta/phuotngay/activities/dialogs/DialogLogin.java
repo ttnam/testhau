@@ -234,7 +234,7 @@ public class DialogLogin /*extends Dialog implements DialogBehavior */{
                         appConfig.setCurrentUserId(userId);
                         appConfig.setCurrentUserToken(AccessToken.getCurrentAccessToken().getToken());
                         Bundle params = new Bundle();
-                        params.putString("fields", User.permission);
+                        params.putString("fields", FirebaseUser.permission);
 
                         new GraphRequest(AccessToken.getCurrentAccessToken(),
                                 userId, params, HttpMethod.GET,

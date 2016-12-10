@@ -8,7 +8,7 @@ import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
 
 import com.google.gson.Gson;
-import com.yosta.phuotngay.models.user.User;
+import com.yosta.phuotngay.firebase.model.FirebaseUser;
 
 import java.util.Locale;
 
@@ -121,13 +121,13 @@ public class StorageUtils {
         return saveSetting(KEY_APP_SETTING, json);
     }
 
-    public User getUser() {
+    public FirebaseUser getUser() {
         Gson gson = new Gson();
         String json = getSettingString(KEY_USER);
-        return gson.fromJson(json, User.class);
+        return gson.fromJson(json, FirebaseUser.class);
     }
 
-    public void setUser(User user) {
+    public void setUser(FirebaseUser user) {
         Gson gson = new Gson();
         String json = gson.toJson(user);
         saveSetting(KEY_USER, json);
