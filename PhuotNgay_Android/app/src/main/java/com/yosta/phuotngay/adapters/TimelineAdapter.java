@@ -8,11 +8,8 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.yosta.phuotngay.R;
-import com.yosta.phuotngay.bindings.FilterViewModel;
 import com.yosta.phuotngay.bindings.TimelineViewModel;
-import com.yosta.phuotngay.databinding.ItemFilterBinding;
 import com.yosta.phuotngay.databinding.ItemTimelineBinding;
-import com.yosta.phuotngay.models.view.FilterView;
 import com.yosta.phuotngay.models.view.TimelineView;
 
 import java.util.ArrayList;

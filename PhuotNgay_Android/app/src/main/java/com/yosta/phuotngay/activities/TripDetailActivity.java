@@ -15,7 +15,7 @@ import com.yosta.phuotngay.adapters.TimelineAdapter;
 import com.yosta.phuotngay.helpers.app.AppUtils;
 import com.yosta.phuotngay.helpers.decoration.SpacesItemDecoration;
 import com.yosta.phuotngay.interfaces.ActivityBehavior;
-import com.yosta.phuotngay.models.trip.FirebaseTrip;
+import com.yosta.phuotngay.firebase.model.FirebaseTrip;
 import com.yosta.phuotngay.models.view.TimelineView;
 
 import butterknife.BindView;

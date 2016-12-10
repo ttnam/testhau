@@ -5,10 +5,7 @@ import android.content.Context;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.Query;
 import com.yosta.phuotngay.R;
-import com.yosta.phuotngay.models.trip.FirebaseTrip;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.yosta.phuotngay.firebase.model.FirebaseTrip;
 
 /**
  * Created by Phuc-Hau Nguyen on 12/1/2016.

@@ -1,6 +1,6 @@
 package com.yosta.phuotngay.helpers.app;
 
-import com.yosta.phuotngay.models.trip.FirebaseTrip;
+import com.yosta.phuotngay.firebase.model.FirebaseTrip;
 
 import java.io.UnsupportedEncodingException;
 import java.text.Normalizer;
@@ -13,6 +13,7 @@ import java.util.regex.Pattern;
  */
 
 public class SearchTripHelper {
+
     private static List<FirebaseTrip> trips;
 
     public static void init(List<FirebaseTrip> trips) {
@@ -28,6 +29,7 @@ public class SearchTripHelper {
     }
 
     public static List<FirebaseTrip> search(String arrive, String depart, String time, String transfer) {
+
         List<FirebaseTrip> result = new ArrayList();
 
         try {

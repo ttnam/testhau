@@ -21,6 +21,6 @@ public class FilterViewModel extends BaseObservable {
     @Bindable
     public void setContent(String content) {
         this.mContent = content;
-        notifyPropertyChanged(BR.name);
+        notifyPropertyChanged(BR.content);
     }
 }

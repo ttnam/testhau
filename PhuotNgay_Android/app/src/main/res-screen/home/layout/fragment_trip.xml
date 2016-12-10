@@ -90,18 +90,8 @@
                                 android:layout_height="?actionBarSize"
                                 android:layout_marginTop="@dimen/margin"
                                 android:background="@drawable/ic_style_button_round_big_corners_cyan_none"
-                                android:text="Phượt Ngay"
+                                android:text="Phượt Ngay!"
                                 android:textColor="@android:color/white"
-                                android:textSize="16sp"
-                                android:textStyle="bold" />
-
-                            <Button
-                                android:layout_width="match_parent"
-                                android:layout_height="?actionBarSize"
-                                android:layout_marginTop="@dimen/margin"
-                                android:background="@drawable/ic_style_button_round_big_corners_white_none"
-                                android:text="Phượt Ngay"
-                                android:textColor="@color/Cyan"
                                 android:textSize="16sp"
                                 android:textStyle="bold" />
 

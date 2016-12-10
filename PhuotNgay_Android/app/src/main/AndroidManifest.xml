@@ -77,33 +77,28 @@
             android:theme="@style/AppTheme.Fullscreen" />
         <activity
             android:name=".activities.LoginActivity"
-            android:theme="@style/AppTheme.Fullscreen">
-
-        </activity>
+            android:theme="@style/AppTheme.Fullscreen" />
         <activity
             android:name=".activities.WebViewActivity"
             android:theme="@style/AppTheme.Fullscreen" />
-
         <activity
             android:name=".activities.TripDetailActivity"
-            android:screenOrientation="portrait"
             android:launchMode="singleInstance"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Fullscreen" />
-
         <activity
             android:name=".activities.ProfileActivity"
             android:launchMode="singleInstance"
-            android:theme="@style/AppTheme.Fullscreen">
-        </activity>
-
+            android:theme="@style/AppTheme.Fullscreen" />
         <activity
             android:name=".activities.OwnTripActivity"
             android:theme="@style/AppTheme.Fullscreen" />
-
         <activity
             android:name=".activities.CreateTripActivity"
             android:theme="@style/AppTheme.Fullscreen" />
-
+        <activity
+            android:name=".activities.SearchActivity"
+            android:theme="@style/AppTheme.Fullscreen" />
     </application>
 
 </manifest>

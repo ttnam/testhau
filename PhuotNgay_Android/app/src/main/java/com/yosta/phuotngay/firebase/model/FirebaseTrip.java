@@ -1,4 +1,4 @@
-package com.yosta.phuotngay.models.trip;
+package com.yosta.phuotngay.firebase.model;
 
 import com.yosta.phuotngay.models.location.FirebaseLocation;
 
@@ -84,5 +84,10 @@ public class FirebaseTrip implements Serializable {
 
     public void setRating(int rating) {
         this.rating = rating;
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }

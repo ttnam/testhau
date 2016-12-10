@@ -1,29 +1,29 @@
 package com.yosta.phuotngay.fragments;
 
 import android.app.Activity;
-import android.content.Context;
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 
 import com.yosta.materialspinner.MaterialSpinner;
 import com.yosta.phuotngay.R;
-import com.yosta.phuotngay.adapters.FilterAdapter;
-import com.yosta.phuotngay.firebase.FirebaseTripAdapter;
-import com.yosta.phuotngay.firebase.FirebaseUtils;
+import com.yosta.phuotngay.activities.SearchActivity;
+import com.yosta.phuotngay.firebase.model.FirebaseTrips;
+import com.yosta.phuotngay.helpers.app.AppUtils;
 import com.yosta.phuotngay.helpers.app.SearchTripHelper;
-import com.yosta.phuotngay.models.trip.FirebaseTrip;
+import com.yosta.phuotngay.firebase.model.FirebaseTrip;
 
 import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class SearchFragment extends Fragment {
 
@@ -39,15 +39,6 @@ public class SearchFragment extends Fragment {
     @BindView(R.id.txt_time)
     EditText txt_time;
 
-    @BindView(R.id.btn_search)
-    Button btn_search;
-
-    private FilterAdapter filterAdapter = null;
-    private Context mContext = null;
-
-    private FirebaseUtils firebaseUtils = null;
-    private FirebaseTripAdapter tripAdapter = null;
-
     private Activity mActivity;
     private List<String> mVehicles = null;
 
@@ -55,41 +46,58 @@ public class SearchFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.mActivity = getActivity();
-        this.mContext = getContext();
-    }
-
-    private void Search() {
-        List<FirebaseTrip> trips = SearchTripHelper.search(txt_arrive.getText().toString(), txt_depart.getText().toString(),
-                txt_time.getText().toString(), mVehicles.get(mSpinnerVehicle.getSelectedIndex()));
-
-        Log.e("SEARCH", "" + trips.size());
-        for (FirebaseTrip trip : trips)
-            Log.e("SEARCH", trip.getName());
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_search, container, false);
         ButterKnife.bind(this, rootView);
-
-        btn_search.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Search();
-            }
-        });
-
-        this.firebaseUtils = FirebaseUtils.initializeWith(mContext);
-        this.tripAdapter = new FirebaseTripAdapter(mContext, this.firebaseUtils.TRIPRef());
-        this.filterAdapter = new FilterAdapter(mContext);
-
         onApplyData();
 
         return rootView;
     }
 
+
     private void onApplyData() {
         this.mVehicles = Arrays.asList(this.mActivity.getResources().getStringArray(R.array.arr_vehicle));
         this.mSpinnerVehicle.setItems(this.mVehicles);
     }
+
+    @OnClick(R.id.btn_search)
+    public void Search() {
+
+        new AsyncTask<String, Void, List<FirebaseTrip>>() {
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+            }
+
+            @Override
+            protected List<FirebaseTrip> doInBackground(String... params) {
+                String arrive = params[0];
+                String depart = params[1];
+                String time = params[2];
+                String vehicle = params[3];
+                return SearchTripHelper.search(arrive, depart, time, vehicle);
+            }
+
+            @Override
+            protected void onPostExecute(List<FirebaseTrip> firebaseTrips) {
+                super.onPostExecute(firebaseTrips);
+                if (firebaseTrips != null) {
+                    if (firebaseTrips.size() > 0) {
+                        FirebaseTrips trips = new FirebaseTrips(firebaseTrips);
+                        Intent intent = new Intent(mActivity, SearchActivity.class);
+                        intent.putExtra(AppUtils.EXTRA_TRIPS, trips);
+                        startActivity(intent);
+                    }
+                }
+            }
+        }.execute(txt_arrive.getText().toString(),
+                txt_depart.getText().toString(),
+                txt_time.getText().toString(),
+                mVehicles.get(mSpinnerVehicle.getSelectedIndex()));
+    }
+
 }

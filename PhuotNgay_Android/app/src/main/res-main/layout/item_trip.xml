@@ -27,7 +27,7 @@
                 android:alpha="0.3"
                 android:background="@android:color/black" />
 
-            <android.support.v7.widget.AppCompatTextView
+            <TextView
                 android:id="@+id/tv_created_time"
                 style="@style/AppTheme.TextView_Sub_Title.Bold"
                 android:layout_width="wrap_content"
@@ -35,7 +35,6 @@
                 android:layout_gravity="bottom|end"
                 android:layout_margin="@dimen/margin"
                 android:padding="@dimen/margin"
-                android:text="August, 2016"
                 android:textColor="@android:color/white" />
 
         </FrameLayout>
@@ -45,7 +44,7 @@
             android:layout_height="?actionBarSize"
             android:orientation="vertical">
 
-            <android.support.v7.widget.AppCompatTextView
+            <TextView
                 android:id="@id/text_view"
                 style="@style/AppTheme.TextView_Title.Bold"
                 android:layout_width="match_parent"
@@ -54,9 +53,7 @@
                 android:gravity="center"
                 android:paddingLeft="@dimen/margin"
                 android:paddingRight="@dimen/margin"
-                android:paddingTop="@dimen/margin"
-                android:text="Nam du | Viet Nam"
-                android:textStyle="bold" />
+                android:paddingTop="@dimen/margin" />
 
         </LinearLayout>
     </LinearLayout>

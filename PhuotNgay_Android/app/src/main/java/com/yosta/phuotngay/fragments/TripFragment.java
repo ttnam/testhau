@@ -1,6 +1,5 @@
 package com.yosta.phuotngay.fragments;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,7 +14,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-import com.google.gson.Gson;
 import com.yosta.phuotngay.R;
 import com.yosta.phuotngay.activities.TripDetailActivity;
 import com.yosta.phuotngay.activities.dialogs.DialogFilter;
@@ -25,7 +23,7 @@ import com.yosta.phuotngay.firebase.FirebaseUtils;
 import com.yosta.phuotngay.helpers.app.AppUtils;
 import com.yosta.phuotngay.helpers.decoration.SpacesItemDecoration;
 import com.yosta.phuotngay.helpers.listeners.RecyclerItemClickListener;
-import com.yosta.phuotngay.models.trip.FirebaseTrip;
+import com.yosta.phuotngay.firebase.model.FirebaseTrip;
 import com.yosta.phuotngay.models.view.FilterView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -54,8 +52,6 @@ public class TripFragment extends Fragment {
     private FilterAdapter filterAdapter = null;
 
     private Context mContext = null;
-    private Activity mActivity = null;
-    private FirebaseUtils firebaseUtils = null;
     private FirebaseTripAdapter tripAdapter = null;
 
     @Override
@@ -75,17 +71,15 @@ public class TripFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.mContext = getContext();
-        this.mActivity = getActivity();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
         View rootView = inflater.inflate(R.layout.fragment_trip, container, false);
-
         ButterKnife.bind(this, rootView);
-        this.firebaseUtils = FirebaseUtils.initializeWith(mContext);
-        this.tripAdapter = new FirebaseTripAdapter(mContext, this.firebaseUtils.TRIPRef());
+
+        FirebaseUtils firebaseUtils = FirebaseUtils.initializeWith(mContext);
+        this.tripAdapter = new FirebaseTripAdapter(mContext, firebaseUtils.TRIPRef());
         this.filterAdapter = new FilterAdapter(mContext);
         onInitializeView();
         return rootView;

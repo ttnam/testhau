@@ -35,6 +35,7 @@ public class AppUtils {
 
     public static final String EXTRA_INTENT = "EXTRA_INTENT";
     public static final String EXTRA_TRIP = "EXTRA_TRIP";
+    public static final String EXTRA_TRIPS = "EXTRA_TRIPS";
 
     private static boolean isWifiConnected(Context context) {
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);

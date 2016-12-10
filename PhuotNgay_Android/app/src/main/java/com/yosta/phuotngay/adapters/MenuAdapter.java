@@ -21,7 +21,6 @@ import butterknife.ButterKnife;
 public class MenuAdapter extends ArrayAdapter<MenuItem> {
 
     private Context context;
-    private StorageUtils sharedPresUtils;
 
     public MenuAdapter(Context context, ArrayList<MenuItem> objects) {
         super(context, 0, objects);

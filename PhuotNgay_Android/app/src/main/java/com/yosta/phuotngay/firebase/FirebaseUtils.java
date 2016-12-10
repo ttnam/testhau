@@ -9,7 +9,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.yosta.phuotngay.helpers.app.SearchTripHelper;
-import com.yosta.phuotngay.models.trip.FirebaseTrip;
+import com.yosta.phuotngay.firebase.model.FirebaseTrip;
 
 import java.util.ArrayList;
 import java.util.Iterator;
