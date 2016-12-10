@@ -2,8 +2,11 @@ package com.yosta.phuotngay.helpers.app;
 
 import com.yosta.phuotngay.models.trip.FirebaseTrip;
 
+import java.io.UnsupportedEncodingException;
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 /**
  * Created by TranNam on 12/9/2016.
@@ -16,14 +19,37 @@ public class SearchTripHelper {
         SearchTripHelper.trips = trips;
     }
 
+    private static String unicodeToAscii(String s) throws UnsupportedEncodingException {
+        String s1 = Normalizer.normalize(s, Normalizer.Form.NFKD);
+        String regex = Pattern.quote("[\\p{InCombiningDiacriticalMarks}\\p{IsLm}\\p{IsSk}]+");
+        String s2 = new String(s1.replaceAll(regex, "").getBytes("ascii"), "ascii");
+
+        return s2. replaceAll("[?]", "");
+    }
+
     public static List<FirebaseTrip> search(String arrive, String depart, String time, String transfer) {
         List<FirebaseTrip> result = new ArrayList();
 
-        arrive = arrive.toLowerCase();
-        depart = depart.toLowerCase();
-        for(FirebaseTrip trip : trips)
-            if (compare(arrive, trip.getArrive().getName().toLowerCase()) && compare(depart, trip.getDepart().getName().toLowerCase()))
+        try {
+            arrive = unicodeToAscii(arrive);
+            depart = unicodeToAscii(depart);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+        for(FirebaseTrip trip : trips) {
+            String _arrive = null;
+            String _depart = null;
+            try {
+                _arrive = unicodeToAscii(trip.getArrive().getName());
+                _depart = unicodeToAscii(trip.getDepart().getName());
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+
+            if (compare(arrive, _arrive) && compare(depart, _depart))
                 result.add(trip);
+        }
 
         return result;
     }
