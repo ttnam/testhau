@@ -2,6 +2,7 @@ package com.yosta.phuotngay.firebase;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.Message;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -10,6 +11,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.yosta.phuotngay.helpers.app.SearchTripHelper;
 import com.yosta.phuotngay.firebase.model.FirebaseTrip;
+import com.yosta.phuotngay.models.app.MessageInfo;
+import com.yosta.phuotngay.models.app.MessageType;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -55,11 +60,12 @@ public class FirebaseUtils {
                     result.add(trip);
                 }
                 SearchTripHelper.init(result);
+                EventBus.getDefault().post(new MessageInfo(MessageType.LOAD_DONE));
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                EventBus.getDefault().post(new MessageInfo(MessageType.LOAD_DONE));
             }
         });
         return ref;

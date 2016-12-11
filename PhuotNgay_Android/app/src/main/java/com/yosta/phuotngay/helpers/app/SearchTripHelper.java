@@ -32,7 +32,7 @@ public class SearchTripHelper {
 
         List<FirebaseTrip> result = new ArrayList();
 
-        try {
+      /*  try {
             arrive = unicodeToAscii(arrive);
             depart = unicodeToAscii(depart);
         } catch (UnsupportedEncodingException e) {
@@ -51,7 +51,7 @@ public class SearchTripHelper {
 
             if (compare(arrive, _arrive) && compare(depart, _depart))
                 result.add(trip);
-        }
+        }*/
 
         return result;
     }

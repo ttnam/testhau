@@ -24,6 +24,8 @@ import com.yosta.phuotngay.helpers.app.AppUtils;
 import com.yosta.phuotngay.helpers.decoration.SpacesItemDecoration;
 import com.yosta.phuotngay.helpers.listeners.RecyclerItemClickListener;
 import com.yosta.phuotngay.firebase.model.FirebaseTrip;
+import com.yosta.phuotngay.models.app.MessageInfo;
+import com.yosta.phuotngay.models.app.MessageType;
 import com.yosta.phuotngay.models.view.FilterView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -50,8 +52,8 @@ public class TripFragment extends Fragment {
     LinearLayout layoutFilter;
 
     private FilterAdapter filterAdapter = null;
-
     private Context mContext = null;
+    private FirebaseUtils firebaseUtils = null;
     private FirebaseTripAdapter tripAdapter = null;
 
     @Override
@@ -61,16 +63,10 @@ public class TripFragment extends Fragment {
     }
 
     @Override
-    public void onStop() {
-        super.onStop();
-        EventBus.getDefault().unregister(this);
-    }
-
-
-    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.mContext = getContext();
+        firebaseUtils = FirebaseUtils.initializeWith(mContext);
     }
 
     @Override
@@ -78,19 +74,25 @@ public class TripFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_trip, container, false);
         ButterKnife.bind(this, rootView);
 
-        FirebaseUtils firebaseUtils = FirebaseUtils.initializeWith(mContext);
-        this.tripAdapter = new FirebaseTripAdapter(mContext, firebaseUtils.TRIPRef());
-        this.filterAdapter = new FilterAdapter(mContext);
-        onInitializeView();
-        return rootView;
-    }
 
-    private void onInitializeView() {
+        this.tripAdapter = new FirebaseTripAdapter(firebaseUtils.TRIPRef());
+        this.filterAdapter = new FilterAdapter(mContext);
+
+
         onInitializeTrip(mContext);
 
         this.swipeRefreshLayout.setColorSchemeResources(R.color.Red, R.color.Orange, R.color.Pink);
         this.swipeRefreshLayout.setOnRefreshListener(refreshListener);
+        this.swipeRefreshLayout.setRefreshing(true);
+
         onInitializeFilter();
+
+        return rootView;
+    }
+    @Override
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
     }
 
     private void onInitializeTrip(Context context) {
@@ -104,7 +106,17 @@ public class TripFragment extends Fragment {
         this.rvTrip.setNestedScrollingEnabled(false);
         this.rvTrip.setLayoutManager(layoutManager);
         this.rvTrip.setAdapter(this.tripAdapter);
-        this.rvTrip.addOnItemTouchListener(tripItemClickListener);
+        this.rvTrip.addOnItemTouchListener(new RecyclerItemClickListener(mContext, new RecyclerItemClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                FirebaseTrip trip = tripAdapter.getItem(position);
+
+                Intent intent = new Intent(getActivity(), TripDetailActivity.class);
+                intent.putExtra(AppUtils.EXTRA_TRIP, trip);
+
+                startActivity(intent);
+            }
+        }));
     }
 
     private void onInitializeFilter() {
@@ -118,7 +130,16 @@ public class TripFragment extends Fragment {
         this.rvFilter.setNestedScrollingEnabled(false);
         this.rvFilter.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL));
         this.rvFilter.setAdapter(filterAdapter);
-        this.rvFilter.addOnItemTouchListener(filterItemClickListener);
+        this.rvFilter.addOnItemTouchListener(new RecyclerItemClickListener(mContext, new RecyclerItemClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                filterAdapter.remove(position);
+                rvFilter.removeViewAt(position);
+                if (filterAdapter.getItemCount() <= 0) {
+                    layoutFilter.setVisibility(View.GONE);
+                }
+            }
+        }));
     }
 
     private SwipeRefreshLayout.OnRefreshListener refreshListener = new SwipeRefreshLayout.OnRefreshListener() {
@@ -128,29 +149,6 @@ public class TripFragment extends Fragment {
         }
     };
 
-    private RecyclerItemClickListener tripItemClickListener = new RecyclerItemClickListener(getContext(), new RecyclerItemClickListener.OnItemClickListener() {
-        @Override
-        public void onItemClick(View view, int position) {
-            FirebaseTrip trip = tripAdapter.getItem(position);
-
-            Intent intent = new Intent(getActivity(), TripDetailActivity.class);
-            intent.putExtra(AppUtils.EXTRA_TRIP, trip);
-
-            startActivity(intent);
-        }
-    });
-
-    private RecyclerItemClickListener filterItemClickListener = new RecyclerItemClickListener(getContext(), new RecyclerItemClickListener.OnItemClickListener() {
-        @Override
-        public void onItemClick(View view, int position) {
-            filterAdapter.remove(position);
-            rvFilter.removeViewAt(position);
-            if (filterAdapter.getItemCount() <= 0) {
-                layoutFilter.setVisibility(View.GONE);
-            }
-        }
-    });
-
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(DialogFilter.Filter filter) {
         if (filter != null) {
@@ -159,6 +157,14 @@ public class TripFragment extends Fragment {
             this.filterAdapter.add(new FilterView(filter.mSortBy));
             this.filterAdapter.notifyDataSetChanged();
             this.layoutFilter.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Subscribe
+    public void onMessageEvent(MessageInfo info) {
+        if (info.getMessage() == MessageType.LOAD_DONE) {
+            if (swipeRefreshLayout.isRefreshing())
+                swipeRefreshLayout.setRefreshing(false);
         }
     }
 }

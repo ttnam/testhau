@@ -29,14 +29,20 @@ public class TripDetailActivity extends ActivityBehavior {
 
     @BindView(R.id.web_view)
     WebView webView;
-/*
+
     @BindView(R.id.recycler_view)
-    RecyclerView rvNote;*/
+    RecyclerView rvNote;
 
     @BindView(R.id.image_view)
     AppCompatImageView imageCover;
 
     private TimelineAdapter mTimelineAdapter = null;
+/*
+    @Override
+    protected void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }*/
 
     @Override
     public void onApplyComponents() {
@@ -48,10 +54,16 @@ public class TripDetailActivity extends ActivityBehavior {
             window.getAttributes().windowAnimations = R.style.AppTheme_AnimDialog_SlideLeftRight;
         }
         onInitializeWebView();
-        // onApplyRecyclerView();
         onInitializeData();
 
+        onApplyRecyclerView();
     }
+/*
+    @Override
+    protected void onStop() {
+        EventBus.getDefault().unregister(this);
+        super.onStop();
+    }*/
 
     private void onInitializeWebView() {
         WebSettings settings = webView.getSettings();
@@ -63,6 +75,16 @@ public class TripDetailActivity extends ActivityBehavior {
 
         Intent intent = this.getIntent();
         FirebaseTrip trip = (FirebaseTrip) intent.getSerializableExtra(AppUtils.EXTRA_TRIP);
+        onUpdateData(trip);
+        this.mTimelineAdapter = new TimelineAdapter(this);
+        this.mTimelineAdapter.clear();
+        for (int i = 0; i < 10; i++) {
+            this.mTimelineAdapter.add(new TimelineView(""));
+        }
+    }
+
+    private void onUpdateData(FirebaseTrip trip) {
+        if (trip == null) return;
 
         String prefix = "<html><body><p style=\"text-align: justify\">";
         String postfix = "</p></body></html>";
@@ -72,14 +94,7 @@ public class TripDetailActivity extends ActivityBehavior {
         txtTitle.setText(trip.getName());
 
         Glide.with(this).load(trip.getCover()).into(imageCover);
-
-        this.mTimelineAdapter = new TimelineAdapter(this);
-        this.mTimelineAdapter.clear();
-        for (int i = 0; i < 100; i++) {
-            this.mTimelineAdapter.add(new TimelineView(""));
-        }
     }
-/*
 
     private void onApplyRecyclerView() {
         this.rvNote.setAdapter(this.mTimelineAdapter);
@@ -91,7 +106,6 @@ public class TripDetailActivity extends ActivityBehavior {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         this.rvNote.setLayoutManager(layoutManager);
     }
-*/
 
     @Override
     public void onApplyEvents() {

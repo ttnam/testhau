@@ -1,6 +1,6 @@
 package com.yosta.phuotngay.firebase.model;
 
-import com.yosta.phuotngay.models.location.FirebaseLocation;
+import com.yosta.phuotngay.helpers.app.DatetimeUtils;
 
 import java.io.Serializable;
 
@@ -10,23 +10,22 @@ import java.io.Serializable;
 
 public class FirebaseTrip implements Serializable {
 
-    private FirebaseLocation arrive;
+    private String arrive;
     private String cover;
-    private long created_time;
-    private FirebaseLocation depart;
+    private long createdtime;
     private String description;
-    private String from; // user_id
+    private String from;
     private String name;
-    private int rating;
+    private long rating;
 
     public FirebaseTrip() {
     }
 
-    public FirebaseLocation getArrive() {
+    public String getArrive() {
         return arrive;
     }
 
-    public void setArrive(FirebaseLocation arrive) {
+    public void setArrive(String arrive) {
         this.arrive = arrive;
     }
 
@@ -38,20 +37,12 @@ public class FirebaseTrip implements Serializable {
         this.cover = cover;
     }
 
-    public long getCreated_time() {
-        return created_time;
+    public String getCreatedtime() {
+        return DatetimeUtils.getTime(DatetimeUtils.timeStampToDate(createdtime));
     }
 
-    public void setCreated_time(long created_time) {
-        this.created_time = created_time;
-    }
-
-    public FirebaseLocation getDepart() {
-        return depart;
-    }
-
-    public void setDepart(FirebaseLocation depart) {
-        this.depart = depart;
+    public void setCreatedtime(long createdtime) {
+        this.createdtime = createdtime;
     }
 
     public String getDescription() {
@@ -78,16 +69,11 @@ public class FirebaseTrip implements Serializable {
         this.name = name;
     }
 
-    public int getRating() {
+    public long getRating() {
         return rating;
     }
 
-    public void setRating(int rating) {
+    public void setRating(long rating) {
         this.rating = rating;
-    }
-
-    @Override
-    public String toString() {
-        return name;
     }
 }
