@@ -6,6 +6,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.yosta.phuotngay.helpers.app.SearchTripHelper;
 import com.yosta.phuotngay.firebase.model.FirebaseTrip;
@@ -50,6 +51,10 @@ public class FirebaseUtils {
         return this.mReference.child(FIREBASE_TRIP);
     }
 
+    public Query ACTIVITYRef(String tripId) {
+        return TRIP().child(tripId).child("activity").getRef();
+    }
+
     public DatabaseReference USER() {
         return this.mReference.child(FIREBASE_USER);
     }
@@ -63,14 +68,21 @@ public class FirebaseUtils {
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Iterator<DataSnapshot> trips = dataSnapshot.getChildren().iterator();
+                /*Iterator<DataSnapshot> trips = dataSnapshot.getChildren().iterator();
                 FirebaseTrip trip;
                 List<FirebaseTrip> result = new ArrayList<>();
                 while (trips.hasNext()) {
-                    trip = trips.next().getValue(FirebaseTrip.class);
+                    // Save data
+                    DataSnapshot snapshot = trips.next();
+                    trip = snapshot.getValue(FirebaseTrip.class);
+                    // Save tripId
+                    String tripId = snapshot.getKey();
+                    trip.setTripId(tripId);
+
                     result.add(trip);
                 }
-                SearchTripHelper.init(result);
+                SearchTripHelper.init(result);*/
+
                 EventBus.getDefault().post(new MessageInfo(MessageType.LOAD_DONE));
             }
 

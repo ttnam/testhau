@@ -87,6 +87,12 @@
         <item name="android:textColor">@color/colorPrimary</item>
     </style>
 
+    <style name="AppTheme.TextView_Title" parent="AppTheme">
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">@dimen/text_size_v1</item>
+        <item name="android:textColor">@color/colorTextColorPrimary</item>
+    </style>
+
     <style name="AppTheme.TextView_Title.Bold" parent="AppTheme">
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">@dimen/text_size_v1</item>

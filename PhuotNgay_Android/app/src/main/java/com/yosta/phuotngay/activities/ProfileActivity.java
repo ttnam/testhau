@@ -243,9 +243,7 @@ public class ProfileActivity extends ActivityBehavior {
                 .into(imageAvatar);
 
         tvUserName.setText(user.getUsername());
-        txtMembership.setText(DatetimeUtils.getTime(
-                DatetimeUtils.timeStampToDate(
-                        user.getMembership())));
+        txtMembership.setText(user.getMembership());
         tVEmail.setText(user.getEmail());
         spinnerGender.setSelectedIndex((int) user.getGender());
     }

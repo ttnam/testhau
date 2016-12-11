@@ -1,22 +1,23 @@
 package com.yosta.phuotngay.activities;
 
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.Window;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 
 import com.bumptech.glide.Glide;
 import com.yosta.phuotngay.R;
-import com.yosta.phuotngay.adapters.TimelineAdapter;
+import com.yosta.phuotngay.firebase.FirebaseUtils;
+import com.yosta.phuotngay.firebase.adapter.FirebaseActivityAdapter;
 import com.yosta.phuotngay.helpers.app.AppUtils;
 import com.yosta.phuotngay.helpers.decoration.SpacesItemDecoration;
 import com.yosta.phuotngay.interfaces.ActivityBehavior;
 import com.yosta.phuotngay.firebase.model.FirebaseTrip;
-import com.yosta.phuotngay.models.view.TimelineView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,57 +32,58 @@ public class TripDetailActivity extends ActivityBehavior {
     WebView webView;
 
     @BindView(R.id.recycler_view)
-    RecyclerView rvNote;
+    RecyclerView rvActivity;
 
     @BindView(R.id.image_view)
     AppCompatImageView imageCover;
 
-    private TimelineAdapter mTimelineAdapter = null;
-/*
+    private FirebaseActivityAdapter activityAdapter = null;
+
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_trip_detail);
+        ButterKnife.bind(this);
+        onApplyComponents();
+        onApplyData();
+    }
+
     @Override
     protected void onStart() {
         super.onStart();
-        EventBus.getDefault().register(this);
-    }*/
+
+        this.rvActivity.setAdapter(this.activityAdapter);
+    }
+
 
     @Override
     public void onApplyComponents() {
         super.onApplyComponents();
-        setContentView(R.layout.activity_trip_detail);
-        ButterKnife.bind(this);
-        Window window = getWindow();
-        if (window != null) {
-            window.getAttributes().windowAnimations = R.style.AppTheme_AnimDialog_SlideLeftRight;
-        }
-        onInitializeWebView();
-        onInitializeData();
+
+        // Webview
+        WebSettings settings = webView.getSettings();
+        settings.setJavaScriptEnabled(false);
+        settings.setDefaultTextEncodingName("utf-8");
 
         onApplyRecyclerView();
     }
-/*
+
+    @Override
+    public void onApplyData() {
+        super.onApplyData();
+        Intent intent = this.getIntent();
+        FirebaseTrip trip = (FirebaseTrip) intent.getSerializableExtra(AppUtils.EXTRA_TRIP);
+        onUpdateData(trip);
+        String tripId = trip.getTripId();
+        this.activityAdapter = new FirebaseActivityAdapter(FirebaseUtils.initializeWith(this).ACTIVITYRef(tripId));
+    }
+    /*
     @Override
     protected void onStop() {
         EventBus.getDefault().unregister(this);
         super.onStop();
     }*/
-
-    private void onInitializeWebView() {
-        WebSettings settings = webView.getSettings();
-        settings.setJavaScriptEnabled(false);
-        settings.setDefaultTextEncodingName("utf-8");
-    }
-
-    private void onInitializeData() {
-
-        Intent intent = this.getIntent();
-        FirebaseTrip trip = (FirebaseTrip) intent.getSerializableExtra(AppUtils.EXTRA_TRIP);
-        onUpdateData(trip);
-        this.mTimelineAdapter = new TimelineAdapter(this);
-        this.mTimelineAdapter.clear();
-        for (int i = 0; i < 10; i++) {
-            this.mTimelineAdapter.add(new TimelineView(""));
-        }
-    }
 
     private void onUpdateData(FirebaseTrip trip) {
         if (trip == null) return;
@@ -97,18 +99,12 @@ public class TripDetailActivity extends ActivityBehavior {
     }
 
     private void onApplyRecyclerView() {
-        this.rvNote.setAdapter(this.mTimelineAdapter);
-        this.rvNote.setHasFixedSize(true);
-        this.rvNote.setItemAnimator(new SlideInUpAnimator());
-        this.rvNote.setRecycledViewPool(new RecyclerView.RecycledViewPool());
-        this.rvNote.addItemDecoration(new SpacesItemDecoration(0));
-        this.rvNote.setNestedScrollingEnabled(false);
+        this.rvActivity.setHasFixedSize(true);
+        this.rvActivity.setItemAnimator(new SlideInUpAnimator());
+        this.rvActivity.setRecycledViewPool(new RecyclerView.RecycledViewPool());
+        this.rvActivity.addItemDecoration(new SpacesItemDecoration(0));
+        this.rvActivity.setNestedScrollingEnabled(false);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        this.rvNote.setLayoutManager(layoutManager);
-    }
-
-    @Override
-    public void onApplyEvents() {
-        super.onApplyEvents();
+        this.rvActivity.setLayoutManager(layoutManager);
     }
 }

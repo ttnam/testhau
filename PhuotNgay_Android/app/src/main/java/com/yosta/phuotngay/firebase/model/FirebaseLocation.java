@@ -15,7 +15,7 @@ public class FirebaseLocation {
     private long time;
 
     public String getTime() {
-        return DatetimeUtils.getTime(DatetimeUtils.timeStampToDate(time));
+        return DatetimeUtils.getTime(time, DatetimeUtils.DD_MM_YYYY);
     }
 
     public void setTime(long time) {

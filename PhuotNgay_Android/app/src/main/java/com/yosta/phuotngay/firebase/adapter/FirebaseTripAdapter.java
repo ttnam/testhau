@@ -1,8 +1,9 @@
-package com.yosta.phuotngay.firebase;
+package com.yosta.phuotngay.firebase.adapter;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.Query;
 import com.yosta.phuotngay.R;
+import com.yosta.phuotngay.firebase.viewhd.FirebaseTripViewHolder;
 import com.yosta.phuotngay.firebase.model.FirebaseTrip;
 
 /**

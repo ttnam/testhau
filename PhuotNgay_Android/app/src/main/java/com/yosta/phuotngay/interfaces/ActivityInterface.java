@@ -11,10 +11,6 @@ public interface ActivityInterface {
 
     void onApplyData();
 
-    void onRegisterListener();
-
-    void onUnRegisterListener();
-
     void onClose();
 
     void onApplyFont();

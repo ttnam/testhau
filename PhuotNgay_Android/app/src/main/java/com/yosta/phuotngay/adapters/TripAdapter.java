@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.yosta.phuotngay.R;
-import com.yosta.phuotngay.firebase.FirebaseTripViewHolder;
+import com.yosta.phuotngay.firebase.viewhd.FirebaseTripViewHolder;
 import com.yosta.phuotngay.firebase.model.FirebaseTrip;
 
 import java.util.ArrayList;

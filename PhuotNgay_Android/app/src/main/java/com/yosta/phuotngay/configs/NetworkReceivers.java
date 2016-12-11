@@ -4,8 +4,9 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-import com.yosta.phuotngay.models.app.NetworkMessage;
 import com.yosta.phuotngay.helpers.app.AppUtils;
+import com.yosta.phuotngay.models.app.MessageInfo;
+import com.yosta.phuotngay.models.app.MessageType;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -16,7 +17,9 @@ public class NetworkReceivers extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         if (AppUtils.isNetworkConnected(context)) {
-            EventBus.getDefault().post(new NetworkMessage(true));
+            EventBus.getDefault().post(new MessageInfo(MessageType.INTERNET_CONNECTED));
+        } else {
+            EventBus.getDefault().post(new MessageInfo(MessageType.LOST_INTERNET));
         }
     }
 }

@@ -18,7 +18,7 @@ import com.yosta.phuotngay.R;
 import com.yosta.phuotngay.activities.TripDetailActivity;
 import com.yosta.phuotngay.activities.dialogs.DialogFilter;
 import com.yosta.phuotngay.adapters.FilterAdapter;
-import com.yosta.phuotngay.firebase.FirebaseTripAdapter;
+import com.yosta.phuotngay.firebase.adapter.FirebaseTripAdapter;
 import com.yosta.phuotngay.firebase.FirebaseUtils;
 import com.yosta.phuotngay.helpers.app.AppUtils;
 import com.yosta.phuotngay.helpers.decoration.SpacesItemDecoration;
@@ -78,17 +78,23 @@ public class TripFragment extends Fragment {
         this.tripAdapter = new FirebaseTripAdapter(firebaseUtils.TRIPRef());
         this.filterAdapter = new FilterAdapter(mContext);
 
-
         onInitializeTrip(mContext);
 
         this.swipeRefreshLayout.setColorSchemeResources(R.color.Red, R.color.Orange, R.color.Pink);
-        this.swipeRefreshLayout.setOnRefreshListener(refreshListener);
+        this.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                if (!AppUtils.isNetworkConnected(mContext))
+                    swipeRefreshLayout.setRefreshing(false);
+            }
+        });
         this.swipeRefreshLayout.setRefreshing(true);
 
         onInitializeFilter();
 
         return rootView;
     }
+
     @Override
     public void onStop() {
         super.onStop();
@@ -110,7 +116,7 @@ public class TripFragment extends Fragment {
             @Override
             public void onItemClick(View view, int position) {
                 FirebaseTrip trip = tripAdapter.getItem(position);
-
+                trip.setTripId(tripAdapter.getRef(position).getKey());
                 Intent intent = new Intent(getActivity(), TripDetailActivity.class);
                 intent.putExtra(AppUtils.EXTRA_TRIP, trip);
 
@@ -142,13 +148,6 @@ public class TripFragment extends Fragment {
         }));
     }
 
-    private SwipeRefreshLayout.OnRefreshListener refreshListener = new SwipeRefreshLayout.OnRefreshListener() {
-        @Override
-        public void onRefresh() {
-            swipeRefreshLayout.setRefreshing(false);
-        }
-    };
-
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(DialogFilter.Filter filter) {
         if (filter != null) {
@@ -162,7 +161,8 @@ public class TripFragment extends Fragment {
 
     @Subscribe
     public void onMessageEvent(MessageInfo info) {
-        if (info.getMessage() == MessageType.LOAD_DONE) {
+        @MessageType int msg = info.getMessage();
+        if (msg == MessageType.LOAD_DONE || msg == MessageType.LOST_INTERNET) {
             if (swipeRefreshLayout.isRefreshing())
                 swipeRefreshLayout.setRefreshing(false);
         }

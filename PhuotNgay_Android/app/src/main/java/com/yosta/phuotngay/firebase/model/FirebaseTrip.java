@@ -1,5 +1,6 @@
 package com.yosta.phuotngay.firebase.model;
 
+import com.google.firebase.database.IgnoreExtraProperties;
 import com.yosta.phuotngay.helpers.app.DatetimeUtils;
 
 import java.io.Serializable;
@@ -7,9 +8,10 @@ import java.io.Serializable;
 /**
  * Created by Phuc-Hau Nguyen on 12/1/2016.
  */
-
+@IgnoreExtraProperties
 public class FirebaseTrip implements Serializable {
 
+    private String tripId;
     private String arrive;
     private String depart;
     private String cover;
@@ -20,6 +22,7 @@ public class FirebaseTrip implements Serializable {
     private long rating;
 
     public FirebaseTrip() {
+        // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
 
     public String[] getArrive() {
@@ -39,7 +42,7 @@ public class FirebaseTrip implements Serializable {
     }
 
     public String getCreatedtime() {
-        return DatetimeUtils.getTime(DatetimeUtils.timeStampToDate(createdtime));
+        return DatetimeUtils.getTime(createdtime, DatetimeUtils.DD_MM_YYYY);
     }
 
     public void setCreatedtime(long createdtime) {
@@ -84,5 +87,18 @@ public class FirebaseTrip implements Serializable {
 
     public void setDepart(String depart) {
         this.depart = depart;
+    }
+
+    public String getTripId() {
+        return tripId;
+    }
+
+    public void setTripId(String tripId) {
+        this.tripId = tripId;
+    }
+
+    @Override
+    public String toString() {
+        return this.name;
     }
 }

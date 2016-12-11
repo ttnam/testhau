@@ -3,7 +3,6 @@ package com.yosta.phuotngay.fragments;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.yosta.phuotngay.R;
-import com.yosta.phuotngay.adapters.TimelineAdapter;
 import com.yosta.phuotngay.helpers.decoration.SpacesItemDecoration;
 import com.yosta.phuotngay.models.view.TimelineView;
 
@@ -25,7 +23,7 @@ public class OwnTripFragment extends Fragment {
     RecyclerView rvTimeLine;
 
     private Activity mActivity;
-    private TimelineAdapter mTimelineAdapter = null;
+    //private TimelineAdapter mTimelineAdapter = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -37,7 +35,7 @@ public class OwnTripFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_own_trip, container, false);
         ButterKnife.bind(this, rootView);
-        this.mTimelineAdapter = new TimelineAdapter(mActivity);
+        //this.mTimelineAdapter = new TimelineAdapter(mActivity);
         onApplyRecyclerView();
         onApplyData();
 
@@ -45,10 +43,10 @@ public class OwnTripFragment extends Fragment {
     }
 
     public void onApplyData() {
-        this.mTimelineAdapter.clear();
+        /*this.mTimelineAdapter.clear();
         for (int i = 0; i < 100; i++) {
             this.mTimelineAdapter.add(new TimelineView(""));
-        }
+        }*/
     }
 
     private void onApplyRecyclerView() {
@@ -63,6 +61,6 @@ public class OwnTripFragment extends Fragment {
 
         this.rvTimeLine.setNestedScrollingEnabled(false);
         this.rvTimeLine.setLayoutManager(layoutManager);
-        this.rvTimeLine.setAdapter(this.mTimelineAdapter);
+        //this.rvTimeLine.setAdapter(this.mTimelineAdapter);
     }
 }

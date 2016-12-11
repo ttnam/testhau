@@ -93,6 +93,8 @@
 
             </LinearLayout>
 
+            <include layout="@layout/layout_separate_vertical" />
+
             <include layout="@layout/layout_recycler_view" />
 
         </LinearLayout>

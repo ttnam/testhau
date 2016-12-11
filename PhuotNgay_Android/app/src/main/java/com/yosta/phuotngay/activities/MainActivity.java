@@ -1,13 +1,13 @@
 package com.yosta.phuotngay.activities;
 
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.widget.TextView;
 
 import com.yosta.phuotngay.R;
-import com.yosta.phuotngay.activities.dialogs.DialogChooseImage;
 import com.yosta.phuotngay.activities.dialogs.DialogFilter;
 import com.yosta.phuotngay.adapters.ViewPagerAdapter;
 import com.yosta.phuotngay.animations.ZoomOutPageTransformer;
@@ -33,11 +33,20 @@ public class MainActivity extends ActivityBehavior {
     @BindView(R.id.layout)
     OwnToolBar mOwnToolbar;
 
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
+
+        onApplyComponents();
+
+    }
+
     @Override
     public void onApplyComponents() {
         super.onApplyComponents();
-        setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
 
         onApplyViewPager();
         onApplyTabLayout();

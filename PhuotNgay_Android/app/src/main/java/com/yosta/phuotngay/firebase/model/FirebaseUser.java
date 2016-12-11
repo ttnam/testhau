@@ -3,6 +3,7 @@ package com.yosta.phuotngay.firebase.model;
 import android.support.annotation.RequiresPermission;
 
 import com.google.gson.annotations.SerializedName;
+import com.yosta.phuotngay.helpers.app.DatetimeUtils;
 
 import java.io.Serializable;
 
@@ -52,8 +53,8 @@ public class FirebaseUser implements Serializable {
         this.username = username;
     }
 
-    public long getMembership() {
-        return membership;
+    public String getMembership() {
+        return DatetimeUtils.getTime(membership, DatetimeUtils.DD_MM_YYYY);
     }
 
     public void setMembership(long membership) {

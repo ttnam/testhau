@@ -1,4 +1,4 @@
-package com.yosta.phuotngay.firebase;
+package com.yosta.phuotngay.firebase.viewhd;
 
 import android.content.Context;
 import android.support.v7.widget.AppCompatImageView;
