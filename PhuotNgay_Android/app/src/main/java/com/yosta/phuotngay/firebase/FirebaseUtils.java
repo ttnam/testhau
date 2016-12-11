@@ -1,8 +1,6 @@
 package com.yosta.phuotngay.firebase;
 
-import android.app.Activity;
 import android.content.Context;
-import android.os.Message;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -13,6 +11,7 @@ import com.yosta.phuotngay.helpers.app.SearchTripHelper;
 import com.yosta.phuotngay.firebase.model.FirebaseTrip;
 import com.yosta.phuotngay.models.app.MessageInfo;
 import com.yosta.phuotngay.models.app.MessageType;
+import com.yosta.phuotngay.models.location.FirebaseLocation;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -24,6 +23,10 @@ import java.util.List;
  * Created by Phuc-Hau Nguyen on 12/1/2016.
  */
 public class FirebaseUtils {
+
+    private static final String FIREBASE_TRIP = "TRIP";
+    private static final String FIREBASE_USER = "USER";
+    public static final String FIREBASE_LOCATION = "LOCATION";
 
     private Context mContext = null;
     private DatabaseReference mReference = null;
@@ -44,7 +47,15 @@ public class FirebaseUtils {
     }
 
     public DatabaseReference TRIP() {
-        return this.mReference.child(FirebaseDefine.FIREBASE_TRIP);
+        return this.mReference.child(FIREBASE_TRIP);
+    }
+
+    public DatabaseReference USER() {
+        return this.mReference.child(FIREBASE_USER);
+    }
+
+    public DatabaseReference LOCATION() {
+        return this.mReference.child(FIREBASE_LOCATION);
     }
 
     public DatabaseReference TRIPRef() {
@@ -71,11 +82,23 @@ public class FirebaseUtils {
         return ref;
     }
 
-    public DatabaseReference USER() {
-        return this.mReference.child(FirebaseDefine.FIREBASE_USER);
-    }
-
     public DatabaseReference USERRef() {
         return TRIP().getRef();
+    }
+
+
+    public void getLocation(String locId) {
+
+        LOCATION().child(locId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 }

@@ -11,6 +11,7 @@ import java.io.Serializable;
 public class FirebaseTrip implements Serializable {
 
     private String arrive;
+    private String depart;
     private String cover;
     private long createdtime;
     private String description;
@@ -21,8 +22,8 @@ public class FirebaseTrip implements Serializable {
     public FirebaseTrip() {
     }
 
-    public String getArrive() {
-        return arrive;
+    public String[] getArrive() {
+        return arrive.split("_");
     }
 
     public void setArrive(String arrive) {
@@ -75,5 +76,13 @@ public class FirebaseTrip implements Serializable {
 
     public void setRating(long rating) {
         this.rating = rating;
+    }
+
+    public String[] getDepart() {
+        return arrive.split("_");
+    }
+
+    public void setDepart(String depart) {
+        this.depart = depart;
     }
 }
