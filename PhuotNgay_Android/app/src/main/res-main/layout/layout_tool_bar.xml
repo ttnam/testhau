@@ -21,8 +21,7 @@
             android:layout_marginLeft="@dimen/margin_x2"
             android:layout_marginStart="@dimen/margin_x2"
             android:clickable="true"
-            android:scaleType="centerInside"
-            app:srcCompat="@drawable/ic_launcher" />
+            android:scaleType="centerInside" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -39,8 +38,7 @@
             android:layout_height="@dimen/icon_size_x3"
             android:layout_centerInParent="true"
             android:clickable="true"
-            android:scaleType="centerInside"
-            app:srcCompat="@drawable/ic_launcher"/>
+            android:scaleType="centerInside" />
 
     </RelativeLayout>
 
@@ -51,7 +49,6 @@
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:gravity="center"
-        android:text="@string/str_home" />
+        android:gravity="center" />
 
 </RelativeLayout>

@@ -164,7 +164,7 @@
     <color name="colorPrimaryLight">#bbdefb</color>
     <color name="colorTextColorPrimary">#212121</color>
     <color name="colorTextColorSecondary">#727272</color>
-    <color name="colorDivider">#B6B6B6</color>
-    <color name="colorWindowBackground">#d9d9d9</color>
+    <color name="colorDivider">#d9d9d9</color>
+    <color name="colorWindowBackground">#f0f0f0</color>
 
 </resources>

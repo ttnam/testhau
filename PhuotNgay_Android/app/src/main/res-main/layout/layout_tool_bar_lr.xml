@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="?actionBarSize"
     android:orientation="vertical">
@@ -25,8 +24,7 @@
                 android:layout_height="@dimen/icon_size_x3"
                 android:layout_centerInParent="true"
                 android:clickable="true"
-                android:scaleType="centerInside"
-                app:srcCompat="@drawable/ic_launcher" />
+                android:scaleType="centerInside" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -42,8 +40,7 @@
                 android:layout_centerInParent="true"
                 android:layout_gravity="center"
                 android:clickable="true"
-                android:scaleType="centerInside"
-                app:srcCompat="@drawable/ic_launcher" />
+                android:scaleType="centerInside" />
         </RelativeLayout>
     </LinearLayout>
 
@@ -57,7 +54,6 @@
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="@dimen/margin_x2"
         android:layout_marginStart="@dimen/margin_x2"
-        android:gravity="center|start"
-        android:text="@string/app_name" />
+        android:gravity="center|start" />
 
 </RelativeLayout>

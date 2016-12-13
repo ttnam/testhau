@@ -27,7 +27,7 @@ import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 
 public class TripDetailActivity extends ActivityBehavior {
 
-    @BindView(R.id.text_view)
+    @BindView(R.id.txt_title)
     AppCompatTextView txtTitle;
 
     @BindView(R.id.web_view)
@@ -66,12 +66,20 @@ public class TripDetailActivity extends ActivityBehavior {
         super.onApplyComponents();
 
         // Toobar
-        mOwnToolbar.setBinding("Tìm kiếm", R.drawable.ic_vector_back_white, Integer.MIN_VALUE, new View.OnClickListener() {
+        mOwnToolbar.setBinding(
+                R.drawable.ic_vector_back_white,
+                R.drawable.ic_vector_share_white,
+                new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onBackPressed();
             }
-        }, null);
+        }, new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
 
         // Webview
         WebSettings settings = webView.getSettings();
