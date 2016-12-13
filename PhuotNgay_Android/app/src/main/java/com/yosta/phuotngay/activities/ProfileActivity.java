@@ -4,9 +4,11 @@ import android.Manifest;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -69,17 +71,29 @@ public class ProfileActivity extends ActivityBehavior {
     private FirebaseUtils mFirebaseUtils = null;
     private List<String> mGender = null;
 
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_profile);
+        ButterKnife.bind(this);
+        onApplyComponents();
+    }
+
     @Override
     protected void onStart() {
         super.onStart();
         EventBus.getDefault().register(this);
     }
+    @Override
+    protected void onStop() {
+        EventBus.getDefault().unregister(this);
+        super.onStop();
+    }
 
     @Override
     public void onApplyComponents() {
         super.onApplyComponents();
-        setContentView(R.layout.activity_profile);
-        ButterKnife.bind(this);
 
         this.mFirebaseUtils = FirebaseUtils.initializeWith(this);
 
@@ -93,37 +107,6 @@ public class ProfileActivity extends ActivityBehavior {
 
                     }
                 });
-    }
-
-    @Override
-    protected void onStop() {
-        EventBus.getDefault().unregister(this);
-        super.onStop();
-    }
-
-    @Override
-    public void onApplyEvents() {
-        super.onApplyEvents();
-
-    }
-
-    @Override
-    public void onApplyFont() {
-        super.onApplyFont();
-        /*UIUtils.setFont(this, "fonts/Lato-Regular.ttf", txtMembership, txtGender, txtPhotoNumber, txtFriendsNumber);
-        UIUtils.setFont(this, UIUtils.FONT_LATO_BLACK, txtFollow, txtExperience, txtOverview, txtPhotos, textAccountName);*/
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        switch (id) {
-            case android.R.id.home: {
-                onBackPressed();
-                break;
-            }
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     @Override

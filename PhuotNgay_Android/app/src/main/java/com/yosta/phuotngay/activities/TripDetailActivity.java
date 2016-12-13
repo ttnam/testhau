@@ -7,6 +7,7 @@ import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 
@@ -18,6 +19,7 @@ import com.yosta.phuotngay.helpers.app.AppUtils;
 import com.yosta.phuotngay.helpers.decoration.SpacesItemDecoration;
 import com.yosta.phuotngay.interfaces.ActivityBehavior;
 import com.yosta.phuotngay.firebase.model.FirebaseTrip;
+import com.yosta.phuotngay.ui.customview.OwnToolBar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -37,8 +39,10 @@ public class TripDetailActivity extends ActivityBehavior {
     @BindView(R.id.image_view)
     AppCompatImageView imageCover;
 
-    private FirebaseActivityAdapter activityAdapter = null;
+    @BindView(R.id.layout)
+    OwnToolBar mOwnToolbar;
 
+    private FirebaseActivityAdapter activityAdapter = null;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -60,6 +64,14 @@ public class TripDetailActivity extends ActivityBehavior {
     @Override
     public void onApplyComponents() {
         super.onApplyComponents();
+
+        // Toobar
+        mOwnToolbar.setBinding("Tìm kiếm", R.drawable.ic_vector_back_white, Integer.MIN_VALUE, new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        }, null);
 
         // Webview
         WebSettings settings = webView.getSettings();
@@ -104,7 +116,8 @@ public class TripDetailActivity extends ActivityBehavior {
         this.rvActivity.setRecycledViewPool(new RecyclerView.RecycledViewPool());
         this.rvActivity.addItemDecoration(new SpacesItemDecoration(0));
         this.rvActivity.setNestedScrollingEnabled(false);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        this.rvActivity.setHorizontalScrollBarEnabled(true);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         this.rvActivity.setLayoutManager(layoutManager);
     }
 }

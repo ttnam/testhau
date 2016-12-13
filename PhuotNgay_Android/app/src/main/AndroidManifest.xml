@@ -33,7 +33,6 @@
         android:label="@string/all_app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <receiver android:name=".configs.NetworkReceivers">
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
@@ -64,7 +63,7 @@
             android:name=".activities.MainActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Fullscreen">
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -86,20 +85,20 @@
             android:name=".activities.TripDetailActivity"
             android:launchMode="singleInstance"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Fullscreen" />
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".activities.ProfileActivity"
             android:launchMode="singleInstance"
-            android:theme="@style/AppTheme.Fullscreen" />
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".activities.OwnTripActivity"
-            android:theme="@style/AppTheme.Fullscreen" />
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".activities.CreateTripActivity"
-            android:theme="@style/AppTheme.Fullscreen" />
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".activities.SearchActivity"
-            android:theme="@style/AppTheme.Fullscreen" />
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>

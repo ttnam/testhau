@@ -5,99 +5,30 @@
     android:layout_height="wrap_content"
     android:fitsSystemWindows="true">
 
-    <android.support.v4.widget.NestedScrollView
+    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:theme="@style/AppTheme.AppBarOverlay">
 
-        <LinearLayout
+        <android.support.design.widget.CollapsingToolbarLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/colorWindowBackground"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            app:layout_scrollFlags="scroll|enterAlways">
 
-            <LinearLayout
+            <com.yosta.phuotngay.ui.customview.OwnToolBar
+                android:id="@id/layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_height="?attr/actionBarSize"
+                app:layoutBackground="#99000000"
+                app:layoutTitleColor="@android:color/white"
+                app:layout_collapseMode="pin"
+                app:popupTheme="@style/AppTheme.PopupOverlay" />
 
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+        </android.support.design.widget.CollapsingToolbarLayout>
 
-                    <android.support.v7.widget.AppCompatImageView
-                        android:id="@id/image_view"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/image_height_v3"
-                        android:scaleType="centerCrop" />
+    </android.support.design.widget.AppBarLayout>
 
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center|end"
-                        android:background="@android:color/black"
-                        android:orientation="horizontal"
-                        android:visibility="gone">
-
-                        <android.support.v7.widget.AppCompatTextView
-                            style="@style/AppTheme.TextView_Title.Bold"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:padding="@dimen/margin"
-                            android:text="500K"
-                            android:textColor="@android:color/white" />
-
-                        <android.support.v7.widget.AppCompatImageView
-                            android:layout_width="@dimen/icon_size"
-                            android:layout_height="@dimen/icon_size"
-                            android:layout_gravity="center"
-                            android:layout_marginEnd="@dimen/margin"
-                            android:layout_marginRight="@dimen/margin"
-                            app:srcCompat="@drawable/ic_vector_favorite" />
-
-                    </LinearLayout>
-
-                </FrameLayout>
-
-                <android.support.v7.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:cardCornerRadius="@dimen/cardCornerRadius"
-                    app:cardElevation="@dimen/cardElevation">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@android:color/white"
-                        android:orientation="vertical"
-                        android:padding="@dimen/margin_x2">
-
-                        <android.support.v7.widget.AppCompatTextView
-                            android:id="@id/text_view"
-                            style="@style/AppTheme.TextView_Title.Bold"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center|start"
-                            android:maxLines="3"
-                            android:minLines="1"
-                            android:padding="@dimen/margin"
-                            android:textAllCaps="false"
-                            android:textColor="@color/Green"
-                            android:textSize="24sp" />
-
-                        <include layout="@layout/item_web_vew" />
-
-                    </LinearLayout>
-
-                </android.support.v7.widget.CardView>
-
-            </LinearLayout>
-
-            <include layout="@layout/layout_separate_vertical" />
-
-            <include layout="@layout/layout_recycler_view" />
-
-        </LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
+    <include layout="@layout/content_trip_detail" />
 
 </android.support.design.widget.CoordinatorLayout>

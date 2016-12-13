@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <dimen name="app_bar_height">172dp</dimen>
-    <dimen name="app_bar_height_v1">256dp</dimen>
-
     <dimen name="image_height">128dp</dimen>
     <dimen name="image_height_v1">172dp</dimen>
     <dimen name="image_height_v2">192dp</dimen>

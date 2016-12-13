@@ -33,7 +33,6 @@ public class MainActivity extends ActivityBehavior {
     @BindView(R.id.layout)
     OwnToolBar mOwnToolbar;
 
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
