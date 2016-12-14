@@ -207,8 +207,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_horizontal"
                                 android:text="@string/str_access_sync"
-                                android:textStyle="italic"
-                                android:id="@+id/textView" />
+                                android:textStyle="italic" />
 
                         </LinearLayout>
 

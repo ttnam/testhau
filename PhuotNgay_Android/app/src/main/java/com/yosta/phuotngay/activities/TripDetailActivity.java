@@ -3,6 +3,7 @@ package com.yosta.phuotngay.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.LinearLayoutManager;
@@ -20,7 +21,8 @@ import com.yosta.phuotngay.helpers.app.AppUtils;
 import com.yosta.phuotngay.helpers.decoration.SpacesItemDecoration;
 import com.yosta.phuotngay.interfaces.ActivityBehavior;
 import com.yosta.phuotngay.firebase.model.FirebaseTrip;
-import com.yosta.phuotngay.ui.customview.OwnToolBar;
+import com.yosta.phuotngay.ui.bottomsheet.BottomSheetDialog;
+import com.yosta.phuotngay.ui.OwnToolBar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -80,7 +82,8 @@ public class TripDetailActivity extends ActivityBehavior {
                 }, new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-
+                        BottomSheetDialogFragment bottomSheetDialogFragment = new BottomSheetDialog();
+                        bottomSheetDialogFragment.show(getSupportFragmentManager(), bottomSheetDialogFragment.getTag());
                     }
                 });
 

@@ -1,4 +1,4 @@
-package com.yosta.phuotngay.models.viewholder;
+package com.yosta.phuotngay.ui.viewholder;
 
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
@@ -12,7 +12,7 @@ import com.facebook.imagepipeline.common.ResizeOptions;
 import com.facebook.imagepipeline.request.ImageRequest;
 import com.facebook.imagepipeline.request.ImageRequestBuilder;
 import com.yosta.phuotngay.R;
-import com.yosta.phuotngay.models.view.ImageryView;
+import com.yosta.phuotngay.ui.view.ImageryView;
 
 /**
  * Created by Phuc-Hau Nguyen on 8/25/2016.

@@ -93,7 +93,7 @@
                 android:layout_height="@dimen/icon_size_x3"
                 android:layout_gravity="center"
                 android:scaleType="centerCrop"
-                app:srcCompat="@drawable/ic_vector_note" />
+                app:srcCompat="@drawable/ic_vector_sms" />
 
             <TextView
                 android:id="@+id/txt_content"

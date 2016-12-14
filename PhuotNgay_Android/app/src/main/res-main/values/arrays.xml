@@ -44,6 +44,12 @@
         <item>@drawable/ic_england</item>
         <item>@drawable/ic_vietnam</item>
     </integer-array>
+
+    <integer-array name="bottom_sheet_icon">
+        <item>@drawable/ic_vector_google</item>
+        <item>@drawable/ic_vector_facebook</item>
+    </integer-array>
+
     <string-array name="countries_array">
         <item>None</item>
         <item>Afghanistan</item>
@@ -285,4 +291,5 @@
         <item>Zambia</item>
         <item>Zimbabwe</item>
     </string-array>
+
 </resources>

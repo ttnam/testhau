@@ -1,4 +1,4 @@
-package com.yosta.phuotngay.ui.customview;
+package com.yosta.phuotngay.ui;
 
 import android.content.Context;
 import android.content.res.TypedArray;

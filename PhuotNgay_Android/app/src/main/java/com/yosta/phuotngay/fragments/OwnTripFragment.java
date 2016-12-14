@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 
 import com.yosta.phuotngay.R;
 import com.yosta.phuotngay.helpers.decoration.SpacesItemDecoration;
-import com.yosta.phuotngay.models.view.TimelineView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

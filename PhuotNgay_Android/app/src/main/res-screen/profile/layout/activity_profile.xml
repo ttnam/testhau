@@ -6,7 +6,7 @@
     android:background="@color/colorWindowBackground"
     android:orientation="vertical">
 
-    <com.yosta.phuotngay.ui.customview.OwnToolBar
+    <com.yosta.phuotngay.ui.OwnToolBar
         android:id="@id/layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

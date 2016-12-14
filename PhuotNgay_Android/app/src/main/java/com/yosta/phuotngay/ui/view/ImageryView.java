@@ -1,4 +1,4 @@
-package com.yosta.phuotngay.models.view;
+package com.yosta.phuotngay.ui.view;
 
 import com.yosta.phuotngay.models.base.ViewBehavior;
 

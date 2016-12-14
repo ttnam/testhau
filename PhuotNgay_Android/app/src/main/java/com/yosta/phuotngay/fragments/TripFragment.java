@@ -26,7 +26,7 @@ import com.yosta.phuotngay.helpers.listeners.RecyclerItemClickListener;
 import com.yosta.phuotngay.firebase.model.FirebaseTrip;
 import com.yosta.phuotngay.models.app.MessageInfo;
 import com.yosta.phuotngay.models.app.MessageType;
-import com.yosta.phuotngay.models.view.FilterView;
+import com.yosta.phuotngay.ui.view.FilterView;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;

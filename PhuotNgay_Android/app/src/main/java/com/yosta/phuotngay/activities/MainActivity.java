@@ -17,7 +17,7 @@ import com.yosta.phuotngay.fragments.TripFragment;
 import com.yosta.phuotngay.fragments.NoConnectionFragment;
 import com.yosta.phuotngay.fragments.SettingFragment;
 import com.yosta.phuotngay.interfaces.ActivityBehavior;
-import com.yosta.phuotngay.ui.customview.OwnToolBar;
+import com.yosta.phuotngay.ui.OwnToolBar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

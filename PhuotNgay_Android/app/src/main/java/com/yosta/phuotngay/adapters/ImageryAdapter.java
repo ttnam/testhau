@@ -10,8 +10,8 @@ import android.view.ViewGroup;
 
 import com.yosta.phuotngay.R;
 import com.yosta.phuotngay.models.base.ViewBehavior;
-import com.yosta.phuotngay.models.view.ImageryView;
-import com.yosta.phuotngay.models.viewholder.ImageryViewHolder;
+import com.yosta.phuotngay.ui.view.ImageryView;
+import com.yosta.phuotngay.ui.viewholder.ImageryViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;

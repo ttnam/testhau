@@ -13,7 +13,7 @@
             android:layout_marginBottom="?actionBarSize"
             android:orientation="vertical">
 
-            <com.yosta.phuotngay.ui.customview.OwnToolBar
+            <com.yosta.phuotngay.ui.OwnToolBar
                 android:id="@id/layout"
                 app:layoutType="title_center"
                 android:layout_width="match_parent"
