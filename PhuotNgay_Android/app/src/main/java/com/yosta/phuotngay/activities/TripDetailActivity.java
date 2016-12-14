@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.widget.Button;
 
 import com.bumptech.glide.Glide;
 import com.yosta.phuotngay.R;
@@ -27,7 +28,7 @@ import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 
 public class TripDetailActivity extends ActivityBehavior {
 
-    @BindView(R.id.txt_title)
+    @BindView(R.id.text_view)
     AppCompatTextView txtTitle;
 
     @BindView(R.id.web_view)
@@ -41,6 +42,9 @@ public class TripDetailActivity extends ActivityBehavior {
 
     @BindView(R.id.layout)
     OwnToolBar mOwnToolbar;
+
+    @BindView(R.id.btn_ranking)
+    Button btnRanking;
 
     private FirebaseActivityAdapter activityAdapter = null;
 
@@ -56,7 +60,6 @@ public class TripDetailActivity extends ActivityBehavior {
     @Override
     protected void onStart() {
         super.onStart();
-
         this.rvActivity.setAdapter(this.activityAdapter);
     }
 
@@ -70,23 +73,36 @@ public class TripDetailActivity extends ActivityBehavior {
                 R.drawable.ic_vector_back_white,
                 R.drawable.ic_vector_share_white,
                 new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        }, new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+                    @Override
+                    public void onClick(View view) {
+                        onBackPressed();
+                    }
+                }, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
 
-            }
-        });
+                    }
+                });
 
-        // Webview
+
+        onApplyWebView();
+
+        onApplyRecyclerView();
+    }
+
+    private void onApplyWebView() {
         WebSettings settings = webView.getSettings();
         settings.setJavaScriptEnabled(false);
         settings.setDefaultTextEncodingName("utf-8");
-
-        onApplyRecyclerView();
+        settings.setDefaultFontSize(14);
+        settings.setRenderPriority(WebSettings.RenderPriority.HIGH);
+        settings.setCacheMode(WebSettings.LOAD_NO_CACHE);
+        settings.setAppCacheEnabled(false);
+        settings.setBlockNetworkImage(true);
+        settings.setLoadsImagesAutomatically(true);
+        settings.setGeolocationEnabled(false);
+        settings.setNeedInitialFocus(false);
+        settings.setSaveFormData(false);
     }
 
     @Override
@@ -111,10 +127,9 @@ public class TripDetailActivity extends ActivityBehavior {
         String prefix = "<html><body><p style=\"text-align: justify\">";
         String postfix = "</p></body></html>";
         String content = trip.getDescription();
-
         webView.loadData(prefix + content + postfix, "text/html; charset=utf-8", "utf-8");
         txtTitle.setText(trip.getName());
-
+        btnRanking.setText(String.valueOf(trip.getRanking()));
         Glide.with(this).load(trip.getCover()).into(imageCover);
     }
 

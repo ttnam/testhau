@@ -20,7 +20,7 @@
                 android:id="@id/layout"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:layoutBackground="#99000000"
+                app:layoutBackground="@color/transparent_30"
                 app:layoutTitleColor="@android:color/white"
                 app:layout_collapseMode="pin"
                 app:popupTheme="@style/AppTheme.PopupOverlay" />

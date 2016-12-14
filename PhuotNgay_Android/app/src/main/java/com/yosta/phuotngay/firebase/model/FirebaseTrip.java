@@ -19,7 +19,7 @@ public class FirebaseTrip implements Serializable {
     private String description;
     private String from;
     private String name;
-    private long rating;
+    private long ranking;
 
     public FirebaseTrip() {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
@@ -73,12 +73,12 @@ public class FirebaseTrip implements Serializable {
         this.name = name;
     }
 
-    public long getRating() {
-        return rating;
+    public long getRanking() {
+        return ranking;
     }
 
-    public void setRating(long rating) {
-        this.rating = rating;
+    public void setRanking(long rating) {
+        this.ranking = rating;
     }
 
     public String[] getDepart() {
