@@ -28,7 +28,7 @@
     <string name="setting_about"> About                         </string>
     <string name="setting_help"> Help Center                    </string>
     <string name="setting_terms"> Terms &amp; Policies          </string>
-
+    <string name="setting_auto_sync"> Auto sync                 </string>
     <string name="setting_notification"> Notification           </string>
     <string name="setting_report_problem"> Report problems      </string>
 
@@ -47,7 +47,11 @@
     <string name="error_message_pass_not_match">These passwords do not match.</string>
     <string name="error_message_wrong_user_pass"> The email and password you entered do not match. </string>
 
-    <string name="setting_auto_sync"> Auto sync                 </string>
+
+    <string name="message_new_comment">Leave a new comment</string>
+
+
+    <string name="str_write_a_comment_while_offline">Write a comment while offline</string>
 
 
     <string name="str_notify_connected"> Connected </string>
@@ -94,8 +98,7 @@
     <string name="add_as_friend">Make friends</string>
     <string name="max_distance_hint">(in km)</string>
     <string name="apply_filter">APPLY FILTER</string>
-    <string name="str_WriteAComment">Write a comment</string>
-    <string name="str_write_a_comment_while_offline">Write a comment while offline</string>
+
 
 </resources>
 

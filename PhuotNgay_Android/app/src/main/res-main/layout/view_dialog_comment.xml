@@ -102,45 +102,57 @@
 
     </LinearLayout>
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="?actionBarSize"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:padding="@dimen/margin">
+        android:orientation="vertical">
 
-        <android.support.v7.widget.AppCompatEditText
-            android:id="@id/edit_text"
-            style="@style/AppTheme.TextInputEditText"
+        <include layout="@layout/layout_separate_vertical" />
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentTop="true"
-            android:layout_gravity="center_vertical"
-            android:layout_toLeftOf="@id/button"
-            android:layout_toStartOf="@id/button"
-            android:bufferType="editable"
-            android:hint="@string/str_WriteAComment"
-            android:inputType="text"
-            android:maxLines="2"
-            android:minLines="1">
+            android:layout_height="?actionBarSize"
+            android:padding="@dimen/margin">
 
-            <requestFocus />
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@id/edit_text"
+                style="@style/AppTheme.TextInputEditText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/margin"
+                android:layout_marginStart="@dimen/margin"
+                android:layout_toLeftOf="@id/button"
+                android:layout_toStartOf="@id/button"
+                android:bufferType="editable"
+                android:hint="@string/message_new_comment"
+                android:inputType="text"
+                android:maxLines="2"
+                android:minLines="1">
 
-        </android.support.v7.widget.AppCompatEditText>
+                <requestFocus />
 
-        <android.support.v7.widget.AppCompatImageView
-            android:id="@id/button"
-            android:layout_width="@dimen/icon_size_x4"
-            android:layout_height="@dimen/icon_size_x4"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="@dimen/margin"
-            android:layout_marginRight="@dimen/margin"
-            android:background="@drawable/ic_style_button_round_corners_default"
-            android:clickable="true"
-            android:scaleType="centerInside"
-            app:srcCompat="@drawable/ic_vector_send" />
+            </android.support.v7.widget.AppCompatEditText>
 
-    </RelativeLayout>
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@id/button"
+                android:layout_width="@dimen/icon_size_x4"
+                android:layout_height="@dimen/icon_size_x4"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/margin"
+                android:layout_marginRight="@dimen/margin"
+                android:background="@drawable/ic_style_button_round_corners_default"
+                android:clickable="true"
+                android:scaleType="centerInside"
+                app:srcCompat="@drawable/ic_vector_send" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
 </RelativeLayout>
