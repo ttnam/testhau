@@ -26,4 +26,10 @@
         <item quantity="other">%d months ago</item>
     </plurals>
 
+    <plurals name="years">
+        <item quantity="one">%d year ago</item>
+        <item quantity="other">%d years ago</item>
+    </plurals>
+
+
 </resources>

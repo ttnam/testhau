@@ -53,27 +53,31 @@ public class FirebaseCommentViewHolder extends RecyclerView.ViewHolder {
         long minute = second / 60;
         long hour = minute / 60;
         long day = hour / 24;
-        long month = day / 12;
+        long month = day / 30; // ??
+        long year = month / 12;
 
         Resources resources = mContext.getResources();
         String res;
-
-        if (month == 0) {
-            if (day == 0) {
-                if (hour == 0) {
-                    if (minute == 0) {
-                        res = resources.getQuantityString(R.plurals.seconds, (int) second, (int) second);
+        if (year == 0) {
+            if (month == 0) {
+                if (day == 0) {
+                    if (hour == 0) {
+                        if (minute == 0) {
+                            res = resources.getQuantityString(R.plurals.seconds, (int) second, (int) second);
+                        } else {
+                            res = resources.getQuantityString(R.plurals.minutes, (int) minute, (int) minute);
+                        }
                     } else {
-                        res = resources.getQuantityString(R.plurals.minutes, (int) minute, (int) minute);
+                        res = resources.getQuantityString(R.plurals.hours, (int) hour, (int) hour);
                     }
                 } else {
-                    res = resources.getQuantityString(R.plurals.hours, (int) hour, (int) hour);
+                    res = resources.getQuantityString(R.plurals.days, (int) day, (int) day);
                 }
             } else {
-                res = resources.getQuantityString(R.plurals.days, (int) day, (int) day);
+                res = resources.getQuantityString(R.plurals.months, (int) month, (int) month);
             }
         } else {
-            res = resources.getQuantityString(R.plurals.months, (int) month, (int) month);
+            res = resources.getQuantityString(R.plurals.years, (int) year, (int) year);
         }
 
         return res;

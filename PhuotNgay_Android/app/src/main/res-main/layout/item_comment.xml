@@ -41,7 +41,7 @@
 
             <TextView
                 android:id="@+id/tV_time"
-                style="@style/AppTheme.TextView_Title"
+                style="@style/AppTheme.TextView_Sub_Title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
