@@ -1,5 +1,7 @@
 package com.yosta.phuotngay.helpers.app;
 
+import android.content.res.Resources;
+
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -26,5 +28,10 @@ public class DatetimeUtils {
             sdf = new SimpleDateFormat("h:mm a");
         sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
         return sdf.format(date);
+    }
+
+    public static long getTimeStep(long millis) {
+        long currTimes = System.currentTimeMillis();
+        return (currTimes - millis);
     }
 }
