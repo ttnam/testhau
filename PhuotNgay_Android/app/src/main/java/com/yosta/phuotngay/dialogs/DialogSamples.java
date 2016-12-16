@@ -1,4 +1,4 @@
-package com.yosta.phuotngay.dialog;
+package com.yosta.phuotngay.dialogs;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -23,7 +23,7 @@ public class DialogSamples extends Dialog {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.item_place_header);
+        setContentView(R.layout.view_dialog_comment);
         ButterKnife.bind(this);
     }
 }

@@ -10,7 +10,6 @@ import android.widget.Toast;
 
 import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
-import com.facebook.login.LoginManager;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -28,9 +27,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.yosta.phuotngay.R;
-import com.yosta.phuotngay.activities.dialogs.DialogProgress;
+import com.yosta.phuotngay.dialogs.DialogProgress;
 import com.yosta.phuotngay.configs.AppConfig;
-import com.yosta.phuotngay.helpers.app.AppUtils;
 import com.yosta.phuotngay.interfaces.ActivityBehavior;
 
 import butterknife.BindView;

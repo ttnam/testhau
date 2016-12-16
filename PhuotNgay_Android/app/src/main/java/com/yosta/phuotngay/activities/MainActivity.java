@@ -8,7 +8,7 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 
 import com.yosta.phuotngay.R;
-import com.yosta.phuotngay.activities.dialogs.DialogFilter;
+import com.yosta.phuotngay.dialogs.DialogFilter;
 import com.yosta.phuotngay.adapters.ViewPagerAdapter;
 import com.yosta.phuotngay.animations.ZoomOutPageTransformer;
 import com.yosta.phuotngay.fragments.OwnTripFragment;
@@ -100,7 +100,7 @@ public class MainActivity extends ActivityBehavior {
                         mOwnToolbar.setBinding(
                                 "Trang chủ",
                                 R.drawable.ic_vector_add,
-                                R.drawable.ic_vector_filter,
+                                R.drawable.ic_vector_circle_red_white,
                                 new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {

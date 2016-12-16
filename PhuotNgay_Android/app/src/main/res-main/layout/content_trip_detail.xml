@@ -42,9 +42,9 @@
                         android:layout_width="@dimen/icon_size_x4"
                         android:layout_height="@dimen/icon_size_x4"
                         android:layout_gravity="center"
+                        android:layout_marginEnd="@dimen/margin_x2"
                         android:layout_marginRight="@dimen/margin_x2"
-                        android:background="@drawable/circle_view_blue"
-                        android:text="69" />
+                        android:background="@drawable/circle_view_blue" />
 
                     <android.support.v7.widget.AppCompatImageView
                         android:layout_width="@dimen/icon_size_x3"
@@ -53,6 +53,7 @@
                         app:srcCompat="@drawable/ic_vector_comment" />
 
                     <TextView
+                        android:id="@+id/tV_comment"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
@@ -65,6 +66,7 @@
                 </LinearLayout>
 
                 <android.support.v7.widget.AppCompatImageView
+                    android:id="@+id/img_more"
                     android:layout_width="@dimen/icon_size_x6"
                     android:layout_height="@dimen/icon_size_x6"
                     android:layout_alignParentEnd="true"

@@ -1,6 +1,7 @@
 package com.yosta.phuotngay.firebase;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -10,6 +11,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.yosta.phuotngay.helpers.app.SearchTripHelper;
 import com.yosta.phuotngay.firebase.model.FirebaseTrip;
+import com.yosta.phuotngay.interfaces.CallBackListener;
 import com.yosta.phuotngay.models.app.MessageInfo;
 import com.yosta.phuotngay.models.app.MessageType;
 import com.yosta.phuotngay.models.location.FirebaseLocation;
@@ -110,6 +112,19 @@ public class FirebaseUtils {
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
+            }
+        });
+    }
+
+    public void onChangeRanking(String tripId, long value, final CallBackListener listener) {
+        TRIP().child(tripId).child("ranking").setValue(value, new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+                if (databaseError != null) {
+                    Log.e("Data couldn't be saved.", databaseError.getMessage());
+                } else {
+                    listener.run();
+                }
             }
         });
     }

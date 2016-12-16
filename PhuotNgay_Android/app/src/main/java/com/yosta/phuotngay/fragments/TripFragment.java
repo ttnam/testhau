@@ -16,7 +16,7 @@ import android.widget.LinearLayout;
 
 import com.yosta.phuotngay.R;
 import com.yosta.phuotngay.activities.TripDetailActivity;
-import com.yosta.phuotngay.activities.dialogs.DialogFilter;
+import com.yosta.phuotngay.dialogs.DialogFilter;
 import com.yosta.phuotngay.adapters.FilterAdapter;
 import com.yosta.phuotngay.firebase.adapter.FirebaseTripAdapter;
 import com.yosta.phuotngay.firebase.FirebaseUtils;

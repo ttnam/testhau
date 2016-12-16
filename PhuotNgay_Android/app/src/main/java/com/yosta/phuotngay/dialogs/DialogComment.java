@@ -1,17 +1,54 @@
-package com.yosta.phuotngay.activities.dialogs;
+package com.yosta.phuotngay.dialogs;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.os.Bundle;
+import android.view.Window;
 
+import com.yosta.phuotngay.R;
 import com.yosta.phuotngay.interfaces.DialogBehavior;
+
+import butterknife.ButterKnife;
 
 /**
  * Created by Phuc-Hau Nguyen on 8/31/2016.
  */
 public class DialogComment extends Dialog implements DialogBehavior {
 
+    /* @BindView(R.id.recycler_view)
+     RecyclerView recyclerView;
+
+     @BindView(R.id.layout)
+     RelativeLayout layoutRelative;
+
+     @BindView(R.id.edit_text)
+     AppCompatEditText editText;
+
+     @BindView(R.id.button)
+     AppCompatImageView btnSend;
+
+
+     private CommentAdapter commentsAdapter = null;
+ */
+    private Activity mOwnerActivity = null;
+
     public DialogComment(Context context) {
-        super(context);
+        super(context, R.style.AppTheme_CustomDialog);
+        Window window = getWindow();
+        if (window != null) {
+            window.getAttributes().windowAnimations = R.style.AppTheme_AnimDialog_SlideUpDown;
+        }
+        /*commentsAdapter = new CommentAdapter(context);*/
+        mOwnerActivity = (context instanceof Activity) ? (Activity) context : null;
+        if (mOwnerActivity != null)
+            setOwnerActivity(mOwnerActivity);
+    }
+
+    @Override
+    public void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        mOwnerActivity = getOwnerActivity();
     }
 
     @Override
@@ -34,44 +71,6 @@ public class DialogComment extends Dialog implements DialogBehavior {
 
     }
 
-   /* @BindView(R.id.recycler_view)
-    RecyclerView recyclerView;
-
-    @BindView(R.id.layout)
-    RelativeLayout layoutRelative;
-
-    @BindView(R.id.edit_text)
-    AppCompatEditText editText;
-
-    @BindView(R.id.button)
-    AppCompatImageView btnSend;
-
-    private Activity ownerActivity = null;
-    private CommentAdapter commentsAdapter = null;
-
-    public DialogComment(Context context) {
-        super(context, R.style.AppTheme_CustomDialog);
-        Window window = getWindow();
-        if (window != null) {
-            window.getAttributes().windowAnimations = R.style.AppTheme_AnimDialog_SlideUpDown;
-        }
-        commentsAdapter = new CommentAdapter(context);
-        ownerActivity = (context instanceof Activity) ? (Activity) context : null;
-        if (ownerActivity != null)
-            setOwnerActivity(ownerActivity);
-    }
-
-    @Override
-    public void onAttachedToWindow() {
-        super.onAttachedToWindow();
-        ownerActivity = getOwnerActivity();
-    }
-
-    @Override
-    public void onAttachedWindow(Context context) {
-
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,11 +78,11 @@ public class DialogComment extends Dialog implements DialogBehavior {
         setContentView(R.layout.view_dialog_comment);
         ButterKnife.bind(this);
 
-        onApplyComponents();
+        /*onApplyComponents();
         onApplyData();
-        onApplyEvents();
+        onApplyEvents();*/
     }
-
+/*
     @Override
     public void onApplyComponents() {
         // RecyclerView

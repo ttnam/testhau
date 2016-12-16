@@ -24,7 +24,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 import com.yosta.materialspinner.MaterialSpinner;
 import com.yosta.phuotngay.R;
-import com.yosta.phuotngay.activities.dialogs.DialogChooseImage;
+import com.yosta.phuotngay.dialogs.DialogChooseImage;
 import com.yosta.phuotngay.firebase.FirebaseUtils;
 import com.yosta.phuotngay.firebase.model.FirebaseUser;
 import com.yosta.phuotngay.interfaces.ActivityBehavior;

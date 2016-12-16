@@ -14,18 +14,24 @@ import android.webkit.WebView;
 import android.widget.Button;
 
 import com.bumptech.glide.Glide;
+import com.yosta.materialdialog.StandardDialog;
 import com.yosta.phuotngay.R;
+import com.yosta.phuotngay.dialogs.DialogComment;
+import com.yosta.phuotngay.dialogs.DialogSamples;
 import com.yosta.phuotngay.firebase.FirebaseUtils;
 import com.yosta.phuotngay.firebase.adapter.FirebaseActivityAdapter;
 import com.yosta.phuotngay.helpers.app.AppUtils;
 import com.yosta.phuotngay.helpers.decoration.SpacesItemDecoration;
+import com.yosta.phuotngay.helpers.listeners.ListenerHelpers;
 import com.yosta.phuotngay.interfaces.ActivityBehavior;
 import com.yosta.phuotngay.firebase.model.FirebaseTrip;
+import com.yosta.phuotngay.interfaces.CallBackListener;
 import com.yosta.phuotngay.ui.bottomsheet.BottomSheetDialog;
 import com.yosta.phuotngay.ui.OwnToolBar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 
 public class TripDetailActivity extends ActivityBehavior {
@@ -48,6 +54,8 @@ public class TripDetailActivity extends ActivityBehavior {
     @BindView(R.id.btn_ranking)
     Button btnRanking;
 
+    private FirebaseTrip mCurrTrip = null;
+    private FirebaseUtils mFirebaseUtils = null;
     private FirebaseActivityAdapter activityAdapter = null;
 
     @Override
@@ -63,6 +71,7 @@ public class TripDetailActivity extends ActivityBehavior {
     protected void onStart() {
         super.onStart();
         this.rvActivity.setAdapter(this.activityAdapter);
+        this.mFirebaseUtils = FirebaseUtils.initializeWith(this);
     }
 
 
@@ -112,9 +121,9 @@ public class TripDetailActivity extends ActivityBehavior {
     public void onApplyData() {
         super.onApplyData();
         Intent intent = this.getIntent();
-        FirebaseTrip trip = (FirebaseTrip) intent.getSerializableExtra(AppUtils.EXTRA_TRIP);
-        onUpdateData(trip);
-        String tripId = trip.getTripId();
+        mCurrTrip = (FirebaseTrip) intent.getSerializableExtra(AppUtils.EXTRA_TRIP);
+        onUpdateData(mCurrTrip);
+        String tripId = mCurrTrip.getTripId();
         this.activityAdapter = new FirebaseActivityAdapter(FirebaseUtils.initializeWith(this).ACTIVITYRef(tripId));
     }
     /*
@@ -123,6 +132,42 @@ public class TripDetailActivity extends ActivityBehavior {
         EventBus.getDefault().unregister(this);
         super.onStop();
     }*/
+
+    @OnClick(R.id.tV_comment)
+    public void onLoadMore() {
+        DialogComment dialogComment = new DialogComment(this);
+        dialogComment.show();
+    }
+
+    @OnClick(R.id.btn_ranking)
+    public void onRequestRanking() {
+        long ranking = Long.parseLong(btnRanking.getText().toString());
+        ranking = ranking + 1;
+        final String result = String.valueOf(ranking);
+
+        final long finalRanking = ranking;
+        new StandardDialog(this)
+                .setButtonsColor(getResources().getColor(R.color.PureRed))
+                .setCancelable(false)
+                .setTopColorRes(android.R.color.white)
+                .setTopColor(getResources().getColor(android.R.color.white))
+                .setTopColorRes(R.color.PureRed)
+                .setPositiveButton("Later", null)
+                .setMessage("If you like this trip please rate for us. Thank you!!")
+                .setNegativeButton("Rate Now", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        mFirebaseUtils.onChangeRanking(mCurrTrip.getTripId(), finalRanking,
+                                new CallBackListener() {
+                                    @Override
+                                    public void run() {
+                                        btnRanking.setText(String.valueOf(result));
+                                    }
+                                });
+                    }
+                })
+                .show();
+    }
 
     private void onUpdateData(FirebaseTrip trip) {
         if (trip == null) return;
@@ -143,7 +188,8 @@ public class TripDetailActivity extends ActivityBehavior {
         this.rvActivity.addItemDecoration(new SpacesItemDecoration(0));
         this.rvActivity.setNestedScrollingEnabled(false);
         this.rvActivity.setHorizontalScrollBarEnabled(true);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this,
+                LinearLayoutManager.VERTICAL, false);
         this.rvActivity.setLayoutManager(layoutManager);
     }
 }

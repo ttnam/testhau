@@ -96,7 +96,7 @@
                 android:layout_gravity="center"
                 android:layout_marginLeft="@dimen/margin_x2"
                 android:layout_marginStart="@dimen/margin_x2"
-                app:srcCompat="@drawable/ic_vector_favorite" />
+                app:srcCompat="@drawable/ic_vector_heart" />
 
             <android.support.v7.widget.AppCompatTextView
                 style="@style/AppTheme.TextView_Title.Normal"
