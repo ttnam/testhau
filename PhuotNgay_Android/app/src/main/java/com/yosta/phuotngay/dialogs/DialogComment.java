@@ -4,33 +4,56 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v7.widget.AppCompatEditText;
+import android.support.v7.widget.AppCompatImageView;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.view.Window;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.RelativeLayout;
 
 import com.yosta.phuotngay.R;
+import com.yosta.phuotngay.adapters.CommentAdapter;
+import com.yosta.phuotngay.animations.YoYo;
+import com.yosta.phuotngay.animations.fading_entrances.FadeInAnimator;
+import com.yosta.phuotngay.helpers.app.AppUtils;
+import com.yosta.phuotngay.helpers.app.UIUtils;
 import com.yosta.phuotngay.interfaces.DialogBehavior;
+import com.yosta.phuotngay.models.app.MessageInfo;
+import com.yosta.phuotngay.models.app.MessageType;
+import com.yosta.phuotngay.models.comment.Comment;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
+import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by Phuc-Hau Nguyen on 8/31/2016.
  */
 public class DialogComment extends Dialog implements DialogBehavior {
 
-    /* @BindView(R.id.recycler_view)
-     RecyclerView recyclerView;
+    @BindView(R.id.recycler_view)
+    RecyclerView recyclerView;
 
-     @BindView(R.id.layout)
-     RelativeLayout layoutRelative;
+    @BindView(R.id.layout)
+    RelativeLayout layoutRelative;
 
-     @BindView(R.id.edit_text)
-     AppCompatEditText editText;
+    @BindView(R.id.edit_text)
+    AppCompatEditText editText;
 
-     @BindView(R.id.button)
-     AppCompatImageView btnSend;
+    @BindView(R.id.button)
+    AppCompatImageView btnSend;
 
 
-     private CommentAdapter commentsAdapter = null;
- */
+    private CommentAdapter mCommentsAdapter = null;
+
     private Activity mOwnerActivity = null;
 
     public DialogComment(Context context) {
@@ -39,7 +62,7 @@ public class DialogComment extends Dialog implements DialogBehavior {
         if (window != null) {
             window.getAttributes().windowAnimations = R.style.AppTheme_AnimDialog_SlideUpDown;
         }
-        /*commentsAdapter = new CommentAdapter(context);*/
+        mCommentsAdapter = new CommentAdapter(context);
         mOwnerActivity = (context instanceof Activity) ? (Activity) context : null;
         if (mOwnerActivity != null)
             setOwnerActivity(mOwnerActivity);
@@ -52,37 +75,17 @@ public class DialogComment extends Dialog implements DialogBehavior {
     }
 
     @Override
-    public void onAttachedWindow(Context context) {
-
-    }
-
-    @Override
-    public void onApplyComponents() {
-
-    }
-
-    @Override
-    public void onApplyData() {
-
-    }
-
-    @Override
-    public void onApplyEvents() {
-
-    }
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.view_dialog_comment);
         ButterKnife.bind(this);
 
-        /*onApplyComponents();
+        onApplyComponents();
         onApplyData();
-        onApplyEvents();*/
+        onApplyEvents();
     }
-/*
+
     @Override
     public void onApplyComponents() {
         // RecyclerView
@@ -91,9 +94,8 @@ public class DialogComment extends Dialog implements DialogBehavior {
         //TODO
         //recyclerView.addItemDecoration(new DividerItemDecoration(2));
         recyclerView.setRecycledViewPool(new RecyclerView.RecycledViewPool());
-        recyclerView.setLayoutManager(new LinearLayoutManager(getOwnerActivity(),
-                LinearLayoutManager.VERTICAL, true));
-        recyclerView.setAdapter(commentsAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getOwnerActivity(), LinearLayoutManager.VERTICAL, true));
+        recyclerView.setAdapter(mCommentsAdapter);
     }
 
     @Override
@@ -122,8 +124,8 @@ public class DialogComment extends Dialog implements DialogBehavior {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onEvent(NetworkMessage networkMessage) {
-        if (networkMessage.IsConnected()) {
+    public void onEvent(MessageInfo messageInfo) {
+        if (messageInfo.getMessage() == MessageType.INTERNET_CONNECTED) {
             layoutRelative.setVisibility(View.GONE);
             recyclerView.setVisibility(View.VISIBLE);
             onInitializeData();
@@ -135,7 +137,7 @@ public class DialogComment extends Dialog implements DialogBehavior {
         String cmtContent = editText.getText().toString();
         if (UIUtils.isCommentAccepted(cmtContent)) {
 
-            int index = commentsAdapter.addComment(new Comment(cmtContent));
+            int index = mCommentsAdapter.addComment(new Comment(cmtContent));
             recyclerView.scrollToPosition(index);
 
             onCloseVirtualKeyboard();
@@ -165,10 +167,8 @@ public class DialogComment extends Dialog implements DialogBehavior {
 
     private void onCloseVirtualKeyboard() {
         InputMethodManager inputManager =
-                (InputMethodManager) ownerActivity.
+                (InputMethodManager) mOwnerActivity.
                         getSystemService(Context.INPUT_METHOD_SERVICE);
-        inputManager.hideSoftInputFromWindow(
-                this.getCurrentFocus().getWindowToken(),
-                InputMethodManager.HIDE_NOT_ALWAYS);
-    }*/
+        inputManager.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+    }
 }

@@ -12,17 +12,19 @@ import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 import com.yosta.materialdialog.StandardDialog;
 import com.yosta.phuotngay.R;
 import com.yosta.phuotngay.dialogs.DialogComment;
-import com.yosta.phuotngay.dialogs.DialogSamples;
 import com.yosta.phuotngay.firebase.FirebaseUtils;
 import com.yosta.phuotngay.firebase.adapter.FirebaseActivityAdapter;
 import com.yosta.phuotngay.helpers.app.AppUtils;
 import com.yosta.phuotngay.helpers.decoration.SpacesItemDecoration;
-import com.yosta.phuotngay.helpers.listeners.ListenerHelpers;
 import com.yosta.phuotngay.interfaces.ActivityBehavior;
 import com.yosta.phuotngay.firebase.model.FirebaseTrip;
 import com.yosta.phuotngay.interfaces.CallBackListener;
@@ -48,6 +50,9 @@ public class TripDetailActivity extends ActivityBehavior {
     @BindView(R.id.image_view)
     AppCompatImageView imageCover;
 
+    @BindView(R.id.tV_comment)
+    TextView txtComment;
+
     @BindView(R.id.layout)
     OwnToolBar mOwnToolbar;
 
@@ -63,6 +68,9 @@ public class TripDetailActivity extends ActivityBehavior {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trip_detail);
         ButterKnife.bind(this);
+        this.mFirebaseUtils = FirebaseUtils.initializeWith(this);
+
+
         onApplyComponents();
         onApplyData();
     }
@@ -71,7 +79,6 @@ public class TripDetailActivity extends ActivityBehavior {
     protected void onStart() {
         super.onStart();
         this.rvActivity.setAdapter(this.activityAdapter);
-        this.mFirebaseUtils = FirebaseUtils.initializeWith(this);
     }
 
 
@@ -125,6 +132,10 @@ public class TripDetailActivity extends ActivityBehavior {
         onUpdateData(mCurrTrip);
         String tripId = mCurrTrip.getTripId();
         this.activityAdapter = new FirebaseActivityAdapter(FirebaseUtils.initializeWith(this).ACTIVITYRef(tripId));
+
+        onCommentListener(tripId);
+        onRankingListener(tripId);
+
     }
     /*
     @Override
@@ -133,8 +144,8 @@ public class TripDetailActivity extends ActivityBehavior {
         super.onStop();
     }*/
 
-    @OnClick(R.id.tV_comment)
-    public void onLoadMore() {
+    @OnClick(R.id.layout_comment)
+    public void onLoadComment() {
         DialogComment dialogComment = new DialogComment(this);
         dialogComment.show();
     }
@@ -171,14 +182,44 @@ public class TripDetailActivity extends ActivityBehavior {
 
     private void onUpdateData(FirebaseTrip trip) {
         if (trip == null) return;
-
         String prefix = "<html><body><p style=\"text-align: justify\">";
         String postfix = "</p></body></html>";
         String content = trip.getDescription();
         webView.loadData(prefix + content + postfix, "text/html; charset=utf-8", "utf-8");
         txtTitle.setText(trip.getName());
-        btnRanking.setText(String.valueOf(trip.getRanking()));
         Glide.with(this).load(trip.getCover()).into(imageCover);
+    }
+
+    // Ranking listener
+    private void onRankingListener(String tripId) {
+        mFirebaseUtils.TRIP().child(tripId).child("ranking").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    long ranking = (long) dataSnapshot.getValue();
+                    btnRanking.setText(String.valueOf(ranking));
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void onCommentListener(String tripId) {
+        mFirebaseUtils.TRIP().child(tripId).child("comment").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                txtComment.setText(String.valueOf(dataSnapshot.getChildrenCount()));
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void onApplyRecyclerView() {

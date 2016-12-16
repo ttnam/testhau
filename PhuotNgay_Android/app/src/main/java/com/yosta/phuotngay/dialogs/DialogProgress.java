@@ -46,8 +46,6 @@ public class DialogProgress extends Dialog implements DialogBehavior {
         super.onAttachedToWindow();
         ownerActivity = getOwnerActivity();
     }
-
-    @Override
     public void onAttachedWindow(Context context) {
         Window window = getWindow();
         if (window != null) {
@@ -57,7 +55,6 @@ public class DialogProgress extends Dialog implements DialogBehavior {
         if (ownerActivity != null)
             setOwnerActivity(ownerActivity);
     }
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

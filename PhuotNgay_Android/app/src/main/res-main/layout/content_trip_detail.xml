@@ -46,22 +46,35 @@
                         android:layout_marginRight="@dimen/margin_x2"
                         android:background="@drawable/circle_view_blue" />
 
-                    <android.support.v7.widget.AppCompatImageView
-                        android:layout_width="@dimen/icon_size_x3"
-                        android:layout_height="@dimen/icon_size_x3"
-                        android:layout_gravity="center"
-                        app:srcCompat="@drawable/ic_vector_comment" />
-
-                    <TextView
-                        android:id="@+id/tV_comment"
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:id="@+id/layout_comment"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
                         android:background="@drawable/ic_style_button_round_none_default"
                         android:clickable="true"
-                        android:gravity="center"
-                        android:padding="@dimen/margin"
-                        android:text="3124" />
+                        android:orientation="horizontal"
+                        android:paddingEnd="@dimen/margin"
+                        android:paddingLeft="@dimen/margin_x2"
+                        android:paddingRight="@dimen/margin"
+                        android:paddingStart="@dimen/margin">
+
+                        <android.support.v7.widget.AppCompatImageView
+                            android:layout_width="@dimen/icon_size_x3"
+                            android:layout_height="@dimen/icon_size_x3"
+                            android:layout_gravity="center"
+                            app:srcCompat="@drawable/ic_vector_comment" />
+
+                        <TextView
+                            android:id="@+id/tV_comment"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:padding="@dimen/margin"
+                            android:text="3124" />
+                    </LinearLayout>
+
 
                 </LinearLayout>
 

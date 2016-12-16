@@ -7,8 +7,6 @@ import android.content.Context;
  */
 public interface DialogBehavior {
 
-    void onAttachedWindow(Context context);
-
     void onApplyComponents();
 
     void onApplyData();

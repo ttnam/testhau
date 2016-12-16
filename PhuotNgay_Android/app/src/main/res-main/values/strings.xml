@@ -38,7 +38,6 @@
 
     <string name="setting_3g"> 3G                               </string>
     <string name="setting_wifi"> Wifi                           </string>
-    <string name="setting_auto_sync"> Auto sync                 </string>
 
     <string name="error_message_no_internet"> No internet connection </string>
     <string name="error_message_nothing_to_show"> Nothing to show! </string>
@@ -47,6 +46,9 @@
     <string name="error_message_email_existed"> Someone already has that email! </string>
     <string name="error_message_pass_not_match">These passwords do not match.</string>
     <string name="error_message_wrong_user_pass"> The email and password you entered do not match. </string>
+
+    <string name="setting_auto_sync"> Auto sync                 </string>
+
 
     <string name="str_notify_connected"> Connected </string>
     <string name="str_action_confirm_log_out"> Are you sure you want to log out? </string>
