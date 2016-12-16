@@ -56,6 +56,9 @@ public class FirebaseUtils {
     public Query ACTIVITYRef(String tripId) {
         return TRIP().child(tripId).child("activity").getRef();
     }
+    public Query COMMENTRef(String tripId) {
+        return TRIP().child(tripId).child("comment").getRef();
+    }
 
     public DatabaseReference USER() {
         return this.mReference.child(FIREBASE_USER);

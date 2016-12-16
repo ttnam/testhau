@@ -10,7 +10,6 @@ import android.view.Window;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.yosta.phuotngay.R;
-import com.yosta.phuotngay.interfaces.DialogBehavior;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -18,7 +17,7 @@ import butterknife.ButterKnife;
 /**
  * Created by Phuc-Hau Nguyen on 8/31/2016.
  */
-public class DialogProgress extends Dialog implements DialogBehavior {
+public class DialogProgress extends Dialog {
 
 
     @BindView(R.id.image_view)
@@ -63,11 +62,8 @@ public class DialogProgress extends Dialog implements DialogBehavior {
         setContentView(R.layout.view_dialog_progress);
         ButterKnife.bind(this);
         onApplyComponents();
-        onApplyEvents();
-        onApplyData();
     }
 
-    @Override
     public void onApplyComponents() {
         Glide.with(ownerActivity)
                 .load(R.drawable.ic_launcher_anim)
@@ -77,15 +73,5 @@ public class DialogProgress extends Dialog implements DialogBehavior {
                 .error(R.mipmap.ic_launcher)
                 .crossFade()
                 .into(imgLauncher);
-    }
-
-    @Override
-    public void onApplyData() {
-
-    }
-
-    @Override
-    public void onApplyEvents() {
-
     }
 }

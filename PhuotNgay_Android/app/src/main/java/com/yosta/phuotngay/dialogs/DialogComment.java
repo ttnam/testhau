@@ -19,12 +19,11 @@ import com.yosta.phuotngay.R;
 import com.yosta.phuotngay.adapters.CommentAdapter;
 import com.yosta.phuotngay.animations.YoYo;
 import com.yosta.phuotngay.animations.fading_entrances.FadeInAnimator;
+import com.yosta.phuotngay.firebase.FirebaseUtils;
 import com.yosta.phuotngay.helpers.app.AppUtils;
 import com.yosta.phuotngay.helpers.app.UIUtils;
-import com.yosta.phuotngay.interfaces.DialogBehavior;
 import com.yosta.phuotngay.models.app.MessageInfo;
 import com.yosta.phuotngay.models.app.MessageType;
-import com.yosta.phuotngay.models.comment.Comment;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -37,7 +36,7 @@ import butterknife.OnClick;
 /**
  * Created by Phuc-Hau Nguyen on 8/31/2016.
  */
-public class DialogComment extends Dialog implements DialogBehavior {
+public class DialogComment extends Dialog {
 
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
@@ -51,10 +50,8 @@ public class DialogComment extends Dialog implements DialogBehavior {
     @BindView(R.id.button)
     AppCompatImageView btnSend;
 
-
-    private CommentAdapter mCommentsAdapter = null;
-
     private Activity mOwnerActivity = null;
+    private CommentAdapter mCommentsAdapter = null;
 
     public DialogComment(Context context) {
         super(context, R.style.AppTheme_CustomDialog);
@@ -62,7 +59,6 @@ public class DialogComment extends Dialog implements DialogBehavior {
         if (window != null) {
             window.getAttributes().windowAnimations = R.style.AppTheme_AnimDialog_SlideUpDown;
         }
-        mCommentsAdapter = new CommentAdapter(context);
         mOwnerActivity = (context instanceof Activity) ? (Activity) context : null;
         if (mOwnerActivity != null)
             setOwnerActivity(mOwnerActivity);
@@ -82,67 +78,8 @@ public class DialogComment extends Dialog implements DialogBehavior {
         ButterKnife.bind(this);
 
         onApplyComponents();
-        onApplyData();
-        onApplyEvents();
-    }
-
-    @Override
-    public void onApplyComponents() {
-        // RecyclerView
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        //TODO
-        //recyclerView.addItemDecoration(new DividerItemDecoration(2));
-        recyclerView.setRecycledViewPool(new RecyclerView.RecycledViewPool());
-        recyclerView.setLayoutManager(new LinearLayoutManager(getOwnerActivity(), LinearLayoutManager.VERTICAL, true));
-        recyclerView.setAdapter(mCommentsAdapter);
-    }
-
-    @Override
-    public void onApplyEvents() {
-
-    }
-
-    @Override
-    public void onApplyData() {
         onToggleUI(AppUtils.isNetworkConnected(getContext()));
-    }
 
-    private void onInitializeData() {
-
-    }
-
-    private void onToggleUI(boolean IsConnected) {
-        if (IsConnected) {
-            layoutRelative.setVisibility(View.GONE);
-            recyclerView.setVisibility(View.VISIBLE);
-            onInitializeData();
-        } else {
-            layoutRelative.setVisibility(View.VISIBLE);
-            recyclerView.setVisibility(View.GONE);
-        }
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onEvent(MessageInfo messageInfo) {
-        if (messageInfo.getMessage() == MessageType.INTERNET_CONNECTED) {
-            layoutRelative.setVisibility(View.GONE);
-            recyclerView.setVisibility(View.VISIBLE);
-            onInitializeData();
-        }
-    }
-
-    @OnClick(R.id.button)
-    public void onSendComment() {
-        String cmtContent = editText.getText().toString();
-        if (UIUtils.isCommentAccepted(cmtContent)) {
-
-            int index = mCommentsAdapter.addComment(new Comment(cmtContent));
-            recyclerView.scrollToPosition(index);
-
-            onCloseVirtualKeyboard();
-        }
-        editText.clearFocus();
     }
 
     @Override
@@ -151,12 +88,63 @@ public class DialogComment extends Dialog implements DialogBehavior {
         EventBus.getDefault().register(this);
     }
 
-    @Override
-    public void onStop() {
-        super.onStop();
-        EventBus.getDefault().unregister(this);
+    public void onApplyComponents() {
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setRecycledViewPool(new RecyclerView.RecycledViewPool());
+        recyclerView.setLayoutManager(new LinearLayoutManager(mOwnerActivity, LinearLayoutManager.VERTICAL, true));
     }
 
+    private void onToggleUI(boolean IsConnected) {
+        if (IsConnected) {
+            layoutRelative.setVisibility(View.GONE);
+            recyclerView.setVisibility(View.VISIBLE);
+        } else {
+            layoutRelative.setVisibility(View.VISIBLE);
+            recyclerView.setVisibility(View.GONE);
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(MessageInfo messageInfo) {
+        /*if (messageInfo.getMessage() == MessageType.INTERNET_CONNECTED) {
+            layoutRelative.setVisibility(View.GONE);
+            recyclerView.setVisibility(View.VISIBLE);
+        }*/
+    }
+
+    public void setTripId(String tripId) {
+        if (mCommentsAdapter != null) {
+            mCommentsAdapter.cleanup();
+        }
+        mCommentsAdapter = new CommentAdapter(FirebaseUtils.initializeWith(mOwnerActivity).COMMENTRef(tripId));
+        recyclerView.setAdapter(mCommentsAdapter);
+    }
+/*
+
+    @OnClick(R.id.button)
+    public void onSendComment() {
+        String cmtContent = editText.getText().toString();
+        if (UIUtils.isCommentAccepted(cmtContent)) {
+
+            */
+/*int index = mCommentsAdapter.addComment(new Comment(cmtContent));
+            recyclerView.scrollToPosition(index);
+*//*
+
+            onCloseVirtualKeyboard();
+        }
+        editText.clearFocus();
+    }
+*/
+
+
+    @Override
+    public void onStop() {
+        EventBus.getDefault().unregister(this);
+        super.onStop();
+    }
+/*
     @OnClick(R.id.layout)
     public void onReload() {
         YoYo.with(new FadeInAnimator()).duration(1200)
@@ -170,5 +158,5 @@ public class DialogComment extends Dialog implements DialogBehavior {
                 (InputMethodManager) mOwnerActivity.
                         getSystemService(Context.INPUT_METHOD_SERVICE);
         inputManager.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-    }
+    }*/
 }

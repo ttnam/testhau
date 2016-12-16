@@ -75,7 +75,8 @@ public class TripFragment extends Fragment {
         ButterKnife.bind(this, rootView);
 
 
-        this.tripAdapter = new FirebaseTripAdapter(firebaseUtils.TRIPRef());
+        this.tripAdapter = new FirebaseTripAdapter(
+                firebaseUtils.TRIPRef());
         this.filterAdapter = new FilterAdapter(mContext);
 
         onInitializeTrip(mContext);

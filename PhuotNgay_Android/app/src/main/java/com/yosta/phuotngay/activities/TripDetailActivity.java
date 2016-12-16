@@ -31,6 +31,8 @@ import com.yosta.phuotngay.interfaces.CallBackListener;
 import com.yosta.phuotngay.ui.bottomsheet.BottomSheetDialog;
 import com.yosta.phuotngay.ui.OwnToolBar;
 
+import org.greenrobot.eventbus.EventBus;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -69,7 +71,6 @@ public class TripDetailActivity extends ActivityBehavior {
         setContentView(R.layout.activity_trip_detail);
         ButterKnife.bind(this);
         this.mFirebaseUtils = FirebaseUtils.initializeWith(this);
-
 
         onApplyComponents();
         onApplyData();
@@ -148,6 +149,7 @@ public class TripDetailActivity extends ActivityBehavior {
     public void onLoadComment() {
         DialogComment dialogComment = new DialogComment(this);
         dialogComment.show();
+        dialogComment.setTripId(mCurrTrip.getTripId());
     }
 
     @OnClick(R.id.btn_ranking)

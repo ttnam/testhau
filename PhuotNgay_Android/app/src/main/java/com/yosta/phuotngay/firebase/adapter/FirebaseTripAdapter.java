@@ -17,7 +17,7 @@ public class FirebaseTripAdapter extends FirebaseRecyclerAdapter<FirebaseTrip, F
     }
 
     @Override
-    protected void populateViewHolder(FirebaseTripViewHolder viewHolder, FirebaseTrip model, int position) {
-        viewHolder.onBind(model);
+    protected void populateViewHolder(FirebaseTripViewHolder viewHolder, FirebaseTrip trip, int position) {
+        viewHolder.onBind(trip);
     }
 }

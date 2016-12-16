@@ -13,7 +13,6 @@ public class MessageInfo {
         this.mType = type;
     }
 
-
     @MessageType
     public int getMessage() {
         return this.mType;

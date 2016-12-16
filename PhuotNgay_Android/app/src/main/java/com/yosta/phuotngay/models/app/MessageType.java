@@ -10,7 +10,8 @@ import java.lang.annotation.RetentionPolicy;
  */
 @Retention(RetentionPolicy.SOURCE)
 @IntDef({MessageType.TAKE_PHOTO, MessageType.FROM_GALLERY,
-        MessageType.LOAD_DONE, MessageType.LOST_INTERNET, MessageType.INTERNET_CONNECTED})
+        MessageType.LOAD_DONE, MessageType.LOST_INTERNET,
+        MessageType.INTERNET_CONNECTED})
 public @interface MessageType {
     int TAKE_PHOTO = 901;
     int FROM_GALLERY = 902;

@@ -1,27 +1,5 @@
 package com.yosta.phuotngay.dialogs;
 
-import android.app.Activity;
-import android.app.Dialog;
-import android.content.Context;
-import android.os.Bundle;
-import android.support.v7.widget.AppCompatImageView;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.Window;
-import android.view.animation.AccelerateDecelerateInterpolator;
-import android.widget.EditText;
-
-import com.yosta.phuotngay.R;
-import com.yosta.phuotngay.interfaces.DialogBehavior;
-import com.yosta.phuotngay.animations.YoYo;
-import com.yosta.phuotngay.animations.sliders.SlideInLeftAnimator;
-import com.yosta.phuotngay.animations.sliders.SlideInRightAnimator;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-
 /**
  * Created by Phuc-Hau Nguyen on 8/31/2016.
  */

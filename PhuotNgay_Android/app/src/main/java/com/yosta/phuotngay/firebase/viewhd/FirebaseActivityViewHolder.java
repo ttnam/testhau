@@ -7,20 +7,27 @@ import android.widget.TextView;
 import com.yosta.phuotngay.R;
 import com.yosta.phuotngay.firebase.model.FirebaseActivity;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * Created by Phuc-Hau Nguyen on 12/1/2016.
  */
 
 public class FirebaseActivityViewHolder extends RecyclerView.ViewHolder {
 
+    @BindView(R.id.txt_content)
+    TextView mTxtContent;
 
-    private TextView mTxtContent, mTxtTime, mTvHour;
+    @BindView(R.id.tv_time)
+    TextView mTxtTime;
+
+    @BindView(R.id.tV_hour)
+    TextView mTvHour;
 
     public FirebaseActivityViewHolder(View itemView) {
         super(itemView);
-        this.mTxtContent = (TextView) itemView.findViewById(R.id.txt_content);
-        this.mTxtTime = (TextView) itemView.findViewById(R.id.tv_time);
-        this.mTvHour = (TextView) itemView.findViewById(R.id.tV_hour);
+        ButterKnife.bind(this, itemView);
     }
 
     public void onBind(FirebaseActivity activity) {
