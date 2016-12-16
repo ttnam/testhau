@@ -49,37 +49,21 @@ public class FirebaseCommentViewHolder extends RecyclerView.ViewHolder {
 
     private String onGetTimeGap(long timeGap) {
 
-        long second = timeGap / 1000;
-        long minute = second / 60;
-        long hour = minute / 60;
-        long day = hour / 24;
-        long month = day / 30; // ??
-        long year = month / 12;
+        int pluralsIds[] = {R.plurals.seconds, R.plurals.minutes, R.plurals.hours,
+                R.plurals.days, R.plurals.months, R.plurals.years};
+
+        int timeConst[] = {1000, 60, 60, 24, 30, 12};
+        int timeValue = (int) (timeGap / timeConst[0]);
 
         Resources resources = mContext.getResources();
-        String res;
-        if (year == 0) {
-            if (month == 0) {
-                if (day == 0) {
-                    if (hour == 0) {
-                        if (minute == 0) {
-                            res = resources.getQuantityString(R.plurals.seconds, (int) second, (int) second);
-                        } else {
-                            res = resources.getQuantityString(R.plurals.minutes, (int) minute, (int) minute);
-                        }
-                    } else {
-                        res = resources.getQuantityString(R.plurals.hours, (int) hour, (int) hour);
-                    }
-                } else {
-                    res = resources.getQuantityString(R.plurals.days, (int) day, (int) day);
-                }
-            } else {
-                res = resources.getQuantityString(R.plurals.months, (int) month, (int) month);
-            }
-        } else {
-            res = resources.getQuantityString(R.plurals.years, (int) year, (int) year);
-        }
+        String res = resources.getQuantityString(R.plurals.seconds, timeValue, timeValue);
 
+        for (int i = 1; i < pluralsIds.length; ++i) {
+            timeValue /= timeConst[i];
+            if (timeValue != 0) {
+                res = resources.getQuantityString(pluralsIds[i], timeValue, timeValue);
+            }
+        }
         return res;
     }
 }
