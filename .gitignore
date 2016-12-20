@@ -1,3 +1,10 @@
-**/WIP/Source/FrontEnd/Android/UI
-**/WIP/Source/FrontEnd/Android/Release
-**/WIP/Source/FrontEnd/Android/config
+*.iml
+*.apk
+.gradle
+.idea
+.app\build\outputs\apk
+/local.properties
+.DS_Store
+/build
+/captures
+.externalNativeBuild
