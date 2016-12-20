@@ -39,7 +39,7 @@ public class UIUtils {
     private static ArrayList<IValidate> commentValidates = new ArrayList<>(
             Arrays.asList(new EmptyValidate(), new LengthValidate(1, 4096)));
 
-    public static boolean IsEmailAccepted(TextInputEditText editText, boolean isShowErr) {
+    public static boolean isEmailAccepted(TextInputEditText editText, boolean isShowErr) {
         for (IValidate email : emailValidates) {
             if (!email.IsValid(editText, isShowErr))
                 return false;
@@ -47,7 +47,7 @@ public class UIUtils {
         return true;
     }
 
-    public static boolean IsPasswordAccepted(TextInputEditText editText, boolean isShowErr) {
+    public static boolean isPasswordAccepted(TextInputEditText editText, boolean isShowErr) {
         for (IValidate pwd : passWordValidates) {
             if (!pwd.IsValid(editText, isShowErr))
                 return false;
@@ -62,7 +62,6 @@ public class UIUtils {
         }
         return true;
     }
-
 
     public static void setFont(Context context, String fontName, TextView... textView) {
         for (TextView aTextView : textView) {

@@ -70,7 +70,7 @@ public class TripDetailActivity extends ActivityBehavior {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trip_detail);
         ButterKnife.bind(this);
-        this.mFirebaseUtils = FirebaseUtils.initializeWith(this);
+        this.mFirebaseUtils = FirebaseUtils.getInstance();
 
         onApplyComponents();
         onApplyData();
@@ -132,7 +132,7 @@ public class TripDetailActivity extends ActivityBehavior {
         mCurrTrip = (FirebaseTrip) intent.getSerializableExtra(AppUtils.EXTRA_TRIP);
         onUpdateData(mCurrTrip);
         String tripId = mCurrTrip.getTripId();
-        this.activityAdapter = new FirebaseActivityAdapter(FirebaseUtils.initializeWith(this).ACTIVITYRef(tripId));
+        this.activityAdapter = new FirebaseActivityAdapter(FirebaseUtils.getInstance().ACTIVITYRef(tripId));
 
         onCommentListener(tripId);
         onRankingListener(tripId);

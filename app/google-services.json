@@ -15,21 +15,17 @@
       },
       "oauth_client": [
         {
-          "client_id": "145961843290-ojpj4fnjeoo9k61nto77e8ko8iiq04hf.apps.googleusercontent.com",
+          "client_id": "145961843290-3mfli9g9qi5tmjfem79qme2chfe1oj83.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.yosta.phuotngay",
             "certificate_hash": "92CA7E157F601256727573EE9A7ECCD89E6D91E0"
           }
-        },
-        {
-          "client_id": "145961843290-do3ttr6hn50v2egsatic42hk53mpdflt.apps.googleusercontent.com",
-          "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBTFD1iCOcgHRAKjQhAH5MpceXUStbG-T4"
+          "current_key": "AIzaSyDT8OY9Mcx52-wCOKumD6-0wnIfweOVElo"
         }
       ],
       "services": {
@@ -38,42 +34,6 @@
         },
         "appinvite_service": {
           "status": 2,
-          "other_platform_oauth_client": [
-            {
-              "client_id": "145961843290-do3ttr6hn50v2egsatic42hk53mpdflt.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        },
-        "ads_service": {
-          "status": 2
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:145961843290:android:1aeee9f8160cf8ad",
-        "android_client_info": {
-          "package_name": "com.example.tunam1995.firebasetest"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "145961843290-do3ttr6hn50v2egsatic42hk53mpdflt.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyBTFD1iCOcgHRAKjQhAH5MpceXUStbG-T4"
-        }
-      ],
-      "services": {
-        "analytics_service": {
-          "status": 1
-        },
-        "appinvite_service": {
-          "status": 1,
           "other_platform_oauth_client": []
         },
         "ads_service": {

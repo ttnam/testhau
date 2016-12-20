@@ -93,7 +93,7 @@ public class ProfileActivity extends ActivityBehavior {
     public void onApplyComponents() {
         super.onApplyComponents();
 
-        this.mFirebaseUtils = FirebaseUtils.initializeWith(this);
+        this.mFirebaseUtils = FirebaseUtils.getInstance();
 
         this.ownToolBar.setBinding(
                 "Nguyễn Phúc Hậu",

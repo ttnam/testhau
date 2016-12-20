@@ -20,8 +20,8 @@ import android.text.Html;
 import android.util.Base64;
 import android.util.DisplayMetrics;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 
-import com.google.gson.Gson;
 import com.yosta.phuotngay.R;
 import com.yosta.phuotngay.adapters.MenuAdapter;
 import com.yosta.phuotngay.models.menu.MenuItem;
@@ -37,6 +37,16 @@ public class AppUtils {
     public static final String EXTRA_TRIP = "EXTRA_TRIP";
     public static final String EXTRA_TRIPS = "EXTRA_TRIPS";
 
+    public static boolean isGPSEnable(Context context) {
+        LocationManager manager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+        return manager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+    }
+
+    public static boolean isNetworkConnected(Context context) {
+        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        return (connectivityManager.getActiveNetworkInfo() != null);
+    }
+
     private static boolean isWifiConnected(Context context) {
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo info = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
@@ -49,41 +59,7 @@ public class AppUtils {
         return (info.getState() == NetworkInfo.State.CONNECTED);
     }
 
-    public static boolean isNetworkConnected(Context context) {
-        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        return (connectivityManager.getActiveNetworkInfo() != null);
-    }
-
-    public static boolean isGPSEnable(Context context) {
-        LocationManager manager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
-        return manager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-    }
-
-    public static void showSnackBarNotify(View v, String msg, int lenght) {
-        Snackbar.make(v, Html.fromHtml("<font color=\"yellow\">" + msg + "</font>"), lenght).show();
-    }
-
-    public static void showSnackBarNotify(View v, String msg) {
-        if (v == null)
-            return;
-        Snackbar.make(v, Html.fromHtml("<font color=\"yellow\">" + msg + "</font>"), Snackbar.LENGTH_LONG).show();
-    }
-
-    public static void showSnackBarNotifyWithAction(
-            View v,
-            String msg,
-            String action,
-            int duratian,
-            View.OnClickListener listener) {
-
-        Snackbar.make(v, Html.fromHtml("<font color=\"white\">" + msg + "</font>"), Snackbar.LENGTH_SHORT)
-                .setAction(action, listener)
-                .setDuration(duratian)
-                .setActionTextColor(ColorStateList.valueOf(Color.GREEN))
-                .show();
-    }
-
-    public static String getAppVersion(Context context) {
+    public static String onGetAppVersion(Context context) {
         PackageManager manager = context.getPackageManager();
         PackageInfo info = null;
         try {
@@ -97,7 +73,7 @@ public class AppUtils {
         return null;
     }
 
-    public static Serializable receiveDataThroughBundle(Activity activity, String key) {
+    public static Serializable onReceiveDataThroughBundle(Activity activity, String key) {
         Serializable serializable = null;
         try {
             Intent intent = activity.getIntent();
@@ -109,7 +85,7 @@ public class AppUtils {
         return serializable;
     }
 
-    public static boolean sendObjectThroughBundle(Context srcContext, Class destClass, String key, Serializable object, boolean isCall) {
+    public static boolean onSendObjectThroughBundle(Context srcContext, Class destClass, String key, Serializable object, boolean isCall) {
         try {
             Intent intent = new Intent(srcContext, destClass);
             intent.putExtra(key, object);
@@ -123,46 +99,68 @@ public class AppUtils {
         }
     }
 
-    public static String[] StandardizeTime(String pattern) {
+    public static String onGetKeyHash(Context context) {
 
-        String[] res = new String[4];
+        String keyHash = "";
+        try {
+            PackageInfo info = context.getPackageManager().getPackageInfo(
+                    context.getPackageName(), PackageManager.GET_SIGNATURES);
+            for (Signature signature : info.signatures) {
+                MessageDigest md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                keyHash = Base64.encodeToString(md.digest(), Base64.DEFAULT);
+            }
+        } catch (PackageManager.NameNotFoundException | NoSuchAlgorithmException ignored) {
 
-        String[] temp = pattern.split("-");
-
-        res[0] = temp[0]; // year
-        res[1] = temp[1]; // month
-        res[2] = temp[2].substring(0, 2); // day
-        res[3] = temp[2].substring(4, temp[2].length());
-
-        return res;
+        }
+        return keyHash;
     }
 
-    public static boolean StandardizeLoginValue(String response) {
-        return Boolean.parseBoolean(response.substring((response.indexOf(':') + 2), response.length() - 1));
+    public static int onGetScreenHeight(Activity activity) {
+        DisplayMetrics displaymetrics = new DisplayMetrics();
+        activity.getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+        return displaymetrics.heightPixels;
     }
 
-    /*
-        public static void onCallLoginDialog(final Context context) {
+    public static int onGetScreenWidth(Activity activity) {
+        DisplayMetrics displaymetrics = new DisplayMetrics();
+        activity.getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+        return displaymetrics.widthPixels;
+    }
 
-            String msgContent = context.getString(R.string.message_login);
-            String tittle = context.getString(R.string.str_login).toUpperCase();
+    public static void onCloseVirtualKeyboard(Activity activity) {
+        InputMethodManager inputManager =
+                (InputMethodManager) activity.
+                        getSystemService(Context.INPUT_METHOD_SERVICE);
 
-            new StandardDialog(context).setIcon(R.drawable.ic_vector_person_white)
-                    .setTopColorRes(R.color.colorPrimaryDark)
-                    .setButtonsColorRes(R.color.colorPrimaryDark)
-                    .setTitleGravity(Gravity.CENTER)
-                    .setTitle(tittle)
-                    .setMessage(msgContent)
-                    .setPositiveButton(R.string.str_login, new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            context.startActivity(new Intent(context, LoginActivity.class));
-                        }
-                    })
-                    .setNegativeButton(android.R.string.cancel, null)
-                    .show();
+        View view = activity.getCurrentFocus();
+        if (view != null) {
+            inputManager.hideSoftInputFromWindow(view.getWindowToken(),
+                    InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+    }
 
-        }*/
+    public static void onShowSnackBarNotify(View v, String msg, int lenght) {
+        Snackbar.make(v, Html.fromHtml("<font color=\"yellow\">" + msg + "</font>"), lenght).show();
+    }
+
+    public static void onShowSnackBarNotify(View v, String msg) {
+        if (v == null)
+            return;
+        Snackbar.make(v, Html.fromHtml("<font color=\"yellow\">" + msg + "</font>"), Snackbar.LENGTH_LONG).show();
+    }
+
+    public static void onShowSnackBarNotifyWithAction(View v, String msg, String action,
+                                                      int duratian,
+                                                      View.OnClickListener listener) {
+
+        Snackbar.make(v, Html.fromHtml("<font color=\"white\">" + msg + "</font>"), Snackbar.LENGTH_SHORT)
+                .setAction(action, listener)
+                .setDuration(duratian)
+                .setActionTextColor(ColorStateList.valueOf(Color.GREEN))
+                .show();
+    }
+
     public static
     @Nullable
     MenuAdapter LoadListMenuAction(Context context, @AnyRes int textArrID, @AnyRes int iconArrID) {
@@ -188,33 +186,4 @@ public class AppUtils {
         return null;
     }
 
-
-    public static String getKeyHash(Context context) {
-
-        String keyHash = "";
-        try {
-            PackageInfo info = context.getPackageManager().getPackageInfo(
-                    context.getPackageName(), PackageManager.GET_SIGNATURES);
-            for (Signature signature : info.signatures) {
-                MessageDigest md = MessageDigest.getInstance("SHA");
-                md.update(signature.toByteArray());
-                keyHash = Base64.encodeToString(md.digest(), Base64.DEFAULT);
-            }
-        } catch (PackageManager.NameNotFoundException | NoSuchAlgorithmException ignored) {
-
-        }
-        return keyHash;
-    }
-
-    public static int getScreenHeight(Activity activity) {
-        DisplayMetrics displaymetrics = new DisplayMetrics();
-        activity.getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
-        return displaymetrics.heightPixels;
-    }
-
-    public static int getScreenWidth(Activity activity) {
-        DisplayMetrics displaymetrics = new DisplayMetrics();
-        activity.getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
-        return displaymetrics.widthPixels;
-    }
 }

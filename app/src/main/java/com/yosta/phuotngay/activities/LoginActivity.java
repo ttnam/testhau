@@ -135,7 +135,7 @@ public class LoginActivity extends ActivityBehavior implements GoogleApiClient.O
         // Configure Google Sign In
         GoogleSignInOptions inOptions = new GoogleSignInOptions
                 .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getResources().getString(R.string.default_web_client_id))
+                .requestIdToken(getResources().getString(R.string.google_client_id))
                 .requestEmail()
                 .build();
         // [END config_sign_in]

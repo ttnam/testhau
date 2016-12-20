@@ -31,48 +31,38 @@ public class FirebaseUtils {
     private static final String FIREBASE_USER = "USER";
     public static final String FIREBASE_LOCATION = "LOCATION";
 
-    private Context mContext = null;
     private DatabaseReference mReference = null;
     private static FirebaseUtils mInstance = null;
 
-    private FirebaseUtils(Context context) {
-        this.mContext = context;
+    private FirebaseUtils() {
         if (this.mReference == null) {
             this.mReference = FirebaseDatabase.getInstance().getReference();
         }
     }
 
-    public static FirebaseUtils initializeWith(Context context) {
+    public static FirebaseUtils getInstance() {
         if (mInstance == null) {
-            mInstance = new FirebaseUtils(context);
+            mInstance = new FirebaseUtils();
         }
         return mInstance;
     }
 
-    public DatabaseReference TRIP() {
-        return this.mReference.child(FIREBASE_TRIP);
-    }
-
-    public Query ACTIVITYRef(String tripId) {
-        return TRIP().child(tripId).child("activity").getRef();
-    }
-
+    // DatabaseReference
     public DatabaseReference COMMENT(String tripId) {
         return TRIP().child(tripId).child("comment");
     }
-
-    public Query COMMENTRef(String tripId) {
-        return COMMENT(tripId).getRef();
+    public DatabaseReference TRIP() {
+        return this.mReference.child(FIREBASE_TRIP);
     }
-
     public DatabaseReference USER() {
         return this.mReference.child(FIREBASE_USER);
     }
-
     public DatabaseReference LOCATION() {
         return this.mReference.child(FIREBASE_LOCATION);
     }
 
+
+    // Query
     public Query TRIPRef() {
         Query ref = TRIP().getRef().orderByChild("ranking");
         ref.addValueEventListener(new ValueEventListener() {
@@ -102,6 +92,12 @@ public class FirebaseUtils {
             }
         });
         return ref;
+    }
+    public Query ACTIVITYRef(String tripId) {
+        return TRIP().child(tripId).child("activity").getRef();
+    }
+    public Query COMMENTRef(String tripId) {
+        return COMMENT(tripId).getRef();
     }
 
     public DatabaseReference USERRef() {

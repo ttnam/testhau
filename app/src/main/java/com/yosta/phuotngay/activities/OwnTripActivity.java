@@ -46,7 +46,7 @@ public class OwnTripActivity extends AppCompatActivity {
 
     private void onApplyRecyclerView() {
 
-        int height = AppUtils.getScreenHeight(this) / 2;
+        int height = AppUtils.onGetScreenHeight(this) / 2;
         this.mViewPager.setLayoutParams(new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, height));
         this.mViewPager.setAdapter(mFragmentCardAdapter);
