@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<!-- App-related Number -->
+    <integer name="postal_code_length">6</integer>
+
+    <!-- General -->
+    <integer name="drag_threshold">10</integer>
+
+    <!-- Animation Time -->
+    <integer name="anim_in_out_duration">300</integer>
+    <integer name="anim_card_flip_duration_half">150</integer>
+    <integer name="anim_card_flip_scale_duration">200</integer>
+    <integer name="anim_logo_loading_half_duration">600</integer>
+
+</resources>

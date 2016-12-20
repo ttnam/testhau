@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="?actionBarSize"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerInParent="true"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="?actionBarSize"
+            android:layout_height="?actionBarSize"
+            android:layout_gravity="center"
+            android:clickable="true">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@id/button_left"
+                android:layout_width="@dimen/icon_size_x3"
+                android:layout_height="@dimen/icon_size_x3"
+                android:layout_centerInParent="true"
+                android:clickable="true"
+                android:scaleType="centerInside" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="?actionBarSize"
+            android:layout_height="?actionBarSize"
+            android:layout_gravity="center"
+            android:clickable="true">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@id/button_right"
+                android:layout_width="@dimen/icon_size_x3"
+                android:layout_height="@dimen/icon_size_x3"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                android:clickable="true"
+                android:scaleType="centerInside" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@id/text_view"
+        style="@style/AppTheme.TextView_Title.Bold"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="@dimen/margin_x2"
+        android:layout_marginStart="@dimen/margin_x2"
+        android:gravity="center|start" />
+
+</RelativeLayout>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/margin_x2"
+    android:paddingLeft="@dimen/margin_x2"
+    android:paddingRight="@dimen/margin_x2">
+
+    <TextView
+        android:id="@id/text_view"
+        style="@style/AppTheme.TextView_Title.ColorPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:gravity="center|start"
+        android:text="Share" />
+
+    <include layout="@layout/layout_separate_vertical" />
+
+    <include layout="@layout/layout_recycler_view" />
+
+</LinearLayout>

@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWindowBackground"
+    android:orientation="vertical">
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/margin_x2">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                android:orientation="horizontal"
+                android:padding="@dimen/margin">
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:layout_width="@dimen/icon_size_x5"
+                    android:layout_height="@dimen/icon_size_x5"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="@dimen/margin"
+                    android:layout_marginRight="@dimen/margin"
+                    android:gravity="center_vertical|start"
+                    android:padding="@dimen/margin"
+                    app:srcCompat="@drawable/ic_vector_home" />
+
+                <include layout="@layout/layout_separate_horizontal" />
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/margin_x2"
+                    android:layout_marginStart="@dimen/margin_x2"
+                    android:textColorHint="@color/colorPrimaryLight"
+                    app:errorEnabled="true"
+                    app:errorTextAppearance="?textColorError"
+                    app:hintAnimationEnabled="true">
+
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/txt_arrive"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/transparent"
+                        android:hint="Điểm xuất phát"
+                        android:inputType="text"
+                        android:shadowColor="@color/colorPrimaryDark" />
+
+                </android.support.design.widget.TextInputLayout>
+
+            </LinearLayout>
+
+            <include layout="@layout/layout_separate_vertical" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                android:orientation="horizontal"
+                android:padding="@dimen/margin">
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:layout_width="@dimen/icon_size_x5"
+                    android:layout_height="@dimen/icon_size_x5"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="@dimen/margin"
+                    android:layout_marginRight="@dimen/margin"
+                    android:gravity="center_vertical|start"
+                    android:padding="@dimen/margin"
+                    app:srcCompat="@drawable/ic_vector_play" />
+
+                <include layout="@layout/layout_separate_horizontal" />
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/margin_x2"
+                    android:layout_marginStart="@dimen/margin_x2"
+                    android:textColorHint="@color/colorPrimaryLight"
+                    app:errorEnabled="true"
+                    app:errorTextAppearance="?textColorError"
+                    app:hintAnimationEnabled="true">
+
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/txt_depart"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/transparent"
+                        android:hint="Điểm đích"
+                        android:inputType="text"
+                        android:shadowColor="@color/colorPrimaryDark" />
+
+                </android.support.design.widget.TextInputLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_x2"
+                android:background="@android:color/white"
+                android:orientation="horizontal"
+                android:padding="@dimen/margin">
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:layout_width="@dimen/icon_size_x5"
+                    android:layout_height="@dimen/icon_size_x5"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="@dimen/margin"
+                    android:layout_marginRight="@dimen/margin"
+                    android:gravity="center_vertical|start"
+                    android:padding="@dimen/margin"
+                    app:srcCompat="@drawable/ic_vector_calendar_blue" />
+
+                <include layout="@layout/layout_separate_horizontal" />
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/margin_x2"
+                    android:layout_marginStart="@dimen/margin_x2"
+                    android:textColorHint="@color/colorPrimaryLight"
+                    app:errorEnabled="true"
+                    app:errorTextAppearance="?textColorError"
+                    app:hintAnimationEnabled="true">
+
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/txt_time"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/transparent"
+                        android:hint="Số ngày đi"
+                        android:inputType="text"
+                        android:shadowColor="@color/colorPrimaryDark" />
+
+                </android.support.design.widget.TextInputLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_x2"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center_vertical|start"
+                    android:padding="@dimen/margin"
+                    android:text="Phương tiện" />
+
+
+                <com.yosta.materialspinner.MaterialSpinner
+                    android:id="@+id/spinner_vehicle"
+                    style="@style/AppTheme.TextView_Sub_Title.Bold"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:padding="@dimen/margin" />
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_search"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/margin_x2"
+                android:background="@drawable/ic_style_button_round_none_default"
+                android:text="Tìm" />
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+</LinearLayout>
