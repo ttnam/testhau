@@ -126,9 +126,7 @@ public class MainActivity extends ActivityBehavior {
                         mOwnToolbar.setBinding("Thông báo", Integer.MIN_VALUE, Integer.MIN_VALUE, null, null);
                         break;
                     case 4:
-                        mOwnToolbar.setBinding(getString(R.string.setting),
-                                Integer.MIN_VALUE,
-                                Integer.MIN_VALUE, null, null);
+                        mOwnToolbar.setBinding(getString(R.string.setting), Integer.MIN_VALUE, Integer.MIN_VALUE, null, null);
                         break;
                 }
             }

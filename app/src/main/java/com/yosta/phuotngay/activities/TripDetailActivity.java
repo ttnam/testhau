@@ -69,7 +69,6 @@ public class TripDetailActivity extends ActivityBehavior {
         setContentView(R.layout.activity_trip_detail);
         ButterKnife.bind(this);
         this.mFirebaseUtils = FirebaseUtils.getInstance();
-
         onApplyComponents();
         onApplyData();
     }

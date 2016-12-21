@@ -136,7 +136,7 @@ public class DialogComment extends Dialog {
     public void onSendComment() {
         final String cmtContent = editText.getText().toString();
 
-        if (ValidateHelper.isCommentAccepted(cmtContent)) {
+        /*if (ValidateHelper.isCommentAccepted(cmtContent)) {
 
             final String uid = "KGSdIvQ1ESWOJfHPJYqkCeX1juf2";
             final String username = "Nguyễn Phúc Hậu";
@@ -164,11 +164,10 @@ public class DialogComment extends Dialog {
 
                         }
                     });
-
-            AppHelper.onCloseVirtualKeyboard(mOwnerActivity);
-        }
+        }*/
         editText.clearFocus();
         editText.setText("");
+        AppHelper.onCloseVirtualKeyboard(mOwnerActivity);
     }
 
 
