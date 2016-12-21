@@ -54,7 +54,7 @@ public class FirebaseComment implements Serializable {
         return createdtime;
     }
 
-    public long getTime() {
+    public long time() {
         return DatetimeUtils.getTimeStep(createdtime);
     }
 

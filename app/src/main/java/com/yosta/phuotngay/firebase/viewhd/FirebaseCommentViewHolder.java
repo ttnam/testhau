@@ -44,7 +44,7 @@ public class FirebaseCommentViewHolder extends RecyclerView.ViewHolder {
         Glide.with(mContext).load(comment.getAvatar()).error(R.drawable.ic_launcher).into(mAvatar);
         this.mTxtUserName.setText(comment.getUsername());
         this.txtContent.setText(comment.getContent());
-        this.tVTime.setText(onGetTimeGap(comment.getTime()));
+        this.tVTime.setText(onGetTimeGap(comment.time()));
     }
 
     private String onGetTimeGap(long timeGap) {
