@@ -6,13 +6,11 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatImageView;
-import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.Window;
 import android.view.animation.AccelerateDecelerateInterpolator;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.RelativeLayout;
 
 import com.google.firebase.database.DataSnapshot;
@@ -24,9 +22,9 @@ import com.yosta.phuotngay.animations.fading_entrances.FadeInAnimator;
 import com.yosta.phuotngay.firebase.adapter.FirebaseCommentAdapter;
 import com.yosta.phuotngay.firebase.FirebaseUtils;
 import com.yosta.phuotngay.firebase.model.FirebaseComment;
-import com.yosta.phuotngay.helpers.app.AppUtils;
-import com.yosta.phuotngay.helpers.app.UIUtils;
-import com.yosta.phuotngay.helpers.decoration.SpacesItemDecoration;
+import com.yosta.phuotngay.helpers.AppHelper;
+import com.yosta.phuotngay.helpers.validate.ValidateHelper;
+import com.yosta.phuotngay.ui.decoration.SpacesItemDecoration;
 import com.yosta.phuotngay.models.app.MessageInfo;
 
 import org.greenrobot.eventbus.EventBus;
@@ -86,7 +84,7 @@ public class DialogComment extends Dialog {
         ButterKnife.bind(this);
 
         onApplyComponents();
-        onToggleUI(AppUtils.isNetworkConnected(mOwnerActivity));
+        onToggleUI(AppHelper.isNetworkConnected(mOwnerActivity));
 
     }
 
@@ -138,7 +136,7 @@ public class DialogComment extends Dialog {
     public void onSendComment() {
         final String cmtContent = editText.getText().toString();
 
-        if (UIUtils.isCommentAccepted(cmtContent)) {
+        if (ValidateHelper.isCommentAccepted(cmtContent)) {
 
             final String uid = "KGSdIvQ1ESWOJfHPJYqkCeX1juf2";
             final String username = "Nguyễn Phúc Hậu";
@@ -167,7 +165,7 @@ public class DialogComment extends Dialog {
                         }
                     });
 
-            AppUtils.onCloseVirtualKeyboard(mOwnerActivity);
+            AppHelper.onCloseVirtualKeyboard(mOwnerActivity);
         }
         editText.clearFocus();
         editText.setText("");
@@ -185,6 +183,6 @@ public class DialogComment extends Dialog {
         YoYo.with(new FadeInAnimator()).duration(1200)
                 .interpolate(new AccelerateDecelerateInterpolator())
                 .playOn(layoutRelative);
-        onToggleUI(AppUtils.isNetworkConnected(getContext()));
+        onToggleUI(AppHelper.isNetworkConnected(getContext()));
     }
 }

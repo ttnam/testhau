@@ -23,15 +23,13 @@ import com.yosta.phuotngay.R;
 import com.yosta.phuotngay.dialogs.DialogComment;
 import com.yosta.phuotngay.firebase.FirebaseUtils;
 import com.yosta.phuotngay.firebase.adapter.FirebaseActivityAdapter;
-import com.yosta.phuotngay.helpers.app.AppUtils;
-import com.yosta.phuotngay.helpers.decoration.SpacesItemDecoration;
+import com.yosta.phuotngay.helpers.AppHelper;
+import com.yosta.phuotngay.ui.decoration.SpacesItemDecoration;
 import com.yosta.phuotngay.interfaces.ActivityBehavior;
 import com.yosta.phuotngay.firebase.model.FirebaseTrip;
 import com.yosta.phuotngay.interfaces.CallBackListener;
 import com.yosta.phuotngay.ui.bottomsheet.BottomSheetDialog;
 import com.yosta.phuotngay.ui.OwnToolBar;
-
-import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -129,7 +127,7 @@ public class TripDetailActivity extends ActivityBehavior {
     public void onApplyData() {
         super.onApplyData();
         Intent intent = this.getIntent();
-        mCurrTrip = (FirebaseTrip) intent.getSerializableExtra(AppUtils.EXTRA_TRIP);
+        mCurrTrip = (FirebaseTrip) intent.getSerializableExtra(AppHelper.EXTRA_TRIP);
         onUpdateData(mCurrTrip);
         String tripId = mCurrTrip.getTripId();
         this.activityAdapter = new FirebaseActivityAdapter(FirebaseUtils.getInstance().ACTIVITYRef(tripId));

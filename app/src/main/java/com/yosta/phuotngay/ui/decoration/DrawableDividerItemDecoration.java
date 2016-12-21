@@ -1,4 +1,4 @@
-package com.yosta.phuotngay.helpers.decoration;
+package com.yosta.phuotngay.ui.decoration;
 
 import android.content.Context;
 import android.content.res.TypedArray;

@@ -2,15 +2,9 @@ package com.yosta.phuotngay.fragments;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffColorFilter;
-import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.res.ResourcesCompat;
-import android.support.v7.widget.AppCompatImageView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,8 +14,8 @@ import com.yosta.materialspinner.MaterialSpinner;
 import com.yosta.phuotngay.R;
 import com.yosta.phuotngay.activities.SearchActivity;
 import com.yosta.phuotngay.firebase.model.FirebaseTrips;
-import com.yosta.phuotngay.helpers.app.AppUtils;
-import com.yosta.phuotngay.helpers.app.SearchTripHelper;
+import com.yosta.phuotngay.helpers.AppHelper;
+import com.yosta.phuotngay.helpers.SearchTripHelper;
 import com.yosta.phuotngay.firebase.model.FirebaseTrip;
 
 import java.util.Arrays;
@@ -94,7 +88,7 @@ public class SearchFragment extends Fragment {
                     if (firebaseTrips.size() > 0) {
                         FirebaseTrips trips = new FirebaseTrips(firebaseTrips);
                         Intent intent = new Intent(mActivity, SearchActivity.class);
-                        intent.putExtra(AppUtils.EXTRA_TRIPS, trips);
+                        intent.putExtra(AppHelper.EXTRA_TRIPS, trips);
                         startActivity(intent);
                     }
                 }

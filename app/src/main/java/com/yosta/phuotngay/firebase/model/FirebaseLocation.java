@@ -1,6 +1,6 @@
 package com.yosta.phuotngay.firebase.model;
 
-import com.yosta.phuotngay.helpers.app.DatetimeUtils;
+import com.yosta.phuotngay.helpers.AppHelper;
 
 import java.io.Serializable;
 
@@ -17,7 +17,7 @@ public class FirebaseLocation implements Serializable {
     private long time;
 
     public String getTime() {
-        return DatetimeUtils.getTime(time, DatetimeUtils.DD_MM_YYYY);
+        return AppHelper.builder().getTime(time, AppHelper.DD_MM_YYYY);
     }
 
     public void setTime(long time) {

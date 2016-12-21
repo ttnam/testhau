@@ -3,15 +3,12 @@ package com.yosta.phuotngay.activities;
 import android.content.Intent;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 
 import com.yosta.phuotngay.R;
 import com.yosta.phuotngay.adapters.TripAdapter;
-import com.yosta.phuotngay.firebase.model.FirebaseTrip;
 import com.yosta.phuotngay.firebase.model.FirebaseTrips;
-import com.yosta.phuotngay.helpers.app.AppUtils;
-import com.yosta.phuotngay.helpers.decoration.SpacesItemDecoration;
-import com.yosta.phuotngay.helpers.listeners.RecyclerItemClickListener;
+import com.yosta.phuotngay.helpers.AppHelper;
+import com.yosta.phuotngay.ui.decoration.SpacesItemDecoration;
 import com.yosta.phuotngay.interfaces.ActivityBehavior;
 
 import butterknife.BindView;
@@ -30,8 +27,7 @@ public class SearchActivity extends ActivityBehavior {
     protected void onStart() {
         super.onStart();
         Intent intent = this.getIntent();
-        trips = (FirebaseTrips)
-                intent.getSerializableExtra(AppUtils.EXTRA_TRIPS);
+        trips = (FirebaseTrips) intent.getSerializableExtra(AppHelper.EXTRA_TRIPS);
         if (trips != null) {
             this.tripAdapter.adds(trips.getTrips());
         }

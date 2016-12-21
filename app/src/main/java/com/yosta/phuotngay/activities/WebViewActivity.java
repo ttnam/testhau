@@ -57,4 +57,5 @@ public class WebViewActivity extends ActivityBehavior {
             actionBar.setTitle(getResources().getString(R.string.str_home));
         }
     }
+
 }

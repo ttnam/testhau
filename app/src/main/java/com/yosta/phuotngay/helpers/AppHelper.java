@@ -1,4 +1,4 @@
-package com.yosta.phuotngay.helpers.app;
+package com.yosta.phuotngay.helpers;
 
 import android.app.Activity;
 import android.content.Context;
@@ -9,6 +9,7 @@ import android.content.pm.Signature;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -21,7 +22,11 @@ import android.util.Base64;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.TextView;
 
+import com.android.annotations.NonNull;
 import com.yosta.phuotngay.R;
 import com.yosta.phuotngay.adapters.MenuAdapter;
 import com.yosta.phuotngay.models.menu.MenuItem;
@@ -29,13 +34,97 @@ import com.yosta.phuotngay.models.menu.MenuItem;
 import java.io.Serializable;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.TimeZone;
 
-public class AppUtils {
+/**
+ * Created by Phuc-Hau Nguyen on 12/21/2016.
+ */
+
+public class AppHelper {
+
+    public static final int H_MM = 0;
+    public static final int DD_MM_YYYY = 1;
 
     public static final String EXTRA_INTENT = "EXTRA_INTENT";
     public static final String EXTRA_TRIP = "EXTRA_TRIP";
     public static final String EXTRA_TRIPS = "EXTRA_TRIPS";
+
+    public static final String FONT_LATO_BLACK = "fonts/Lato-Black.ttf";
+    public static final String FONT_LATO_BOLD = "fonts/Lato-Bold.ttf";
+    public static final String FONT_LATO_HEAVY = "fonts/Lato-Heavy.ttf";
+    public static final String FONT_LATO_LIGHT = "fonts/Lato-Light.ttf";
+    public static final String FONT_LATO_MEDIUM = "fonts/Lato-Medium.ttf";
+    public static final String FONT_LATO_THIN = "fonts/Lato-Thin.ttf";
+    public static final String FONT_LATO_ITALIC = "fonts/Lato-Italic.ttf";
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static class Builder {
+
+        public Builder showSnackBarNotify(@NonNull View view, @NonNull String message) {
+            String msg = view.getResources().getString(R.string.message_snack_bar, message);
+            Snackbar.make(view, Html.fromHtml(msg), Snackbar.LENGTH_LONG).show();
+            return this;
+        }
+
+        public Builder showSnackBarNotify(@NonNull View view, @NonNull String message, int duration,
+                                          @NonNull String actionTitle, @NonNull View.OnClickListener listener) {
+            String msg = view.getResources().getString(R.string.message_snack_bar, message);
+            Snackbar.make(view, Html.fromHtml(msg), Snackbar.LENGTH_LONG)
+                    .setDuration(duration)
+                    .setAction(actionTitle, listener)
+                    .setActionTextColor(ColorStateList.valueOf(Color.GREEN))
+                    .show();
+            return this;
+        }
+
+        public String getTime(long millis, int type) {
+            Timestamp stamp = new Timestamp(millis);
+            Date date = new Date(stamp.getTime());
+            SimpleDateFormat sdf = null;
+            if (type == DD_MM_YYYY)
+                sdf = new SimpleDateFormat("dd/MM/yyyy");
+            if (type == H_MM)
+                sdf = new SimpleDateFormat("h:mm a");
+            sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
+            return sdf.format(date);
+        }
+
+        public long getTimeStep(long millis) {
+            long currTimes = System.currentTimeMillis();
+            return (currTimes - millis);
+        }
+
+        public void setFont(@NonNull String fontName, @NonNull TextView... textViews) {
+            Context context = textViews[0].getContext();
+            Typeface font = Typeface.createFromAsset(context.getAssets(), fontName);
+            for (TextView textView : textViews) {
+                textView.setTypeface(font);
+            }
+        }
+
+        public void setFont(@NonNull String fontName, @NonNull Button... buttons) {
+            Context context = buttons[0].getContext();
+            Typeface font = Typeface.createFromAsset(context.getAssets(), fontName);
+            for (Button button : buttons) {
+                button.setTypeface(font);
+            }
+        }
+
+        public void setFont(@NonNull String fontName, @NonNull CheckBox... checkBoxes) {
+            Context context = checkBoxes[0].getContext();
+            Typeface font = Typeface.createFromAsset(context.getAssets(), fontName);
+            for (CheckBox checkBox : checkBoxes) {
+                checkBox.setTypeface(font);
+            }
+        }
+    }
 
     public static boolean isGPSEnable(Context context) {
         LocationManager manager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
@@ -58,6 +147,7 @@ public class AppUtils {
         NetworkInfo info = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
         return (info.getState() == NetworkInfo.State.CONNECTED);
     }
+
 
     public static String onGetAppVersion(Context context) {
         PackageManager manager = context.getPackageManager();
@@ -140,43 +230,21 @@ public class AppUtils {
         }
     }
 
-    public static void onShowSnackBarNotify(View v, String msg, int lenght) {
-        Snackbar.make(v, Html.fromHtml("<font color=\"yellow\">" + msg + "</font>"), lenght).show();
-    }
-
-    public static void onShowSnackBarNotify(View v, String msg) {
-        if (v == null)
-            return;
-        Snackbar.make(v, Html.fromHtml("<font color=\"yellow\">" + msg + "</font>"), Snackbar.LENGTH_LONG).show();
-    }
-
-    public static void onShowSnackBarNotifyWithAction(View v, String msg, String action,
-                                                      int duratian,
-                                                      View.OnClickListener listener) {
-
-        Snackbar.make(v, Html.fromHtml("<font color=\"white\">" + msg + "</font>"), Snackbar.LENGTH_SHORT)
-                .setAction(action, listener)
-                .setDuration(duratian)
-                .setActionTextColor(ColorStateList.valueOf(Color.GREEN))
-                .show();
-    }
-
     public static
     @Nullable
     MenuAdapter LoadListMenuAction(Context context, @AnyRes int textArrID, @AnyRes int iconArrID) {
         try {
             String[] text = context.getResources().getStringArray(textArrID);
             TypedArray icon = context.getResources().obtainTypedArray(iconArrID);
-            int iText = text.length;
             int iIcon = icon.length();
-            if (iText == iIcon && iText > 0) {
+            if (iIcon > 0) {
+
                 ArrayList<MenuItem> arrayList = new ArrayList<>();
-                for (int i = 0; i < iText; i++)
+                for (int i = 0; i < iIcon; i++)
                     arrayList.add(new MenuItem(icon.getResourceId(i, -1), text[i]));
 
                 return new MenuAdapter(context, arrayList);
             }
-
             // Recycle the typed array
             icon.recycle();
 

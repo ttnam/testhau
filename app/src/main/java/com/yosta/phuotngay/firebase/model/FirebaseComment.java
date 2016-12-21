@@ -1,6 +1,6 @@
 package com.yosta.phuotngay.firebase.model;
 
-import com.yosta.phuotngay.helpers.app.DatetimeUtils;
+import com.yosta.phuotngay.helpers.AppHelper;
 
 import java.io.Serializable;
 
@@ -55,7 +55,7 @@ public class FirebaseComment implements Serializable {
     }
 
     public long time() {
-        return DatetimeUtils.getTimeStep(createdtime);
+        return AppHelper.builder().getTimeStep(createdtime);
     }
 
     public void setCreatedtime(long createdtime) {

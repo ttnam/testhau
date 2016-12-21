@@ -1,4 +1,4 @@
-package com.yosta.phuotngay.helpers.listeners;
+package com.yosta.phuotngay.ui.listeners;
 
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;

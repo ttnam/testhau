@@ -20,9 +20,9 @@ import com.yosta.phuotngay.dialogs.DialogFilter;
 import com.yosta.phuotngay.adapters.FilterAdapter;
 import com.yosta.phuotngay.firebase.adapter.FirebaseTripAdapter;
 import com.yosta.phuotngay.firebase.FirebaseUtils;
-import com.yosta.phuotngay.helpers.app.AppUtils;
-import com.yosta.phuotngay.helpers.decoration.SpacesItemDecoration;
-import com.yosta.phuotngay.helpers.listeners.RecyclerItemClickListener;
+import com.yosta.phuotngay.helpers.AppHelper;
+import com.yosta.phuotngay.ui.decoration.SpacesItemDecoration;
+import com.yosta.phuotngay.ui.listeners.RecyclerItemClickListener;
 import com.yosta.phuotngay.firebase.model.FirebaseTrip;
 import com.yosta.phuotngay.models.app.MessageInfo;
 import com.yosta.phuotngay.models.app.MessageType;
@@ -82,7 +82,7 @@ public class TripFragment extends Fragment {
         this.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                if (!AppUtils.isNetworkConnected(mContext))
+                if (!AppHelper.isNetworkConnected(mContext))
                     swipeRefreshLayout.setRefreshing(false);
             }
         });
@@ -117,7 +117,7 @@ public class TripFragment extends Fragment {
                 FirebaseTrip trip = tripAdapter.getItem(position);
                 trip.setTripId(tripAdapter.getRef(position).getKey());
                 Intent intent = new Intent(getActivity(), TripDetailActivity.class);
-                intent.putExtra(AppUtils.EXTRA_TRIP, trip);
+                intent.putExtra(AppHelper.EXTRA_TRIP, trip);
 
                 startActivity(intent);
             }

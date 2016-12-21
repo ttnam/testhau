@@ -33,7 +33,7 @@
         android:label="@string/all_app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <receiver android:name=".configs.NetworkReceivers">
+        <receiver android:name=".configs.NetworkReceiver">
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
                 <action android:name="android.net.wifi.WIFI_STATE_CHANGED" />
@@ -88,7 +88,8 @@
             android:name=".activities.TripDetailActivity"
             android:launchMode="singleInstance"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".activities.ProfileActivity"
             android:launchMode="singleInstance"
@@ -98,7 +99,10 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.CreateTripActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:launchMode="singleInstance"
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
         <activity
             android:name=".activities.SearchActivity"
             android:theme="@style/AppTheme.NoActionBar" />

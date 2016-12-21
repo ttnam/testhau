@@ -2,19 +2,14 @@ package com.yosta.phuotngay.ui.viewpagercards;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.os.Debug;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.yosta.phuotngay.R;
-import com.yosta.phuotngay.helpers.app.AppUtils;
-
-import java.io.Console;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

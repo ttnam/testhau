@@ -1,4 +1,4 @@
-package com.yosta.phuotngay.helpers.app;
+package com.yosta.phuotngay.helpers;
 
 import com.yosta.phuotngay.firebase.model.FirebaseTrip;
 

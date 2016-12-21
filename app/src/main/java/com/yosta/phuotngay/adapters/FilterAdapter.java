@@ -18,12 +18,12 @@ import java.util.List;
 public class FilterAdapter extends RecyclerView.Adapter<FilterAdapter.BindingHolder> {
 
     private Context mContext;
-    private List<FilterView> mFlterViews;
+    private List<FilterView> mFilterViews;
 
     public FilterAdapter(Context context) {
         this.mContext = context;
-        this.mFlterViews = new ArrayList<>();
-        this.mFlterViews.add(new FilterView(
+        this.mFilterViews = new ArrayList<>();
+        this.mFilterViews.add(new FilterView(
                 this.mContext.getResources().getStringArray(R.array.arr_during_times)[0]
         ));
     }
@@ -43,39 +43,39 @@ public class FilterAdapter extends RecyclerView.Adapter<FilterAdapter.BindingHol
         ItemFilterBinding itemFilterBinding =
                 (ItemFilterBinding) holder.binding;
 
-        FilterView filterView = this.mFlterViews.get(position);
+        FilterView filterView = this.mFilterViews.get(position);
 
         itemFilterBinding.setFilter(new FilterViewModel(filterView.getContent()));
     }
 
     @Override
     public int getItemCount() {
-        return mFlterViews.size();
+        return mFilterViews.size();
     }
 
 
     public void adds(List<FilterView> filterViews) {
         int positionStart = filterViews.size() - 1;
-        this.mFlterViews.addAll(filterViews);
+        this.mFilterViews.addAll(filterViews);
         notifyItemRangeChanged(positionStart, filterViews.size());
     }
 
     public void add(FilterView filterView) {
-        mFlterViews.add(filterView);
-        notifyItemInserted(mFlterViews.size() - 1);
+        mFilterViews.add(filterView);
+        notifyItemInserted(mFilterViews.size() - 1);
     }
 
     public void remove(int position) {
         int itemCount = getItemCount();
         if (position < itemCount) {
-            mFlterViews.remove(position);
+            mFilterViews.remove(position);
             notifyItemRemoved(position);
             notifyItemRangeChanged(position, getItemCount());
         }
     }
 
     public void clear() {
-        mFlterViews.clear();
+        mFilterViews.clear();
         notifyDataSetChanged();
     }
 

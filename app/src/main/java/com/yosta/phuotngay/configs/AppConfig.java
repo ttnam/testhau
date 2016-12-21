@@ -3,7 +3,7 @@ package com.yosta.phuotngay.configs;
 import android.app.Application;
 
 import com.yosta.phuotngay.firebase.model.FirebaseUser;
-import com.yosta.phuotngay.helpers.app.StorageUtils;
+import com.yosta.phuotngay.helpers.StorageHelper;
 
 /**
  * Created by Phuc-Hau Nguyen on 11/9/2016.
@@ -12,14 +12,14 @@ import com.yosta.phuotngay.helpers.app.StorageUtils;
 public class AppConfig extends Application {
 
     private static FirebaseUser mUser = null;
-    private StorageUtils storageUtils = null;
+    private StorageHelper storageHelper = null;
 
     @Override
     public void onCreate() {
         super.onCreate();
 
-        this.storageUtils = new StorageUtils(this);
-        mUser = this.storageUtils.getUser();
+        this.storageHelper = new StorageHelper(this);
+        mUser = this.storageHelper.getUser();
     }
 
     @Override
@@ -44,6 +44,6 @@ public class AppConfig extends Application {
     }
 
     public void saveUser() {
-        this.storageUtils.setUser(mUser);
+        this.storageHelper.setUser(mUser);
     }
 }

@@ -1,5 +1,6 @@
 package com.yosta.phuotngay.fragments;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -20,9 +21,9 @@ import com.yosta.phuotngay.activities.MainActivity;
 import com.yosta.phuotngay.activities.ProfileActivity;
 import com.yosta.phuotngay.activities.WebViewActivity;
 import com.yosta.phuotngay.adapters.MenuAdapter;
-import com.yosta.phuotngay.helpers.app.AppUtils;
-import com.yosta.phuotngay.helpers.app.StorageUtils;
-import com.yosta.phuotngay.helpers.listeners.ListenerHelpers;
+import com.yosta.phuotngay.helpers.AppHelper;
+import com.yosta.phuotngay.helpers.StorageHelper;
+import com.yosta.phuotngay.ui.listeners.ListenerHelpers;
 import com.yosta.phuotngay.models.menu.MenuItem;
 import com.yosta.phuotngay.models.app.AppSetting;
 
@@ -47,7 +48,8 @@ public class SettingFragment extends Fragment {
     @BindView(R.id.txt_lang)
     TextView txtLang;
 
-    private StorageUtils presUtils = null;
+    private Activity mActivity = null;
+    private StorageHelper presUtils = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -64,10 +66,14 @@ public class SettingFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
-        //
-        presUtils = new StorageUtils(getActivity());
+        presUtils = new StorageHelper(getActivity());
         switchSync.setOnCheckedChangeListener(ListenerHelpers.SwitchSync);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        mActivity = getActivity();
     }
 
     @Override
@@ -98,14 +104,14 @@ public class SettingFragment extends Fragment {
         }
 
         // Language
-        int lang = (presUtils.getSettingInt(StorageUtils.KEY_LANGUAGE) == 0) ? R.string.setting_language_vietnamese : R.string.setting_language_english;
+        int lang = (presUtils.getSettingInt(StorageHelper.KEY_LANGUAGE) == 0) ? R.string.setting_language_vietnamese : R.string.setting_language_english;
         txtLang.setText(getResources().getString(lang));
     }
 
     @OnClick(R.id.layout_profile)
     public void onCallProfile() {
-        getActivity().startActivity(new Intent(getActivity(), ProfileActivity.class));
-        getActivity().overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+        mActivity.startActivity(new Intent(getActivity(), ProfileActivity.class));
+        mActivity.overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
     }
 
     @OnClick(R.id.layout_rating)
@@ -126,7 +132,7 @@ public class SettingFragment extends Fragment {
     @OnClick(R.id.layout_change_language)
     public void LanguageSetting() {
 
-        MenuAdapter languageAdapter = AppUtils.LoadListMenuAction(getContext(),
+        MenuAdapter languageAdapter = AppHelper.LoadListMenuAction(getContext(),
                 R.array.language_item_text,
                 R.array.language_item_icon);
 
@@ -141,7 +147,7 @@ public class SettingFragment extends Fragment {
                         getActivity().finish();
                         Intent i = new Intent(getContext(), MainActivity.class);
                         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        i.putExtra(AppUtils.EXTRA_INTENT, 4);
+                        i.putExtra(AppHelper.EXTRA_INTENT, 4);
                         startActivity(i);
                     }
                 })

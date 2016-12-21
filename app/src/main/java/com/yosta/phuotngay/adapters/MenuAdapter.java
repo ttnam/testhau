@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.yosta.phuotngay.R;
-import com.yosta.phuotngay.helpers.app.StorageUtils;
 import com.yosta.phuotngay.models.menu.MenuItem;
 
 import java.util.ArrayList;
@@ -73,7 +72,7 @@ public class MenuAdapter extends ArrayAdapter<MenuItem> {
             txtName.setText(menu.getName());
 
             if (menuName.equalsIgnoreCase("account")) {
-                // StorageUtils utils = new StorageUtils(activity);
+                // StorageHelper utils = new StorageHelper(activity);
                 /*FirebaseUser user = sharedPresUtils.getUserPrefs();
                 String name = user.getName();
                 if (!name.isEmpty()) {

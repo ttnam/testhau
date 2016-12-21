@@ -1,4 +1,4 @@
-package com.yosta.phuotngay.helpers.listeners;
+package com.yosta.phuotngay.ui.listeners;
 
 import android.content.Context;
 import android.view.KeyEvent;
@@ -11,7 +11,7 @@ import android.widget.Toast;
 import com.yosta.materialdialog.ChoiceDialog;
 import com.yosta.phuotngay.R;
 import com.yosta.phuotngay.adapters.MenuAdapter;
-import com.yosta.phuotngay.helpers.app.AppUtils;
+import com.yosta.phuotngay.helpers.AppHelper;
 import com.yosta.phuotngay.models.menu.MenuItem;
 
 /**
@@ -23,7 +23,7 @@ public class ListenerHelpers {
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
             if (isChecked) {
-                MenuAdapter internetAdapter = AppUtils.LoadListMenuAction(buttonView.getContext(),
+                MenuAdapter internetAdapter = AppHelper.LoadListMenuAction(buttonView.getContext(),
                         R.array.internet_item_text,
                         R.array.internet_item_icon);
 
@@ -35,7 +35,7 @@ public class ListenerHelpers {
                         .setItems(internetAdapter, new ChoiceDialog.OnItemSelectedListener<MenuItem>() {
                             @Override
                             public void onItemSelected(int position, MenuItem item) {
-                                //StorageUtils.KEY_LANGUAGE_MODE = position;
+                                //StorageHelper.KEY_LANGUAGE_MODE = position;
                             }
                         })
                         .show();
@@ -77,7 +77,7 @@ public class ListenerHelpers {
                         FileOutputStream fileOutputStream = new FileOutputStream(file);
                         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fileOutputStream);
                         fileOutputStream.close();
-                        StorageUtils.saveSetting(mContext, mType, directory.getAbsolutePath());
+                        StorageHelper.saveSetting(mContext, mType, directory.getAbsolutePath());
                     } catch (IOException e) {
                         e.printStackTrace();
                     }

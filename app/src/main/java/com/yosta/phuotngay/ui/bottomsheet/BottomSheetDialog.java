@@ -6,12 +6,11 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.yosta.phuotngay.R;
-import com.yosta.phuotngay.helpers.decoration.SpacesItemDecoration;
+import com.yosta.phuotngay.ui.decoration.SpacesItemDecoration;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

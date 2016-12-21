@@ -5,7 +5,7 @@ import android.support.v7.widget.AppCompatImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.yosta.phuotngay.helpers.app.UIUtils;
+import com.yosta.phuotngay.helpers.AppHelper;
 
 /**
  * Created by Phuc-Hau Nguyen on 10/16/2016.
@@ -21,6 +21,6 @@ public class DataBindingAdapter {
     @BindingAdapter({"font"})
     public static void setFont(TextView textView, String fontName) {
         String newFontName = "fonts/" + fontName + ".ttf";
-        UIUtils.setFont(textView.getContext(), newFontName, textView);
+        AppHelper.builder().setFont(newFontName, textView);
     }
 }

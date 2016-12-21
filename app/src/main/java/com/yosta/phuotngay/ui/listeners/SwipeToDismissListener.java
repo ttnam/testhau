@@ -1,4 +1,4 @@
-package com.yosta.phuotngay.helpers.listeners;
+package com.yosta.phuotngay.ui.listeners;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;

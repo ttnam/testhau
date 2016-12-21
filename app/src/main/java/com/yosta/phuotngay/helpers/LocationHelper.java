@@ -1,4 +1,4 @@
-package com.yosta.phuotngay.helpers.app;
+package com.yosta.phuotngay.helpers;
 
 /**
  * Created by KhanhDuy on 08/07/2016.

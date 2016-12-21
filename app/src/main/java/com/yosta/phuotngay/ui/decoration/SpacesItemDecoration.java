@@ -1,4 +1,4 @@
-package com.yosta.phuotngay.helpers.decoration;
+package com.yosta.phuotngay.ui.decoration;
 
 import android.graphics.Rect;
 import android.support.v7.widget.RecyclerView;

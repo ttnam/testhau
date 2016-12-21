@@ -1,4 +1,4 @@
-package com.yosta.phuotngay.helpers.listeners;
+package com.yosta.phuotngay.ui.listeners;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;

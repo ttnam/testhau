@@ -1,6 +1,5 @@
 package com.yosta.phuotngay.firebase;
 
-import android.content.Context;
 import android.util.Log;
 
 import com.google.firebase.database.DataSnapshot;
@@ -9,18 +8,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.yosta.phuotngay.helpers.app.SearchTripHelper;
-import com.yosta.phuotngay.firebase.model.FirebaseTrip;
 import com.yosta.phuotngay.interfaces.CallBackListener;
 import com.yosta.phuotngay.models.app.MessageInfo;
 import com.yosta.phuotngay.models.app.MessageType;
-import com.yosta.phuotngay.models.location.FirebaseLocation;
-
 import org.greenrobot.eventbus.EventBus;
-
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 
 /**
  * Created by Phuc-Hau Nguyen on 12/1/2016.

@@ -1,7 +1,7 @@
 package com.yosta.phuotngay.firebase.model;
 
 import com.google.firebase.database.IgnoreExtraProperties;
-import com.yosta.phuotngay.helpers.app.DatetimeUtils;
+import com.yosta.phuotngay.helpers.AppHelper;
 
 import java.io.Serializable;
 
@@ -42,7 +42,7 @@ public class FirebaseTrip implements Serializable {
     }
 
     public String getCreatedtime() {
-        return DatetimeUtils.getTime(createdtime, DatetimeUtils.DD_MM_YYYY);
+        return AppHelper.builder().getTime(createdtime, AppHelper.DD_MM_YYYY);
     }
 
     public void setCreatedtime(long createdtime) {

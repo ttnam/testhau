@@ -1,4 +1,4 @@
-package com.yosta.phuotngay.helpers.app;
+package com.yosta.phuotngay.helpers;
 
 import android.app.Application;
 import android.content.Context;
@@ -15,7 +15,7 @@ import java.util.Locale;
 /**
  * Created by nphau on 9/27/2015.
  */
-public class StorageUtils {
+public class StorageHelper {
 
     public static final String KEY_USER = "KEY_USER";
     public static final String KEY_USER_ID = "KEY_USER_ID";
@@ -35,11 +35,11 @@ public class StorageUtils {
     private Context mContext;
     private SharedPreferences preferences = null;
 
-    public StorageUtils(Application application) {
+    public StorageHelper(Application application) {
         preferences = PreferenceManager.getDefaultSharedPreferences(application);
     }
 
-    public StorageUtils(Context context) {
+    public StorageHelper(Context context) {
         this.mContext = context;
         preferences = PreferenceManager.getDefaultSharedPreferences(mContext);
     }
@@ -61,7 +61,7 @@ public class StorageUtils {
     public void changeAppLanguage() {
         try {
             saveSetting(KEY_LANGUAGE, KEY_LANGUAGE_MODE);
-            String keyText = (StorageUtils.KEY_LANGUAGE_MODE == 0) ? "vi" : "en";
+            String keyText = (StorageHelper.KEY_LANGUAGE_MODE == 0) ? "vi" : "en";
             Resources res = this.mContext.getResources();
             DisplayMetrics dm = res.getDisplayMetrics();
             android.content.res.Configuration conf = res.getConfiguration();

@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.yosta.phuotngay.R;
-import com.yosta.phuotngay.helpers.decoration.SpacesItemDecoration;
+import com.yosta.phuotngay.ui.decoration.SpacesItemDecoration;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
