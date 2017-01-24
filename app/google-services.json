@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "690715819953",
+    "firebase_url": "https://phuotngayjsc.firebaseio.com",
+    "project_id": "phuotngayjsc",
+    "storage_bucket": "phuotngayjsc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:690715819953:android:755a124025a432f7",
+        "android_client_info": {
+          "package_name": "com.yosta.phuotngay"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "690715819953-9rkr6dqc50ehgvt4h5ukmgepu8jeb4ks.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.yosta.phuotngay",
+            "certificate_hash": "D26D0112DBA8979B90849BB30F692F1A131D1DF0"
+          }
+        },
+        {
+          "client_id": "690715819953-l82uf133ss0jbl4rsmadh6spo2gbrjk9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCgHHuVkbmApHhH_tAN-H-3h_VvWkXlLZo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "690715819953-l82uf133ss0jbl4rsmadh6spo2gbrjk9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

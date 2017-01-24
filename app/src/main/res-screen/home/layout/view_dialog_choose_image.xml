@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/margin_x2">
+
+    <TextView
+        style="@style/AppTheme.TextView_Title.Bold.ColorPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:padding="@dimen/margin_x2"
+        android:text="Choose Image" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:baselineAligned="true"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <LinearLayout
+            android:id="@+id/layout_take_photo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin"
+            android:layout_marginStart="@dimen/margin"
+            android:layout_weight="1"
+            android:background="@drawable/ic_style_button_round_none_default"
+            android:clickable="true"
+            android:orientation="vertical"
+            android:padding="@dimen/margin">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:layout_width="@dimen/icon_size_x12"
+                android:layout_height="@dimen/icon_size_x12"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/ic_vector_camera" />
+
+            <TextView
+                style="@style/AppTheme.TextView_Title.Bold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:padding="@dimen/margin"
+                android:text="Take Photo" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_from_gallery_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin"
+            android:layout_marginRight="@dimen/margin"
+            android:layout_weight="1"
+            android:background="@drawable/ic_style_button_round_none_default"
+            android:clickable="true"
+            android:orientation="vertical"
+            android:padding="@dimen/margin">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:layout_width="@dimen/icon_size_x12"
+                android:layout_height="@dimen/icon_size_x12"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/ic_vector_image" />
+
+            <TextView
+                style="@style/AppTheme.TextView_Title.Bold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:padding="@dimen/margin"
+                android:text="From Gallery Image" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
