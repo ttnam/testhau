@@ -30,8 +30,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/margin_x2"
-                    android:text="@string/setting_basic_settings"
-                    android:textStyle="bold" />
+                    android:text="@string/setting_basic_settings" />
 
                 <LinearLayout
                     android:id="@+id/layout_profile"
@@ -40,20 +39,20 @@
                     android:orientation="horizontal">
 
                     <android.support.v7.widget.AppCompatImageView
+                        style="@style/AppTheme.SettingMenuIcon"
                         android:layout_width="@dimen/icon_size_x3"
                         android:layout_height="@dimen/icon_size_x3"
                         android:layout_gravity="center_vertical"
                         app:srcCompat="@drawable/ic_vector_profile" />
 
                     <TextView
-                        style="@style/AppTheme.TextView_Title.Bold"
+                        style="@style/AppTheme.TextView_Title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="@dimen/margin_x2"
                         android:layout_marginStart="@dimen/margin_x2"
-                        android:text="View your profile"
-                        android:textStyle="normal" />
+                        android:text="View your profile" />
 
                 </LinearLayout>
 
@@ -63,20 +62,20 @@
                     android:orientation="horizontal">
 
                     <android.support.v7.widget.AppCompatImageView
+                        style="@style/AppTheme.SettingMenuIcon"
                         android:layout_width="@dimen/icon_size_x3"
                         android:layout_height="@dimen/icon_size_x3"
                         android:layout_gravity="center_vertical"
                         app:srcCompat="@drawable/ic_vector_works" />
 
                     <TextView
-                        style="@style/AppTheme.TextView_Title.Bold"
+                        style="@style/AppTheme.TextView_Title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="@dimen/margin_x2"
                         android:layout_marginStart="@dimen/margin_x2"
-                        android:text="How it works"
-                        android:textStyle="normal" />
+                        android:text="How it works" />
 
                 </LinearLayout>
 
@@ -95,8 +94,7 @@
                     android:layout_height="wrap_content"
                     android:padding="@dimen/margin_x2"
                     android:text="Tell your friend about us"
-                    android:textColor="@color/colorAccentDark"
-                    android:textStyle="bold" />
+                    android:textColor="@color/colorAccentDark" />
 
                 <LinearLayout
                     android:id="@+id/layout_rating"
@@ -105,20 +103,20 @@
                     android:orientation="horizontal">
 
                     <android.support.v7.widget.AppCompatImageView
+                        style="@style/AppTheme.SettingMenuIcon"
                         android:layout_width="@dimen/icon_size_x3"
                         android:layout_height="@dimen/icon_size_x3"
                         android:layout_gravity="center_vertical"
                         app:srcCompat="@drawable/ic_vector_rate" />
 
                     <TextView
-                        style="@style/AppTheme.TextView_Title.Bold"
+                        style="@style/AppTheme.TextView_Title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="@dimen/margin_x2"
                         android:layout_marginStart="@dimen/margin_x2"
-                        android:text="Rate Us"
-                        android:textStyle="normal" />
+                        android:text="Rate Us" />
 
                 </LinearLayout>
 
@@ -128,20 +126,20 @@
                     android:orientation="horizontal">
 
                     <android.support.v7.widget.AppCompatImageView
+                        style="@style/AppTheme.SettingMenuIcon"
                         android:layout_width="@dimen/icon_size_x3"
                         android:layout_height="@dimen/icon_size_x3"
                         android:layout_gravity="center_vertical"
                         app:srcCompat="@drawable/ic_vector_facebook" />
 
                     <TextView
-                        style="@style/AppTheme.TextView_Title.Bold"
+                        style="@style/AppTheme.TextView_Title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="@dimen/margin_x2"
                         android:layout_marginStart="@dimen/margin_x2"
-                        android:text="Share on Facebook"
-                        android:textStyle="normal" />
+                        android:text="Share on Facebook" />
 
                 </LinearLayout>
 
@@ -159,8 +157,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/margin_x2"
-                    android:text="@string/setting_backup_restore"
-                    android:textStyle="bold" />
+                    android:text="@string/setting_backup_restore" />
 
                 <LinearLayout
                     android:id="@+id/layout_auto_sync"
@@ -170,6 +167,7 @@
                     android:orientation="horizontal">
 
                     <android.support.v7.widget.AppCompatImageView
+                        style="@style/AppTheme.SettingMenuIcon"
                         android:layout_width="@dimen/icon_size_x3"
                         android:layout_height="@dimen/icon_size_x3"
                         android:layout_gravity="center"
@@ -194,12 +192,11 @@
                             android:orientation="vertical">
 
                             <TextView
-                                style="@style/AppTheme.TextView_Title.Bold"
+                                style="@style/AppTheme.TextView_Title"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_horizontal"
-                                android:text="@string/setting_auto_sync"
-                                android:textStyle="bold" />
+                                android:text="@string/setting_auto_sync" />
 
                             <TextView
                                 style="@style/AppTheme.TextView_Sub_Title"
@@ -241,20 +238,20 @@
                     android:orientation="horizontal">
 
                     <android.support.v7.widget.AppCompatImageView
+                        style="@style/AppTheme.SettingMenuIcon"
                         android:layout_width="@dimen/icon_size_x3"
                         android:layout_height="@dimen/icon_size_x3"
                         android:layout_gravity="center_vertical"
                         app:srcCompat="@drawable/ic_vector_delete" />
 
                     <TextView
-                        style="@style/AppTheme.TextView_Title.Bold"
+                        style="@style/AppTheme.TextView_Title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="@dimen/margin_x2"
                         android:layout_marginStart="@dimen/margin_x2"
-                        android:text="Clear Search History"
-                        android:textStyle="normal" />
+                        android:text="Clear Search History" />
 
                 </LinearLayout>
 
@@ -272,8 +269,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/margin_x2"
-                    android:text="@string/setting_basic_settings"
-                    android:textStyle="bold" />
+                    android:text="@string/setting_basic_settings" />
 
                 <LinearLayout
                     android:id="@+id/layout_change_language"
@@ -282,6 +278,7 @@
                     android:orientation="horizontal">
 
                     <android.support.v7.widget.AppCompatImageView
+                        style="@style/AppTheme.SettingMenuIcon"
                         android:layout_width="@dimen/icon_size_x3"
                         android:layout_height="@dimen/icon_size_x3"
                         android:layout_gravity="center_vertical"
@@ -295,14 +292,13 @@
                         android:orientation="vertical">
 
                         <TextView
-                            style="@style/AppTheme.TextView_Title.Bold"
+                            style="@style/AppTheme.TextView_Title"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:layout_marginLeft="@dimen/margin_x2"
                             android:layout_marginStart="@dimen/margin_x2"
-                            android:text="@string/setting_language"
-                            android:textStyle="bold" />
+                            android:text="@string/setting_language" />
 
                         <TextView
                             android:id="@+id/txt_lang"
@@ -326,6 +322,7 @@
                     android:orientation="horizontal">
 
                     <android.support.v7.widget.AppCompatImageView
+                        style="@style/AppTheme.SettingMenuIcon"
                         android:layout_width="@dimen/icon_size_x3"
                         android:layout_height="@dimen/icon_size_x3"
                         android:layout_gravity="center"
@@ -350,12 +347,11 @@
                             android:orientation="vertical">
 
                             <TextView
-                                style="@style/AppTheme.TextView_Title.Bold"
+                                style="@style/AppTheme.TextView_Title"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_horizontal"
-                                android:text="@string/setting_notification"
-                                android:textStyle="bold" />
+                                android:text="@string/setting_notification" />
 
                             <TextView
                                 style="@style/AppTheme.TextView_Sub_Title"
@@ -396,20 +392,20 @@
                     android:orientation="horizontal">
 
                     <android.support.v7.widget.AppCompatImageView
+                        style="@style/AppTheme.SettingMenuIcon"
                         android:layout_width="@dimen/icon_size_x3"
                         android:layout_height="@dimen/icon_size_x3"
                         android:layout_gravity="center_vertical"
                         app:srcCompat="@drawable/ic_vector_help" />
 
                     <TextView
-                        style="@style/AppTheme.TextView_Title.Bold"
+                        style="@style/AppTheme.TextView_Title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="@dimen/margin_x2"
                         android:layout_marginStart="@dimen/margin_x2"
-                        android:text="@string/setting_help"
-                        android:textStyle="normal" />
+                        android:text="@string/setting_help" />
 
                 </LinearLayout>
 
@@ -420,20 +416,20 @@
                     android:orientation="horizontal">
 
                     <android.support.v7.widget.AppCompatImageView
+                        style="@style/AppTheme.SettingMenuIcon"
                         android:layout_width="@dimen/icon_size_x3"
                         android:layout_height="@dimen/icon_size_x3"
                         android:layout_gravity="center_vertical"
                         app:srcCompat="@drawable/ic_launcher" />
 
                     <TextView
-                        style="@style/AppTheme.TextView_Title.Bold"
+                        style="@style/AppTheme.TextView_Title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="@dimen/margin_x2"
                         android:layout_marginStart="@dimen/margin_x2"
-                        android:text="@string/setting_about"
-                        android:textStyle="normal" />
+                        android:text="@string/setting_about" />
 
                 </LinearLayout>
 
@@ -443,20 +439,20 @@
                     android:orientation="horizontal">
 
                     <android.support.v7.widget.AppCompatImageView
+                        style="@style/AppTheme.SettingMenuIcon"
                         android:layout_width="@dimen/icon_size_x3"
                         android:layout_height="@dimen/icon_size_x3"
                         android:layout_gravity="center_vertical"
                         app:srcCompat="@drawable/ic_vector_update" />
 
                     <TextView
-                        style="@style/AppTheme.TextView_Title.Bold"
+                        style="@style/AppTheme.TextView_Title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="@dimen/margin_x2"
                         android:layout_marginStart="@dimen/margin_x2"
-                        android:text="Check For Updates"
-                        android:textStyle="normal" />
+                        android:text="Check For Updates" />
 
                 </LinearLayout>
 

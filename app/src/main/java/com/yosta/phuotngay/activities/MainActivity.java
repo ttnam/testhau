@@ -117,16 +117,16 @@ public class MainActivity extends ActivityBehavior {
                         );
                         break;
                     case 1:
-                        mOwnToolbar.setBinding("Tìm kiếm", Integer.MIN_VALUE, Integer.MIN_VALUE, null, null);
+                        mOwnToolbar.setBinding(getString(R.string.all_search), Integer.MIN_VALUE, Integer.MIN_VALUE);
                         break;
                     case 2:
-                        mOwnToolbar.setBinding("Hành trình của bạn", Integer.MIN_VALUE, Integer.MIN_VALUE, null, null);
+                        mOwnToolbar.setBinding(getString(R.string.all_your_trip), Integer.MIN_VALUE, Integer.MIN_VALUE);
                         break;
                     case 3:
-                        mOwnToolbar.setBinding("Thông báo", Integer.MIN_VALUE, Integer.MIN_VALUE, null, null);
+                        mOwnToolbar.setBinding(getString(R.string.all_noti), Integer.MIN_VALUE, Integer.MIN_VALUE);
                         break;
                     case 4:
-                        mOwnToolbar.setBinding(getString(R.string.setting), Integer.MIN_VALUE, Integer.MIN_VALUE, null, null);
+                        mOwnToolbar.setBinding(getString(R.string.setting), Integer.MIN_VALUE, Integer.MIN_VALUE);
                         break;
                 }
             }

@@ -5,9 +5,14 @@
     <string name="fb_login_protocol_scheme">fb323952681287686</string>
     <string name="google_client_id">145961843290-3mfli9g9qi5tmjfem79qme2chfe1oj83.apps.googleusercontent.com</string>
 
+    <!--Common-->
     <string name="all_app_name" tools:ignore="MissingTranslation">Phượt Ngay</string>
     <string name="all_app_author" tools:ignore="MissingTranslation"> &#169; YosTa 2017 </string>
     <string name="all_app_version" tools:ignore="MissingTranslation">Version</string>
+
+    <string name="all_your_trip">Your trips</string>
+    <string name="all_noti">Notification</string>
+    <string name="all_search">Search</string>
 
     <!-- start profile-->
     <string name="profile"> Profile                             </string>
@@ -22,7 +27,6 @@
     <string name="profile_forgotPwd"> Forgot password?          </string>
     <string name="profile_login_google"> Google                 </string>
     <string name="profile_login_facebook"> Facebook             </string>
-
     <!-- end profile-->
 
     <!-- start setting-->

@@ -13,7 +13,7 @@
         android:orientation="vertical">
 
         <android.support.v7.widget.AppCompatImageView
-            android:id="@id/image"
+            android:id="@id/image_view"
             android:layout_width="@dimen/icon_size_x12"
             android:layout_height="@dimen/icon_size_x12"
             android:layout_gravity="center_horizontal"

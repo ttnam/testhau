@@ -1,17 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="AppTheme" parent="Theme.AppCompat.Light">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:windowBackground">@color/colorWindowBackground</item>
-    </style>
-
-    <style name="AppTheme.NoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
         <item name="android:windowBackground">@color/colorWindowBackground</item>
     </style>
 
@@ -25,7 +20,7 @@
         <item name="tabBackground">@android:color/white</item>
     </style>
 
-    <style name="AppTheme.Fullscreen" parent="AppTheme.NoActionBar">
+    <style name="AppTheme.Fullscreen" parent="AppTheme">
         <item name="android:windowActionBarOverlay">true</item>
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowNoTitle">true</item>
@@ -64,43 +59,58 @@
     <!--Title-->
     <style name="AppTheme.TextView_Title" parent="AppTheme">
         <item name="android:fontFamily">sans-serif-condensed</item>
-        <item name="android:textSize">@dimen/text_size_v2</item>
+        <item name="android:textSize">@dimen/text_size_v1</item>
         <item name="android:textColor">@color/colorTextColorPrimary</item>
     </style>
+
+    <!--Title-->
+    <style name="AppTheme.SettingMenuIcon" parent="AppTheme">
+        <item name="android:scaleType">centerInside</item>
+    </style>
+
     <style name="AppTheme.TextView_Title.White" parent="AppTheme.TextView_Title">
         <item name="android:textColor">@android:color/white</item>
     </style>
+
     <style name="AppTheme.TextView_Title.ColorPrimary" parent="AppTheme.TextView_Title">
         <item name="android:textColor">@color/colorPrimaryDark</item>
     </style>
+
     <style name="AppTheme.TextView_Title.Bold" parent="AppTheme.TextView_Title">
         <item name="android:textStyle">bold</item>
     </style>
+
     <style name="AppTheme.TextView_Title.Bold.White" parent="AppTheme.TextView_Title.Bold">
         <item name="android:textColor">@android:color/white</item>
     </style>
+
     <style name="AppTheme.TextView_Title.Bold.ColorPrimary" parent="AppTheme.TextView_Title.Bold">
         <item name="android:textColor">@color/colorPrimary</item>
     </style>
 
     <!--Sub title-->
     <style name="AppTheme.TextView_Sub_Title" parent="AppTheme">
-        <item name="android:textSize">@dimen/text_size_v1</item>
+        <item name="android:textSize">@dimen/text_size</item>
         <item name="android:fontFamily">sans-serif-condensed</item>
         <item name="android:textColor">@color/colorTextColorSecondary</item>
     </style>
+
     <style name="AppTheme.TextView_Sub_Title.Bold" parent="AppTheme.TextView_Sub_Title">
         <item name="android:textStyle">bold</item>
     </style>
+
     <style name="AppTheme.TextView_Sub_Title.Bold.ColorPrimary" parent="AppTheme.TextView_Sub_Title.Bold">
         <item name="android:textColor">@color/colorPrimary</item>
     </style>
+
     <style name="AppTheme.TextView_Sub_Title.ColorPrimary" parent="AppTheme.TextView_Sub_Title">
         <item name="android:textColor">@color/colorPrimary</item>
     </style>
+
     <style name="AppTheme.TextView_Sub_Title.White" parent="AppTheme.TextView_Sub_Title">
         <item name="android:textColor">@android:color/white</item>
     </style>
+
     <style name="AppTheme.TextView_Sub_Title.Italic.White" parent="AppTheme.TextView_Sub_Title.White">
         <item name="android:textStyle">italic</item>
     </style>
@@ -112,6 +122,7 @@
         <item name="android:background">@drawable/ic_style_button_round_none_default</item>
         <item name="android:clickable">true</item>
     </style>
+
     <style name="Style_Menu_Item.NonPress" parent="AppTheme.TextView_Title.Bold">
         <item name="android:layout_height">?actionBarSize</item>
         <item name="android:paddingLeft">@dimen/margin_x2</item>

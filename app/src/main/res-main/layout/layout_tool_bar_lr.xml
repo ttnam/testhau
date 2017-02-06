@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="?actionBarSize"
+    android:background="@color/colorPrimary"
     android:orientation="vertical">
 
     <LinearLayout
@@ -23,6 +24,7 @@
                 android:layout_width="@dimen/icon_size_x3"
                 android:layout_height="@dimen/icon_size_x3"
                 android:layout_centerInParent="true"
+                android:background="?attr/selectableItemBackground"
                 android:clickable="true"
                 android:scaleType="centerInside" />
         </RelativeLayout>
@@ -39,6 +41,7 @@
                 android:layout_height="@dimen/icon_size_x3"
                 android:layout_centerInParent="true"
                 android:layout_gravity="center"
+                android:background="?attr/selectableItemBackground"
                 android:clickable="true"
                 android:scaleType="centerInside" />
         </RelativeLayout>

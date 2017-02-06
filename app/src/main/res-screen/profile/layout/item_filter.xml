@@ -19,26 +19,20 @@
         android:paddingRight="@dimen/margin">
 
         <TextView
-            style="@style/AppTheme.TextView_Sub_Title"
+            style="@style/AppTheme.TextView_Sub_Title.White"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginEnd="@dimen/margin"
-            android:layout_marginRight="@dimen/margin"
             android:gravity="center"
             android:maxLines="1"
             android:minLines="1"
-            android:text="@{filter.content}"
-            android:textColor="@android:color/white" />
+            android:text="@{filter.content}" />
 
-        <android.support.v7.widget.AppCompatImageButton
+        <android.support.v7.widget.AppCompatImageView
+            style="@style/AppTheme.SettingMenuIcon"
             android:layout_width="@dimen/icon_size_x2"
             android:layout_height="@dimen/icon_size_x2"
             android:layout_gravity="center"
-            android:layout_marginEnd="@dimen/margin"
-            android:layout_marginRight="@dimen/margin"
-            android:background="@android:color/transparent"
-            android:scaleType="centerInside"
             app:srcCompat="@drawable/ic_vector_close" />
 
     </LinearLayout>

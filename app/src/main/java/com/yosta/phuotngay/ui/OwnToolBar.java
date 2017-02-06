@@ -56,6 +56,11 @@ public class OwnToolBar extends RelativeLayout {
         }
     }
 
+    public void setBinding(String title, int drawableLeft, int drawableRight) {
+        this.tvTitle.setText(title);
+        setBinding(drawableLeft, drawableRight, null, null);
+    }
+
     public void setBinding(String title, int drawableLeft, int drawableRight, View.OnClickListener leftListener, View.OnClickListener rightListener) {
 
         this.tvTitle.setText(title);

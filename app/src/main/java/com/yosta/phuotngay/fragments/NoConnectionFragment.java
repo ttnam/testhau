@@ -40,7 +40,7 @@ public class NoConnectionFragment extends Fragment {
         return rootView;
     }
 
-    @OnClick(R.id.image)
+    @OnClick(R.id.image_view)
     public void onClick() {
         if (!AppHelper.isNetworkConnected(getContext())) {
             YoYo.with(new ShakeAnimator())

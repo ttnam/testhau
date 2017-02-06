@@ -161,15 +161,15 @@
     <color name="transparent_30">#4D000000</color>
     <color name="transparent_40">#66000000</color>
     <color name="transparent_60">#99000000</color>
-    <color name="colorAccent">#FF3F80</color>
-    <color name="colorAccentLight">#FF80AB</color>
-    <color name="colorAccentDark">#F50057</color>
-    <color name="colorPrimary">#2196f3</color>
-    <color name="colorPrimaryDark">#0d47a1</color>
-    <color name="colorPrimaryLight">#bbdefb</color>
+    <color name="colorAccent">#009688</color>
+    <color name="colorAccentLight">#4db6ac</color>
+    <color name="colorAccentDark">#00796b</color>
+    <color name="colorPrimary">#FFC107</color>
+    <color name="colorPrimaryDark">#FFA000</color>
+    <color name="colorPrimaryLight">#FFECB3</color>
     <color name="colorTextColorPrimary">#212121</color>
-    <color name="colorTextColorSecondary">#727272</color>
-    <color name="colorDivider">#d9d9d9</color>
+    <color name="colorTextColorSecondary">#757575</color>
+    <color name="colorDivider">#BDBDBD</color>
     <color name="colorWindowBackground">#f0f0f0</color>
     <!--
         99% — FC
