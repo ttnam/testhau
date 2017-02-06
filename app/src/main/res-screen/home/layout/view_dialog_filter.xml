@@ -5,23 +5,23 @@
     android:orientation="vertical">
 
     <TextView
-        style="@style/AppTheme.TextView_Title.Bold.ColorPrimary"
+        style="@style/AppTheme.TextView_Title.Bold"
         android:layout_width="match_parent"
-        android:layout_height="?actionBarSize"
+        android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Filter"
-        android:textSize="@dimen/text_size_v2" />
+        android:padding="@dimen/margin_x2"
+        android:text="@string/all_filter" />
 
     <include layout="@layout/layout_separate_vertical" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="?actionBarSize"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:weightSum="5">
 
         <TextView
-            style="@style/AppTheme.TextView_Sub_Title.Bold"
+            style="@style/AppTheme.TextView_Title"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
@@ -32,7 +32,7 @@
 
         <com.yosta.materialspinner.MaterialSpinner
             android:id="@+id/spinner_sort_by"
-            style="@style/AppTheme.TextView_Sub_Title.Bold"
+            style="@style/AppTheme.TextView_Sub_Title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -44,12 +44,12 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="?actionBarSize"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:weightSum="5">
 
         <TextView
-            style="@style/AppTheme.TextView_Sub_Title.Bold"
+            style="@style/AppTheme.TextView_Title"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
@@ -60,7 +60,7 @@
 
         <com.yosta.materialspinner.MaterialSpinner
             android:id="@+id/spinner_during_time"
-            style="@style/AppTheme.TextView_Sub_Title.Bold"
+            style="@style/AppTheme.TextView_Sub_Title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -74,39 +74,37 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="?actionBarSize"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:weightSum="2">
 
         <TextView
             android:id="@+id/tv_cancel"
-            style="@style/AppTheme.TextView_Title.Bold.ColorPrimary"
+            style="@style/AppTheme.TextView_Title.Bold"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
             android:background="@drawable/ic_style_button_round_none_default"
             android:clickable="true"
             android:gravity="center"
-            android:padding="@dimen/margin"
-            android:text="Cancel"
-            android:textSize="@dimen/text_size_v2" />
+            android:padding="@dimen/margin_x2"
+            android:text="Cancel" />
 
         <include layout="@layout/layout_separate_horizontal" />
 
         <TextView
             android:id="@+id/tv_apply"
-            style="@style/AppTheme.TextView_Title.Bold.ColorPrimary"
+            style="@style/AppTheme.TextView_Title.Bold"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
             android:background="@drawable/ic_style_button_round_none_default"
             android:clickable="true"
             android:gravity="center"
-            android:padding="@dimen/margin"
-            android:text="Apply"
-            android:textSize="@dimen/text_size_v2" />
+            android:padding="@dimen/margin_x2"
+            android:text="Apply" />
 
     </LinearLayout>
 

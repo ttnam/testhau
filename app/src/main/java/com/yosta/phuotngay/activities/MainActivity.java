@@ -100,7 +100,7 @@ public class MainActivity extends ActivityBehavior {
                         mOwnToolbar.setBinding(
                                 "Trang chủ",
                                 R.drawable.ic_vector_add,
-                                R.drawable.ic_vector_circle_red_white,
+                                R.drawable.ic_vector_filter,
                                 new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {

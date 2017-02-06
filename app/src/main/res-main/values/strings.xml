@@ -13,6 +13,7 @@
     <string name="all_your_trip">Your trips</string>
     <string name="all_noti">Notification</string>
     <string name="all_search">Search</string>
+    <string name="all_filter">Filter</string>
 
     <!-- start profile-->
     <string name="profile"> Profile                             </string>

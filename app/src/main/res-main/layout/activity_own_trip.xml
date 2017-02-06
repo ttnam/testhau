@@ -51,7 +51,7 @@
                 android:layout_marginRight="@dimen/margin_x2"
                 android:background="@android:color/transparent"
                 android:scaleType="centerInside"
-                app:srcCompat="@drawable/ic_vector_circle_red_white" />
+                app:srcCompat="@drawable/ic_vector_filter" />
 
         </RelativeLayout>
 

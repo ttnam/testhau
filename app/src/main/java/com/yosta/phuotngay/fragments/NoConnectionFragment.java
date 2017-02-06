@@ -25,7 +25,7 @@ public class NoConnectionFragment extends Fragment {
     @BindView(R.id.text_view)
     TextView textView;
 
-    @BindView(R.id.image)
+    @BindView(R.id.image_view)
     ImageView image;
 
     @Override

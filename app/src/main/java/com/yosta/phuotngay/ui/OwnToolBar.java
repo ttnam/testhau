@@ -49,7 +49,7 @@ public class OwnToolBar extends RelativeLayout {
                     getResources().getColor(android.R.color.white)));
 
             tvTitle.setTextColor(array.getColor(R.styleable.OwnToolBar_layoutTitleColor,
-                    getResources().getColor(android.R.color.black)));
+                    getResources().getColor(android.R.color.white)));
 
         } finally {
             array.recycle();

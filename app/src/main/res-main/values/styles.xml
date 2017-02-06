@@ -65,6 +65,8 @@
 
     <!--Title-->
     <style name="AppTheme.SettingMenuIcon" parent="AppTheme">
+        <item name="android:background">?attr/selectableItemBackground</item>
+        <item name="android:clickable">true</item>
         <item name="android:scaleType">centerInside</item>
     </style>
 
