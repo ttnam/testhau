@@ -10,6 +10,13 @@
         <item name="android:windowBackground">@color/colorWindowBackground</item>
     </style>
 
+    <style name="AppTheme.White" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">#FFFFFF</item>
+        <item name="colorPrimaryDark">#BDBDBD</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
     <style name="AppTheme.TabLayout" parent="Widget.Design.TabLayout">
         <item name="tabIndicatorColor">@color/colorAccent</item>
         <item name="tabBackground">@color/colorPrimary</item>
@@ -55,19 +62,17 @@
         <item name="android:backgroundDimAmount">0.7</item>
     </style>
 
+    <style name="AppTheme.SettingMenuIcon" parent="AppTheme">
+        <item name="android:background">?attr/selectableItemBackground</item>
+        <item name="android:clickable">true</item>
+        <item name="android:scaleType">centerInside</item>
+    </style>
 
     <!--Title-->
     <style name="AppTheme.TextView_Title" parent="AppTheme">
         <item name="android:fontFamily">sans-serif-condensed</item>
         <item name="android:textSize">@dimen/text_size_v1</item>
         <item name="android:textColor">@color/colorTextColorPrimary</item>
-    </style>
-
-    <!--Title-->
-    <style name="AppTheme.SettingMenuIcon" parent="AppTheme">
-        <item name="android:background">?attr/selectableItemBackground</item>
-        <item name="android:clickable">true</item>
-        <item name="android:scaleType">centerInside</item>
     </style>
 
     <style name="AppTheme.TextView_Title.White" parent="AppTheme.TextView_Title">
@@ -80,6 +85,10 @@
 
     <style name="AppTheme.TextView_Title.Bold" parent="AppTheme.TextView_Title">
         <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="AppTheme.TextView_Title.Italic" parent="AppTheme.TextView_Title">
+        <item name="android:textStyle">italic</item>
     </style>
 
     <style name="AppTheme.TextView_Title.Bold.White" parent="AppTheme.TextView_Title.Bold">
@@ -99,6 +108,10 @@
 
     <style name="AppTheme.TextView_Sub_Title.Bold" parent="AppTheme.TextView_Sub_Title">
         <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="AppTheme.TextView_Sub_Title.Italic" parent="AppTheme.TextView_Sub_Title">
+        <item name="android:textStyle">italic</item>
     </style>
 
     <style name="AppTheme.TextView_Sub_Title.Bold.ColorPrimary" parent="AppTheme.TextView_Sub_Title.Bold">

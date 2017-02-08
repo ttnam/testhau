@@ -84,7 +84,7 @@ public class TripDetailActivity extends ActivityBehavior {
     public void onApplyComponents() {
         super.onApplyComponents();
 
-        // Toobar
+        // Toolbar
         mOwnToolbar.setBinding(
                 R.drawable.ic_vector_back_white,
                 R.drawable.ic_vector_share_white,
@@ -135,12 +135,11 @@ public class TripDetailActivity extends ActivityBehavior {
         onRankingListener(tripId);
 
     }
-    /*
-    @Override
-    protected void onStop() {
-        EventBus.getDefault().unregister(this);
-        super.onStop();
-    }*/
+
+    @OnClick(R.id.layout_rating)
+    public void onOpenRating() {
+        startActivity(new Intent(this, RatingActivity.class));
+    }
 
     @OnClick(R.id.layout_comment)
     public void onLoadComment() {

@@ -2,12 +2,11 @@
 <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@android:color/white">
+    android:layout_height="wrap_content">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <android.support.v7.widget.AppCompatImageView
@@ -19,6 +18,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@android:color/white"
             android:orientation="vertical"
             android:padding="@dimen/margin_x2">
 
@@ -98,12 +98,23 @@
 
             <include layout="@layout/item_web_vew" />
 
-            <include layout="@layout/layout_separate_vertical" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:visibility="gone">
 
-            <include layout="@layout/layout_recycler_view" />
+                <include layout="@layout/layout_separate_vertical" />
+
+                <include layout="@layout/layout_recycler_view" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
+        <include layout="@layout/layout_review" />
+
+        <include layout="@layout/layout_map" />
     </LinearLayout>
 
 </android.support.v4.widget.NestedScrollView>

@@ -64,25 +64,17 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".activities.SplashActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Fullscreen">
-
-        </activity>
+            android:theme="@style/AppTheme.Fullscreen" />
         <activity
             android:name=".activities.LoginActivity"
             android:launchMode="singleTop"
-            android:theme="@style/AppTheme.Fullscreen">
-
-        </activity>
+            android:theme="@style/AppTheme.Fullscreen" />
         <activity
             android:name=".activities.WebViewActivity"
             android:theme="@style/AppTheme.Fullscreen" />
@@ -102,12 +94,20 @@
         <activity
             android:name=".activities.CreateTripActivity"
             android:launchMode="singleInstance"
-            android:theme="@style/AppTheme">
-
-        </activity>
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".activities.SearchActivity"
             android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activities.RatingActivity"
+            android:launchMode="singleInstance"
+            android:parentActivityName=".activities.TripDetailActivity"
+            android:theme="@style/AppTheme.White">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

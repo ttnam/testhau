@@ -13,6 +13,8 @@ import android.widget.TextView;
 
 import com.yosta.phuotngay.R;
 
+import org.jetbrains.annotations.NotNull;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -45,14 +47,53 @@ public class OwnToolBar extends RelativeLayout {
             int layout = array.getInteger(R.styleable.OwnToolBar_layoutType, 0);
             ButterKnife.bind(this, LayoutInflater.from(context).inflate((layout == 0) ? TYPE_TITLE_CENTER : TYPE_TITLE_LEFT, this, true));
 
-            getRootView().setBackgroundColor(array.getColor(R.styleable.OwnToolBar_layoutBackground,
+            getRootView().setBackgroundColor(array.getColor(
+                    R.styleable.OwnToolBar_layoutBackground,
                     getResources().getColor(android.R.color.white)));
 
-            tvTitle.setTextColor(array.getColor(R.styleable.OwnToolBar_layoutTitleColor,
+            tvTitle.setTextColor(array.getColor(
+                    R.styleable.OwnToolBar_layoutTitleColor,
                     getResources().getColor(android.R.color.white)));
 
         } finally {
             array.recycle();
+        }
+    }
+
+    public OwnToolBar setTitle(String title) {
+        this.tvTitle.setText(title);
+        setBinding(Integer.MIN_VALUE, Integer.MIN_VALUE, null, null);
+        return this;
+    }
+
+    public OwnToolBar setTitleColor(@NonNull @ColorRes int color) {
+        tvTitle.setTextColor(getResources().getColor(color));
+        return this;
+    }
+
+    private void setOnLeftClickListener(View.OnClickListener listener) {
+        this.btnLeft.setOnClickListener(listener);
+    }
+
+    private void setOnRightClickListener(View.OnClickListener listener) {
+        this.btnRight.setOnClickListener(listener);
+    }
+
+    private void setDrawableLeft(int icon) {
+        if (icon == Integer.MIN_VALUE) {
+            this.btnLeft.setVisibility(GONE);
+        } else {
+            this.btnLeft.setVisibility(VISIBLE);
+            this.btnLeft.setImageResource(icon);
+        }
+    }
+
+    private void setDrawableRight(int icon) {
+        if (icon == Integer.MIN_VALUE) {
+            this.btnRight.setVisibility(GONE);
+        } else {
+            this.btnRight.setVisibility(VISIBLE);
+            this.btnRight.setImageResource(icon);
         }
     }
 
@@ -61,33 +102,37 @@ public class OwnToolBar extends RelativeLayout {
         setBinding(drawableLeft, drawableRight, null, null);
     }
 
-    public void setBinding(String title, int drawableLeft, int drawableRight, View.OnClickListener leftListener, View.OnClickListener rightListener) {
+    public void setBinding(String title, int drawableLeft, int drawableRight,
+                           View.OnClickListener leftListener, View.OnClickListener rightListener) {
 
         this.tvTitle.setText(title);
         setBinding(drawableLeft, drawableRight, leftListener, rightListener);
     }
 
-    public void setBinding(int drawableLeft, int drawableRight, View.OnClickListener leftListener, View.OnClickListener rightListener) {
+    public void setBinding(int drawableLeft, int drawableRight,
+                           View.OnClickListener leftListener, View.OnClickListener rightListener) {
 
-        this.btnLeft.setOnClickListener(leftListener);
-        this.btnRight.setOnClickListener(rightListener);
-
-        if (drawableLeft == Integer.MIN_VALUE) {
-            this.btnLeft.setVisibility(GONE);
-        } else {
-            this.btnLeft.setVisibility(VISIBLE);
-            this.btnLeft.setImageResource(drawableLeft);
-        }
-
-        if (drawableRight == Integer.MIN_VALUE) {
-            this.btnRight.setVisibility(GONE);
-        } else {
-            this.btnRight.setVisibility(VISIBLE);
-            this.btnRight.setImageResource(drawableRight);
-        }
+        setOnLeftClickListener(leftListener);
+        setOnRightClickListener(rightListener);
+        setDrawableLeft(drawableLeft);
+        setDrawableRight(drawableRight);
     }
 
-    public void setTitleColor(@NonNull @ColorRes int color) {
-        tvTitle.setTextColor(getResources().getColor(color));
+    public OwnToolBar setLeft(int icon, @NotNull View.OnClickListener listener) {
+        setDrawableLeft(icon);
+        setOnLeftClickListener(listener);
+
+        setDrawableRight(Integer.MIN_VALUE);
+        setOnRightClickListener(null);
+        return this;
+    }
+
+    public OwnToolBar setRight(int icon, @NotNull View.OnClickListener listener) {
+        setDrawableRight(icon);
+        setOnRightClickListener(listener);
+
+        setDrawableLeft(Integer.MIN_VALUE);
+        setOnLeftClickListener(null);
+        return this;
     }
 }
