@@ -97,9 +97,15 @@ public class OwnToolBar extends RelativeLayout {
         }
     }
 
-    public void setBinding(String title, int drawableLeft, int drawableRight) {
+    public OwnToolBar setBinding(String title, int drawableLeft, int drawableRight) {
         this.tvTitle.setText(title);
         setBinding(drawableLeft, drawableRight, null, null);
+        return this;
+    }
+
+    public OwnToolBar setOwnBackgroud(int id) {
+        getRootView().setBackgroundColor(getResources().getColor(id));
+        return this;
     }
 
     public void setBinding(String title, int drawableLeft, int drawableRight,

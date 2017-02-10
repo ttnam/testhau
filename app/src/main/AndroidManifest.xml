@@ -61,9 +61,9 @@
         </activity>
         <activity
             android:name=".activities.MainActivity"
-            android:launchMode="singleTop"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme">
+            android:theme="@style/AppTheme.Fullscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -72,19 +72,20 @@
         </activity>
         <activity
             android:name=".activities.SplashActivity"
-            android:launchMode="singleTop"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Fullscreen" />
         <activity
             android:name=".activities.LoginActivity"
-            android:launchMode="singleTop"
+            android:launchMode="singleTask"
             android:theme="@style/AppTheme.Fullscreen" />
         <activity
             android:name=".activities.WebViewActivity"
+            android:launchMode="singleTask"
             android:theme="@style/AppTheme.Fullscreen" />
         <activity
             android:name=".activities.TripDetailActivity"
-            android:launchMode="singleInstance"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustResize" />

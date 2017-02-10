@@ -2,7 +2,7 @@
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:fitsSystemWindows="true">
 
     <android.support.design.widget.AppBarLayout
@@ -20,7 +20,7 @@
                 android:id="@id/layout"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:layoutBackground="@color/transparent_30"
+                app:layoutBackground="@color/transparent_40"
                 app:layoutTitleColor="@android:color/white"
                 app:layout_collapseMode="pin"
                 app:popupTheme="@style/AppTheme.PopupOverlay" />
@@ -29,6 +29,24 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_trip_detail" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include
+            layout="@layout/content_trip_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <Button
+            style="@style/AppTheme.TextView_Title.Bold.White"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_style_button_round_none_theme"
+            android:text="Đi ngay thôi" />
+
+    </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>

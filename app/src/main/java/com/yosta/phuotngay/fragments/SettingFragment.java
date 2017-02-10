@@ -23,6 +23,7 @@ import com.yosta.phuotngay.activities.WebViewActivity;
 import com.yosta.phuotngay.adapters.MenuAdapter;
 import com.yosta.phuotngay.helpers.AppHelper;
 import com.yosta.phuotngay.helpers.StorageHelper;
+import com.yosta.phuotngay.ui.OwnToolBar;
 import com.yosta.phuotngay.ui.listeners.ListenerHelpers;
 import com.yosta.phuotngay.models.menu.MenuItem;
 import com.yosta.phuotngay.models.app.AppSetting;
@@ -32,6 +33,9 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class SettingFragment extends Fragment {
+
+    @BindView(R.id.layout)
+    OwnToolBar mOwnToolbar;
 
     @BindView(R.id.layout_profile)
     LinearLayout layoutProfile;
@@ -60,6 +64,7 @@ public class SettingFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_setting, container, false);
         ButterKnife.bind(this, rootView);
+        mOwnToolbar.setTitle(getString(R.string.setting)).setOwnBackgroud(R.color.colorPrimary);
         return rootView;
     }
 /*
