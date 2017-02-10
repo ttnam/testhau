@@ -11,6 +11,7 @@ import com.yosta.phuotngay.R;
 import com.yosta.phuotngay.dialogs.DialogFilter;
 import com.yosta.phuotngay.adapters.ViewPagerAdapter;
 import com.yosta.phuotngay.animations.ZoomOutPageTransformer;
+import com.yosta.phuotngay.fragments.NotificationsFragment;
 import com.yosta.phuotngay.fragments.OwnTripFragment;
 import com.yosta.phuotngay.fragments.SearchFragment;
 import com.yosta.phuotngay.fragments.TripFragment;
@@ -81,13 +82,12 @@ public class MainActivity extends ActivityBehavior {
         this.mTabLayout.setSmoothScrollingEnabled(true);
     }
 
-
     private void onApplyViewPager() {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFrag(new TripFragment());
         adapter.addFrag(new SearchFragment());
         adapter.addFrag(new OwnTripFragment());
-        adapter.addFrag(new NoConnectionFragment());
+        adapter.addFrag(new NotificationsFragment());
         adapter.addFrag(new SettingFragment());
 
         this.mViewPager.setAdapter(adapter);

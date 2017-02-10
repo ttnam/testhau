@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/image_height_v2">
+
+        <android.support.v7.widget.AppCompatImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/ic_sample" />
+
+        <TextView
+            style="@style/AppTheme.TextView_Title.Bold.White"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:padding="@dimen/margin_x3"
+            android:text="Phượt Vũng tàu"
+            android:textSize="@dimen/text_size_v3" />
+
+    </FrameLayout>
+
+    <TextView
+        style="@style/AppTheme.TextView_Title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:padding="@dimen/margin"
+        android:text="15-30 tháng 07 năm 2015" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/margin_x2">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="@dimen/icon_size_x7"
+            android:layout_height="@dimen/icon_size_x7"
+            android:src="@drawable/ic_avatar" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="@dimen/icon_size_x7"
+            android:layout_height="@dimen/icon_size_x7"
+            android:layout_marginLeft="@dimen/margin"
+            android:layout_marginStart="@dimen/margin"
+            android:src="@drawable/ic_avatar" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="@dimen/icon_size_x7"
+            android:layout_height="@dimen/icon_size_x7"
+            android:layout_marginLeft="@dimen/margin"
+            android:layout_marginStart="@dimen/margin"
+            android:src="@drawable/ic_avatar" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="@dimen/icon_size_x7"
+            android:layout_height="@dimen/icon_size_x7"
+            android:layout_marginLeft="@dimen/margin"
+            android:layout_marginStart="@dimen/margin"
+            android:src="@drawable/ic_avatar" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="@dimen/icon_size_x7"
+            android:layout_height="@dimen/icon_size_x7"
+            android:layout_marginLeft="@dimen/margin"
+            android:layout_marginStart="@dimen/margin"
+            android:src="@drawable/ic_avatar" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="@dimen/icon_size_x7"
+            android:layout_height="@dimen/icon_size_x7"
+            android:layout_marginLeft="@dimen/margin"
+            android:layout_marginStart="@dimen/margin"
+            android:src="@drawable/ic_avatar" />
+
+    </LinearLayout>
+
+    <include layout="@layout/layout_separate_vertical" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:baselineAligned="true"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/ic_style_button_round_none_default"
+            android:clickable="true"
+            android:padding="@dimen/margin_x2">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:orientation="horizontal">
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:layout_width="@dimen/icon_size_x3"
+                    android:layout_height="@dimen/icon_size_x3"
+                    android:layout_gravity="center"
+                    app:srcCompat="@drawable/ic_vector_close_red" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/margin"
+                    android:layout_marginStart="@dimen/margin"
+                    android:gravity="center"
+                    android:text="DECLINE"
+                    android:textColor="@color/Red" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <include layout="@layout/layout_separate_horizontal" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/ic_style_button_round_none_default"
+            android:clickable="true"
+            android:padding="@dimen/margin_x2">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:orientation="horizontal">
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:layout_width="@dimen/icon_size_x4"
+                    android:layout_height="@dimen/icon_size_x4"
+                    android:layout_gravity="center"
+                    app:srcCompat="@drawable/ic_vector_checks" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/margin"
+                    android:layout_marginStart="@dimen/margin"
+                    android:gravity="center"
+                    android:text="ACCEPT"
+                    android:textColor="@color/Green" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
