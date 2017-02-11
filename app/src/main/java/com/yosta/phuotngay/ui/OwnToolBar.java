@@ -55,6 +55,10 @@ public class OwnToolBar extends RelativeLayout {
                     R.styleable.OwnToolBar_layoutTitleColor,
                     getResources().getColor(android.R.color.white)));
 
+            String title = array.getString(R.styleable.OwnToolBar_layoutTitle);
+            if (title != null && title.length() > 1 && !title.equals("")) {
+                setTitle(title);
+            }
         } finally {
             array.recycle();
         }

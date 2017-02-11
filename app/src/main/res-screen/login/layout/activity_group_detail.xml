@@ -20,7 +20,8 @@
                 android:id="@id/layout"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:layoutBackground="@color/transparent_40"
+                app:layoutBackground="@color/colorPrimaryDark"
+                app:layoutTitle="@string/all_your_trip"
                 app:layoutTitleColor="@android:color/white"
                 app:layout_collapseMode="pin"
                 app:popupTheme="@style/AppTheme.PopupOverlay" />
@@ -29,24 +30,6 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <include
-            layout="@layout/content_trip_detail"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
-
-        <Button
-            style="@style/AppTheme.TextView_Title.Bold.White"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/ic_style_button_round_none_theme"
-            android:text="Đi ngay thôi" />
-
-    </LinearLayout>
+    <include layout="@layout/content_group_detail" />
 
 </android.support.design.widget.CoordinatorLayout>

@@ -112,6 +112,8 @@ android {
                     'src/main/res-screen/home',
                     'src/main/res-screen/trip',
                     'src/main/res-screen/profile',
+                    'src/main/res-screen/group',
+                    'src/main/res-screen/setting',
             ]
         }
     }

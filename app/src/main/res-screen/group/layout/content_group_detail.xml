@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.AppCompatImageView
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/image_height_v3"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/ic_sample" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/margin_x2"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/AppTheme.TextView_Title.Bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:padding="@dimen/margin"
+                android:text="Nam du"
+                android:textSize="@dimen/text_size_v3" />
+
+            <android.support.v7.widget.AppCompatImageView
+                style="@style/AppTheme.SettingMenuIcon"
+                android:layout_width="@dimen/icon_size_x4"
+                android:layout_height="@dimen/icon_size_x4"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/ic_vector_alarm_clock" />
+        </LinearLayout>
+
+        <TextView
+            style="@style/AppTheme.TextView_Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:padding="@dimen/margin"
+            android:text="2 min ago - 4 members" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/margin"
+            android:orientation="horizontal">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:layout_width="@dimen/icon_size_x6"
+                android:layout_height="@dimen/icon_size_x6"
+                app:srcCompat="@drawable/ic_avatar" />
+
+            <android.support.v7.widget.AppCompatImageView
+                android:layout_width="@dimen/icon_size_x6"
+                android:layout_height="@dimen/icon_size_x6"
+                android:layout_marginLeft="@dimen/margin"
+                android:layout_marginStart="@dimen/margin"
+                app:srcCompat="@drawable/ic_avatar" />
+
+            <android.support.v7.widget.AppCompatImageView
+                android:layout_width="@dimen/icon_size_x6"
+                android:layout_height="@dimen/icon_size_x6"
+                android:layout_marginLeft="@dimen/margin"
+                android:layout_marginStart="@dimen/margin"
+                app:srcCompat="@drawable/ic_avatar" />
+
+            <android.support.v7.widget.AppCompatImageView
+                android:layout_width="@dimen/icon_size_x6"
+                android:layout_height="@dimen/icon_size_x6"
+                android:layout_marginLeft="@dimen/margin"
+                android:layout_marginStart="@dimen/margin"
+                app:srcCompat="@drawable/ic_avatar" />
+
+            <android.support.v7.widget.AppCompatImageView
+                android:layout_width="@dimen/icon_size_x6"
+                android:layout_height="@dimen/icon_size_x6"
+                android:layout_marginLeft="@dimen/margin"
+                android:layout_marginStart="@dimen/margin"
+                app:srcCompat="@drawable/ic_avatar" />
+        </LinearLayout>
+    </LinearLayout>
+
+</android.support.v4.widget.NestedScrollView>

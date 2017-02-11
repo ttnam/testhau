@@ -45,12 +45,6 @@ public class MainActivity extends ActivityBehavior {
 
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        this.mViewPager.setCurrentItem(0, true);
-    }
-
     private void onApplyTabLayout() {
 
         this.mTabLayout.setupWithViewPager(mViewPager);
