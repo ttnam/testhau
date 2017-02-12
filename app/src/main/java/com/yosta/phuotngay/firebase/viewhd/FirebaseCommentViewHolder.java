@@ -41,7 +41,7 @@ public class FirebaseCommentViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void onBind(FirebaseComment comment) {
-        Glide.with(mContext).load(comment.getAvatar()).error(R.drawable.ic_launcher).into(mAvatar);
+        Glide.with(mContext).load(comment.getAvatar()).error(R.drawable.ic_avatar).into(mAvatar);
         this.mTxtUserName.setText(comment.getUsername());
         this.txtContent.setText(comment.getContent());
         this.tVTime.setText(onGetTimeGap(comment.time()));
