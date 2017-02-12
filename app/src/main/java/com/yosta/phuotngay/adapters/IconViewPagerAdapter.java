@@ -9,13 +9,13 @@ import android.util.SparseArray;
  * Created by HenryPhuc on 3/6/2016.
  */
 
-public class ViewPagerAdapter extends FragmentStatePagerAdapter {
+public class IconViewPagerAdapter extends FragmentStatePagerAdapter {
 
     SparseArray<Fragment> mFragmentList = new SparseArray<>();
 
     private int index = 0;
 
-    public ViewPagerAdapter(FragmentManager manager) {
+    public IconViewPagerAdapter(FragmentManager manager) {
         super(manager);
     }
 

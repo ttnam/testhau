@@ -10,6 +10,10 @@
     <string name="all_app_author" tools:ignore="MissingTranslation"> &#169; YosTa 2017 </string>
     <string name="all_app_version" tools:ignore="MissingTranslation">Version</string>
 
+
+    <string name="all_your">Yours</string>
+    <string name="all_friends">Friends</string>
+    <string name="all_suggestions">Suggestions</string>
     <string name="all_your_trip">Your trips</string>
     <string name="all_noti">Notification</string>
     <string name="all_search">Search</string>
@@ -119,6 +123,7 @@
     <string name="add_as_friend">Make friends</string>
     <string name="max_distance_hint">(in km)</string>
     <string name="apply_filter">APPLY FILTER</string>
+    <string name="title_activity_main2">Main2Activity</string>
 
 
 </resources>

@@ -6,12 +6,42 @@
     android:orientation="vertical">
 
     <com.yosta.phuotngay.ui.OwnToolBar
+        android:id="@id/layout"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
         app:layoutBackground="@color/colorPrimary"
         app:layoutTitle="@string/all_your_trip"
         app:layoutType="title_center" />
 
-    <include layout="@layout/layout_recycler_view" />
+    <include layout="@layout/layout_separate_vertical" />
+
+    <android.support.design.widget.TabLayout
+        android:id="@id/tabs"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:layout_gravity="bottom|center"
+        android:layout_marginBottom="@dimen/margin"
+        android:background="@android:color/white"
+        app:tabGravity="fill"
+        app:tabIndicatorColor="@color/colorAccentDark"
+        app:tabMode="scrollable"
+        app:tabSelectedTextColor="@color/colorAccentDark" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include layout="@layout/layout_recycler_view" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="@dimen/margin_x2"
+            app:fabSize="normal"
+            app:srcCompat="@android:drawable/ic_dialog_email" />
+
+    </FrameLayout>
 
 </LinearLayout>

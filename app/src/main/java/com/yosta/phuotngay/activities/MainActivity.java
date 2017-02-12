@@ -1,13 +1,12 @@
 package com.yosta.phuotngay.activities;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 
 import com.yosta.phuotngay.R;
-import com.yosta.phuotngay.adapters.ViewPagerAdapter;
+import com.yosta.phuotngay.adapters.IconViewPagerAdapter;
 import com.yosta.phuotngay.fragments.NotificationsFragment;
 import com.yosta.phuotngay.fragments.OwnTripFragment;
 import com.yosta.phuotngay.fragments.SearchFragment;
@@ -69,7 +68,7 @@ public class MainActivity extends ActivityBehavior {
     }
 
     private void onApplyViewPager() {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        IconViewPagerAdapter adapter = new IconViewPagerAdapter(getSupportFragmentManager());
         adapter.addFrag(new TripFragment());
         adapter.addFrag(new SearchFragment());
         adapter.addFrag(new OwnTripFragment());
@@ -77,37 +76,5 @@ public class MainActivity extends ActivityBehavior {
         adapter.addFrag(new SettingFragment());
 
         this.mViewPager.setAdapter(adapter);
-        /*this.mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                switch (position) {
-                    case 0:
-
-                        break;
-                    case 1:
-                        mOwnToolbar.setTitle(getString(R.string.all_search)).setOwnBackgroud(R.color.colorPrimary);
-                        break;
-                    case 2:
-                        mOwnToolbar.setTitle(getString(R.string.all_your_trip)).setOwnBackgroud(R.color.colorPrimary);
-                        break;
-                    case 3:
-                        mOwnToolbar.setTitle(getString(R.string.all_noti)).setOwnBackgroud(R.color.colorPrimary);
-                        break;
-                    case 4:
-
-                        break;
-                }
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });*/
     }
 }

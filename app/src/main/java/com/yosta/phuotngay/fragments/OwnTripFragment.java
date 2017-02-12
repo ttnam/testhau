@@ -1,22 +1,21 @@
 package com.yosta.phuotngay.fragments;
 
-import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.yosta.phuotngay.R;
 import com.yosta.phuotngay.activities.GroupDetailActivity;
-import com.yosta.phuotngay.activities.TripDetailActivity;
 import com.yosta.phuotngay.adapters.GroupAdapter;
 import com.yosta.phuotngay.firebase.model.FirebaseGroup;
-import com.yosta.phuotngay.firebase.model.FirebaseTrip;
-import com.yosta.phuotngay.helpers.AppHelper;
 import com.yosta.phuotngay.ui.OwnToolBar;
 import com.yosta.phuotngay.ui.decoration.SpacesItemDecoration;
 import com.yosta.phuotngay.ui.listeners.RecyclerItemClickListener;
@@ -28,23 +27,38 @@ import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 
 public class OwnTripFragment extends Fragment {
 
+    @BindView(R.id.layout)
+    OwnToolBar mOwnToolbar;
+
+    @BindView(R.id.tabs)
+    TabLayout mTabLayout;
+
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
 
-    private Activity mActivity;
+    private Context mContext = null;
     private GroupAdapter groupAdapter = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.mActivity = getActivity();
+        this.mContext = getContext();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_own_trip, container, false);
         ButterKnife.bind(this, rootView);
-        this.groupAdapter = new GroupAdapter(mActivity);
+        this.groupAdapter = new GroupAdapter(mContext);
+
+        mOwnToolbar.setRight(R.drawable.ic_vector_menu, new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+        onApplyTabLayout();
+
         onApplyRecyclerView();
         onApplyData();
         return rootView;
@@ -64,15 +78,39 @@ public class OwnTripFragment extends Fragment {
         this.recyclerView.addItemDecoration(new SpacesItemDecoration(16));
         this.recyclerView.setItemAnimator(new FadeInLeftAnimator());
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this.mActivity, LinearLayoutManager.VERTICAL, false);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this.mContext, LinearLayoutManager.VERTICAL, false);
         this.recyclerView.setNestedScrollingEnabled(false);
         this.recyclerView.setLayoutManager(layoutManager);
         this.recyclerView.setAdapter(this.groupAdapter);
-        this.recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(mActivity, new RecyclerItemClickListener.OnItemClickListener() {
+        this.recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(mContext, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
                 startActivity(new Intent(getActivity(), GroupDetailActivity.class));
             }
         }));
+    }
+
+    private void onApplyTabLayout() {
+        this.mTabLayout.setSmoothScrollingEnabled(true);
+        this.mTabLayout.addTab(this.mTabLayout.newTab().setText(getString(R.string.all_your)));
+        this.mTabLayout.addTab(this.mTabLayout.newTab().setText(getString(R.string.all_friends)));
+        this.mTabLayout.addTab(this.mTabLayout.newTab().setText(getString(R.string.all_suggestions)));
+
+        this.mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                Toast.makeText(mContext, tab.getPosition() + "", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
     }
 }
