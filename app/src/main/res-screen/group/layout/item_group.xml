@@ -64,7 +64,7 @@
                     android:layout_height="@dimen/icon_size_x5"
                     android:layout_gravity="center"
                     android:padding="@dimen/margin"
-                    app:srcCompat="@drawable/ic_vector_more_land" />
+                    app:srcCompat="@drawable/ic_vector_more" />
 
             </LinearLayout>
 
