@@ -13,7 +13,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.yosta.phuotngay.firebase.model.FirebaseTrip;
 import com.yosta.phuotngay.firebase.model.User;
+import com.yosta.phuotngay.helpers.SearchTripHelper;
 import com.yosta.phuotngay.helpers.StorageHelper;
 import com.yosta.phuotngay.interfaces.CallBackListener;
 import com.yosta.phuotngay.models.app.MessageInfo;
@@ -21,10 +23,14 @@ import com.yosta.phuotngay.models.app.MessageType;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 /**
  * Created by Phuc-Hau Nguyen on 12/1/2016.
  */
-public class FirebaseManager {
+public class    FirebaseManager {
 
     private static final String FIRE_BASE_TRIP = "TRIP";
     private static final String FIRE_BASE_USER = "USER";
@@ -72,7 +78,7 @@ public class FirebaseManager {
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                /*Iterator<DataSnapshot> trips = dataSnapshot.getChildren().iterator();
+                Iterator<DataSnapshot> trips = dataSnapshot.getChildren().iterator();
                 FirebaseTrip trip;
                 List<FirebaseTrip> result = new ArrayList<>();
                 while (trips.hasNext()) {
@@ -85,7 +91,7 @@ public class FirebaseManager {
 
                     result.add(trip);
                 }
-                SearchTripHelper.init(result);*/
+                SearchTripHelper.init(result);
 
                 EventBus.getDefault().post(new MessageInfo(MessageType.LOAD_DONE));
             }

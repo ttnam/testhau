@@ -32,7 +32,7 @@ public class SearchTripHelper {
 
         List<FirebaseTrip> result = new ArrayList();
 
-      /*  try {
+       try {
             arrive = unicodeToAscii(arrive);
             depart = unicodeToAscii(depart);
         } catch (UnsupportedEncodingException e) {
@@ -43,15 +43,16 @@ public class SearchTripHelper {
             String _arrive = null;
             String _depart = null;
             try {
-                _arrive = unicodeToAscii(trip.getArrive().getName());
-                _depart = unicodeToAscii(trip.getDepart().getName());
+                String[] name = trip.getName().split(" - ");
+                _arrive = unicodeToAscii(name[0]);
+                _depart = unicodeToAscii(name[1]);
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
 
             if (compare(arrive, _arrive) && compare(depart, _depart))
                 result.add(trip);
-        }*/
+        }
 
         return result;
     }

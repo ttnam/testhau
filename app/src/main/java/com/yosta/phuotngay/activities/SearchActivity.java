@@ -26,6 +26,7 @@ public class SearchActivity extends ActivityBehavior {
     @Override
     protected void onStart() {
         super.onStart();
+        onApplyComponents();
         Intent intent = this.getIntent();
         trips = (FirebaseTrips) intent.getSerializableExtra(AppHelper.EXTRA_TRIPS);
         if (trips != null) {
