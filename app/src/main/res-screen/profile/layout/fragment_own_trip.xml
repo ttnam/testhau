@@ -11,7 +11,7 @@
         android:layout_height="?actionBarSize"
         app:layoutBackground="@color/colorPrimary"
         app:layoutTitle="@string/all_your_trip"
-        app:layoutType="title_center" />
+        app:layoutType="title_left" />
 
     <include layout="@layout/layout_separate_vertical" />
 
@@ -27,23 +27,6 @@
         app:tabMode="scrollable"
         app:tabSelectedTextColor="@color/colorAccentDark" />
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <include layout="@layout/layout_recycler_view" />
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@id/fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:layout_margin="@dimen/margin"
-            app:elevation="5dp"
-            app:fabSize="normal"
-            app:rippleColor="@color/colorAccentDark"
-            app:srcCompat="@drawable/ic_vector_send_01" />
-
-    </FrameLayout>
+    <include layout="@layout/layout_recycler_view" />
 
 </LinearLayout>

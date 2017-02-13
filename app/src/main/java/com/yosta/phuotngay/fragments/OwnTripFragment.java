@@ -23,6 +23,8 @@ import com.yosta.phuotngay.ui.listeners.RecyclerItemClickListener;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import jp.wasabeef.recyclerview.animators.FadeInLeftAnimator;
+import jp.wasabeef.recyclerview.animators.SlideInDownAnimator;
+import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator;
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 
 public class OwnTripFragment extends Fragment {
@@ -51,7 +53,7 @@ public class OwnTripFragment extends Fragment {
         ButterKnife.bind(this, rootView);
         this.groupAdapter = new GroupAdapter(mContext);
 
-        mOwnToolbar.setRight(R.drawable.ic_vector_menu, new View.OnClickListener() {
+        mOwnToolbar.setRight(R.drawable.ic_vector_add_group, new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -73,11 +75,9 @@ public class OwnTripFragment extends Fragment {
 
     private void onApplyRecyclerView() {
         this.recyclerView.setHasFixedSize(true);
-        this.recyclerView.setItemAnimator(new SlideInUpAnimator());
+        this.recyclerView.setItemAnimator(new SlideInLeftAnimator());
         this.recyclerView.setRecycledViewPool(new RecyclerView.RecycledViewPool());
         this.recyclerView.addItemDecoration(new SpacesItemDecoration(16));
-        this.recyclerView.setItemAnimator(new FadeInLeftAnimator());
-
         LinearLayoutManager layoutManager = new LinearLayoutManager(this.mContext, LinearLayoutManager.VERTICAL, false);
         this.recyclerView.setNestedScrollingEnabled(false);
         this.recyclerView.setLayoutManager(layoutManager);
@@ -99,7 +99,23 @@ public class OwnTripFragment extends Fragment {
         this.mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                Toast.makeText(mContext, tab.getPosition() + "", Toast.LENGTH_SHORT).show();
+                int pos = tab.getPosition();
+                groupAdapter.clear();
+                int k = 10;
+                switch (pos) {
+                    case 0:
+                        k = 13;
+                        break;
+                    case 1:
+                        k = 20;
+                        break;
+                    case 2:
+                        k = 30;
+                        break;
+                }
+                for (int i = 0; i < k; i++) {
+                    groupAdapter.add(new FirebaseGroup());
+                }
             }
 
             @Override
