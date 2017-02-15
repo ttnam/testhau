@@ -1,15 +1,18 @@
 package com.yosta.phuotngay.activities;
 
 import android.content.Intent;
-import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.yosta.phuotngay.R;
 import com.yosta.phuotngay.adapters.TripAdapter;
+import com.yosta.phuotngay.firebase.model.FirebaseTrip;
 import com.yosta.phuotngay.firebase.model.FirebaseTrips;
 import com.yosta.phuotngay.helpers.AppHelper;
 import com.yosta.phuotngay.ui.decoration.SpacesItemDecoration;
 import com.yosta.phuotngay.interfaces.ActivityBehavior;
+import com.yosta.phuotngay.ui.listeners.RecyclerItemClickListener;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -50,23 +53,22 @@ public class SearchActivity extends ActivityBehavior {
         this.rvTrip.setHasFixedSize(true);
         this.rvTrip.setNestedScrollingEnabled(false);
         this.rvTrip.setItemAnimator(new SlideInUpAnimator());
-        ///this.rvTrip.addOnItemTouchListener(tripItemClickListener);
+        this.rvTrip.addOnItemTouchListener(new RecyclerItemClickListener(this,
+                new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        FirebaseTrip trip = tripAdapter.getItem(position);
+                        if (trip != null) {
+                            Intent intent = new Intent(SearchActivity.this, TripDetailActivity.class);
+                            intent.putExtra(AppHelper.EXTRA_TRIP, trip);
+                            startActivity(intent);
+                        }
+                    }
+                }));
         this.rvTrip.addItemDecoration(new SpacesItemDecoration(3));
         this.rvTrip.setRecycledViewPool(new RecyclerView.RecycledViewPool());
-        this.rvTrip.setLayoutManager(new GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false));
+        this.rvTrip.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         this.rvTrip.setAdapter(this.tripAdapter);
     }
-/*
-    private RecyclerItemClickListener tripItemClickListener = new RecyclerItemClickListener(this,
-            new RecyclerItemClickListener.OnItemClickListener() {
-                @Override
-                public void onItemClick(View view, int position) {
-                    FirebaseTrip trip = tripAdapter.getItem(position);
-                    if (trip != null) {
-                        Intent intent = new Intent(SearchActivity.this, TripDetailActivity.class);
-                        intent.putExtra(AppUtils.EXTRA_TRIP, trip);
-                        startActivity(intent);
-                    }
-                }
-            });*/
+
 }
