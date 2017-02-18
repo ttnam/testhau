@@ -1,4 +1,4 @@
-package com.yosta.phuotngay.activities;
+package com.yosta.phuotngay.activities.trip;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,6 +20,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 import com.yosta.materialdialog.StandardDialog;
 import com.yosta.phuotngay.R;
+import com.yosta.phuotngay.activities.RatingActivity;
 import com.yosta.phuotngay.dialogs.DialogComment;
 import com.yosta.phuotngay.firebase.FirebaseManager;
 import com.yosta.phuotngay.firebase.adapter.FirebaseActivityAdapter;

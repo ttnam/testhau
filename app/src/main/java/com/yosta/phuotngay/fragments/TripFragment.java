@@ -4,25 +4,19 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 import com.yosta.phuotngay.R;
-import com.yosta.phuotngay.activities.MainActivity;
-import com.yosta.phuotngay.activities.TripDetailActivity;
-import com.yosta.phuotngay.adapters.FilterAdapter;
+import com.yosta.phuotngay.activities.trip.TripDetailActivity;
 import com.yosta.phuotngay.dialogs.DialogFilter;
 import com.yosta.phuotngay.firebase.adapter.FirebaseTripAdapter;
 import com.yosta.phuotngay.firebase.FirebaseManager;
 import com.yosta.phuotngay.helpers.AppHelper;
 import com.yosta.phuotngay.ui.OwnToolBar;
-import com.yosta.phuotngay.ui.decoration.SpacesItemDecoration;
 import com.yosta.phuotngay.ui.listeners.RecyclerItemClickListener;
 import com.yosta.phuotngay.firebase.model.FirebaseTrip;
 import com.yosta.phuotngay.models.app.MessageInfo;
@@ -85,7 +79,6 @@ public class TripFragment extends Fragment {
     }
 
     private void onInitializeTrip(Context context) {
-
         this.rvTrip.setHasFixedSize(true);
         this.rvTrip.setItemAnimator(new SlideInUpAnimator());
         this.rvTrip.setRecycledViewPool(new RecyclerView.RecycledViewPool());

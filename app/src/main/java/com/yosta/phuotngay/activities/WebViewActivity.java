@@ -26,7 +26,6 @@ public class WebViewActivity extends ActivityBehavior {
         return super.onKeyDown(keyCode, event);
     }
 
-    @Override
     public void onClose() {
         web_view.clearCache(true);
         web_view.clearHistory();

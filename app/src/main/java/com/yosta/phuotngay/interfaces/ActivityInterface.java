@@ -11,8 +11,6 @@ public interface ActivityInterface {
 
     void onApplyData();
 
-    void onClose();
-
     void onApplyFont();
 
 }

@@ -8,7 +8,7 @@ import android.support.v7.widget.AppCompatImageView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.yosta.phuotngay.R;
-import com.yosta.phuotngay.activities.base.ActivityBehavior;
+import com.yosta.phuotngay.interfaces.ActivityBehavior;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

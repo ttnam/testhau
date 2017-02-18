@@ -64,17 +64,15 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Fullscreen">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".activities.SplashActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Fullscreen" />
+            android:theme="@style/AppTheme.Fullscreen">
+
+        </activity>
         <activity
             android:name=".activities.LoginActivity"
             android:launchMode="singleTask"
@@ -84,7 +82,7 @@
             android:launchMode="singleTask"
             android:theme="@style/AppTheme.Fullscreen" />
         <activity
-            android:name=".activities.TripDetailActivity"
+            android:name=".activities.trip.TripDetailActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
@@ -94,7 +92,7 @@
             android:launchMode="singleInstance"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".activities.OwnTripActivity"
+            android:name=".activities.trip.OwnTripActivity"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".activities.CreateTripActivity"
@@ -106,7 +104,7 @@
         <activity
             android:name=".activities.RatingActivity"
             android:launchMode="singleInstance"
-            android:parentActivityName=".activities.TripDetailActivity"
+            android:parentActivityName=".activities.trip.TripDetailActivity"
             android:theme="@style/AppTheme.White" />
         <activity
             android:name=".activities.WelcomeActivity"
@@ -114,10 +112,19 @@
             android:parentActivityName=".activities.MainActivity"
             android:theme="@style/AppTheme.White" />
         <activity
-            android:name=".activities.GroupDetailActivity"
+            android:name=".activities.group.GroupDetailActivity"
             android:launchMode="singleInstance"
             android:parentActivityName=".activities.MainActivity"
             android:theme="@style/AppTheme.White" />
+        <activity
+            android:name=".activities.group.AddGroupActivity"
+            android:theme="@style/AppTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

@@ -1,4 +1,4 @@
-package com.yosta.phuotngay.activities;
+package com.yosta.phuotngay.activities.group;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

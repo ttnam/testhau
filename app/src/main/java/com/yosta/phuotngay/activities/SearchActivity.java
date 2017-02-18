@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.yosta.phuotngay.R;
+import com.yosta.phuotngay.activities.trip.TripDetailActivity;
 import com.yosta.phuotngay.adapters.TripAdapter;
 import com.yosta.phuotngay.firebase.model.FirebaseTrip;
 import com.yosta.phuotngay.firebase.model.FirebaseTrips;

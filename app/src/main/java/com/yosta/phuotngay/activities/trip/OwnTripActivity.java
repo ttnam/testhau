@@ -1,4 +1,4 @@
-package com.yosta.phuotngay.activities;
+package com.yosta.phuotngay.activities.trip;
 
 import android.content.Context;
 import android.support.v4.view.ViewPager;

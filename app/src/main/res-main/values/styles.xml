@@ -70,7 +70,7 @@
         <item name="android:backgroundDimAmount">0.7</item>
     </style>
 
-    <style name="AppTheme.SettingMenuIcon" parent="AppTheme">
+    <style name="AppTheme.IconClick" parent="AppTheme">
         <item name="android:background">?attr/selectableItemBackground</item>
         <item name="android:clickable">true</item>
         <item name="android:scaleType">centerInside</item>

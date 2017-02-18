@@ -10,10 +10,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.yosta.phuotngay.R;
-import com.yosta.phuotngay.activities.GroupDetailActivity;
+import com.yosta.phuotngay.activities.group.GroupDetailActivity;
 import com.yosta.phuotngay.adapters.GroupAdapter;
 import com.yosta.phuotngay.firebase.model.FirebaseGroup;
 import com.yosta.phuotngay.ui.OwnToolBar;
@@ -22,10 +21,7 @@ import com.yosta.phuotngay.ui.listeners.RecyclerItemClickListener;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import jp.wasabeef.recyclerview.animators.FadeInLeftAnimator;
-import jp.wasabeef.recyclerview.animators.SlideInDownAnimator;
 import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator;
-import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 
 public class OwnTripFragment extends Fragment {
 

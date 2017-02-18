@@ -33,7 +33,7 @@
                 android:textSize="@dimen/text_size_v3" />
 
             <android.support.v7.widget.AppCompatImageView
-                style="@style/AppTheme.SettingMenuIcon"
+                style="@style/AppTheme.IconClick"
                 android:layout_width="@dimen/icon_size_x4"
                 android:layout_height="@dimen/icon_size_x4"
                 android:layout_gravity="center"
