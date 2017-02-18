@@ -51,7 +51,7 @@ public class FriendAdapter extends RecyclerView.Adapter<FirebaseFriendViewHolder
     }
 
     public FirebaseFriend getItem(int position) {
-        if (position < 1 || position >= getItemCount()) {
+        if (position < 0 || position >= getItemCount()) {
             return null;
         }
         return this.mTrips.get(position);

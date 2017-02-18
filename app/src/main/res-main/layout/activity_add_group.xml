@@ -9,8 +9,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layoutBackground="@color/colorPrimary"
-        app:layoutTitle="@string/str_create_group"
+        app:layoutTitle="@string/str_groups"
         app:layoutType="title_center" />
+
+    <TextView
+        style="@style/AppTheme.TextView_Sub_Title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:gravity="center"
+        android:maxLines="2"
+        android:minLines="1"
+        android:padding="@dimen/margin_x2"
+        android:text="Create group which will help you manage the trip better" />
+
+    <include layout="@layout/layout_separate_vertical" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -32,14 +45,12 @@
             android:layout_height="?actionBarSize"
             android:layout_gravity="center"
             android:layout_marginEnd="@dimen/margin"
-            android:layout_marginLeft="@dimen/margin"
-            android:layout_marginRight="@dimen/margin"
-            android:layout_marginStart="@dimen/margin">
+            android:layout_marginRight="@dimen/margin">
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="Tên group"
+                android:hint="@string/str_group_name"
                 android:inputType="text"
                 android:maxLines="1"
                 android:minLines="1" />
@@ -48,34 +59,41 @@
 
     </LinearLayout>
 
-    <android.support.v4.widget.NestedScrollView
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view_res"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:layout_margin="@dimen/margin"
+        android:background="@android:color/transparent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+    <TextView
+        style="@style/AppTheme.TextView_Sub_Title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:gravity="center"
+        android:maxLines="1"
+        android:minLines="1"
+        android:padding="@dimen/margin_x2"
+        android:text="Invite your fiends who go with you" />
+
+    <include layout="@layout/layout_separate_vertical" />
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+        <include layout="@layout/layout_recycler_view" />
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recycler_view_add_friends"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@android:color/transparent"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-
-            <include layout="@layout/layout_recycler_view" />
-
-        </LinearLayout>
-
-    </android.support.v4.widget.NestedScrollView>
+    </RelativeLayout>
 
     <Button
         style="@style/AppTheme.TextView_Title.Bold.White"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/ic_style_button_round_none_accent_dark"
-        android:text="@string/str_create_group" />
+        android:text="@string/str_continue" />
 
 </LinearLayout>

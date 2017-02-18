@@ -5,6 +5,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
 import com.yosta.phuotngay.R;
 import com.yosta.phuotngay.firebase.model.FirebaseFriend;
@@ -22,6 +24,9 @@ public class FriendsResAdapter extends RecyclerView.Adapter<FirebaseFriendResVie
     private Context mContext = null;
     private List<FirebaseFriend> mTrips = null;
 
+    private int lastPosition = -1;
+
+
     public FriendsResAdapter(Context context) {
         this.mContext = context;
         this.mTrips = new ArrayList<>();
@@ -29,8 +34,7 @@ public class FriendsResAdapter extends RecyclerView.Adapter<FirebaseFriendResVie
 
     @Override
     public FirebaseFriendResViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
-        View itemLayoutView = LayoutInflater.from(mContext).inflate(R.layout.item_friend_type_1, null);
+        View itemLayoutView = LayoutInflater.from(mContext).inflate(R.layout.item_friend_type_2, null);
         return new FirebaseFriendResViewHolder(itemLayoutView);
     }
 
@@ -57,11 +61,10 @@ public class FriendsResAdapter extends RecyclerView.Adapter<FirebaseFriendResVie
         return this.mTrips.get(position);
     }
 
-    public int add(FirebaseFriend trip) {
+    public void add(FirebaseFriend trip) {
         this.mTrips.add(trip);
-        int index = this.mTrips.size() - 1;
-        notifyItemChanged(index);
-        return index;
+        notifyDataSetChanged();
+        notifyItemInserted(this.mTrips.size() - 1);
     }
 
     public void remove(int position) {
