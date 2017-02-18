@@ -118,7 +118,8 @@
             android:theme="@style/AppTheme.White" />
         <activity
             android:name=".activities.group.AddGroupActivity"
-            android:theme="@style/AppTheme">
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

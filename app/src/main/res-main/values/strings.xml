@@ -17,6 +17,8 @@
     <string name="all_your_trip">Your trips</string>
     <string name="all_noti">Notification</string>
     <string name="all_search">Search</string>
+    <string name="all_invite">Invite</string>
+    <string name="all_invited">Invited</string>
     <string name="all_filter">Filter</string>
 
     <!-- start profile-->
@@ -124,6 +126,7 @@
     <string name="max_distance_hint">(in km)</string>
     <string name="apply_filter">APPLY FILTER</string>
     <string name="title_activity_main2">Main2Activity</string>
+    <string name="str_create_group">Tạo group</string>
 
 
 </resources>
