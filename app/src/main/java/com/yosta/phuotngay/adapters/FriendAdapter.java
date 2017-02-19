@@ -9,6 +9,9 @@ import android.view.ViewGroup;
 import com.yosta.phuotngay.R;
 import com.yosta.phuotngay.firebase.model.FirebaseFriend;
 import com.yosta.phuotngay.firebase.viewhd.FirebaseFriendViewHolder;
+import com.yosta.phuotngay.interfaces.ItemClickCallBack;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,10 +24,12 @@ public class FriendAdapter extends RecyclerView.Adapter<FirebaseFriendViewHolder
 
     private Context mContext = null;
     private List<FirebaseFriend> mTrips = null;
+    private ItemClickCallBack itemClickCallBack;
 
-    public FriendAdapter(Context context) {
+    public FriendAdapter(Context context, @NotNull ItemClickCallBack callBack) {
         this.mContext = context;
         this.mTrips = new ArrayList<>();
+        this.itemClickCallBack = callBack;
     }
 
     @Override
@@ -37,7 +42,7 @@ public class FriendAdapter extends RecyclerView.Adapter<FirebaseFriendViewHolder
     @Override
     public void onBindViewHolder(FirebaseFriendViewHolder holder, int position) {
         FirebaseFriend trip = mTrips.get(position);
-        holder.onBind(trip);
+        holder.onBind(trip, itemClickCallBack);
     }
 
     @Override

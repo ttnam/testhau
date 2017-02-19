@@ -5,8 +5,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 
 import com.yosta.phuotngay.R;
 import com.yosta.phuotngay.firebase.model.FirebaseFriend;
@@ -23,9 +21,6 @@ public class FriendsResAdapter extends RecyclerView.Adapter<FirebaseFriendResVie
 
     private Context mContext = null;
     private List<FirebaseFriend> mTrips = null;
-
-    private int lastPosition = -1;
-
 
     public FriendsResAdapter(Context context) {
         this.mContext = context;
@@ -64,12 +59,30 @@ public class FriendsResAdapter extends RecyclerView.Adapter<FirebaseFriendResVie
     public void add(FirebaseFriend trip) {
         this.mTrips.add(trip);
         notifyDataSetChanged();
-        notifyItemInserted(this.mTrips.size() - 1);
     }
 
     public void remove(int position) {
+        if (this.mTrips == null || this.mTrips.size() < 1) {
+            return;
+        }
         this.mTrips.remove(position);
         notifyItemRemoved(position);
+    }
+
+    public void remove(long id) {
+        FirebaseFriend friend = null;
+        int size = mTrips.size();
+        if (this.mTrips == null || size < 1) {
+            return;
+        }
+        for (int i = 0; i < size; i++) {
+            if (mTrips.get(i).getId() == id) {
+                friend = mTrips.get(i);
+                break;
+            }
+        }
+        this.mTrips.remove(friend);
+        notifyDataSetChanged();
     }
 
     public void clear() {

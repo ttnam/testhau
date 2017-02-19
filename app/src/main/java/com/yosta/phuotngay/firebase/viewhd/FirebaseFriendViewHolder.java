@@ -10,6 +10,8 @@ import android.widget.LinearLayout;
 
 import com.yosta.phuotngay.R;
 import com.yosta.phuotngay.firebase.model.FirebaseFriend;
+import com.yosta.phuotngay.interfaces.ItemClickCallBack;
+import com.yosta.phuotngay.models.app.MessageType;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -24,6 +26,8 @@ public class FirebaseFriendViewHolder extends RecyclerView.ViewHolder {
     private Context mContext;
     private boolean toggle = false;
     private Resources resources = null;
+    private ItemClickCallBack itemClickCallBack;
+
     @BindView(R.id.button)
     Button button;
 
@@ -45,14 +49,16 @@ public class FirebaseFriendViewHolder extends RecyclerView.ViewHolder {
             button.setBackground(resources.getDrawable(R.drawable.ic_style_rect_round_corners_accent_white));
             button.setTextColor(resources.getColor(R.color.colorAccentDark));
             button.setText(resources.getString(R.string.all_invited));
+            itemClickCallBack.onClick(MessageType.ITEM_CLICK_INVITED, getAdapterPosition());
         } else {
             button.setBackground(resources.getDrawable(R.drawable.ic_style_button_round_corners_accent_reflector));
             button.setTextColor(resources.getColor(android.R.color.white));
             button.setText(resources.getString(R.string.all_invite));
+            itemClickCallBack.onClick(MessageType.ITEM_CLICK_INVITE, getAdapterPosition());
         }
     }
 
-    public void onBind(FirebaseFriend group) {
-
+    public void onBind(FirebaseFriend group, ItemClickCallBack callBack) {
+        this.itemClickCallBack = callBack;
     }
 }

@@ -7,9 +7,15 @@ import java.io.Serializable;
  */
 public class FirebaseFriend implements Serializable {
 
+    private long id;
     private String name;
 
+    private FirebaseFriend(long id) {
+        this.id = id;
+    }
+
     public FirebaseFriend() {
+        this(System.currentTimeMillis());
         name = "BAC " + System.currentTimeMillis();
     }
 
@@ -25,5 +31,9 @@ public class FirebaseFriend implements Serializable {
     @Override
     public String toString() {
         return this.name;
+    }
+
+    public long getId() {
+        return id;
     }
 }

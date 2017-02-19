@@ -65,6 +65,7 @@
         android:layout_height="?actionBarSize"
         android:layout_margin="@dimen/margin"
         android:background="@android:color/transparent"
+        android:visibility="gone"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     <TextView
