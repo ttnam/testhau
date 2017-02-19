@@ -3,7 +3,6 @@ package com.yosta.phuotngay.firebase;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -17,7 +16,7 @@ import com.yosta.phuotngay.firebase.model.FirebaseTrip;
 import com.yosta.phuotngay.firebase.model.User;
 import com.yosta.phuotngay.helpers.SearchTripHelper;
 import com.yosta.phuotngay.helpers.StorageHelper;
-import com.yosta.phuotngay.interfaces.CallBackListener;
+import com.yosta.phuotngay.interfaces.CallBack;
 import com.yosta.phuotngay.models.app.MessageInfo;
 import com.yosta.phuotngay.models.app.MessageType;
 
@@ -131,7 +130,7 @@ public class    FirebaseManager {
         });
     }
 
-    public void onChangeRanking(String tripId, long value, final CallBackListener listener) {
+    public void onChangeRanking(String tripId, long value, final CallBack listener) {
         TRIP().child(tripId).child("ranking").setValue(value, new DatabaseReference.CompletionListener() {
             @Override
             public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
@@ -146,7 +145,7 @@ public class    FirebaseManager {
 
     public void onUpdateUserInfo(final User user) {
         user.setMemberShip(System.currentTimeMillis());
-        USER().child(user.getFirebaseId()).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+        USER().child(user.getFireBaseId()).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {

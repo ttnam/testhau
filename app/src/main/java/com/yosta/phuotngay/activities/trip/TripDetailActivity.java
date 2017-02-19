@@ -28,7 +28,7 @@ import com.yosta.phuotngay.helpers.AppHelper;
 import com.yosta.phuotngay.ui.decoration.SpacesItemDecoration;
 import com.yosta.phuotngay.interfaces.ActivityBehavior;
 import com.yosta.phuotngay.firebase.model.FirebaseTrip;
-import com.yosta.phuotngay.interfaces.CallBackListener;
+import com.yosta.phuotngay.interfaces.CallBack;
 import com.yosta.phuotngay.ui.bottomsheet.BottomSheetDialog;
 import com.yosta.phuotngay.ui.OwnToolBar;
 
@@ -168,7 +168,7 @@ public class TripDetailActivity extends ActivityBehavior {
                     @Override
                     public void onClick(View view) {
                         mFirebaseUtils.onChangeRanking(mCurrTrip.getTripId(), finalRanking,
-                                new CallBackListener() {
+                                new CallBack() {
                                     @Override
                                     public void run() {
                                         btnRanking.setText(String.valueOf(result));

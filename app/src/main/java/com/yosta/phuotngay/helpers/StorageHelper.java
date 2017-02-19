@@ -96,6 +96,11 @@ public class StorageHelper {
         String json = gson.toJson(user);
         return save(KEY_USER, json);
     }
+
+    public boolean IsUserLogin() {
+        User user = getUser();
+        return user != null && user.IsValid();
+    }
 }
 /*
 

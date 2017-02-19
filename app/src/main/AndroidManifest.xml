@@ -63,7 +63,7 @@
             android:name=".activities.MainActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Fullscreen"/>
+            android:theme="@style/AppTheme.Fullscreen" />
         <activity
             android:name=".activities.SplashActivity"
             android:launchMode="singleTask"
@@ -120,8 +120,8 @@
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".activities.user.FirstSetupActivity"
-            android:windowSoftInputMode="adjustResize"
-            android:theme="@style/AppTheme.Fullscreen" >
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -1,13 +1,14 @@
 package com.yosta.phuotngay.services;
 
-import com.yosta.phuotngay.models.user.AccessToken;
+import com.yosta.phuotngay.interfaces.CallBack;
+import com.yosta.phuotngay.interfaces.CallBackStringParam;
 
-import java.io.IOException;
+import org.jetbrains.annotations.NotNull;
 
-import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -17,38 +18,79 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class PhuotNgayService {
 
-    private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
+    public static String SERVER_DOMAIN = "http://phuotngay.jelasticlw.com.br/";
 
-    private static Retrofit.Builder builder =
-            new Retrofit.Builder()
-                    .baseUrl(IPhuotNgayService.API_BASE_URL)
-                    .addConverterFactory(GsonConverterFactory.create());
+    private static Retrofit retrofit = null;
+    private IPhuotNgayService service = null;
+    private static OkHttpClient.Builder httpClient = null;
+    private static PhuotNgayService mInstance = null;
 
-    public static <S> S createService(Class<S> serviceClass) {
-        Retrofit retrofit = builder.client(httpClient.build()).build();
+    private PhuotNgayService() {
+        httpClient = new OkHttpClient.Builder();
+        retrofit = new Retrofit.Builder()
+                .baseUrl(SERVER_DOMAIN)
+                .client(httpClient.build())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        service = retrofit.create(IPhuotNgayService.class);
+    }
+
+    public static PhuotNgayService connect() {
+        if (mInstance == null) {
+            mInstance = new PhuotNgayService();
+        }
+        return mInstance;
+    }
+
+    public static <S> S createService(
+            Class<S> serviceClass) {
         return retrofit.create(serviceClass);
     }
 
-    public static <S> S createService(Class<S> serviceClass, final AccessToken token) {
-        if (token != null) {
-            httpClient.addInterceptor(new Interceptor() {
-                @Override
-                public Response intercept(Interceptor.Chain chain) throws IOException {
-                    Request original = chain.request();
-
-                    Request.Builder requestBuilder = original.newBuilder()
-                            .header("Accept", MediaType.JSON)
-                            .header("Authorization", token.getTokenType() + " " + token.getAccessToken())
-                            .method(original.method(), original.body());
-
-                    Request request = requestBuilder.build();
-                    return chain.proceed(request);
+    public void onLogin(String email, String fbId, String firebaseUid,
+                        final CallBackStringParam success, final CallBackStringParam fail) {
+        Call<PhuotNgayResponse> call = service.login(email, fbId, firebaseUid);
+        call.enqueue(new Callback<PhuotNgayResponse>() {
+            @Override
+            public void onResponse(Call<PhuotNgayResponse> call, Response<PhuotNgayResponse> response) {
+                if (response.code() == 200) {
+                    PhuotNgayResponse res = response.body();
+                    if (res.getResponseCode() == 1) {
+                        success.run(res.getAuthen());
+                    } else {
+                        fail.run(res.getDescription());
+                    }
                 }
-            });
-        }
+            }
 
-        OkHttpClient client = httpClient.build();
-        Retrofit retrofit = builder.client(client).build();
-        return retrofit.create(serviceClass);
+            @Override
+            public void onFailure(Call<PhuotNgayResponse> call, Throwable t) {
+                fail.run(t.getMessage());
+            }
+        });
+    }
+
+    public void onUpdate(@NotNull String authen, @NotNull String email, @NotNull String firstName, @NotNull String lastName,
+                         @NotNull String gender, @NotNull String avatar, final CallBack success, final CallBackStringParam fail) {
+
+        Call<PhuotNgayResponse> call = service.updateProfile(authen, email, firstName, lastName, gender, avatar);
+        call.enqueue(new Callback<PhuotNgayResponse>() {
+            @Override
+            public void onResponse(Call<PhuotNgayResponse> call, Response<PhuotNgayResponse> response) {
+                if (response.code() == 200) {
+                    PhuotNgayResponse res = response.body();
+                    if (res.getResponseCode() == 1) {
+                        success.run();
+                    } else {
+                        fail.run(res.getDescription());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<PhuotNgayResponse> call, Throwable t) {
+                fail.run(t.getMessage());
+            }
+        });
     }
 }

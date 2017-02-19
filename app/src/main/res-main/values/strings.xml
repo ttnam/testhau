@@ -28,6 +28,8 @@
     <string name="profile"> Profile                             </string>
     <string name="profile_edit"> Edit                           </string>
     <string name="profile_name"> Name                           </string>
+    <string name="profile_first_name"> First name               </string>
+    <string name="profile_last_name"> Last name                 </string>
     <string name="profile_date_of_birth"> Date of Birth         </string>
     <string name="profile_membership"> Membership               </string>
     <string name="profile_email"> Email                         </string>

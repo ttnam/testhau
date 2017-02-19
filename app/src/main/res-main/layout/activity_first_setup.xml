@@ -1,55 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/colorPrimary">
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:orientation="vertical"
-        android:padding="@dimen/margin_x2">
+        android:orientation="vertical">
 
-        <android.support.v7.widget.AppCompatImageView
-            android:id="@id/image_view"
-            android:layout_width="@dimen/icon_size_x16"
-            android:layout_height="@dimen/icon_size_x16"
-            android:layout_gravity="center"
-            app:srcCompat="@drawable/ic_vector_male" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:orientation="vertical"
+            android:padding="@dimen/margin_x2">
 
-        <TextView
-            style="@style/AppTheme.TextView_Title.Bold"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_marginTop="@dimen/margin_x6"
-            android:gravity="center"
-            android:text="Let's get you set up"
-            android:textColor="@android:color/black"
-            android:textSize="@dimen/text_size_v2_5" />
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@id/image_view"
+                android:layout_width="@dimen/icon_size_x16"
+                android:layout_height="@dimen/icon_size_x16"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/margin_x4"
+                android:src="@drawable/ic_avatar" />
 
-        <TextView
-            style="@style/AppTheme.TextView_Sub_Title"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:padding="@dimen/margin_x2"
-            android:text="It's should be take a couple of minutes to pair with your watch"
-            android:textColor="@android:color/black"
-            android:textSize="@dimen/text_size_v2" />
+            <TextView
+                style="@style/AppTheme.TextView_Title.Bold"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/margin_x3"
+                android:gravity="center"
+                android:text="Let's get you set up"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/text_size_v2_5" />
 
-        <android.support.v7.widget.AppCompatImageView
-            android:id="@id/button"
-            style="@style/AppTheme.IconClick"
-            android:layout_width="@dimen/icon_size_x7"
-            android:layout_height="@dimen/icon_size_x7"
-            android:layout_gravity="center"
-            android:layout_marginTop="@dimen/margin_x2"
-            android:padding="@dimen/margin"
-            app:srcCompat="@drawable/ic_vector_next_1" />
+            <TextView
+                style="@style/AppTheme.TextView_Sub_Title"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:padding="@dimen/margin"
+                android:text="It's should be take a couple of minutes to pair with your watch"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/text_size_v2" />
+
+            <android.support.v7.widget.AppCompatImageView
+                style="@style/AppTheme.IconClick"
+                android:layout_width="@dimen/icon_size_x7"
+                android:layout_height="@dimen/icon_size_x7"
+                android:layout_gravity="center"
+                android:padding="@dimen/margin"
+                app:srcCompat="@drawable/ic_vector_up" />
+        </LinearLayout>
+
+        <include layout="@layout/view_dialog_user_info" />
+
     </LinearLayout>
 
-</RelativeLayout>
+</android.support.v4.widget.NestedScrollView>
+

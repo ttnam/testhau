@@ -29,8 +29,6 @@ public class UserManager {
             URL profile_pic = new URL("https://graph.facebook.com/" + id + "/picture?width=200&height=150");
             user.setAvatar(profile_pic.toString());
             user.setFbId(id);
-            if (object.has("cover"))
-                user.setCover(object.getString("cover"));
             if (object.has("first_name"))
                 user.setFirstName(object.getString("first_name"));
             if (object.has("last_name"))
