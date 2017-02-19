@@ -44,4 +44,8 @@ public class ValidateHelper {
         return true;
     }
 
+    public static boolean IsNotEmpty(String text) {
+        return text != null && !text.equals("") && text.length() > 0;
+    }
+
 }

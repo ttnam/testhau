@@ -147,7 +147,7 @@ public class DialogLogin /*extends Dialog implements DialogBehavior */{
         PhuotNgayApiService.inject(ownerActivity)
                 .ApiLogin(userName, passWord, new Callback<String>() {
                     @Override
-                    public void onResponse(Call<String> call, PhuotNgayResponse<String> response) {
+                    public void onResponse(Call<String> call, LoginResponse<String> response) {
                         int code = response.code();
                         if (code == 200) {
 

@@ -2,8 +2,12 @@ package com.yosta.phuotngay.services;
 
 import com.yosta.phuotngay.interfaces.CallBack;
 import com.yosta.phuotngay.interfaces.CallBackStringParam;
+import com.yosta.phuotngay.services.model.BaseResponse;
+import com.yosta.phuotngay.services.model.LoginResponse;
 
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Map;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Call;
@@ -42,19 +46,14 @@ public class PhuotNgayService {
         return mInstance;
     }
 
-    public static <S> S createService(
-            Class<S> serviceClass) {
-        return retrofit.create(serviceClass);
-    }
-
     public void onLogin(String email, String fbId, String firebaseUid,
                         final CallBackStringParam success, final CallBackStringParam fail) {
-        Call<PhuotNgayResponse> call = service.login(email, fbId, firebaseUid);
-        call.enqueue(new Callback<PhuotNgayResponse>() {
+        Call<LoginResponse> call = service.login(email, fbId, firebaseUid);
+        call.enqueue(new Callback<LoginResponse>() {
             @Override
-            public void onResponse(Call<PhuotNgayResponse> call, Response<PhuotNgayResponse> response) {
+            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                 if (response.code() == 200) {
-                    PhuotNgayResponse res = response.body();
+                    LoginResponse res = response.body();
                     if (res.getResponseCode() == 1) {
                         success.run(res.getAuthen());
                     } else {
@@ -64,31 +63,30 @@ public class PhuotNgayService {
             }
 
             @Override
-            public void onFailure(Call<PhuotNgayResponse> call, Throwable t) {
+            public void onFailure(Call<LoginResponse> call, Throwable t) {
                 fail.run(t.getMessage());
             }
         });
     }
 
-    public void onUpdate(@NotNull String authen, @NotNull String email, @NotNull String firstName, @NotNull String lastName,
-                         @NotNull String gender, @NotNull String avatar, final CallBack success, final CallBackStringParam fail) {
+    public void onUpdate(String authen, @NotNull Map<String, String> data, final CallBack success, final CallBackStringParam fail) {
 
-        Call<PhuotNgayResponse> call = service.updateProfile(authen, email, firstName, lastName, gender, avatar);
-        call.enqueue(new Callback<PhuotNgayResponse>() {
+        Call<BaseResponse> call = service.updateProfile(authen, data);
+        call.enqueue(new Callback<BaseResponse>() {
             @Override
-            public void onResponse(Call<PhuotNgayResponse> call, Response<PhuotNgayResponse> response) {
+            public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
                 if (response.code() == 200) {
-                    PhuotNgayResponse res = response.body();
-                    if (res.getResponseCode() == 1) {
+                    BaseResponse baseResponse = response.body();
+                    if (baseResponse.getResponseCode() == 1) {
                         success.run();
                     } else {
-                        fail.run(res.getDescription());
+                        fail.run(baseResponse.getDescription());
                     }
                 }
             }
 
             @Override
-            public void onFailure(Call<PhuotNgayResponse> call, Throwable t) {
+            public void onFailure(Call<BaseResponse> call, Throwable t) {
                 fail.run(t.getMessage());
             }
         });

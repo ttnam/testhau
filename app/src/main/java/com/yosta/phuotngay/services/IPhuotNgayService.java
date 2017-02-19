@@ -1,9 +1,13 @@
 package com.yosta.phuotngay.services;
 
-import com.yosta.phuotngay.models.user.AccessToken;
+import com.yosta.phuotngay.services.model.BaseResponse;
+import com.yosta.phuotngay.services.model.LoginResponse;
+
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
+import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
@@ -16,27 +20,14 @@ import retrofit2.http.PUT;
 public interface IPhuotNgayService {
 
     @FormUrlEncoded
-    @POST("/token")
-    Call<AccessToken> getAccessToken(
-            @Field("code") String code,
-            @Field("grant_type") String grantType);
-
-    @FormUrlEncoded
     @POST("api/user/login")
-    Call<PhuotNgayResponse> login(
+    Call<LoginResponse> login(
             @Field("email") String email,
             @Field("fbId") String fbId,
             @Field("firebaseUid") String firebaseUid
     );
 
     @FormUrlEncoded
-    @PUT("api/user/login")
-    Call<PhuotNgayResponse> updateProfile(
-            @Header("authen") String contentRange,
-            @Field("email") String email,
-            @Field("firstName") String firstName,
-            @Field("lastName") String lastName,
-            @Field("gender") String gender,
-            @Field("avatar") String avatar
-    );
+    @PUT("api/user")
+    Call<BaseResponse> updateProfile(@Header("authen") String authen, @FieldMap Map<String, String> fieldsFieldMap);
 }
