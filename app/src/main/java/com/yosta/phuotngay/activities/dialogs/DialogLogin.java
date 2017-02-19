@@ -1,28 +1,4 @@
-package com.yosta.phuotngay.dialogs;
-
-import android.app.Activity;
-import android.app.Dialog;
-import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
-import android.support.design.widget.TextInputEditText;
-import android.text.Editable;
-import android.text.TextUtils;
-import android.text.TextWatcher;
-import android.view.KeyEvent;
-import android.view.View;
-import android.view.Window;
-import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
-import android.widget.TextView;
-
-import com.yosta.phuotngay.R;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+package com.yosta.phuotngay.activities.dialogs;
 
 /**
  * Created by Phuc-Hau Nguyen on 8/31/2016.

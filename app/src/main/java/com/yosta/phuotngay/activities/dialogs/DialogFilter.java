@@ -1,4 +1,4 @@
-package com.yosta.phuotngay.dialogs;
+package com.yosta.phuotngay.activities.dialogs;
 
 import android.app.Activity;
 import android.app.Dialog;

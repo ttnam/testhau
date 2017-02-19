@@ -20,12 +20,16 @@
     <string name="all_invite">Invite</string>
     <string name="all_invited">Invited</string>
     <string name="all_filter">Filter</string>
-
+    <string name="all_cancel">Cancel</string>
+    <string name="all_save">Save</string>
     <string name="str_continue">Continue</string>
 
     <!-- start profile-->
     <string name="profile"> Profile                             </string>
     <string name="profile_edit"> Edit                           </string>
+    <string name="profile_name"> Name                           </string>
+    <string name="profile_date_of_birth"> Date of Birth         </string>
+    <string name="profile_membership"> Membership               </string>
     <string name="profile_email"> Email                         </string>
     <string name="profile_sign_up"> Sign Up                     </string>
     <string name="profile_logout"> Log out                      </string>

@@ -1,49 +1,21 @@
 package com.yosta.phuotngay.activities;
 
-import android.Manifest;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.view.View;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
-
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.ValueEventListener;
 import com.yosta.materialspinner.MaterialSpinner;
 import com.yosta.phuotngay.R;
-import com.yosta.phuotngay.dialogs.DialogChooseImage;
 import com.yosta.phuotngay.firebase.FirebaseManager;
-import com.yosta.phuotngay.firebase.model.User;
 import com.yosta.phuotngay.interfaces.ActivityBehavior;
-import com.yosta.phuotngay.models.app.MessageInfo;
-import com.yosta.phuotngay.models.app.MessageType;
 import com.yosta.phuotngay.ui.OwnToolBar;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
-import permissions.dispatcher.NeedsPermission;
-import permissions.dispatcher.RuntimePermissions;
+
 /*
 @RuntimePermissions*/
 public class ProfileActivity extends ActivityBehavior {

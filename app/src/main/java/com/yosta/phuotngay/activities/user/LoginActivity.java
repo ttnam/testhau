@@ -1,4 +1,4 @@
-package com.yosta.phuotngay.activities;
+package com.yosta.phuotngay.activities.user;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -172,7 +172,7 @@ public class LoginActivity extends ActivityBehavior {
 
     @OnClick(R.id.btn_facebook)
     public void onFacebookLogin() {
-        loginButton.performClick();
+        // loginButton.performClick();
     }
 }
 

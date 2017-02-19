@@ -4,7 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.yosta.phuotngay.R;
-import com.yosta.phuotngay.dialogs.DialogTripInvite;
+import com.yosta.phuotngay.activities.dialogs.DialogTripInvite;
 
 public class WelcomeActivity extends AppCompatActivity {
 

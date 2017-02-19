@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:padding="@dimen/margin_x3">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_margin="@dimen/margin"
+        android:orientation="vertical">
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/margin_x2"
+            app:hintEnabled="false">
+
+            <android.support.design.widget.TextInputEditText
+                style="@style/AppTheme.TextView_Title.Bold"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/ic_style_rect_round_corners_gray_none"
+                android:ems="10"
+                android:hint="@string/profile_name"
+                android:inputType="text"
+                android:maxLines="1"
+                android:minLines="1"
+                android:paddingLeft="@dimen/margin_x2"
+                android:paddingRight="@dimen/margin_x2" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/margin_x2"
+            app:hintEnabled="false">
+
+            <android.support.design.widget.TextInputEditText
+                style="@style/AppTheme.TextView_Title.Bold"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/ic_style_rect_round_corners_gray_none"
+                android:ems="10"
+                android:hint="@string/profile_email"
+                android:inputType="textEmailAddress"
+                android:maxLines="1"
+                android:minLines="1"
+                android:paddingLeft="@dimen/margin_x2"
+                android:paddingRight="@dimen/margin_x2" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/margin_x2"
+            app:hintEnabled="false">
+
+            <android.support.design.widget.TextInputEditText
+                style="@style/AppTheme.TextView_Title.Bold"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/ic_style_rect_round_corners_gray_none"
+                android:ems="10"
+                android:enabled="false"
+                android:hint="@string/profile_date_of_birth"
+                android:inputType="text"
+                android:maxLines="1"
+                android:minLines="1"
+                android:paddingLeft="@dimen/margin_x2"
+                android:paddingRight="@dimen/margin_x2" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/margin_x2"
+            app:hintEnabled="false">
+
+            <android.support.design.widget.TextInputEditText
+                style="@style/AppTheme.TextView_Title.Bold"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/ic_style_rect_round_corners_gray_none"
+                android:ems="10"
+                android:enabled="false"
+                android:hint="@string/profile_membership"
+                android:inputType="text"
+                android:maxLines="1"
+                android:minLines="1"
+                android:paddingLeft="@dimen/margin_x2"
+                android:paddingRight="@dimen/margin_x2" />
+        </android.support.design.widget.TextInputLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_x3"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <Button
+                android:id="@id/button_left"
+                style="@style/AppTheme.TextView_Title.Bold"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="@dimen/margin"
+                android:layout_marginRight="@dimen/margin"
+                android:layout_weight="1"
+                android:background="@drawable/ic_style_rect_round_corners_gray_none"
+                android:text="@string/all_cancel"
+                android:textAllCaps="true" />
+
+            <Button
+                android:id="@id/button_right"
+                style="@style/AppTheme.TextView_Title.Bold.White"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/margin"
+                android:layout_marginStart="@dimen/margin"
+                android:layout_weight="1"
+                android:background="@drawable/ic_style_button_round_corners_accent_dark"
+                android:text="@string/all_save"
+                android:textAllCaps="true" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

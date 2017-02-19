@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 
 import com.yosta.phuotngay.R;
 import com.yosta.phuotngay.activities.trip.TripDetailActivity;
-import com.yosta.phuotngay.dialogs.DialogFilter;
+import com.yosta.phuotngay.activities.dialogs.DialogFilter;
 import com.yosta.phuotngay.firebase.adapter.FirebaseTripAdapter;
 import com.yosta.phuotngay.firebase.FirebaseManager;
 import com.yosta.phuotngay.helpers.AppHelper;
