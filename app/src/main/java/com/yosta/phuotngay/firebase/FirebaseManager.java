@@ -135,7 +135,7 @@ public class    FirebaseManager {
             @Override
             public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
                 if (databaseError != null) {
-                    Log.e("Data couldn't be saved.", databaseError.getMessage());
+                    Log.e("LocationResponse couldn't be saved.", databaseError.getMessage());
                 } else {
                     listener.run();
                 }

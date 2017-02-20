@@ -9,8 +9,12 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.yosta.phuotngay.R;
 import com.yosta.phuotngay.activities.user.LoginActivity;
+import com.yosta.phuotngay.firebase.model.User;
 import com.yosta.phuotngay.helpers.StorageHelper;
 import com.yosta.phuotngay.interfaces.ActivityBehavior;
+import com.yosta.phuotngay.interfaces.CallBack;
+import com.yosta.phuotngay.interfaces.CallBackStringParam;
+import com.yosta.phuotngay.services.PhuotNgayService;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

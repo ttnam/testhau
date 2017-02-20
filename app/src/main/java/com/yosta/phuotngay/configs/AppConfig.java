@@ -2,8 +2,11 @@ package com.yosta.phuotngay.configs;
 
 import android.app.Application;
 
-import com.yosta.phuotngay.firebase.model.User;
-import com.yosta.phuotngay.helpers.AppHelper;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.iid.FirebaseInstanceId;
+
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
 
 /**
  * Created by Phuc-Hau Nguyen on 11/9/2016.
@@ -11,23 +14,32 @@ import com.yosta.phuotngay.helpers.AppHelper;
 
 public class AppConfig extends Application {
 
-    private static User mUser = null;
-    //private StorageHelper storageHelper = null;
-
     @Override
     public void onCreate() {
         super.onCreate();
+        initFireBase();
+        onApplyRealm();
+    }
 
-        // this.storageHelper = new StorageHelper(this);
-        //mUser = this.storageHelper.getUser();
+    private void initFireBase() {
+        FirebaseApp.initializeApp(this);
+        String token = FirebaseInstanceId.getInstance().getToken();
+    }
+
+    private void onApplyRealm() {
+        Realm.init(this);
+        final RealmConfiguration configuration = new RealmConfiguration
+                .Builder()
+                .name("PhuongNgay.realm")
+                .schemaVersion(1)
+                .build();
+        Realm.setDefaultConfiguration(configuration);
+        Realm.getInstance(configuration);
     }
 
     @Override
-    public void onLowMemory() {
-        super.onLowMemory();
+    public void onTerminate() {
+        Realm.getDefaultInstance().close();
+        super.onTerminate();
     }
-
-    /*public User getUser() {
-        return mUser;
-    }*/
 }

@@ -52,12 +52,12 @@ public class FirstSetupActivity extends ActivityBehavior {
     TextInputEditText editDob;
 
     private User user;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first_setup);
         ButterKnife.bind(this);
+
         onUpdateData();
         onApplyEvents();
     }
@@ -67,6 +67,7 @@ public class FirstSetupActivity extends ActivityBehavior {
     public void onBackPressed() {
         onUpdateDataToServer();
     }
+
     private void onUpdateData() {
         user = StorageHelper.inject(this).getUser();
         editFirstName.setText(user.getFirstName());
@@ -123,7 +124,6 @@ public class FirstSetupActivity extends ActivityBehavior {
             Toast.makeText(this, "Please fill in all of fields.", Toast.LENGTH_SHORT).show();
         }
     }
-
     @Override
     public void onApplyEvents() {
         editFirstName.addTextChangedListener(EventManager.connect().addTextWatcherEvent(new CallBack() {

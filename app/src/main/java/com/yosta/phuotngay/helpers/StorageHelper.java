@@ -13,17 +13,6 @@ import com.yosta.phuotngay.firebase.model.User;
 public class StorageHelper {
 
     public static final String KEY_USER = "KEY_USER";
-    public static final String KEY_USER_ID = "KEY_USER_ID";
-    public static final String KEY_LANGUAGE = "LANGUAGE";
-    public static final String KEY_USER_NAME = "KEY_USER_NAME";
-    public static final String KEY_USER_EMAIL = "KEY_USER_EMAIL";
-    public static final String KEY_USER_MEMBER_SHIP = "KEY_USER_MEMBER_SHIP";
-    public static final String KEY_USER_TOKEN = "KEY_USER_TOKEN";
-    public static final String KEY_USER_GENDER = "KEY_USER_GENDER";
-    public static final String KEY_APP_SETTING = "KEY_APP_SETTING";
-    public static final String KEY_USER_COVER_URL = "KEY_USER_COVER_URL";
-    public static final String KEY_USER_AVATAR_URL = "KEY_USER_AVATAR_URL";
-
 
     public static int KEY_LANGUAGE_MODE = 1;
 

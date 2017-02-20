@@ -7,6 +7,8 @@ import java.io.Serializable;
 @IgnoreExtraProperties
 public class User implements Serializable {
 
+    public static final String AUTHORIZATION = "AUTHORIZATION";
+
     private String fireBaseId;
     private String avatar;
     private String cover;

@@ -1,0 +1,11 @@
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <shortcut
+        android:enabled="true"
+        android:icon="@mipmap/ic_launcher">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="com.yosta.phuotngay.activities.SplashActivity"
+            android:targetPackage="com.yosta.phuotngay" />
+        <categories android:name="android.shortcut.conversation" />
+    </shortcut>
+</shortcuts>

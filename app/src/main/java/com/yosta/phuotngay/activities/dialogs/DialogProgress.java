@@ -6,9 +6,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatImageView;
 import android.view.Window;
-
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.yosta.phuotngay.R;
 
 import butterknife.BindView;
@@ -49,9 +46,5 @@ public class DialogProgress extends Dialog {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.view_dialog_progress);
         ButterKnife.bind(this);
-
-        Glide.with(getOwnerActivity())
-                .load(R.drawable.ic_launcher_anim)
-                .into(imageView);
     }
 }

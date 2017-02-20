@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.neenbedankt.android-apt'
 apply plugin: 'android-apt'
+apply plugin: 'realm-android'
 
 buildscript {
     repositories {
@@ -37,7 +38,6 @@ android {
         versionName "1.0" // Defines a user-friendly version name for your app.
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled true
-
     }
 
     signingConfigs {
@@ -69,6 +69,7 @@ android {
         exclude 'META-INF/NOTICE'
         exclude 'META-INF/LICENSE'
         exclude 'META-INF/LICENSE.txt'
+        exclude 'LICENSE.txt'
         exclude 'META-INF/NOTICE.txt'
         exclude 'META-INF/LICENSE-FIREBASE.txt'
     }
@@ -123,7 +124,6 @@ android {
 }
 
 dependencies {
-    final DAGGER_VERSION = '2.7'
     compile fileTree(include: ['*.jar'], dir: 'libs')
 
     // Local binary dependency
@@ -140,14 +140,6 @@ dependencies {
 
     // JSON Converter
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
-
-    // Google Dagger 2
-    compile 'com.google.dagger:dagger:2.0-SNAPSHOT'
-    compile "com.google.dagger:dagger:$DAGGER_VERSION"
-    apt 'com.google.dagger:dagger-compiler:2.0-SNAPSHOT'
-    apt "com.google.dagger:dagger-compiler:$DAGGER_VERSION"
-    provided 'javax.annotation:jsr250-api:1.0'
-    provided 'org.glassfish:javax.annotation:10.0-b28'
 
     // Google Support
     compile 'com.android.support:support-v4:24.2.1'
@@ -173,10 +165,6 @@ dependencies {
     // Glide
     compile 'com.github.bumptech.glide:glide:3.7.0'
 
-    //RxAndroid
-    compile 'io.reactivex:rxandroid:1.2.1'
-    compile 'io.reactivex:rxjava:1.1.6'
-
     // FB Fresco
     compile 'com.facebook.fresco:fresco:0.14.1'
 
@@ -184,6 +172,7 @@ dependencies {
     compile 'com.google.firebase:firebase-core:10.0.0'
     compile 'com.google.firebase:firebase-database:10.0.0'
     compile 'com.google.firebase:firebase-auth:10.0.0'
+    compile 'com.google.firebase:firebase-messaging:10.0.0'
     compile 'com.firebaseui:firebase-ui-database:1.0.1'
     compile 'com.firebase:firebase-client-android:2.3.1'
 

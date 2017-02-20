@@ -50,13 +50,13 @@ public class LoginActivity extends ActivityBehavior {
     LoginButton loginButton;
 
     private User user;
+    private DialogProgress progress = null;
 
     // Firebase instance variables
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private CallbackManager mCallbackManager;
 
-    private DialogProgress progress = null;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -64,7 +64,7 @@ public class LoginActivity extends ActivityBehavior {
         FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
-        progress = new DialogProgress(this);
+        this.progress = new DialogProgress(this);
     }
 
     @Override
@@ -118,13 +118,11 @@ public class LoginActivity extends ActivityBehavior {
 
             @Override
             public void onCancel() {
-                onHideDialog();
             }
 
             @Override
             public void onError(FacebookException error) {
                 Log.e(TAG, "facebook:onError", error);
-                onHideDialog();
             }
         });
     }
@@ -136,9 +134,9 @@ public class LoginActivity extends ActivityBehavior {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (!task.isSuccessful()) {
-                    onHideDialog();
                     Toast.makeText(LoginActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
                 } else {
+                    progress.show();
                     user.setFireBaseId(task.getResult().getUser().getUid());
                     onCallToServer(user);
                 }
@@ -162,7 +160,7 @@ public class LoginActivity extends ActivityBehavior {
 
     @OnClick(R.id.btn_facebook)
     public void onFacebookLogin() {
-        progress.show();
+
         loginButton.performClick();
     }
 
@@ -172,22 +170,23 @@ public class LoginActivity extends ActivityBehavior {
                 @Override
                 public void run(String authen) {
                     user.setAuthen(authen);
+                    dismissDialog();
+                    StorageHelper.inject(LoginActivity.this).save(User.AUTHORIZATION, authen);
                     StorageHelper.inject(LoginActivity.this).save(user);
-                    onHideDialog();
                     startActivity(new Intent(LoginActivity.this, FirstSetupActivity.class));
                     finish();
                 }
             }, new CallBackStringParam() {
                 @Override
                 public void run(String error) {
-                    onHideDialog();
                     Toast.makeText(LoginActivity.this, error, Toast.LENGTH_SHORT).show();
+                    dismissDialog();
                 }
             });
         }
     }
 
-    private void onHideDialog() {
+    private void dismissDialog() {
         if (progress.isShowing())
             progress.dismiss();
     }

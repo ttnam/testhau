@@ -1,9 +1,13 @@
 package com.yosta.phuotngay.services;
 
 import com.yosta.phuotngay.interfaces.CallBack;
+import com.yosta.phuotngay.interfaces.CallBackLocationsParam;
 import com.yosta.phuotngay.interfaces.CallBackStringParam;
-import com.yosta.phuotngay.services.model.BaseResponse;
-import com.yosta.phuotngay.services.model.LoginResponse;
+import com.yosta.phuotngay.interfaces.CallBackTripsParam;
+import com.yosta.phuotngay.services.response.BaseResponse;
+import com.yosta.phuotngay.services.response.LocationResponse;
+import com.yosta.phuotngay.services.response.LoginResponse;
+import com.yosta.phuotngay.services.response.TripResponse;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -54,8 +58,8 @@ public class PhuotNgayService {
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                 if (response.code() == 200) {
                     LoginResponse res = response.body();
-                    if (res.getResponseCode() == 1) {
-                        success.run(res.getAuthen());
+                    if (res.isSuccess()) {
+                        success.run(res.getAuthorization());
                     } else {
                         fail.run(res.getDescription());
                     }
@@ -77,7 +81,7 @@ public class PhuotNgayService {
             public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
                 if (response.code() == 200) {
                     BaseResponse baseResponse = response.body();
-                    if (baseResponse.getResponseCode() == 1) {
+                    if (baseResponse.isSuccess()) {
                         success.run();
                     } else {
                         fail.run(baseResponse.getDescription());
@@ -91,4 +95,49 @@ public class PhuotNgayService {
             }
         });
     }
+
+    public void onGetLocation(String authorization, final CallBackLocationsParam success, final CallBackStringParam fail) {
+        Call<LocationResponse> call = service.getLocations(authorization);
+        call.enqueue(new Callback<LocationResponse>() {
+            @Override
+            public void onResponse(Call<LocationResponse> call, Response<LocationResponse> response) {
+                if (response.code() == 200) {
+                    LocationResponse locationResponse = response.body();
+                    if (locationResponse.isSuccess()) {
+                        success.run(locationResponse.getLocations());
+                    } else {
+                        fail.run(locationResponse.getDescription());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<LocationResponse> call, Throwable t) {
+                fail.run(t.getMessage());
+            }
+        });
+    }
+
+    public void onGetTrips(String authorization, final CallBackTripsParam success, final CallBackStringParam fail) {
+        Call<TripResponse> call = service.getTrips(authorization);
+        call.enqueue(new Callback<TripResponse>() {
+            @Override
+            public void onResponse(Call<TripResponse> call, Response<TripResponse> response) {
+                if (response.code() == 200) {
+                    TripResponse tripResponse = response.body();
+                    if (tripResponse.isSuccess()) {
+                        success.run(tripResponse.getTrips());
+                    } else {
+                        fail.run(tripResponse.getDescription());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<TripResponse> call, Throwable t) {
+                fail.run(t.getMessage());
+            }
+        });
+    }
+
 }
