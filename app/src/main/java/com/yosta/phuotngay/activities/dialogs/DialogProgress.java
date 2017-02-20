@@ -19,40 +19,28 @@ import butterknife.ButterKnife;
  */
 public class DialogProgress extends Dialog {
 
+    private Activity mOwnerActivity = null;
 
     @BindView(R.id.image_view)
-    AppCompatImageView imgLauncher;
-
-    private Activity ownerActivity = null;
+    AppCompatImageView imageView;
 
     public DialogProgress(Context context) {
-        super(context);
-        setCancelable(true);
-        setCanceledOnTouchOutside(true);
-    }
-
-    public DialogProgress(Context context,
-                          boolean isCanceledOnTouchOutside,
-                          boolean isCancelable) {
         super(context, R.style.AppTheme_CustomDialog);
-        onAttachedWindow(context);
-        setCancelable(isCancelable);
-        setCanceledOnTouchOutside(isCanceledOnTouchOutside);
+        Window window = getWindow();
+        if (window != null) {
+            window.getAttributes().windowAnimations = R.style.AppTheme_AnimDialog_Grow;
+        }
+        this.mOwnerActivity = (context instanceof Activity) ? (Activity) context : null;
+        if (this.mOwnerActivity != null)
+            setOwnerActivity(mOwnerActivity);
+        setCancelable(false);
+        setCanceledOnTouchOutside(false);
     }
 
     @Override
     public void onAttachedToWindow() {
         super.onAttachedToWindow();
-        ownerActivity = getOwnerActivity();
-    }
-    public void onAttachedWindow(Context context) {
-        Window window = getWindow();
-        if (window != null) {
-            window.getAttributes().windowAnimations = R.style.AppTheme_AnimDialog_Grow;
-        }
-        ownerActivity = (context instanceof Activity) ? (Activity) context : null;
-        if (ownerActivity != null)
-            setOwnerActivity(ownerActivity);
+        this.mOwnerActivity = getOwnerActivity();
     }
 
     @Override
@@ -61,17 +49,9 @@ public class DialogProgress extends Dialog {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.view_dialog_progress);
         ButterKnife.bind(this);
-        onApplyComponents();
-    }
 
-    public void onApplyComponents() {
-        Glide.with(ownerActivity)
+        Glide.with(getOwnerActivity())
                 .load(R.drawable.ic_launcher_anim)
-                .asGif()
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .fitCenter()
-                .error(R.mipmap.ic_launcher)
-                .crossFade()
-                .into(imgLauncher);
+                .into(imageView);
     }
 }

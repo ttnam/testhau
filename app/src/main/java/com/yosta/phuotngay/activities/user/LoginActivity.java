@@ -25,7 +25,7 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.yosta.phuotngay.R;
-import com.yosta.phuotngay.firebase.FirebaseManager;
+import com.yosta.phuotngay.activities.dialogs.DialogProgress;
 import com.yosta.phuotngay.firebase.model.User;
 import com.yosta.phuotngay.firebase.model.UserManager;
 import com.yosta.phuotngay.helpers.StorageHelper;
@@ -49,12 +49,14 @@ public class LoginActivity extends ActivityBehavior {
     @BindView(R.id.button_facebook_login)
     LoginButton loginButton;
 
+    private User user;
+
     // Firebase instance variables
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private CallbackManager mCallbackManager;
 
-    private User user;
+    private DialogProgress progress = null;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -62,6 +64,7 @@ public class LoginActivity extends ActivityBehavior {
         FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
+        progress = new DialogProgress(this);
     }
 
     @Override
@@ -115,12 +118,13 @@ public class LoginActivity extends ActivityBehavior {
 
             @Override
             public void onCancel() {
-                Log.d(TAG, "facebook:onCancel");
+                onHideDialog();
             }
 
             @Override
             public void onError(FacebookException error) {
-                Log.d(TAG, "facebook:onError", error);
+                Log.e(TAG, "facebook:onError", error);
+                onHideDialog();
             }
         });
     }
@@ -128,16 +132,11 @@ public class LoginActivity extends ActivityBehavior {
     private void handleFacebookAccessToken(AccessToken token) {
         Log.d(TAG, "handleFacebookAccessToken:" + token);
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
-        //user.setFbToken(token.getToken());
         mAuth.signInWithCredential(credential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                Log.d(TAG, "signInWithCredential:onComplete:" + task.isSuccessful());
-                // If sign in fails, display a message to the user. If sign in succeeds
-                // the auth state listener will be notified and logic to handle the
-                // signed in user can be handled in the listener.
                 if (!task.isSuccessful()) {
-                    Log.w(TAG, "signInWithCredential", task.getException());
+                    onHideDialog();
                     Toast.makeText(LoginActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
                 } else {
                     user.setFireBaseId(task.getResult().getUser().getUid());
@@ -163,9 +162,9 @@ public class LoginActivity extends ActivityBehavior {
 
     @OnClick(R.id.btn_facebook)
     public void onFacebookLogin() {
+        progress.show();
         loginButton.performClick();
     }
-
 
     private void onCallToServer(final User user) {
         if (user != null) {
@@ -174,15 +173,22 @@ public class LoginActivity extends ActivityBehavior {
                 public void run(String authen) {
                     user.setAuthen(authen);
                     StorageHelper.inject(LoginActivity.this).save(user);
+                    onHideDialog();
                     startActivity(new Intent(LoginActivity.this, FirstSetupActivity.class));
                     finish();
                 }
             }, new CallBackStringParam() {
                 @Override
                 public void run(String error) {
+                    onHideDialog();
                     Toast.makeText(LoginActivity.this, error, Toast.LENGTH_SHORT).show();
                 }
             });
         }
+    }
+
+    private void onHideDialog() {
+        if (progress.isShowing())
+            progress.dismiss();
     }
 }

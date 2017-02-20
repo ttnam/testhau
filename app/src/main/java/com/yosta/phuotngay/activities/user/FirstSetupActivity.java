@@ -3,6 +3,8 @@ package com.yosta.phuotngay.activities.user;
 import android.content.Intent;
 import android.support.design.widget.TextInputEditText;
 import android.os.Bundle;
+import android.support.v7.widget.AppCompatImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -34,6 +36,12 @@ public class FirstSetupActivity extends ActivityBehavior {
     @BindView(R.id.edit_last_name)
     TextInputEditText editLastName;
 
+    @BindView(R.id.img_gender)
+    AppCompatImageView imgGender;
+
+    @BindView(R.id.txt_gender)
+    TextView txtGender;
+
     @BindView(R.id.edit_email)
     TextInputEditText editEmail;
 
@@ -54,11 +62,11 @@ public class FirstSetupActivity extends ActivityBehavior {
         onApplyEvents();
     }
 
+    @Override
     @OnClick(R.id.button)
-    public void onSave() {
+    public void onBackPressed() {
         onUpdateDataToServer();
     }
-
     private void onUpdateData() {
         user = StorageHelper.inject(this).getUser();
         editFirstName.setText(user.getFirstName());
@@ -68,6 +76,13 @@ public class FirstSetupActivity extends ActivityBehavior {
         if (avatar != null && !avatar.equals("")) {
             Glide.with(this).load(user.getAvatar()).diskCacheStrategy(DiskCacheStrategy.ALL).into(imageViewAvatar);
         }
+        String gender = user.getGender();
+        if (gender.equals("male")) {
+            imgGender.setImageResource(R.drawable.ic_vector_male_icon);
+        } else {
+            imgGender.setImageResource(R.drawable.ic_vector_female_icon);
+        }
+        txtGender.setText(gender);
     }
 
     private void onUpdateDataToServer() {

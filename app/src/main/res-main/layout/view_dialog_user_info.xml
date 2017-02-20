@@ -92,6 +92,32 @@
                 android:paddingRight="@dimen/margin_x2" />
         </android.support.design.widget.TextInputLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_x2"
+            android:orientation="horizontal">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/img_gender"
+                android:layout_width="@dimen/icon_size_x6"
+                android:layout_height="@dimen/icon_size_x6"
+                android:layout_gravity="center"
+                android:scaleType="centerInside"
+                app:srcCompat="@drawable/ic_vector_male_icon" />
+
+            <TextView
+                android:id="@+id/txt_gender"
+                style="@style/AppTheme.TextView_Title.Bold"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/margin_x2"
+                android:gravity="center|start"
+                android:text="Female" />
+
+        </LinearLayout>
+
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
