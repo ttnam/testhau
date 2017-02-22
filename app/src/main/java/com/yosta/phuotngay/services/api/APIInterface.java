@@ -40,5 +40,7 @@ public interface APIInterface {
     @GET("/api/trips")
     Call<TripResponse> getTrips(@Header("authen") String authen);
 
-
+    @FormUrlEncoded
+    @PUT("api/user")
+    Call<BaseResponse> updateFcm(@Header("authen") String authen,@Field("fcm") String fcm);
 }

@@ -71,6 +71,7 @@ public class APIManager {
                     }
                 }
             }
+
             @Override
             public void onFailure(Call<LoginResponse> call, Throwable t) {
                 Log.e(TAG, t.getMessage());
@@ -146,4 +147,18 @@ public class APIManager {
         });
     }
 
+    public void onUpdateFcm(String authorization, String fcm) {
+        Call<BaseResponse> call = service.updateFcm(authorization, fcm);
+        call.enqueue(new Callback<BaseResponse>() {
+            @Override
+            public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
+                Log.d(TAG, response.body().getDescription());
+            }
+
+            @Override
+            public void onFailure(Call<BaseResponse> call, Throwable t) {
+                Log.d(TAG, t.getMessage());
+            }
+        });
+    }
 }

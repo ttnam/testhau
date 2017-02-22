@@ -25,7 +25,7 @@ public class AppConfig extends Application {
     private void initFireBase() {
         FirebaseApp.initializeApp(this);
         String token = FirebaseInstanceId.getInstance().getToken();
-        // StorageHelper.inject(this).save()
+        StorageHelper.inject(this).save(AppDefine.FCM, token);
     }
 
     private void onApplyRealm() {
