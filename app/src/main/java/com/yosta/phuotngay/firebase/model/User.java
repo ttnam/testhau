@@ -16,6 +16,7 @@ public class User implements Serializable {
     private String birthday;
     private String email;
     private String fbId;
+    private String name;
     private String firstName;
     private String lastName;
     private String gender;
@@ -119,7 +120,6 @@ public class User implements Serializable {
         this.fireBaseId = fireBaseId;
     }
 
-
     public String getAuthen() {
         return authen;
     }
@@ -131,4 +131,13 @@ public class User implements Serializable {
     public boolean IsValid() {
         return authen != null && fireBaseId != null && !authen.equals("") && !fireBaseId.equals("");
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
 }

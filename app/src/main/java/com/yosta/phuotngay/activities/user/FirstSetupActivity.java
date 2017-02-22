@@ -12,13 +12,13 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.yosta.phuotngay.R;
 import com.yosta.phuotngay.activities.MainActivity;
 import com.yosta.phuotngay.firebase.model.User;
-import com.yosta.phuotngay.helpers.EventManager;
+import com.yosta.phuotngay.managers.EventManager;
 import com.yosta.phuotngay.helpers.StorageHelper;
 import com.yosta.phuotngay.helpers.validate.ValidateHelper;
 import com.yosta.phuotngay.interfaces.ActivityBehavior;
 import com.yosta.phuotngay.interfaces.CallBack;
 import com.yosta.phuotngay.interfaces.CallBackStringParam;
-import com.yosta.phuotngay.services.PhuotNgayService;
+import com.yosta.phuotngay.services.api.APIManager;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -26,7 +26,6 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class FirstSetupActivity extends ActivityBehavior {
 
@@ -45,8 +44,8 @@ public class FirstSetupActivity extends ActivityBehavior {
     @BindView(R.id.edit_email)
     TextInputEditText editEmail;
 
-    @BindView(R.id.image_view)
-    CircleImageView imageViewAvatar;
+    /*@BindView(R.id.image_view)
+    CircleImageView imageViewAvatar;*/
 
     @BindView(R.id.edit_dob)
     TextInputEditText editDob;
@@ -75,7 +74,7 @@ public class FirstSetupActivity extends ActivityBehavior {
         editEmail.setText(user.getEmail());
         String avatar = user.getAvatar();
         if (avatar != null && !avatar.equals("")) {
-            Glide.with(this).load(user.getAvatar()).diskCacheStrategy(DiskCacheStrategy.ALL).into(imageViewAvatar);
+            //Glide.with(this).load(user.getAvatar()).diskCacheStrategy(DiskCacheStrategy.ALL).into(imageViewAvatar);
         }
         String gender = user.getGender();
         if (gender.equals("male")) {
@@ -108,7 +107,7 @@ public class FirstSetupActivity extends ActivityBehavior {
             map.put("dateOfBirth", dateOfBirth);
             map.put("avatar", avatar);
 
-            PhuotNgayService.connect().onUpdate(authen, map, new CallBack() {
+            APIManager.connect().onUpdate(authen, map, new CallBack() {
                 @Override
                 public void run() {
                     startActivity(new Intent(FirstSetupActivity.this, MainActivity.class));

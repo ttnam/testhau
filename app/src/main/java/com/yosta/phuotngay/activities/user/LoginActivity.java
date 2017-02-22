@@ -25,13 +25,15 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.yosta.phuotngay.R;
-import com.yosta.phuotngay.activities.dialogs.DialogProgress;
+import com.yosta.phuotngay.configs.AppDefine;
 import com.yosta.phuotngay.firebase.model.User;
 import com.yosta.phuotngay.firebase.model.UserManager;
 import com.yosta.phuotngay.helpers.StorageHelper;
 import com.yosta.phuotngay.interfaces.ActivityBehavior;
+import com.yosta.phuotngay.interfaces.CallBackAccessToken;
 import com.yosta.phuotngay.interfaces.CallBackStringParam;
-import com.yosta.phuotngay.services.PhuotNgayService;
+import com.yosta.phuotngay.managers.EventManager;
+import com.yosta.phuotngay.services.api.APIManager;
 
 import org.json.JSONObject;
 
@@ -50,7 +52,6 @@ public class LoginActivity extends ActivityBehavior {
     LoginButton loginButton;
 
     private User user;
-    private DialogProgress progress = null;
 
     // Firebase instance variables
     private FirebaseAuth mAuth;
@@ -64,17 +65,21 @@ public class LoginActivity extends ActivityBehavior {
         FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
-        this.progress = new DialogProgress(this);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        onInitializeFireBase();
-        onInitializeFacebookLogin();
+        onApplyComponents();
     }
 
-    private void onInitializeFireBase() {
+    @Override
+    public void onApplyComponents() {
+        onFacebookConfig();
+        onFireBaseConfig();
+    }
+
+    private void onFireBaseConfig() {
         // Initialize Fire base Auth
         mAuth = FirebaseAuth.getInstance();
 
@@ -95,36 +100,26 @@ public class LoginActivity extends ActivityBehavior {
 
     }
 
-    private void onInitializeFacebookLogin() {
+    private void onFacebookConfig() {
         mCallbackManager = CallbackManager.Factory.create();
         loginButton.setReadPermissions("email", "public_profile");
-        loginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
+
+        loginButton.registerCallback(mCallbackManager, EventManager.connect().registerFacebookCallback(new CallBackAccessToken() {
             @Override
-            public void onSuccess(LoginResult loginResult) {
-                handleFacebookAccessToken(loginResult.getAccessToken());
-                GraphRequest request = GraphRequest.newMeRequest(
-                        loginResult.getAccessToken(),
-                        new GraphRequest.GraphJSONObjectCallback() {
-                            @Override
-                            public void onCompleted(JSONObject object, GraphResponse response) {
-                                user = UserManager.inject().getFacebookUserInfo(object);
-                            }
-                        });
+            public void run(AccessToken token) {
+                handleFacebookAccessToken(token);
+                GraphRequest request = GraphRequest.newMeRequest(token, new GraphRequest.GraphJSONObjectCallback() {
+                    @Override
+                    public void onCompleted(JSONObject object, GraphResponse response) {
+                        user = UserManager.inject().getFacebookUserInfo(object);
+                    }
+                });
                 Bundle parameters = new Bundle();
-                parameters.putString("fields", UserManager.PARAMETERS);
+                parameters.putString("fields", AppDefine.PARAMETERS);
                 request.setParameters(parameters);
                 request.executeAsync();
             }
-
-            @Override
-            public void onCancel() {
-            }
-
-            @Override
-            public void onError(FacebookException error) {
-                Log.e(TAG, "facebook:onError", error);
-            }
-        });
+        }));
     }
 
     private void handleFacebookAccessToken(AccessToken token) {
@@ -136,7 +131,6 @@ public class LoginActivity extends ActivityBehavior {
                 if (!task.isSuccessful()) {
                     Toast.makeText(LoginActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
                 } else {
-                    progress.show();
                     user.setFireBaseId(task.getResult().getUser().getUid());
                     onCallToServer(user);
                 }
@@ -160,17 +154,15 @@ public class LoginActivity extends ActivityBehavior {
 
     @OnClick(R.id.btn_facebook)
     public void onFacebookLogin() {
-
         loginButton.performClick();
     }
 
     private void onCallToServer(final User user) {
         if (user != null) {
-            PhuotNgayService.connect().onLogin(user.getEmail(), user.getFbId(), user.getFireBaseId(), new CallBackStringParam() {
+            APIManager.connect().onLogin(user.getEmail(), user.getFbId(), user.getFireBaseId(), new CallBackStringParam() {
                 @Override
                 public void run(String authen) {
                     user.setAuthen(authen);
-                    dismissDialog();
                     StorageHelper.inject(LoginActivity.this).save(User.AUTHORIZATION, authen);
                     StorageHelper.inject(LoginActivity.this).save(user);
                     startActivity(new Intent(LoginActivity.this, FirstSetupActivity.class));
@@ -180,14 +172,9 @@ public class LoginActivity extends ActivityBehavior {
                 @Override
                 public void run(String error) {
                     Toast.makeText(LoginActivity.this, error, Toast.LENGTH_SHORT).show();
-                    dismissDialog();
                 }
             });
         }
     }
 
-    private void dismissDialog() {
-        if (progress.isShowing())
-            progress.dismiss();
-    }
 }

@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.yosta.phuotngay.helpers.StorageHelper;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
@@ -24,6 +25,7 @@ public class AppConfig extends Application {
     private void initFireBase() {
         FirebaseApp.initializeApp(this);
         String token = FirebaseInstanceId.getInstance().getToken();
+        // StorageHelper.inject(this).save()
     }
 
     private void onApplyRealm() {

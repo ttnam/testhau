@@ -1,4 +1,6 @@
-package com.yosta.phuotngay.services;
+package com.yosta.phuotngay.services.api;
+
+import android.util.Log;
 
 import com.yosta.phuotngay.interfaces.CallBack;
 import com.yosta.phuotngay.interfaces.CallBackLocationsParam;
@@ -12,6 +14,7 @@ import com.yosta.phuotngay.services.response.TripResponse;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Call;
@@ -24,28 +27,31 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Created by Phuc-Hau Nguyen on 11/9/2016.
  */
 
-public class PhuotNgayService {
+public class APIManager {
+
+    private static final String TAG = APIManager.class.getSimpleName();
 
     public static String SERVER_DOMAIN = "http://phuotngay.jelasticlw.com.br/";
 
     private static Retrofit retrofit = null;
-    private IPhuotNgayService service = null;
+    private APIInterface service = null;
     private static OkHttpClient.Builder httpClient = null;
-    private static PhuotNgayService mInstance = null;
+    private static APIManager mInstance = null;
 
-    private PhuotNgayService() {
+    private APIManager() {
         httpClient = new OkHttpClient.Builder();
+
         retrofit = new Retrofit.Builder()
                 .baseUrl(SERVER_DOMAIN)
                 .client(httpClient.build())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        service = retrofit.create(IPhuotNgayService.class);
+        service = retrofit.create(APIInterface.class);
     }
 
-    public static PhuotNgayService connect() {
+    public static APIManager connect() {
         if (mInstance == null) {
-            mInstance = new PhuotNgayService();
+            mInstance = new APIManager();
         }
         return mInstance;
     }
@@ -65,17 +71,17 @@ public class PhuotNgayService {
                     }
                 }
             }
-
             @Override
             public void onFailure(Call<LoginResponse> call, Throwable t) {
+                Log.e(TAG, t.getMessage());
                 fail.run(t.getMessage());
             }
         });
     }
 
-    public void onUpdate(String authen, @NotNull Map<String, String> data, final CallBack success, final CallBackStringParam fail) {
+    public void onUpdate(String authorization, @NotNull Map<String, String> data, final CallBack success, final CallBackStringParam fail) {
 
-        Call<BaseResponse> call = service.updateProfile(authen, data);
+        Call<BaseResponse> call = service.updateProfile(authorization, data);
         call.enqueue(new Callback<BaseResponse>() {
             @Override
             public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {

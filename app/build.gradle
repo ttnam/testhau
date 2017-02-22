@@ -14,6 +14,7 @@ buildscript {
 }
 repositories {
     jcenter()
+    mavenCentral()
 }
 allprojects {
     repositories {
@@ -105,18 +106,6 @@ android {
             // Exclude these densities from splits
         }
     }
-    sourceSets {
-        main {
-            res.srcDirs = [
-                    'src/main/res-main',
-                    'src/main/res-screen/home',
-                    'src/main/res-screen/trip',
-                    'src/main/res-screen/profile',
-                    'src/main/res-screen/group',
-                    'src/main/res-screen/setting',
-            ]
-        }
-    }
     dexOptions{
         javaMaxHeapSize "4g"
         jumboMode true
@@ -179,9 +168,6 @@ dependencies {
     // Google
     compile 'com.google.android.gms:play-services-auth:10.0.0'
     compile 'com.google.android.gms:play-services-plus:10.0.0'
-
-    // Circle Image View
-    compile 'de.hdodenhof:circleimageview:2.1.0'
 
     // Permissions Dispatcher
     compile 'com.github.hotchemi:permissionsdispatcher:2.2.0'

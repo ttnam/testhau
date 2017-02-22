@@ -12,7 +12,6 @@ import com.yosta.phuotngay.firebase.model.FirebaseComment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by Phuc-Hau Nguyen on 12/1/2016.
@@ -29,8 +28,8 @@ public class FirebaseCommentViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.tV_time)
     TextView tVTime;
 
-    @BindView(R.id.image_view)
-    CircleImageView mAvatar;
+/*    @BindView(R.id.image_view)
+    CircleImageView mAvatar;*/
 
     private Context mContext;
 
@@ -41,7 +40,7 @@ public class FirebaseCommentViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void onBind(FirebaseComment comment) {
-        Glide.with(mContext).load(comment.getAvatar()).error(R.drawable.ic_avatar).into(mAvatar);
+        // Glide.with(mContext).load(comment.getAvatar()).error(R.drawable.ic_avatar).into(mAvatar);
         this.mTxtUserName.setText(comment.getUsername());
         this.txtContent.setText(comment.getContent());
         this.tVTime.setText(onGetTimeGap(comment.time()));

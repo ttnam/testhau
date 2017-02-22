@@ -14,7 +14,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import de.hdodenhof.circleimageview.CircleImageView;
 
 /*
 @RuntimePermissions*/
@@ -32,8 +31,8 @@ public class ProfileActivity extends ActivityBehavior {
     @BindView(R.id.spinner_gender)
     MaterialSpinner spinnerGender;
 
-    @BindView(R.id.image_avatar)
-    CircleImageView imageAvatar;
+    /*@BindView(R.id.image_avatar)
+    CircleImageView imageAvatar;*/
 
     @BindView(R.id.layout)
     OwnToolBar ownToolBar;

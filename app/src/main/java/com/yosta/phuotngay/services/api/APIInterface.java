@@ -1,4 +1,4 @@
-package com.yosta.phuotngay.services;
+package com.yosta.phuotngay.services.api;
 
 import com.yosta.phuotngay.services.response.BaseResponse;
 import com.yosta.phuotngay.services.response.LocationResponse;
@@ -20,7 +20,7 @@ import retrofit2.http.PUT;
  * Created by Phuc-Hau Nguyen on 11/9/2016.
  */
 
-public interface IPhuotNgayService {
+public interface APIInterface {
 
     @FormUrlEncoded
     @POST("api/user/login")

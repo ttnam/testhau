@@ -16,15 +16,13 @@ import com.yosta.phuotngay.fragments.TripFragment;
 import com.yosta.phuotngay.fragments.SettingFragment;
 import com.yosta.phuotngay.helpers.StorageHelper;
 import com.yosta.phuotngay.interfaces.ActivityBehavior;
-import com.yosta.phuotngay.interfaces.CallBack;
 import com.yosta.phuotngay.interfaces.CallBackLocationsParam;
 import com.yosta.phuotngay.interfaces.CallBackStringParam;
 import com.yosta.phuotngay.interfaces.CallBackTripsParam;
 import com.yosta.phuotngay.managers.RealmManager;
-import com.yosta.phuotngay.models.base.Location;
 import com.yosta.phuotngay.models.base.Locations;
 import com.yosta.phuotngay.models.trip.BaseTrip;
-import com.yosta.phuotngay.services.PhuotNgayService;
+import com.yosta.phuotngay.services.api.APIManager;
 
 import java.util.List;
 
@@ -97,7 +95,7 @@ public class MainActivity extends ActivityBehavior {
         super.onResume();
 
         String authorization = StorageHelper.inject(this).getString(User.AUTHORIZATION);
-        PhuotNgayService.connect().onGetLocation(authorization, new CallBackLocationsParam() {
+        APIManager.connect().onGetLocation(authorization, new CallBackLocationsParam() {
             @Override
             public void run(Locations locations) {
                 RealmManager.insertOrUpdate(locations);
@@ -109,7 +107,7 @@ public class MainActivity extends ActivityBehavior {
             }
         });
 
-        PhuotNgayService.connect().onGetTrips(authorization, new CallBackTripsParam() {
+        APIManager.connect().onGetTrips(authorization, new CallBackTripsParam() {
             @Override
             public void run(List<BaseTrip> trips) {
 
