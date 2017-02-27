@@ -1,22 +1,18 @@
 package com.yosta.phuotngay.services.response;
 
 import com.google.gson.annotations.SerializedName;
-import com.yosta.phuotngay.models.base.Locations;
-import com.yosta.phuotngay.models.trip.BaseTrip;
-
-import java.util.List;
+import com.yosta.phuotngay.models.trip.Trip;
 
 /**
- * Created by Phuc-Hau Nguyen on 2/20/2017.
+ * Created by Phuc-Hau Nguyen on 2/26/2017.
  */
 
 public class TripResponse extends BaseResponse {
 
     @SerializedName("data")
-    private List<BaseTrip> trips = null;
+    private Trip trip;
 
-    public List<BaseTrip> getTrips() {
-        return trips;
+    public Trip getTrip() {
+        return trip;
     }
-    
 }

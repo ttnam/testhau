@@ -25,7 +25,9 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.yosta.phuotngay.R;
+import com.yosta.phuotngay.activities.MainActivity;
 import com.yosta.phuotngay.configs.AppDefine;
+import com.yosta.phuotngay.firebase.FirebaseManager;
 import com.yosta.phuotngay.firebase.model.User;
 import com.yosta.phuotngay.firebase.model.UserManager;
 import com.yosta.phuotngay.helpers.StorageHelper;
@@ -159,13 +161,16 @@ public class LoginActivity extends ActivityBehavior {
 
     private void onCallToServer(final User user) {
         if (user != null) {
-            APIManager.connect().onLogin(user.getEmail(), user.getFbId(), user.getFireBaseId(), new CallBackStringParam() {
+
+            String email = user.getEmail();
+            String fbId = user.getFbId();
+            String fireBaseId = user.getFireBaseId();
+            String fcm = StorageHelper.inject(this).getString(FirebaseManager.FIRE_BASE_TOKEN);
+            APIManager.connect().onLogin(email, fbId, fireBaseId, fcm, new CallBackStringParam() {
                 @Override
-                public void run(String authen) {
-                    user.setAuthen(authen);
-                    StorageHelper.inject(LoginActivity.this).save(User.AUTHORIZATION, authen);
-                    StorageHelper.inject(LoginActivity.this).save(user);
-                    startActivity(new Intent(LoginActivity.this, FirstSetupActivity.class));
+                public void run(String authorization) {
+                    StorageHelper.inject(LoginActivity.this).save(User.AUTHORIZATION, authorization);
+                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
                     finish();
                 }
             }, new CallBackStringParam() {

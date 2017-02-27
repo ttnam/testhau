@@ -25,6 +25,7 @@ import com.yosta.phuotngay.activities.dialogs.DialogComment;
 import com.yosta.phuotngay.firebase.FirebaseManager;
 import com.yosta.phuotngay.firebase.adapter.FirebaseActivityAdapter;
 import com.yosta.phuotngay.helpers.AppHelper;
+import com.yosta.phuotngay.models.trip.BaseTrip;
 import com.yosta.phuotngay.ui.decoration.SpacesItemDecoration;
 import com.yosta.phuotngay.interfaces.ActivityBehavior;
 import com.yosta.phuotngay.firebase.model.FirebaseTrip;
@@ -60,7 +61,7 @@ public class TripDetailActivity extends ActivityBehavior {
     @BindView(R.id.btn_ranking)
     Button btnRanking;
 
-    private FirebaseTrip mCurrTrip = null;
+    private BaseTrip mCurrTrip = null;
     private FirebaseManager mFirebaseUtils = null;
     private FirebaseActivityAdapter activityAdapter = null;
 
@@ -113,7 +114,6 @@ public class TripDetailActivity extends ActivityBehavior {
         settings.setJavaScriptEnabled(false);
         settings.setDefaultTextEncodingName("utf-8");
         settings.setDefaultFontSize(14);
-        settings.setRenderPriority(WebSettings.RenderPriority.HIGH);
         settings.setCacheMode(WebSettings.LOAD_NO_CACHE);
         settings.setAppCacheEnabled(false);
         settings.setBlockNetworkImage(true);
@@ -127,7 +127,7 @@ public class TripDetailActivity extends ActivityBehavior {
     public void onApplyData() {
         super.onApplyData();
         Intent intent = this.getIntent();
-        mCurrTrip = (FirebaseTrip) intent.getSerializableExtra(AppHelper.EXTRA_TRIP);
+        BaseTrip mCurrTrip = (BaseTrip) intent.getSerializableExtra(BaseTrip.EXTRA_TRIP);
         onUpdateData(mCurrTrip);
         String tripId = mCurrTrip.getTripId();
         this.activityAdapter = new FirebaseActivityAdapter(FirebaseManager.inject(this).ACTIVITYRef(tripId));
@@ -179,11 +179,11 @@ public class TripDetailActivity extends ActivityBehavior {
                 .show();
     }
 
-    private void onUpdateData(FirebaseTrip trip) {
+    private void onUpdateData(BaseTrip baseTrip) {
         if (trip == null) return;
         String prefix = "<html><body><p style=\"text-align: justify\">";
         String postfix = "</p></body></html>";
-        String content = trip.getDescription();
+        String content = baseTrip.getDescription();
         webView.loadData(prefix + content + postfix, "text/html; charset=utf-8", "utf-8");
         txtTitle.setText(trip.getName());
         Glide.with(this).load(trip.getCover()).into(imageCover);

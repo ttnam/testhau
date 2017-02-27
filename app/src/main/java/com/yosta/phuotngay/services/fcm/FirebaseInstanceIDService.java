@@ -3,7 +3,7 @@ package com.yosta.phuotngay.services.fcm;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
-import com.yosta.phuotngay.configs.AppDefine;
+import com.yosta.phuotngay.firebase.FirebaseManager;
 import com.yosta.phuotngay.firebase.model.User;
 import com.yosta.phuotngay.helpers.StorageHelper;
 import com.yosta.phuotngay.services.api.APIManager;
@@ -16,13 +16,13 @@ public class FirebaseInstanceIDService extends FirebaseInstanceIdService {
     @Override
     public void onTokenRefresh() {
         String refreshedToken = FirebaseInstanceId.getInstance().getToken();
-        StorageHelper.inject(this).save(AppDefine.FCM, refreshedToken);
+        StorageHelper.inject(this).save(FirebaseManager.FIRE_BASE_TOKEN, refreshedToken);
         sendRegistrationToServer(refreshedToken);
     }
     // [END refresh_token]
 
     private void sendRegistrationToServer(String token) {
         String authen = StorageHelper.inject(this).getString(User.AUTHORIZATION);
-        APIManager.connect().onUpdateFcm(authen, token);
+        APIManager.connect().onUpdateFcm(authen, authen);
     }
 }

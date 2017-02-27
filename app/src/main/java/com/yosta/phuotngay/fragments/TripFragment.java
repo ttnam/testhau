@@ -9,21 +9,23 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.yosta.phuotngay.R;
-import com.yosta.phuotngay.activities.trip.TripDetailActivity;
 import com.yosta.phuotngay.activities.dialogs.DialogFilter;
-import com.yosta.phuotngay.firebase.adapter.FirebaseTripAdapter;
-import com.yosta.phuotngay.firebase.FirebaseManager;
+import com.yosta.phuotngay.activities.trip.TripDetailActivity;
+import com.yosta.phuotngay.adapters.TripAdapter;
+import com.yosta.phuotngay.firebase.model.User;
 import com.yosta.phuotngay.helpers.AppHelper;
+import com.yosta.phuotngay.helpers.StorageHelper;
+import com.yosta.phuotngay.interfaces.CallBackStringParam;
+import com.yosta.phuotngay.interfaces.CallBackTripsParam;
+import com.yosta.phuotngay.models.trip.BaseTrip;
+import com.yosta.phuotngay.services.api.APIManager;
 import com.yosta.phuotngay.ui.OwnToolBar;
 import com.yosta.phuotngay.ui.listeners.RecyclerItemClickListener;
-import com.yosta.phuotngay.firebase.model.FirebaseTrip;
-import com.yosta.phuotngay.models.app.MessageInfo;
-import com.yosta.phuotngay.models.app.MessageType;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -38,13 +40,7 @@ public class TripFragment extends Fragment {
     RecyclerView rvTrip;
 
     private Context mContext = null;
-    private FirebaseTripAdapter tripAdapter = null;
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        EventBus.getDefault().register(this);
-    }
+    private TripAdapter tripAdapter = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -57,50 +53,51 @@ public class TripFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_trip, container, false);
         ButterKnife.bind(this, rootView);
 
-        mOwnToolbar.setTitle("").setRight(R.drawable.ic_vector_filter, new View.OnClickListener() {
+        mOwnToolbar.setRight(R.drawable.ic_vector_filter, new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 DialogFilter dialog = new DialogFilter(mContext);
                 dialog.show();
             }
         });
-
-        this.tripAdapter = new FirebaseTripAdapter(FirebaseManager.inject(mContext).TRIPRef());
-
-        onInitializeTrip(mContext);
-
+        this.tripAdapter = new TripAdapter(mContext);
+        onApplyViews();
+        onApplyData();
         return rootView;
     }
 
-    @Override
-    public void onStop() {
-        super.onStop();
-        EventBus.getDefault().unregister(this);
-    }
-
-    private void onInitializeTrip(Context context) {
+    private void onApplyViews() {
         this.rvTrip.setHasFixedSize(true);
         this.rvTrip.setItemAnimator(new SlideInUpAnimator());
         this.rvTrip.setRecycledViewPool(new RecyclerView.RecycledViewPool());
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false);
         this.rvTrip.setNestedScrollingEnabled(false);
         this.rvTrip.setLayoutManager(layoutManager);
         this.rvTrip.setAdapter(this.tripAdapter);
         this.rvTrip.addOnItemTouchListener(new RecyclerItemClickListener(mContext, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                FirebaseTrip trip = tripAdapter.getItem(position);
-                trip.setTripId(tripAdapter.getRef(position).getKey());
+                BaseTrip trip = tripAdapter.getItem(position);
                 Intent intent = new Intent(getActivity(), TripDetailActivity.class);
-                intent.putExtra(AppHelper.EXTRA_TRIP, trip);
+                intent.putExtra(BaseTrip.EXTRA_TRIP, trip);
                 startActivity(intent);
             }
         }));
     }
 
-    @Subscribe
-    public void onMessageEvent(MessageInfo info) {
-        @MessageType int msg = info.getMessage();
+    private void onApplyData() {
+        String authorization = StorageHelper.inject(mContext).getString(User.AUTHORIZATION);
+        APIManager.connect().onGetTrips(authorization, new CallBackTripsParam() {
+            @Override
+            public void run(List<BaseTrip> trips) {
+                tripAdapter.replaceAll(trips);
+            }
+        }, new CallBackStringParam() {
+            @Override
+            public void run(String error) {
+                Toast.makeText(mContext, error, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

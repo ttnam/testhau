@@ -6,9 +6,6 @@ import android.os.Bundle;
 import android.support.v7.widget.AppCompatImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.yosta.phuotngay.R;
 import com.yosta.phuotngay.activities.MainActivity;
 import com.yosta.phuotngay.firebase.model.User;
@@ -44,9 +41,6 @@ public class FirstSetupActivity extends ActivityBehavior {
     @BindView(R.id.edit_email)
     TextInputEditText editEmail;
 
-    /*@BindView(R.id.image_view)
-    CircleImageView imageViewAvatar;*/
-
     @BindView(R.id.edit_dob)
     TextInputEditText editDob;
 
@@ -68,7 +62,7 @@ public class FirstSetupActivity extends ActivityBehavior {
     }
 
     private void onUpdateData() {
-        user = StorageHelper.inject(this).getUser();
+        // user = StorageHelper.inject(this).getUser();
         editFirstName.setText(user.getFirstName());
         editLastName.setText(user.getLastName());
         editEmail.setText(user.getEmail());
@@ -86,7 +80,7 @@ public class FirstSetupActivity extends ActivityBehavior {
     }
 
     private void onUpdateDataToServer() {
-        String authen = StorageHelper.inject(this).getUser().getAuthen();
+        String authen = "";//StorageHelper.inject(this).getUser().getAuthen();
         String email = editEmail.getText().toString();
         String firstName = editFirstName.getText().toString();
         String lastName = editLastName.getText().toString();

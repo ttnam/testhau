@@ -29,7 +29,9 @@ import java.util.List;
 /**
  * Created by Phuc-Hau Nguyen on 12/1/2016.
  */
-public class    FirebaseManager {
+public class FirebaseManager {
+
+    public static final String FIRE_BASE_TOKEN = "FIRE_BASE_TOKEN";
 
     private static final String FIRE_BASE_TRIP = "TRIP";
     private static final String FIRE_BASE_USER = "USER";
@@ -138,18 +140,6 @@ public class    FirebaseManager {
                     Log.e("LocationResponse couldn't be saved.", databaseError.getMessage());
                 } else {
                     listener.run();
-                }
-            }
-        });
-    }
-
-    public void onUpdateUserInfo(final User user) {
-        user.setMemberShip(System.currentTimeMillis());
-        USER().child(user.getFireBaseId()).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if (task.isSuccessful()) {
-                    StorageHelper.inject(mContext).save(user);
                 }
             }
         });

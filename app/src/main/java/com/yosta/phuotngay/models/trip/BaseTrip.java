@@ -8,11 +8,27 @@ import java.io.Serializable;
 
 public class BaseTrip implements Serializable {
 
+    public static final String EXTRA_TRIP = "EXTRA_TRIP";
+
     private String id;
+
     private String arrive;
     private String depart;
     private String name;
     private String cover;
     private int ranking;
     private String createdtime;
+
+    public String getName() {
+        return name;
+    }
+
+    public String getCover() {
+        return cover;
+    }
+
+    public String getArrive() {
+        return arrive;
+    }
+
 }

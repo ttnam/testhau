@@ -1,4 +1,4 @@
-package com.yosta.phuotngay.firebase.viewhd;
+package com.yosta.phuotngay.ui.viewholder;
 
 import android.app.Activity;
 import android.content.Context;
@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.yosta.phuotngay.R;
-import com.yosta.phuotngay.firebase.model.FirebaseTrip;
 import com.yosta.phuotngay.helpers.AppHelper;
 
 import butterknife.BindView;
@@ -20,7 +19,7 @@ import butterknife.ButterKnife;
  * Created by Phuc-Hau Nguyen on 12/1/2016.
  */
 
-public class FirebaseTripViewHolder extends RecyclerView.ViewHolder {
+public class TripViewHolder extends RecyclerView.ViewHolder {
 
     @BindView(R.id.text_view)
     TextView mTvTitle;
@@ -33,18 +32,17 @@ public class FirebaseTripViewHolder extends RecyclerView.ViewHolder {
 
     private Context mContext;
 
-    public FirebaseTripViewHolder(View itemView) {
+    public TripViewHolder(View itemView) {
         super(itemView);
         this.mContext = itemView.getContext();
-        itemView.setLayoutParams(new ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
+        itemView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 AppHelper.onGetScreenHeight((Activity) mContext) / 3));
         ButterKnife.bind(this, itemView);
     }
 
-    public void onBind(FirebaseTrip trip) {
-        Glide.with(mContext).load(trip.getCover()).into(this.mImageView);
-        this.mTvTitle.setText(trip.getName());
-        this.mTvCreatedTime.setText(trip.getCreatedtime());
+    public void onBind(String cover, String name, String description) {
+        Glide.with(mContext).load(cover).into(this.mImageView);
+        this.mTvTitle.setText(name);
+        this.mTvCreatedTime.setText(description);
     }
 }

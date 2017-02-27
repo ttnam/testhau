@@ -50,7 +50,7 @@ public class AppHelper {
     public static final int DD_MM_YYYY = 1;
 
     public static final String EXTRA_INTENT = "EXTRA_INTENT";
-    public static final String EXTRA_TRIP = "EXTRA_TRIP";
+
     public static final String EXTRA_TRIPS = "EXTRA_TRIPS";
 
     public static final String FONT_LATO_BLACK = "fonts/Lato-Black.ttf";

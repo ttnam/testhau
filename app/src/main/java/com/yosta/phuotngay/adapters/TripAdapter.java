@@ -7,8 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.yosta.phuotngay.R;
-import com.yosta.phuotngay.firebase.viewhd.FirebaseTripViewHolder;
-import com.yosta.phuotngay.firebase.model.FirebaseTrip;
+import com.yosta.phuotngay.models.trip.BaseTrip;
+import com.yosta.phuotngay.ui.viewholder.TripViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,10 +17,10 @@ import java.util.List;
  * Created by Phuc-Hau Nguyen on 10/14/2016.
  */
 
-public class TripAdapter extends RecyclerView.Adapter<FirebaseTripViewHolder> {
+public class TripAdapter extends RecyclerView.Adapter<TripViewHolder> {
 
     private Context mContext = null;
-    private List<FirebaseTrip> mTrips = null;
+    private List<BaseTrip> mTrips = null;
 
     public TripAdapter(Context context) {
         this.mContext = context;
@@ -28,17 +28,16 @@ public class TripAdapter extends RecyclerView.Adapter<FirebaseTripViewHolder> {
     }
 
     @Override
-    public FirebaseTripViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public TripViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View itemLayoutView = LayoutInflater.from(mContext)
-                .inflate(R.layout.item_trip, null);
-        return new FirebaseTripViewHolder(itemLayoutView);
+        View itemLayoutView = LayoutInflater.from(mContext).inflate(R.layout.item_trip, null);
+        return new TripViewHolder(itemLayoutView);
     }
 
     @Override
-    public void onBindViewHolder(FirebaseTripViewHolder holder, int position) {
-        FirebaseTrip trip = mTrips.get(position);
-        holder.onBind(trip);
+    public void onBindViewHolder(TripViewHolder holder, int position) {
+        BaseTrip baseTrip = mTrips.get(position);
+        holder.onBind(baseTrip.getCover(), baseTrip.getName(), baseTrip.getArrive());
     }
 
     @Override
@@ -46,19 +45,23 @@ public class TripAdapter extends RecyclerView.Adapter<FirebaseTripViewHolder> {
         return mTrips.size();
     }
 
-    public void adds(List<FirebaseTrip> trips) {
+    public void adds(List<BaseTrip> trips) {
         this.mTrips.addAll(trips);
         notifyDataSetChanged();
     }
-
-    public FirebaseTrip getItem(int position) {
-        if (position < 1 || position >= getItemCount()) {
+    public void replaceAll(List<BaseTrip> trips) {
+        this.mTrips.clear();
+        this.mTrips.addAll(trips);
+        notifyDataSetChanged();
+    }
+    public BaseTrip getItem(int position) {
+        if (position < 0 || position >= getItemCount()) {
             return null;
         }
         return this.mTrips.get(position);
     }
 
-    public int add(FirebaseTrip trip) {
+    public int add(BaseTrip trip) {
         this.mTrips.add(trip);
         int index = this.mTrips.size() - 1;
         notifyItemChanged(index);

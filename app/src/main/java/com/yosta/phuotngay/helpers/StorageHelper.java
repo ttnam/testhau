@@ -6,6 +6,7 @@ import android.preference.PreferenceManager;
 
 import com.google.gson.Gson;
 import com.yosta.phuotngay.firebase.model.User;
+import com.yosta.phuotngay.helpers.validate.ValidateHelper;
 
 /**
  * Created by nphau on 9/27/2015.
@@ -74,21 +75,8 @@ public class StorageHelper {
         return true;
     }
 
-    public User getUser() {
-        Gson gson = new Gson();
-        String json = getString(KEY_USER);
-        return gson.fromJson(json, User.class);
-    }
-
-    public boolean save(User user) {
-        Gson gson = new Gson();
-        String json = gson.toJson(user);
-        return save(KEY_USER, json);
-    }
-
     public boolean IsUserLogin() {
-        User user = getUser();
-        return user != null && user.IsValid();
+        return ValidateHelper.IsNotEmpty(getString(User.AUTHORIZATION));
     }
 }
 /*

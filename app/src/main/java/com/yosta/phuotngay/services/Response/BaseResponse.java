@@ -17,7 +17,7 @@ public class BaseResponse implements Serializable {
     private String description;
 
 
-    public boolean isSuccess() {
+    public boolean IsSuccess() {
         return responseCode == 1;
     }
 

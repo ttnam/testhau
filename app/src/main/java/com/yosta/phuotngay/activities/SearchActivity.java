@@ -34,7 +34,7 @@ public class SearchActivity extends ActivityBehavior {
         Intent intent = this.getIntent();
         trips = (FirebaseTrips) intent.getSerializableExtra(AppHelper.EXTRA_TRIPS);
         if (trips != null) {
-            this.tripAdapter.adds(trips.getTrips());
+            // this.tripAdapter.adds(trips.getTrips());
         }
     }
 
@@ -58,12 +58,12 @@ public class SearchActivity extends ActivityBehavior {
                 new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
-                        FirebaseTrip trip = tripAdapter.getItem(position);
+                       /* FirebaseTrip trip = tripAdapter.getItem(position);
                         if (trip != null) {
                             Intent intent = new Intent(SearchActivity.this, TripDetailActivity.class);
                             intent.putExtra(AppHelper.EXTRA_TRIP, trip);
                             startActivity(intent);
-                        }
+                        }*/
                     }
                 }));
         this.rvTrip.addItemDecoration(new SpacesItemDecoration(3));

@@ -18,13 +18,9 @@ import com.yosta.phuotngay.helpers.StorageHelper;
 import com.yosta.phuotngay.interfaces.ActivityBehavior;
 import com.yosta.phuotngay.interfaces.CallBackLocationsParam;
 import com.yosta.phuotngay.interfaces.CallBackStringParam;
-import com.yosta.phuotngay.interfaces.CallBackTripsParam;
 import com.yosta.phuotngay.managers.RealmManager;
 import com.yosta.phuotngay.models.base.Locations;
-import com.yosta.phuotngay.models.trip.BaseTrip;
 import com.yosta.phuotngay.services.api.APIManager;
-
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -49,7 +45,6 @@ public class MainActivity extends ActivityBehavior {
 
     @Override
     public void onApplyComponents() {
-        super.onApplyComponents();
 
         onApplyViewPager();
         onApplyTabLayout();
@@ -104,18 +99,6 @@ public class MainActivity extends ActivityBehavior {
             @Override
             public void run(String error) {
                 Toast.makeText(MainActivity.this, error, Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        APIManager.connect().onGetTrips(authorization, new CallBackTripsParam() {
-            @Override
-            public void run(List<BaseTrip> trips) {
-
-            }
-        }, new CallBackStringParam() {
-            @Override
-            public void run(String res) {
-
             }
         });
     }
