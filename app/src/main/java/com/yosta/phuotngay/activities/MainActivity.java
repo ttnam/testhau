@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import com.yosta.phuotngay.R;
 import com.yosta.phuotngay.adapters.IconViewPagerAdapter;
+import com.yosta.phuotngay.configs.AppDefine;
 import com.yosta.phuotngay.firebase.model.User;
 import com.yosta.phuotngay.fragments.NotificationsFragment;
 import com.yosta.phuotngay.fragments.OwnTripFragment;
@@ -88,7 +89,7 @@ public class MainActivity extends ActivityBehavior {
     @Override
     protected void onResume() {
         super.onResume();
-        String authorization = StorageHelper.inject(this).getString(User.AUTHORIZATION);
+        String authorization = StorageHelper.inject(this).getString(AppDefine.AUTHORIZATION);
         APIManager.connect().onGetLocation(authorization, new CallBackLocationsParam() {
             @Override
             public void run(Locations locations) {

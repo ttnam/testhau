@@ -165,7 +165,7 @@ public class LoginActivity extends ActivityBehavior {
             APIManager.connect().onLogin(email, fbId, fireBaseId, fcm, new CallBackStringParam() {
                 @Override
                 public void run(String authorization) {
-                    StorageHelper.inject(LoginActivity.this).save(User.AUTHORIZATION, authorization);
+                    StorageHelper.inject(LoginActivity.this).save(AppDefine.AUTHORIZATION, authorization);
                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
                     finish();
                 }

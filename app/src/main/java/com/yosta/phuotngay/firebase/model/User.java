@@ -1,25 +1,42 @@
 package com.yosta.phuotngay.firebase.model;
 
 import com.google.firebase.database.IgnoreExtraProperties;
+import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
 @IgnoreExtraProperties
 public class User implements Serializable {
 
-    public static final String AUTHORIZATION = "AUTHORIZATION";
-
+    @SerializedName("firebaseUid")
     private String fireBaseId;
+
+    @SerializedName("avatar")
     private String avatar;
+
     private String cover;
+
+    @SerializedName("dateOfBirth")
     private String birthday;
+
+    @SerializedName("email")
     private String email;
+
     private String fbId;
     private String name;
+
+    @SerializedName("firstName")
     private String firstName;
+
+    @SerializedName("lastName")
     private String lastName;
+
+    @SerializedName("gender")
     private String gender;
+
     private String location;
+
+    @SerializedName("memberShip")
     private long memberShip;
 
     public User() {

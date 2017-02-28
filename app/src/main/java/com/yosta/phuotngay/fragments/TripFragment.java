@@ -15,6 +15,7 @@ import com.yosta.phuotngay.R;
 import com.yosta.phuotngay.activities.dialogs.DialogFilter;
 import com.yosta.phuotngay.activities.trip.TripDetailActivity;
 import com.yosta.phuotngay.adapters.TripAdapter;
+import com.yosta.phuotngay.configs.AppDefine;
 import com.yosta.phuotngay.firebase.model.User;
 import com.yosta.phuotngay.helpers.StorageHelper;
 import com.yosta.phuotngay.interfaces.CallBackStringParam;
@@ -59,13 +60,15 @@ public class TripFragment extends Fragment {
                 dialog.show();
             }
         });
-        this.tripAdapter = new TripAdapter(mContext);
         onApplyViews();
         onApplyData();
         return rootView;
     }
 
     private void onApplyViews() {
+
+        this.tripAdapter = new TripAdapter(mContext);
+
         this.rvTrip.setHasFixedSize(true);
         this.rvTrip.setItemAnimator(new SlideInUpAnimator());
         this.rvTrip.setRecycledViewPool(new RecyclerView.RecycledViewPool());
@@ -86,7 +89,7 @@ public class TripFragment extends Fragment {
     }
 
     private void onApplyData() {
-        String authorization = StorageHelper.inject(mContext).getString(User.AUTHORIZATION);
+        String authorization = StorageHelper.inject(mContext).getString(AppDefine.AUTHORIZATION);
         APIManager.connect().onGetTrips(authorization, new CallBackTripsParam() {
             @Override
             public void run(List<BaseTrip> trips) {

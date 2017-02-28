@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
+import com.yosta.phuotngay.configs.AppDefine;
 import com.yosta.phuotngay.firebase.FirebaseManager;
 import com.yosta.phuotngay.firebase.model.User;
 import com.yosta.phuotngay.helpers.StorageHelper;
@@ -24,7 +25,7 @@ public class FirebaseInstanceIDService extends FirebaseInstanceIdService {
 
     private void sendRegistrationToServer(String token) {
         try {
-            String authorization = StorageHelper.inject(this).getString(User.AUTHORIZATION);
+            String authorization = StorageHelper.inject(this).getString(AppDefine.AUTHORIZATION);
             if (ValidateHelper.canUse(authorization))
                 APIManager.connect().onUpdateFcm(authorization, token);
         } catch (Exception e) {

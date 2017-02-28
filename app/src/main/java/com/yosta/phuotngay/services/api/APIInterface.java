@@ -35,19 +35,22 @@ public interface APIInterface {
 
     @FormUrlEncoded
     @PUT("api/user")
-    Call<BaseResponse> updateProfile(@Header("authen") String authen, @FieldMap Map<String, String> fieldsFieldMap);
+    Call<BaseResponse> updateProfile(@Header("authen") String authorization, @FieldMap Map<String, String> fieldsFieldMap);
 
     @GET("/api/location")
-    Call<LocationResponse> getLocations(@Header("authen") String authen);
+    Call<LocationResponse> getLocations(@Header("authen") String authorization);
 
     @GET("/api/trips")
-    Call<TripsResponse> getTrips(@Header("authen") String authen);
+    Call<TripsResponse> getTrips(@Header("authen") String authorization);
 
     @FormUrlEncoded
     @PUT("api/user")
-    Call<BaseResponse> updateFcm(@Header("authen") String authen, @Field("fcm") String fcm);
+    Call<BaseResponse> updateFcm(@Header("authen") String authorization, @Field("fcm") String fcm);
+
+    @GET("api/user")
+    Call<BaseResponse> getUserInfo(@Header("authen") String authorization);
 
     @GET("/api/trips/{id}")
-    Call<TripResponse> getTripDetail(@Header("authen") String authen, @Path("id") String tripId);
+    Call<TripResponse> getTripDetail(@Header("authen") String authorization, @Path("id") String tripId);
 
 }

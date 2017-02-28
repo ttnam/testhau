@@ -51,6 +51,6 @@ public class SplashActivity extends ActivityBehavior {
                 }
                 finish();
             }
-        }, 5000);
+        }, 2000);
     }
 }

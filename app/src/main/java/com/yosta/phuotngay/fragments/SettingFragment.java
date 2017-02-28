@@ -1,6 +1,7 @@
 package com.yosta.phuotngay.fragments;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -11,11 +12,13 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import com.yosta.phuotngay.R;
+import com.yosta.phuotngay.activities.ProfileActivity;
 import com.yosta.phuotngay.helpers.StorageHelper;
 import com.yosta.phuotngay.ui.OwnToolBar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class SettingFragment extends Fragment {
 
@@ -52,6 +55,15 @@ public class SettingFragment extends Fragment {
         mOwnToolbar.setTitle(getString(R.string.setting));
         return rootView;
     }
+
+
+    @OnClick(R.id.layout_profile)
+    public void onCallProfile() {
+        mActivity.startActivity(new Intent(getActivity(), ProfileActivity.class));
+        mActivity.overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+    }
+
+
 /*
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -96,12 +108,6 @@ public class SettingFragment extends Fragment {
         // Language
         int lang = (presUtils.getSettingInt(StorageHelper.KEY_LANGUAGE) == 0) ? R.string.setting_language_vietnamese : R.string.setting_language_english;
         txtLang.setText(getResources().getString(lang));
-    }
-
-    @OnClick(R.id.layout_profile)
-    public void onCallProfile() {
-        mActivity.startActivity(new Intent(getActivity(), ProfileActivity.class));
-        mActivity.overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
     }
 
     @OnClick(R.id.layout_rating)

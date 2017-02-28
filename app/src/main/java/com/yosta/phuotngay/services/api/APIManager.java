@@ -185,4 +185,20 @@ public class APIManager {
             }
         });
     }
+
+    public void getUserInfo(String authorization, CallBack back) {
+        Call<BaseResponse> call = service.getUserInfo(authorization);
+        call.enqueue(new Callback<BaseResponse>() {
+            @Override
+            public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<BaseResponse> call, Throwable t) {
+
+            }
+        });
+
+    }
 }
