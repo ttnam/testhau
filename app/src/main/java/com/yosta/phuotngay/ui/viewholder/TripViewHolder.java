@@ -22,10 +22,10 @@ import butterknife.ButterKnife;
 public class TripViewHolder extends RecyclerView.ViewHolder {
 
     @BindView(R.id.text_view)
-    TextView mTvTitle;
+    TextView mTextTitle;
 
     @BindView(R.id.tv_created_time)
-    TextView mTvCreatedTime;
+    TextView mTextDuration;
 
     @BindView(R.id.image_view)
     AppCompatImageView mImageView;
@@ -40,9 +40,9 @@ public class TripViewHolder extends RecyclerView.ViewHolder {
         ButterKnife.bind(this, itemView);
     }
 
-    public void onBind(String cover, String name, String description) {
+    public void onBind(String cover, String name, String arrive) {
         Glide.with(mContext).load(cover).into(this.mImageView);
-        this.mTvTitle.setText(name);
-        this.mTvCreatedTime.setText(description);
+        this.mTextTitle.setText(name);
+        this.mTextDuration.setText(arrive);
     }
 }

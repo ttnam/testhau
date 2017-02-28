@@ -31,7 +31,7 @@ import com.yosta.phuotngay.activities.MainActivity;
 
 public class FirebaseMessagingService extends com.google.firebase.messaging.FirebaseMessagingService {
 
-    private static final String TAG = "EventHubMsmService";
+    private static final String TAG = FirebaseMessagingService.class.getSimpleName();
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {

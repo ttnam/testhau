@@ -25,21 +25,21 @@ public class SearchTripHelper {
         String regex = Pattern.quote("[\\p{InCombiningDiacriticalMarks}\\p{IsLm}\\p{IsSk}]+");
         String s2 = new String(s1.replaceAll(regex, "").getBytes("ascii"), "ascii");
 
-        return s2. replaceAll("[?]", "");
+        return s2.replaceAll("[?]", "");
     }
 
     public static List<FirebaseTrip> search(String arrive, String depart, String time, String transfer) {
 
         List<FirebaseTrip> result = new ArrayList();
 
-       try {
+        try {
             arrive = unicodeToAscii(arrive);
             depart = unicodeToAscii(depart);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
 
-        for(FirebaseTrip trip : trips) {
+        for (FirebaseTrip trip : trips) {
             String _arrive = null;
             String _depart = null;
             try {

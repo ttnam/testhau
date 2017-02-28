@@ -6,11 +6,11 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.Window;
 
-import org.greenrobot.eventbus.EventBus;
-
 import com.yosta.phuotngay.R;
 import com.yosta.phuotngay.models.app.MessageInfo;
 import com.yosta.phuotngay.models.app.MessageType;
+
+import org.greenrobot.eventbus.EventBus;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;

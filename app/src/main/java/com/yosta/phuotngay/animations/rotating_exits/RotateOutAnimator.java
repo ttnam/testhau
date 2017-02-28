@@ -23,16 +23,18 @@
  */
 
 package com.yosta.phuotngay.animations.rotating_exits;
+
 import android.view.View;
 
 import com.nineoldandroids.animation.ObjectAnimator;
 import com.yosta.phuotngay.animations.BaseViewAnimator;
+
 public class RotateOutAnimator extends BaseViewAnimator {
     @Override
     public void prepare(View target) {
         getAnimatorAgent().playTogether(
-                ObjectAnimator.ofFloat(target,"alpha",1,0),
-                ObjectAnimator.ofFloat(target,"rotation",0,200)
+                ObjectAnimator.ofFloat(target, "alpha", 1, 0),
+                ObjectAnimator.ofFloat(target, "rotation", 0, 200)
         );
     }
 }

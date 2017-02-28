@@ -28,12 +28,13 @@ import android.view.View;
 
 import com.nineoldandroids.animation.ObjectAnimator;
 import com.yosta.phuotngay.animations.BaseViewAnimator;
-public class BounceInRightAnimator extends BaseViewAnimator{
+
+public class BounceInRightAnimator extends BaseViewAnimator {
     @Override
     public void prepare(View target) {
         getAnimatorAgent().playTogether(
-                ObjectAnimator.ofFloat(target,"translationX",target.getMeasuredWidth()+target.getWidth(),-30,10,0),
-                ObjectAnimator.ofFloat(target,"alpha",0,1,1,1)
+                ObjectAnimator.ofFloat(target, "translationX", target.getMeasuredWidth() + target.getWidth(), -30, 10, 0),
+                ObjectAnimator.ofFloat(target, "alpha", 0, 1, 1, 1)
         );
     }
 }

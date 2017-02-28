@@ -23,17 +23,19 @@
  */
 
 package com.yosta.phuotngay.animations.sliders;
+
 import android.view.View;
 
 import com.nineoldandroids.animation.ObjectAnimator;
 import com.yosta.phuotngay.animations.BaseViewAnimator;
+
 public class SlideInDownAnimator extends BaseViewAnimator {
     @Override
     public void prepare(View target) {
         int distance = target.getTop() + target.getHeight();
         getAnimatorAgent().playTogether(
-                ObjectAnimator.ofFloat(target,"alpha",0,1),
-                ObjectAnimator.ofFloat(target,"translationY",-distance,0)
+                ObjectAnimator.ofFloat(target, "alpha", 0, 1),
+                ObjectAnimator.ofFloat(target, "translationY", -distance, 0)
         );
     }
 }

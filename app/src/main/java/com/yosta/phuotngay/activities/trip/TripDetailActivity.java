@@ -24,14 +24,12 @@ import com.yosta.phuotngay.activities.RatingActivity;
 import com.yosta.phuotngay.activities.dialogs.DialogComment;
 import com.yosta.phuotngay.firebase.FirebaseManager;
 import com.yosta.phuotngay.firebase.adapter.FirebaseActivityAdapter;
-import com.yosta.phuotngay.helpers.AppHelper;
-import com.yosta.phuotngay.models.trip.BaseTrip;
-import com.yosta.phuotngay.ui.decoration.SpacesItemDecoration;
 import com.yosta.phuotngay.interfaces.ActivityBehavior;
-import com.yosta.phuotngay.firebase.model.FirebaseTrip;
 import com.yosta.phuotngay.interfaces.CallBack;
-import com.yosta.phuotngay.ui.bottomsheet.BottomSheetDialog;
+import com.yosta.phuotngay.models.trip.BaseTrip;
 import com.yosta.phuotngay.ui.OwnToolBar;
+import com.yosta.phuotngay.ui.bottomsheet.BottomSheetDialog;
+import com.yosta.phuotngay.ui.decoration.SpacesItemDecoration;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -180,13 +178,13 @@ public class TripDetailActivity extends ActivityBehavior {
     }
 
     private void onUpdateData(BaseTrip baseTrip) {
-        if (trip == null) return;
+        if (baseTrip == null) return;
         String prefix = "<html><body><p style=\"text-align: justify\">";
         String postfix = "</p></body></html>";
-        String content = baseTrip.getDescription();
+        String content = "";// baseTrip.getDescription();
         webView.loadData(prefix + content + postfix, "text/html; charset=utf-8", "utf-8");
-        txtTitle.setText(trip.getName());
-        Glide.with(this).load(trip.getCover()).into(imageCover);
+        txtTitle.setText(baseTrip.getName());
+        Glide.with(this).load(baseTrip.getCover()).into(imageCover);
     }
 
     // Ranking listener

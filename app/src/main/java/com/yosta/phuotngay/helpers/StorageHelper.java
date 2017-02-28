@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-import com.google.gson.Gson;
 import com.yosta.phuotngay.firebase.model.User;
 import com.yosta.phuotngay.helpers.validate.ValidateHelper;
 
@@ -76,7 +75,7 @@ public class StorageHelper {
     }
 
     public boolean IsUserLogin() {
-        return ValidateHelper.IsNotEmpty(getString(User.AUTHORIZATION));
+        return ValidateHelper.canUse(getString(User.AUTHORIZATION));
     }
 }
 /*

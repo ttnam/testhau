@@ -28,6 +28,7 @@ import android.view.View;
 
 import com.nineoldandroids.animation.ObjectAnimator;
 import com.yosta.phuotngay.animations.BaseViewAnimator;
+
 public class FlipInXAnimator extends BaseViewAnimator {
     @Override
     public void prepare(View target) {

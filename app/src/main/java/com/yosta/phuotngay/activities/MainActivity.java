@@ -12,8 +12,8 @@ import com.yosta.phuotngay.firebase.model.User;
 import com.yosta.phuotngay.fragments.NotificationsFragment;
 import com.yosta.phuotngay.fragments.OwnTripFragment;
 import com.yosta.phuotngay.fragments.SearchFragment;
-import com.yosta.phuotngay.fragments.TripFragment;
 import com.yosta.phuotngay.fragments.SettingFragment;
+import com.yosta.phuotngay.fragments.TripFragment;
 import com.yosta.phuotngay.helpers.StorageHelper;
 import com.yosta.phuotngay.interfaces.ActivityBehavior;
 import com.yosta.phuotngay.interfaces.CallBackLocationsParam;
@@ -88,7 +88,6 @@ public class MainActivity extends ActivityBehavior {
     @Override
     protected void onResume() {
         super.onResume();
-
         String authorization = StorageHelper.inject(this).getString(User.AUTHORIZATION);
         APIManager.connect().onGetLocation(authorization, new CallBackLocationsParam() {
             @Override

@@ -1,9 +1,7 @@
 package com.yosta.phuotngay.firebase.model;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.net.MalformedURLException;
 import java.net.URL;
 
 /**

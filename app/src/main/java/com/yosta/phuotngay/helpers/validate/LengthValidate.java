@@ -2,8 +2,6 @@ package com.yosta.phuotngay.helpers.validate;
 
 import android.support.design.widget.TextInputEditText;
 
-import com.yosta.phuotngay.helpers.validate.IValidate;
-
 /**
  * Created by Phuc-Hau Nguyen on 8/31/2016.
  */

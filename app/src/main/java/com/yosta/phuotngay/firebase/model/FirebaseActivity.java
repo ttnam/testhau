@@ -25,6 +25,7 @@ public class FirebaseActivity implements Serializable {
     public String getDate() {
         return AppHelper.builder().getTime(time, AppHelper.DD_MM_YYYY);
     }
+
     public long getTime() {
         return time;
     }

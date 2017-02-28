@@ -29,14 +29,15 @@ import android.view.ViewGroup;
 
 import com.nineoldandroids.animation.ObjectAnimator;
 import com.yosta.phuotngay.animations.BaseViewAnimator;
+
 public class SlideInUpAnimator extends BaseViewAnimator {
     @Override
     public void prepare(View target) {
-        ViewGroup parent = (ViewGroup)target.getParent();
+        ViewGroup parent = (ViewGroup) target.getParent();
         int distance = parent.getHeight() - target.getTop();
         getAnimatorAgent().playTogether(
                 ObjectAnimator.ofFloat(target, "alpha", 0, 1),
-                ObjectAnimator.ofFloat(target,"translationY",distance,0)
+                ObjectAnimator.ofFloat(target, "translationY", distance, 0)
         );
     }
 }

@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.yosta.phuotngay.R;
+
 import butterknife.ButterKnife;
 
 public class NotificationsFragment extends Fragment {

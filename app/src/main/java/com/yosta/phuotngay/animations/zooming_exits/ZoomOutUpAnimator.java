@@ -28,6 +28,7 @@ import android.view.View;
 
 import com.nineoldandroids.animation.ObjectAnimator;
 import com.yosta.phuotngay.animations.BaseViewAnimator;
+
 public class ZoomOutUpAnimator extends BaseViewAnimator {
     @Override
     protected void prepare(View target) {

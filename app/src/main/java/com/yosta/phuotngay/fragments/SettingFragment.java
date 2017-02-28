@@ -1,9 +1,7 @@
 package com.yosta.phuotngay.fragments;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,25 +10,12 @@ import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.yosta.materialdialog.ChoiceDialog;
-import com.yosta.materialdialog.StandardDialog;
 import com.yosta.phuotngay.R;
-import com.yosta.phuotngay.activities.MainActivity;
-import com.yosta.phuotngay.activities.ProfileActivity;
-import com.yosta.phuotngay.activities.WebViewActivity;
-import com.yosta.phuotngay.adapters.MenuAdapter;
-import com.yosta.phuotngay.helpers.AppHelper;
 import com.yosta.phuotngay.helpers.StorageHelper;
 import com.yosta.phuotngay.ui.OwnToolBar;
-import com.yosta.phuotngay.ui.listeners.ListenerHelpers;
-import com.yosta.phuotngay.models.menu.MenuItem;
-import com.yosta.phuotngay.models.app.AppSetting;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class SettingFragment extends Fragment {
 

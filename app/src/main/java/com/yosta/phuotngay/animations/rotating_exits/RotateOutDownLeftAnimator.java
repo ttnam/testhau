@@ -23,10 +23,12 @@
  */
 
 package com.yosta.phuotngay.animations.rotating_exits;
+
 import android.view.View;
 
 import com.nineoldandroids.animation.ObjectAnimator;
 import com.yosta.phuotngay.animations.BaseViewAnimator;
+
 public class RotateOutDownLeftAnimator extends BaseViewAnimator {
     @Override
     public void prepare(View target) {
@@ -34,9 +36,9 @@ public class RotateOutDownLeftAnimator extends BaseViewAnimator {
         float y = target.getHeight() - target.getPaddingBottom();
         getAnimatorAgent().playTogether(
                 ObjectAnimator.ofFloat(target, "alpha", 1, 0),
-                ObjectAnimator.ofFloat(target,"rotation",0,90),
-                ObjectAnimator.ofFloat(target,"pivotX",x,x),
-                ObjectAnimator.ofFloat(target,"pivotY",y,y)
+                ObjectAnimator.ofFloat(target, "rotation", 0, 90),
+                ObjectAnimator.ofFloat(target, "pivotX", x, x),
+                ObjectAnimator.ofFloat(target, "pivotY", y, y)
         );
     }
 }

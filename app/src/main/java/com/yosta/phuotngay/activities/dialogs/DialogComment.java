@@ -16,11 +16,11 @@ import android.widget.RelativeLayout;
 import com.yosta.phuotngay.R;
 import com.yosta.phuotngay.animations.YoYo;
 import com.yosta.phuotngay.animations.fading_entrances.FadeInAnimator;
-import com.yosta.phuotngay.firebase.adapter.FirebaseCommentAdapter;
 import com.yosta.phuotngay.firebase.FirebaseManager;
+import com.yosta.phuotngay.firebase.adapter.FirebaseCommentAdapter;
 import com.yosta.phuotngay.helpers.AppHelper;
-import com.yosta.phuotngay.ui.decoration.SpacesItemDecoration;
 import com.yosta.phuotngay.models.app.MessageInfo;
+import com.yosta.phuotngay.ui.decoration.SpacesItemDecoration;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;

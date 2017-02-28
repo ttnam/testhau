@@ -16,7 +16,6 @@ import com.yosta.phuotngay.activities.dialogs.DialogFilter;
 import com.yosta.phuotngay.activities.trip.TripDetailActivity;
 import com.yosta.phuotngay.adapters.TripAdapter;
 import com.yosta.phuotngay.firebase.model.User;
-import com.yosta.phuotngay.helpers.AppHelper;
 import com.yosta.phuotngay.helpers.StorageHelper;
 import com.yosta.phuotngay.interfaces.CallBackStringParam;
 import com.yosta.phuotngay.interfaces.CallBackTripsParam;

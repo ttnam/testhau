@@ -23,10 +23,12 @@
  */
 
 package com.yosta.phuotngay.animations.zooming_entrances;
+
 import android.view.View;
 
 import com.nineoldandroids.animation.ObjectAnimator;
 import com.yosta.phuotngay.animations.BaseViewAnimator;
+
 public class ZoomInAnimator extends BaseViewAnimator {
     @Override
     public void prepare(View target) {

@@ -125,12 +125,10 @@
         <activity
             android:name=".activities.WelcomeActivity"
             android:launchMode="singleInstance"
-            android:parentActivityName=".activities.MainActivity"
             android:theme="@style/AppTheme.White" />
         <activity
             android:name=".activities.group.GroupDetailActivity"
             android:launchMode="singleInstance"
-            android:parentActivityName=".activities.MainActivity"
             android:theme="@style/AppTheme.White" />
         <activity
             android:name=".activities.group.AddGroupActivity"
@@ -144,7 +142,7 @@
         <service
             android:name=".services.fcm.FirebaseMessagingService"
             android:enabled="true"
-            android:exported="true">
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
@@ -153,7 +151,7 @@
         <service
             android:name=".services.fcm.FirebaseInstanceIDService"
             android:enabled="true"
-            android:exported="true">
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>

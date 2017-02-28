@@ -1,7 +1,6 @@
 package com.yosta.phuotngay.services.response;
 
 import com.google.gson.annotations.SerializedName;
-import com.yosta.phuotngay.models.base.Locations;
 import com.yosta.phuotngay.models.trip.BaseTrip;
 
 import java.util.List;

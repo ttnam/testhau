@@ -28,12 +28,13 @@ import android.view.View;
 
 import com.nineoldandroids.animation.ObjectAnimator;
 import com.yosta.phuotngay.animations.BaseViewAnimator;
+
 public class FadeOutLeftAnimator extends BaseViewAnimator {
     @Override
     public void prepare(View target) {
         getAnimatorAgent().playTogether(
-                ObjectAnimator.ofFloat(target,"alpha",1,0),
-                ObjectAnimator.ofFloat(target,"translationX",0,-target.getWidth()/4)
+                ObjectAnimator.ofFloat(target, "alpha", 1, 0),
+                ObjectAnimator.ofFloat(target, "translationX", 0, -target.getWidth() / 4)
         );
     }
 }

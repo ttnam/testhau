@@ -6,6 +6,7 @@ import com.daimajia.easing.Glider;
 import com.daimajia.easing.Skill;
 import com.nineoldandroids.animation.ObjectAnimator;
 import com.yosta.phuotngay.animations.BaseViewAnimator;
+
 public class DropOutAnimator extends BaseViewAnimator {
     @Override
     protected void prepare(View target) {

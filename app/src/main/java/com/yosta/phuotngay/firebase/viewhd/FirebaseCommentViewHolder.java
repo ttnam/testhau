@@ -6,9 +6,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.yosta.phuotngay.R;
 import com.yosta.phuotngay.firebase.model.FirebaseComment;
+import com.yosta.phuotngay.helpers.AppHelper;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -43,26 +43,7 @@ public class FirebaseCommentViewHolder extends RecyclerView.ViewHolder {
         // Glide.with(mContext).load(comment.getAvatar()).error(R.drawable.ic_avatar).into(mAvatar);
         this.mTxtUserName.setText(comment.getUsername());
         this.txtContent.setText(comment.getContent());
-        this.tVTime.setText(onGetTimeGap(comment.time()));
+        this.tVTime.setText(AppHelper.builder(mContext).getPastTimeGap(comment.time()));
     }
 
-    private String onGetTimeGap(long timeGap) {
-
-        int pluralsIds[] = {R.plurals.seconds, R.plurals.minutes, R.plurals.hours,
-                R.plurals.days, R.plurals.months, R.plurals.years};
-
-        int timeConst[] = {1000, 60, 60, 24, 30, 12};
-        int timeValue = (int) (timeGap / timeConst[0]);
-
-        Resources resources = mContext.getResources();
-        String res = resources.getQuantityString(R.plurals.seconds, timeValue, timeValue);
-
-        for (int i = 1; i < pluralsIds.length; ++i) {
-            timeValue /= timeConst[i];
-            if (timeValue != 0) {
-                res = resources.getQuantityString(pluralsIds[i], timeValue, timeValue);
-            }
-        }
-        return res;
-    }
 }

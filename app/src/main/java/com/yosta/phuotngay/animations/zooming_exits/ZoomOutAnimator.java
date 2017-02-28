@@ -28,13 +28,14 @@ import android.view.View;
 
 import com.nineoldandroids.animation.ObjectAnimator;
 import com.yosta.phuotngay.animations.BaseViewAnimator;
-public class ZoomOutAnimator extends BaseViewAnimator{
+
+public class ZoomOutAnimator extends BaseViewAnimator {
     @Override
     protected void prepare(View target) {
         getAnimatorAgent().playTogether(
-                ObjectAnimator.ofFloat(target,"alpha",1,0,0),
-                ObjectAnimator.ofFloat(target,"scaleX",1,0.3f,0),
-                ObjectAnimator.ofFloat(target,"scaleY",1,0.3f,0)
+                ObjectAnimator.ofFloat(target, "alpha", 1, 0, 0),
+                ObjectAnimator.ofFloat(target, "scaleX", 1, 0.3f, 0),
+                ObjectAnimator.ofFloat(target, "scaleY", 1, 0.3f, 0)
         );
     }
 }

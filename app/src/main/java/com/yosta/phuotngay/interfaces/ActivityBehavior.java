@@ -16,6 +16,7 @@ public class ActivityBehavior extends AppCompatActivity implements ActivityInter
     public void onApplyEvents() {
 
     }
+
     @Override
     public void onApplyData() {
 

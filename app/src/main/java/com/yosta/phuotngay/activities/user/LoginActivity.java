@@ -10,12 +10,9 @@ import android.widget.Toast;
 
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
-import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -161,7 +158,6 @@ public class LoginActivity extends ActivityBehavior {
 
     private void onCallToServer(final User user) {
         if (user != null) {
-
             String email = user.getEmail();
             String fbId = user.getFbId();
             String fireBaseId = user.getFireBaseId();

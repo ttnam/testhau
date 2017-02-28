@@ -3,7 +3,7 @@ package com.yosta.phuotngay.activities.dialogs;
 /**
  * Created by Phuc-Hau Nguyen on 8/31/2016.
  */
-public class DialogLogin /*extends Dialog implements DialogBehavior */{
+public class DialogLogin /*extends Dialog implements DialogBehavior */ {
 /*
 
     @BindView(R.id.textView)

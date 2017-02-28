@@ -1,4 +1,5 @@
 package com.yosta.phuotngay.activities;
+
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -6,6 +7,7 @@ import android.view.View;
 import com.yosta.phuotngay.R;
 import com.yosta.phuotngay.helpers.AppHelper;
 import com.yosta.phuotngay.interfaces.ActivityBehavior;
+
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -25,7 +27,7 @@ public class CreateTripActivity extends ActivityBehavior {
     }
 
     @OnClick(R.id.button)
-    public void click(View view){
+    public void click(View view) {
         AppHelper.builder().showSnackBarNotify(view, "Click");
     }
 }

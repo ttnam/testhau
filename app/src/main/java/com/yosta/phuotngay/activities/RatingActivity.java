@@ -1,14 +1,11 @@
 package com.yosta.phuotngay.activities;
 
-import android.support.design.widget.BottomSheetDialogFragment;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
 import com.yosta.phuotngay.R;
 import com.yosta.phuotngay.interfaces.ActivityBehavior;
 import com.yosta.phuotngay.ui.OwnToolBar;
-import com.yosta.phuotngay.ui.bottomsheet.BottomSheetDialog;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

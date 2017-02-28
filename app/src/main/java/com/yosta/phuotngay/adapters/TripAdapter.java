@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.yosta.phuotngay.R;
+import com.yosta.phuotngay.helpers.AppHelper;
+import com.yosta.phuotngay.models.base.Location;
 import com.yosta.phuotngay.models.trip.BaseTrip;
 import com.yosta.phuotngay.ui.viewholder.TripViewHolder;
 
@@ -29,7 +31,6 @@ public class TripAdapter extends RecyclerView.Adapter<TripViewHolder> {
 
     @Override
     public TripViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
         View itemLayoutView = LayoutInflater.from(mContext).inflate(R.layout.item_trip, null);
         return new TripViewHolder(itemLayoutView);
     }
@@ -37,7 +38,13 @@ public class TripAdapter extends RecyclerView.Adapter<TripViewHolder> {
     @Override
     public void onBindViewHolder(TripViewHolder holder, int position) {
         BaseTrip baseTrip = mTrips.get(position);
-        holder.onBind(baseTrip.getCover(), baseTrip.getName(), baseTrip.getArrive());
+        holder.onBind(
+                baseTrip.getCover(),
+                baseTrip.getName(),
+                AppHelper.builder(mContext).getTimeGap(
+                        baseTrip.getDuration()
+                )
+        );
     }
 
     @Override
@@ -45,15 +52,12 @@ public class TripAdapter extends RecyclerView.Adapter<TripViewHolder> {
         return mTrips.size();
     }
 
-    public void adds(List<BaseTrip> trips) {
-        this.mTrips.addAll(trips);
-        notifyDataSetChanged();
-    }
     public void replaceAll(List<BaseTrip> trips) {
         this.mTrips.clear();
         this.mTrips.addAll(trips);
         notifyDataSetChanged();
     }
+
     public BaseTrip getItem(int position) {
         if (position < 0 || position >= getItemCount()) {
             return null;

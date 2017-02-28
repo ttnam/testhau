@@ -2,18 +2,17 @@ package com.yosta.phuotngay.helpers;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.content.res.ColorStateList;
+import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.Bundle;
 import android.support.annotation.AnyRes;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -31,7 +30,6 @@ import com.yosta.phuotngay.R;
 import com.yosta.phuotngay.adapters.MenuAdapter;
 import com.yosta.phuotngay.models.menu.MenuItem;
 
-import java.io.Serializable;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Timestamp;
@@ -49,8 +47,6 @@ public class AppHelper {
     public static final int H_MM = 0;
     public static final int DD_MM_YYYY = 1;
 
-    public static final String EXTRA_INTENT = "EXTRA_INTENT";
-
     public static final String EXTRA_TRIPS = "EXTRA_TRIPS";
 
     public static final String FONT_LATO_BLACK = "fonts/Lato-Black.ttf";
@@ -65,7 +61,41 @@ public class AppHelper {
         return new Builder();
     }
 
+    public static Builder builder(Activity activity) {
+        return new Builder(activity);
+    }
+
+    public static Builder builder(Context context) {
+        return new Builder(context);
+    }
+
     public static class Builder {
+
+        private Activity mActivity = null;
+        private Context mContext = null;
+        private Resources mResources = null;
+
+        private int pluralsTimeIds[] = {R.plurals.seconds, R.plurals.minutes, R.plurals.hours,
+                R.plurals.days, R.plurals.months, R.plurals.years};
+
+        private int pluralsPastTimeIds[] = {R.plurals.seconds_ago, R.plurals.minutes_ago, R.plurals.hours_ago,
+                R.plurals.days_ago, R.plurals.months_ago, R.plurals.years_ago};
+
+        public Builder() {
+            mResources = null;
+            mContext = null;
+            mActivity = null;
+        }
+
+        public Builder(Activity activity) {
+            this.mActivity = activity;
+            this.mResources = mActivity.getResources();
+        }
+
+        public Builder(Context context) {
+            this.mContext = context;
+            this.mResources = mContext.getResources();
+        }
 
         public Builder showSnackBarNotify(@NonNull View view, @NonNull String message) {
             String msg = view.getResources().getString(R.string.message_snack_bar, message);
@@ -99,6 +129,46 @@ public class AppHelper {
         public long getTimeStep(long millis) {
             long currTimes = System.currentTimeMillis();
             return (currTimes - millis);
+        }
+
+        public String getTimeGap(long timeGap) {
+            if (mActivity == null && mContext == null)
+                return "";
+
+            int timeConst[] = {1000, 60, 60, 24, 30, 12};
+            int timeValue = (int) (timeGap / timeConst[0]);
+
+            String res = mResources.getQuantityString(R.plurals.seconds, timeValue, timeValue);
+
+            for (int i = 1; i < pluralsTimeIds.length; ++i) {
+                timeValue /= timeConst[i];
+                if (timeValue != 0) {
+                    res = mResources.getQuantityString(pluralsTimeIds[i], timeValue, timeValue);
+                }
+            }
+            mActivity = null;
+            mContext = null;
+            return res;
+        }
+
+        public String getPastTimeGap(long timeGap) {
+            if (mActivity == null && mContext == null)
+                return "";
+
+            int timeConst[] = {1000, 60, 60, 24, 30, 12};
+            int timeValue = (int) (timeGap / timeConst[0]);
+
+            String res = mResources.getQuantityString(R.plurals.seconds, timeValue, timeValue);
+
+            for (int i = 1; i < pluralsPastTimeIds.length; ++i) {
+                timeValue /= timeConst[i];
+                if (timeValue != 0) {
+                    res = mResources.getQuantityString(pluralsPastTimeIds[i], timeValue, timeValue);
+                }
+            }
+            mActivity = null;
+            mContext = null;
+            return res;
         }
 
         public void setFont(@NonNull String fontName, @NonNull TextView... textViews) {
@@ -161,32 +231,6 @@ public class AppHelper {
             return info.versionName;
         }
         return null;
-    }
-
-    public static Serializable onReceiveDataThroughBundle(Activity activity, String key) {
-        Serializable serializable = null;
-        try {
-            Intent intent = activity.getIntent();
-            Bundle bundle = intent.getExtras();
-            serializable = bundle.getSerializable(key);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return serializable;
-    }
-
-    public static boolean onSendObjectThroughBundle(Context srcContext, Class destClass, String key, Serializable object, boolean isCall) {
-        try {
-            Intent intent = new Intent(srcContext, destClass);
-            intent.putExtra(key, object);
-            if (isCall) {
-                srcContext.startActivity(intent);
-                ((Activity) srcContext).overridePendingTransition(R.anim.anim_slide_in_up, R.anim.anim_slide_out_up);
-            }
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
     }
 
     public static String onGetKeyHash(Context context) {

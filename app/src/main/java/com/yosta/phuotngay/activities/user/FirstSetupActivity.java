@@ -1,20 +1,20 @@
 package com.yosta.phuotngay.activities.user;
 
 import android.content.Intent;
-import android.support.design.widget.TextInputEditText;
 import android.os.Bundle;
+import android.support.design.widget.TextInputEditText;
 import android.support.v7.widget.AppCompatImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.yosta.phuotngay.R;
 import com.yosta.phuotngay.activities.MainActivity;
 import com.yosta.phuotngay.firebase.model.User;
-import com.yosta.phuotngay.managers.EventManager;
-import com.yosta.phuotngay.helpers.StorageHelper;
 import com.yosta.phuotngay.helpers.validate.ValidateHelper;
 import com.yosta.phuotngay.interfaces.ActivityBehavior;
 import com.yosta.phuotngay.interfaces.CallBack;
 import com.yosta.phuotngay.interfaces.CallBackStringParam;
+import com.yosta.phuotngay.managers.EventManager;
 import com.yosta.phuotngay.services.api.APIManager;
 
 import java.util.HashMap;
@@ -45,6 +45,7 @@ public class FirstSetupActivity extends ActivityBehavior {
     TextInputEditText editDob;
 
     private User user;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,10 +89,10 @@ public class FirstSetupActivity extends ActivityBehavior {
         String dateOfBirth = editDob.getText().toString();
         String avatar = user.getAvatar();
         Map<String, String> map = new HashMap<>();
-        if (ValidateHelper.IsNotEmpty(email)
-                && ValidateHelper.IsNotEmpty(firstName)
-                && ValidateHelper.IsNotEmpty(lastName)
-                && ValidateHelper.IsNotEmpty(dateOfBirth)) {
+        if (ValidateHelper.canUse(email)
+                && ValidateHelper.canUse(firstName)
+                && ValidateHelper.canUse(lastName)
+                && ValidateHelper.canUse(dateOfBirth)) {
 
             map.clear();
             map.put("email", email);
@@ -117,6 +118,7 @@ public class FirstSetupActivity extends ActivityBehavior {
             Toast.makeText(this, "Please fill in all of fields.", Toast.LENGTH_SHORT).show();
         }
     }
+
     @Override
     public void onApplyEvents() {
         editFirstName.addTextChangedListener(EventManager.connect().addTextWatcherEvent(new CallBack() {

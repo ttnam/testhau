@@ -13,10 +13,10 @@ import android.widget.EditText;
 import com.yosta.materialspinner.MaterialSpinner;
 import com.yosta.phuotngay.R;
 import com.yosta.phuotngay.activities.SearchActivity;
+import com.yosta.phuotngay.firebase.model.FirebaseTrip;
 import com.yosta.phuotngay.firebase.model.FirebaseTrips;
 import com.yosta.phuotngay.helpers.AppHelper;
 import com.yosta.phuotngay.helpers.SearchTripHelper;
-import com.yosta.phuotngay.firebase.model.FirebaseTrip;
 
 import java.util.Arrays;
 import java.util.List;

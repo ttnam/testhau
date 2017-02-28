@@ -1,7 +1,7 @@
 package com.yosta.phuotngay.activities;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
 import com.yosta.phuotngay.R;
 import com.yosta.phuotngay.activities.dialogs.DialogTripInvite;

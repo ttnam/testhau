@@ -2,6 +2,7 @@ package com.yosta.phuotngay.services.api;
 
 import android.util.Log;
 
+import com.yosta.phuotngay.helpers.validate.ValidateHelper;
 import com.yosta.phuotngay.interfaces.CallBack;
 import com.yosta.phuotngay.interfaces.CallBackLocationsParam;
 import com.yosta.phuotngay.interfaces.CallBackStringParam;
@@ -74,9 +75,8 @@ public class APIManager {
             }
 
             @Override
-            public void onFailure(Call<LoginResponse> call, Throwable t) {
-                Log.e(TAG, t.getMessage());
-                fail.run(t.getMessage());
+            public void onFailure(Call<LoginResponse> call, Throwable throwable) {
+                fail.run(throwable.getMessage());
             }
         });
     }

@@ -6,6 +6,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatImageView;
 import android.view.Window;
+
 import com.yosta.phuotngay.R;
 
 import butterknife.BindView;

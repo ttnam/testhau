@@ -32,10 +32,11 @@ public class BounceAnimator extends BaseViewAnimator {
 
     private int h1 = 30, h2 = 15;
 
-    public BounceAnimator(){
+    public BounceAnimator() {
         this.h1 = 20;
         this.h2 = 15;
     }
+
     public BounceAnimator(int h1, int h2) {
         this.h1 = h1;
         this.h2 = h2;
