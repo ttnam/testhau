@@ -2,7 +2,10 @@ package com.yosta.backend.config;
 
 import android.util.Log;
 
+import com.yosta.backend.response.CreateGroupResponse;
+import com.yosta.backend.response.FriendsResponse;
 import com.yosta.interfaces.CallBack;
+import com.yosta.interfaces.CallBackFriendsParam;
 import com.yosta.interfaces.CallBackLocationsParam;
 import com.yosta.interfaces.CallBackStringParam;
 import com.yosta.interfaces.CallBackTripParam;
@@ -12,6 +15,7 @@ import com.yosta.backend.response.LocationResponse;
 import com.yosta.backend.response.LoginResponse;
 import com.yosta.backend.response.TripResponse;
 import com.yosta.backend.response.TripsResponse;
+import com.yosta.phuotngay.models.Friend;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -199,5 +203,60 @@ public class APIManager {
             }
         });
 
+    }
+
+    public void createGroup(String authorization, String name, String info, String members,
+                            final CallBack expired,
+                            final CallBackStringParam success,
+                            final CallBackStringParam fail) {
+        Call<CreateGroupResponse> call = service.createGroup(authorization, name, info, members);
+        call.enqueue(new Callback<CreateGroupResponse>() {
+            @Override
+            public void onResponse(Call<CreateGroupResponse> call, Response<CreateGroupResponse> response) {
+                if (response.code() == 200) {
+                    CreateGroupResponse groupResponse = response.body();
+                    if (groupResponse.IsSuccess()) {
+                        success.run(groupResponse.getGroupId());
+                    } else if (groupResponse.IsExpired()) {
+                        expired.run();
+                    } else {
+                        fail.run(groupResponse.getDescription());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CreateGroupResponse> call, Throwable throwable) {
+                Log.e(TAG, throwable.getMessage());
+                fail.run(throwable.getMessage());
+            }
+        });
+    }
+
+    public void getFriendsList(String authorization, String fbAccessToken,
+                               final CallBackFriendsParam success, final CallBackStringParam fail,
+                               final CallBack expired) {
+        Call<FriendsResponse> call = service.getFriendsList(authorization, fbAccessToken);
+        call.enqueue(new Callback<FriendsResponse>() {
+            @Override
+            public void onResponse(Call<FriendsResponse> call, Response<FriendsResponse> response) {
+                if (response.code() == 200) {
+                    FriendsResponse friendsResponse = response.body();
+                    if (friendsResponse.IsExpired()) {
+                        expired.run();
+                    } else if (friendsResponse.IsSuccess()) {
+                        success.run(friendsResponse.getFriends());
+                    } else {
+                        fail.run(friendsResponse.getDescription());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<FriendsResponse> call, Throwable throwable) {
+                Log.e(TAG, throwable.getMessage());
+                fail.run(throwable.getMessage());
+            }
+        });
     }
 }

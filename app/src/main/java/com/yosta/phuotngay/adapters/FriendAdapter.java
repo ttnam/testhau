@@ -7,9 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.yosta.phuotngay.R;
-import com.yosta.phuotngay.firebase.model.FirebaseFriend;
-import com.yosta.phuotngay.firebase.viewhd.FirebaseFriendViewHolder;
+import com.yosta.phuotngay.ui.viewholder.FriendViewHolder;
 import com.yosta.interfaces.ItemClickCallBack;
+import com.yosta.phuotngay.models.Friend;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -20,56 +20,63 @@ import java.util.List;
  * Created by Phuc-Hau Nguyen on 10/14/2016.
  */
 
-public class FriendAdapter extends RecyclerView.Adapter<FirebaseFriendViewHolder> {
+public class FriendAdapter extends RecyclerView.Adapter<FriendViewHolder> {
 
     private Context mContext = null;
-    private List<FirebaseFriend> mTrips = null;
+    private List<Friend> mFriends = null;
     private ItemClickCallBack itemClickCallBack;
 
     public FriendAdapter(Context context, @NotNull ItemClickCallBack callBack) {
         this.mContext = context;
-        this.mTrips = new ArrayList<>();
+        this.mFriends = new ArrayList<>();
         this.itemClickCallBack = callBack;
     }
 
     @Override
-    public FirebaseFriendViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public FriendViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View itemLayoutView = LayoutInflater.from(mContext).inflate(R.layout.item_friend_type_1, null);
-        return new FirebaseFriendViewHolder(itemLayoutView);
+        return new FriendViewHolder(itemLayoutView);
     }
 
     @Override
-    public void onBindViewHolder(FirebaseFriendViewHolder holder, int position) {
-        FirebaseFriend trip = mTrips.get(position);
-        holder.onBind(trip, itemClickCallBack);
+    public void onBindViewHolder(FriendViewHolder holder, int position) {
+        Friend friend = mFriends.get(position);
+        holder.onBind(friend, itemClickCallBack);
     }
 
     @Override
     public int getItemCount() {
-        return mTrips.size();
+        return mFriends.size();
     }
 
-    public void adds(List<FirebaseFriend> trips) {
-        this.mTrips.addAll(trips);
+    public void adds(List<Friend> friends) {
+        this.mFriends.addAll(friends);
         notifyDataSetChanged();
     }
 
-    public FirebaseFriend getItem(int position) {
+    public Friend getItem(int position) {
         if (position < 0 || position >= getItemCount()) {
             return null;
         }
-        return this.mTrips.get(position);
+        return this.mFriends.get(position);
     }
 
-    public int add(FirebaseFriend trip) {
-        this.mTrips.add(trip);
-        int index = this.mTrips.size() - 1;
+    public int add(Friend trip) {
+        this.mFriends.add(trip);
+        int index = this.mFriends.size() - 1;
         notifyItemChanged(index);
         return index;
     }
 
+    public void replaceAll(List<Friend> friends) {
+        if (this.mFriends != null) {
+            clear();
+            this.mFriends.addAll(friends);
+        }
+    }
+
     public void clear() {
-        this.mTrips.clear();
+        this.mFriends.clear();
     }
 }

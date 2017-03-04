@@ -39,12 +39,12 @@ public class MainActivity extends ActivityBehavior {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        onApplyComponents();
+        onApplyViews();
 
     }
 
     @Override
-    public void onApplyComponents() {
+    public void onApplyViews() {
 
         onApplyViewPager();
         onApplyTabLayout();

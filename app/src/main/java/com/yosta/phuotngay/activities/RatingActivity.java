@@ -20,12 +20,11 @@ public class RatingActivity extends ActivityBehavior {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rating);
         ButterKnife.bind(this);
-        onApplyComponents();
+        onApplyViews();
     }
 
     @Override
-    public void onApplyComponents() {
-        super.onApplyComponents();
+    public void onApplyViews() {
 
         mOwnToolbar
                 .setTitle("Trip's rating")

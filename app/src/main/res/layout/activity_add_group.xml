@@ -6,22 +6,32 @@
     android:orientation="vertical">
 
     <com.yosta.phuotngay.ui.OwnToolBar
+        android:id="@id/own_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layoutBackground="@color/colorPrimary"
-        app:layoutTitle="@string/str_groups"
-        app:layoutType="title_center" />
+        app:layoutBackground="@color/colorPrimary" />
 
     <TextView
-        style="@style/AppTheme.TextView_Sub_Title.Bold"
+        style="@style/AppTheme.TextView_Title.Bold"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/white"
         android:gravity="center"
         android:maxLines="2"
         android:minLines="1"
-        android:padding="@dimen/margin_x2"
+        android:paddingTop="@dimen/margin"
         android:text="Create new group to go with you" />
+
+    <TextView
+        style="@style/AppTheme.TextView_Sub_Title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:gravity="center"
+        android:maxLines="2"
+        android:minLines="1"
+        android:paddingBottom="@dimen/margin"
+        android:text="Choose at least 1 friend to continue" />
 
     <include layout="@layout/layout_separate_vertical" />
 
@@ -48,6 +58,7 @@
             android:layout_marginRight="@dimen/margin">
 
             <EditText
+                android:id="@+id/text_group_name"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="@string/str_group_name"
@@ -59,6 +70,8 @@
 
     </LinearLayout>
 
+    <include layout="@layout/layout_separate_vertical" />
+
     <TextView
         style="@style/AppTheme.TextView_Sub_Title.Bold"
         android:layout_width="match_parent"
@@ -69,20 +82,58 @@
         android:padding="@dimen/margin_x2"
         android:text="Friends on Phượt Ngay social" />
 
-    <RelativeLayout
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
 
-        <include layout="@layout/layout_recycler_view" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-    </RelativeLayout>
+            <include layout="@layout/layout_recycler_view" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                android:orientation="vertical"
+                android:padding="@dimen/margin">
+
+                <TextView
+                    style="@style/AppTheme.TextView_Sub_Title.Bold"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:maxLines="2"
+                    android:minLines="1"
+                    android:padding="@dimen/margin"
+                    android:text="Don't see who you're looking for?" />
+
+                <Button
+                    android:id="@+id/button_add_friend"
+                    style="@style/AppTheme.TextView_Sub_Title.Bold"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/margin"
+                    android:background="@drawable/ic_style_button_round_corners_theme"
+                    android:text="@string/str_add_friends"
+                    android:textAllCaps="true"
+                    android:textColor="@android:color/white" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
 
     <Button
+        android:id="@+id/button_confirm"
         style="@style/AppTheme.TextView_Title.Bold.White"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/ic_style_button_round_none_accent_dark"
-        android:text="@string/str_continue" />
+        android:text="@string/all_confirm" />
 
 </LinearLayout>

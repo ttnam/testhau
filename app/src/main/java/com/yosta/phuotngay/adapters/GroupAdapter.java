@@ -7,8 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.yosta.phuotngay.R;
-import com.yosta.phuotngay.firebase.model.FirebaseGroup;
-import com.yosta.phuotngay.firebase.viewhd.FirebaseGroupViewHolder;
+import com.yosta.firebase.model.FirebaseGroup;
+import com.yosta.firebase.viewhd.FirebaseGroupViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;

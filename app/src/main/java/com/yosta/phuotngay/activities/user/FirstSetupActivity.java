@@ -9,7 +9,7 @@ import android.widget.Toast;
 
 import com.yosta.phuotngay.R;
 import com.yosta.phuotngay.activities.MainActivity;
-import com.yosta.phuotngay.firebase.model.User;
+import com.yosta.firebase.model.User;
 import com.yosta.utils.validate.ValidateUtils;
 import com.yosta.interfaces.ActivityBehavior;
 import com.yosta.interfaces.CallBack;
@@ -53,7 +53,7 @@ public class FirstSetupActivity extends ActivityBehavior {
         ButterKnife.bind(this);
 
         onUpdateData();
-        onApplyEvents();
+        onApplyViews();
     }
 
     @Override
@@ -120,7 +120,7 @@ public class FirstSetupActivity extends ActivityBehavior {
     }
 
     @Override
-    public void onApplyEvents() {
+    public void onApplyViews() {
         editFirstName.addTextChangedListener(EventManager.connect().addTextWatcherEvent(new CallBack() {
             @Override
             public void run() {

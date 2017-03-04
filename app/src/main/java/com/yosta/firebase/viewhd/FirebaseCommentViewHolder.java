@@ -1,4 +1,4 @@
-package com.yosta.phuotngay.firebase.viewhd;
+package com.yosta.firebase.viewhd;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.yosta.phuotngay.R;
-import com.yosta.phuotngay.firebase.model.FirebaseComment;
+import com.yosta.firebase.model.FirebaseComment;
 import com.yosta.utils.AppUtils;
 
 import butterknife.BindView;

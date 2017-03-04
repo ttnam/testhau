@@ -1,7 +1,7 @@
 package com.yosta.backend.response;
 
 import com.google.gson.annotations.SerializedName;
-import com.yosta.phuotngay.firebase.model.User;
+import com.yosta.firebase.model.User;
 
 /**
  * Created by Phuc-Hau Nguyen on 2/28/2017.

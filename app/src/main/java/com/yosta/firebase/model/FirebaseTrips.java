@@ -1,4 +1,4 @@
-package com.yosta.phuotngay.firebase.model;
+package com.yosta.firebase.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;

@@ -7,7 +7,7 @@ import android.view.View;
 
 import com.yosta.phuotngay.R;
 import com.yosta.phuotngay.adapters.TripAdapter;
-import com.yosta.phuotngay.firebase.model.FirebaseTrips;
+import com.yosta.firebase.model.FirebaseTrips;
 import com.yosta.utils.AppUtils;
 import com.yosta.interfaces.ActivityBehavior;
 import com.yosta.phuotngay.ui.decoration.SpacesItemDecoration;
@@ -28,7 +28,7 @@ public class SearchActivity extends ActivityBehavior {
     @Override
     protected void onStart() {
         super.onStart();
-        onApplyComponents();
+        onApplyViews();
         Intent intent = this.getIntent();
         trips = (FirebaseTrips) intent.getSerializableExtra(AppUtils.EXTRA_TRIPS);
         if (trips != null) {
@@ -37,8 +37,8 @@ public class SearchActivity extends ActivityBehavior {
     }
 
     @Override
-    public void onApplyComponents() {
-        super.onApplyComponents();
+    public void onApplyViews() {
+        super.onApplyEvents();
         setContentView(R.layout.activity_search);
         ButterKnife.bind(this);
 

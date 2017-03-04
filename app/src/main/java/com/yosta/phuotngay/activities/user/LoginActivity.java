@@ -10,12 +10,16 @@ import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
+import com.facebook.login.LoginManager;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -24,10 +28,14 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.yosta.backend.config.APIManager;
+import com.yosta.firebase.FirebaseManager;
+import com.yosta.interfaces.CallBackStringParam;
 import com.yosta.phuotngay.R;
+import com.yosta.phuotngay.activities.MainActivity;
 import com.yosta.phuotngay.configs.AppDefine;
-import com.yosta.phuotngay.firebase.model.User;
-import com.yosta.phuotngay.firebase.model.UserManager;
+import com.yosta.firebase.model.User;
+import com.yosta.firebase.model.UserManager;
 import com.yosta.utils.StorageUtils;
 import com.yosta.interfaces.ActivityBehavior;
 import com.yosta.interfaces.CallBackAccessToken;
@@ -68,31 +76,38 @@ public class LoginActivity extends ActivityBehavior {
         FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
+        onApplyViews();
+        onFacebookConfig();
+        onFireBaseConfig();
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-        onApplyComponents();
-    }
-
-    @Override
-    public void onApplyComponents() {
+    public void onApplyData() {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 AccessToken token = AccessToken.getCurrentAccessToken();
                 if (token != null) {
-                    startActivity(new Intent(LoginActivity.this, SplashActivity.class));
-                    finish();
+                    onCallToServer();
                 } else {
-                    progressBar.setVisibility(View.GONE);
-                    layoutFacebook.setVisibility(View.VISIBLE);
-                    onFacebookConfig();
-                    onFireBaseConfig();
+                    onReset();
                 }
             }
-        }, 3000);
+        }, 1000);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        onApplyData();
+    }
+
+    @Override
+    public void onApplyViews() {
+        Glide.with(this)
+                .load(R.drawable.ic_loading)
+                .error(R.drawable.ic_avatar)
+                .into(imageView);
     }
 
     private void onFireBaseConfig() {
@@ -147,7 +162,7 @@ public class LoginActivity extends ActivityBehavior {
                 } else {
                     user.setFireBaseId(task.getResult().getUser().getUid());
                     StorageUtils.inject(LoginActivity.this).save(user);
-                    onLoginComplete();
+                    onCallToServer();
                 }
             }
         });
@@ -172,8 +187,38 @@ public class LoginActivity extends ActivityBehavior {
         loginButton.performClick();
     }
 
-    private void onLoginComplete() {
-        startActivity(new Intent(LoginActivity.this, SplashActivity.class));
-        finish();
+
+    private void onCallToServer() {
+        User user = StorageUtils.inject(this).getUser();
+        if (user != null) {
+            String email = user.getEmail();
+            String fbId = user.getFbId();
+            String fireBaseId = user.getFireBaseId();
+            String fcm = StorageUtils.inject(this).getString(FirebaseManager.FIRE_BASE_TOKEN);
+            APIManager.connect().onLogin(email, fbId, fireBaseId, fcm, new CallBackStringParam() {
+                @Override
+                public void run(String authorization) {
+                    Log.d(TAG, authorization);
+                    StorageUtils.inject(LoginActivity.this).save(AppDefine.AUTHORIZATION, authorization);
+                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                    finish();
+                }
+            }, new CallBackStringParam() {
+                @Override
+                public void run(String error) {
+                    onReset();
+                    Toast.makeText(LoginActivity.this, error, Toast.LENGTH_LONG).show();
+                }
+            });
+        } else {
+            onReset();
+            Toast.makeText(LoginActivity.this, getString(R.string.error_st_wrongs), Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void onReset() {
+        progressBar.setVisibility(View.GONE);
+        layoutFacebook.setVisibility(View.VISIBLE);
+        LoginManager.getInstance().logOut();
     }
 }

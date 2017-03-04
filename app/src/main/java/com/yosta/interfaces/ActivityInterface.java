@@ -5,7 +5,7 @@ package com.yosta.interfaces;
  */
 public interface ActivityInterface {
 
-    void onApplyComponents();
+    void onApplyViews();
 
     void onApplyEvents();
 

@@ -1,10 +1,10 @@
-package com.yosta.phuotngay.firebase.adapter;
+package com.yosta.firebase.adapter;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.Query;
 import com.yosta.phuotngay.R;
-import com.yosta.phuotngay.firebase.model.FirebaseComment;
-import com.yosta.phuotngay.firebase.viewhd.FirebaseCommentViewHolder;
+import com.yosta.firebase.model.FirebaseComment;
+import com.yosta.firebase.viewhd.FirebaseCommentViewHolder;
 
 /**
  * Created by Phuc-Hau Nguyen on 10/14/2016.

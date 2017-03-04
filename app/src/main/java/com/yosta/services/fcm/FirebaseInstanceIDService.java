@@ -6,7 +6,7 @@ import android.util.Log;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
 import com.yosta.phuotngay.configs.AppDefine;
-import com.yosta.phuotngay.firebase.FirebaseManager;
+import com.yosta.firebase.FirebaseManager;
 import com.yosta.utils.StorageUtils;
 import com.yosta.utils.validate.ValidateUtils;
 import com.yosta.backend.config.APIManager;

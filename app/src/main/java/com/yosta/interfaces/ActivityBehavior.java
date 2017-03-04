@@ -1,6 +1,9 @@
 package com.yosta.interfaces;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
+
+import com.yosta.phuotngay.activities.user.LoginActivity;
 
 /**
  * Created by Phuc-Hau Nguyen on 8/3/2016.
@@ -8,7 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 public class ActivityBehavior extends AppCompatActivity implements ActivityInterface {
 
     @Override
-    public void onApplyComponents() {
+    public void onApplyViews() {
 
     }
 
@@ -25,5 +28,10 @@ public class ActivityBehavior extends AppCompatActivity implements ActivityInter
     @Override
     public void onApplyFont() {
 
+    }
+
+    protected void onExpired() {
+        startActivity(new Intent(this, LoginActivity.class));
+        finish();
     }
 }

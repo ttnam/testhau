@@ -1,4 +1,4 @@
-package com.yosta.phuotngay.firebase;
+package com.yosta.firebase;
 
 import android.content.Context;
 import android.util.Log;
@@ -9,7 +9,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.yosta.phuotngay.firebase.model.FirebaseTrip;
+import com.yosta.firebase.model.FirebaseTrip;
 import com.yosta.utils.SearchTripHelper;
 import com.yosta.interfaces.CallBack;
 import com.yosta.phuotngay.models.app.MessageInfo;

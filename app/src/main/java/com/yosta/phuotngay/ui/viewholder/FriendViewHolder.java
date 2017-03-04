@@ -1,16 +1,20 @@
-package com.yosta.phuotngay.firebase.viewhd;
+package com.yosta.phuotngay.ui.viewholder;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.yosta.phuotngay.R;
-import com.yosta.phuotngay.firebase.model.FirebaseFriend;
 import com.yosta.interfaces.ItemClickCallBack;
+import com.yosta.phuotngay.models.Friend;
 import com.yosta.phuotngay.models.app.MessageType;
 
 import butterknife.BindView;
@@ -21,7 +25,7 @@ import butterknife.OnClick;
  * Created by Phuc-Hau Nguyen on 12/1/2016.
  */
 
-public class FirebaseFriendViewHolder extends RecyclerView.ViewHolder {
+public class FriendViewHolder extends RecyclerView.ViewHolder {
 
     private Context mContext;
     private boolean toggle = false;
@@ -31,7 +35,13 @@ public class FirebaseFriendViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.button)
     Button button;
 
-    public FirebaseFriendViewHolder(View itemView) {
+    @BindView(R.id.text_view)
+    TextView textName;
+
+    @BindView(R.id.image_view)
+    AppCompatImageView imageAvatar;
+
+    public FriendViewHolder(View itemView) {
         super(itemView);
         ButterKnife.bind(this, itemView);
         this.mContext = itemView.getContext();
@@ -58,7 +68,9 @@ public class FirebaseFriendViewHolder extends RecyclerView.ViewHolder {
         }
     }
 
-    public void onBind(FirebaseFriend group, ItemClickCallBack callBack) {
+    public void onBind(Friend friend, ItemClickCallBack callBack) {
         this.itemClickCallBack = callBack;
+        textName.setText(friend.getName());
+        Glide.with(mContext).load(friend.getAvatar()).diskCacheStrategy(DiskCacheStrategy.ALL).into(imageAvatar);
     }
 }

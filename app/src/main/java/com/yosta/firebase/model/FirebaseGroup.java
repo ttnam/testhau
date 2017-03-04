@@ -1,4 +1,4 @@
-package com.yosta.phuotngay.firebase.model;
+package com.yosta.firebase.model;
 
 import com.google.firebase.database.IgnoreExtraProperties;
 import com.yosta.utils.AppUtils;
@@ -9,7 +9,7 @@ import java.io.Serializable;
  * Created by Phuc-Hau Nguyen on 12/1/2016.
  */
 @IgnoreExtraProperties
-public class FirebaseTrip implements Serializable {
+public class FirebaseGroup implements Serializable {
 
     private String tripId;
     private String arrive;
@@ -21,7 +21,7 @@ public class FirebaseTrip implements Serializable {
     private String name;
     private long ranking;
 
-    public FirebaseTrip() {
+    public FirebaseGroup() {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
 

@@ -20,9 +20,11 @@
     <string name="all_invite">Invite</string>
     <string name="all_invited">Invited</string>
     <string name="all_filter">Filter</string>
-    <string name="all_cancel">Cancel</string>
-    <string name="all_save">Save</string>
-    <string name="str_continue">Continue</string>
+    <string name="all_cancel">Hủy</string>
+    <string name="all_save">Lưu</string>
+    <string name="all_continue">Tiếp tục</string>
+    <string name="all_confirm">Xác nhận</string>
+
 
     <!-- start profile-->
     <string name="profile"> Profile                             </string>
@@ -65,6 +67,8 @@
     <!-- end setting-->
 
     <!-- start error message -->
+    <string name="error_message_empty"> Không được để trống </string>
+    <string name="error_st_wrongs"> Somethings went wrong </string>
     <string name="error_message_no_internet"> No internet connection </string>
     <string name="error_message_nothing_to_show"> Nothing to show! </string>
     <string name="error_message_unavailable">This feature isn\'t available.</string>
@@ -137,7 +141,8 @@
     <!--Add Group Activity-->
     <string name="str_group">Group</string>
     <string name="str_groups">Groups</string>
-    <string name="str_group_name">Group name</string>
+    <string name="str_group_name">Tên nhóm</string>
     <string name="str_create_group">Tạo group</string>
+    <string name="str_add_friends">Mời bạn bè</string>
 
 </resources>

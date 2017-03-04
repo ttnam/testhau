@@ -33,7 +33,7 @@ public class WebViewActivity extends ActivityBehavior {
     }
 
     @Override
-    public void onApplyComponents() {
+    public void onApplyViews() {
 
         setContentView(R.layout.activity_web_view);
         ButterKnife.bind(this);

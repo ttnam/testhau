@@ -22,8 +22,8 @@ import com.yosta.materialdialog.StandardDialog;
 import com.yosta.phuotngay.R;
 import com.yosta.phuotngay.activities.RatingActivity;
 import com.yosta.phuotngay.activities.dialogs.DialogComment;
-import com.yosta.phuotngay.firebase.FirebaseManager;
-import com.yosta.phuotngay.firebase.adapter.FirebaseActivityAdapter;
+import com.yosta.firebase.FirebaseManager;
+import com.yosta.firebase.adapter.FirebaseActivityAdapter;
 import com.yosta.interfaces.ActivityBehavior;
 import com.yosta.interfaces.CallBack;
 import com.yosta.phuotngay.models.trip.BaseTrip;
@@ -69,7 +69,7 @@ public class TripDetailActivity extends ActivityBehavior {
         setContentView(R.layout.activity_trip_detail);
         ButterKnife.bind(this);
         this.mFirebaseUtils = FirebaseManager.inject(this);
-        onApplyComponents();
+        onApplyViews();
         onApplyData();
     }
 
@@ -81,8 +81,8 @@ public class TripDetailActivity extends ActivityBehavior {
 
 
     @Override
-    public void onApplyComponents() {
-        super.onApplyComponents();
+    public void onApplyViews() {
+        super.onApplyEvents();
 
         // Toolbar
         mOwnToolbar.setBinding(

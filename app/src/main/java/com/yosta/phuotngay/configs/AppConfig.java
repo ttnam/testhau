@@ -6,7 +6,7 @@ import android.support.multidex.MultiDex;
 
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.iid.FirebaseInstanceId;
-import com.yosta.phuotngay.firebase.FirebaseManager;
+import com.yosta.firebase.FirebaseManager;
 import com.yosta.utils.StorageUtils;
 
 import io.realm.Realm;

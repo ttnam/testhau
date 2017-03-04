@@ -6,8 +6,7 @@ import android.preference.PreferenceManager;
 
 import com.google.gson.Gson;
 import com.yosta.phuotngay.configs.AppDefine;
-import com.yosta.phuotngay.firebase.model.User;
-import com.yosta.utils.validate.ValidateUtils;
+import com.yosta.firebase.model.User;
 
 /**
  * Created by nphau on 9/27/2015.

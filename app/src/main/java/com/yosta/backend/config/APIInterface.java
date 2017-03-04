@@ -1,10 +1,13 @@
 package com.yosta.backend.config;
 
 import com.yosta.backend.response.BaseResponse;
+import com.yosta.backend.response.CreateGroupResponse;
+import com.yosta.backend.response.FriendsResponse;
 import com.yosta.backend.response.LocationResponse;
 import com.yosta.backend.response.LoginResponse;
 import com.yosta.backend.response.TripResponse;
 import com.yosta.backend.response.TripsResponse;
+import com.yosta.phuotngay.models.Friend;
 
 import java.util.Map;
 
@@ -53,4 +56,14 @@ public interface APIInterface {
     @GET("/api/trips/{id}")
     Call<TripResponse> getTripDetail(@Header("authen") String authorization, @Path("id") String tripId);
 
+    @POST("/api/group")
+    Call<CreateGroupResponse> createGroup(@Header("authen") String authorization,
+                                          @Field("name") String name,
+                                          @Field("info") String info,
+                                          @Field("members") String members);
+
+    @GET("/api/user/friends")
+    Call<FriendsResponse> getFriendsList(
+            @Header("authen") String authorization,
+            @Header("x-access-token") String fbAccessToken);
 }

@@ -17,11 +17,11 @@ public class CreateTripActivity extends ActivityBehavior {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        onApplyComponents();
+        onApplyViews();
     }
 
     @Override
-    public void onApplyComponents() {
+    public void onApplyViews() {
         setContentView(R.layout.activity_create_trip);
         ButterKnife.bind(this);
     }

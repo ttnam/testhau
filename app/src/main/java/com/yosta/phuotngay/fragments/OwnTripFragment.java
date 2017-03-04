@@ -15,7 +15,7 @@ import com.yosta.phuotngay.R;
 import com.yosta.phuotngay.activities.group.AddGroupActivity;
 import com.yosta.phuotngay.activities.group.GroupDetailActivity;
 import com.yosta.phuotngay.adapters.GroupAdapter;
-import com.yosta.phuotngay.firebase.model.FirebaseGroup;
+import com.yosta.firebase.model.FirebaseGroup;
 import com.yosta.phuotngay.ui.OwnToolBar;
 import com.yosta.phuotngay.ui.decoration.SpacesItemDecoration;
 import com.yosta.phuotngay.ui.listeners.RecyclerItemClickListener;

@@ -1,6 +1,6 @@
 package com.yosta.utils;
 
-import com.yosta.phuotngay.firebase.model.FirebaseTrip;
+import com.yosta.firebase.model.FirebaseTrip;
 
 import java.io.UnsupportedEncodingException;
 import java.text.Normalizer;

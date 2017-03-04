@@ -16,9 +16,12 @@ public class BaseResponse implements Serializable {
     @SerializedName("description")
     private String description;
 
-
     public boolean IsSuccess() {
         return responseCode == 1;
+    }
+
+    public boolean IsExpired() {
+        return responseCode == 0;
     }
 
     public String getDescription() {

@@ -1,4 +1,4 @@
-package com.yosta.phuotngay.firebase.model;
+package com.yosta.firebase.model;
 
 import org.json.JSONObject;
 

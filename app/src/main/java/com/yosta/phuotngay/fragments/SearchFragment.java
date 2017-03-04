@@ -13,8 +13,8 @@ import android.widget.EditText;
 import com.yosta.materialspinner.MaterialSpinner;
 import com.yosta.phuotngay.R;
 import com.yosta.phuotngay.activities.SearchActivity;
-import com.yosta.phuotngay.firebase.model.FirebaseTrip;
-import com.yosta.phuotngay.firebase.model.FirebaseTrips;
+import com.yosta.firebase.model.FirebaseTrip;
+import com.yosta.firebase.model.FirebaseTrips;
 import com.yosta.utils.AppUtils;
 import com.yosta.utils.SearchTripHelper;
 

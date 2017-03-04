@@ -74,11 +74,6 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Fullscreen" />
-        <activity
-            android:name=".activities.user.SplashActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Fullscreen" />
 
         <activity
             android:name=".activities.user.LoginActivity"
@@ -121,7 +116,6 @@
         <activity
             android:name=".activities.RatingActivity"
             android:launchMode="singleInstance"
-            android:parentActivityName=".activities.trip.TripDetailActivity"
             android:theme="@style/AppTheme.White" />
         <activity
             android:name=".activities.WelcomeActivity"
@@ -134,7 +128,9 @@
         <activity
             android:name=".activities.group.AddGroupActivity"
             android:theme="@style/AppTheme"
-            android:windowSoftInputMode="adjustResize" />
+            android:windowSoftInputMode="adjustResize" >
+
+        </activity>
         <activity
             android:name=".activities.user.FirstSetupActivity"
             android:theme="@style/AppTheme"

@@ -5,9 +5,7 @@ package com.yosta.backend.response;
  */
 
 public class LoginResponse extends BaseResponse {
-
     private String data;
-
     public String getAuthorization() {
         return data;
     }

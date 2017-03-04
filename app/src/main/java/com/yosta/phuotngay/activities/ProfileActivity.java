@@ -6,7 +6,7 @@ import android.widget.TextView;
 
 import com.yosta.materialspinner.MaterialSpinner;
 import com.yosta.phuotngay.R;
-import com.yosta.phuotngay.firebase.FirebaseManager;
+import com.yosta.firebase.FirebaseManager;
 import com.yosta.interfaces.ActivityBehavior;
 import com.yosta.phuotngay.ui.OwnToolBar;
 
@@ -46,7 +46,7 @@ public class ProfileActivity extends ActivityBehavior {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         ButterKnife.bind(this);
-        onApplyComponents();
+        onApplyEvents();
     }
 /*
     @Override
@@ -61,8 +61,8 @@ public class ProfileActivity extends ActivityBehavior {
     }
 
     @Override
-    public void onApplyComponents() {
-        super.onApplyComponents();
+    public void onApplyViews() {
+        super.onApplyViews();
 
         // this.mFirebaseUtils = FirebaseManager.inject();
 

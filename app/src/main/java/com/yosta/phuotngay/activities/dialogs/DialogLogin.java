@@ -61,11 +61,11 @@ public class DialogLogin /*extends Dialog implements DialogBehavior */ {
         loginButton.setReadPermissions("public_profile,email");
         *//*
 
-        onApplyComponents();
+        onApplyViews();
 
         onApplyData();
 
-        onApplyEvents();
+        onApplyViews();
     }
 
     private void checkInputIsValidWhenTyping() {
@@ -78,7 +78,7 @@ public class DialogLogin /*extends Dialog implements DialogBehavior */ {
     }
 
     @Override
-    public void onApplyEvents() {
+    public void onApplyViews() {
         txtEmail.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -179,7 +179,7 @@ public class DialogLogin /*extends Dialog implements DialogBehavior */ {
     }
 
     @Override
-    public void onApplyComponents() {
+    public void onApplyViews() {
 
     }
 
