@@ -1,4 +1,4 @@
-package com.yosta.phuotngay.interfaces;
+package com.yosta.interfaces;
 
 /**
  * Created by Phuc-Hau Nguyen on 2/19/2017.

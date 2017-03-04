@@ -10,6 +10,7 @@
     <item name="container_item" type="id" />
     <item name="item_click_support" type="id" />
     <item name="view_pager" type="id" />
+    <item name="progress_bar" type="id" />
 
     <item name="layout" type="id" />
     <item name="layout_rating" type="id" />

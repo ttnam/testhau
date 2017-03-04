@@ -4,7 +4,9 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import com.google.gson.Gson;
 import com.yosta.phuotngay.configs.AppDefine;
+import com.yosta.phuotngay.firebase.model.User;
 import com.yosta.utils.validate.ValidateUtils;
 
 /**
@@ -74,8 +76,16 @@ public class StorageUtils {
         return true;
     }
 
-    public boolean IsUserLogin() {
-        return ValidateUtils.canUse(getString(AppDefine.AUTHORIZATION));
+    public boolean save(User user) {
+        Gson gson = new Gson();
+        String json = gson.toJson(user);
+        return save(AppDefine.USER, json);
+    }
+
+    public User getUser() {
+        Gson gson = new Gson();
+        String json = getString(AppDefine.USER);
+        return gson.fromJson(json, User.class);
     }
 }
 /*

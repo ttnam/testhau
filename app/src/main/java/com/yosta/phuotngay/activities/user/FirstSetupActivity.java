@@ -11,9 +11,9 @@ import com.yosta.phuotngay.R;
 import com.yosta.phuotngay.activities.MainActivity;
 import com.yosta.phuotngay.firebase.model.User;
 import com.yosta.utils.validate.ValidateUtils;
-import com.yosta.phuotngay.interfaces.ActivityBehavior;
-import com.yosta.phuotngay.interfaces.CallBack;
-import com.yosta.phuotngay.interfaces.CallBackStringParam;
+import com.yosta.interfaces.ActivityBehavior;
+import com.yosta.interfaces.CallBack;
+import com.yosta.interfaces.CallBackStringParam;
 import com.yosta.phuotngay.managers.EventManager;
 import com.yosta.backend.config.APIManager;
 

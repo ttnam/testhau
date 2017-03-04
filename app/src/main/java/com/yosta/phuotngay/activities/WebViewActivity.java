@@ -7,7 +7,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.yosta.phuotngay.R;
-import com.yosta.phuotngay.interfaces.ActivityBehavior;
+import com.yosta.interfaces.ActivityBehavior;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

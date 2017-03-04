@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.yosta.phuotngay.R;
+import com.yosta.phuotngay.activities.group.AddGroupActivity;
 import com.yosta.phuotngay.activities.group.GroupDetailActivity;
 import com.yosta.phuotngay.adapters.GroupAdapter;
 import com.yosta.phuotngay.firebase.model.FirebaseGroup;
@@ -52,7 +53,7 @@ public class OwnTripFragment extends Fragment {
         mOwnToolbar.setRight(R.drawable.ic_vector_add_group, new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                startActivity(new Intent(getActivity(), AddGroupActivity.class));
             }
         });
         onApplyTabLayout();

@@ -7,7 +7,7 @@ import android.widget.TextView;
 import com.yosta.materialspinner.MaterialSpinner;
 import com.yosta.phuotngay.R;
 import com.yosta.phuotngay.firebase.FirebaseManager;
-import com.yosta.phuotngay.interfaces.ActivityBehavior;
+import com.yosta.interfaces.ActivityBehavior;
 import com.yosta.phuotngay.ui.OwnToolBar;
 
 import java.util.List;

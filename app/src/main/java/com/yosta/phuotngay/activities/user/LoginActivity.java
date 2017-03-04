@@ -2,11 +2,14 @@ package com.yosta.phuotngay.activities.user;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatImageView;
 import android.util.Log;
-import android.widget.Toast;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -22,17 +25,13 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.yosta.phuotngay.R;
-import com.yosta.phuotngay.activities.MainActivity;
 import com.yosta.phuotngay.configs.AppDefine;
-import com.yosta.phuotngay.firebase.FirebaseManager;
 import com.yosta.phuotngay.firebase.model.User;
 import com.yosta.phuotngay.firebase.model.UserManager;
 import com.yosta.utils.StorageUtils;
-import com.yosta.phuotngay.interfaces.ActivityBehavior;
-import com.yosta.phuotngay.interfaces.CallBackAccessToken;
-import com.yosta.phuotngay.interfaces.CallBackStringParam;
+import com.yosta.interfaces.ActivityBehavior;
+import com.yosta.interfaces.CallBackAccessToken;
 import com.yosta.phuotngay.managers.EventManager;
-import com.yosta.backend.config.APIManager;
 
 import org.json.JSONObject;
 
@@ -50,13 +49,18 @@ public class LoginActivity extends ActivityBehavior {
     @BindView(R.id.button_facebook_login)
     LoginButton loginButton;
 
+    @BindView(R.id.btn_facebook)
+    LinearLayout layoutFacebook;
+
+    @BindView(R.id.progress_bar)
+    ProgressBar progressBar;
+
     private User user;
 
-    // Firebase instance variables
+    // Fire base instance variables
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private CallbackManager mCallbackManager;
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -74,8 +78,21 @@ public class LoginActivity extends ActivityBehavior {
 
     @Override
     public void onApplyComponents() {
-        onFacebookConfig();
-        onFireBaseConfig();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                AccessToken token = AccessToken.getCurrentAccessToken();
+                if (token != null) {
+                    startActivity(new Intent(LoginActivity.this, SplashActivity.class));
+                    finish();
+                } else {
+                    progressBar.setVisibility(View.GONE);
+                    layoutFacebook.setVisibility(View.VISIBLE);
+                    onFacebookConfig();
+                    onFireBaseConfig();
+                }
+            }
+        }, 3000);
     }
 
     private void onFireBaseConfig() {
@@ -87,11 +104,9 @@ public class LoginActivity extends ActivityBehavior {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
-                    // User is signed in
-                    Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
+                    Log.e(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
                 } else {
-                    // User is signed out
-                    Log.d(TAG, "onAuthStateChanged:signed_out");
+                    Log.e(TAG, "onAuthStateChanged");
                 }
             }
         };
@@ -101,7 +116,7 @@ public class LoginActivity extends ActivityBehavior {
 
     private void onFacebookConfig() {
         mCallbackManager = CallbackManager.Factory.create();
-        loginButton.setReadPermissions("email", "public_profile");
+        loginButton.setReadPermissions("email", "public_profile", "user_friends");
 
         loginButton.registerCallback(mCallbackManager, EventManager.connect().registerFacebookCallback(new CallBackAccessToken() {
             @Override
@@ -122,16 +137,17 @@ public class LoginActivity extends ActivityBehavior {
     }
 
     private void handleFacebookAccessToken(AccessToken token) {
-        Log.d(TAG, "handleFacebookAccessToken:" + token);
+        Log.e(TAG, "handleFacebookAccessToken:" + token.getToken());
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
         mAuth.signInWithCredential(credential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (!task.isSuccessful()) {
-                    Toast.makeText(LoginActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                    Log.e(TAG, "Authentication failed.");
                 } else {
                     user.setFireBaseId(task.getResult().getUser().getUid());
-                    onCallToServer(user);
+                    StorageUtils.inject(LoginActivity.this).save(user);
+                    onLoginComplete();
                 }
             }
         });
@@ -156,26 +172,8 @@ public class LoginActivity extends ActivityBehavior {
         loginButton.performClick();
     }
 
-    private void onCallToServer(final User user) {
-        if (user != null) {
-            String email = user.getEmail();
-            String fbId = user.getFbId();
-            String fireBaseId = user.getFireBaseId();
-            String fcm = StorageUtils.inject(this).getString(FirebaseManager.FIRE_BASE_TOKEN);
-            APIManager.connect().onLogin(email, fbId, fireBaseId, fcm, new CallBackStringParam() {
-                @Override
-                public void run(String authorization) {
-                    StorageUtils.inject(LoginActivity.this).save(AppDefine.AUTHORIZATION, authorization);
-                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                    finish();
-                }
-            }, new CallBackStringParam() {
-                @Override
-                public void run(String error) {
-                    Toast.makeText(LoginActivity.this, error, Toast.LENGTH_SHORT).show();
-                }
-            });
-        }
+    private void onLoginComplete() {
+        startActivity(new Intent(LoginActivity.this, SplashActivity.class));
+        finish();
     }
-
 }

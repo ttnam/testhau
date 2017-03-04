@@ -10,7 +10,7 @@ import android.widget.LinearLayout;
 
 import com.yosta.phuotngay.R;
 import com.yosta.phuotngay.firebase.model.FirebaseFriend;
-import com.yosta.phuotngay.interfaces.ItemClickCallBack;
+import com.yosta.interfaces.ItemClickCallBack;
 import com.yosta.phuotngay.models.app.MessageType;
 
 import butterknife.BindView;

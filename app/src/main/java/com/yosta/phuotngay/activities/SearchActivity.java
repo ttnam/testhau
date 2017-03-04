@@ -9,7 +9,7 @@ import com.yosta.phuotngay.R;
 import com.yosta.phuotngay.adapters.TripAdapter;
 import com.yosta.phuotngay.firebase.model.FirebaseTrips;
 import com.yosta.utils.AppUtils;
-import com.yosta.phuotngay.interfaces.ActivityBehavior;
+import com.yosta.interfaces.ActivityBehavior;
 import com.yosta.phuotngay.ui.decoration.SpacesItemDecoration;
 import com.yosta.phuotngay.ui.listeners.RecyclerItemClickListener;
 

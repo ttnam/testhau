@@ -2,11 +2,11 @@ package com.yosta.backend.config;
 
 import android.util.Log;
 
-import com.yosta.phuotngay.interfaces.CallBack;
-import com.yosta.phuotngay.interfaces.CallBackLocationsParam;
-import com.yosta.phuotngay.interfaces.CallBackStringParam;
-import com.yosta.phuotngay.interfaces.CallBackTripParam;
-import com.yosta.phuotngay.interfaces.CallBackTripsParam;
+import com.yosta.interfaces.CallBack;
+import com.yosta.interfaces.CallBackLocationsParam;
+import com.yosta.interfaces.CallBackStringParam;
+import com.yosta.interfaces.CallBackTripParam;
+import com.yosta.interfaces.CallBackTripsParam;
 import com.yosta.backend.response.BaseResponse;
 import com.yosta.backend.response.LocationResponse;
 import com.yosta.backend.response.LoginResponse;

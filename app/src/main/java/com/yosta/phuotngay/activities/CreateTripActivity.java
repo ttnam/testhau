@@ -6,7 +6,7 @@ import android.view.View;
 
 import com.yosta.phuotngay.R;
 import com.yosta.utils.AppUtils;
-import com.yosta.phuotngay.interfaces.ActivityBehavior;
+import com.yosta.interfaces.ActivityBehavior;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;

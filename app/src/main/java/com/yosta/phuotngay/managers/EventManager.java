@@ -7,8 +7,8 @@ import android.util.Log;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.login.LoginResult;
-import com.yosta.phuotngay.interfaces.CallBack;
-import com.yosta.phuotngay.interfaces.CallBackAccessToken;
+import com.yosta.interfaces.CallBack;
+import com.yosta.interfaces.CallBackAccessToken;
 
 /**
  * Created by Phuc-Hau Nguyen on 2/16/2017.

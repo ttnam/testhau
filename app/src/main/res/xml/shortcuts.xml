@@ -4,7 +4,7 @@
         android:icon="@mipmap/ic_launcher">
         <intent
             android:action="android.intent.action.VIEW"
-            android:targetClass="com.yosta.phuotngay.activities.SplashActivity"
+            android:targetClass="com.yosta.phuotngay.activities.user.SplashActivity"
             android:targetPackage="com.yosta.phuotngay" />
         <categories android:name="android.shortcut.conversation" />
     </shortcut>

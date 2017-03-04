@@ -1,4 +1,4 @@
-package com.yosta.phuotngay.interfaces;
+package com.yosta.interfaces;
 
 import com.yosta.phuotngay.models.trip.BaseTrip;
 

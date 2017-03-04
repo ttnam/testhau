@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.yosta.phuotngay.R;
-import com.yosta.phuotngay.interfaces.ActivityBehavior;
+import com.yosta.interfaces.ActivityBehavior;
 import com.yosta.phuotngay.ui.OwnToolBar;
 
 import butterknife.BindView;

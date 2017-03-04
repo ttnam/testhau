@@ -75,9 +75,14 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Fullscreen" />
         <activity
-            android:name=".activities.SplashActivity"
+            android:name=".activities.user.SplashActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Fullscreen" />
+
+        <activity
+            android:name=".activities.user.LoginActivity"
+            android:launchMode="singleTask"
             android:theme="@style/AppTheme.Fullscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -89,10 +94,6 @@
                 android:name="android.app.shortcuts"
                 android:resource="@xml/shortcuts" />
         </activity>
-        <activity
-            android:name=".activities.user.LoginActivity"
-            android:launchMode="singleTask"
-            android:theme="@style/AppTheme.Fullscreen" />
         <activity
             android:name=".activities.WebViewActivity"
             android:launchMode="singleTask"

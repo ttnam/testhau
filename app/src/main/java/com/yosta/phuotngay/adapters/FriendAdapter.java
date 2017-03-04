@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import com.yosta.phuotngay.R;
 import com.yosta.phuotngay.firebase.model.FirebaseFriend;
 import com.yosta.phuotngay.firebase.viewhd.FirebaseFriendViewHolder;
-import com.yosta.phuotngay.interfaces.ItemClickCallBack;
+import com.yosta.interfaces.ItemClickCallBack;
 
 import org.jetbrains.annotations.NotNull;
 
