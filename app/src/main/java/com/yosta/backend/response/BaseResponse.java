@@ -1,4 +1,4 @@
-package com.yosta.phuotngay.services.response;
+package com.yosta.backend.response;
 
 import com.google.gson.annotations.SerializedName;
 

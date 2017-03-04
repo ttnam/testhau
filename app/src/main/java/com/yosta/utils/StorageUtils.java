@@ -1,17 +1,16 @@
-package com.yosta.phuotngay.helpers;
+package com.yosta.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import com.yosta.phuotngay.configs.AppDefine;
-import com.yosta.phuotngay.firebase.model.User;
-import com.yosta.phuotngay.helpers.validate.ValidateHelper;
+import com.yosta.utils.validate.ValidateUtils;
 
 /**
  * Created by nphau on 9/27/2015.
  */
-public class StorageHelper {
+public class StorageUtils {
 
     public static final String KEY_USER = "KEY_USER";
 
@@ -19,15 +18,15 @@ public class StorageHelper {
 
     private SharedPreferences preferences = null;
 
-    private static StorageHelper mInstance = null;
+    private static StorageUtils mInstance = null;
 
-    private StorageHelper(Context context) {
+    private StorageUtils(Context context) {
         preferences = PreferenceManager.getDefaultSharedPreferences(context);
     }
 
-    public static StorageHelper inject(Context context) {
+    public static StorageUtils inject(Context context) {
         if (mInstance == null) {
-            mInstance = new StorageHelper(context);
+            mInstance = new StorageUtils(context);
         }
         return mInstance;
     }
@@ -76,7 +75,7 @@ public class StorageHelper {
     }
 
     public boolean IsUserLogin() {
-        return ValidateHelper.canUse(getString(AppDefine.AUTHORIZATION));
+        return ValidateUtils.canUse(getString(AppDefine.AUTHORIZATION));
     }
 }
 /*
@@ -84,7 +83,7 @@ public class StorageHelper {
     public void changeAppLanguage() {
         try {
             saveSetting(KEY_LANGUAGE, KEY_LANGUAGE_MODE);
-            String keyText = (StorageHelper.KEY_LANGUAGE_MODE == 0) ? "vi" : "en";
+            String keyText = (StorageUtils.KEY_LANGUAGE_MODE == 0) ? "vi" : "en";
             Resources res = this.mContext.getResources();
             DisplayMetrics dm = res.getDisplayMetrics();
             android.content.res.Configuration conf = res.getConfiguration();

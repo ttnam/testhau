@@ -1,4 +1,4 @@
-package com.yosta.phuotngay.services.response;
+package com.yosta.backend.response;
 
 /**
  * Created by Phuc-Hau Nguyen on 2/19/2017.

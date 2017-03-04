@@ -1,7 +1,6 @@
 package com.yosta.phuotngay.models.trip;
 
-import com.yosta.phuotngay.helpers.AppHelper;
-import com.yosta.phuotngay.helpers.validate.ValidateHelper;
+import com.yosta.utils.validate.ValidateUtils;
 
 import java.io.Serializable;
 
@@ -35,7 +34,7 @@ public class BaseTrip implements Serializable {
     }
 
     public long getArriveTime() {
-        if (ValidateHelper.canUse(arrive))
+        if (ValidateUtils.canUse(arrive))
             return Long.parseLong(arrive.split("_")[1]);
         return 0;
     }
@@ -45,7 +44,7 @@ public class BaseTrip implements Serializable {
     }
 
     public long getDepartTime() {
-        if (ValidateHelper.canUse(depart))
+        if (ValidateUtils.canUse(depart))
             return Long.parseLong(depart.split("_")[1]);
         return 0;
     }

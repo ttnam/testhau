@@ -1,14 +1,13 @@
 package com.yosta.phuotngay.firebase.viewhd;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
 import com.yosta.phuotngay.R;
 import com.yosta.phuotngay.firebase.model.FirebaseComment;
-import com.yosta.phuotngay.helpers.AppHelper;
+import com.yosta.utils.AppUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -43,7 +42,7 @@ public class FirebaseCommentViewHolder extends RecyclerView.ViewHolder {
         // Glide.with(mContext).load(comment.getAvatar()).error(R.drawable.ic_avatar).into(mAvatar);
         this.mTxtUserName.setText(comment.getUsername());
         this.txtContent.setText(comment.getContent());
-        this.tVTime.setText(AppHelper.builder(mContext).getPastTimeGap(comment.time()));
+        this.tVTime.setText(AppUtils.builder(mContext).getPastTimeGap(comment.time()));
     }
 
 }

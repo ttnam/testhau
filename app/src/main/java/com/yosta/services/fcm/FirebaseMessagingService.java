@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.yosta.phuotngay.services.fcm;
+package com.yosta.services.fcm;
 
 import android.app.NotificationManager;
 import android.app.PendingIntent;

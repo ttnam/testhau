@@ -8,7 +8,7 @@ import android.view.View;
 import com.yosta.phuotngay.R;
 import com.yosta.phuotngay.adapters.TripAdapter;
 import com.yosta.phuotngay.firebase.model.FirebaseTrips;
-import com.yosta.phuotngay.helpers.AppHelper;
+import com.yosta.utils.AppUtils;
 import com.yosta.phuotngay.interfaces.ActivityBehavior;
 import com.yosta.phuotngay.ui.decoration.SpacesItemDecoration;
 import com.yosta.phuotngay.ui.listeners.RecyclerItemClickListener;
@@ -30,7 +30,7 @@ public class SearchActivity extends ActivityBehavior {
         super.onStart();
         onApplyComponents();
         Intent intent = this.getIntent();
-        trips = (FirebaseTrips) intent.getSerializableExtra(AppHelper.EXTRA_TRIPS);
+        trips = (FirebaseTrips) intent.getSerializableExtra(AppUtils.EXTRA_TRIPS);
         if (trips != null) {
             // this.tripAdapter.adds(trips.getTrips());
         }
@@ -59,7 +59,7 @@ public class SearchActivity extends ActivityBehavior {
                        /* FirebaseTrip trip = tripAdapter.getItem(position);
                         if (trip != null) {
                             Intent intent = new Intent(SearchActivity.this, TripDetailActivity.class);
-                            intent.putExtra(AppHelper.EXTRA_TRIP, trip);
+                            intent.putExtra(AppUtils.EXTRA_TRIP, trip);
                             startActivity(intent);
                         }*/
                     }

@@ -72,7 +72,7 @@ public class MenuAdapter extends ArrayAdapter<MenuItem> {
             txtName.setText(menu.getName());
 
             if (menuName.equalsIgnoreCase("account")) {
-                // StorageHelper utils = new StorageHelper(activity);
+                // StorageUtils utils = new StorageUtils(activity);
                 /*User user = sharedPresUtils.getUserPrefs();
                 String name = user.getName();
                 if (!name.isEmpty()) {

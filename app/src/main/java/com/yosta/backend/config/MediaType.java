@@ -1,4 +1,4 @@
-package com.yosta.phuotngay.services.api;
+package com.yosta.backend.config;
 
 /**
  * Created by Phuc-Hau Nguyen on 11/9/2016.

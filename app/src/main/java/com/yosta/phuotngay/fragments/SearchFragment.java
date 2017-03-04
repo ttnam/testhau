@@ -15,8 +15,8 @@ import com.yosta.phuotngay.R;
 import com.yosta.phuotngay.activities.SearchActivity;
 import com.yosta.phuotngay.firebase.model.FirebaseTrip;
 import com.yosta.phuotngay.firebase.model.FirebaseTrips;
-import com.yosta.phuotngay.helpers.AppHelper;
-import com.yosta.phuotngay.helpers.SearchTripHelper;
+import com.yosta.utils.AppUtils;
+import com.yosta.utils.SearchTripHelper;
 
 import java.util.Arrays;
 import java.util.List;
@@ -88,7 +88,7 @@ public class SearchFragment extends Fragment {
                     if (firebaseTrips.size() > 0) {
                         FirebaseTrips trips = new FirebaseTrips(firebaseTrips);
                         Intent intent = new Intent(mActivity, SearchActivity.class);
-                        intent.putExtra(AppHelper.EXTRA_TRIPS, trips);
+                        intent.putExtra(AppUtils.EXTRA_TRIPS, trips);
                         startActivity(intent);
                     }
                 }

@@ -10,12 +10,12 @@ import android.widget.Toast;
 import com.yosta.phuotngay.R;
 import com.yosta.phuotngay.activities.MainActivity;
 import com.yosta.phuotngay.firebase.model.User;
-import com.yosta.phuotngay.helpers.validate.ValidateHelper;
+import com.yosta.utils.validate.ValidateUtils;
 import com.yosta.phuotngay.interfaces.ActivityBehavior;
 import com.yosta.phuotngay.interfaces.CallBack;
 import com.yosta.phuotngay.interfaces.CallBackStringParam;
 import com.yosta.phuotngay.managers.EventManager;
-import com.yosta.phuotngay.services.api.APIManager;
+import com.yosta.backend.config.APIManager;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -63,7 +63,7 @@ public class FirstSetupActivity extends ActivityBehavior {
     }
 
     private void onUpdateData() {
-        // user = StorageHelper.inject(this).getUser();
+        // user = StorageUtils.inject(this).getUser();
         editFirstName.setText(user.getFirstName());
         editLastName.setText(user.getLastName());
         editEmail.setText(user.getEmail());
@@ -81,7 +81,7 @@ public class FirstSetupActivity extends ActivityBehavior {
     }
 
     private void onUpdateDataToServer() {
-        String authen = "";//StorageHelper.inject(this).getUser().getAuthen();
+        String authen = "";//StorageUtils.inject(this).getUser().getAuthen();
         String email = editEmail.getText().toString();
         String firstName = editFirstName.getText().toString();
         String lastName = editLastName.getText().toString();
@@ -89,10 +89,10 @@ public class FirstSetupActivity extends ActivityBehavior {
         String dateOfBirth = editDob.getText().toString();
         String avatar = user.getAvatar();
         Map<String, String> map = new HashMap<>();
-        if (ValidateHelper.canUse(email)
-                && ValidateHelper.canUse(firstName)
-                && ValidateHelper.canUse(lastName)
-                && ValidateHelper.canUse(dateOfBirth)) {
+        if (ValidateUtils.canUse(email)
+                && ValidateUtils.canUse(firstName)
+                && ValidateUtils.canUse(lastName)
+                && ValidateUtils.canUse(dateOfBirth)) {
 
             map.clear();
             map.put("email", email);

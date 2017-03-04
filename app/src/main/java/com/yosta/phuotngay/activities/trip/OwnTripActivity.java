@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.yosta.phuotngay.R;
-import com.yosta.phuotngay.helpers.AppHelper;
+import com.yosta.utils.AppUtils;
 import com.yosta.phuotngay.ui.viewpagercards.CardFragmentPagerAdapter;
 import com.yosta.phuotngay.ui.viewpagercards.ShadowTransformer;
 
@@ -46,7 +46,7 @@ public class OwnTripActivity extends AppCompatActivity {
 
     private void onApplyRecyclerView() {
 
-        int height = AppHelper.onGetScreenHeight(this) / 2;
+        int height = AppUtils.onGetScreenHeight(this) / 2;
         this.mViewPager.setLayoutParams(new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, height));
         this.mViewPager.setAdapter(mFragmentCardAdapter);

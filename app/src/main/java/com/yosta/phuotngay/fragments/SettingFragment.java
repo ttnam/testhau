@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.yosta.phuotngay.R;
 import com.yosta.phuotngay.activities.ProfileActivity;
-import com.yosta.phuotngay.helpers.StorageHelper;
+import com.yosta.utils.StorageUtils;
 import com.yosta.phuotngay.ui.OwnToolBar;
 
 import butterknife.BindView;
@@ -41,7 +41,7 @@ public class SettingFragment extends Fragment {
     TextView txtLang;
 
     private Activity mActivity = null;
-    private StorageHelper presUtils = null;
+    private StorageUtils presUtils = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -68,7 +68,7 @@ public class SettingFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        // presUtils = new StorageHelper(getActivity());
+        // presUtils = new StorageUtils(getActivity());
         switchSync.setOnCheckedChangeListener(ListenerHelpers.SwitchSync);
     }
 
@@ -106,7 +106,7 @@ public class SettingFragment extends Fragment {
         }
 
         // Language
-        int lang = (presUtils.getSettingInt(StorageHelper.KEY_LANGUAGE) == 0) ? R.string.setting_language_vietnamese : R.string.setting_language_english;
+        int lang = (presUtils.getSettingInt(StorageUtils.KEY_LANGUAGE) == 0) ? R.string.setting_language_vietnamese : R.string.setting_language_english;
         txtLang.setText(getResources().getString(lang));
     }
 
@@ -128,7 +128,7 @@ public class SettingFragment extends Fragment {
     @OnClick(R.id.layout_change_language)
     public void LanguageSetting() {
 
-        MenuAdapter languageAdapter = AppHelper.LoadListMenuAction(getContext(),
+        MenuAdapter languageAdapter = AppUtils.LoadListMenuAction(getContext(),
                 R.array.language_item_text,
                 R.array.language_item_icon);
 
@@ -143,7 +143,7 @@ public class SettingFragment extends Fragment {
                         getActivity().finish();
                         Intent i = new Intent(getContext(), MainActivity.class);
                         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        i.putExtra(AppHelper.EXTRA_INTENT, 4);
+                        i.putExtra(AppUtils.EXTRA_INTENT, 4);
                         startActivity(i);
                     }
                 })

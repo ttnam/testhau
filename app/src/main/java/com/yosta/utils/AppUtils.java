@@ -1,4 +1,4 @@
-package com.yosta.phuotngay.helpers;
+package com.yosta.utils;
 
 import android.app.Activity;
 import android.content.Context;
@@ -42,7 +42,7 @@ import java.util.TimeZone;
  * Created by Phuc-Hau Nguyen on 12/21/2016.
  */
 
-public class AppHelper {
+public class AppUtils {
 
     public static final int H_MM = 0;
     public static final int DD_MM_YYYY = 1;

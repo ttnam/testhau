@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.yosta.phuotngay.R;
-import com.yosta.phuotngay.helpers.AppHelper;
+import com.yosta.utils.AppUtils;
 import com.yosta.phuotngay.models.trip.BaseTrip;
 import com.yosta.phuotngay.ui.viewholder.TripViewHolder;
 
@@ -38,7 +38,7 @@ public class TripAdapter extends RecyclerView.Adapter<TripViewHolder> {
     public void onBindViewHolder(TripViewHolder holder, int position) {
         BaseTrip baseTrip = mTrips.get(position);
         holder.onBind(baseTrip.getCover(), baseTrip.getName(),
-                AppHelper.builder(mContext).getTimeGap(
+                AppUtils.builder(mContext).getTimeGap(
                         baseTrip.getDuration()
                 )
         );
@@ -46,6 +46,8 @@ public class TripAdapter extends RecyclerView.Adapter<TripViewHolder> {
 
     @Override
     public int getItemCount() {
+        if (mTrips == null)
+            return 0;
         return mTrips.size();
     }
 

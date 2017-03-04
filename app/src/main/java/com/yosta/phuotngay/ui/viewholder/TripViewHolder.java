@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.yosta.phuotngay.R;
-import com.yosta.phuotngay.helpers.AppHelper;
+import com.yosta.utils.AppUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -36,7 +36,7 @@ public class TripViewHolder extends RecyclerView.ViewHolder {
         super(itemView);
         this.mContext = itemView.getContext();
         itemView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                AppHelper.onGetScreenHeight((Activity) mContext) / 3));
+                AppUtils.onGetScreenHeight((Activity) mContext) / 3));
         ButterKnife.bind(this, itemView);
     }
 

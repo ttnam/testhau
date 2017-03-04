@@ -9,19 +9,18 @@ import android.widget.Toast;
 import com.yosta.phuotngay.R;
 import com.yosta.phuotngay.adapters.IconViewPagerAdapter;
 import com.yosta.phuotngay.configs.AppDefine;
-import com.yosta.phuotngay.firebase.model.User;
 import com.yosta.phuotngay.fragments.NotificationsFragment;
 import com.yosta.phuotngay.fragments.OwnTripFragment;
 import com.yosta.phuotngay.fragments.SearchFragment;
 import com.yosta.phuotngay.fragments.SettingFragment;
 import com.yosta.phuotngay.fragments.TripFragment;
-import com.yosta.phuotngay.helpers.StorageHelper;
+import com.yosta.utils.StorageUtils;
 import com.yosta.phuotngay.interfaces.ActivityBehavior;
 import com.yosta.phuotngay.interfaces.CallBackLocationsParam;
 import com.yosta.phuotngay.interfaces.CallBackStringParam;
 import com.yosta.phuotngay.managers.RealmManager;
 import com.yosta.phuotngay.models.base.Locations;
-import com.yosta.phuotngay.services.api.APIManager;
+import com.yosta.backend.config.APIManager;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -89,7 +88,7 @@ public class MainActivity extends ActivityBehavior {
     @Override
     protected void onResume() {
         super.onResume();
-        String authorization = StorageHelper.inject(this).getString(AppDefine.AUTHORIZATION);
+        String authorization = StorageUtils.inject(this).getString(AppDefine.AUTHORIZATION);
         APIManager.connect().onGetLocation(authorization, new CallBackLocationsParam() {
             @Override
             public void run(Locations locations) {

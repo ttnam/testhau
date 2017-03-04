@@ -1,9 +1,9 @@
-package com.yosta.phuotngay.helpers;
+package com.yosta.utils;
 
 /**
  * Created by KhanhDuy on 08/07/2016.
  */
-public class LocationHelper {
+public class LocationUtils {
     /*
  * Calculate distance between two points in latitude and longitude taking
  * into account height difference. If you are not interested in height

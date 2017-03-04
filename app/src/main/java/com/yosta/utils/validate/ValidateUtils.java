@@ -1,4 +1,4 @@
-package com.yosta.phuotngay.helpers.validate;
+package com.yosta.utils.validate;
 
 import android.support.design.widget.TextInputEditText;
 
@@ -9,7 +9,7 @@ import java.util.Arrays;
  * Created by Phuc-Hau Nguyen on 9/29/2016.
  */
 
-public class ValidateHelper {
+public class ValidateUtils {
 
     private static ArrayList<IValidate> emailValidates = new ArrayList<>(
             Arrays.asList(new EmptyValidate(), new EmailValidate()));

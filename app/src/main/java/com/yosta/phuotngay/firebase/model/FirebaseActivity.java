@@ -1,6 +1,6 @@
 package com.yosta.phuotngay.firebase.model;
 
-import com.yosta.phuotngay.helpers.AppHelper;
+import com.yosta.utils.AppUtils;
 
 import java.io.Serializable;
 
@@ -23,7 +23,7 @@ public class FirebaseActivity implements Serializable {
     }
 
     public String getDate() {
-        return AppHelper.builder().getTime(time, AppHelper.DD_MM_YYYY);
+        return AppUtils.builder().getTime(time, AppUtils.DD_MM_YYYY);
     }
 
     public long getTime() {
@@ -31,7 +31,7 @@ public class FirebaseActivity implements Serializable {
     }
 
     public String getHour() {
-        return AppHelper.builder().getTime(time, AppHelper.H_MM);
+        return AppUtils.builder().getTime(time, AppUtils.H_MM);
     }
 
     public void setTime(long time) {

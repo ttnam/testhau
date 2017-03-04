@@ -9,7 +9,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.yosta.phuotngay.R;
 import com.yosta.phuotngay.activities.user.LoginActivity;
-import com.yosta.phuotngay.helpers.StorageHelper;
+import com.yosta.utils.StorageUtils;
 import com.yosta.phuotngay.interfaces.ActivityBehavior;
 
 import butterknife.BindView;
@@ -44,7 +44,7 @@ public class SplashActivity extends ActivityBehavior {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (StorageHelper.inject(SplashActivity.this).IsUserLogin()) {
+                if (StorageUtils.inject(SplashActivity.this).IsUserLogin()) {
                     startActivity(new Intent(SplashActivity.this, MainActivity.class));
                 } else {
                     startActivity(new Intent(SplashActivity.this, LoginActivity.class));

@@ -1,10 +1,10 @@
-package com.yosta.phuotngay.configs;
+package com.yosta.services.receiver;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-import com.yosta.phuotngay.helpers.AppHelper;
+import com.yosta.utils.AppUtils;
 import com.yosta.phuotngay.models.app.MessageInfo;
 import com.yosta.phuotngay.models.app.MessageType;
 
@@ -16,7 +16,7 @@ import org.greenrobot.eventbus.EventBus;
 public class NetworkReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
-        if (AppHelper.isNetworkConnected(context)) {
+        if (AppUtils.isNetworkConnected(context)) {
             EventBus.getDefault().post(new MessageInfo(MessageType.INTERNET_CONNECTED));
         } else {
             EventBus.getDefault().post(new MessageInfo(MessageType.LOST_INTERNET));

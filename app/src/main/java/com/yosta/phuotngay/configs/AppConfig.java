@@ -5,7 +5,7 @@ import android.app.Application;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.yosta.phuotngay.firebase.FirebaseManager;
-import com.yosta.phuotngay.helpers.StorageHelper;
+import com.yosta.utils.StorageUtils;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
@@ -26,7 +26,7 @@ public class AppConfig extends Application {
     private void initFireBase() {
         FirebaseApp.initializeApp(this);
         String token = FirebaseInstanceId.getInstance().getToken();
-        StorageHelper.inject(this).save(FirebaseManager.FIRE_BASE_TOKEN, token);
+        StorageUtils.inject(this).save(FirebaseManager.FIRE_BASE_TOKEN, token);
     }
 
     private void onApplyRealm() {

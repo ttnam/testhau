@@ -10,7 +10,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.yosta.phuotngay.firebase.model.FirebaseTrip;
-import com.yosta.phuotngay.helpers.SearchTripHelper;
+import com.yosta.utils.SearchTripHelper;
 import com.yosta.phuotngay.interfaces.CallBack;
 import com.yosta.phuotngay.models.app.MessageInfo;
 import com.yosta.phuotngay.models.app.MessageType;

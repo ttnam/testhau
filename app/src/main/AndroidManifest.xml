@@ -35,7 +35,7 @@
         android:label="@string/all_app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <receiver android:name=".configs.NetworkReceiver">
+        <receiver android:name="com.yosta.services.receiver.NetworkReceiver">
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
                 <action android:name="android.net.wifi.WIFI_STATE_CHANGED" />
@@ -140,7 +140,7 @@
             android:windowSoftInputMode="adjustResize" />
 
         <service
-            android:name=".services.fcm.FirebaseMessagingService"
+            android:name="com.yosta.services.fcm.FirebaseMessagingService"
             android:enabled="true"
             android:exported="false">
             <intent-filter>
@@ -149,7 +149,7 @@
         </service>
 
         <service
-            android:name=".services.fcm.FirebaseInstanceIDService"
+            android:name="com.yosta.services.fcm.FirebaseInstanceIDService"
             android:enabled="true"
             android:exported="false">
             <intent-filter>

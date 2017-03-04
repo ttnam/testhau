@@ -27,12 +27,12 @@ import com.yosta.phuotngay.configs.AppDefine;
 import com.yosta.phuotngay.firebase.FirebaseManager;
 import com.yosta.phuotngay.firebase.model.User;
 import com.yosta.phuotngay.firebase.model.UserManager;
-import com.yosta.phuotngay.helpers.StorageHelper;
+import com.yosta.utils.StorageUtils;
 import com.yosta.phuotngay.interfaces.ActivityBehavior;
 import com.yosta.phuotngay.interfaces.CallBackAccessToken;
 import com.yosta.phuotngay.interfaces.CallBackStringParam;
 import com.yosta.phuotngay.managers.EventManager;
-import com.yosta.phuotngay.services.api.APIManager;
+import com.yosta.backend.config.APIManager;
 
 import org.json.JSONObject;
 
@@ -161,11 +161,11 @@ public class LoginActivity extends ActivityBehavior {
             String email = user.getEmail();
             String fbId = user.getFbId();
             String fireBaseId = user.getFireBaseId();
-            String fcm = StorageHelper.inject(this).getString(FirebaseManager.FIRE_BASE_TOKEN);
+            String fcm = StorageUtils.inject(this).getString(FirebaseManager.FIRE_BASE_TOKEN);
             APIManager.connect().onLogin(email, fbId, fireBaseId, fcm, new CallBackStringParam() {
                 @Override
                 public void run(String authorization) {
-                    StorageHelper.inject(LoginActivity.this).save(AppDefine.AUTHORIZATION, authorization);
+                    StorageUtils.inject(LoginActivity.this).save(AppDefine.AUTHORIZATION, authorization);
                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
                     finish();
                 }

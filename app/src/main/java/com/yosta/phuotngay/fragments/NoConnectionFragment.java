@@ -14,7 +14,7 @@ import com.yosta.phuotngay.R;
 import com.yosta.phuotngay.animations.YoYo;
 import com.yosta.phuotngay.animations.attention.FlashAnimator;
 import com.yosta.phuotngay.animations.attention.ShakeAnimator;
-import com.yosta.phuotngay.helpers.AppHelper;
+import com.yosta.utils.AppUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -42,7 +42,7 @@ public class NoConnectionFragment extends Fragment {
 
     @OnClick(R.id.image_view)
     public void onClick() {
-        if (!AppHelper.isNetworkConnected(getContext())) {
+        if (!AppUtils.isNetworkConnected(getContext())) {
             YoYo.with(new ShakeAnimator())
                     .duration(600)
                     .interpolate(new AccelerateDecelerateInterpolator())

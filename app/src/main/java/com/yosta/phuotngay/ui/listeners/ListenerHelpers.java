@@ -11,7 +11,7 @@ import android.widget.Toast;
 import com.yosta.materialdialog.ChoiceDialog;
 import com.yosta.phuotngay.R;
 import com.yosta.phuotngay.adapters.MenuAdapter;
-import com.yosta.phuotngay.helpers.AppHelper;
+import com.yosta.utils.AppUtils;
 import com.yosta.phuotngay.models.menu.MenuItem;
 
 /**
@@ -23,7 +23,7 @@ public class ListenerHelpers {
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
             if (isChecked) {
-                MenuAdapter internetAdapter = AppHelper.LoadListMenuAction(buttonView.getContext(),
+                MenuAdapter internetAdapter = AppUtils.LoadListMenuAction(buttonView.getContext(),
                         R.array.internet_item_text,
                         R.array.internet_item_icon);
 
@@ -35,7 +35,7 @@ public class ListenerHelpers {
                         .setItems(internetAdapter, new ChoiceDialog.OnItemSelectedListener<MenuItem>() {
                             @Override
                             public void onItemSelected(int position, MenuItem item) {
-                                //StorageHelper.KEY_LANGUAGE_MODE = position;
+                                //StorageUtils.KEY_LANGUAGE_MODE = position;
                             }
                         })
                         .show();
@@ -77,7 +77,7 @@ public class ListenerHelpers {
                         FileOutputStream fileOutputStream = new FileOutputStream(file);
                         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fileOutputStream);
                         fileOutputStream.close();
-                        StorageHelper.saveSetting(mContext, mType, directory.getAbsolutePath());
+                        StorageUtils.saveSetting(mContext, mType, directory.getAbsolutePath());
                     } catch (IOException e) {
                         e.printStackTrace();
                     }

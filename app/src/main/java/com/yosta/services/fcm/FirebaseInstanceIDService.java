@@ -1,5 +1,5 @@
 
-package com.yosta.phuotngay.services.fcm;
+package com.yosta.services.fcm;
 
 import android.util.Log;
 
@@ -7,10 +7,9 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
 import com.yosta.phuotngay.configs.AppDefine;
 import com.yosta.phuotngay.firebase.FirebaseManager;
-import com.yosta.phuotngay.firebase.model.User;
-import com.yosta.phuotngay.helpers.StorageHelper;
-import com.yosta.phuotngay.helpers.validate.ValidateHelper;
-import com.yosta.phuotngay.services.api.APIManager;
+import com.yosta.utils.StorageUtils;
+import com.yosta.utils.validate.ValidateUtils;
+import com.yosta.backend.config.APIManager;
 
 public class FirebaseInstanceIDService extends FirebaseInstanceIdService {
 
@@ -19,14 +18,14 @@ public class FirebaseInstanceIDService extends FirebaseInstanceIdService {
     @Override
     public void onTokenRefresh() {
         String refreshedToken = FirebaseInstanceId.getInstance().getToken();
-        StorageHelper.inject(this).save(FirebaseManager.FIRE_BASE_TOKEN, refreshedToken);
+        StorageUtils.inject(this).save(FirebaseManager.FIRE_BASE_TOKEN, refreshedToken);
         sendRegistrationToServer(refreshedToken);
     }
 
     private void sendRegistrationToServer(String token) {
         try {
-            String authorization = StorageHelper.inject(this).getString(AppDefine.AUTHORIZATION);
-            if (ValidateHelper.canUse(authorization))
+            String authorization = StorageUtils.inject(this).getString(AppDefine.AUTHORIZATION);
+            if (ValidateUtils.canUse(authorization))
                 APIManager.connect().onUpdateFcm(authorization, token);
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());

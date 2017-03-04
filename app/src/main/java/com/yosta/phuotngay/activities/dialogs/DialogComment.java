@@ -18,7 +18,7 @@ import com.yosta.phuotngay.animations.YoYo;
 import com.yosta.phuotngay.animations.fading_entrances.FadeInAnimator;
 import com.yosta.phuotngay.firebase.FirebaseManager;
 import com.yosta.phuotngay.firebase.adapter.FirebaseCommentAdapter;
-import com.yosta.phuotngay.helpers.AppHelper;
+import com.yosta.utils.AppUtils;
 import com.yosta.phuotngay.models.app.MessageInfo;
 import com.yosta.phuotngay.ui.decoration.SpacesItemDecoration;
 
@@ -79,7 +79,7 @@ public class DialogComment extends Dialog {
         ButterKnife.bind(this);
 
         onApplyComponents();
-        onToggleUI(AppHelper.isNetworkConnected(mOwnerActivity));
+        onToggleUI(AppUtils.isNetworkConnected(mOwnerActivity));
 
     }
 
@@ -131,7 +131,7 @@ public class DialogComment extends Dialog {
     public void onSendComment() {
         final String cmtContent = editText.getText().toString();
 
-        /*if (ValidateHelper.isCommentAccepted(cmtContent)) {
+        /*if (ValidateUtils.isCommentAccepted(cmtContent)) {
 
             final String uid = "KGSdIvQ1ESWOJfHPJYqkCeX1juf2";
             final String username = "Nguyễn Phúc Hậu";
@@ -162,7 +162,7 @@ public class DialogComment extends Dialog {
         }*/
         editText.clearFocus();
         editText.setText("");
-        AppHelper.onCloseVirtualKeyboard(mOwnerActivity);
+        AppUtils.onCloseVirtualKeyboard(mOwnerActivity);
     }
 
 
@@ -177,6 +177,6 @@ public class DialogComment extends Dialog {
         YoYo.with(new FadeInAnimator()).duration(1200)
                 .interpolate(new AccelerateDecelerateInterpolator())
                 .playOn(layoutRelative);
-        onToggleUI(AppHelper.isNetworkConnected(getContext()));
+        onToggleUI(AppUtils.isNetworkConnected(getContext()));
     }
 }

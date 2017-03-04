@@ -1,10 +1,10 @@
-package com.yosta.phuotngay.services.api;
+package com.yosta.backend.config;
 
-import com.yosta.phuotngay.services.response.BaseResponse;
-import com.yosta.phuotngay.services.response.LocationResponse;
-import com.yosta.phuotngay.services.response.LoginResponse;
-import com.yosta.phuotngay.services.response.TripResponse;
-import com.yosta.phuotngay.services.response.TripsResponse;
+import com.yosta.backend.response.BaseResponse;
+import com.yosta.backend.response.LocationResponse;
+import com.yosta.backend.response.LoginResponse;
+import com.yosta.backend.response.TripResponse;
+import com.yosta.backend.response.TripsResponse;
 
 import java.util.Map;
 
