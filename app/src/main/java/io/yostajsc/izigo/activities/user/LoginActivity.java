@@ -13,6 +13,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
@@ -35,7 +36,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.activities.MainActivity;
-import io.yostajsc.izigo.backend.config.APIManager;
+import io.yostajsc.backend.config.APIManager;
 import io.yostajsc.izigo.base.ActivityBehavior;
 import io.yostajsc.izigo.configs.AppDefine;
 import io.yostajsc.izigo.firebase.FirebaseManager;
@@ -43,7 +44,7 @@ import io.yostajsc.izigo.firebase.model.User;
 import io.yostajsc.izigo.firebase.model.UserManager;
 import io.yostajsc.izigo.interfaces.CallBackParam;
 import io.yostajsc.izigo.managers.EventManager;
-import io.yostajsc.izigo.utils.StorageUtils;
+import io.yostajsc.utils.StorageUtils;
 
 public class LoginActivity extends ActivityBehavior {
 
@@ -105,6 +106,7 @@ public class LoginActivity extends ActivityBehavior {
         Glide.with(this)
                 .load(R.drawable.ic_loading)
                 .error(R.drawable.ic_avatar)
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .into(imageView);
     }
 
@@ -156,6 +158,7 @@ public class LoginActivity extends ActivityBehavior {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (!task.isSuccessful()) {
+                    // TODO
                     Log.e(TAG, "Authentication failed.");
                 } else {
                     user.setFireBaseId(task.getResult().getUser().getUid());

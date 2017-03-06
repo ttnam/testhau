@@ -20,7 +20,7 @@ import io.yostajsc.constants.MessageInfo;
 import io.yostajsc.constants.MessageType;
 import io.yostajsc.izigo.firebase.model.FirebaseTrip;
 import io.yostajsc.izigo.interfaces.CallBack;
-import io.yostajsc.izigo.utils.SearchTripHelper;
+import io.yostajsc.utils.SearchTripHelper;
 
 /**
  * Created by Phuc-Hau Nguyen on 12/1/2016.

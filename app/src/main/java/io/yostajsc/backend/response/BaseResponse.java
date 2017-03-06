@@ -1,4 +1,4 @@
-package io.yostajsc.izigo.backend.response;
+package io.yostajsc.backend.response;
 
 import com.google.gson.annotations.SerializedName;
 

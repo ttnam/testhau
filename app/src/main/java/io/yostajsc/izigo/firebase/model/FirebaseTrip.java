@@ -4,7 +4,7 @@ import com.google.firebase.database.IgnoreExtraProperties;
 
 import java.io.Serializable;
 
-import io.yostajsc.izigo.utils.AppUtils;
+import io.yostajsc.utils.AppUtils;
 
 /**
  * Created by Phuc-Hau Nguyen on 12/1/2016.

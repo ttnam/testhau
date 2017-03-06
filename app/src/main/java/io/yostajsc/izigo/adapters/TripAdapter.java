@@ -12,7 +12,7 @@ import java.util.List;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.models.trip.BaseTrip;
 import io.yostajsc.izigo.ui.bottomsheet.viewholder.TripViewHolder;
-import io.yostajsc.izigo.utils.AppUtils;
+import io.yostajsc.utils.AppUtils;
 
 /**
  * Created by Phuc-Hau Nguyen on 10/14/2016.

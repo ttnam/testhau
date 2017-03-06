@@ -1,4 +1,4 @@
-package io.yostajsc.izigo.utils;
+package io.yostajsc.utils;
 
 import android.content.SearchRecentSuggestionsProvider;
 import android.provider.SearchRecentSuggestions;

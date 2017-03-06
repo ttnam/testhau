@@ -27,7 +27,7 @@ import io.yostajsc.designs.decorations.SpacesItemDecoration;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.firebase.FirebaseManager;
 import io.yostajsc.izigo.firebase.adapter.FirebaseCommentAdapter;
-import io.yostajsc.izigo.utils.AppUtils;
+import io.yostajsc.utils.AppUtils;
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 
 /**

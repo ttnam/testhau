@@ -1,9 +1,9 @@
-package io.yostajsc.izigo.backend.config;
+package io.yostajsc.backend.config;
 
 import java.util.List;
 import java.util.Map;
 
-import io.yostajsc.izigo.backend.response.BaseResponse;
+import io.yostajsc.backend.response.BaseResponse;
 import io.yostajsc.izigo.models.Friend;
 import io.yostajsc.izigo.models.base.Locations;
 import io.yostajsc.izigo.models.trip.BaseTrip;

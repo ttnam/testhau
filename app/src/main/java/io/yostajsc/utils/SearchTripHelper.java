@@ -1,4 +1,4 @@
-package io.yostajsc.izigo.utils;
+package io.yostajsc.utils;
 
 import java.io.UnsupportedEncodingException;
 import java.text.Normalizer;

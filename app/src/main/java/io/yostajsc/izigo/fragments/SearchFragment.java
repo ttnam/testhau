@@ -22,8 +22,8 @@ import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.activities.SearchActivity;
 import io.yostajsc.izigo.firebase.model.FirebaseTrip;
 import io.yostajsc.izigo.firebase.model.FirebaseTrips;
-import io.yostajsc.izigo.utils.AppUtils;
-import io.yostajsc.izigo.utils.SearchTripHelper;
+import io.yostajsc.utils.AppUtils;
+import io.yostajsc.utils.SearchTripHelper;
 
 public class SearchFragment extends Fragment {
 

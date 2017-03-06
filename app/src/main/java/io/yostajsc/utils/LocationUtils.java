@@ -1,4 +1,4 @@
-package io.yostajsc.izigo.utils;
+package io.yostajsc.utils;
 
 /**
  * Created by KhanhDuy on 08/07/2016.

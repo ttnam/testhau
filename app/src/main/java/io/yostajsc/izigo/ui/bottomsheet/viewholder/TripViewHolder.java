@@ -13,7 +13,7 @@ import com.bumptech.glide.Glide;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.yostajsc.izigo.R;
-import io.yostajsc.izigo.utils.AppUtils;
+import io.yostajsc.utils.AppUtils;
 
 /**
  * Created by Phuc-Hau Nguyen on 12/1/2016.

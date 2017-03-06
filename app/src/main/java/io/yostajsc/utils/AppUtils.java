@@ -1,4 +1,4 @@
-package io.yostajsc.izigo.utils;
+package io.yostajsc.utils;
 
 import android.app.Activity;
 import android.content.Context;

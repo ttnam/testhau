@@ -18,7 +18,7 @@ import io.yostajsc.izigo.ui.bottomsheet.OwnToolBar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.yostajsc.izigo.utils.StorageUtils;
+import io.yostajsc.utils.StorageUtils;
 
 public class SettingFragment extends Fragment {
 

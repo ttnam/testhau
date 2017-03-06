@@ -5,11 +5,11 @@ import android.util.Log;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
 
-import io.yostajsc.izigo.backend.config.APIManager;
+import io.yostajsc.backend.config.APIManager;
 import io.yostajsc.izigo.configs.AppDefine;
 import io.yostajsc.izigo.firebase.FirebaseManager;
-import io.yostajsc.izigo.utils.StorageUtils;
-import io.yostajsc.izigo.utils.ValidateUtils;
+import io.yostajsc.utils.StorageUtils;
+import io.yostajsc.utils.ValidateUtils;
 
 public class FirebaseInstanceIDService extends FirebaseInstanceIdService {
 

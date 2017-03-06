@@ -17,7 +17,7 @@ import io.yostajsc.designs.animations.YoYo;
 import io.yostajsc.designs.animations.attention.FlashAnimator;
 import io.yostajsc.designs.animations.attention.ShakeAnimator;
 import io.yostajsc.izigo.R;
-import io.yostajsc.izigo.utils.AppUtils;
+import io.yostajsc.utils.AppUtils;
 
 public class ProfileTripFragment extends Fragment {
 

@@ -8,7 +8,7 @@ import org.greenrobot.eventbus.EventBus;
 
 import io.yostajsc.constants.MessageInfo;
 import io.yostajsc.constants.MessageType;
-import io.yostajsc.izigo.utils.AppUtils;
+import io.yostajsc.utils.AppUtils;
 
 /**
  * Created by Phuc-Hau Nguyen on 7/22/2016.

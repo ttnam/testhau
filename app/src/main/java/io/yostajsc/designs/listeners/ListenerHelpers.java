@@ -13,7 +13,7 @@ import com.yosta.materialdialog.ChoiceDialog;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.adapters.MenuAdapter;
 import io.yostajsc.izigo.models.menu.MenuItem;
-import io.yostajsc.izigo.utils.AppUtils;
+import io.yostajsc.utils.AppUtils;
 
 /**
  * Created by Phuc-Hau Nguyen on 9/6/2016.

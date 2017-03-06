@@ -15,13 +15,13 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.activities.MainActivity;
-import io.yostajsc.izigo.backend.config.APIManager;
+import io.yostajsc.backend.config.APIManager;
 import io.yostajsc.izigo.base.ActivityBehavior;
 import io.yostajsc.izigo.firebase.model.User;
 import io.yostajsc.izigo.interfaces.CallBack;
 import io.yostajsc.izigo.interfaces.CallBackParam;
 import io.yostajsc.izigo.managers.EventManager;
-import io.yostajsc.izigo.utils.ValidateUtils;
+import io.yostajsc.utils.ValidateUtils;
 
 public class FirstSetupActivity extends ActivityBehavior {
 

@@ -8,7 +8,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.base.ActivityBehavior;
-import io.yostajsc.izigo.utils.AppUtils;
+import io.yostajsc.utils.AppUtils;
 
 public class CreateTripActivity extends ActivityBehavior {
 

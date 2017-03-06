@@ -12,7 +12,7 @@ import butterknife.ButterKnife;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.ui.bottomsheet.viewpagercards.CardFragmentPagerAdapter;
 import io.yostajsc.izigo.ui.bottomsheet.viewpagercards.ShadowTransformer;
-import io.yostajsc.izigo.utils.AppUtils;
+import io.yostajsc.utils.AppUtils;
 
 public class OwnTripActivity extends AppCompatActivity {
 

@@ -1,14 +1,16 @@
 package io.yostajsc.izigo.configs;
 
 import android.support.multidex.MultiDexApplication;
+import android.util.Log;
 
-import com.firebase.client.FirebaseApp;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.iid.FirebaseInstanceId;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import io.yostajsc.izigo.firebase.FirebaseManager;
-import io.yostajsc.izigo.utils.StorageUtils;
+import io.yostajsc.utils.AppUtils;
+import io.yostajsc.utils.StorageUtils;
 
 /**
  * Created by Phuc-Hau Nguyen on 11/9/2016.
@@ -21,10 +23,12 @@ public class AppConfig extends MultiDexApplication {
         super.onCreate();
         initFireBase();
         onApplyRealm();
+
+        Log.e("HASH", AppUtils.onGetKeyHash(this));
     }
 
     private void initFireBase() {
-        // FirebaseApp.initializeApp(this);
+        FirebaseApp.initializeApp(this);
         String token = FirebaseInstanceId.getInstance().getToken();
         StorageUtils.inject(this).save(FirebaseManager.FIRE_BASE_TOKEN, token);
     }

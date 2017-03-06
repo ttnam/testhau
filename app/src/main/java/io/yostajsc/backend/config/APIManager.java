@@ -1,4 +1,4 @@
-package io.yostajsc.izigo.backend.config;
+package io.yostajsc.backend.config;
 
 import android.util.Log;
 
@@ -7,7 +7,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 import java.util.Map;
 
-import io.yostajsc.izigo.backend.response.BaseResponse;
+import io.yostajsc.backend.response.BaseResponse;
 import io.yostajsc.izigo.interfaces.CallBack;
 import io.yostajsc.izigo.interfaces.CallBackParam;
 import io.yostajsc.izigo.models.Friend;

@@ -1,6 +1,6 @@
 package io.yostajsc.izigo.models.trip;
 
-import io.yostajsc.izigo.utils.ValidateUtils;
+import io.yostajsc.utils.ValidateUtils;
 
 import java.io.Serializable;
 

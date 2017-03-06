@@ -10,7 +10,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.yostajsc.designs.tabs.IconViewPagerAdapter;
 import io.yostajsc.izigo.R;
-import io.yostajsc.izigo.backend.config.APIManager;
+import io.yostajsc.backend.config.APIManager;
 import io.yostajsc.izigo.base.ActivityBehavior;
 import io.yostajsc.izigo.configs.AppDefine;
 import io.yostajsc.izigo.fragments.NotificationsFragment;
@@ -21,7 +21,7 @@ import io.yostajsc.izigo.fragments.TripFragment;
 import io.yostajsc.izigo.interfaces.CallBackParam;
 import io.yostajsc.izigo.managers.RealmManager;
 import io.yostajsc.izigo.models.base.Locations;
-import io.yostajsc.izigo.utils.StorageUtils;
+import io.yostajsc.utils.StorageUtils;
 
 public class MainActivity extends ActivityBehavior {
 

@@ -18,14 +18,14 @@ import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.activities.dialogs.DialogFilter;
 import io.yostajsc.izigo.activities.trip.TripDetailActivity;
 import io.yostajsc.izigo.adapters.TripAdapter;
-import io.yostajsc.izigo.backend.config.APIManager;
+import io.yostajsc.backend.config.APIManager;
 import io.yostajsc.izigo.configs.AppDefine;
 import io.yostajsc.izigo.interfaces.CallBackParam;
 import io.yostajsc.izigo.models.trip.BaseTrip;
 import io.yostajsc.izigo.ui.bottomsheet.OwnToolBar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.yostajsc.izigo.utils.StorageUtils;
+import io.yostajsc.utils.StorageUtils;
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 
 public class TripFragment extends Fragment {

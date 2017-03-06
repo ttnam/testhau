@@ -13,7 +13,7 @@ import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.adapters.TripAdapter;
 import io.yostajsc.izigo.base.ActivityBehavior;
 import io.yostajsc.izigo.firebase.model.FirebaseTrips;
-import io.yostajsc.izigo.utils.AppUtils;
+import io.yostajsc.utils.AppUtils;
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 
 public class SearchActivity extends ActivityBehavior {
