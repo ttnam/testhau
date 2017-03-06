@@ -19,7 +19,6 @@ import com.bumptech.glide.Glide;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
-import com.yosta.materialdialog.StandardDialog;
 
 import io.yostajsc.designs.decorations.SpacesItemDecoration;
 import io.yostajsc.izigo.R;
@@ -154,7 +153,7 @@ public class TripDetailActivity extends ActivityBehavior {
         final String result = String.valueOf(ranking);
 
         final long finalRanking = ranking;
-        new StandardDialog(this)
+       /* new StandardDialog(this)
                 .setButtonsColor(getResources().getColor(R.color.PureRed))
                 .setCancelable(false)
                 .setTopColorRes(android.R.color.white)
@@ -174,7 +173,7 @@ public class TripDetailActivity extends ActivityBehavior {
                                 });
                     }
                 })
-                .show();
+                .show();*/
     }
 
     private void onUpdateData(BaseTrip baseTrip) {
