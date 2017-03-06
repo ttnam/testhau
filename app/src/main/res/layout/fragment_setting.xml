@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.yosta.phuotngay.ui.OwnToolBar
+    <io.yostajsc.izigo.ui.bottomsheet.OwnToolBar
         android:id="@id/layout"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
@@ -164,7 +164,6 @@
                     android:text="@string/setting_backup_restore" />
 
                 <LinearLayout
-                    android:id="@+id/layout_auto_sync"
                     style="@style/Style_Menu_Item.Press"
                     android:layout_width="match_parent"
                     android:layout_height="?actionBarSize"
@@ -276,7 +275,6 @@
                     android:text="@string/setting_basic_settings" />
 
                 <LinearLayout
-                    android:id="@+id/layout_change_language"
                     style="@style/Style_Menu_Item.Press"
                     android:layout_width="match_parent"
                     android:orientation="horizontal">
@@ -320,7 +318,6 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/layout_notify"
                     style="@style/Style_Menu_Item.Press"
                     android:layout_width="match_parent"
                     android:orientation="horizontal">
@@ -414,7 +411,6 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/layout_about"
                     style="@style/Style_Menu_Item.Press"
                     android:layout_width="match_parent"
                     android:orientation="horizontal">

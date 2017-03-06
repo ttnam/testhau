@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.yosta.phuotngay">
+    package="io.yostajsc.izigo">
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.VIBRATE" />
@@ -35,7 +35,7 @@
         android:label="@string/all_app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <receiver android:name="com.yosta.services.receiver.NetworkReceiver">
+        <receiver android:name=".services.receiver.NetworkReceiver">
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
                 <action android:name="android.net.wifi.WIFI_STATE_CHANGED" />
@@ -128,7 +128,7 @@
         <activity
             android:name=".activities.group.AddGroupActivity"
             android:theme="@style/AppTheme"
-            android:windowSoftInputMode="adjustResize" >
+            android:windowSoftInputMode="adjustResize">
 
         </activity>
         <activity
@@ -137,7 +137,7 @@
             android:windowSoftInputMode="adjustResize" />
 
         <service
-            android:name="com.yosta.services.fcm.FirebaseMessagingService"
+            android:name=".services.fcm.FirebaseMessagingService"
             android:enabled="true"
             android:exported="false">
             <intent-filter>
@@ -146,7 +146,7 @@
         </service>
 
         <service
-            android:name="com.yosta.services.fcm.FirebaseInstanceIDService"
+            android:name=".services.fcm.FirebaseInstanceIDService"
             android:enabled="true"
             android:exported="false">
             <intent-filter>

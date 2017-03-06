@@ -7,7 +7,7 @@
 
     <include layout="@layout/layout_recycler_view" />
 
-    <com.yosta.phuotngay.ui.OwnToolBar
+    <io.yostajsc.izigo.ui.bottomsheet.OwnToolBar
         android:id="@id/layout"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"

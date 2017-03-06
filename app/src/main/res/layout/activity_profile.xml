@@ -6,7 +6,7 @@
     android:background="@color/colorWindowBackground"
     android:orientation="vertical">
 
-    <com.yosta.phuotngay.ui.OwnToolBar
+    <io.yostajsc.izigo.ui.bottomsheet.OwnToolBar
         android:id="@id/layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -36,7 +36,6 @@
                 android:padding="@dimen/margin_x2">
 
                 <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/image_avatar"
                     android:layout_width="@dimen/icon_size_x12"
                     android:layout_height="@dimen/icon_size_x12"
                     android:layout_gravity="center"

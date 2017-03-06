@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.yosta.phuotngay.ui.OwnToolBar
+    <io.yostajsc.izigo.ui.bottomsheet.OwnToolBar
         android:id="@id/layout"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"

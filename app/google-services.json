@@ -1,35 +1,27 @@
 {
   "project_info": {
-    "project_number": "690715819953",
-    "firebase_url": "https://phuotngayjsc.firebaseio.com",
-    "project_id": "phuotngayjsc",
-    "storage_bucket": "phuotngayjsc.appspot.com"
+    "project_number": "879321340999",
+    "firebase_url": "https://izigovn.firebaseio.com",
+    "project_id": "izigovn",
+    "storage_bucket": "izigovn.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:690715819953:android:755a124025a432f7",
+        "mobilesdk_app_id": "1:879321340999:android:6582140019045a78",
         "android_client_info": {
-          "package_name": "com.yosta.phuotngay"
+          "package_name": "io.yostajsc.izigo"
         }
       },
       "oauth_client": [
         {
-          "client_id": "690715819953-9rkr6dqc50ehgvt4h5ukmgepu8jeb4ks.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.yosta.phuotngay",
-            "certificate_hash": "D26D0112DBA8979B90849BB30F692F1A131D1DF0"
-          }
-        },
-        {
-          "client_id": "690715819953-l82uf133ss0jbl4rsmadh6spo2gbrjk9.apps.googleusercontent.com",
+          "client_id": "879321340999-20mmsn5l9st5bahkqrtdggpb8k1h3hl0.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCgHHuVkbmApHhH_tAN-H-3h_VvWkXlLZo"
+          "current_key": "AIzaSyD0mwV38IdGYHeUHfFYIqB2Om9N6UTHXC8"
         }
       ],
       "services": {
@@ -37,13 +29,8 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 2,
-          "other_platform_oauth_client": [
-            {
-              "client_id": "690715819953-l82uf133ss0jbl4rsmadh6spo2gbrjk9.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "status": 1,
+          "other_platform_oauth_client": []
         },
         "ads_service": {
           "status": 2
