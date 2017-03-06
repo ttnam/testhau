@@ -27,7 +27,7 @@ public class BaseResponse<T> implements Serializable {
         return responseCode == 1;
     }
 
-    public boolean IsExpired() {
+    public boolean isExpired() {
         return responseCode == 0;
     }
 

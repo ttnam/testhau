@@ -6,13 +6,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import org.jetbrains.annotations.NotNull;
+import com.android.annotations.NonNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import io.yostajsc.izigo.R;
-import io.yostajsc.izigo.interfaces.ItemClickCallBack;
+import io.yostajsc.izigo.interfaces.ItemClick;
 import io.yostajsc.izigo.models.Friend;
 import io.yostajsc.izigo.ui.bottomsheet.viewholder.FriendViewHolder;
 
@@ -24,12 +24,12 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendViewHolder> {
 
     private Context mContext = null;
     private List<Friend> mFriends = null;
-    private ItemClickCallBack itemClickCallBack;
+    private ItemClick<Integer, Integer> mItemClick;
 
-    public FriendAdapter(Context context, @NotNull ItemClickCallBack callBack) {
+    public FriendAdapter(Context context, @NonNull ItemClick<Integer, Integer> itemClick) {
         this.mContext = context;
         this.mFriends = new ArrayList<>();
-        this.itemClickCallBack = callBack;
+        this.mItemClick = itemClick;
     }
 
     @Override
@@ -42,7 +42,7 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendViewHolder> {
     @Override
     public void onBindViewHolder(FriendViewHolder holder, int position) {
         Friend friend = mFriends.get(position);
-        holder.onBind(friend, itemClickCallBack);
+        holder.onBind(friend, mItemClick);
     }
 
     @Override
@@ -74,6 +74,7 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendViewHolder> {
             clear();
             this.mFriends.addAll(friends);
         }
+        notifyDataSetChanged();
     }
 
     public void clear() {

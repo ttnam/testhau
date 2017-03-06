@@ -73,5 +73,6 @@
     <string name="str_group_name">Tên nhóm</string>
     <string name="str_create_group">Tạo group</string>
     <string name="str_add_friends">Mời bạn bè</string>
+    <string name="str_pick_friends">Choose at least 1 friend to continue</string>
 
 </resources>

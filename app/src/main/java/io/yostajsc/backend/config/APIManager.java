@@ -213,20 +213,30 @@ public class APIManager {
 
     }
 
-    public void createGroup(String authorization, String name, String info, String members,
-                            final CallBackParam expired,
+    public void createGroup(String authorization, String name, String avatar, String info, String members,
+                            final CallBack expired,
                             final CallBackParam<String> success,
                             final CallBackParam<String> fail) {
-        Call<BaseResponse<String>> call = service.createGroup(authorization, name, info, members);
+        Call<BaseResponse<String>> call = service.createGroup(authorization, name, avatar, info, members);
         call.enqueue(new Callback<BaseResponse<String>>() {
             @Override
             public void onResponse(Call<BaseResponse<String>> call, Response<BaseResponse<String>> response) {
 
+                if (response.isSuccessful()) {
+                    BaseResponse<String> res = response.body();
+                    if (res.isExpired()) {
+                        expired.run();
+                    } else if (res.isSuccessful()) {
+                        success.run(res.data());
+                    } else {
+                        fail.run(res.getDescription());
+                    }
+                }
             }
 
             @Override
-            public void onFailure(Call<BaseResponse<String>> call, Throwable t) {
-
+            public void onFailure(Call<BaseResponse<String>> call, Throwable throwable) {
+                fail.run(throwable.getMessage());
             }
         });
     }
@@ -243,7 +253,7 @@ public class APIManager {
             public void onResponse(Call<BaseResponse<List<Friend>>> call, Response<BaseResponse<List<Friend>>> response) {
                 if (response.isSuccessful()) {
                     BaseResponse<List<Friend>> res = response.body();
-                    if (res.IsExpired()) {
+                    if (res.isExpired()) {
                         expired.run();
                     } else if (res.isSuccessful()) {
                         success.run(res.data());

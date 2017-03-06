@@ -119,7 +119,6 @@ dependencies {
     compile project(':materialspinner')
     // Retrofit
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
-    compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
     compile 'com.android.support:multidex:1.0.1'
     // GSON
     compile 'com.google.code.gson:gson:2.8.0'

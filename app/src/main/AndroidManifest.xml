@@ -79,12 +79,7 @@
             android:name=".activities.user.LoginActivity"
             android:launchMode="singleTask"
             android:theme="@style/AppTheme.Fullscreen">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-
-            </intent-filter>
             <meta-data
                 android:name="android.app.shortcuts"
                 android:resource="@xml/shortcuts" />
@@ -124,7 +119,14 @@
         <activity
             android:name=".activities.group.GroupDetailActivity"
             android:launchMode="singleInstance"
-            android:theme="@style/AppTheme.White" />
+            android:theme="@style/AppTheme.White">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+
+            </intent-filter>
+        </activity>
         <activity
             android:name=".activities.group.AddGroupActivity"
             android:theme="@style/AppTheme"

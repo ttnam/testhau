@@ -19,8 +19,8 @@
 
             <android.support.v7.widget.AppCompatImageView
                 android:id="@id/image_view"
-                android:layout_width="@dimen/icon_size_x12"
-                android:layout_height="@dimen/icon_size_x12"
+                android:layout_width="@dimen/icon_size_x16"
+                android:layout_height="@dimen/icon_size_x16"
                 android:layout_gravity="center"
                 app:srcCompat="@drawable/ic_launcher" />
 

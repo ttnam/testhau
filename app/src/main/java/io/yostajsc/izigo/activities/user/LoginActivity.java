@@ -196,6 +196,7 @@ public class LoginActivity extends ActivityBehavior {
             String fbId = user.getFbId();
             String fireBaseId = user.getFireBaseId();
             String fcm = StorageUtils.inject(this).getString(FirebaseManager.FIRE_BASE_TOKEN);
+
             APIManager.connect().onLogin(email, fbId, fireBaseId, fcm, new CallBackParam<String>() {
                 @Override
                 public void run(String authorization) {
@@ -218,8 +219,8 @@ public class LoginActivity extends ActivityBehavior {
     }
 
     private void onReset() {
+        LoginManager.getInstance().logOut();
         progressBar.setVisibility(View.GONE);
         layoutFacebook.setVisibility(View.VISIBLE);
-        LoginManager.getInstance().logOut();
     }
 }

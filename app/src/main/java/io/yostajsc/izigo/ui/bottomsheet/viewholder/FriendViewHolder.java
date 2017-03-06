@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.android.annotations.NonNull;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
@@ -18,7 +19,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.yostajsc.constants.MessageType;
 import io.yostajsc.izigo.R;
-import io.yostajsc.izigo.interfaces.ItemClickCallBack;
+import io.yostajsc.izigo.interfaces.ItemClick;
 import io.yostajsc.izigo.models.Friend;
 
 /**
@@ -30,7 +31,7 @@ public class FriendViewHolder extends RecyclerView.ViewHolder {
     private Context mContext;
     private boolean toggle = false;
     private Resources resources = null;
-    private ItemClickCallBack itemClickCallBack;
+    private ItemClick<Integer, Integer> mInviteClick = null;
 
     @BindView(R.id.button)
     Button button;
@@ -44,6 +45,7 @@ public class FriendViewHolder extends RecyclerView.ViewHolder {
     public FriendViewHolder(View itemView) {
         super(itemView);
         ButterKnife.bind(this, itemView);
+
         this.mContext = itemView.getContext();
         resources = mContext.getResources();
 
@@ -59,18 +61,23 @@ public class FriendViewHolder extends RecyclerView.ViewHolder {
             button.setBackground(resources.getDrawable(R.drawable.ic_style_rect_round_corners_accent_white));
             button.setTextColor(resources.getColor(R.color.colorAccentDark));
             button.setText(resources.getString(R.string.all_invited));
-            itemClickCallBack.onClick(MessageType.ITEM_CLICK_INVITED, getAdapterPosition());
+            mInviteClick.onClick(MessageType.ITEM_CLICK_INVITED, getAdapterPosition());
         } else {
             button.setBackground(resources.getDrawable(R.drawable.ic_style_button_round_corners_accent_reflector));
             button.setTextColor(resources.getColor(android.R.color.white));
             button.setText(resources.getString(R.string.all_invite));
-            itemClickCallBack.onClick(MessageType.ITEM_CLICK_INVITE, getAdapterPosition());
+            mInviteClick.onClick(MessageType.ITEM_CLICK_INVITE, getAdapterPosition());
         }
     }
 
-    public void onBind(Friend friend, ItemClickCallBack callBack) {
-        this.itemClickCallBack = callBack;
-        textName.setText(friend.getName());
-        Glide.with(mContext).load(friend.getAvatar()).diskCacheStrategy(DiskCacheStrategy.ALL).into(imageAvatar);
+    public void onBind(Friend friend, @NonNull ItemClick<Integer, Integer> inviteClick) {
+        this.mInviteClick = inviteClick;
+        this.textName.setText(friend.getName());
+        Glide.with(mContext)
+                .load(friend.getAvatar())
+                .error(R.drawable.ic_avatar)
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                .into(imageAvatar);
+
     }
 }
