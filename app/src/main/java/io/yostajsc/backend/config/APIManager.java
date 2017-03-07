@@ -269,4 +269,32 @@ public class APIManager {
             }
         });
     }
+
+
+    public void getGroupDetail(String authorization, String groupId,
+                               final CallBackParam<String> success,
+                               final CallBackParam<String> fail,
+                               final CallBack expired) {
+        Call<BaseResponse<String>> call = service.getGroupDetail(authorization, groupId);
+        call.enqueue(new Callback<BaseResponse<String>>() {
+            @Override
+            public void onResponse(Call<BaseResponse<String>> call, Response<BaseResponse<String>> response) {
+                if (response.isSuccessful()) {
+                    BaseResponse<String> res = response.body();
+                    if (res.isSuccessful()) {
+                        success.run(res.data());
+                    } else if (res.isExpired()) {
+                        expired.run();
+                    } else {
+                        fail.run(res.getDescription());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BaseResponse<String>> call, Throwable throwable) {
+                fail.run(throwable.getMessage());
+            }
+        });
+    }
 }

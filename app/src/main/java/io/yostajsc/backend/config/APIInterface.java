@@ -17,6 +17,7 @@ import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 /**
  * Created by Phuc-Hau Nguyen on 11/9/2016.
@@ -64,4 +65,7 @@ public interface APIInterface {
     Call<BaseResponse<List<Friend>>> getFriendsList(
             @Header("authen") String authorization,
             @Header("x-access-token") String fbAccessToken);
+
+    @GET("api/group/{id}")
+    Call<BaseResponse<String>> getGroupDetail(@Header("authen") String authorization, @Path("id") String id);
 }

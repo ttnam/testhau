@@ -35,5 +35,6 @@
     <dimen name="icon_size_x12">96dp</dimen>
     <dimen name="icon_size_x13">104dp</dimen>
     <dimen name="icon_size_x16">128dp</dimen>
+    <dimen name="icon_size_x18">144dp</dimen>
 
 </resources>
