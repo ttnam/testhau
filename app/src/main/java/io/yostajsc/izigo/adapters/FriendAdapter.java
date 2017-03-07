@@ -14,7 +14,7 @@ import java.util.List;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.interfaces.ItemClick;
 import io.yostajsc.izigo.models.Friend;
-import io.yostajsc.izigo.ui.bottomsheet.viewholder.FriendViewHolder;
+import io.yostajsc.izigo.ui.viewholder.FriendViewHolder;
 
 /**
  * Created by Phuc-Hau Nguyen on 10/14/2016.

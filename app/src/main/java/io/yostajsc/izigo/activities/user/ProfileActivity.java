@@ -1,18 +1,32 @@
-package io.yostajsc.izigo.activities;
+package io.yostajsc.izigo.activities.user;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.yosta.materialspinner.MaterialSpinner;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.ButterKnife;
+import butterknife.OnClick;
+import io.yostajsc.backend.config.APIManager;
 import io.yostajsc.izigo.R;
+import io.yostajsc.izigo.activities.MainActivity;
 import io.yostajsc.izigo.base.ActivityBehavior;
-import io.yostajsc.izigo.firebase.FirebaseManager;
-import io.yostajsc.izigo.ui.bottomsheet.OwnToolBar;
-
-import java.util.List;
+import io.yostajsc.izigo.configs.AppDefine;
+import io.yostajsc.izigo.interfaces.CallBack;
+import io.yostajsc.izigo.interfaces.CallBackParam;
+import io.yostajsc.izigo.models.User;
+import io.yostajsc.utils.StorageUtils;
+import io.yostajsc.utils.ValidateUtils;
+import io.yostajsc.view.CircleImageView;
+import io.yostajsc.view.OwnToolBar;
 
 import butterknife.BindView;
 
@@ -20,26 +34,37 @@ import butterknife.BindView;
 @RuntimePermissions*/
 public class ProfileActivity extends ActivityBehavior {
 
-    @BindView(R.id.tvUserName)
-    TextView tvUserName;
+    /*@BindView(R.id.text_member_ship)
+    TextView tvMembership;*/
 
-    @BindView(R.id.tV_member_ship)
-    TextView txtMembership;
+    @BindView(R.id.edit_email)
+    EditText editEmail;
 
-    @BindView(R.id.tV_email)
-    TextView tVEmail;
+    @BindView(R.id.text_gender)
+    TextView textGender;
 
-    @BindView(R.id.spinner_gender)
-    MaterialSpinner spinnerGender;
+    @BindView(R.id.edit_dob)
+    EditText editDob;
 
-    /*@BindView(R.id.image_avatar)
-    CircleImageView imageAvatar;*/
+    @BindView(R.id.edit_first_name)
+    EditText editFirstName;
+
+    @BindView(R.id.edit_last_name)
+    EditText editLastName;
+
+    @BindView(R.id.image_view)
+    CircleImageView imageAvatar;
 
     @BindView(R.id.layout)
     OwnToolBar ownToolBar;
 
+    private User mUser = null;
+    private boolean isFirstTime = false;
+/*
+
     private FirebaseManager mFirebaseUtils = null;
     private List<String> mGender = null;
+*/
 
 
     @Override
@@ -47,9 +72,131 @@ public class ProfileActivity extends ActivityBehavior {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         ButterKnife.bind(this);
-        onApplyEvents();
     }
-/*
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Intent intent = getIntent();
+        isFirstTime = intent.getBooleanExtra(AppDefine.FIRST_TIME, false);
+    }
+
+    @Override
+    public void onApplyData() {
+        if (isFirstTime) {
+            Toast.makeText(this, "First Time", Toast.LENGTH_SHORT).show();
+            mUser = StorageUtils.inject(ProfileActivity.this).getUser();
+            updateValue();
+        } else {
+            String authorization = StorageUtils.inject(this).getString(AppDefine.AUTHORIZATION);
+            if (ValidateUtils.canUse(authorization)) {
+                APIManager.connect().getUserInfo(authorization, new CallBackParam<User>() {
+                    @Override
+                    public void run(User user) {
+                        mUser = user;
+                        updateValue();
+                    }
+                }, new CallBack() {
+                    @Override
+                    public void run() {
+                        onExpired();
+                    }
+                }, new CallBackParam<String>() {
+                    @Override
+                    public void run(String error) {
+                        Toast.makeText(ProfileActivity.this, error, Toast.LENGTH_LONG).show();
+                    }
+                });
+            }
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        onApplyData();
+    }
+
+    private void updateValue() {
+        if (mUser == null) {
+            return;
+        }
+        ownToolBar.setTitle(mUser.getFullName());
+        Glide.with(ProfileActivity.this)
+                .load(mUser.getAvatar())
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                .into(imageAvatar);
+        editEmail.setText(mUser.getEmail());
+        textGender.setText(mUser.getGender());
+        editDob.setText(mUser.getBirthday());
+        editLastName.setText(mUser.getLastName());
+        editFirstName.setText(mUser.getFirstName());
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (isFirstTime) {
+            Toast.makeText(this, "Vui lòng xác nhận thông tin tài khoản", Toast.LENGTH_SHORT).show();
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    @OnClick(R.id.button)
+    public void onConfirm() {
+
+        String dob = editDob.getText().toString();
+        String firstName = editFirstName.getText().toString();
+        String lastName = editLastName.getText().toString();
+        String email, gender;
+
+        if (mUser == null) {
+            email = editEmail.getText().toString();
+            gender = textGender.getText().toString();
+        } else {
+            email = mUser.getEmail();
+            gender = mUser.getGender();
+        }
+
+        if (ValidateUtils.canUse(dob, firstName, lastName, email, gender)) {
+
+            Map<String, String> map = new HashMap<>();
+            map.put("avatar", mUser.getAvatar());
+            map.put("email", email);
+            map.put("firstName", firstName);
+            map.put("lastName", lastName);
+            map.put("gender", gender);
+            map.put("dateOfBirth", dob);
+
+            String authorization = StorageUtils.inject(ProfileActivity.this).getString(AppDefine.AUTHORIZATION);
+            APIManager.connect().updateProfile(authorization, map, new CallBack() {
+                @Override
+                public void run() {
+                    onExpired();
+                }
+            }, new CallBack() {
+                @Override
+                public void run() {
+                    if (isFirstTime) {
+                        StorageUtils.inject(ProfileActivity.this).save(AppDefine.FIRST_TIME, 0);
+                        startActivity(new Intent(ProfileActivity.this, MainActivity.class));
+                        finish();
+                    } else {
+                        finish();
+                    }
+
+                }
+            }, new CallBackParam<String>() {
+                @Override
+                public void run(String error) {
+                    Toast.makeText(ProfileActivity.this, error, Toast.LENGTH_SHORT).show();
+                }
+            });
+        } else {
+            Toast.makeText(this, getString(R.string.error_message_empty), Toast.LENGTH_SHORT).show();
+        }
+    }
+    /*
     @Override
     protected void onStart() {
         super.onStart();

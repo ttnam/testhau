@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import io.yostajsc.backend.response.BaseResponse;
+import io.yostajsc.izigo.models.User;
 import io.yostajsc.izigo.models.Friend;
 import io.yostajsc.izigo.models.base.Locations;
 import io.yostajsc.izigo.models.trip.BaseTrip;
@@ -17,7 +18,6 @@ import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
-import retrofit2.http.Query;
 
 /**
  * Created by Phuc-Hau Nguyen on 11/9/2016.
@@ -48,7 +48,7 @@ public interface APIInterface {
     Call<BaseResponse> updateFcm(@Header("authen") String authorization, @Field("fcm") String fcm);
 
     @GET("api/user")
-    Call<BaseResponse> getUserInfo(@Header("authen") String authorization);
+    Call<BaseResponse<User>> getUserInfo(@Header("authen") String authorization);
 
     @GET("api/trips/{id}")
     Call<BaseResponse<Trip>> getTripDetail(@Header("authen") String authorization, @Path("id") String tripId);

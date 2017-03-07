@@ -1,17 +1,6 @@
 package io.yostajsc.izigo.adapters;
 
-import android.app.Activity;
-import android.content.Context;
-import android.support.v7.widget.RecyclerView;
-import android.util.DisplayMetrics;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
-import java.util.ArrayList;
-
-import io.yostajsc.izigo.R;
-import io.yostajsc.izigo.ui.bottomsheet.viewholder.ImageryViewHolder;
+import io.yostajsc.izigo.ui.viewholder.ImageryViewHolder;
 
 public class ImageryAdapter {/*extends RecyclerView.Adapter<ImageryViewHolder> {
 

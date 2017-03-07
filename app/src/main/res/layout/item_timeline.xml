@@ -123,7 +123,7 @@
                 android:layout_width="@dimen/icon_size_x6"
                 android:layout_height="@dimen/icon_size_x6"
                 android:scaleType="centerCrop"
-                app:srcCompat="@drawable/ic_avatar" />
+                app:srcCompat="@drawable/ic_vector_profile" />
 
             <android.support.v7.widget.AppCompatImageView
                 android:layout_width="@dimen/icon_size_x6"
@@ -139,7 +139,7 @@
                 android:layout_marginLeft="@dimen/margin"
                 android:layout_marginStart="@dimen/margin"
                 android:scaleType="centerCrop"
-                app:srcCompat="@drawable/ic_avatar" />
+                app:srcCompat="@drawable/ic_vector_profile" />
         </LinearLayout>
     </LinearLayout>
 

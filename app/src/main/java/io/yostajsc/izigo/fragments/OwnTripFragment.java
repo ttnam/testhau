@@ -19,8 +19,7 @@ import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.activities.group.AddGroupActivity;
 import io.yostajsc.izigo.activities.group.GroupDetailActivity;
 import io.yostajsc.izigo.adapters.GroupAdapter;
-import io.yostajsc.izigo.firebase.model.FirebaseGroup;
-import io.yostajsc.izigo.ui.bottomsheet.OwnToolBar;
+import io.yostajsc.view.OwnToolBar;
 import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator;
 
 public class OwnTripFragment extends Fragment {

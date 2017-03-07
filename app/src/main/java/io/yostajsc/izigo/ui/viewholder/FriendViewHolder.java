@@ -1,4 +1,4 @@
-package io.yostajsc.izigo.ui.bottomsheet.viewholder;
+package io.yostajsc.izigo.ui.viewholder;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -75,7 +75,6 @@ public class FriendViewHolder extends RecyclerView.ViewHolder {
         this.textName.setText(friend.getName());
         Glide.with(mContext)
                 .load(friend.getAvatar())
-                .error(R.drawable.ic_avatar)
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .into(imageAvatar);
 

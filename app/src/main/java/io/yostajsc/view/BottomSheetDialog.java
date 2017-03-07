@@ -1,4 +1,4 @@
-package io.yostajsc.izigo.ui.bottomsheet;
+package io.yostajsc.view;
 
 import android.app.Dialog;
 import android.content.Context;

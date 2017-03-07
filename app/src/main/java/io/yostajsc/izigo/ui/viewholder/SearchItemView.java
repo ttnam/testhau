@@ -1,4 +1,4 @@
-package io.yostajsc.izigo.ui.bottomsheet.viewholder;
+package io.yostajsc.izigo.ui.viewholder;
 
 /**
  * Created by Phuc-Hau Nguyen on 9/8/2016.

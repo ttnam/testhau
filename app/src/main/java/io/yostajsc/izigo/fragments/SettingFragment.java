@@ -12,8 +12,9 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import io.yostajsc.izigo.R;
-import io.yostajsc.izigo.activities.ProfileActivity;
-import io.yostajsc.izigo.ui.bottomsheet.OwnToolBar;
+import io.yostajsc.izigo.activities.user.ProfileActivity;
+import io.yostajsc.izigo.configs.AppDefine;
+import io.yostajsc.view.OwnToolBar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -59,11 +60,18 @@ public class SettingFragment extends Fragment {
 
     @OnClick(R.id.layout_profile)
     public void onCallProfile() {
-        mActivity.startActivity(new Intent(getActivity(), ProfileActivity.class));
+        Intent intent = new Intent(getActivity(), ProfileActivity.class);
+        intent.putExtra(AppDefine.FIRST_TIME, false);
+        mActivity.startActivity(intent);
         mActivity.overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
     }
 
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        mActivity = getActivity();
+    }
 /*
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -72,11 +80,6 @@ public class SettingFragment extends Fragment {
         switchSync.setOnCheckedChangeListener(ListenerHelpers.SwitchSync);
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        mActivity = getActivity();
-    }
 
     @Override
     public void onPause() {

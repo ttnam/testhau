@@ -22,7 +22,7 @@ import io.yostajsc.backend.config.APIManager;
 import io.yostajsc.izigo.configs.AppDefine;
 import io.yostajsc.izigo.interfaces.CallBackParam;
 import io.yostajsc.izigo.models.trip.BaseTrip;
-import io.yostajsc.izigo.ui.bottomsheet.OwnToolBar;
+import io.yostajsc.view.OwnToolBar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.yostajsc.utils.StorageUtils;

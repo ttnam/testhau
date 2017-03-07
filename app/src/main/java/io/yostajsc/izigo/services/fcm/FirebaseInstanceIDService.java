@@ -26,7 +26,7 @@ public class FirebaseInstanceIDService extends FirebaseInstanceIdService {
         try {
             String authorization = StorageUtils.inject(this).getString(AppDefine.AUTHORIZATION);
             if (ValidateUtils.canUse(authorization))
-                APIManager.connect().onUpdateFcm(authorization, token);
+                APIManager.connect().updateFcm(authorization, token);
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
         }

@@ -35,53 +35,11 @@
         android:padding="@dimen/margin"
         android:text="15-30 tháng 07 năm 2015" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="@dimen/margin_x2">
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:layout_width="@dimen/icon_size_x7"
-            android:layout_height="@dimen/icon_size_x7"
-            android:src="@drawable/ic_avatar" />
-
-        <de.hdodenhof.circleimageview.CircleImageView
+        <io.yostajsc.view.CircleImageView
             android:layout_width="@dimen/icon_size_x7"
             android:layout_height="@dimen/icon_size_x7"
             android:layout_marginLeft="@dimen/margin"
-            android:layout_marginStart="@dimen/margin"
-            android:src="@drawable/ic_avatar" />
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:layout_width="@dimen/icon_size_x7"
-            android:layout_height="@dimen/icon_size_x7"
-            android:layout_marginLeft="@dimen/margin"
-            android:layout_marginStart="@dimen/margin"
-            android:src="@drawable/ic_avatar" />
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:layout_width="@dimen/icon_size_x7"
-            android:layout_height="@dimen/icon_size_x7"
-            android:layout_marginLeft="@dimen/margin"
-            android:layout_marginStart="@dimen/margin"
-            android:src="@drawable/ic_avatar" />
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:layout_width="@dimen/icon_size_x7"
-            android:layout_height="@dimen/icon_size_x7"
-            android:layout_marginLeft="@dimen/margin"
-            android:layout_marginStart="@dimen/margin"
-            android:src="@drawable/ic_avatar" />
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:layout_width="@dimen/icon_size_x7"
-            android:layout_height="@dimen/icon_size_x7"
-            android:layout_marginLeft="@dimen/margin"
-            android:layout_marginStart="@dimen/margin"
-            android:src="@drawable/ic_avatar" />
-
-    </LinearLayout>
+            android:layout_marginStart="@dimen/margin" />
 
     <include layout="@layout/layout_separate_vertical" />
 

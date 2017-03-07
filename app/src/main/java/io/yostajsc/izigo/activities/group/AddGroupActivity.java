@@ -3,7 +3,6 @@ package io.yostajsc.izigo.activities.group;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.TextInputEditText;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -17,7 +16,6 @@ import java.util.List;
 
 import io.yostajsc.constants.MessageType;
 import io.yostajsc.izigo.R;
-import io.yostajsc.izigo.activities.dialogs.DialogAddFriends;
 import io.yostajsc.izigo.adapters.FriendAdapter;
 import io.yostajsc.backend.config.APIManager;
 import io.yostajsc.izigo.base.ActivityBehavior;
@@ -26,9 +24,8 @@ import io.yostajsc.izigo.interfaces.CallBack;
 import io.yostajsc.izigo.interfaces.CallBackParam;
 import io.yostajsc.izigo.interfaces.ItemClick;
 import io.yostajsc.izigo.models.Friend;
-import io.yostajsc.izigo.ui.bottomsheet.OwnToolBar;
+import io.yostajsc.view.OwnToolBar;
 import io.yostajsc.utils.StorageUtils;
-import io.yostajsc.utils.ValidateUtils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -124,8 +121,11 @@ public class AddGroupActivity extends ActivityBehavior {
 
     @OnClick(R.id.button_add_friend)
     public void onAddFriends() {
-        DialogAddFriends dialogAddFriends = new DialogAddFriends(this);
-        dialogAddFriends.show();
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("image/*");
+        // intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        // intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
+        startActivity(Intent.createChooser(intent, getString(R.string.str_send_invite)));
     }
 
     private String makeMembers() {

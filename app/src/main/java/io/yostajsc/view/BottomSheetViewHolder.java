@@ -1,4 +1,4 @@
-package io.yostajsc.izigo.ui.bottomsheet;
+package io.yostajsc.view;
 
 import android.support.annotation.DrawableRes;
 import android.support.v7.widget.AppCompatImageView;

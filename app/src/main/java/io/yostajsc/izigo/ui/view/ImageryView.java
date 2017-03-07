@@ -1,4 +1,4 @@
-package io.yostajsc.izigo.ui.bottomsheet.view;
+package io.yostajsc.izigo.ui.view;
 
 /**
  * Created by Phuc-Hau Nguyen on 8/25/2016.

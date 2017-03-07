@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             app:layout_scrollFlags="scroll|enterAlways">
 
-            <io.yostajsc.izigo.ui.bottomsheet.OwnToolBar
+            <io.yostajsc.view.OwnToolBar
                 android:id="@id/layout"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"

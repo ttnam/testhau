@@ -40,7 +40,7 @@ import io.yostajsc.backend.config.APIManager;
 import io.yostajsc.izigo.base.ActivityBehavior;
 import io.yostajsc.izigo.configs.AppDefine;
 import io.yostajsc.izigo.firebase.FirebaseManager;
-import io.yostajsc.izigo.firebase.model.User;
+import io.yostajsc.izigo.models.User;
 import io.yostajsc.izigo.firebase.model.UserManager;
 import io.yostajsc.izigo.interfaces.CallBackParam;
 import io.yostajsc.izigo.managers.EventManager;
@@ -105,7 +105,7 @@ public class LoginActivity extends ActivityBehavior {
     public void onApplyViews() {
         Glide.with(this)
                 .load(R.drawable.ic_loading)
-                .error(R.drawable.ic_avatar)
+                .error(R.drawable.ic_launcher)
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .into(imageView);
     }
@@ -137,7 +137,8 @@ public class LoginActivity extends ActivityBehavior {
             @Override
             public void run(AccessToken token) {
                 handleFacebookAccessToken(token);
-                GraphRequest request = GraphRequest.newMeRequest(token, new GraphRequest.GraphJSONObjectCallback() {
+                GraphRequest request = GraphRequest.newMeRequest(token,
+                        new GraphRequest.GraphJSONObjectCallback() {
                     @Override
                     public void onCompleted(JSONObject object, GraphResponse response) {
                         user = UserManager.inject().getFacebookUserInfo(object);
@@ -201,8 +202,20 @@ public class LoginActivity extends ActivityBehavior {
                 @Override
                 public void run(String authorization) {
                     Log.d(TAG, authorization);
+
                     StorageUtils.inject(LoginActivity.this).save(AppDefine.AUTHORIZATION, authorization);
-                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
+
+                    int isFirstTime = StorageUtils.inject(LoginActivity.this)
+                            .getInt(AppDefine.FIRST_TIME);
+                    Intent intent;
+                    if (isFirstTime == 1) {
+                        intent = new Intent(LoginActivity.this, ProfileActivity.class);
+                        intent.putExtra(AppDefine.FIRST_TIME, true);
+                    } else {
+                        intent = new Intent(LoginActivity.this, MainActivity.class);
+                    }
+                    StorageUtils.inject(LoginActivity.this).save(AppDefine.FIRST_TIME, 0);
+                    startActivity(intent);
                     finish();
                 }
             }, new CallBackParam<String>() {
@@ -222,5 +235,6 @@ public class LoginActivity extends ActivityBehavior {
         LoginManager.getInstance().logOut();
         progressBar.setVisibility(View.GONE);
         layoutFacebook.setVisibility(View.VISIBLE);
+        StorageUtils.inject(LoginActivity.this).save(AppDefine.FIRST_TIME, 1);
     }
 }

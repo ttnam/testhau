@@ -21,10 +21,10 @@
 
 
     <!-- start profile-->
-    <string name="profile_first_name"> First name               </string>
-    <string name="profile_last_name"> Last name                 </string>
-    <string name="profile_date_of_birth"> Date of Birth         </string>
-    <string name="profile_email"> Email                         </string>
+    <string name="profile_first_name"> First name                    </string>
+    <string name="profile_last_name"> Last name                      </string>
+    <string name="profile_date_of_birth"> Date of Birth (dd/mm/yyyy) </string>
+    <string name="profile_email"> Email                              </string>
     <!-- end profile-->
 
     <!-- start setting-->
@@ -74,5 +74,6 @@
     <string name="str_create_group">Tạo group</string>
     <string name="str_add_friends">Mời bạn bè</string>
     <string name="str_pick_friends">Choose at least 1 friend to continue</string>
-
+    <string name="str_send_invite">Send the invitation to your friends</string>
+    <string name="str_confirm">Xác nhận</string>
 </resources>

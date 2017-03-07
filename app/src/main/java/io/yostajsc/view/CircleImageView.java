@@ -1,4 +1,4 @@
-package io.yostajsc.izigo.ui.bottomsheet;
+package io.yostajsc.view;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -24,7 +24,7 @@ import android.widget.ImageView;
 import io.yostajsc.izigo.R;
 
 /**
- * Created by Phuc-Hau Nguyen on 2/22/2017.
+ * Created by Phuc-Hau Nguyen on 3/7/2017.
  */
 
 public class CircleImageView extends ImageView {
@@ -68,6 +68,7 @@ public class CircleImageView extends ImageView {
 
     public CircleImageView(Context context) {
         super(context);
+
         init();
     }
 

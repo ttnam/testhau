@@ -3,14 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorWindowBackground"
     android:orientation="vertical">
 
-    <io.yostajsc.izigo.ui.bottomsheet.OwnToolBar
+    <io.yostajsc.view.OwnToolBar
         android:id="@id/layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layoutType="title_left" />
+        app:layoutBackground="@color/colorPrimary"
+        app:layoutTitleColor="@android:color/white"
+        app:layoutType="title_center" />
 
     <include layout="@layout/layout_separate_vertical" />
 
@@ -21,139 +22,18 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="@dimen/margin_x7"
             android:background="@android:color/white"
             android:orientation="vertical"
             android:padding="@dimen/margin_x2">
 
-            <FrameLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <io.yostajsc.view.CircleImageView
+                android:id="@id/image_view"
+                android:layout_width="@dimen/icon_size_x12"
+                android:layout_height="@dimen/icon_size_x12"
                 android:layout_gravity="center"
-                android:layout_marginTop="@dimen/margin"
-                android:background="@drawable/ic_style_button_round_none_default"
-                android:clickable="true"
-                android:padding="@dimen/margin_x2">
+                android:layout_marginBottom="@dimen/margin_x3" />
 
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:layout_width="@dimen/icon_size_x12"
-                    android:layout_height="@dimen/icon_size_x12"
-                    android:layout_gravity="center"
-                    android:src="@drawable/ic_avatar" />
-
-                <android.support.v7.widget.AppCompatImageView
-                    android:layout_width="@dimen/icon_size_x3"
-                    android:layout_height="@dimen/icon_size_x3"
-                    android:layout_gravity="bottom|end"
-                    app:srcCompat="@drawable/ic_vector_check" />
-            </FrameLayout>
-
-            <TextView
-                android:id="@+id/tvUserName"
-                style="@style/AppTheme.TextView_Title.Bold"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:padding="@dimen/margin_x2"
-                android:text="Nguyễn Phúc Hậu"
-                android:textSize="@dimen/text_size_v2" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin"
-                android:layout_marginTop="@dimen/margin"
-                android:baselineAligned="true"
-                android:orientation="horizontal"
-                android:weightSum="3">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:background="@drawable/ic_style_button_round_none_default"
-                    android:clickable="true"
-                    android:orientation="vertical"
-                    android:padding="@dimen/margin">
-
-                    <TextView
-                        style="@style/AppTheme.TextView_Title.Bold"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:text="3000" />
-
-                    <TextView
-                        style="@style/AppTheme.TextView_Sub_Title"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:text="Posts" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:background="@drawable/ic_style_button_round_none_default"
-                    android:clickable="true"
-                    android:orientation="vertical"
-                    android:padding="@dimen/margin">
-
-                    <TextView
-                        style="@style/AppTheme.TextView_Title.Bold"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:text="123" />
-
-                    <TextView
-                        style="@style/AppTheme.TextView_Sub_Title"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:text="Followers" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:background="@drawable/ic_style_button_round_none_default"
-                    android:clickable="true"
-                    android:orientation="vertical"
-                    android:padding="@dimen/margin">
-
-                    <TextView
-                        style="@style/AppTheme.TextView_Title.Bold"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:text="210" />
-
-                    <TextView
-                        style="@style/AppTheme.TextView_Sub_Title"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:text="Followings" />
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <include layout="@layout/layout_separate_vertical" />
-
-            <include layout="@layout/fragment_profile_base_info" />
+            <include layout="@layout/layout_user_info" />
 
         </LinearLayout>
 

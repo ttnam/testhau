@@ -4,6 +4,8 @@ import org.json.JSONObject;
 
 import java.net.URL;
 
+import io.yostajsc.izigo.models.User;
+
 /**
  * Created by Phuc-Hau Nguyen on 1/24/2017.
  */
@@ -25,8 +27,6 @@ public class UserManager {
             URL profile_pic = new URL("https://graph.facebook.com/" + id + "/picture?width=200&height=150");
             user.setAvatar(profile_pic.toString());
             user.setFbId(id);
-            if (object.has("cover"))
-                user.setCover(object.getJSONObject("cover").getString("source"));
             if (object.has("name"))
                 user.setLastName(object.getString("name"));
             if (object.has("first_name"))

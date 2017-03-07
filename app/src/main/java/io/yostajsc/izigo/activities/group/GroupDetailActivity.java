@@ -8,9 +8,8 @@ import android.view.View;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.yostajsc.izigo.R;
-import io.yostajsc.izigo.activities.dialogs.DialogAddFriends;
 import io.yostajsc.izigo.configs.AppDefine;
-import io.yostajsc.izigo.ui.bottomsheet.OwnToolBar;
+import io.yostajsc.view.OwnToolBar;
 import io.yostajsc.utils.StorageUtils;
 import io.yostajsc.utils.ValidateUtils;
 
@@ -20,7 +19,7 @@ public class GroupDetailActivity extends AppCompatActivity {
     OwnToolBar ownToolBar;
 
     @BindView(R.id.image_view)
-    AppCompatImageView imageVview;
+    AppCompatImageView imageView;
 
 
     @Override

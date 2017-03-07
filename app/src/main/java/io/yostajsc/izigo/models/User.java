@@ -1,9 +1,11 @@
-package io.yostajsc.izigo.firebase.model;
+package io.yostajsc.izigo.models;
 
 import com.google.firebase.database.IgnoreExtraProperties;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
+
+import io.yostajsc.utils.AppUtils;
 
 @IgnoreExtraProperties
 public class User implements Serializable {
@@ -13,8 +15,6 @@ public class User implements Serializable {
 
     @SerializedName("avatar")
     private String avatar;
-
-    private String cover;
 
     @SerializedName("dateOfBirth")
     private String birthday;
@@ -27,6 +27,7 @@ public class User implements Serializable {
 
     @SerializedName("firstName")
     private String firstName;
+
 
     @SerializedName("lastName")
     private String lastName;
@@ -49,14 +50,6 @@ public class User implements Serializable {
 
     public void setAvatar(String avatar) {
         this.avatar = avatar;
-    }
-
-    public String getCover() {
-        return cover;
-    }
-
-    public void setCover(String cover) {
-        this.cover = cover;
     }
 
     public String getBirthday() {
@@ -83,16 +76,8 @@ public class User implements Serializable {
         this.fbId = fbId;
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
-
     public void setFirstName(String firstName) {
         this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
     }
 
     public void setLastName(String lastName) {
@@ -111,16 +96,23 @@ public class User implements Serializable {
         return location;
     }
 
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
     public void setLocation(String location) {
         this.location = location;
     }
 
-    public long getMemberShip() {
-        return memberShip;
+    public String getMemberShip() {
+        return AppUtils.builder().getTime(this.memberShip, AppUtils.DD_MM_YYYY);
     }
 
-    public void setMemberShip(long memberShip) {
-        this.memberShip = memberShip;
+    public String getFullName() {
+        return String.format("%s %s", this.firstName, this.lastName);
     }
 
     @Override

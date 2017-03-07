@@ -7,7 +7,7 @@ import android.preference.PreferenceManager;
 import com.google.gson.Gson;
 
 import io.yostajsc.izigo.configs.AppDefine;
-import io.yostajsc.izigo.firebase.model.User;
+import io.yostajsc.izigo.models.User;
 
 /**
  * Created by nphau on 9/27/2015.

@@ -1,4 +1,4 @@
-package io.yostajsc.izigo.ui.bottomsheet.viewholder;
+package io.yostajsc.izigo.ui.viewholder;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;

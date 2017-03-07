@@ -11,6 +11,7 @@ import io.yostajsc.backend.response.BaseResponse;
 import io.yostajsc.izigo.interfaces.CallBack;
 import io.yostajsc.izigo.interfaces.CallBackParam;
 import io.yostajsc.izigo.models.Friend;
+import io.yostajsc.izigo.models.User;
 import io.yostajsc.izigo.models.base.Locations;
 import io.yostajsc.izigo.models.trip.BaseTrip;
 import io.yostajsc.izigo.models.trip.Trip;
@@ -106,9 +107,9 @@ public class APIManager {
         });
     }
 
-    public void onGetLocation(String authorization,
-                              final CallBackParam<Locations> success,
-                              final CallBackParam<String> fail) {
+    public void getLocation(String authorization,
+                            final CallBackParam<Locations> success,
+                            final CallBackParam<String> fail) {
 
         Call<BaseResponse<Locations>> call = service.getLocations(authorization);
 
@@ -157,7 +158,7 @@ public class APIManager {
         });
     }
 
-    public void onUpdateFcm(String authorization, String fcm) {
+    public void updateFcm(String authorization, String fcm) {
         Call<BaseResponse> call = service.updateFcm(authorization, fcm);
         call.enqueue(new Callback<BaseResponse>() {
             @Override
@@ -172,9 +173,9 @@ public class APIManager {
         });
     }
 
-    public void onGetTripDetail(String authorization, String tripId,
-                                final CallBackParam<Trip> success,
-                                final CallBackParam<String> fail) {
+    public void getTripDetail(String authorization, String tripId,
+                              final CallBackParam<Trip> success,
+                              final CallBackParam<String> fail) {
         Call<BaseResponse<Trip>> call = service.getTripDetail(authorization, tripId);
 
         call.enqueue(new Callback<BaseResponse<Trip>>() {
@@ -197,17 +198,28 @@ public class APIManager {
         });
     }
 
-    public void getUserInfo(String authorization, CallBackParam back) {
-        Call<BaseResponse> call = service.getUserInfo(authorization);
-        call.enqueue(new Callback<BaseResponse>() {
-            @Override
-            public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
+    public void getUserInfo(String authorization, final CallBackParam<User> success,
+                            final CallBack expired, final CallBackParam<String> fail) {
 
+        Call<BaseResponse<User>> call = service.getUserInfo(authorization);
+        call.enqueue(new Callback<BaseResponse<User>>() {
+            @Override
+            public void onResponse(Call<BaseResponse<User>> call, Response<BaseResponse<User>> response) {
+                if (response.isSuccessful()) {
+                    BaseResponse<User> res = response.body();
+                    if (res.isSuccessful()) {
+                        success.run(res.data());
+                    } else if (res.isExpired()) {
+                        expired.run();
+                    } else {
+                        fail.run(res.getDescription());
+                    }
+                }
             }
 
             @Override
-            public void onFailure(Call<BaseResponse> call, Throwable t) {
-
+            public void onFailure(Call<BaseResponse<User>> call, Throwable throwable) {
+                fail.run(throwable.getMessage());
             }
         });
 
@@ -293,6 +305,33 @@ public class APIManager {
 
             @Override
             public void onFailure(Call<BaseResponse<String>> call, Throwable throwable) {
+                fail.run(throwable.getMessage());
+            }
+        });
+    }
+
+    public void updateProfile(String authorization, Map<String, String> body,
+                              final CallBack expired,
+                              final CallBack success,
+                              final CallBackParam<String> fail) {
+        Call<BaseResponse> call = service.updateProfile(authorization, body);
+        call.enqueue(new Callback<BaseResponse>() {
+            @Override
+            public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
+                if (response.isSuccessful()) {
+                    BaseResponse res = response.body();
+                    if (res.isSuccessful()) {
+                        success.run();
+                    } else if (res.isExpired()) {
+                        expired.run();
+                    } else {
+                        fail.run(res.getDescription());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BaseResponse> call, Throwable throwable) {
                 fail.run(throwable.getMessage());
             }
         });

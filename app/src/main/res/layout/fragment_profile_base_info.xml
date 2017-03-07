@@ -37,7 +37,7 @@
                 android:text="Member Ship" />
 
             <TextView
-                android:id="@+id/tV_member_ship"
+                android:id="@+id/text_member_ship"
                 style="@style/AppTheme.TextView_Title.Bold.ColorPrimary"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -70,7 +70,7 @@
             app:srcCompat="@drawable/ic_vector_email" />
 
         <TextView
-            android:id="@+id/tV_email"
+            android:id="@+id/text_email"
             style="@style/AppTheme.TextView_Title.Bold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -83,7 +83,7 @@
     </LinearLayout>
 
     <LinearLayout
-        style="@style/Style_Menu_Item.NonPress"
+        style="@style/Style_Menu_Item.Press"
         android:layout_width="match_parent"
         android:orientation="horizontal">
 
@@ -94,27 +94,16 @@
             app:srcCompat="@drawable/ic_vector_email" />
 
         <TextView
-            style="@style/AppTheme.TextView_Title.Bold"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="@dimen/margin_x2"
-            android:layout_marginStart="@dimen/margin_x2"
-            android:gravity="center"
-            android:text="Gender"
-            android:textStyle="normal" />
-
-        <com.yosta.materialspinner.MaterialSpinner
-            android:id="@+id/spinner_gender"
+            android:id="@+id/text_gender"
             style="@style/AppTheme.TextView_Title.Bold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_gravity="center_vertical"
             android:layout_marginLeft="@dimen/margin_x2"
             android:layout_marginStart="@dimen/margin_x2"
-            android:gravity="center"
-            android:padding="@dimen/margin"
+            android:text="Gender"
             android:textStyle="normal" />
+
     </LinearLayout>
 
 </LinearLayout>

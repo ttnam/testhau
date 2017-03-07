@@ -87,7 +87,7 @@ public class MainActivity extends ActivityBehavior {
     protected void onResume() {
         super.onResume();
         String authorization = StorageUtils.inject(this).getString(AppDefine.AUTHORIZATION);
-        APIManager.connect().onGetLocation(authorization, new CallBackParam<Locations>() {
+        APIManager.connect().getLocation(authorization, new CallBackParam<Locations>() {
             @Override
             public void run(Locations locations) {
                 RealmManager.insertOrUpdate(locations);

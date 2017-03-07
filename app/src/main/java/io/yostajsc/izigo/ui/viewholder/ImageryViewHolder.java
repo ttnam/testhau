@@ -1,4 +1,4 @@
-package io.yostajsc.izigo.ui.bottomsheet.viewholder;
+package io.yostajsc.izigo.ui.viewholder;
 
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
@@ -15,7 +15,7 @@ import com.facebook.imagepipeline.request.ImageRequestBuilder;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.yostajsc.izigo.R;
-import io.yostajsc.izigo.ui.bottomsheet.view.ImageryView;
+import io.yostajsc.izigo.ui.view.ImageryView;
 
 /**
  * Created by Phuc-Hau Nguyen on 8/25/2016.

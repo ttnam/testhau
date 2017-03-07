@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <io.yostajsc.izigo.ui.bottomsheet.OwnToolBar
+    <io.yostajsc.view.OwnToolBar
         android:id="@id/layout"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
@@ -47,7 +47,7 @@
                         android:layout_width="@dimen/icon_size_x3"
                         android:layout_height="@dimen/icon_size_x3"
                         android:layout_gravity="center_vertical"
-                        app:srcCompat="@drawable/ic_vector_profile" />
+                        app:srcCompat="@drawable/ic_vector_avatar" />
 
                     <TextView
                         style="@style/AppTheme.TextView_Title"

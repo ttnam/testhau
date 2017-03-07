@@ -1,4 +1,4 @@
-package io.yostajsc.izigo.ui.bottomsheet.viewholder;
+package io.yostajsc.izigo.ui.viewholder;
 
 import android.app.Activity;
 import android.content.Context;
