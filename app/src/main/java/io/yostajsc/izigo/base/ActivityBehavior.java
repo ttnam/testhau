@@ -65,12 +65,19 @@ public class ActivityBehavior extends AppCompatActivity implements ActivityInter
         int code = info.getMessage();
         switch (code) {
             case MessageType.INTERNET_CONNECTED:
-                this.dialogNoNet.dismiss();
+                onInternetConnected();
                 break;
             case MessageType.LOST_INTERNET:
-                this.dialogNoNet.show();
+                onInternetDisconnected();
                 break;
         }
+    }
+
+    protected void onInternetDisconnected() {
+        this.dialogNoNet.show();
+    }
+    protected void onInternetConnected() {
+        this.dialogNoNet.dismiss();
     }
 
 }

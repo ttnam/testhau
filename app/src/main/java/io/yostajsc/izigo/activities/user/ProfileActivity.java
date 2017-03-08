@@ -24,7 +24,7 @@ import io.yostajsc.izigo.interfaces.CallBack;
 import io.yostajsc.izigo.interfaces.CallBackParam;
 import io.yostajsc.izigo.models.User;
 import io.yostajsc.utils.StorageUtils;
-import io.yostajsc.utils.ValidateUtils;
+import io.yostajsc.utils.validate.ValidateUtils;
 import io.yostajsc.view.CircleImageView;
 import io.yostajsc.view.OwnToolBar;
 

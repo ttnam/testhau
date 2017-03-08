@@ -10,9 +10,6 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.location.LocationManager;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.support.annotation.AnyRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -196,29 +193,6 @@ public class AppUtils {
         }
     }
 
-    public static boolean isGPSEnable(Context context) {
-        LocationManager manager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
-        return manager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-    }
-
-    public static boolean isNetworkConnected(Context context) {
-        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        return (connectivityManager.getActiveNetworkInfo() != null);
-    }
-
-    private static boolean isWifiConnected(Context context) {
-        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo info = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-        return (info.getState() == NetworkInfo.State.CONNECTED);
-    }
-
-    private static boolean isMobileDataConnected(Context context) {
-        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo info = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
-        return (info.getState() == NetworkInfo.State.CONNECTED);
-    }
-
-
     public static String onGetAppVersion(Context context) {
         PackageManager manager = context.getPackageManager();
         PackageInfo info = null;
@@ -248,18 +222,6 @@ public class AppUtils {
 
         }
         return keyHash;
-    }
-
-    public static int onGetScreenHeight(Activity activity) {
-        DisplayMetrics displaymetrics = new DisplayMetrics();
-        activity.getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
-        return displaymetrics.heightPixels;
-    }
-
-    public static int onGetScreenWidth(Activity activity) {
-        DisplayMetrics displaymetrics = new DisplayMetrics();
-        activity.getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
-        return displaymetrics.widthPixels;
     }
 
     public static void onCloseVirtualKeyboard(Activity activity) {

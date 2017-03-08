@@ -18,6 +18,7 @@ import io.yostajsc.designs.animations.attention.FlashAnimator;
 import io.yostajsc.designs.animations.attention.ShakeAnimator;
 import io.yostajsc.izigo.R;
 import io.yostajsc.utils.AppUtils;
+import io.yostajsc.utils.NetworkUtils;
 
 public class ProfileTripFragment extends Fragment {
 
@@ -41,7 +42,7 @@ public class ProfileTripFragment extends Fragment {
 
     @OnClick(R.id.image)
     public void onClick() {
-        if (!AppUtils.isNetworkConnected(getContext())) {
+        if (!NetworkUtils.isNetworkConnected(getContext())) {
             YoYo.with(new ShakeAnimator())
                     .duration(600)
                     .interpolate(new AccelerateDecelerateInterpolator())

@@ -11,7 +11,7 @@ import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.configs.AppDefine;
 import io.yostajsc.view.OwnToolBar;
 import io.yostajsc.utils.StorageUtils;
-import io.yostajsc.utils.ValidateUtils;
+import io.yostajsc.utils.validate.ValidateUtils;
 
 public class GroupDetailActivity extends AppCompatActivity {
 

@@ -14,6 +14,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.yostajsc.izigo.R;
 import io.yostajsc.utils.AppUtils;
+import io.yostajsc.utils.DimensionUtil;
 
 /**
  * Created by Phuc-Hau Nguyen on 12/1/2016.
@@ -36,7 +37,7 @@ public class TripViewHolder extends RecyclerView.ViewHolder {
         super(itemView);
         this.mContext = itemView.getContext();
         itemView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                AppUtils.onGetScreenHeight((Activity) mContext) / 3));
+                DimensionUtil.getScreenHeight(mContext) / 3));
         ButterKnife.bind(this, itemView);
     }
 

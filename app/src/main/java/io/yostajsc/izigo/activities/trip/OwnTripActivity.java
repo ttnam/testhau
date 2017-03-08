@@ -13,6 +13,7 @@ import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.ui.viewpagercards.CardFragmentPagerAdapter;
 import io.yostajsc.izigo.ui.viewpagercards.ShadowTransformer;
 import io.yostajsc.utils.AppUtils;
+import io.yostajsc.utils.DimensionUtil;
 
 public class OwnTripActivity extends AppCompatActivity {
 
@@ -45,7 +46,7 @@ public class OwnTripActivity extends AppCompatActivity {
 
     private void onApplyRecyclerView() {
 
-        int height = AppUtils.onGetScreenHeight(this) / 2;
+        int height = DimensionUtil.getScreenHeight(this) / 2;
         this.mViewPager.setLayoutParams(new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, height));
         this.mViewPager.setAdapter(mFragmentCardAdapter);

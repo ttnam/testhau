@@ -28,6 +28,7 @@ import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.firebase.FirebaseManager;
 import io.yostajsc.izigo.firebase.adapter.FirebaseCommentAdapter;
 import io.yostajsc.utils.AppUtils;
+import io.yostajsc.utils.NetworkUtils;
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 
 /**
@@ -78,7 +79,7 @@ public class DialogComment extends Dialog {
         ButterKnife.bind(this);
 
         onApplyComponents();
-        onToggleUI(AppUtils.isNetworkConnected(mOwnerActivity));
+        onToggleUI(NetworkUtils.isNetworkConnected(mOwnerActivity));
 
     }
 
@@ -176,6 +177,6 @@ public class DialogComment extends Dialog {
         YoYo.with(new FadeInAnimator()).duration(1200)
                 .interpolate(new AccelerateDecelerateInterpolator())
                 .playOn(layoutRelative);
-        onToggleUI(AppUtils.isNetworkConnected(getContext()));
+        onToggleUI(NetworkUtils.isNetworkConnected(getContext()));
     }
 }

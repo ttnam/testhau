@@ -9,6 +9,8 @@ import android.view.Window;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.yostajsc.izigo.R;
+import io.yostajsc.utils.AppUtils;
+import io.yostajsc.utils.NetworkUtils;
 
 /**
  * Created by Phuc-Hau Nguyen on 8/31/2016.
@@ -46,6 +48,8 @@ public class DialogNoNet extends Dialog {
 
     @OnClick(R.id.button)
     public void onConfirm() {
-
+        if (NetworkUtils.isNetworkConnected(mOwnerActivity)) {
+            dismiss();
+        }
     }
 }

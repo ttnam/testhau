@@ -9,7 +9,7 @@ import io.yostajsc.backend.config.APIManager;
 import io.yostajsc.izigo.configs.AppDefine;
 import io.yostajsc.izigo.firebase.FirebaseManager;
 import io.yostajsc.utils.StorageUtils;
-import io.yostajsc.utils.ValidateUtils;
+import io.yostajsc.utils.validate.ValidateUtils;
 
 public class FirebaseInstanceIDService extends FirebaseInstanceIdService {
 

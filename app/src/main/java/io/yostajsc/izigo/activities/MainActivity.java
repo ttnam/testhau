@@ -99,4 +99,14 @@ public class MainActivity extends ActivityBehavior {
             }
         });
     }
+
+    @Override
+    protected void onInternetDisconnected() {
+
+    }
+
+    @Override
+    protected void onInternetConnected() {
+
+    }
 }

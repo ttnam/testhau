@@ -1,4 +1,4 @@
-package io.yostajsc.utils;
+package io.yostajsc.utils.validate;
 
 import android.support.design.widget.TextInputEditText;
 
