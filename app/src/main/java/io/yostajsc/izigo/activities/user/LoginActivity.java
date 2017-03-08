@@ -139,11 +139,11 @@ public class LoginActivity extends ActivityBehavior {
                 handleFacebookAccessToken(token);
                 GraphRequest request = GraphRequest.newMeRequest(token,
                         new GraphRequest.GraphJSONObjectCallback() {
-                    @Override
-                    public void onCompleted(JSONObject object, GraphResponse response) {
-                        user = UserManager.inject().getFacebookUserInfo(object);
-                    }
-                });
+                            @Override
+                            public void onCompleted(JSONObject object, GraphResponse response) {
+                                user = UserManager.inject().getFacebookUserInfo(object);
+                            }
+                        });
                 Bundle parameters = new Bundle();
                 parameters.putString("fields", AppDefine.PARAMETERS);
                 request.setParameters(parameters);

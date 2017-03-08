@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_centerVertical="true"
+    android:orientation="vertical">
+
+    <TextView
+        style="@style/AppTheme.TextView_Title.Bold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="@dimen/margin_x2"
+        android:layout_marginLeft="@dimen/margin_x2"
+        android:layout_marginRight="@dimen/margin_x2"
+        android:layout_marginTop="@dimen/margin_x3"
+        android:gravity="center"
+        android:text="@string/error_message_no_internet"
+        android:textAllCaps="true"
+        android:textSize="@dimen/text_size_v2_5" />
+
+
+    <TextView
+        style="@style/AppTheme.TextView_Title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="@dimen/margin_x2"
+        android:layout_marginLeft="@dimen/margin_x2"
+        android:layout_marginRight="@dimen/margin_x2"
+        android:gravity="center"
+        android:text="You are not connected to the internet. Make sure Wi-Fi/3D is on, Airplane Mode is off and try again" />
+
+    <Button
+        android:id="@id/button"
+        style="@style/AppTheme.TextView_Title.Bold.White"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/ic_style_button_round_none_theme"
+        android:text="OKAY" />
+
+</LinearLayout>

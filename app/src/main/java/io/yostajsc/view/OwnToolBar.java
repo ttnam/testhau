@@ -11,8 +11,6 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import org.jetbrains.annotations.NotNull;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.yostajsc.izigo.R;
@@ -127,7 +125,7 @@ public class OwnToolBar extends RelativeLayout {
         setDrawableRight(drawableRight);
     }
 
-    public OwnToolBar setLeft(int icon, @NotNull View.OnClickListener listener) {
+    public OwnToolBar setLeft(int icon, @NonNull View.OnClickListener listener) {
         setDrawableLeft(icon);
         setOnLeftClickListener(listener);
 
@@ -136,7 +134,7 @@ public class OwnToolBar extends RelativeLayout {
         return this;
     }
 
-    public OwnToolBar setRight(int icon, @NotNull View.OnClickListener listener) {
+    public OwnToolBar setRight(int icon, @NonNull View.OnClickListener listener) {
         setDrawableRight(icon);
         setOnRightClickListener(listener);
 

@@ -1,8 +1,7 @@
 package io.yostajsc.backend.config;
 
+import android.support.annotation.NonNull;
 import android.util.Log;
-
-import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.Map;
@@ -83,7 +82,7 @@ public class APIManager {
         });
     }
 
-    public void onUpdate(String authorization, @NotNull Map<String, String> data,
+    public void onUpdate(String authorization, @NonNull Map<String, String> data,
                          final CallBack success, final CallBackParam<String> fail) {
 
         Call<BaseResponse> call = service.updateProfile(authorization, data);
