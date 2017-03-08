@@ -14,11 +14,9 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 
 import io.yostajsc.constants.MessageInfo;
 import io.yostajsc.constants.MessageType;
-import io.yostajsc.izigo.firebase.model.FirebaseTrip;
 import io.yostajsc.izigo.interfaces.CallBack;
 import io.yostajsc.utils.SearchTripHelper;
 
@@ -68,38 +66,6 @@ public class FirebaseManager {
         return this.mReference.child(FIRE_BASE_LOCATION);
     }
 
-
-    // Query
-    public Query TRIPRef() {
-        Query ref = TRIP().getRef().orderByChild("ranking");
-        ref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Iterator<DataSnapshot> trips = dataSnapshot.getChildren().iterator();
-                FirebaseTrip trip;
-                List<FirebaseTrip> result = new ArrayList<>();
-                while (trips.hasNext()) {
-                    // Save data
-                    DataSnapshot snapshot = trips.next();
-                    trip = snapshot.getValue(FirebaseTrip.class);
-                    // Save tripId
-                    String tripId = snapshot.getKey();
-                    trip.setTripId(tripId);
-
-                    result.add(trip);
-                }
-                SearchTripHelper.init(result);
-
-                EventBus.getDefault().post(new MessageInfo(MessageType.LOAD_DONE));
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                EventBus.getDefault().post(new MessageInfo(MessageType.LOAD_DONE));
-            }
-        });
-        return ref;
-    }
 
     public Query ACTIVITYRef(String tripId) {
         return TRIP().child(tripId).child("activity").getRef();

@@ -1,4 +1,4 @@
-package io.yostajsc.izigo.models;
+package io.yostajsc.izigo.models.user;
 
 import java.io.Serializable;
 

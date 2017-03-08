@@ -164,6 +164,7 @@
                     android:text="@string/setting_backup_restore" />
 
                 <LinearLayout
+                    android:id="@+id/layout_auto_sync"
                     style="@style/Style_Menu_Item.Press"
                     android:layout_width="match_parent"
                     android:layout_height="?actionBarSize"
@@ -318,6 +319,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/layout_notify"
                     style="@style/Style_Menu_Item.Press"
                     android:layout_width="match_parent"
                     android:orientation="horizontal">
@@ -411,6 +413,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/layout_about"
                     style="@style/Style_Menu_Item.Press"
                     android:layout_width="match_parent"
                     android:orientation="horizontal">

@@ -1,5 +1,7 @@
 package io.yostajsc.izigo.models.trip;
 
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 import io.yostajsc.utils.validate.ValidateUtils;
 
 import java.io.Serializable;
@@ -8,10 +10,11 @@ import java.io.Serializable;
  * Created by Phuc-Hau Nguyen on 2/20/2017.
  */
 
-public class BaseTrip implements Serializable {
+public class BaseTrip extends RealmObject implements Serializable {
 
     public static final String EXTRA_TRIP = "EXTRA_TRIP";
 
+    @PrimaryKey
     private String id;
 
     private String arrive;
@@ -33,7 +36,7 @@ public class BaseTrip implements Serializable {
         return id;
     }
 
-    public long getArriveTime() {
+    private long getArriveTime() {
         if (ValidateUtils.canUse(arrive))
             return Long.parseLong(arrive.split("_")[1]);
         return 0;
@@ -43,7 +46,7 @@ public class BaseTrip implements Serializable {
         return arrive.split("_")[0];
     }
 
-    public long getDepartTime() {
+    private long getDepartTime() {
         if (ValidateUtils.canUse(depart))
             return Long.parseLong(depart.split("_")[1]);
         return 0;
@@ -54,7 +57,6 @@ public class BaseTrip implements Serializable {
     }
 
     public long getDuration() {
-        long gap = getDepartTime() - getArriveTime();
-        return gap;
+        return getDepartTime() - getArriveTime();
     }
 }

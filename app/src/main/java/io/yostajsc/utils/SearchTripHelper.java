@@ -1,20 +1,12 @@
 package io.yostajsc.utils;
 
-import java.io.UnsupportedEncodingException;
-import java.text.Normalizer;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.regex.Pattern;
-
-import io.yostajsc.izigo.firebase.model.FirebaseTrip;
-
 /**
  * Created by TranNam on 12/9/2016.
  */
 
 public class SearchTripHelper {
 
-    private static List<FirebaseTrip> trips;
+ /*   private static List<FirebaseTrip> trips;
 
     public static void init(List<FirebaseTrip> trips) {
         SearchTripHelper.trips = trips;
@@ -55,7 +47,7 @@ public class SearchTripHelper {
         }
 
         return result;
-    }
+    }*/
 
     private static boolean compare(String item, String _item) {
         if (item.equals(""))

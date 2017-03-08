@@ -20,8 +20,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.activities.SearchActivity;
-import io.yostajsc.izigo.firebase.model.FirebaseTrip;
-import io.yostajsc.izigo.firebase.model.FirebaseTrips;
 import io.yostajsc.utils.AppUtils;
 import io.yostajsc.utils.SearchTripHelper;
 
@@ -65,7 +63,7 @@ public class SearchFragment extends Fragment {
     @OnClick(R.id.btn_search)
     public void Search() {
 
-        new AsyncTask<String, Void, List<FirebaseTrip>>() {
+        /*new AsyncTask<String, Void, List<FirebaseTrip>>() {
 
             @Override
             protected void onPreExecute() {
@@ -96,7 +94,7 @@ public class SearchFragment extends Fragment {
         }.execute(txt_arrive.getText().toString(),
                 txt_depart.getText().toString(),
                 txt_time.getText().toString(),
-                mVehicles.get(mSpinnerVehicle.getSelectedIndex()));
+                mVehicles.get(mSpinnerVehicle.getSelectedIndex()));*/
     }
 
 }

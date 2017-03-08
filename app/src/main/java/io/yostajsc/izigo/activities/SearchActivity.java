@@ -12,7 +12,6 @@ import io.yostajsc.designs.listeners.RecyclerItemClickListener;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.adapters.TripAdapter;
 import io.yostajsc.izigo.base.ActivityBehavior;
-import io.yostajsc.izigo.firebase.model.FirebaseTrips;
 import io.yostajsc.utils.AppUtils;
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 
@@ -21,7 +20,7 @@ public class SearchActivity extends ActivityBehavior {
     @BindView(R.id.recycler_view)
     RecyclerView rvTrip;
 
-    private FirebaseTrips trips = null;
+    // private FirebaseTrips trips = null;
     private TripAdapter tripAdapter = null;
 
     @Override
@@ -29,10 +28,10 @@ public class SearchActivity extends ActivityBehavior {
         super.onStart();
         onApplyViews();
         Intent intent = this.getIntent();
-        trips = (FirebaseTrips) intent.getSerializableExtra(AppUtils.EXTRA_TRIPS);
+      /*  trips = (FirebaseTrips) intent.getSerializableExtra(AppUtils.EXTRA_TRIPS);
         if (trips != null) {
             // this.tripAdapter.adds(trips.getTrips());
-        }
+        }*/
     }
 
     @Override

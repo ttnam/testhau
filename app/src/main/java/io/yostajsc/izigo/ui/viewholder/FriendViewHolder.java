@@ -19,7 +19,7 @@ import butterknife.OnClick;
 import io.yostajsc.constants.MessageType;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.interfaces.ItemClick;
-import io.yostajsc.izigo.models.Friend;
+import io.yostajsc.izigo.models.user.Friend;
 
 /**
  * Created by Phuc-Hau Nguyen on 12/1/2016.

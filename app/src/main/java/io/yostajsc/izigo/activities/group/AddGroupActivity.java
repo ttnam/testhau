@@ -23,7 +23,7 @@ import io.yostajsc.izigo.configs.AppDefine;
 import io.yostajsc.izigo.interfaces.CallBack;
 import io.yostajsc.izigo.interfaces.CallBackParam;
 import io.yostajsc.izigo.interfaces.ItemClick;
-import io.yostajsc.izigo.models.Friend;
+import io.yostajsc.izigo.models.user.Friend;
 import io.yostajsc.view.OwnToolBar;
 import io.yostajsc.utils.StorageUtils;
 import butterknife.BindView;

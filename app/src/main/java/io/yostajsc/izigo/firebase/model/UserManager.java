@@ -4,7 +4,7 @@ import org.json.JSONObject;
 
 import java.net.URL;
 
-import io.yostajsc.izigo.models.User;
+import io.yostajsc.izigo.models.user.User;
 
 /**
  * Created by Phuc-Hau Nguyen on 1/24/2017.

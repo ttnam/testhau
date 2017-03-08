@@ -40,7 +40,7 @@ import io.yostajsc.backend.config.APIManager;
 import io.yostajsc.izigo.base.ActivityBehavior;
 import io.yostajsc.izigo.configs.AppDefine;
 import io.yostajsc.izigo.firebase.FirebaseManager;
-import io.yostajsc.izigo.models.User;
+import io.yostajsc.izigo.models.user.User;
 import io.yostajsc.izigo.firebase.model.UserManager;
 import io.yostajsc.izigo.interfaces.CallBackParam;
 import io.yostajsc.izigo.managers.EventManager;

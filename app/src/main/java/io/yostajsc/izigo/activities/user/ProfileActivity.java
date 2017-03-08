@@ -22,7 +22,7 @@ import io.yostajsc.izigo.base.ActivityBehavior;
 import io.yostajsc.izigo.configs.AppDefine;
 import io.yostajsc.izigo.interfaces.CallBack;
 import io.yostajsc.izigo.interfaces.CallBackParam;
-import io.yostajsc.izigo.models.User;
+import io.yostajsc.izigo.models.user.User;
 import io.yostajsc.utils.StorageUtils;
 import io.yostajsc.utils.validate.ValidateUtils;
 import io.yostajsc.view.CircleImageView;
