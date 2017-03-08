@@ -44,6 +44,7 @@ import io.yostajsc.izigo.models.User;
 import io.yostajsc.izigo.firebase.model.UserManager;
 import io.yostajsc.izigo.interfaces.CallBackParam;
 import io.yostajsc.izigo.managers.EventManager;
+import io.yostajsc.utils.NetworkUtils;
 import io.yostajsc.utils.StorageUtils;
 
 public class LoginActivity extends ActivityBehavior {
@@ -98,7 +99,8 @@ public class LoginActivity extends ActivityBehavior {
     @Override
     protected void onStart() {
         super.onStart();
-        onApplyData();
+        if (NetworkUtils.isNetworkConnected(this))
+            onApplyData();
     }
 
     @Override
@@ -236,5 +238,11 @@ public class LoginActivity extends ActivityBehavior {
         progressBar.setVisibility(View.GONE);
         layoutFacebook.setVisibility(View.VISIBLE);
         StorageUtils.inject(LoginActivity.this).save(AppDefine.FIRST_TIME, 1);
+    }
+
+    @Override
+    protected void onInternetConnected() {
+        super.onInternetConnected();
+        onApplyData();
     }
 }

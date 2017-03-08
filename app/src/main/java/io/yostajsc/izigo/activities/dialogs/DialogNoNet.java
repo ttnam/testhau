@@ -5,11 +5,13 @@ import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.Window;
+import android.view.WindowManager;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.yostajsc.izigo.R;
 import io.yostajsc.utils.AppUtils;
+import io.yostajsc.utils.DimensionUtil;
 import io.yostajsc.utils.NetworkUtils;
 
 /**
@@ -21,10 +23,7 @@ public class DialogNoNet extends Dialog {
 
     public DialogNoNet(Context context) {
         super(context, R.style.AppTheme_CustomDialog);
-        Window window = getWindow();
-        if (window != null) {
-            window.getAttributes().windowAnimations = R.style.AppTheme_AnimDialog_Grow;
-        }
+
         this.mOwnerActivity = (context instanceof Activity) ? (Activity) context : null;
         if (this.mOwnerActivity != null)
             setOwnerActivity(mOwnerActivity);
@@ -44,6 +43,14 @@ public class DialogNoNet extends Dialog {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.view_dialog_no_net);
         ButterKnife.bind(this);
+        Window window = getWindow();
+        if (window != null) {
+            WindowManager.LayoutParams params = window.getAttributes();
+            params.windowAnimations = R.style.AppTheme_AnimDialog_Grow;
+            params.width = DimensionUtil.getScreenWidth(mOwnerActivity) * 4 / 5;
+            params.height = WindowManager.LayoutParams.WRAP_CONTENT;
+            window.setAttributes(params);
+        }
     }
 
     @OnClick(R.id.button)
