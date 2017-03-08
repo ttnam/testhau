@@ -3,7 +3,7 @@
 
     <string-array name="arr_vehicle">
         <item>Xe máy</item>
-
+        <item>Xe du lịch</item>
     </string-array>
 
     <string-array name="arr_during_times">

@@ -58,15 +58,12 @@ public class MainActivity extends ActivityBehavior {
             tab.setIcon(getResources().getDrawable(R.drawable.ic_style_tab_home));
         }
         if ((tab = this.mTabLayout.getTabAt(1)) != null) {
-            tab.setIcon(getResources().getDrawable(R.drawable.ic_style_tab_search));
-        }
-        if ((tab = this.mTabLayout.getTabAt(2)) != null) {
             tab.setIcon(getResources().getDrawable(R.drawable.ic_style_tab_trip));
         }
-        if ((tab = this.mTabLayout.getTabAt(3)) != null) {
+        if ((tab = this.mTabLayout.getTabAt(2)) != null) {
             tab.setIcon(getResources().getDrawable(R.drawable.ic_style_tab_noti));
         }
-        if ((tab = this.mTabLayout.getTabAt(4)) != null) {
+        if ((tab = this.mTabLayout.getTabAt(3)) != null) {
             tab.setIcon(getResources().getDrawable(R.drawable.ic_style_tab_menu));
         }
         this.mTabLayout.setSmoothScrollingEnabled(true);
@@ -75,7 +72,6 @@ public class MainActivity extends ActivityBehavior {
     private void onApplyViewPager() {
         IconViewPagerAdapter adapter = new IconViewPagerAdapter(getSupportFragmentManager());
         adapter.addFrag(new TripFragment());
-        adapter.addFrag(new SearchFragment());
         adapter.addFrag(new OwnTripFragment());
         adapter.addFrag(new NotificationsFragment());
         adapter.addFrag(new SettingFragment());

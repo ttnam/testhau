@@ -73,18 +73,20 @@
             android:name=".activities.MainActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Fullscreen" />
-
-        <activity
-            android:name=".activities.user.LoginActivity"
-            android:launchMode="singleTask"
-            android:theme="@style/AppTheme.Fullscreen">
+            android:theme="@style/AppTheme.Fullscreen" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
 
             </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".activities.user.LoginActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme.Fullscreen">
+
             <meta-data
                 android:name="android.app.shortcuts"
                 android:resource="@xml/shortcuts" />
@@ -131,9 +133,7 @@
         <activity
             android:name=".activities.group.AddGroupActivity"
             android:theme="@style/AppTheme"
-            android:windowSoftInputMode="adjustResize">
-
-        </activity>
+            android:windowSoftInputMode="adjustResize" />
 
         <service
             android:name=".services.fcm.FirebaseMessagingService"

@@ -84,7 +84,6 @@ public class ProfileActivity extends ActivityBehavior {
     @Override
     public void onApplyData() {
         if (isFirstTime) {
-            Toast.makeText(this, "First Time", Toast.LENGTH_SHORT).show();
             mUser = StorageUtils.inject(ProfileActivity.this).getUser();
             updateValue();
         } else {

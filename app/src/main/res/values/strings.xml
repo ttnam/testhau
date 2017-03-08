@@ -5,8 +5,8 @@
     <string name="fb_login_protocol_scheme">fb323952681287686</string>
 
     <!--Common-->
-    <string name="all_app_name" tools:ignore="MissingTranslation">IziGo</string>
-    <string name="all_app_author" tools:ignore="MissingTranslation"> &#169; YosTa 2017 </string>
+    <string name="all_app_name" tools:ignore="MissingTranslation">IZIGO</string>
+    <string name="all_app_author" tools:ignore="MissingTranslation"> &#169; YosTaJsc 2017 </string>
 
 
     <string name="all_your">Yours</string>

@@ -24,23 +24,29 @@ import io.yostajsc.izigo.R;
 public class DialogFilter extends Dialog {
 
     @BindView(R.id.spinner_during_time)
-    MaterialSpinner spinnerDuringTime;
+    MaterialSpinner mSpinnerDuringTime;
 
     @BindView(R.id.spinner_sort_by)
-    MaterialSpinner spinnerSortBy;
+    MaterialSpinner mSpinnerSortBy;
+
+    @BindView(R.id.spinner_by)
+    MaterialSpinner mSpinnerBy;
+
 
     private Activity mOwnerActivity = null;
-    private List<String> mDuringTimes = null, mSortBy = null;
+    private List<String> mDuringTimes = null, mSortBy = null, mVehicles = null;
 
     public DialogFilter(Context context) {
         super(context, R.style.AppTheme_CustomDialog);
+        this.mOwnerActivity = (context instanceof Activity) ? (Activity) context : null;
+        if (this.mOwnerActivity != null)
+            setOwnerActivity(mOwnerActivity);
         Window window = getWindow();
         if (window != null) {
             window.getAttributes().windowAnimations = R.style.AppTheme_AnimDialog_SlideUpDown;
         }
-        this.mOwnerActivity = (context instanceof Activity) ? (Activity) context : null;
-        if (this.mOwnerActivity != null)
-            setOwnerActivity(mOwnerActivity);
+        setCancelable(false);
+        setCanceledOnTouchOutside(false);
     }
 
     @Override
@@ -63,15 +69,17 @@ public class DialogFilter extends Dialog {
 
         this.mDuringTimes = Arrays.asList(this.mOwnerActivity.getResources().getStringArray(R.array.arr_during_times));
         this.mSortBy = Arrays.asList(this.mOwnerActivity.getResources().getStringArray(R.array.arr_sort_by));
-        this.spinnerSortBy.setItems(mSortBy);
-        this.spinnerDuringTime.setItems(mDuringTimes);
+        this.mVehicles = Arrays.asList(this.mOwnerActivity.getResources().getStringArray(R.array.arr_vehicle));
+        this.mSpinnerSortBy.setItems(mSortBy);
+        this.mSpinnerDuringTime.setItems(mDuringTimes);
+        this.mSpinnerBy.setItems(this.mVehicles);
     }
 
     @OnClick(R.id.tv_apply)
     public void onCallToApply() {
         EventBus.getDefault().post(new Filter(
-                mSortBy.get(this.spinnerSortBy.getSelectedIndex()),
-                mDuringTimes.get(this.spinnerDuringTime.getSelectedIndex())
+                mSortBy.get(this.mSpinnerSortBy.getSelectedIndex()),
+                mDuringTimes.get(this.mSpinnerDuringTime.getSelectedIndex())
         ));
         dismiss();
     }
@@ -81,7 +89,7 @@ public class DialogFilter extends Dialog {
         dismiss();
     }
 
-    public class Filter {
+    private class Filter {
 
         public String mSortBy;
         public String mDuringTime;

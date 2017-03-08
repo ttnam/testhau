@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -8,6 +9,7 @@
         style="@style/AppTheme.TextView_Title.Bold"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
         android:gravity="center"
         android:padding="@dimen/margin_x2"
         android:text="@string/all_filter" />
@@ -70,7 +72,85 @@
 
     </LinearLayout>
 
-    <include layout="@layout/layout_separate_vertical" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="5">
+
+        <TextView
+            style="@style/AppTheme.TextView_Title"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="3"
+            android:gravity="center"
+            android:padding="@dimen/margin"
+            android:text="Phương tiện" />
+
+        <com.yosta.materialspinner.MaterialSpinner
+            android:id="@+id/spinner_by"
+            style="@style/AppTheme.TextView_Sub_Title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:padding="@dimen/margin" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin"
+        android:baselineAligned="false"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/margin_x2"
+        android:paddingRight="@dimen/margin_x2">
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            app:hintEnabled="false">
+
+            <android.support.design.widget.TextInputEditText
+                style="@style/AppTheme.TextView_Title.Bold"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/ic_style_rect_round_corners_gray_none"
+                android:hint="Từ"
+                android:inputType="text"
+                android:maxLines="1"
+                android:minLines="1"
+                android:paddingLeft="@dimen/margin"
+                android:paddingRight="@dimen/margin" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/margin"
+            android:layout_weight="1"
+            app:hintEnabled="false">
+
+            <android.support.design.widget.TextInputEditText
+                style="@style/AppTheme.TextView_Title.Bold"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/ic_style_rect_round_corners_gray_none"
+                android:hint="Đến"
+                android:inputType="text"
+                android:maxLines="1"
+                android:minLines="1"
+                android:paddingLeft="@dimen/margin"
+                android:paddingRight="@dimen/margin" />
+        </android.support.design.widget.TextInputLayout>
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -79,32 +159,31 @@
         android:weightSum="2">
 
         <TextView
-            android:id="@+id/tv_cancel"
-            style="@style/AppTheme.TextView_Title.Bold"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:background="@drawable/ic_style_button_round_none_default"
-            android:clickable="true"
-            android:gravity="center"
-            android:padding="@dimen/margin_x2"
-            android:text="Cancel" />
-
-        <include layout="@layout/layout_separate_horizontal" />
-
-        <TextView
             android:id="@+id/tv_apply"
             style="@style/AppTheme.TextView_Title.Bold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:background="@drawable/ic_style_button_round_none_default"
+            android:background="@drawable/ic_style_rect_round_none_gray_none"
             android:clickable="true"
             android:gravity="center"
             android:padding="@dimen/margin_x2"
             android:text="Apply" />
+
+
+        <TextView
+            android:id="@+id/tv_cancel"
+            style="@style/AppTheme.TextView_Title.Bold.White"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:background="@drawable/ic_style_button_round_none_accent_dark"
+            android:clickable="true"
+            android:gravity="center"
+            android:padding="@dimen/margin_x2"
+            android:text="Cancel" />
 
     </LinearLayout>
 

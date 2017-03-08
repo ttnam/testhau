@@ -77,7 +77,6 @@ public class APIManager {
             @Override
             public void onFailure(Call<BaseResponse<String>> call, Throwable throwable) {
                 Log.e(TAG, throwable.getMessage());
-                fail.run(throwable.getMessage());
             }
         });
     }
