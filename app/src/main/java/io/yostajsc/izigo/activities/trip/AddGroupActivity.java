@@ -1,5 +1,5 @@
 
-package io.yostajsc.izigo.activities.group;
+package io.yostajsc.izigo.activities.trip;
 
 import android.content.Intent;
 import android.os.Bundle;

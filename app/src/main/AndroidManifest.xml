@@ -94,7 +94,7 @@
             android:name=".activities.trip.TripDetailActivity"
             android:launchMode="singleInstance"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"
+            android:theme="@style/AppTheme.White"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".activities.user.ProfileActivity"
@@ -120,11 +120,11 @@
             android:launchMode="singleInstance"
             android:theme="@style/AppTheme.White" />
         <activity
-            android:name=".activities.group.GroupDetailActivity"
+            android:name=".activities.trip.GroupDetailActivity"
             android:launchMode="singleInstance"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".activities.group.AddGroupActivity"
+            android:name=".activities.trip.AddGroupActivity"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustResize" />
 

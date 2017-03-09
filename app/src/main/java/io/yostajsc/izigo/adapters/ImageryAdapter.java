@@ -1,62 +1,81 @@
 package io.yostajsc.izigo.adapters;
 
-import io.yostajsc.izigo.ui.viewholder.ImageryViewHolder;
+import android.app.Activity;
+import android.content.Context;
+import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
-public class ImageryAdapter {/*extends RecyclerView.Adapter<ImageryViewHolder> {
+import java.util.ArrayList;
+import java.util.List;
+
+import io.yostajsc.izigo.R;
+import io.yostajsc.izigo.ui.viewholder.ImageryViewHolder;
+import io.yostajsc.utils.validate.ValidateUtils;
+
+public class ImageryAdapter extends RecyclerView.Adapter<ImageryViewHolder> {
 
     private Context mContext;
-    // private List<ViewBehavior> behaviorList;
+    private List<String> mUrls;
 
     public ImageryAdapter(Context context) {
         this.mContext = context;
-        this.behaviorList = new ArrayList<>();
+        this.mUrls = new ArrayList<>();
     }
 
     @Override
     public ImageryViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View itemLayoutView = LayoutInflater.from(mContext)
-                .inflate(R.layout.item_simple_drawee_view, null);
+                .inflate(R.layout.item_imagery, null);
 
         DisplayMetrics displaymetrics = new DisplayMetrics();
         ((Activity) mContext).getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
 
-        int width = displaymetrics.widthPixels / 2;
-        int height = (int) (width / 1.33f);
-        itemLayoutView.setLayoutParams(new RecyclerView.LayoutParams(width, height));
+        int width = displaymetrics.widthPixels * 2 / 5;
+        itemLayoutView.setLayoutParams(new RecyclerView.LayoutParams(width, ViewGroup.LayoutParams.WRAP_CONTENT));
         return new ImageryViewHolder(itemLayoutView);
     }
 
     @Override
     public void onBindViewHolder(final ImageryViewHolder holder, final int position) {
-        ImageryView galleryView = (ImageryView) behaviorList.get(position);
-        if (galleryView != null) {
-            holder.onSetEvent(galleryView);
-            holder.onSetContent(galleryView);
+        String url = mUrls.get(position);
+        if (ValidateUtils.canUse(url)) {
+            holder.bind(url);
         }
     }
 
     @Override
     public int getItemCount() {
-        return behaviorList.size();
+        if (mUrls == null)
+            return 0;
+        return mUrls.size();
     }
 
-
-    public void addImages(List<ImageryView> galleryViews) {
-        int positionStart = behaviorList.size() - 1;
-        behaviorList.addAll(galleryViews);
-        notifyItemRangeChanged(positionStart, galleryViews.size());
+    public void replaceAll(List<String> urls) {
+        if (mUrls == null)
+            this.mUrls = new ArrayList<>();
+        clear();
+        this.mUrls.addAll(urls);
+        notifyDataSetChanged();
     }
 
-    public void addImage(ImageryView imageryView) {
-        behaviorList.add(imageryView);
-        notifyItemChanged(behaviorList.size() - 1);
+    public void add(String url) {
+        if (this.mUrls == null)
+            this.mUrls = new ArrayList<>();
+        if (ValidateUtils.canUse(url)) {
+            this.mUrls.add(url);
+        }
+        notifyDataSetChanged();
     }
 
     public void clear() {
-        behaviorList.clear();
+        if (mUrls != null)
+            mUrls.clear();
         notifyDataSetChanged();
-    }*/
+    }
 
 }
 

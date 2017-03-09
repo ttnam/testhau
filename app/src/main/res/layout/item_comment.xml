@@ -10,7 +10,7 @@
     android:paddingRight="@dimen/margin_x2"
     android:paddingStart="@dimen/margin_x2">
 
-    <de.hdodenhof.circleimageview.CircleImageView
+    <io.yostajsc.view.CircleImageView
         android:id="@id/image_view"
         android:layout_width="@dimen/icon_size_x5"
         android:layout_height="@dimen/icon_size_x5"

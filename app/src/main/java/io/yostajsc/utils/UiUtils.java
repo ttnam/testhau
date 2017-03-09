@@ -1,6 +1,7 @@
 package io.yostajsc.utils;
 
 import android.support.annotation.NonNull;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -28,9 +29,46 @@ public class UiUtils {
         view.setRecycledViewPool(new RecyclerView.RecycledViewPool());
         view.setNestedScrollingEnabled(false);
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(view.getContext(),
-                LinearLayoutManager.VERTICAL, false);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(
+                view.getContext(),
+                LinearLayoutManager.VERTICAL,
+                false);
+
         view.setLayoutManager(layoutManager);
+
+        if (animator != null)
+            view.setItemAnimator(animator);
+
+        view.setAdapter(adapter);
+
+        if (itemClick != null) {
+            view.addOnItemTouchListener(new RecyclerItemClickListener(view.getContext(),
+                    new RecyclerItemClickListener.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(View view, int position) {
+                            itemClick.run(position);
+                        }
+                    }));
+        }
+    }
+
+    public static void onApplyAlbumRecyclerView(@NonNull RecyclerView view,
+                                                @NonNull RecyclerView.Adapter adapter,
+                                                RecyclerView.ItemAnimator animator,
+                                                final CallBackWith<Integer> itemClick) {
+
+        view.setHasFixedSize(true);
+        view.addItemDecoration(new SpacesItemDecoration(5));
+        view.setRecycledViewPool(new RecyclerView.RecycledViewPool());
+        view.setNestedScrollingEnabled(false);
+
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(
+                view.getContext(),
+                2,
+                GridLayoutManager.HORIZONTAL,
+                false);
+
+        view.setLayoutManager(gridLayoutManager);
 
         if (animator != null)
             view.setItemAnimator(animator);

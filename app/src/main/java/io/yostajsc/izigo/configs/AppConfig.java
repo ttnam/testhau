@@ -23,8 +23,6 @@ public class AppConfig extends MultiDexApplication {
         super.onCreate();
         initFireBase();
         onApplyRealm();
-
-        Log.e("HASH", AppUtils.onGetKeyHash(this));
     }
 
     private void initFireBase() {

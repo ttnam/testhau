@@ -13,10 +13,12 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
+import butterknife.OnClick;
 import io.yostajsc.backend.config.APIManager;
 import io.yostajsc.interfaces.CallBack;
 import io.yostajsc.interfaces.CallBackWith;
 import io.yostajsc.izigo.R;
+import io.yostajsc.izigo.adapters.ImageryAdapter;
 import io.yostajsc.izigo.base.ActivityBehavior;
 import io.yostajsc.izigo.configs.AppDefine;
 import io.yostajsc.izigo.managers.RealmManager;
@@ -25,9 +27,10 @@ import io.yostajsc.utils.NetworkUtils;
 import io.yostajsc.utils.StorageUtils;
 import io.yostajsc.utils.UiUtils;
 import io.yostajsc.utils.validate.ValidateUtils;
-import io.yostajsc.view.OwnToolBar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.yostajsc.view.RoundedCornersTransformation;
+import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 
 public class TripDetailActivity extends ActivityBehavior {
 
@@ -43,8 +46,8 @@ public class TripDetailActivity extends ActivityBehavior {
     @BindView(R.id.tV_comment)
     TextView txtComment;
 
-    @BindView(R.id.layout)
-    OwnToolBar mOwnToolbar;
+    @BindView(R.id.text_name)
+    TextView textName;
 
     @BindView(R.id.btn_ranking)
     Button btnRanking;
@@ -58,6 +61,8 @@ public class TripDetailActivity extends ActivityBehavior {
     */
     /*private FirebaseActivityAdapter mActivityAdapter = null;*/
 
+    private ImageryAdapter albumAdapter = null;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,44 +74,29 @@ public class TripDetailActivity extends ActivityBehavior {
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
+    @OnClick(R.id.button_left)
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 
     @Override
     public void onApplyViews() {
 
-        // Toolbar
-        mOwnToolbar.setBinding(
-                R.drawable.ic_vector_back_white,
-                R.drawable.ic_vector_share_white,
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        onBackPressed();
-                    }
-                }, new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        /*BottomSheetDialogFragment bottomSheetDialogFragment = new BottomSheetDialog();
-                        bottomSheetDialogFragment.show(getSupportFragmentManager(), bottomSheetDialogFragment.getTag());*/
-                    }
-                });
+        this.albumAdapter = new ImageryAdapter(this);
+
+        /*BottomSheetDialogFragment bottomSheetDialogFragment = new BottomSheetDialog();
+        bottomSheetDialogFragment.show(getSupportFragmentManager(), bottomSheetDialogFragment.getTag());*/
 
         UiUtils.onApplyWebViewSetting(webView);
-        /*this.mActivityAdapter = new FirebaseActivityAdapter(this);
-
-        UiUtils.onApplyRecyclerView(this.rvActivity, mActivityAdapter, new SlideInUpAnimator(), new CallBackWith<Integer>() {
+        UiUtils.onApplyAlbumRecyclerView(this.rvActivity, albumAdapter, new SlideInUpAnimator(), new CallBackWith<Integer>() {
             @Override
             public void run(Integer integer) {
 
             }
-        });*/
+        });
+        for (int i = 0; i < 13; i++) {
+            this.albumAdapter.add("https://cdn3.ivivu.com/2017/03/havana-nhatrang-ivivu-8.jpg");
+        }
     }
 
     @Override
@@ -142,9 +132,14 @@ public class TripDetailActivity extends ActivityBehavior {
         String prefix = "<html><body><p style=\"text-align: justify\">";
         String postfix = "</p></body></html>";
         String content = trip.getDescription();
-        webView.loadData(prefix + content + postfix, "text/html; charset=utf-8", "utf-8");
-        mOwnToolbar.setTitle(trip.getName(), true);
-        Glide.with(this).load(trip.getCover()).into(imageCover);
+        if (ValidateUtils.canUse(content)) {
+            webView.loadData(prefix + content + postfix, "text/html; charset=utf-8", "utf-8");
+            webView.setVisibility(View.VISIBLE);
+        } else {
+            webView.setVisibility(View.GONE);
+        }
+        textName.setText(trip.getName());
+
     }
 
     /*

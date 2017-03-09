@@ -1,4 +1,4 @@
-package io.yostajsc.izigo.activities.group;
+package io.yostajsc.izigo.activities.trip;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;

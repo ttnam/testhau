@@ -103,33 +103,6 @@ public class APIManager {
             }
         });
     }
-
-    public void getLocation(String authorization,
-                            final CallBackWith<Locations> success,
-                            final CallBackWith<String> fail) {
-
-        Call<BaseResponse<Locations>> call = service.getLocations(authorization);
-
-        call.enqueue(new Callback<BaseResponse<Locations>>() {
-            @Override
-            public void onResponse(Call<BaseResponse<Locations>> call, Response<BaseResponse<Locations>> response) {
-                if (response.isSuccessful()) {
-                    BaseResponse<Locations> res = response.body();
-                    if (res.isSuccessful()) {
-                        success.run(res.data());
-                    } else {
-                        fail.run(res.getDescription());
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<BaseResponse<Locations>> call, Throwable throwable) {
-                Log.e(TAG, throwable.getMessage());
-            }
-        });
-    }
-
     public void getTripsList(String authorization,
                              final CallBackWith<Trips> success,
                              final CallBackWith<String> fail) {
