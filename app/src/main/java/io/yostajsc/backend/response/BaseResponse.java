@@ -17,10 +17,10 @@ public class BaseResponse<T> implements Serializable {
     private String description;
 
     @SerializedName("data")
-    private T data;
+    private T mData;
 
     public T data() {
-        return (T) this.data;
+        return this.mData;
     }
 
     public boolean isSuccessful() {

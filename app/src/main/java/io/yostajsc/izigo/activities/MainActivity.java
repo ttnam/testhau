@@ -9,7 +9,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.yostajsc.designs.tabs.IconViewPagerAdapter;
 import io.yostajsc.izigo.R;
-import io.yostajsc.izigo.base.ActivityBehavior;
+import io.yostajsc.interfaces.ActivityBehavior;
 import io.yostajsc.izigo.fragments.NotificationsFragment;
 import io.yostajsc.izigo.fragments.OwnTripFragment;
 import io.yostajsc.izigo.fragments.TripFragment;

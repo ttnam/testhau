@@ -1,4 +1,4 @@
-package io.yostajsc.izigo.base;
+package io.yostajsc.interfaces;
 
 /**
  * Created by Phuc-Hau Nguyen on 7/20/2016.

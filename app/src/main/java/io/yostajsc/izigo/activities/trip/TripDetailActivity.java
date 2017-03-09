@@ -19,9 +19,8 @@ import io.yostajsc.interfaces.CallBack;
 import io.yostajsc.interfaces.CallBackWith;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.adapters.ImageryAdapter;
-import io.yostajsc.izigo.base.ActivityBehavior;
+import io.yostajsc.interfaces.ActivityBehavior;
 import io.yostajsc.izigo.configs.AppDefine;
-import io.yostajsc.izigo.managers.RealmManager;
 import io.yostajsc.izigo.models.trip.Trip;
 import io.yostajsc.utils.NetworkUtils;
 import io.yostajsc.utils.StorageUtils;
@@ -29,7 +28,6 @@ import io.yostajsc.utils.UiUtils;
 import io.yostajsc.utils.validate.ValidateUtils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.yostajsc.view.RoundedCornersTransformation;
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 
 public class TripDetailActivity extends ActivityBehavior {
@@ -47,12 +45,22 @@ public class TripDetailActivity extends ActivityBehavior {
     TextView txtComment;
 
     @BindView(R.id.text_name)
-    TextView textName;
+    TextView textTripName;
+
+    @BindView(R.id.text_creator_name)
+    TextView textCreatorName;
 
     @BindView(R.id.btn_ranking)
     Button btnRanking;
 
+    @BindView(R.id.image_creator_avatar)
+    AppCompatImageView imageCreatorAvatar;
+
     private String tripId;
+
+    @BindView(R.id.text_number_of_photo)
+    TextView textNumberOfPhoto;
+
 
     /*
 
@@ -94,9 +102,6 @@ public class TripDetailActivity extends ActivityBehavior {
 
             }
         });
-        for (int i = 0; i < 13; i++) {
-            this.albumAdapter.add("https://cdn3.ivivu.com/2017/03/havana-nhatrang-ivivu-8.jpg");
-        }
     }
 
     @Override
@@ -105,12 +110,12 @@ public class TripDetailActivity extends ActivityBehavior {
         tripId = intent.getStringExtra(AppDefine.TRIP_ID);
         if (ValidateUtils.canUse(tripId)) {
             // Read from disk
-            RealmManager.findTripById(tripId, new CallBackWith<Trip>() {
+        /*    RealmManager.findTripById(tripId, new CallBackWith<Trip>() {
                 @Override
                 public void run(Trip trip) {
                     updateUI(trip);
                 }
-            });
+            });*/
 
             if (NetworkUtils.isNetworkConnected(this)) {
                 onInternetConnected();
@@ -138,8 +143,12 @@ public class TripDetailActivity extends ActivityBehavior {
         } else {
             webView.setVisibility(View.GONE);
         }
-        textName.setText(trip.getName());
-
+        Glide.with(this).load(trip.getCover()).into(imageCover);
+        textTripName.setText(trip.getTripName());
+        textCreatorName.setText(trip.getCreatorName());
+        Glide.with(this).load(trip.getCreatorAvatar()).error(R.drawable.ic_vector_avatar).into(imageCreatorAvatar);
+        albumAdapter.replaceAll(trip.getAlbum());
+        textNumberOfPhoto.setText(trip.getAlbum().size());
     }
 
     /*
@@ -231,7 +240,7 @@ public class TripDetailActivity extends ActivityBehavior {
             APIManager.connect().getTripDetail(authorization, tripId, new CallBackWith<Trip>() {
                 @Override
                 public void run(Trip trip) {
-                    RealmManager.insertOrUpdate(trip);
+                    // RealmManager.insertOrUpdate(trip);
                     updateUI(trip);
                 }
             }, new CallBack() {

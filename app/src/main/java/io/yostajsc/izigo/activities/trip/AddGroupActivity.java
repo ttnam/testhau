@@ -18,7 +18,7 @@ import io.yostajsc.constants.MessageType;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.adapters.FriendAdapter;
 import io.yostajsc.backend.config.APIManager;
-import io.yostajsc.izigo.base.ActivityBehavior;
+import io.yostajsc.interfaces.ActivityBehavior;
 import io.yostajsc.izigo.configs.AppDefine;
 import io.yostajsc.interfaces.CallBack;
 import io.yostajsc.interfaces.CallBackWith;

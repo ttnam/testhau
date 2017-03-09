@@ -1,4 +1,4 @@
-package io.yostajsc.izigo.base;
+package io.yostajsc.interfaces;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;

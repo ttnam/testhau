@@ -21,12 +21,13 @@
             app:srcCompat="@drawable/ic_vector_back_blue" />
 
         <io.yostajsc.view.CircleImageView
+            android:id="@+id/image_creator_avatar"
             android:layout_width="@dimen/icon_size_x4"
             android:layout_height="@dimen/icon_size_x4"
-            android:layout_gravity="center"
-            android:src="@drawable/ic_vector_avatar" />
+            android:layout_gravity="center" />
 
         <TextView
+            android:id="@+id/text_creator_name"
             style="@style/AppTheme.TextView_Title.Bold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -41,137 +42,143 @@
 
     </LinearLayout>
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/ic_style_rect_round_corners_gray_none">
-
-        <android.support.v7.widget.AppCompatImageView
-            android:id="@id/image_view"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/image_height_v2"
-            android:layout_margin="@dimen/margin_x2"
-            android:visibility="visible" />
-
-    </RelativeLayout>
-
     <include layout="@layout/layout_separate_vertical" />
 
-
-    <LinearLayout
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/white"
-        android:orientation="vertical"
-        android:paddingBottom="@dimen/margin_x2"
-        android:paddingLeft="@dimen/margin_x2"
-        android:paddingRight="@dimen/margin_x2">
-
-        <TextView
-            android:id="@+id/text_name"
-            style="@style/AppTheme.TextView_Title.Bold"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin"
-            android:ellipsize="end"
-            android:maxLines="3"
-            android:minLines="1"
-            android:text="@string/all_app_name"
-            android:textSize="@dimen/text_size_v3" />
-
-        <include layout="@layout/item_web_vew" />
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="?actionBarSize"
-            android:background="@android:color/white">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_centerInParent="true"
-                android:orientation="horizontal"
-                android:padding="@dimen/margin">
-
-                <Button
-                    android:id="@+id/btn_ranking"
-                    style="@style/AppTheme.TextView_Sub_Title.White"
-                    android:layout_width="@dimen/icon_size_x4"
-                    android:layout_height="@dimen/icon_size_x4"
-                    android:layout_gravity="center"
-                    android:layout_marginEnd="@dimen/margin_x2"
-                    android:layout_marginRight="@dimen/margin_x2"
-                    android:background="@drawable/circle_view_blue" />
-
-                <LinearLayout
-                    android:id="@+id/layout_comment"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:background="@drawable/ic_style_button_round_none_default"
-                    android:clickable="true"
-                    android:orientation="horizontal"
-                    android:paddingEnd="@dimen/margin"
-                    android:paddingLeft="@dimen/margin_x2"
-                    android:paddingRight="@dimen/margin"
-                    android:paddingStart="@dimen/margin">
-
-                    <android.support.v7.widget.AppCompatImageView
-                        android:layout_width="@dimen/icon_size_x3"
-                        android:layout_height="@dimen/icon_size_x3"
-                        android:layout_gravity="center"
-                        app:srcCompat="@drawable/ic_vector_comment" />
-
-                    <TextView
-                        android:id="@+id/tV_comment"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:padding="@dimen/margin"
-                        android:text="3124" />
-                </LinearLayout>
-
-
-            </LinearLayout>
-
-            <android.support.v7.widget.AppCompatImageView
-                android:layout_width="@dimen/icon_size_x6"
-                android:layout_height="@dimen/icon_size_x6"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_centerInParent="true"
-                android:layout_marginLeft="@dimen/margin_x2"
-                android:layout_marginStart="@dimen/margin_x2"
-                android:background="@drawable/ic_style_button_round_none_default"
-                android:clickable="true"
-                android:padding="@dimen/margin"
-                app:srcCompat="@drawable/ic_vector_more_stand" />
-
-        </RelativeLayout>
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
-                style="@style/AppTheme.TextView_Title"
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@id/image_view"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/image_height_v2" />
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:ellipsize="end"
-                android:gravity="center|start"
-                android:maxLines="1"
-                android:minLines="1"
-                android:text="1024 photos" />
+                android:background="@android:color/white"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/margin_x2"
+                android:paddingLeft="@dimen/margin_x2"
+                android:paddingRight="@dimen/margin_x2">
 
-            <include layout="@layout/layout_recycler_view" />
+                <TextView
+                    android:id="@+id/text_name"
+                    style="@style/AppTheme.TextView_Title.Bold"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin"
+                    android:ellipsize="end"
+                    android:maxLines="3"
+                    android:minLines="1"
+                    android:text="@string/all_app_name"
+                    android:textSize="@dimen/text_size_v3" />
+
+                <include layout="@layout/item_web_vew" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="?actionBarSize"
+                    android:background="@android:color/white">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerInParent="true"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/margin">
+
+                        <Button
+                            android:id="@+id/btn_ranking"
+                            style="@style/AppTheme.TextView_Sub_Title.White"
+                            android:layout_width="@dimen/icon_size_x4"
+                            android:layout_height="@dimen/icon_size_x4"
+                            android:layout_gravity="center"
+                            android:layout_marginEnd="@dimen/margin_x2"
+                            android:layout_marginRight="@dimen/margin_x2"
+                            android:background="@drawable/circle_view_blue" />
+
+                        <LinearLayout
+                            android:id="@+id/layout_comment"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:background="@drawable/ic_style_button_round_none_default"
+                            android:clickable="true"
+                            android:orientation="horizontal"
+                            android:paddingEnd="@dimen/margin"
+                            android:paddingLeft="@dimen/margin_x2"
+                            android:paddingRight="@dimen/margin"
+                            android:paddingStart="@dimen/margin">
+
+                            <android.support.v7.widget.AppCompatImageView
+                                android:layout_width="@dimen/icon_size_x3"
+                                android:layout_height="@dimen/icon_size_x3"
+                                android:layout_gravity="center"
+                                app:srcCompat="@drawable/ic_vector_comment" />
+
+                            <TextView
+                                android:id="@+id/tV_comment"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:padding="@dimen/margin"
+                                android:text="3124" />
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+                    <android.support.v7.widget.AppCompatImageView
+                        android:layout_width="@dimen/icon_size_x6"
+                        android:layout_height="@dimen/icon_size_x6"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerInParent="true"
+                        android:layout_marginLeft="@dimen/margin_x2"
+                        android:layout_marginStart="@dimen/margin_x2"
+                        android:background="@drawable/ic_style_button_round_none_default"
+                        android:clickable="true"
+                        android:padding="@dimen/margin"
+                        app:srcCompat="@drawable/ic_vector_more_stand" />
+
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/text_number_of_photo"
+                        style="@style/AppTheme.TextView_Title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:ellipsize="end"
+                        android:gravity="center|start"
+                        android:maxLines="1"
+                        android:minLines="1"
+                        android:padding="@dimen/margin"
+                        android:text="1024 photos" />
+
+                    <include layout="@layout/layout_recycler_view" />
+
+                </LinearLayout>
+
+            </LinearLayout>
 
         </LinearLayout>
 
-    </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
 
 </LinearLayout>

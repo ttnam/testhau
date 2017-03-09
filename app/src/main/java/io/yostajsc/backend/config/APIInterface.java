@@ -3,11 +3,11 @@ package io.yostajsc.backend.config;
 import java.util.List;
 import java.util.Map;
 
+import io.realm.RealmList;
 import io.yostajsc.backend.response.BaseResponse;
 import io.yostajsc.izigo.models.trip.Trips;
 import io.yostajsc.izigo.models.user.User;
 import io.yostajsc.izigo.models.user.Friend;
-import io.yostajsc.izigo.models.base.Locations;
 import io.yostajsc.izigo.models.trip.Trip;
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -36,9 +36,6 @@ public interface APIInterface {
     @PUT("api/user")
     Call<BaseResponse> updateProfile(@Header("authen") String authorization,
                                      @FieldMap Map<String, String> fieldsFieldMap);
-
-    @GET("api/location")
-    Call<BaseResponse<Locations>> getLocations(@Header("authen") String authorization);
 
     @GET("api/trips")
     Call<BaseResponse<Trips>> getTrips(@Header("authen") String authorization);

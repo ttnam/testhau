@@ -12,9 +12,13 @@ import android.widget.Toast;
 
 import org.greenrobot.eventbus.Subscribe;
 
+import java.util.List;
+
+import io.realm.RealmList;
 import io.yostajsc.backend.config.APIManager;
 import io.yostajsc.constants.MessageInfo;
 import io.yostajsc.constants.MessageType;
+import io.yostajsc.interfaces.CallBack;
 import io.yostajsc.interfaces.CallBackWith;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.activities.SettingActivity;
@@ -22,8 +26,7 @@ import io.yostajsc.izigo.activities.dialogs.DialogFilter;
 import io.yostajsc.izigo.activities.trip.TripDetailActivity;
 import io.yostajsc.izigo.adapters.TripAdapter;
 import io.yostajsc.izigo.configs.AppDefine;
-import io.yostajsc.izigo.managers.RealmManager;
-import io.yostajsc.izigo.models.trip.Trips;
+import io.yostajsc.izigo.models.trip.Trip;
 import io.yostajsc.utils.NetworkUtils;
 import io.yostajsc.utils.UiUtils;
 import io.yostajsc.view.OwnToolBar;
@@ -113,7 +116,7 @@ public class TripFragment extends Fragment {
                 });
     }
 
-    private void updateUI(Trips trips) {
+    private void updateUI(List<Trip> trips) {
         tripAdapter.replaceAll(trips);
     }
 
@@ -122,10 +125,15 @@ public class TripFragment extends Fragment {
                 .getString(AppDefine.AUTHORIZATION);
 
         // Load from server
-        APIManager.connect().getTripsList(authorization, new CallBackWith<Trips>() {
+        APIManager.connect().getTripsList(authorization, new CallBack() {
             @Override
-            public void run(Trips trips) {
-                RealmManager.insertOrUpdate(trips);
+            public void run() {
+                // TODO: Expired
+            }
+        }, new CallBackWith<List<Trip>>() {
+            @Override
+            public void run(List<Trip> trips) {
+                // RealmManager.insertOrUpdate(trips);
                 updateUI(trips);
             }
         }, new CallBackWith<String>() {
@@ -139,13 +147,13 @@ public class TripFragment extends Fragment {
     private void onApplyData() {
 
         // Read from disk
-        RealmManager.findTrips(new CallBackWith<Trips>() {
+      /*  RealmManager.findTrips(new CallBackWith<Trips>() {
             @Override
             public void run(Trips trips) {
                 updateUI(trips); // Update UI
             }
         });
-
+*/
         if (NetworkUtils.isNetworkConnected(mContext)) {
             onInternetConnected();
         }

@@ -5,7 +5,7 @@ import android.view.View;
 
 import butterknife.ButterKnife;
 import io.yostajsc.izigo.R;
-import io.yostajsc.izigo.base.ActivityBehavior;
+import io.yostajsc.interfaces.ActivityBehavior;
 import io.yostajsc.view.OwnToolBar;
 
 import butterknife.BindView;

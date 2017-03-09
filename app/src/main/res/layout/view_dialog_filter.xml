@@ -74,29 +74,47 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="?actionBarSize"
         android:orientation="horizontal"
+        android:padding="@dimen/margin"
         android:weightSum="5">
 
         <TextView
             style="@style/AppTheme.TextView_Title"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:layout_weight="3"
+            android:layout_weight="2"
             android:gravity="center"
             android:padding="@dimen/margin"
             android:text="Phương tiện" />
 
-        <com.yosta.materialspinner.MaterialSpinner
-            android:id="@+id/spinner_by"
-            style="@style/AppTheme.TextView_Sub_Title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/button_people"
+            style="@style/AppTheme.IconClick"
+            android:layout_width="@dimen/icon_size_x4"
+            android:layout_height="@dimen/icon_size_x4"
             android:layout_gravity="center"
-            android:layout_weight="2"
-            android:gravity="center"
-            android:padding="@dimen/margin" />
+            android:layout_weight="1"
+            app:srcCompat="@drawable/ic_vector_people" />
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/button_bicycle"
+            style="@style/AppTheme.IconClick"
+            android:layout_width="@dimen/icon_size_x4"
+            android:layout_height="@dimen/icon_size_x4"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/ic_vector_motobike" />
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/button_bus"
+            style="@style/AppTheme.IconClick"
+            android:layout_width="@dimen/icon_size_x4"
+            android:layout_height="@dimen/icon_size_x4"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/ic_vector_bus" />
 
     </LinearLayout>
 

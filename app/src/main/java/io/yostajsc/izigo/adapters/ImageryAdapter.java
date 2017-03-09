@@ -11,18 +11,20 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.realm.RealmList;
 import io.yostajsc.izigo.R;
+import io.yostajsc.izigo.models.photo.BasePhotoInfo;
 import io.yostajsc.izigo.ui.viewholder.ImageryViewHolder;
 import io.yostajsc.utils.validate.ValidateUtils;
 
 public class ImageryAdapter extends RecyclerView.Adapter<ImageryViewHolder> {
 
     private Context mContext;
-    private List<String> mUrls;
+    private RealmList<BasePhotoInfo> mUrls;
 
     public ImageryAdapter(Context context) {
         this.mContext = context;
-        this.mUrls = new ArrayList<>();
+        this.mUrls = new RealmList<>();
     }
 
     @Override
@@ -41,7 +43,7 @@ public class ImageryAdapter extends RecyclerView.Adapter<ImageryViewHolder> {
 
     @Override
     public void onBindViewHolder(final ImageryViewHolder holder, final int position) {
-        String url = mUrls.get(position);
+        String url = mUrls.get(position).getUrl();
         if (ValidateUtils.canUse(url)) {
             holder.bind(url);
         }
@@ -54,20 +56,18 @@ public class ImageryAdapter extends RecyclerView.Adapter<ImageryViewHolder> {
         return mUrls.size();
     }
 
-    public void replaceAll(List<String> urls) {
+    public void replaceAll(RealmList<BasePhotoInfo> photoInfos) {
         if (mUrls == null)
-            this.mUrls = new ArrayList<>();
+            this.mUrls = new RealmList<>();
         clear();
-        this.mUrls.addAll(urls);
+        this.mUrls.addAll(photoInfos);
         notifyDataSetChanged();
     }
 
-    public void add(String url) {
+    public void add(BasePhotoInfo photoInfo) {
         if (this.mUrls == null)
-            this.mUrls = new ArrayList<>();
-        if (ValidateUtils.canUse(url)) {
-            this.mUrls.add(url);
-        }
+            this.mUrls = new RealmList<>();
+        this.mUrls.add(photoInfo);
         notifyDataSetChanged();
     }
 

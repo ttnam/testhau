@@ -3,6 +3,7 @@ package io.yostajsc.izigo.activities.user;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,7 +19,7 @@ import butterknife.OnClick;
 import io.yostajsc.backend.config.APIManager;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.activities.MainActivity;
-import io.yostajsc.izigo.base.ActivityBehavior;
+import io.yostajsc.interfaces.ActivityBehavior;
 import io.yostajsc.izigo.configs.AppDefine;
 import io.yostajsc.interfaces.CallBack;
 import io.yostajsc.interfaces.CallBackWith;
@@ -79,6 +80,13 @@ public class ProfileActivity extends ActivityBehavior {
         super.onStart();
         Intent intent = getIntent();
         isFirstTime = intent.getBooleanExtra(AppDefine.FIRST_TIME, false);
+        if (!isFirstTime)
+            ownToolBar.setLeft(R.drawable.ic_vector_back_white, new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onBackPressed();
+                }
+            });
     }
 
     @Override
@@ -120,7 +128,7 @@ public class ProfileActivity extends ActivityBehavior {
         if (mUser == null) {
             return;
         }
-        ownToolBar.setTitle(mUser.getFullName());
+        ownToolBar.setTitle(mUser.getFullName(), true);
         Glide.with(ProfileActivity.this)
                 .load(mUser.getAvatar())
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)

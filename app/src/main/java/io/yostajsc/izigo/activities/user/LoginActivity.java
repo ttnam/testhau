@@ -38,13 +38,12 @@ import io.yostajsc.interfaces.CallBackWith;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.activities.MainActivity;
 import io.yostajsc.backend.config.APIManager;
-import io.yostajsc.izigo.base.ActivityBehavior;
+import io.yostajsc.interfaces.ActivityBehavior;
 import io.yostajsc.izigo.configs.AppDefine;
 import io.yostajsc.izigo.firebase.FirebaseManager;
 import io.yostajsc.izigo.models.user.User;
 import io.yostajsc.izigo.firebase.model.UserManager;
 import io.yostajsc.izigo.managers.EventManager;
-import io.yostajsc.utils.NetworkUtils;
 import io.yostajsc.utils.StorageUtils;
 import io.yostajsc.utils.validate.ValidateUtils;
 

@@ -1,8 +1,6 @@
 package io.yostajsc.izigo.managers;
 
 import io.yostajsc.interfaces.CallBackWith;
-import io.yostajsc.izigo.models.trip.Trip;
-import io.yostajsc.izigo.models.trip.Trips;
 
 /**
  * Created by Phuc-Hau Nguyen on 3/8/2017.

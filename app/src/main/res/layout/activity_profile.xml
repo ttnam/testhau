@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layoutBackground="@color/colorPrimary"
+        app:layoutTitle="@string/profile"
         app:layoutTitleColor="@android:color/white"
         app:layoutType="title_center" />
 

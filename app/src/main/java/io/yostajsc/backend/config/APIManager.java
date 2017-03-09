@@ -3,9 +3,13 @@ package io.yostajsc.backend.config;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.util.List;
 import java.util.Map;
 
+import io.realm.RealmList;
 import io.yostajsc.backend.response.BaseResponse;
 import io.yostajsc.interfaces.CallBack;
 import io.yostajsc.interfaces.CallBackWith;
@@ -13,7 +17,6 @@ import io.yostajsc.izigo.models.trip.Trip;
 import io.yostajsc.izigo.models.trip.Trips;
 import io.yostajsc.izigo.models.user.Friend;
 import io.yostajsc.izigo.models.user.User;
-import io.yostajsc.izigo.models.base.Locations;
 import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -38,10 +41,15 @@ public class APIManager {
 
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 
+        Gson gson = new GsonBuilder()
+                //.registerTypeAdapter(Trips.class, new TripsDeserialize())
+                .setLenient()
+                .create();
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(SERVER_DOMAIN)
                 .client(httpClient.build())
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
         service = retrofit.create(APIInterface.class);
     }
@@ -103,24 +111,23 @@ public class APIManager {
             }
         });
     }
-    public void getTripsList(String authorization,
-                             final CallBackWith<Trips> success,
-                             final CallBackWith<String> fail) {
+
+    public void getTripsList(String authorization, final CallBack expired,
+                             final CallBackWith<List<Trip>> success, final CallBackWith<String> fail) {
 
         Call<BaseResponse<Trips>> call = service.getTrips(authorization);
-
         call.enqueue(new Callback<BaseResponse<Trips>>() {
             @Override
-            public void onResponse(Call<BaseResponse<Trips>> call,
-                                   Response<BaseResponse<Trips>> response) {
+            public void onResponse(Call<BaseResponse<Trips>> call, Response<BaseResponse<Trips>> response) {
                 if (response.isSuccessful()) {
                     BaseResponse<Trips> res = response.body();
                     if (res.isSuccessful()) {
-                        success.run(res.data());
+                        // success.run(res.data());
+                    } else if (res.isExpired()) {
+                        expired.run();
                     } else {
                         fail.run(res.getDescription());
                     }
-
                 }
             }
 
@@ -129,6 +136,7 @@ public class APIManager {
                 Log.e(TAG, throwable.getMessage());
             }
         });
+
     }
 
     public void updateFcm(String authorization, String fcm) {
