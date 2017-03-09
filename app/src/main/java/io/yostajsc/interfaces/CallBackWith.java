@@ -1,9 +1,9 @@
-package io.yostajsc.izigo.interfaces;
+package io.yostajsc.interfaces;
 
 /**
  * Created by Phuc-Hau Nguyen on 12/4/2016.
  */
 
-public interface CallBackParam<T> {
+public interface CallBackWith<T> {
     void run(T t);
 }

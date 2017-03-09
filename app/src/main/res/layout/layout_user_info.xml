@@ -129,6 +129,7 @@
             android:layout_height="match_parent"
             android:background="@drawable/ic_style_rect_round_corners_gray_none"
             android:ems="10"
+            android:enabled="false"
             android:hint="@string/profile_date_of_birth"
             android:inputType="text"
             android:maxLength="10"

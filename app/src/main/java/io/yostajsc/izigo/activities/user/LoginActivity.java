@@ -34,6 +34,7 @@ import org.json.JSONObject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.yostajsc.interfaces.CallBackWith;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.activities.MainActivity;
 import io.yostajsc.backend.config.APIManager;
@@ -42,10 +43,10 @@ import io.yostajsc.izigo.configs.AppDefine;
 import io.yostajsc.izigo.firebase.FirebaseManager;
 import io.yostajsc.izigo.models.user.User;
 import io.yostajsc.izigo.firebase.model.UserManager;
-import io.yostajsc.izigo.interfaces.CallBackParam;
 import io.yostajsc.izigo.managers.EventManager;
 import io.yostajsc.utils.NetworkUtils;
 import io.yostajsc.utils.StorageUtils;
+import io.yostajsc.utils.validate.ValidateUtils;
 
 public class LoginActivity extends ActivityBehavior {
 
@@ -88,7 +89,13 @@ public class LoginActivity extends ActivityBehavior {
             public void run() {
                 AccessToken token = AccessToken.getCurrentAccessToken();
                 if (token != null) {
-                    onCallToServer();
+                    String authorization = StorageUtils.inject(LoginActivity.this).getString(AppDefine.AUTHORIZATION);
+                    if (ValidateUtils.canUse(authorization)) {
+                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                        finish();
+                    } else {
+                        onCallToServer();
+                    }
                 } else {
                     onReset();
                 }
@@ -96,11 +103,11 @@ public class LoginActivity extends ActivityBehavior {
         }, 1000);
     }
 
+
     @Override
     protected void onStart() {
         super.onStart();
-        if (NetworkUtils.isNetworkConnected(this))
-            onApplyData();
+        onApplyData();
     }
 
     @Override
@@ -135,7 +142,7 @@ public class LoginActivity extends ActivityBehavior {
         mCallbackManager = CallbackManager.Factory.create();
         loginButton.setReadPermissions("email", "public_profile", "user_friends");
 
-        loginButton.registerCallback(mCallbackManager, EventManager.connect().registerFacebookCallback(new CallBackParam<AccessToken>() {
+        loginButton.registerCallback(mCallbackManager, EventManager.connect().registerFacebookCallback(new CallBackWith<AccessToken>() {
             @Override
             public void run(AccessToken token) {
                 handleFacebookAccessToken(token);
@@ -200,7 +207,7 @@ public class LoginActivity extends ActivityBehavior {
             String fireBaseId = user.getFireBaseId();
             String fcm = StorageUtils.inject(this).getString(FirebaseManager.FIRE_BASE_TOKEN);
 
-            APIManager.connect().onLogin(email, fbId, fireBaseId, fcm, new CallBackParam<String>() {
+            APIManager.connect().onLogin(email, fbId, fireBaseId, fcm, new CallBackWith<String>() {
                 @Override
                 public void run(String authorization) {
                     Log.d(TAG, authorization);
@@ -220,7 +227,7 @@ public class LoginActivity extends ActivityBehavior {
                     startActivity(intent);
                     finish();
                 }
-            }, new CallBackParam<String>() {
+            }, new CallBackWith<String>() {
                 @Override
                 public void run(String error) {
                     onReset();

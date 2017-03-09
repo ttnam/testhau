@@ -1,34 +1,25 @@
-package io.yostajsc.izigo.fragments;
+package io.yostajsc.izigo.activities;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 
-import io.yostajsc.izigo.R;
-import io.yostajsc.izigo.activities.WebViewActivity;
-import io.yostajsc.izigo.activities.user.ProfileActivity;
-import io.yostajsc.izigo.configs.AppDefine;
-import io.yostajsc.view.OwnToolBar;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.yostajsc.utils.StorageUtils;
+import io.yostajsc.izigo.R;
+import io.yostajsc.izigo.activities.user.ProfileActivity;
+import io.yostajsc.izigo.base.ActivityBehavior;
+import io.yostajsc.izigo.configs.AppDefine;
+import io.yostajsc.view.OwnToolBar;
 
-public class SettingFragment extends Fragment {
+public class SettingActivity extends ActivityBehavior {
 
     @BindView(R.id.layout)
     OwnToolBar mOwnToolbar;
-
-    @BindView(R.id.layout_profile)
-    LinearLayout layoutProfile;
 
     @BindView(R.id.layout_rating)
     LinearLayout layoutRating;
@@ -42,36 +33,66 @@ public class SettingFragment extends Fragment {
     @BindView(R.id.txt_lang)
     TextView txtLang;
 
-    private Activity mActivity = null;
-    private StorageUtils presUtils = null;
-
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_setting);
+        ButterKnife.bind(this);
+        onApplyViews();
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_setting, container, false);
-        ButterKnife.bind(this, rootView);
-        mOwnToolbar.setTitle(getString(R.string.setting));
-        return rootView;
+    protected void onStart() {
+        super.onStart();
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    public void onApplyViews() {
+
+        mOwnToolbar.setTitle(getString(R.string.setting)).setLeft(R.drawable.ic_vector_back_white, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
+    }
+
+    @Override
+    protected void onInternetConnected() {
+
+    }
+
+    @Override
+    protected void onInternetDisconnected() {
+
+    }
 
     @OnClick(R.id.layout_profile)
     public void onCallProfile() {
-        Intent intent = new Intent(getActivity(), ProfileActivity.class);
+        Intent intent = new Intent(this, ProfileActivity.class);
         intent.putExtra(AppDefine.FIRST_TIME, false);
-        mActivity.startActivity(intent);
-        mActivity.overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+        startActivity(intent);
     }
 
+    @OnClick(R.id.layout_auto_sync)
+    public void AutoSync() {
+        switchSync.toggle();
+    }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        mActivity = getActivity();
+    @OnClick(R.id.layout_notify)
+    public void Notify() {
+        switchNotify.toggle();
+    }
+
+    @OnClick(R.id.layout_about)
+    public void AboutSetting() {
+        startActivity(new Intent(this, WebViewActivity.class));
     }
 
     /*
@@ -156,18 +177,4 @@ public class SettingFragment extends Fragment {
         }
 
         */
-    @OnClick(R.id.layout_auto_sync)
-    public void AutoSync() {
-        switchSync.toggle();
-    }
-
-    @OnClick(R.id.layout_notify)
-    public void Notify() {
-        switchNotify.toggle();
-    }
-
-    @OnClick(R.id.layout_about)
-    public void AboutSetting() {
-        startActivity(new Intent(getActivity(), WebViewActivity.class));
-    }
 }

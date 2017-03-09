@@ -52,7 +52,7 @@ public class ActivityBehavior extends AppCompatActivity implements ActivityInter
     protected void onStop() {
         super.onStop();
         EventBus.getDefault().unregister(this);
-        this.dialogNoNet.dismiss();
+        dismissNoNetDialog();
     }
 
     protected void onExpired() {
@@ -74,10 +74,20 @@ public class ActivityBehavior extends AppCompatActivity implements ActivityInter
     }
 
     protected void onInternetDisconnected() {
-        this.dialogNoNet.show();
-    }
-    protected void onInternetConnected() {
-        this.dialogNoNet.dismiss();
+        showNoNetDialog();
     }
 
+    protected void onInternetConnected() {
+        dismissNoNetDialog();
+    }
+
+    private void dismissNoNetDialog() {
+        if (this.dialogNoNet != null)
+            this.dialogNoNet.dismiss();
+    }
+
+    private void showNoNetDialog() {
+        if (this.dialogNoNet != null)
+            this.dialogNoNet.show();
+    }
 }

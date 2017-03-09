@@ -1,16 +1,15 @@
 package io.yostajsc.izigo.adapters;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import io.yostajsc.izigo.R;
-import io.yostajsc.izigo.models.trip.BaseTrip;
+import io.yostajsc.izigo.models.trip.Trip;
+import io.yostajsc.izigo.models.trip.Trips;
 import io.yostajsc.izigo.ui.viewholder.TripViewHolder;
 import io.yostajsc.utils.AppUtils;
 
@@ -21,11 +20,11 @@ import io.yostajsc.utils.AppUtils;
 public class TripAdapter extends RecyclerView.Adapter<TripViewHolder> {
 
     private Context mContext = null;
-    private List<BaseTrip> mTrips = null;
+    private Trips mTrips = null;
 
     public TripAdapter(Context context) {
         this.mContext = context;
-        this.mTrips = new ArrayList<>();
+        this.mTrips = new Trips();
     }
 
     @Override
@@ -36,8 +35,10 @@ public class TripAdapter extends RecyclerView.Adapter<TripViewHolder> {
 
     @Override
     public void onBindViewHolder(TripViewHolder holder, int position) {
-        BaseTrip baseTrip = mTrips.get(position);
-        holder.onBind(baseTrip.getCover(), baseTrip.getName(),
+        Trip baseTrip = mTrips.get(position);
+        holder.onBind(
+                baseTrip.getCover(),
+                baseTrip.getName(),
                 AppUtils.builder(mContext).getTimeGap(
                         baseTrip.getDuration()
                 )
@@ -51,20 +52,22 @@ public class TripAdapter extends RecyclerView.Adapter<TripViewHolder> {
         return mTrips.size();
     }
 
-    public void replaceAll(List<BaseTrip> trips) {
-        this.mTrips.clear();
+    public void replaceAll(Trips trips) {
+        if (this.mTrips == null)
+            return;
+        clear();
         this.mTrips.addAll(trips);
         notifyDataSetChanged();
     }
 
-    public BaseTrip getItem(int position) {
+    public Trip getItem(int position) {
         if (position < 0 || position >= getItemCount()) {
             return null;
         }
         return this.mTrips.get(position);
     }
 
-    public int add(BaseTrip trip) {
+    public int add(@NonNull Trip trip) {
         this.mTrips.add(trip);
         int index = this.mTrips.size() - 1;
         notifyItemChanged(index);

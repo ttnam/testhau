@@ -20,9 +20,9 @@ import io.yostajsc.izigo.adapters.FriendAdapter;
 import io.yostajsc.backend.config.APIManager;
 import io.yostajsc.izigo.base.ActivityBehavior;
 import io.yostajsc.izigo.configs.AppDefine;
-import io.yostajsc.izigo.interfaces.CallBack;
-import io.yostajsc.izigo.interfaces.CallBackParam;
-import io.yostajsc.izigo.interfaces.ItemClick;
+import io.yostajsc.interfaces.CallBack;
+import io.yostajsc.interfaces.CallBackWith;
+import io.yostajsc.interfaces.ItemClick;
 import io.yostajsc.izigo.models.user.Friend;
 import io.yostajsc.view.OwnToolBar;
 import io.yostajsc.utils.StorageUtils;
@@ -74,12 +74,12 @@ public class AddGroupActivity extends ActivityBehavior {
         if (token != null) {
             String authorization = StorageUtils.inject(AddGroupActivity.this).getString(AppDefine.AUTHORIZATION);
             String fbToken = token.getToken();
-            APIManager.connect().getFriendsList(authorization, fbToken, new CallBackParam<List<Friend>>() {
+            APIManager.connect().getFriendsList(authorization, fbToken, new CallBackWith<List<Friend>>() {
                 @Override
                 public void run(List<Friend> friends) {
                     adapter.replaceAll(friends);
                 }
-            }, new CallBackParam<String>() {
+            }, new CallBackWith<String>() {
                 @Override
                 public void run(String error) {
                     Toast.makeText(AddGroupActivity.this, error, Toast.LENGTH_SHORT).show();
@@ -156,12 +156,12 @@ public class AddGroupActivity extends ActivityBehavior {
             public void run() {
                 onExpired();
             }
-        }, new CallBackParam<String>() {
+        }, new CallBackWith<String>() {
             @Override
             public void run(String groupId) {
                 onSuccess(groupId);
             }
-        }, new CallBackParam<String>() {
+        }, new CallBackWith<String>() {
             @Override
             public void run(String error) {
                 Toast.makeText(AddGroupActivity.this, error, Toast.LENGTH_SHORT).show();

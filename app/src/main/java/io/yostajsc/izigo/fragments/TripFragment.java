@@ -4,24 +4,28 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import java.util.List;
+import org.greenrobot.eventbus.Subscribe;
 
-import io.yostajsc.designs.listeners.RecyclerItemClickListener;
+import io.yostajsc.backend.config.APIManager;
+import io.yostajsc.constants.MessageInfo;
+import io.yostajsc.constants.MessageType;
+import io.yostajsc.interfaces.CallBackWith;
 import io.yostajsc.izigo.R;
+import io.yostajsc.izigo.activities.SettingActivity;
 import io.yostajsc.izigo.activities.dialogs.DialogFilter;
 import io.yostajsc.izigo.activities.trip.TripDetailActivity;
 import io.yostajsc.izigo.adapters.TripAdapter;
-import io.yostajsc.backend.config.APIManager;
 import io.yostajsc.izigo.configs.AppDefine;
-import io.yostajsc.izigo.interfaces.CallBackParam;
-import io.yostajsc.izigo.models.trip.BaseTrip;
+import io.yostajsc.izigo.managers.RealmManager;
+import io.yostajsc.izigo.models.trip.Trips;
+import io.yostajsc.utils.NetworkUtils;
+import io.yostajsc.utils.UiUtils;
 import io.yostajsc.view.OwnToolBar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -49,54 +53,101 @@ public class TripFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_trip, container, false);
         ButterKnife.bind(this, rootView);
-
-        mOwnToolbar.setRight(R.drawable.ic_vector_filter, new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DialogFilter dialog = new DialogFilter(mContext);
-                dialog.show();
-            }
-        });
         onApplyViews();
         onApplyData();
         return rootView;
     }
 
-    private void onApplyViews() {
 
-        this.tripAdapter = new TripAdapter(mContext);
-
-        this.rvTrip.setHasFixedSize(true);
-        this.rvTrip.setItemAnimator(new SlideInUpAnimator());
-        this.rvTrip.setRecycledViewPool(new RecyclerView.RecycledViewPool());
-
-        LinearLayoutManager layoutManager = new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false);
-        this.rvTrip.setNestedScrollingEnabled(false);
-        this.rvTrip.setLayoutManager(layoutManager);
-        this.rvTrip.setAdapter(this.tripAdapter);
-        this.rvTrip.addOnItemTouchListener(new RecyclerItemClickListener(mContext, new RecyclerItemClickListener.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                BaseTrip trip = tripAdapter.getItem(position);
-                Intent intent = new Intent(getActivity(), TripDetailActivity.class);
-                intent.putExtra(BaseTrip.EXTRA_TRIP, trip);
-                startActivity(intent);
-            }
-        }));
+    @Override
+    public void onStart() {
+        super.onStart();
     }
 
-    private void onApplyData() {
-        String authorization = StorageUtils.inject(mContext).getString(AppDefine.AUTHORIZATION);
-        APIManager.connect().onGetTrips(authorization, new CallBackParam<List<BaseTrip>>() {
+    @Override
+    public void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+    }
+
+    @Subscribe
+    public void onMessageEvent(MessageInfo info) {
+        int code = info.getMessage();
+        switch (code) {
+            case MessageType.INTERNET_CONNECTED:
+                onInternetConnected();
+                break;
+        }
+    }
+
+    private void onApplyViews() {
+
+        mOwnToolbar.setTitle(getString(R.string.all_popular))
+                .setBinding(R.drawable.ic_vector_filter, R.drawable.ic_tab_menu_selected, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        DialogFilter dialog = new DialogFilter(mContext);
+                        dialog.show();
+                    }
+                }, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        startActivity(new Intent(mContext, SettingActivity.class));
+                    }
+                });
+
+        this.tripAdapter = new TripAdapter(mContext);
+        UiUtils.onApplyRecyclerView(this.rvTrip, this.tripAdapter, new SlideInUpAnimator(),
+                new CallBackWith<Integer>() {
+                    @Override
+                    public void run(Integer position) {
+                        String tripId = tripAdapter.getItem(position).getTripId();
+                        Intent intent = new Intent(mContext, TripDetailActivity.class);
+                        intent.putExtra(AppDefine.TRIP_ID, tripId);
+                        startActivity(intent);
+                    }
+                });
+    }
+
+    private void updateUI(Trips trips) {
+        tripAdapter.replaceAll(trips);
+    }
+
+    private void onInternetConnected() {
+        String authorization = StorageUtils.inject(mContext)
+                .getString(AppDefine.AUTHORIZATION);
+
+        // Load from server
+        APIManager.connect().getTripsList(authorization, new CallBackWith<Trips>() {
             @Override
-            public void run(List<BaseTrip> trips) {
-                tripAdapter.replaceAll(trips);
+            public void run(Trips trips) {
+                RealmManager.insertOrUpdate(trips);
+                updateUI(trips);
             }
-        }, new CallBackParam<String>() {
+        }, new CallBackWith<String>() {
             @Override
             public void run(String error) {
                 Toast.makeText(mContext, error, Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void onApplyData() {
+
+        // Read from disk
+        RealmManager.findTrips(new CallBackWith<Trips>() {
+            @Override
+            public void run(Trips trips) {
+                updateUI(trips); // Update UI
+            }
+        });
+
+        if (NetworkUtils.isNetworkConnected(mContext)) {
+            onInternetConnected();
+        }
     }
 }

@@ -9,8 +9,8 @@ import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.login.LoginResult;
 
-import io.yostajsc.izigo.interfaces.CallBack;
-import io.yostajsc.izigo.interfaces.CallBackParam;
+import io.yostajsc.interfaces.CallBack;
+import io.yostajsc.interfaces.CallBackWith;
 
 /**
  * Created by Phuc-Hau Nguyen on 2/16/2017.
@@ -55,7 +55,7 @@ public class EventManager {
         return textWatcher;
     }
 
-    public FacebookCallback<LoginResult> registerFacebookCallback(final CallBackParam<AccessToken> callback) {
+    public FacebookCallback<LoginResult> registerFacebookCallback(final CallBackWith<AccessToken> callback) {
         return new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {

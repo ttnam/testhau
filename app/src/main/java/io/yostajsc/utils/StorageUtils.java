@@ -21,6 +21,7 @@ public class StorageUtils {
     private SharedPreferences preferences = null;
 
     private static StorageUtils mInstance = null;
+    private static final Object mutex = new Object();
 
     private StorageUtils(Context context) {
         preferences = PreferenceManager.getDefaultSharedPreferences(context);
@@ -28,7 +29,10 @@ public class StorageUtils {
 
     public static StorageUtils inject(Context context) {
         if (mInstance == null) {
-            mInstance = new StorageUtils(context);
+            synchronized (mutex) {
+                if (mInstance == null)
+                    mInstance = new StorageUtils(context);
+            }
         }
         return mInstance;
     }

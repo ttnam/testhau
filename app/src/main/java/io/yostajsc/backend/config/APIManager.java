@@ -7,13 +7,13 @@ import java.util.List;
 import java.util.Map;
 
 import io.yostajsc.backend.response.BaseResponse;
-import io.yostajsc.izigo.interfaces.CallBack;
-import io.yostajsc.izigo.interfaces.CallBackParam;
+import io.yostajsc.interfaces.CallBack;
+import io.yostajsc.interfaces.CallBackWith;
+import io.yostajsc.izigo.models.trip.Trip;
+import io.yostajsc.izigo.models.trip.Trips;
 import io.yostajsc.izigo.models.user.Friend;
 import io.yostajsc.izigo.models.user.User;
 import io.yostajsc.izigo.models.base.Locations;
-import io.yostajsc.izigo.models.trip.BaseTrip;
-import io.yostajsc.izigo.models.trip.Trip;
 import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -29,17 +29,16 @@ public class APIManager {
 
     private static final String TAG = APIManager.class.getSimpleName();
 
-    public static String SERVER_DOMAIN = "http://phuotngay.jelasticlw.com.br/";
+    private static String SERVER_DOMAIN = "http://phuotngay.jelasticlw.com.br/";
 
-    private static Retrofit retrofit = null;
     private APIInterface service = null;
-    private static OkHttpClient.Builder httpClient = null;
     private static APIManager mInstance = null;
 
     private APIManager() {
-        httpClient = new OkHttpClient.Builder();
 
-        retrofit = new Retrofit.Builder()
+        OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
+
+        Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(SERVER_DOMAIN)
                 .client(httpClient.build())
                 .addConverterFactory(GsonConverterFactory.create())
@@ -55,7 +54,7 @@ public class APIManager {
     }
 
     public void onLogin(String email, String fbId, String fireBaseUid, String fcm,
-                        final CallBackParam<String> success, final CallBackParam<String> fail) {
+                        final CallBackWith<String> success, final CallBackWith<String> fail) {
 
         Call<BaseResponse<String>> call = service.login(email, fbId, fireBaseUid, fcm);
 
@@ -82,7 +81,7 @@ public class APIManager {
     }
 
     public void onUpdate(String authorization, @NonNull Map<String, String> data,
-                         final CallBack success, final CallBackParam<String> fail) {
+                         final CallBack success, final CallBackWith<String> fail) {
 
         Call<BaseResponse> call = service.updateProfile(authorization, data);
         call.enqueue(new Callback<BaseResponse>() {
@@ -99,15 +98,15 @@ public class APIManager {
             }
 
             @Override
-            public void onFailure(Call<BaseResponse> call, Throwable t) {
-                fail.run(t.getMessage());
+            public void onFailure(Call<BaseResponse> call, Throwable throwable) {
+                Log.e(TAG, throwable.getMessage());
             }
         });
     }
 
     public void getLocation(String authorization,
-                            final CallBackParam<Locations> success,
-                            final CallBackParam<String> fail) {
+                            final CallBackWith<Locations> success,
+                            final CallBackWith<String> fail) {
 
         Call<BaseResponse<Locations>> call = service.getLocations(authorization);
 
@@ -126,20 +125,23 @@ public class APIManager {
 
             @Override
             public void onFailure(Call<BaseResponse<Locations>> call, Throwable throwable) {
-                fail.run(throwable.getMessage());
+                Log.e(TAG, throwable.getMessage());
             }
         });
     }
 
-    public void onGetTrips(String authorization,
-                           final CallBackParam<List<BaseTrip>> success,
-                           final CallBackParam<String> fail) {
-        Call<BaseResponse<List<BaseTrip>>> call = service.getTrips(authorization);
-        call.enqueue(new Callback<BaseResponse<List<BaseTrip>>>() {
+    public void getTripsList(String authorization,
+                             final CallBackWith<Trips> success,
+                             final CallBackWith<String> fail) {
+
+        Call<BaseResponse<Trips>> call = service.getTrips(authorization);
+
+        call.enqueue(new Callback<BaseResponse<Trips>>() {
             @Override
-            public void onResponse(Call<BaseResponse<List<BaseTrip>>> call, Response<BaseResponse<List<BaseTrip>>> response) {
+            public void onResponse(Call<BaseResponse<Trips>> call,
+                                   Response<BaseResponse<Trips>> response) {
                 if (response.isSuccessful()) {
-                    BaseResponse<List<BaseTrip>> res = response.body();
+                    BaseResponse<Trips> res = response.body();
                     if (res.isSuccessful()) {
                         success.run(res.data());
                     } else {
@@ -150,8 +152,8 @@ public class APIManager {
             }
 
             @Override
-            public void onFailure(Call<BaseResponse<List<BaseTrip>>> call, Throwable t) {
-
+            public void onFailure(Call<BaseResponse<Trips>> call, Throwable throwable) {
+                Log.e(TAG, throwable.getMessage());
             }
         });
     }
@@ -165,15 +167,16 @@ public class APIManager {
             }
 
             @Override
-            public void onFailure(Call<BaseResponse> call, Throwable t) {
-                Log.d(TAG, t.getMessage());
+            public void onFailure(Call<BaseResponse> call, Throwable throwable) {
+                Log.e(TAG, throwable.getMessage());
             }
         });
     }
 
     public void getTripDetail(String authorization, String tripId,
-                              final CallBackParam<Trip> success,
-                              final CallBackParam<String> fail) {
+                              final CallBackWith<Trip> success,
+                              final CallBack expired,
+                              final CallBackWith<String> fail) {
         Call<BaseResponse<Trip>> call = service.getTripDetail(authorization, tripId);
 
         call.enqueue(new Callback<BaseResponse<Trip>>() {
@@ -183,6 +186,8 @@ public class APIManager {
                     BaseResponse<Trip> res = response.body();
                     if (res.isSuccessful()) {
                         success.run(res.data());
+                    } else if (res.isExpired()) {
+                        expired.run();
                     } else {
                         fail.run(res.getDescription());
                     }
@@ -190,14 +195,14 @@ public class APIManager {
             }
 
             @Override
-            public void onFailure(Call<BaseResponse<Trip>> call, Throwable t) {
-
+            public void onFailure(Call<BaseResponse<Trip>> call, Throwable throwable) {
+                Log.e(TAG, throwable.getMessage());
             }
         });
     }
 
-    public void getUserInfo(String authorization, final CallBackParam<User> success,
-                            final CallBack expired, final CallBackParam<String> fail) {
+    public void getUserInfo(String authorization, final CallBackWith<User> success,
+                            final CallBack expired, final CallBackWith<String> fail) {
 
         Call<BaseResponse<User>> call = service.getUserInfo(authorization);
         call.enqueue(new Callback<BaseResponse<User>>() {
@@ -217,7 +222,7 @@ public class APIManager {
 
             @Override
             public void onFailure(Call<BaseResponse<User>> call, Throwable throwable) {
-                fail.run(throwable.getMessage());
+                Log.e(TAG, throwable.getMessage());
             }
         });
 
@@ -225,8 +230,8 @@ public class APIManager {
 
     public void createGroup(String authorization, String name, String avatar, String info, String members,
                             final CallBack expired,
-                            final CallBackParam<String> success,
-                            final CallBackParam<String> fail) {
+                            final CallBackWith<String> success,
+                            final CallBackWith<String> fail) {
         Call<BaseResponse<String>> call = service.createGroup(authorization, name, avatar, info, members);
         call.enqueue(new Callback<BaseResponse<String>>() {
             @Override
@@ -246,14 +251,14 @@ public class APIManager {
 
             @Override
             public void onFailure(Call<BaseResponse<String>> call, Throwable throwable) {
-                fail.run(throwable.getMessage());
+                Log.e(TAG, throwable.getMessage());
             }
         });
     }
 
     public void getFriendsList(String authorization, String fbAccessToken,
-                               final CallBackParam<List<Friend>> success,
-                               final CallBackParam<String> fail,
+                               final CallBackWith<List<Friend>> success,
+                               final CallBackWith<String> fail,
                                final CallBack expired) {
 
         Call<BaseResponse<List<Friend>>> call = service.getFriendsList(authorization, fbAccessToken);
@@ -274,16 +279,16 @@ public class APIManager {
             }
 
             @Override
-            public void onFailure(Call<BaseResponse<List<Friend>>> call, Throwable t) {
-
+            public void onFailure(Call<BaseResponse<List<Friend>>> call, Throwable throwable) {
+                Log.e(TAG, throwable.getMessage());
             }
         });
     }
 
 
     public void getGroupDetail(String authorization, String groupId,
-                               final CallBackParam<String> success,
-                               final CallBackParam<String> fail,
+                               final CallBackWith<String> success,
+                               final CallBackWith<String> fail,
                                final CallBack expired) {
         Call<BaseResponse<String>> call = service.getGroupDetail(authorization, groupId);
         call.enqueue(new Callback<BaseResponse<String>>() {
@@ -303,7 +308,7 @@ public class APIManager {
 
             @Override
             public void onFailure(Call<BaseResponse<String>> call, Throwable throwable) {
-                fail.run(throwable.getMessage());
+                Log.e(TAG, throwable.getMessage());
             }
         });
     }
@@ -311,7 +316,7 @@ public class APIManager {
     public void updateProfile(String authorization, Map<String, String> body,
                               final CallBack expired,
                               final CallBack success,
-                              final CallBackParam<String> fail) {
+                              final CallBackWith<String> fail) {
         Call<BaseResponse> call = service.updateProfile(authorization, body);
         call.enqueue(new Callback<BaseResponse>() {
             @Override
@@ -330,7 +335,7 @@ public class APIManager {
 
             @Override
             public void onFailure(Call<BaseResponse> call, Throwable throwable) {
-                fail.run(throwable.getMessage());
+                Log.e(TAG, throwable.getMessage());
             }
         });
     }

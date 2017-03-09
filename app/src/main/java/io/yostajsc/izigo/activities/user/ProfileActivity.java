@@ -20,8 +20,8 @@ import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.activities.MainActivity;
 import io.yostajsc.izigo.base.ActivityBehavior;
 import io.yostajsc.izigo.configs.AppDefine;
-import io.yostajsc.izigo.interfaces.CallBack;
-import io.yostajsc.izigo.interfaces.CallBackParam;
+import io.yostajsc.interfaces.CallBack;
+import io.yostajsc.interfaces.CallBackWith;
 import io.yostajsc.izigo.models.user.User;
 import io.yostajsc.utils.StorageUtils;
 import io.yostajsc.utils.validate.ValidateUtils;
@@ -89,7 +89,7 @@ public class ProfileActivity extends ActivityBehavior {
         } else {
             String authorization = StorageUtils.inject(this).getString(AppDefine.AUTHORIZATION);
             if (ValidateUtils.canUse(authorization)) {
-                APIManager.connect().getUserInfo(authorization, new CallBackParam<User>() {
+                APIManager.connect().getUserInfo(authorization, new CallBackWith<User>() {
                     @Override
                     public void run(User user) {
                         mUser = user;
@@ -100,7 +100,7 @@ public class ProfileActivity extends ActivityBehavior {
                     public void run() {
                         onExpired();
                     }
-                }, new CallBackParam<String>() {
+                }, new CallBackWith<String>() {
                     @Override
                     public void run(String error) {
                         Toast.makeText(ProfileActivity.this, error, Toast.LENGTH_LONG).show();
@@ -185,7 +185,7 @@ public class ProfileActivity extends ActivityBehavior {
                     }
 
                 }
-            }, new CallBackParam<String>() {
+            }, new CallBackWith<String>() {
                 @Override
                 public void run(String error) {
                     Toast.makeText(ProfileActivity.this, error, Toast.LENGTH_SHORT).show();
@@ -199,8 +199,8 @@ public class ProfileActivity extends ActivityBehavior {
 
 
     @Override
-    public void onApplyViews() {
-        super.onApplyViews();
+    public void onApplyRecyclerView() {
+        super.onApplyRecyclerView();
 
         // this.mFirebaseUtils = FirebaseManager.inject();
 

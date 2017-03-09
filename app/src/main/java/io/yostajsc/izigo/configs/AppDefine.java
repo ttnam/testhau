@@ -6,6 +6,7 @@ package io.yostajsc.izigo.configs;
 
 public class AppDefine {
     public static final String USER = "USER";
+    public static final String TRIP_ID = "TRIP_ID";
     public static final String GROUP_ID = "GROUP_ID";
     public static final String FIRST_TIME = "FIRST_TIME";
     public static final String AUTHORIZATION = "AUTHORIZATION";

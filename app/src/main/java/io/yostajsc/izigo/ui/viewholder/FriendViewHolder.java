@@ -18,7 +18,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.yostajsc.constants.MessageType;
 import io.yostajsc.izigo.R;
-import io.yostajsc.izigo.interfaces.ItemClick;
+import io.yostajsc.interfaces.ItemClick;
 import io.yostajsc.izigo.models.user.Friend;
 
 /**

@@ -1,4 +1,4 @@
-package io.yostajsc.izigo.interfaces;
+package io.yostajsc.interfaces;
 
 /**
  * Created by Phuc-Hau Nguyen on 2/19/2017.

@@ -67,6 +67,15 @@ public class OwnToolBar extends RelativeLayout {
         return this;
     }
 
+    public OwnToolBar setTitle(String title, boolean isOnly) {
+        if (isOnly)
+            this.tvTitle.setText(title);
+        else {
+            setTitle(title);
+        }
+        return this;
+    }
+
     public OwnToolBar setTitleColor(@NonNull @ColorRes int color) {
         tvTitle.setTextColor(getResources().getColor(color));
         return this;

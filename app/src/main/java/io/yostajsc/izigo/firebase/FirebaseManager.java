@@ -10,15 +10,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-import org.greenrobot.eventbus.EventBus;
-
-import java.util.ArrayList;
-import java.util.Iterator;
-
-import io.yostajsc.constants.MessageInfo;
-import io.yostajsc.constants.MessageType;
-import io.yostajsc.izigo.interfaces.CallBack;
-import io.yostajsc.utils.SearchTripHelper;
+import io.yostajsc.interfaces.CallBack;
 
 /**
  * Created by Phuc-Hau Nguyen on 12/1/2016.

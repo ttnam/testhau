@@ -1,18 +1,31 @@
 package io.yostajsc.izigo.managers;
 
+import io.yostajsc.interfaces.CallBackWith;
+import io.yostajsc.izigo.models.trip.Trip;
+import io.yostajsc.izigo.models.trip.Trips;
+
 /**
  * Created by Phuc-Hau Nguyen on 3/8/2017.
  */
 
-public class LocalManager implements LocalTaskQueue {
+public class LocalManager {
 
-    @Override
-    public Object readFromDisk() {
-        return null;
+
+    private static LocalManager mInstance = null;
+
+
+    public static LocalManager inject() {
+        if (mInstance == null)
+            mInstance = new LocalManager();
+        return mInstance;
     }
 
-    @Override
-    public boolean writeToDisk(Object o) {
+    public <T> void readFromDisk(final CallBackWith<T> callBack) {
+
+    }
+
+    public <T> boolean writeToDisk(T t) {
         return false;
     }
+
 }

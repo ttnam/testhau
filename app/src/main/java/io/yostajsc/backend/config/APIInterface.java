@@ -4,10 +4,10 @@ import java.util.List;
 import java.util.Map;
 
 import io.yostajsc.backend.response.BaseResponse;
+import io.yostajsc.izigo.models.trip.Trips;
 import io.yostajsc.izigo.models.user.User;
 import io.yostajsc.izigo.models.user.Friend;
 import io.yostajsc.izigo.models.base.Locations;
-import io.yostajsc.izigo.models.trip.BaseTrip;
 import io.yostajsc.izigo.models.trip.Trip;
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -41,7 +41,7 @@ public interface APIInterface {
     Call<BaseResponse<Locations>> getLocations(@Header("authen") String authorization);
 
     @GET("api/trips")
-    Call<BaseResponse<List<BaseTrip>>> getTrips(@Header("authen") String authorization);
+    Call<BaseResponse<Trips>> getTrips(@Header("authen") String authorization);
 
     @FormUrlEncoded
     @PUT("api/user")

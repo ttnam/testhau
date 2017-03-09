@@ -15,10 +15,8 @@ import io.yostajsc.izigo.base.ActivityBehavior;
 import io.yostajsc.izigo.configs.AppDefine;
 import io.yostajsc.izigo.fragments.NotificationsFragment;
 import io.yostajsc.izigo.fragments.OwnTripFragment;
-import io.yostajsc.izigo.fragments.SearchFragment;
-import io.yostajsc.izigo.fragments.SettingFragment;
 import io.yostajsc.izigo.fragments.TripFragment;
-import io.yostajsc.izigo.interfaces.CallBackParam;
+import io.yostajsc.interfaces.CallBackWith;
 import io.yostajsc.izigo.managers.RealmManager;
 import io.yostajsc.izigo.models.base.Locations;
 import io.yostajsc.utils.StorageUtils;
@@ -55,40 +53,37 @@ public class MainActivity extends ActivityBehavior {
 
         TabLayout.Tab tab = this.mTabLayout.getTabAt(0);
         if (tab != null) {
-            tab.setIcon(getResources().getDrawable(R.drawable.ic_style_tab_home));
+            tab.setIcon(getResources().getDrawable(R.drawable.ic_style_tab_trip));
         }
         if ((tab = this.mTabLayout.getTabAt(1)) != null) {
-            tab.setIcon(getResources().getDrawable(R.drawable.ic_style_tab_trip));
+            tab.setIcon(getResources().getDrawable(R.drawable.ic_style_tab_home));
         }
         if ((tab = this.mTabLayout.getTabAt(2)) != null) {
             tab.setIcon(getResources().getDrawable(R.drawable.ic_style_tab_noti));
-        }
-        if ((tab = this.mTabLayout.getTabAt(3)) != null) {
-            tab.setIcon(getResources().getDrawable(R.drawable.ic_style_tab_menu));
         }
         this.mTabLayout.setSmoothScrollingEnabled(true);
     }
 
     private void onApplyViewPager() {
         IconViewPagerAdapter adapter = new IconViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFrag(new TripFragment());
         adapter.addFrag(new OwnTripFragment());
+        adapter.addFrag(new TripFragment());
         adapter.addFrag(new NotificationsFragment());
-        adapter.addFrag(new SettingFragment());
 
         this.mViewPager.setAdapter(adapter);
+        this.mViewPager.setCurrentItem(1, true);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         String authorization = StorageUtils.inject(this).getString(AppDefine.AUTHORIZATION);
-        APIManager.connect().getLocation(authorization, new CallBackParam<Locations>() {
+        APIManager.connect().getLocation(authorization, new CallBackWith<Locations>() {
             @Override
             public void run(Locations locations) {
                 RealmManager.insertOrUpdate(locations);
             }
-        }, new CallBackParam<String>() {
+        }, new CallBackWith<String>() {
             @Override
             public void run(String error) {
                 Toast.makeText(MainActivity.this, error, Toast.LENGTH_SHORT).show();
