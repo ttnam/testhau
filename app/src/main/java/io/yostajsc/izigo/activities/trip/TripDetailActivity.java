@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -31,6 +32,7 @@ import io.yostajsc.utils.UiUtils;
 import io.yostajsc.utils.validate.ValidateUtils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.yostajsc.view.BottomSheetDialog;
 import io.yostajsc.view.CropCircleTransformation;
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 
@@ -54,8 +56,8 @@ public class TripDetailActivity extends ActivityBehavior {
     @BindView(R.id.text_creator_name)
     TextView textCreatorName;
 
-    @BindView(R.id.btn_ranking)
-    Button btnRanking;
+    @BindView(R.id.text_views)
+    TextView textViews;
 
     @BindView(R.id.image_creator_avatar)
     AppCompatImageView imageCreatorAvatar;
@@ -65,6 +67,9 @@ public class TripDetailActivity extends ActivityBehavior {
 
     @BindView(R.id.text_number_of_photo)
     TextView textNumberOfPhoto;
+
+    @BindView(R.id.text_activities)
+    TextView textNumberOfActivities;
 
     private String tripId;
 
@@ -88,19 +93,14 @@ public class TripDetailActivity extends ActivityBehavior {
     }
 
     @Override
-    @OnClick(R.id.button_left)
+    @OnClick({R.id.button_left, R.id.image_view})
     public void onBackPressed() {
         super.onBackPressed();
     }
 
     @Override
     public void onApplyViews() {
-
         this.albumAdapter = new ImageryAdapter(this);
-
-        /*BottomSheetDialogFragment bottomSheetDialogFragment = new BottomSheetDialog();
-        bottomSheetDialogFragment.show(getSupportFragmentManager(), bottomSheetDialogFragment.getTag());*/
-
         UiUtils.onApplyWebViewSetting(webView);
         UiUtils.onApplyAlbumRecyclerView(this.rvActivity, albumAdapter, new SlideInUpAnimator(), new CallBackWith<Integer>() {
             @Override
@@ -188,16 +188,30 @@ public class TripDetailActivity extends ActivityBehavior {
                 int nPhotos = trip.getAlbum().size();
                 textNumberOfPhoto.setText(getResources().getQuantityString(R.plurals.photos, nPhotos, nPhotos));
 
-                textNumberOfComments.setText(trip.getNumberOfComments());
+                int nComments = Integer.parseInt(trip.getNumberOfComments());
+                textNumberOfComments.setText(getResources().getQuantityString(R.plurals.comments, nComments, nComments));
 
-                btnRanking.setText(trip.getNumberOfView());
+                int nViews = Integer.parseInt(trip.getNumberOfView());
+                textViews.setText(getResources().getQuantityString(R.plurals.views, nViews, nViews));
+
+                int nActivities = Integer.parseInt(trip.getNumberOfActivities());
+                textNumberOfActivities.setText(getResources().getQuantityString(R.plurals.activities, nActivities, nActivities));
 
                 // Time
                 textTime.setText(String.format("%s - %s",
                         AppUtils.builder().getTime(trip.getDepartTime(), AppUtils.DD_MM_YYYY),
                         AppUtils.builder().getTime(trip.getArriveTime(), AppUtils.DD_MM_YYYY)));
+
+
             }
         }.execute(trip);
+    }
+
+
+    @OnClick(R.id.button_share)
+    public void share() {
+        BottomSheetDialogFragment bottomSheetDialogFragment = new BottomSheetDialog();
+        bottomSheetDialogFragment.show(getSupportFragmentManager(), bottomSheetDialogFragment.getTag());
     }
 
     @OnClick(R.id.layout_comment)
@@ -314,4 +328,5 @@ public class TripDetailActivity extends ActivityBehavior {
     protected void onInternetDisconnected() {
 
     }
+
 }

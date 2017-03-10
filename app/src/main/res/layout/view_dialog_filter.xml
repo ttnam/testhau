@@ -12,7 +12,7 @@
         android:background="@color/colorPrimary"
         android:gravity="center"
         android:padding="@dimen/margin_x2"
-        android:text="@string/all_filter" />
+        android:text="@string/all_search_filter" />
 
     <include layout="@layout/layout_separate_vertical" />
 

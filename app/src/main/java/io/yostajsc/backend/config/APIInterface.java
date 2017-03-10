@@ -69,4 +69,8 @@ public interface APIInterface {
     @GET("api/trips/{id}/comment")
     Call<BaseResponse<Comments>> getComments(@Header("authen") String authorization, @Path("id") String tripId);
 
+
+    @GET("api/trips/own")
+    Call<BaseResponse<Trips>> getOwnTrips(@Header("authen") String authorization);
+
 }

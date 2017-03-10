@@ -112,9 +112,37 @@ public class APIManager {
     }
 
     public void getTripsList(String authorization, final CallBack expired,
-                             final CallBackWith<List<Trip>> success, final CallBackWith<String> fail) {
+                             final CallBackWith<Trips> success, final CallBackWith<String> fail) {
 
         Call<BaseResponse<Trips>> call = service.getTrips(authorization);
+        call.enqueue(new Callback<BaseResponse<Trips>>() {
+            @Override
+            public void onResponse(Call<BaseResponse<Trips>> call, Response<BaseResponse<Trips>> response) {
+                if (response.isSuccessful()) {
+                    BaseResponse<Trips> res = response.body();
+                    if (res.isSuccessful()) {
+                        success.run(res.data());
+                    } else if (res.isExpired()) {
+                        expired.run();
+                    } else {
+                        fail.run(res.getDescription());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BaseResponse<Trips>> call, Throwable throwable) {
+                Log.e(TAG, throwable.getMessage());
+            }
+        });
+
+    }
+
+
+    public void getOwnTripsList(String authorization, final CallBack expired,
+                             final CallBackWith<Trips> success, final CallBackWith<String> fail) {
+
+        Call<BaseResponse<Trips>> call = service.getOwnTrips(authorization);
         call.enqueue(new Callback<BaseResponse<Trips>>() {
             @Override
             public void onResponse(Call<BaseResponse<Trips>> call, Response<BaseResponse<Trips>> response) {

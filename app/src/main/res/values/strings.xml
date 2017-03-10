@@ -17,6 +17,7 @@
     <string name="all_invite">Invite</string>
     <string name="all_invited">Invited</string>
     <string name="all_filter">Filter</string>
+    <string name="all_search_filter">Search Filter</string>
     <string name="all_save">Lưu</string>
     <string name="all_confirm">Xác nhận</string>
 
@@ -73,10 +74,13 @@
 
     <!--Add Trip Activity-->
     <string name="str_your_trip">Your trip</string>
-    <string name="str_trip_name">Tên chuyến đi</string>
-    <string name="str_create_trip">Tạo trip</string>
+    <string name="str_trip_name">Tên hành trình</string>
+    <string name="str_create_trip">Tạo hành trình</string>
     <string name="str_add_friends">Mời bạn bè</string>
     <string name="str_pick_friends">Choose at least 1 friend to continue</string>
     <string name="str_send_invite">Send the invitation to your friends</string>
     <string name="str_confirm">Xác nhận</string>
+    <string name="str_create_trip_des">Create new trip with your friends</string>
+    <string name="str_join">Tham gia</string>
+
 </resources>

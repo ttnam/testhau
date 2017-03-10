@@ -6,12 +6,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import java.util.List;
-
-import io.realm.RealmList;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.models.trip.Trip;
+import io.yostajsc.izigo.models.trip.Trips;
 import io.yostajsc.izigo.ui.viewholder.TripViewHolder;
 import io.yostajsc.utils.AppUtils;
 
@@ -22,11 +19,11 @@ import io.yostajsc.utils.AppUtils;
 public class TripAdapter extends RecyclerView.Adapter<TripViewHolder> {
 
     private Context mContext = null;
-    private List<Trip> mTrips = null;
+    private Trips mTrips = null;
 
     public TripAdapter(Context context) {
         this.mContext = context;
-        this.mTrips = new RealmList<>();
+        this.mTrips = new Trips();
     }
 
     @Override
@@ -55,7 +52,7 @@ public class TripAdapter extends RecyclerView.Adapter<TripViewHolder> {
         return mTrips.size();
     }
 
-    public void replaceAll(List<Trip> trips) {
+    public void replaceAll(Trips trips) {
         if (this.mTrips == null)
             return;
         clear();

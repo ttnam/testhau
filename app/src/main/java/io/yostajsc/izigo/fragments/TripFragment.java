@@ -9,15 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-
-import org.greenrobot.eventbus.Subscribe;
-
-import java.util.List;
-
-import io.realm.RealmList;
 import io.yostajsc.backend.config.APIManager;
-import io.yostajsc.constants.MessageInfo;
-import io.yostajsc.constants.MessageType;
 import io.yostajsc.interfaces.CallBack;
 import io.yostajsc.interfaces.CallBackWith;
 import io.yostajsc.izigo.R;
@@ -26,7 +18,7 @@ import io.yostajsc.izigo.activities.dialogs.DialogFilter;
 import io.yostajsc.izigo.activities.trip.TripDetailActivity;
 import io.yostajsc.izigo.adapters.TripAdapter;
 import io.yostajsc.izigo.configs.AppDefine;
-import io.yostajsc.izigo.models.trip.Trip;
+import io.yostajsc.izigo.models.trip.Trips;
 import io.yostajsc.utils.NetworkUtils;
 import io.yostajsc.utils.UiUtils;
 import io.yostajsc.view.OwnToolBar;
@@ -61,32 +53,6 @@ public class TripFragment extends Fragment {
         return rootView;
     }
 
-
-    @Override
-    public void onStart() {
-        super.onStart();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-    }
-
-    @Subscribe
-    public void onMessageEvent(MessageInfo info) {
-        int code = info.getMessage();
-        switch (code) {
-            case MessageType.INTERNET_CONNECTED:
-                onInternetConnected();
-                break;
-        }
-    }
-
     private void onApplyViews() {
 
         mOwnToolbar.setTitle(getString(R.string.all_popular))
@@ -116,7 +82,7 @@ public class TripFragment extends Fragment {
                 });
     }
 
-    private void updateUI(List<Trip> trips) {
+    private void updateUI(Trips trips) {
         tripAdapter.replaceAll(trips);
     }
 
@@ -130,9 +96,9 @@ public class TripFragment extends Fragment {
             public void run() {
                 // TODO: Expired
             }
-        }, new CallBackWith<List<Trip>>() {
+        }, new CallBackWith<Trips>() {
             @Override
-            public void run(List<Trip> trips) {
+            public void run(Trips trips) {
                 // RealmManager.insertOrUpdate(trips);
                 updateUI(trips);
             }

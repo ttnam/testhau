@@ -1,16 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <plurals name="photos">
+        <item quantity="zero">No photos</item>
+        <item quantity="one">1 photo</item>
+        <item quantity="other">%d photos</item>
+    </plurals>
+
+    <plurals name="comments">
+        <item quantity="zero">No comments</item>
+        <item quantity="one">1 comment</item>
+        <item quantity="other">%d comments</item>
+    </plurals>
+
+    <plurals name="activities">
+        <item quantity="zero">No activities</item>
+        <item quantity="one">1 activity</item>
+        <item quantity="other">%d activities</item>
+    </plurals>
+
+    <plurals name="views">
+        <item quantity="zero">No views</item>
+        <item quantity="one">1 view</item>
+        <item quantity="other">%d views</item>
+    </plurals>
 
     <plurals name="seconds">
         <item quantity="one">%d second</item>
         <item quantity="other">%d seconds</item>
     </plurals>
 
-    <plurals name="photos">
-        <item quantity="zero">No photos</item>
-        <item quantity="one">1 photo</item>
-        <item quantity="other">%d photos</item>
-    </plurals>
     <plurals name="minutes">
         <item quantity="one">%d minute</item>
         <item quantity="other">%d minutes</item>

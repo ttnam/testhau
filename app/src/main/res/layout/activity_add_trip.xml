@@ -9,7 +9,8 @@
         android:id="@id/own_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layoutBackground="@color/colorPrimary" />
+        app:layoutBackground="@color/colorPrimary"
+        app:layoutTitle="@string/str_create_trip" />
 
     <TextView
         style="@style/AppTheme.TextView_Title.Bold"
@@ -20,7 +21,7 @@
         android:maxLines="2"
         android:minLines="1"
         android:paddingTop="@dimen/margin"
-        android:text="Create new group to go with you" />
+        android:text="@string/str_create_trip_des" />
 
     <TextView
         style="@style/AppTheme.TextView_Sub_Title"

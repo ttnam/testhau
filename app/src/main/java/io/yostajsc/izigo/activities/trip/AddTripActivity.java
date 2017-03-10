@@ -48,7 +48,7 @@ public class AddTripActivity extends ActivityBehavior {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_group);
+        setContentView(R.layout.activity_add_trip);
         ButterKnife.bind(this);
         onApplyViews();
         onApplyData();
@@ -173,5 +173,15 @@ public class AddTripActivity extends ActivityBehavior {
         StorageUtils.inject(AddTripActivity.this).save(AppDefine.GROUP_ID, groupId);
         startActivity(new Intent(AddTripActivity.this, GroupDetailActivity.class));
         finish();
+    }
+
+    @Override
+    protected void onInternetDisconnected() {
+
+    }
+
+    @Override
+    protected void onInternetConnected() {
+        
     }
 }
