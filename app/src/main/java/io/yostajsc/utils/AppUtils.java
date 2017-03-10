@@ -16,7 +16,6 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.text.Html;
 import android.util.Base64;
-import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -111,13 +110,13 @@ public class AppUtils {
             return this;
         }
 
-        public String getTime(long millis, int type) {
+        public String getTime(long millis, int filter) {
             Timestamp stamp = new Timestamp(millis);
             Date date = new Date(stamp.getTime());
             SimpleDateFormat sdf = null;
-            if (type == DD_MM_YYYY)
+            if (filter == DD_MM_YYYY)
                 sdf = new SimpleDateFormat("dd/MM/yyyy");
-            if (type == H_MM)
+            if (filter == H_MM)
                 sdf = new SimpleDateFormat("h:mm a");
             sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
             return sdf.format(date);

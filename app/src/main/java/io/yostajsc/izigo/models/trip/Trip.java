@@ -39,42 +39,44 @@ public class Trip extends RealmObject implements Serializable {
 
     @SerializedName("status")
     private String mStatus;
-/*
+
     @SerializedName("description")
-    private String mDescription;*/
-/*
+    private String mDescription;
 
     @SerializedName("from")
-    private BaseUserInfo mCreater;
+    private BaseUserInfo mCreator;
 
     @SerializedName("album")
     private RealmList<BasePhotoInfo> mAlbum;
-*/
-/*
     @SerializedName("is_published")
     private String mIsPublished;
 
     @SerializedName("role")
-    private String mRole;*/
+    private String mRole;
 
+    @SerializedName("numberOfActivities")
+    private String mNumberOfActivities;
+
+    @SerializedName("numberOfComments")
+    private String mNumberOfComments;
+
+    @SerializedName("numberOfMembers")
+    private String mNumberOfMembers;
 
     public String getTripName() {
         return mName;
     }
 
     public String getCreatorName() {
-        // return mCreater.getName();
-        return "";
+        return mCreator.getName();
     }
 
     public String getCreatorAvatar() {
-        // return mCreater.getAvatar();
-        return "";
+        return mCreator.getAvatar();
     }
 
     public RealmList<BasePhotoInfo> getAlbum() {
-        // return this.mAlbum;
-        return null;
+        return this.mAlbum;
     }
 
     public String getCover() {
@@ -85,11 +87,11 @@ public class Trip extends RealmObject implements Serializable {
         return mId;
     }
 
-    private long getArriveTime() {
+    public long getArriveTime() {
         return mArrive.getTime();
     }
 
-    private long getDepartTime() {
+    public long getDepartTime() {
         return mDepart.getTime();
     }
 
@@ -98,7 +100,23 @@ public class Trip extends RealmObject implements Serializable {
     }
 
     public String getDescription() {
-        // return mDescription;
-        return "";
+        return mDescription;
+    }
+
+    public String getNumberOfActivities() {
+        return mNumberOfActivities;
+    }
+
+    public String getNumberOfComments() {
+        return mNumberOfComments;
+    }
+
+    public String getNumberOfMembers() {
+        return mNumberOfMembers;
+    }
+
+
+    public String getNumberOfView() {
+        return mNumberOfView;
     }
 }

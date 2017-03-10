@@ -53,7 +53,7 @@
                 android:layout_height="match_parent"
                 android:background="@drawable/ic_style_button_round_corners_default"
                 android:clickable="true"
-                android:visibility="visible">
+                android:visibility="gone">
 
                 <LinearLayout
                     android:layout_width="match_parent"

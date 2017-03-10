@@ -9,10 +9,10 @@ import com.google.gson.GsonBuilder;
 import java.util.List;
 import java.util.Map;
 
-import io.realm.RealmList;
 import io.yostajsc.backend.response.BaseResponse;
 import io.yostajsc.interfaces.CallBack;
 import io.yostajsc.interfaces.CallBackWith;
+import io.yostajsc.izigo.models.comment.Comments;
 import io.yostajsc.izigo.models.trip.Trip;
 import io.yostajsc.izigo.models.trip.Trips;
 import io.yostajsc.izigo.models.user.Friend;
@@ -42,7 +42,6 @@ public class APIManager {
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 
         Gson gson = new GsonBuilder()
-                //.registerTypeAdapter(Trips.class, new TripsDeserialize())
                 .setLenient()
                 .create();
 
@@ -122,7 +121,7 @@ public class APIManager {
                 if (response.isSuccessful()) {
                     BaseResponse<Trips> res = response.body();
                     if (res.isSuccessful()) {
-                        // success.run(res.data());
+                        success.run(res.data());
                     } else if (res.isExpired()) {
                         expired.run();
                     } else {
@@ -320,4 +319,32 @@ public class APIManager {
             }
         });
     }
+
+    public void getComments(String authorization, String tripId,
+                            final CallBack expired,
+                            final CallBackWith<Comments> success,
+                            final CallBackWith<String> fail) {
+        Call<BaseResponse<Comments>> call = service.getComments(authorization, tripId);
+        call.enqueue(new Callback<BaseResponse<Comments>>() {
+            @Override
+            public void onResponse(Call<BaseResponse<Comments>> call, Response<BaseResponse<Comments>> response) {
+                if (response.isSuccessful()) {
+                    BaseResponse<Comments> res = response.body();
+                    if (res.isSuccessful()) {
+                        success.run(res.data());
+                    } else if (res.isExpired()) {
+                        expired.run();
+                    } else {
+                        fail.run(res.getDescription());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BaseResponse<Comments>> call, Throwable throwable) {
+                Log.e(TAG, throwable.getMessage());
+            }
+        });
+    }
+
 }

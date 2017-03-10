@@ -10,7 +10,7 @@
     android:paddingRight="@dimen/margin_x2"
     android:paddingStart="@dimen/margin_x2">
 
-    <io.yostajsc.view.CircleImageView
+    <android.support.v7.widget.AppCompatImageView
         android:id="@id/image_view"
         android:layout_width="@dimen/icon_size_x5"
         android:layout_height="@dimen/icon_size_x5"
@@ -40,7 +40,7 @@
                 android:minLines="1" />
 
             <TextView
-                android:id="@+id/tV_time"
+                android:id="@+id/text_time"
                 style="@style/AppTheme.TextView_Sub_Title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

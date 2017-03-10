@@ -15,7 +15,7 @@ public class BaseUserInfo extends RealmObject implements Serializable {
     @SerializedName("avatar")
     private String avatar;
 
-    @SerializedName("avatar")
+    @SerializedName("fbId")
     private String fbId;
 
     @SerializedName("name")

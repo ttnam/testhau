@@ -1,6 +1,7 @@
 package io.yostajsc.izigo.activities.trip;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatImageView;
@@ -18,16 +19,19 @@ import io.yostajsc.backend.config.APIManager;
 import io.yostajsc.interfaces.CallBack;
 import io.yostajsc.interfaces.CallBackWith;
 import io.yostajsc.izigo.R;
+import io.yostajsc.izigo.activities.dialogs.DialogComment;
 import io.yostajsc.izigo.adapters.ImageryAdapter;
 import io.yostajsc.interfaces.ActivityBehavior;
 import io.yostajsc.izigo.configs.AppDefine;
 import io.yostajsc.izigo.models.trip.Trip;
+import io.yostajsc.utils.AppUtils;
 import io.yostajsc.utils.NetworkUtils;
 import io.yostajsc.utils.StorageUtils;
 import io.yostajsc.utils.UiUtils;
 import io.yostajsc.utils.validate.ValidateUtils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.yostajsc.view.CropCircleTransformation;
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 
 public class TripDetailActivity extends ActivityBehavior {
@@ -41,8 +45,8 @@ public class TripDetailActivity extends ActivityBehavior {
     @BindView(R.id.image_view)
     AppCompatImageView imageCover;
 
-    @BindView(R.id.tV_comment)
-    TextView txtComment;
+    @BindView(R.id.text_number_of_comment)
+    TextView textNumberOfComments;
 
     @BindView(R.id.text_name)
     TextView textTripName;
@@ -56,11 +60,13 @@ public class TripDetailActivity extends ActivityBehavior {
     @BindView(R.id.image_creator_avatar)
     AppCompatImageView imageCreatorAvatar;
 
-    private String tripId;
+    @BindView(R.id.text_time)
+    TextView textTime;
 
     @BindView(R.id.text_number_of_photo)
     TextView textNumberOfPhoto;
 
+    private String tripId;
 
     /*
 
@@ -133,22 +139,72 @@ public class TripDetailActivity extends ActivityBehavior {
     }
 
     private void updateUI(Trip trip) {
-        if (trip == null) return;
-        String prefix = "<html><body><p style=\"text-align: justify\">";
-        String postfix = "</p></body></html>";
-        String content = trip.getDescription();
-        if (ValidateUtils.canUse(content)) {
-            webView.loadData(prefix + content + postfix, "text/html; charset=utf-8", "utf-8");
-            webView.setVisibility(View.VISIBLE);
-        } else {
-            webView.setVisibility(View.GONE);
-        }
-        Glide.with(this).load(trip.getCover()).into(imageCover);
-        textTripName.setText(trip.getTripName());
-        textCreatorName.setText(trip.getCreatorName());
-        Glide.with(this).load(trip.getCreatorAvatar()).error(R.drawable.ic_vector_avatar).into(imageCreatorAvatar);
-        albumAdapter.replaceAll(trip.getAlbum());
-        textNumberOfPhoto.setText(trip.getAlbum().size());
+        new AsyncTask<Trip, Void, Trip>() {
+
+            @Override
+            protected Trip doInBackground(Trip... params) {
+                return params[0];
+            }
+
+            @Override
+            protected void onPostExecute(Trip trip) {
+                super.onPostExecute(trip);
+
+                if (trip == null) return;
+                String prefix = "<html><body><p style=\"text-align: justify\">";
+                String postfix = "</p></body></html>";
+                String content = trip.getDescription();
+                if (ValidateUtils.canUse(content)) {
+                    webView.loadData(prefix + content + postfix, "text/html; charset=utf-8", "utf-8");
+                    webView.setVisibility(View.VISIBLE);
+                } else {
+                    webView.setVisibility(View.GONE);
+                }
+
+                // Cover
+                Glide.with(TripDetailActivity.this)
+                        .load(trip.getCover())
+                        .into(imageCover);
+
+                String tripName = trip.getTripName();
+                if (ValidateUtils.canUse(tripName)) {
+                    textTripName.setText(tripName);
+                    textTripName.setVisibility(View.VISIBLE);
+                } else
+                    textTripName.setVisibility(View.GONE);
+
+                textCreatorName.setText(trip.getCreatorName());
+
+                // Avatar
+                Glide.with(TripDetailActivity.this)
+                        .load(trip.getCreatorAvatar())
+                        .error(R.drawable.ic_vector_avatar)
+                        .bitmapTransform(new CropCircleTransformation(TripDetailActivity.this))
+                        .into(imageCreatorAvatar);
+
+                albumAdapter.replaceAll(trip.getAlbum());
+
+                // Photos
+                int nPhotos = trip.getAlbum().size();
+                textNumberOfPhoto.setText(getResources().getQuantityString(R.plurals.photos, nPhotos, nPhotos));
+
+                textNumberOfComments.setText(trip.getNumberOfComments());
+
+                btnRanking.setText(trip.getNumberOfView());
+
+                // Time
+                textTime.setText(String.format("%s - %s",
+                        AppUtils.builder().getTime(trip.getDepartTime(), AppUtils.DD_MM_YYYY),
+                        AppUtils.builder().getTime(trip.getArriveTime(), AppUtils.DD_MM_YYYY)));
+            }
+        }.execute(trip);
+    }
+
+    @OnClick(R.id.layout_comment)
+    public void onLoadComment() {
+        DialogComment dialogComment = new DialogComment(this);
+        dialogComment.show();
+        dialogComment.setTripId(tripId);
     }
 
     /*
@@ -157,12 +213,7 @@ public class TripDetailActivity extends ActivityBehavior {
             startActivity(new Intent(this, RatingActivity.class));
         }
 
-        @OnClick(R.id.layout_comment)
-        public void onLoadComment() {
-           *//* DialogComment dialogComment = new DialogComment(this);
-        dialogComment.show();
-        dialogComment.setTripId(mCurrTrip.getTripId());*//*
-    }
+
 
     @OnClick(R.id.btn_ranking)
     public void onRequestRanking() {

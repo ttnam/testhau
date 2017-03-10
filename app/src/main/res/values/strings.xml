@@ -71,9 +71,10 @@
     <string name="str_access_sync">Access every where</string>
     <string name="message_please_connect_internet"> Connect internet to update events. </string>
 
-    <!--Add Group Activity-->
-    <string name="str_group_name">Tên nhóm</string>
-    <string name="str_create_group">Tạo group</string>
+    <!--Add Trip Activity-->
+    <string name="str_your_trip">Your trip</string>
+    <string name="str_trip_name">Tên chuyến đi</string>
+    <string name="str_create_trip">Tạo trip</string>
     <string name="str_add_friends">Mời bạn bè</string>
     <string name="str_pick_friends">Choose at least 1 friend to continue</string>
     <string name="str_send_invite">Send the invitation to your friends</string>

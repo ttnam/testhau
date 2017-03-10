@@ -3,67 +3,46 @@ package io.yostajsc.izigo.models.comment;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
-import java.util.Calendar;
+
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
+import io.yostajsc.izigo.models.user.BaseUserInfo;
 
 /**
  * Created by Phuc-Hau Nguyen on 8/25/2016.
  */
-public class Comment implements Serializable {
+public class Comment extends RealmObject implements Serializable {
 
-    @SerializedName(value = "comment_id")
-    private String mCommentId = null;
 
-    @SerializedName(value = "created_time")
-    private String mTime = null;
+    @PrimaryKey
+    @SerializedName("createdTime")
+    private String mId;
 
-    @SerializedName(value = "message")
-    private String mMessage = null;
+    @SerializedName("content")
+    private String mContent;
 
-    @SerializedName(value = "from")
-    private String mUserId = null;
+    @SerializedName("from")
+    private BaseUserInfo mCreator;
 
-    @SerializedName(value = "user_name")
-    private String mUserName = null;
 
-    @SerializedName(value = "place")
-    private String mPlaceId = null;
-
-    public Comment() {
-        this.mCommentId = null;
-        this.mTime = null;
-        this.mUserId = null;
-        this.mPlaceId = null;
+    public long getCreatedTime() {
+        return Long.parseLong(mId);
     }
 
-    public Comment(String mMessage) {
-        this.mMessage = mMessage;
+    public String getCreatorName() {
+        if (mCreator == null)
+            return "";
+        return mCreator.getName();
     }
 
-
-    public String getMessage() {
-        return mMessage;
+    public String getCreatorAvatar() {
+        if (mCreator == null)
+            return "";
+        return mCreator.getAvatar();
     }
 
-    public void setMessage(String mMessage) {
-        this.mMessage = mMessage;
+    public String getContent() {
+        return mContent;
     }
 
-    public String getCreatedTime() {
-        mTime = Calendar.getInstance().getTime().toString();
-        return mTime;
-    }
-
-    public String getUserName() {
-        return mUserName;
-    }
-
-
-    public void setCreatedTime(String mTime) {
-        this.mTime = mTime;
-    }
-
-    @Override
-    public String toString() {
-        return this.mMessage;
-    }
 }

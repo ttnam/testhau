@@ -28,7 +28,7 @@
             android:id="@id/text_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="@string/str_group_name"
+            android:hint="@string/str_trip_name"
             android:inputType="text"
             android:maxLines="1"
             android:minLines="1" />

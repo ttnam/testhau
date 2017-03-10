@@ -38,9 +38,10 @@ public class TripAdapter extends RecyclerView.Adapter<TripViewHolder> {
     @Override
     public void onBindViewHolder(TripViewHolder holder, int position) {
         Trip baseTrip = mTrips.get(position);
-        holder.onBind(
+        holder.bind(
                 baseTrip.getCover(),
                 baseTrip.getTripName(),
+                baseTrip.getNumberOfView(),
                 AppUtils.builder(mContext).getTimeGap(
                         baseTrip.getDuration()
                 )

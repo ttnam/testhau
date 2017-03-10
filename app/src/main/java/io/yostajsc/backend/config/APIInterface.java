@@ -3,8 +3,8 @@ package io.yostajsc.backend.config;
 import java.util.List;
 import java.util.Map;
 
-import io.realm.RealmList;
 import io.yostajsc.backend.response.BaseResponse;
+import io.yostajsc.izigo.models.comment.Comments;
 import io.yostajsc.izigo.models.trip.Trips;
 import io.yostajsc.izigo.models.user.User;
 import io.yostajsc.izigo.models.user.Friend;
@@ -65,4 +65,8 @@ public interface APIInterface {
 
     @GET("api/group/{id}")
     Call<BaseResponse<String>> getGroupDetail(@Header("authen") String authorization, @Path("id") String id);
+
+    @GET("api/trips/{id}/comment")
+    Call<BaseResponse<Comments>> getComments(@Header("authen") String authorization, @Path("id") String tripId);
+
 }

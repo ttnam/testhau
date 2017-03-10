@@ -1,6 +1,5 @@
 package io.yostajsc.izigo.ui.viewholder;
 
-import android.app.Activity;
 import android.content.Context;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.RecyclerView;
@@ -13,7 +12,6 @@ import com.bumptech.glide.Glide;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.yostajsc.izigo.R;
-import io.yostajsc.utils.AppUtils;
 import io.yostajsc.utils.DimensionUtil;
 
 /**
@@ -28,6 +26,9 @@ public class TripViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.tv_created_time)
     TextView mTextDuration;
 
+    @BindView(R.id.text_views)
+    TextView textViews;
+
     @BindView(R.id.image_view)
     AppCompatImageView mImageView;
 
@@ -41,9 +42,10 @@ public class TripViewHolder extends RecyclerView.ViewHolder {
         ButterKnife.bind(this, itemView);
     }
 
-    public void onBind(String cover, String name, String arrive) {
+    public void bind(String cover, String name, String views, String duration) {
         Glide.with(mContext).load(cover).into(this.mImageView);
         this.mTextTitle.setText(name);
-        this.mTextDuration.setText(arrive);
+        this.mTextDuration.setText(duration);
+        this.textViews.setText(views);
     }
 }

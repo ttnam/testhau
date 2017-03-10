@@ -31,7 +31,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 
-public class AddGroupActivity extends ActivityBehavior {
+public class AddTripActivity extends ActivityBehavior {
 
     @BindView(R.id.recycler_view)
     RecyclerView rvFriends;
@@ -56,7 +56,7 @@ public class AddGroupActivity extends ActivityBehavior {
 
     @Override
     public void onApplyViews() {
-        mOwnToolbar.setTitle(getString(R.string.str_create_group)).setLeft(R.drawable.ic_vector_back_white, new View.OnClickListener() {
+        mOwnToolbar.setLeft(R.drawable.ic_vector_back_white, new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onBackPressed();
@@ -72,7 +72,7 @@ public class AddGroupActivity extends ActivityBehavior {
 
         AccessToken token = AccessToken.getCurrentAccessToken();
         if (token != null) {
-            String authorization = StorageUtils.inject(AddGroupActivity.this).getString(AppDefine.AUTHORIZATION);
+            String authorization = StorageUtils.inject(AddTripActivity.this).getString(AppDefine.AUTHORIZATION);
             String fbToken = token.getToken();
             APIManager.connect().getFriendsList(authorization, fbToken, new CallBackWith<List<Friend>>() {
                 @Override
@@ -82,7 +82,7 @@ public class AddGroupActivity extends ActivityBehavior {
             }, new CallBackWith<String>() {
                 @Override
                 public void run(String error) {
-                    Toast.makeText(AddGroupActivity.this, error, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddTripActivity.this, error, Toast.LENGTH_SHORT).show();
                 }
             }, new CallBack() {
                 @Override
@@ -164,14 +164,14 @@ public class AddGroupActivity extends ActivityBehavior {
         }, new CallBackWith<String>() {
             @Override
             public void run(String error) {
-                Toast.makeText(AddGroupActivity.this, error, Toast.LENGTH_SHORT).show();
+                Toast.makeText(AddTripActivity.this, error, Toast.LENGTH_SHORT).show();
             }
         });*/
     }
 
     private void onSuccess(String groupId) {
-        StorageUtils.inject(AddGroupActivity.this).save(AppDefine.GROUP_ID, groupId);
-        startActivity(new Intent(AddGroupActivity.this, GroupDetailActivity.class));
+        StorageUtils.inject(AddTripActivity.this).save(AppDefine.GROUP_ID, groupId);
+        startActivity(new Intent(AddTripActivity.this, GroupDetailActivity.class));
         finish();
     }
 }

@@ -3,20 +3,21 @@ package io.yostajsc.izigo.fragments;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import io.yostajsc.designs.decorations.SpacesItemDecoration;
 import io.yostajsc.designs.listeners.RecyclerItemClickListener;
 import io.yostajsc.izigo.R;
-import io.yostajsc.izigo.activities.trip.AddGroupActivity;
+import io.yostajsc.izigo.activities.trip.AddTripActivity;
 import io.yostajsc.izigo.activities.trip.GroupDetailActivity;
 import io.yostajsc.izigo.adapters.GroupAdapter;
 import io.yostajsc.view.OwnToolBar;
@@ -24,14 +25,14 @@ import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator;
 
 public class OwnTripFragment extends Fragment {
 
-    @BindView(R.id.layout)
+    @BindView(R.id.own_toolbar)
     OwnToolBar mOwnToolbar;
-
-    @BindView(R.id.tabs)
-    TabLayout mTabLayout;
 
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
+
+    @BindView(R.id.layout_empty)
+    LinearLayout layoutEmpty;
 
     private Context mContext = null;
     private GroupAdapter groupAdapter = null;
@@ -51,10 +52,9 @@ public class OwnTripFragment extends Fragment {
         mOwnToolbar.setRight(R.drawable.ic_vector_add_group, new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getActivity(), AddGroupActivity.class));
+                addGroup();
             }
         });
-        onApplyTabLayout();
 
         onApplyRecyclerView();
         onApplyData();
@@ -85,43 +85,8 @@ public class OwnTripFragment extends Fragment {
         }));
     }
 
-    private void onApplyTabLayout() {
-        this.mTabLayout.setSmoothScrollingEnabled(true);
-        this.mTabLayout.addTab(this.mTabLayout.newTab().setText(getString(R.string.all_your)));
-        this.mTabLayout.addTab(this.mTabLayout.newTab().setText(getString(R.string.all_friends)));
-        this.mTabLayout.addTab(this.mTabLayout.newTab().setText(getString(R.string.all_suggestions)));
-
-        this.mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                int pos = tab.getPosition();
-                // groupAdapter.clear();
-                int k = 10;
-                switch (pos) {
-                    case 0:
-                        k = 13;
-                        break;
-                    case 1:
-                        k = 20;
-                        break;
-                    case 2:
-                        k = 30;
-                        break;
-                }
-                for (int i = 0; i < k; i++) {
-                    // groupAdapter.add(new FirebaseGroup());
-                }
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
+    @OnClick(R.id.button)
+    public void addGroup() {
+        startActivity(new Intent(getActivity(), AddTripActivity.class));
     }
 }

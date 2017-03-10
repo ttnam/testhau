@@ -12,6 +12,7 @@
     <item name="progress_bar" type="id" />
 
     <item name="layout" type="id" />
+    <item name="layout_empty" type="id" />
     <item name="layout_rating" type="id" />
 
     <item name="own_toolbar" type="id" />

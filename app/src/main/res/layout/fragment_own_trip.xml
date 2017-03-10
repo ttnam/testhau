@@ -6,27 +6,21 @@
     android:orientation="vertical">
 
     <io.yostajsc.view.OwnToolBar
-        android:id="@id/layout"
+        android:id="@id/own_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
         app:layoutBackground="@color/colorPrimary"
-        app:layoutTitle="@string/all_your_trip"
+        app:layoutTitle="@string/str_your_trip"
         app:layoutType="title_left" />
 
-    <include layout="@layout/layout_separate_vertical" />
-
-    <android.support.design.widget.TabLayout
-        android:id="@id/tabs"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="?actionBarSize"
-        android:layout_gravity="bottom|center"
-        android:layout_marginBottom="@dimen/margin"
-        android:background="@android:color/white"
-        app:tabGravity="fill"
-        app:tabIndicatorColor="@color/colorAccentDark"
-        app:tabMode="scrollable"
-        app:tabSelectedTextColor="@color/colorAccentDark" />
+        android:layout_height="match_parent">
 
-    <include layout="@layout/layout_recycler_view" />
+        <include layout="@layout/layout_recycler_view" />
+
+        <include layout="@layout/layout_empty" />
+
+    </FrameLayout>
 
 </LinearLayout>
