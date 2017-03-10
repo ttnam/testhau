@@ -42,7 +42,7 @@ public class DialogFilter extends Dialog {
 
 
     @TransferType
-    private int mTransfer = TransferType.WALK;
+    private int mTransfer = TransferType.MOTORBIKE;
 
     private Activity mOwnerActivity = null;
     private List<String> mDuringTimes = null, mSortBy = null, mVehicles = null;
@@ -127,14 +127,14 @@ public class DialogFilter extends Dialog {
 
     @OnClick(R.id.button_bicycle)
     public void onBicycleClick() {
-        mTransfer = TransferType.BICYCLE;
+        mTransfer = TransferType.MOTORBIKE;
         updateTransferState();
     }
 
     private void updateTransferState() {
         switch (mTransfer) {
-            case TransferType.BICYCLE:
-                buttonBicycle.setImageResource(R.drawable.ic_vector_motobike);
+            case TransferType.MOTORBIKE:
+                buttonBicycle.setImageResource(R.drawable.ic_vector_motor_bike);
                 buttonPeople.setImageResource(R.drawable.ic_vector_walk_dark);
                 buttonBus.setImageResource(R.drawable.ic_vector_bus_dark);
                 break;

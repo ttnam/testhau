@@ -14,8 +14,6 @@
         android:padding="@dimen/margin_x2"
         android:text="@string/all_search_filter" />
 
-    <include layout="@layout/layout_separate_vertical" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
@@ -74,51 +72,7 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="?actionBarSize"
-        android:orientation="horizontal"
-        android:padding="@dimen/margin"
-        android:weightSum="5">
-
-        <TextView
-            style="@style/AppTheme.TextView_Title"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_weight="2"
-            android:gravity="center|start"
-            android:padding="@dimen/margin"
-            android:text="Phương tiện" />
-
-        <android.support.v7.widget.AppCompatImageView
-            android:id="@+id/button_people"
-            style="@style/AppTheme.IconClick"
-            android:layout_width="@dimen/icon_size_x4"
-            android:layout_height="@dimen/icon_size_x4"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/ic_vector_walk" />
-
-        <android.support.v7.widget.AppCompatImageView
-            android:id="@+id/button_bicycle"
-            style="@style/AppTheme.IconClick"
-            android:layout_width="@dimen/icon_size_x4"
-            android:layout_height="@dimen/icon_size_x4"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/ic_vector_motobike" />
-
-        <android.support.v7.widget.AppCompatImageView
-            android:id="@+id/button_bus"
-            style="@style/AppTheme.IconClick"
-            android:layout_width="@dimen/icon_size_x4"
-            android:layout_height="@dimen/icon_size_x4"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/ic_vector_bus" />
-
-    </LinearLayout>
+    <include layout="@layout/layout_transfer"/>
 
     <LinearLayout
         android:layout_width="match_parent"

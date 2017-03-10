@@ -3,6 +3,7 @@ package io.yostajsc.izigo.managers;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.widget.CompoundButton;
 
 import com.facebook.AccessToken;
 import com.facebook.FacebookCallback;
@@ -70,6 +71,15 @@ public class EventManager {
             @Override
             public void onError(FacebookException error) {
                 Log.e(TAG, error.getMessage());
+            }
+        };
+    }
+
+    public CompoundButton.OnCheckedChangeListener addCheckedChangeListener(final CallBackWith<Boolean> callBack) {
+        return new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                callBack.run(isChecked);
             }
         };
     }

@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import io.yostajsc.backend.core.APIManager;
 import io.yostajsc.interfaces.ActivityBehavior;
 import io.yostajsc.interfaces.CallBack;
@@ -95,11 +96,14 @@ public class TripTimelineActivity extends ActivityBehavior {
 
     private void updateUI(Timelines timelines) {
         if (timelines != null && timelines.size() > 0) {
-            layoutEmpty.setVisibility(View.GONE);
+            this.layoutEmpty.setVisibility(View.GONE);
+            this.rvTimeline.setVisibility(View.VISIBLE);
             this.adapter.replaceAll(timelines);
         } else {
-            layoutEmpty.setVisibility(View.VISIBLE);
-            button.setText(getString(R.string.str_create_new_ac));
+            this.adapter.clear();
+            this.layoutEmpty.setVisibility(View.VISIBLE);
+            this.rvTimeline.setVisibility(View.INVISIBLE);
+            this.button.setText(getString(R.string.str_create_new_ac));
         }
     }
 
@@ -140,6 +144,11 @@ public class TripTimelineActivity extends ActivityBehavior {
 
     @Override
     protected void onInternetDisconnected() {
+
+    }
+
+    @OnClick(R.id.button)
+    public void addNewActivity() {
 
     }
 }

@@ -5,12 +5,48 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <io.yostajsc.view.OwnToolBar
-        android:id="@id/own_toolbar"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layoutBackground="@color/colorPrimary"
-        app:layoutTitle="@string/str_create_trip" />
+        android:background="@android:color/white"
+        android:orientation="horizontal">
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@id/button"
+            style="@style/AppTheme.IconClick"
+            android:layout_width="?actionBarSize"
+            android:layout_height="?actionBarSize"
+            android:layout_gravity="center"
+            android:padding="@dimen/margin_x2"
+            app:srcCompat="@drawable/ic_vector_back_blue" />
+
+        <TextView
+            style="@style/AppTheme.TextView_Title.Bold"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:gravity="center|start"
+            android:maxLines="1"
+            android:minLines="1"
+            android:text="@string/str_create_trip" />
+
+        <Switch
+            android:id="@+id/switch_publish"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginEnd="@dimen/margin_x2"
+            android:layout_marginRight="@dimen/margin_x2"
+            android:checked="true"
+            android:clickable="true"
+            android:enabled="true"
+            android:gravity="center" />
+
+    </LinearLayout>
+
+    <include layout="@layout/layout_separate_vertical" />
 
     <TextView
         style="@style/AppTheme.TextView_Title.Bold"
@@ -34,12 +70,10 @@
         android:paddingBottom="@dimen/margin"
         android:text="@string/str_pick_friends" />
 
-    <include layout="@layout/layout_separate_vertical" />
-
-
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="@dimen/margin"
         android:layout_weight="1">
 
         <LinearLayout
@@ -49,8 +83,6 @@
 
             <include layout="@layout/layout_group_header" />
 
-            <include layout="@layout/layout_separate_vertical" />
-
             <TextView
                 style="@style/AppTheme.TextView_Sub_Title.Bold"
                 android:layout_width="match_parent"
@@ -58,53 +90,40 @@
                 android:background="@android:color/white"
                 android:maxLines="2"
                 android:minLines="1"
-                android:padding="@dimen/margin_x2"
+                android:paddingLeft="@dimen/margin_x2"
+                android:paddingRight="@dimen/margin_x2"
+                android:paddingTop="@dimen/margin_x2"
                 android:text="Friends on Phượt Ngay social" />
 
-            <LinearLayout
+            <include layout="@layout/layout_recycler_view" />
+
+            <TextView
+                style="@style/AppTheme.TextView_Sub_Title.Bold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:gravity="center"
+                android:maxLines="2"
+                android:minLines="1"
+                android:padding="@dimen/margin"
+                android:text="Don't see who you're looking for?" />
 
-                <include layout="@layout/layout_recycler_view" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@android:color/white"
-                    android:orientation="vertical"
-                    android:padding="@dimen/margin">
-
-                    <TextView
-                        style="@style/AppTheme.TextView_Sub_Title.Bold"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:maxLines="2"
-                        android:minLines="1"
-                        android:padding="@dimen/margin"
-                        android:text="Don't see who you're looking for?" />
-
-                    <Button
-                        android:id="@+id/button_add_friend"
-                        style="@style/AppTheme.TextView_Sub_Title.Bold"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_margin="@dimen/margin"
-                        android:background="@drawable/ic_style_button_round_corners_theme"
-                        android:text="@string/str_add_friends"
-                        android:textAllCaps="true"
-                        android:textColor="@android:color/white" />
-
-                </LinearLayout>
-            </LinearLayout>
+            <Button
+                android:id="@+id/button_add_friend"
+                style="@style/AppTheme.TextView_Sub_Title.Bold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/margin"
+                android:background="@drawable/ic_style_button_round_corners_theme"
+                android:text="@string/str_add_friends"
+                android:textAllCaps="true"
+                android:textColor="@android:color/white" />
 
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 
     <Button
-        android:id="@id/button"
+        android:id="@+id/button_confirm"
         style="@style/AppTheme.TextView_Title.Bold.White"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

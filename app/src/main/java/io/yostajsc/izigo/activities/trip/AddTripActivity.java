@@ -3,10 +3,11 @@ package io.yostajsc.izigo.activities.trip;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.TextInputEditText;
+import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.View;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import com.facebook.AccessToken;
@@ -15,7 +16,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.yostajsc.constants.MessageType;
+import io.yostajsc.constants.TransferType;
 import io.yostajsc.izigo.R;
+import io.yostajsc.izigo.activities.dialogs.DialogPickTransfer;
 import io.yostajsc.izigo.adapters.FriendAdapter;
 import io.yostajsc.backend.core.APIManager;
 import io.yostajsc.interfaces.ActivityBehavior;
@@ -23,8 +26,9 @@ import io.yostajsc.izigo.configs.AppDefine;
 import io.yostajsc.interfaces.CallBack;
 import io.yostajsc.interfaces.CallBackWith;
 import io.yostajsc.interfaces.ItemClick;
+import io.yostajsc.izigo.managers.EventManager;
 import io.yostajsc.izigo.models.user.Friend;
-import io.yostajsc.view.OwnToolBar;
+import io.yostajsc.utils.validate.ValidateUtils;
 import io.yostajsc.utils.StorageUtils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -36,11 +40,14 @@ public class AddTripActivity extends ActivityBehavior {
     @BindView(R.id.recycler_view)
     RecyclerView rvFriends;
 
-    @BindView(R.id.own_toolbar)
-    OwnToolBar mOwnToolbar;
+    @BindView(R.id.text_view_trip_name)
+    TextInputEditText textGroupName;
 
-/*    @BindView(R.id.text_view)
-    TextInputEditText textGroupName;*/
+    @BindView(R.id.switch_publish)
+    Switch switchPublish;
+
+    @BindView(R.id.image_view)
+    AppCompatImageView imageView;
 
     private FriendAdapter adapter = null;
     private List<String> invites = null;
@@ -56,13 +63,17 @@ public class AddTripActivity extends ActivityBehavior {
 
     @Override
     public void onApplyViews() {
-        mOwnToolbar.setLeft(R.drawable.ic_vector_back_white, new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
         onApplyRecyclerViewFriends();
+
+        switchPublish.setOnCheckedChangeListener(EventManager.connect().addCheckedChangeListener(new CallBackWith<Boolean>() {
+            @Override
+            public void run(Boolean aBoolean) {
+                if (aBoolean)
+                    Toast.makeText(AddTripActivity.this, "Bạn đã bật chế độ công khai", Toast.LENGTH_SHORT).show();
+                else
+                    Toast.makeText(AddTripActivity.this, "Bạn đã tắt chế độ công khai", Toast.LENGTH_SHORT).show();
+            }
+        }));
     }
 
     @Override
@@ -104,9 +115,6 @@ public class AddTripActivity extends ActivityBehavior {
                 if (type == MessageType.ITEM_CLICK_INVITED) {
                     invites.add(adapter.getItem(position).getFbId());
                 }
-                for (int i = 0; i < invites.size(); i++) {
-                    Log.e("Invites", invites.get(i));
-                }
             }
         });
         this.rvFriends.setAdapter(adapter);
@@ -117,6 +125,30 @@ public class AddTripActivity extends ActivityBehavior {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         this.rvFriends.setNestedScrollingEnabled(false);
         this.rvFriends.setLayoutManager(layoutManager);
+    }
+
+
+    @OnClick(R.id.image_view)
+    public void pickTransfer() {
+        DialogPickTransfer dialogPickTransfer = new DialogPickTransfer(this);
+        dialogPickTransfer.setDialogResult(new CallBackWith<Integer>() {
+            @Override
+            public void run(@TransferType Integer integer) {
+
+                switch (integer) {
+                    case TransferType.BUS:
+                        imageView.setImageResource(R.drawable.ic_vector_bus);
+                        break;
+                    case TransferType.MOTORBIKE:
+                        imageView.setImageResource(R.drawable.ic_vector_motor_bike);
+                        break;
+                    case TransferType.WALK:
+                        imageView.setImageResource(R.drawable.ic_vector_walk);
+                        break;
+                }
+            }
+        });
+        dialogPickTransfer.show();
     }
 
     @OnClick(R.id.button_add_friend)
@@ -138,20 +170,27 @@ public class AddTripActivity extends ActivityBehavior {
         return members.substring(0, members.length() - 1);
     }
 
+
     @OnClick(R.id.button)
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
+
+    @OnClick(R.id.button_confirm)
     public void onConfirm() {
-       /* String groupName = textGroupName.getText().toString();
+        String groupName = textGroupName.getText().toString();
         if (!ValidateUtils.canUse(groupName)) {
             textGroupName.setError(getString(R.string.error_message_empty));
             return;
-        }*/
+        }
         if (invites.size() < 1) {
             Toast.makeText(this, getString(R.string.str_pick_friends), Toast.LENGTH_SHORT).show();
             return;
         }
         String member = makeMembers();
         String authorization = StorageUtils.inject(this).getString(AppDefine.AUTHORIZATION);
-      /*  APIManager.connect().createGroup(authorization, groupName, "avatar", "info", member, new CallBack() {
+        APIManager.connect().createGroup(authorization, groupName, "avatar", "info", member, new CallBack() {
             @Override
             public void run() {
                 onExpired();
@@ -166,7 +205,7 @@ public class AddTripActivity extends ActivityBehavior {
             public void run(String error) {
                 Toast.makeText(AddTripActivity.this, error, Toast.LENGTH_SHORT).show();
             }
-        });*/
+        });
     }
 
     private void onSuccess(String groupId) {
@@ -182,6 +221,7 @@ public class AddTripActivity extends ActivityBehavior {
 
     @Override
     protected void onInternetConnected() {
-        
+
     }
+
 }
