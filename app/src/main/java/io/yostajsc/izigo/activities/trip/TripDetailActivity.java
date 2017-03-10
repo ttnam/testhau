@@ -9,7 +9,6 @@ import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.webkit.WebView;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +23,7 @@ import io.yostajsc.izigo.activities.dialogs.DialogComment;
 import io.yostajsc.izigo.adapters.ImageryAdapter;
 import io.yostajsc.interfaces.ActivityBehavior;
 import io.yostajsc.izigo.configs.AppDefine;
+import io.yostajsc.izigo.managers.RealmManager;
 import io.yostajsc.izigo.models.trip.Trip;
 import io.yostajsc.utils.AppUtils;
 import io.yostajsc.utils.NetworkUtils;
@@ -73,13 +73,6 @@ public class TripDetailActivity extends ActivityBehavior {
 
     private String tripId;
 
-    /*
-
-        private FirebaseManager mFirebaseUtils = null;
-
-    */
-    /*private FirebaseActivityAdapter mActivityAdapter = null;*/
-
     private ImageryAdapter albumAdapter = null;
 
     @Override
@@ -87,7 +80,6 @@ public class TripDetailActivity extends ActivityBehavior {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trip_detail);
         ButterKnife.bind(this);
-        // this.mFirebaseUtils = FirebaseManager.inject(this);
         onApplyViews();
         onApplyData();
     }
@@ -116,26 +108,17 @@ public class TripDetailActivity extends ActivityBehavior {
         tripId = intent.getStringExtra(AppDefine.TRIP_ID);
         if (ValidateUtils.canUse(tripId)) {
             // Read from disk
-        /*    RealmManager.findTripById(tripId, new CallBackWith<Trip>() {
+            RealmManager.findTripById(tripId, new CallBackWith<Trip>() {
                 @Override
                 public void run(Trip trip) {
                     updateUI(trip);
                 }
-            });*/
+            });
 
             if (NetworkUtils.isNetworkConnected(this)) {
                 onInternetConnected();
             }
         }
-/*
-
-        onUpdateData(mCurrTrip);
-        String tripId = mCurrTrip.getTripId();
-        // this.activityAdapter = new FirebaseActivityAdapter(FirebaseManager.inject(this).ACTIVITYRef(tripId));
-
-        onCommentListener(tripId);
-        onRankingListener(tripId);*/
-
     }
 
     private void updateUI(Trip trip) {
@@ -188,14 +171,14 @@ public class TripDetailActivity extends ActivityBehavior {
                 int nPhotos = trip.getAlbum().size();
                 textNumberOfPhoto.setText(getResources().getQuantityString(R.plurals.photos, nPhotos, nPhotos));
 
-                int nComments = Integer.parseInt(trip.getNumberOfComments());
-                textNumberOfComments.setText(getResources().getQuantityString(R.plurals.comments, nComments, nComments));
+                textNumberOfComments.setText(getResources().getQuantityString(R.plurals.comments,
+                        trip.getNumberOfComments(), trip.getNumberOfComments()));
 
-                int nViews = Integer.parseInt(trip.getNumberOfView());
-                textViews.setText(getResources().getQuantityString(R.plurals.views, nViews, nViews));
+                textViews.setText(getResources().getQuantityString(R.plurals.views,
+                        trip.getNumberOfView(), trip.getNumberOfView()));
 
-                int nActivities = Integer.parseInt(trip.getNumberOfActivities());
-                textNumberOfActivities.setText(getResources().getQuantityString(R.plurals.activities, nActivities, nActivities));
+                textNumberOfActivities.setText(getResources().getQuantityString(R.plurals.activities,
+                        trip.getNumberOfActivities(), trip.getNumberOfActivities()));
 
                 // Time
                 textTime.setText(String.format("%s - %s",
@@ -305,7 +288,7 @@ public class TripDetailActivity extends ActivityBehavior {
             APIManager.connect().getTripDetail(authorization, tripId, new CallBackWith<Trip>() {
                 @Override
                 public void run(Trip trip) {
-                    // RealmManager.insertOrUpdate(trip);
+                    RealmManager.insertOrUpdate(trip);
                     updateUI(trip);
                 }
             }, new CallBack() {

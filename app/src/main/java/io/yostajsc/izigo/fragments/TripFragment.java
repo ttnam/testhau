@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
 import io.yostajsc.backend.config.APIManager;
 import io.yostajsc.interfaces.CallBack;
 import io.yostajsc.interfaces.CallBackWith;
@@ -18,6 +19,7 @@ import io.yostajsc.izigo.activities.dialogs.DialogFilter;
 import io.yostajsc.izigo.activities.trip.TripDetailActivity;
 import io.yostajsc.izigo.adapters.TripAdapter;
 import io.yostajsc.izigo.configs.AppDefine;
+import io.yostajsc.izigo.managers.RealmManager;
 import io.yostajsc.izigo.models.trip.Trips;
 import io.yostajsc.utils.NetworkUtils;
 import io.yostajsc.utils.UiUtils;
@@ -98,8 +100,8 @@ public class TripFragment extends Fragment {
             }
         }, new CallBackWith<Trips>() {
             @Override
-            public void run(Trips trips) {
-                // RealmManager.insertOrUpdate(trips);
+            public void run(final Trips trips) {
+                RealmManager.insertOrUpdate(trips);
                 updateUI(trips);
             }
         }, new CallBackWith<String>() {
@@ -113,15 +115,20 @@ public class TripFragment extends Fragment {
     private void onApplyData() {
 
         // Read from disk
-      /*  RealmManager.findTrips(new CallBackWith<Trips>() {
-            @Override
-            public void run(Trips trips) {
-                updateUI(trips); // Update UI
-            }
-        });
-*/
+        loadFromDisk();
+
         if (NetworkUtils.isNetworkConnected(mContext)) {
             onInternetConnected();
         }
+    }
+
+    private void loadFromDisk() {
+        RealmManager.findTrips(new CallBackWith<Trips>() {
+            @Override
+            public void run(Trips trips) {
+                // Update UI
+                updateUI(trips);
+            }
+        });
     }
 }

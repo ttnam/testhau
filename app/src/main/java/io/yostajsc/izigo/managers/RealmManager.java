@@ -1,10 +1,10 @@
 package io.yostajsc.izigo.managers;
 
 import io.realm.Realm;
-import io.realm.RealmObject;
 import io.realm.RealmResults;
 import io.yostajsc.interfaces.CallBackWith;
 import io.yostajsc.izigo.models.trip.Trip;
+import io.yostajsc.izigo.models.trip.Trips;
 
 /**
  * Created by Phuc-Hau Nguyen on 2/20/2017.
@@ -12,23 +12,25 @@ import io.yostajsc.izigo.models.trip.Trip;
 
 public class RealmManager {
 
-    public static void insertOrUpdate(final RealmObject object) {
+    public static void insertOrUpdate(final Trip trip) {
         Realm realm = null;
         try {
             realm = Realm.getDefaultInstance();
             realm.executeTransaction(new Realm.Transaction() {
                 @Override
                 public void execute(Realm realm) {
-                    realm.insertOrUpdate(object);
+                    realm.insertOrUpdate(trip);
                 }
             });
+        } catch (Exception e) {
+            e.printStackTrace();
         } finally {
             if (realm != null) {
                 realm.close();
             }
         }
     }
-/*
+
     public static void insertOrUpdate(final Trips trips) {
         Realm realm = null;
         try {
@@ -39,13 +41,15 @@ public class RealmManager {
                     realm.insertOrUpdate(trips);
                 }
             });
+        } catch (Exception e) {
+            e.printStackTrace();
         } finally {
             if (realm != null) {
                 realm.close();
             }
         }
-    }*/
-/*
+    }
+
     public static void findTrips(final CallBackWith<Trips> callBack) {
 
         Realm realm = null;
@@ -69,7 +73,7 @@ public class RealmManager {
                 realm.close();
             }
         }
-    }*/
+    }
 
     public static void findTripById(final String tripId, final CallBackWith<Trip> callBack) {
 

@@ -42,10 +42,10 @@ public class TripViewHolder extends RecyclerView.ViewHolder {
         ButterKnife.bind(this, itemView);
     }
 
-    public void bind(String cover, String name, String views, String duration) {
+    public void bind(String cover, String name, int views, String duration) {
         Glide.with(mContext).load(cover).into(this.mImageView);
         this.mTextTitle.setText(name);
         this.mTextDuration.setText(duration);
-        this.textViews.setText(views);
+        this.textViews.setText(String.valueOf(views));
     }
 }

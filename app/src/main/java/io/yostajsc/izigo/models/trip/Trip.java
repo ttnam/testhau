@@ -68,10 +68,14 @@ public class Trip extends RealmObject implements Serializable {
     }
 
     public String getCreatorName() {
+        if (mCreator == null)
+            return "";
         return mCreator.getName();
     }
 
     public String getCreatorAvatar() {
+        if (mCreator == null)
+            return "";
         return mCreator.getAvatar();
     }
 
@@ -100,23 +104,49 @@ public class Trip extends RealmObject implements Serializable {
     }
 
     public String getDescription() {
+        if (mDescription == null)
+            return "";
         return mDescription;
     }
 
-    public String getNumberOfActivities() {
-        return mNumberOfActivities;
+    public int getNumberOfActivities() {
+        int n = 0;
+        try {
+            n = Integer.parseInt(mNumberOfActivities);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return n;
     }
 
-    public String getNumberOfComments() {
-        return mNumberOfComments;
+    public int getNumberOfComments() {
+        int n = 0;
+        try {
+            n = Integer.parseInt(mNumberOfComments);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return n;
     }
 
-    public String getNumberOfMembers() {
-        return mNumberOfMembers;
+    public int getNumberOfMembers() {
+        int n = 0;
+        try {
+            n = Integer.parseInt(mNumberOfMembers);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return n;
     }
 
 
-    public String getNumberOfView() {
-        return mNumberOfView;
+    public int getNumberOfView() {
+        int n = 0;
+        try {
+            n = Integer.parseInt(mNumberOfView);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return n;
     }
 }
