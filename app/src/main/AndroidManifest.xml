@@ -123,7 +123,6 @@
             android:name=".activities.trip.AddTripActivity"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustResize" />
-
         <activity
             android:name=".activities.SettingActivity"
             android:theme="@style/AppTheme" />
@@ -145,6 +144,7 @@
             </intent-filter>
         </service>
 
+        <activity android:name=".activities.trip.TripTimelineActivity"></activity>
     </application>
 
 </manifest>

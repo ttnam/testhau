@@ -1,9 +1,10 @@
-package io.yostajsc.backend.config;
+package io.yostajsc.backend.core;
 
 import java.util.List;
 import java.util.Map;
 
 import io.yostajsc.backend.response.BaseResponse;
+import io.yostajsc.izigo.models.Timelines;
 import io.yostajsc.izigo.models.comment.Comments;
 import io.yostajsc.izigo.models.trip.Trips;
 import io.yostajsc.izigo.models.user.User;
@@ -72,5 +73,8 @@ public interface APIInterface {
 
     @GET("api/trips/own")
     Call<BaseResponse<Trips>> getOwnTrips(@Header("authen") String authorization);
+
+    @GET("api/trips/{id}/activity")
+    Call<BaseResponse<Timelines>> getActivities(@Header("authen") String authorization, @Path("id") String tripId);
 
 }

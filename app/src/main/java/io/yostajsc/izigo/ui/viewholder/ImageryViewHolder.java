@@ -33,9 +33,9 @@ public class ImageryViewHolder extends RecyclerView.ViewHolder {
         if (ValidateUtils.canUse(url)) {
             Glide.with(mContext)
                     .load(url)
-                    .bitmapTransform(
-                            new RoundedCornersTransformation(mContext, 24, 0)
-                    ).into(imageView);
+                    .centerCrop()
+                    //.bitmapTransform(new RoundedCornersTransformation(mContext, 24, 0))
+                    .into(imageView);
         }
     }
 }

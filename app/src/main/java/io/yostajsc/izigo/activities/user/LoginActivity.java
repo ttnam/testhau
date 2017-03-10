@@ -37,7 +37,7 @@ import butterknife.OnClick;
 import io.yostajsc.interfaces.CallBackWith;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.activities.MainActivity;
-import io.yostajsc.backend.config.APIManager;
+import io.yostajsc.backend.core.APIManager;
 import io.yostajsc.interfaces.ActivityBehavior;
 import io.yostajsc.izigo.configs.AppDefine;
 import io.yostajsc.izigo.firebase.FirebaseManager;

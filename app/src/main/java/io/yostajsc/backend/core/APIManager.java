@@ -1,4 +1,4 @@
-package io.yostajsc.backend.config;
+package io.yostajsc.backend.core;
 
 import android.support.annotation.NonNull;
 import android.util.Log;
@@ -12,6 +12,7 @@ import java.util.Map;
 import io.yostajsc.backend.response.BaseResponse;
 import io.yostajsc.interfaces.CallBack;
 import io.yostajsc.interfaces.CallBackWith;
+import io.yostajsc.izigo.models.Timelines;
 import io.yostajsc.izigo.models.comment.Comments;
 import io.yostajsc.izigo.models.trip.Trip;
 import io.yostajsc.izigo.models.trip.Trips;
@@ -374,5 +375,30 @@ public class APIManager {
             }
         });
     }
+    public void getActivities(String authorization, String tripId,
+                            final CallBack expired,
+                            final CallBackWith<Timelines> success,
+                            final CallBackWith<String> fail) {
+        Call<BaseResponse<Timelines>> call = service.getActivities(authorization, tripId);
+        call.enqueue(new Callback<BaseResponse<Timelines>>() {
+            @Override
+            public void onResponse(Call<BaseResponse<Timelines>> call, Response<BaseResponse<Timelines>> response) {
+                if (response.isSuccessful()) {
+                    BaseResponse<Timelines> res = response.body();
+                    if (res.isSuccessful()) {
+                        success.run(res.data());
+                    } else if (res.isExpired()) {
+                        expired.run();
+                    } else {
+                        fail.run(res.getDescription());
+                    }
+                }
+            }
 
+            @Override
+            public void onFailure(Call<BaseResponse<Timelines>> call, Throwable throwable) {
+                Log.e(TAG, throwable.getMessage());
+            }
+        });
+    }
 }

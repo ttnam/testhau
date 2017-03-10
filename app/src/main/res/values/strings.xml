@@ -65,6 +65,10 @@
     <!-- end message -->
 
 
+    <!--Timeline Activity-->
+    <string name="str_time_line">Nhật kí</string>
+    <string name="str_create_new_ac">Create new activity</string>
+
     <string name="str_action_change_language_title"> Change your language </string>
     <string name="str_action_change_language_message"> Select an option. This app will exit to apply your choice. </string>
     <string name="str_home">Home</string>

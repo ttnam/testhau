@@ -50,8 +50,6 @@
 
     </LinearLayout>
 
-    <include layout="@layout/layout_separate_vertical" />
-
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -59,7 +57,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:background="@android:color/white"
             android:orientation="vertical">
 
@@ -160,6 +158,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/layout_activity"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -187,19 +186,17 @@
 
             </LinearLayout>
 
-
             <include layout="@layout/item_web_vew" />
 
-            <include layout="@layout/layout_separate_vertical" />
-            
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="@dimen/margin">
 
                 <TextView
                     android:id="@+id/text_number_of_photo"
-                    style="@style/AppTheme.TextView_Title"
+                    style="@style/AppTheme.TextView_Title.Bold"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -207,7 +204,7 @@
                     android:gravity="center|start"
                     android:maxLines="1"
                     android:minLines="1"
-                    android:padding="@dimen/margin" />
+                    android:paddingBottom="@dimen/margin" />
 
                 <include layout="@layout/layout_recycler_view" />
 

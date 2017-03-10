@@ -19,7 +19,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.yostajsc.backend.config.APIManager;
+import io.yostajsc.backend.core.APIManager;
 import io.yostajsc.constants.MessageInfo;
 import io.yostajsc.designs.animations.YoYo;
 import io.yostajsc.designs.animations.fading_entrances.FadeInAnimator;

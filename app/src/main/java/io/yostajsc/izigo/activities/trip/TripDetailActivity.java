@@ -15,7 +15,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 
 import butterknife.OnClick;
-import io.yostajsc.backend.config.APIManager;
+import io.yostajsc.backend.core.APIManager;
 import io.yostajsc.interfaces.CallBack;
 import io.yostajsc.interfaces.CallBackWith;
 import io.yostajsc.izigo.R;
@@ -42,7 +42,7 @@ public class TripDetailActivity extends ActivityBehavior {
     WebView webView;
 
     @BindView(R.id.recycler_view)
-    RecyclerView rvActivity;
+    RecyclerView rvAlbum;
 
     @BindView(R.id.image_view)
     AppCompatImageView imageCover;
@@ -94,7 +94,7 @@ public class TripDetailActivity extends ActivityBehavior {
     public void onApplyViews() {
         this.albumAdapter = new ImageryAdapter(this);
         UiUtils.onApplyWebViewSetting(webView);
-        UiUtils.onApplyAlbumRecyclerView(this.rvActivity, albumAdapter, new SlideInUpAnimator(), new CallBackWith<Integer>() {
+        UiUtils.onApplyAlbumRecyclerView(this.rvAlbum, albumAdapter, new SlideInUpAnimator(), new CallBackWith<Integer>() {
             @Override
             public void run(Integer integer) {
 
@@ -202,6 +202,13 @@ public class TripDetailActivity extends ActivityBehavior {
         DialogComment dialogComment = new DialogComment(this);
         dialogComment.show();
         dialogComment.setTripId(tripId);
+    }
+
+    @OnClick(R.id.layout_activity)
+    public void onLoadActivity() {
+        Intent intent = new Intent(TripDetailActivity.this, TripTimelineActivity.class);
+        intent.putExtra(Trip.TRIP_ID, tripId);
+        startActivity(intent);
     }
 
     /*

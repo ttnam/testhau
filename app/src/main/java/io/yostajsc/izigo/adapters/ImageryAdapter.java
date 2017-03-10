@@ -15,6 +15,7 @@ import io.realm.RealmList;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.models.photo.BasePhotoInfo;
 import io.yostajsc.izigo.ui.viewholder.ImageryViewHolder;
+import io.yostajsc.utils.DimensionUtil;
 import io.yostajsc.utils.validate.ValidateUtils;
 
 public class ImageryAdapter extends RecyclerView.Adapter<ImageryViewHolder> {
@@ -32,10 +33,10 @@ public class ImageryAdapter extends RecyclerView.Adapter<ImageryViewHolder> {
 
         View itemLayoutView = LayoutInflater.from(mContext)
                 .inflate(R.layout.item_imagery, null);
-        DisplayMetrics displaymetrics = new DisplayMetrics();
-        ((Activity) mContext).getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
-        int width = displaymetrics.widthPixels / 3;
-        itemLayoutView.setLayoutParams(new RecyclerView.LayoutParams(width, ViewGroup.LayoutParams.WRAP_CONTENT));
+
+        int width = DimensionUtil.getScreenWidth(mContext) / 3;
+        int height = width * 2 / 3;
+        itemLayoutView.setLayoutParams(new RecyclerView.LayoutParams(width, height ));
         return new ImageryViewHolder(itemLayoutView);
     }
 
