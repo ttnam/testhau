@@ -66,11 +66,6 @@ public class DialogPickTransfer extends Dialog {
             params.height = WindowManager.LayoutParams.WRAP_CONTENT;
             window.setAttributes(params);
         }
-        onApplyData();
-    }
-
-    private void onApplyData() {
-        onBicycleClick();
     }
 
     @OnClick(R.id.button_people)

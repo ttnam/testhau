@@ -7,6 +7,7 @@ import java.io.Serializable;
  */
 
 public class Friend implements Serializable {
+    
     private String fbId;
     private String name;
     private String avatar;

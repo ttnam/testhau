@@ -11,9 +11,11 @@
     <android.support.v7.widget.AppCompatImageView
         android:id="@id/image_view"
         style="@style/AppTheme.IconClick"
-        android:layout_width="@dimen/icon_size_x12"
-        android:layout_height="@dimen/icon_size_x12"
+        android:layout_width="@dimen/icon_size_x9"
+        android:layout_height="@dimen/icon_size_x9"
         android:layout_gravity="center"
+        android:layout_margin="@dimen/margin"
+        android:background="@drawable/ic_style_button_round_corners_default_2"
         android:padding="@dimen/margin_x2"
         android:scaleType="centerCrop"
         app:srcCompat="@drawable/ic_vector_motor_bike" />

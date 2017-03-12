@@ -51,13 +51,16 @@ public interface APIInterface {
     @GET("api/trips/{id}")
     Call<BaseResponse<Trip>> getTripDetail(@Header("authen") String authorization, @Path("id") String tripId);
 
-    @POST("api/group")
+    @POST("api/trips")
     @FormUrlEncoded
-    Call<BaseResponse<String>> createGroup(@Header("authen") String authorization,
-                                           @Field("name") String name,
-                                           @Field("avatar") String avatar,
-                                           @Field("info") String info,
-                                           @Field("members") String members);
+    Call<BaseResponse<String>> createTrips(@Header("authen") String authorization,
+                                           @Field("name") String groupName,
+                                           @Field("arrive") String arrive,
+                                           @Field("depart") String depart,
+                                           @Field("description") String description,
+                                           @Field("is_published") int is_published,
+                                           @Field("status") int status,
+                                           @Field("transfer") int transfer);
 
     @GET("api/user/friends")
     Call<BaseResponse<List<Friend>>> getFriendsList(

@@ -20,7 +20,7 @@
     <string name="all_search_filter">Search Filter</string>
     <string name="all_save">Lưu</string>
     <string name="all_confirm">Xác nhận</string>
-
+    <string name="all_continue">Tiếp tục</string>
 
     <!-- start profile-->
     <string name="profile"> Profile </string>
@@ -88,5 +88,9 @@
     <string name="str_join">Tham gia</string>
     <string name="str_status">Trạng thái</string>
     <string name="str_publish">Công khai</string>
+    <string name="str_depart">Xuất phát</string>
+    <string name="str_time">Thời gian</string>
+    <string name="str_arrive">Đích đến</string>
+    <string name="str_trip_description">Mô tả hành trình của bản</string>
 
 </resources>

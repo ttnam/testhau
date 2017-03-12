@@ -32,4 +32,33 @@ public class LocationPick extends RealmObject implements Serializable {
     public long getTime() {
         return time;
     }
+
+    public double getLat() {
+        return lat;
+    }
+
+    public double getLng() {
+        return lng;
+    }
+
+    public void setLat(double lat) {
+        this.lat = lat;
+    }
+
+    public void setLng(double lng) {
+        this.lng = lng;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setTime(long time) {
+        this.time = time;
+    }
+
+    @Override
+    public String toString() {
+        return lat + ";" + lng + ";" + name + ";" + time;
+    }
 }

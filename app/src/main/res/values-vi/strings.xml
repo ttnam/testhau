@@ -6,5 +6,8 @@
     <string name="str_join">Join</string>
     <string name="str_status">Status</string>
     <string name="str_publish">Publish</string>
+    <string name="str_depart">Xuất phát</string>
+    <string name="str_arrive">Đích đến</string>
+    <string name="str_description">Mô tả</string>
 </resources>
 

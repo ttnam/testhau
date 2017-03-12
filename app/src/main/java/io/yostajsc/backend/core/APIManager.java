@@ -141,7 +141,7 @@ public class APIManager {
 
 
     public void getOwnTripsList(String authorization, final CallBack expired,
-                             final CallBackWith<Trips> success, final CallBackWith<String> fail) {
+                                final CallBackWith<Trips> success, final CallBackWith<String> fail) {
 
         Call<BaseResponse<Trips>> call = service.getOwnTrips(authorization);
         call.enqueue(new Callback<BaseResponse<Trips>>() {
@@ -237,11 +237,19 @@ public class APIManager {
 
     }
 
-    public void createGroup(String authorization, String name, String avatar, String info, String members,
+    public void createTrips(String authorization,
+                            String groupName,
+                            String arrive,
+                            String depart,
+                            String description,
+                            int is_published,
+                            int status,
+                            int transfer,
                             final CallBack expired,
                             final CallBackWith<String> success,
                             final CallBackWith<String> fail) {
-        Call<BaseResponse<String>> call = service.createGroup(authorization, name, avatar, info, members);
+        Call<BaseResponse<String>> call = service.createTrips(authorization, groupName, arrive, depart, description,
+                is_published, status, transfer);
         call.enqueue(new Callback<BaseResponse<String>>() {
             @Override
             public void onResponse(Call<BaseResponse<String>> call, Response<BaseResponse<String>> response) {
@@ -375,10 +383,11 @@ public class APIManager {
             }
         });
     }
+
     public void getActivities(String authorization, String tripId,
-                            final CallBack expired,
-                            final CallBackWith<Timelines> success,
-                            final CallBackWith<String> fail) {
+                              final CallBack expired,
+                              final CallBackWith<Timelines> success,
+                              final CallBackWith<String> fail) {
         Call<BaseResponse<Timelines>> call = service.getActivities(authorization, tripId);
         call.enqueue(new Callback<BaseResponse<Timelines>>() {
             @Override
