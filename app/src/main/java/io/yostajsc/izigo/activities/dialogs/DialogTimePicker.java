@@ -18,11 +18,12 @@ import java.util.List;
 public class DialogTimePicker extends TimePickerDialog {
 
     private final static int TIME_PICKER_INTERVAL = 5;
+    private boolean mIgnoreEvent = false;
     private final OnTimeSetListener mTimeSetListener;
     private TimePicker mTimePicker;
 
     public DialogTimePicker(Context context, int hourOfDay, int minute, boolean is24HourView, OnTimeSetListener listener) {
-        super(context, TimePickerDialog.THEME_HOLO_DARK, null, hourOfDay,
+        super(context, TimePickerDialog.THEME_HOLO_LIGHT, null, hourOfDay,
                 minute / TIME_PICKER_INTERVAL, is24HourView);
         mTimeSetListener = listener;
     }
@@ -31,6 +32,23 @@ public class DialogTimePicker extends TimePickerDialog {
     public void updateTime(int hourOfDay, int minuteOfHour) {
         mTimePicker.setCurrentHour(hourOfDay);
         mTimePicker.setCurrentMinute(minuteOfHour / TIME_PICKER_INTERVAL);
+    }
+
+    @Override
+    public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
+        super.onTimeChanged(view, hourOfDay, minute);
+        if (mIgnoreEvent) {
+            return;
+        }
+        if (minute % TIME_PICKER_INTERVAL != 0) {
+            int minuteFloor = minute - (minute % TIME_PICKER_INTERVAL);
+            minute = minuteFloor + (minute == minuteFloor + 1 ? TIME_PICKER_INTERVAL : 0);
+            if (minute == 60)
+                minute = 0;
+            mIgnoreEvent = true;
+            view.setCurrentMinute(minute);
+            mIgnoreEvent = false;
+        }
     }
 
     @Override

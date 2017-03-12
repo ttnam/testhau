@@ -3,6 +3,7 @@ package io.yostajsc.izigo.models.trip;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
+import java.util.Calendar;
 
 import io.realm.RealmObject;
 
@@ -11,7 +12,6 @@ import io.realm.RealmObject;
  */
 
 public class LocationPick extends RealmObject implements Serializable {
-
 
     @SerializedName("lat")
     private double lat;
@@ -24,6 +24,22 @@ public class LocationPick extends RealmObject implements Serializable {
 
     @SerializedName("time")
     private long time;
+
+    public LocationPick() {
+    }
+
+    public LocationPick(int yyyy, int m, int d, int h, int min) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(yyyy, m, d, h, min);
+        this.time = calendar.getTimeInMillis();
+    }
+
+    public LocationPick(String name, int yyyy, int m, int d, int h, int min) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(yyyy, m, d, h, min);
+        this.time = calendar.getTimeInMillis();
+        this.name = name;
+    }
 
     public String getName() {
         return name;
@@ -53,12 +69,15 @@ public class LocationPick extends RealmObject implements Serializable {
         this.name = name;
     }
 
-    public void setTime(long time) {
-        this.time = time;
+    public void setTime(int yyyy, int m, int d, int h, int min) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(yyyy, m, d, h, min);
+        this.time = calendar.getTimeInMillis();
     }
 
     @Override
     public String toString() {
         return lat + ";" + lng + ";" + name + ";" + time;
     }
+
 }

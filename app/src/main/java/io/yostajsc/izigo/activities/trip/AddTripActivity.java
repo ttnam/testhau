@@ -2,22 +2,28 @@
 package io.yostajsc.izigo.activities.trip;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.widget.AppCompatImageView;
+import android.view.View;
+import android.widget.DatePicker;
+import android.widget.ProgressBar;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
 import java.text.DecimalFormat;
+import java.util.Calendar;
 
 import io.yostajsc.constants.MessageType;
 import io.yostajsc.constants.TransferType;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.activities.PickLocationActivity;
+import io.yostajsc.izigo.activities.dialogs.DialogDatePicker;
 import io.yostajsc.izigo.activities.dialogs.DialogPickTransfer;
 import io.yostajsc.backend.core.APIManager;
 import io.yostajsc.interfaces.ActivityBehavior;
@@ -50,11 +56,17 @@ public class AddTripActivity extends ActivityBehavior {
     @BindView(R.id.text_depart)
     TextView textDepart;
 
-    @BindView(R.id.text_time_arrive)
+    @BindView(R.id.text_arrive_time)
     TextView textArriveTime;
 
-    @BindView(R.id.text_time_depart)
+    @BindView(R.id.text_arrive_date)
+    TextView textArriveDate;
+
+    @BindView(R.id.text_depart_time)
     TextView textDepartTime;
+
+    @BindView(R.id.text_depart_date)
+    TextView textDepartDate;
 
     @BindView(R.id.switch_publish)
     Switch switchPublish;
@@ -62,6 +74,12 @@ public class AddTripActivity extends ActivityBehavior {
     @BindView(R.id.image_view)
     AppCompatImageView imageView;
 
+    @BindView(R.id.progress_bar)
+    ProgressBar progressBar;
+
+    private DecimalFormat timeFormatter = new DecimalFormat("00");
+    private final int YEAR = 0, MONTH = 1, DAY = 2, HOUR = 3, MINUTE = 4;
+    private int[] arriveTime = new int[5], departTime = new int[5];
     /*private FriendAdapter adapter = null;*/
     /*private List<String> invites = null;*/
 
@@ -76,8 +94,6 @@ public class AddTripActivity extends ActivityBehavior {
 
     @Override
     public void onApplyViews() {
-        onApplyRecyclerViewFriends();
-
         switchPublish.setOnCheckedChangeListener(EventManager.connect().addCheckedChangeListener(new CallBackWith<Boolean>() {
             @Override
             public void run(Boolean aBoolean) {
@@ -89,53 +105,121 @@ public class AddTripActivity extends ActivityBehavior {
         }));
     }
 
+    private void updateTime(int arr[], TextView txtDate, TextView txtTime) {
+        Calendar calendar = Calendar.getInstance();
+        arr[YEAR] = calendar.get(Calendar.YEAR);
+        arr[MONTH] = calendar.get(Calendar.MONTH);
+        arr[DAY] = calendar.get(Calendar.DAY_OF_MONTH);
+        arr[HOUR] = calendar.get(Calendar.HOUR);
+        arr[MINUTE] = calendar.get(Calendar.MINUTE);
+        txtDate.setText(String.format("%s/%s/%s",
+                timeFormatter.format(arr[DAY]),
+                timeFormatter.format(arr[MONTH]),
+                timeFormatter.format(arr[YEAR])));
+        txtTime.setText(String.format("%s:%s",
+                timeFormatter.format(arr[HOUR]),
+                timeFormatter.format(arr[MINUTE])));
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        updateTime(arriveTime, textArriveDate, textArriveTime); // Arrive
+        updateTime(departTime, textDepartDate, textDepartTime); // Depart
+
+    }
+
     @OnClick(R.id.text_depart)
-    public void pickFromLocation() {
+    public void pickDepartLocation() {
         startActivityForResult(new Intent(AddTripActivity.this, PickLocationActivity.class), MessageType.PICK_LOCATION_FROM);
     }
 
     @OnClick(R.id.text_arrive)
-    public void pickToLocation() {
+    public void pickArriveLocation() {
         startActivityForResult(new Intent(AddTripActivity.this, PickLocationActivity.class), MessageType.PICK_LOCATION_TO);
     }
 
-    @OnClick(R.id.text_time_arrive)
-    public void pickArriveTime() {
-        DialogTimePicker timePicker = new DialogTimePicker(this, 24, 60, true, new TimePickerDialog.OnTimeSetListener() {
-            @Override
-            public void onTimeSet(TimePicker timePicker, int hour, int minute) {
-                DecimalFormat formatter = new DecimalFormat("00");
-                String formatedHour = formatter.format(hour);
-                String formatedMinute = formatter.format(minute);
-                textArriveTime.setText(String.format("%s : %s", formatedHour, formatedMinute));
-            }
-        });
-        timePicker.show();
+    @OnClick(R.id.text_arrive_date)
+    public void pickArriveDate() {
+        Calendar calendar = Calendar.getInstance();
+        new DialogDatePicker(this, DatePickerDialog.THEME_HOLO_LIGHT,
+                calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH),
+                new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        arriveTime[YEAR] = year;
+                        arriveTime[MONTH] = month;
+                        arriveTime[DAY] = dayOfMonth;
+
+                        textArriveDate.setText(String.format("%s/%s/%s",
+                                timeFormatter.format(dayOfMonth),
+                                timeFormatter.format(month),
+                                timeFormatter.format(year)));
+                    }
+                }).show();
     }
 
-    @OnClick(R.id.text_time_depart)
+    @OnClick(R.id.text_arrive_time)
+    public void pickArriveTime() {
+        Calendar calendar = Calendar.getInstance();
+        new DialogTimePicker(this, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true,
+                new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int hour, int minute) {
+                        arriveTime[HOUR] = hour;
+                        arriveTime[MINUTE] = minute;
+                        textArriveTime.setText(String.format("%s:%s",
+                                timeFormatter.format(hour), timeFormatter.format(minute)));
+                    }
+                }).show();
+    }
+
+    @OnClick(R.id.text_depart_time)
     public void pickDepartTime() {
-        DialogTimePicker timePicker = new DialogTimePicker(this, 24, 60, true, new TimePickerDialog.OnTimeSetListener() {
+        new DialogTimePicker(this, 24, 60, true, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker timePicker, int hour, int minute) {
-                DecimalFormat formatter = new DecimalFormat("00");
-                String formatedHour = formatter.format(hour);
-                String formatedMinute = formatter.format(minute);
-                textDepartTime.setText(String.format("%s : %s", formatedHour, formatedMinute));
+                departTime[HOUR] = hour;
+                departTime[MINUTE] = minute;
+                textDepartTime.setText(String.format("%s:%s",
+                        timeFormatter.format(hour), timeFormatter.format(minute)));
             }
-        });
-        timePicker.show();
+        }).show();
     }
+
+    @OnClick(R.id.text_depart_date)
+    public void pickDepartDate() {
+        Calendar calendar = Calendar.getInstance();
+        new DialogDatePicker(this, DatePickerDialog.THEME_HOLO_LIGHT,
+                calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH),
+                new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        departTime[YEAR] = year;
+                        departTime[MONTH] = month;
+                        departTime[DAY] = dayOfMonth;
+
+                        textDepartDate.setText(String.format("%s/%s/%s",
+                                timeFormatter.format(dayOfMonth),
+                                timeFormatter.format(month),
+                                timeFormatter.format(year)));
+                    }
+                }).show();
+    }
+
+    private LocationPick from = new LocationPick();
+    private LocationPick to = new LocationPick();
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK && requestCode == MessageType.PICK_LOCATION_FROM) {
-            LocationPick pick = (LocationPick) data.getSerializableExtra(AppDefine.KEY_PICK_LOCATION);
-            textDepart.setText(pick.getName());
+            from = (LocationPick) data.getSerializableExtra(AppDefine.KEY_PICK_LOCATION);
+            textDepart.setText(from.getName());
         } else if (resultCode == Activity.RESULT_OK && requestCode == MessageType.PICK_LOCATION_TO) {
-            LocationPick pick = (LocationPick) data.getSerializableExtra(AppDefine.KEY_PICK_LOCATION);
-            textArrive.setText(pick.getName());
+            to = (LocationPick) data.getSerializableExtra(AppDefine.KEY_PICK_LOCATION);
+            textArrive.setText(to.getName());
         }
     }
 
@@ -190,7 +274,6 @@ public class AddTripActivity extends ActivityBehavior {
         this.rvFriends.setLayoutManager(layoutManager);*/
     }
 
-
     @OnClick(R.id.image_view)
     public void pickTransfer() {
         DialogPickTransfer dialogPickTransfer = new DialogPickTransfer(this);
@@ -237,6 +320,21 @@ public class AddTripActivity extends ActivityBehavior {
     @OnClick(R.id.button)
     @Override
     public void onBackPressed() {
+/*
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Do you want to discard?").setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        }).setPositiveButton("Discard", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();*/
         super.onBackPressed();
     }
 
@@ -245,48 +343,53 @@ public class AddTripActivity extends ActivityBehavior {
 
         // Group name
         String groupName = textGroupName.getText().toString();
-        if (!ValidateUtils.canUse(groupName)) {
-            textGroupName.setError(getString(R.string.error_message_empty));
+        String arriveName = textArrive.getText().toString();
+        String departName = textDepart.getText().toString();
+        String description = editDescription.getText().toString();
+
+        if (!ValidateUtils.canUse(groupName, arriveName, departName, description)) {
+            Toast.makeText(this, getString(R.string.error_message_empty), Toast.LENGTH_SHORT).show();
             return;
         }
 
-        // Arrive
-        String arrive = textDepart.getText().toString();
-        if (!ValidateUtils.canUse(arrive)) {
-            textDepart.setError(getString(R.string.error_message_empty));
+        from.setTime(departTime[YEAR], departTime[MONTH], departTime[DAY],
+                departTime[HOUR], departTime[MINUTE]);
+
+        to.setTime(arriveTime[YEAR], arriveTime[MONTH], arriveTime[DAY],
+                arriveTime[HOUR], arriveTime[MINUTE]);
+
+        if (from.getTime() <= System.currentTimeMillis()) {
+            Toast.makeText(this, "Thời gian đi không hợp lệ", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        // Depart
-        String depart = textArrive.getText().toString();
-        if (!ValidateUtils.canUse(depart)) {
-            textArrive.setError(getString(R.string.error_message_empty));
+        if (to.getTime() <= from.getTime()) {
+            Toast.makeText(this, "Thời gian đến không hợp lệ", Toast.LENGTH_SHORT).show();
             return;
         }
-
-      /*  if (invites.size() < 1) {
-            Toast.makeText(this, getString(R.string.str_pick_friends), Toast.LENGTH_SHORT).show();
-            return;
-        }*/
-        // String member = makeMembers();
         String authorization = StorageUtils.inject(this).getString(AppDefine.AUTHORIZATION);
+
+        progressBar.setVisibility(View.VISIBLE);
+
         APIManager.connect().createTrips(authorization, groupName,
-                new LocationPick().toString(), new LocationPick().toString(),
-                "description",
+                to.toString(), from.toString(), description,
                 switchPublish.isChecked() ? 1 : 1,
                 0, 1, new CallBack() {
                     @Override
                     public void run() {
+                        hideProgress();
                         onExpired();
                     }
                 }, new CallBackWith<String>() {
                     @Override
                     public void run(String groupId) {
+                        hideProgress();
                         onSuccess(groupId);
                     }
                 }, new CallBackWith<String>() {
                     @Override
                     public void run(String error) {
+                        hideProgress();
                         Toast.makeText(AddTripActivity.this, error, Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -298,9 +401,13 @@ public class AddTripActivity extends ActivityBehavior {
         finish();
     }
 
+    private void hideProgress() {
+        progressBar.setVisibility(View.GONE);
+    }
+
     @Override
     protected void onInternetDisconnected() {
-
+        hideProgress();
     }
 
     @Override

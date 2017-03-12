@@ -48,6 +48,15 @@
 
     <include layout="@layout/layout_separate_vertical" />
 
+    <ProgressBar
+        android:id="@id/progress_bar"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:indeterminate="true"
+        android:visibility="gone" />
+
     <TextView
         style="@style/AppTheme.TextView_Title.Bold"
         android:layout_width="match_parent"
@@ -142,151 +151,10 @@
   -->
 
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/white"
-                android:baselineAligned="false"
-                android:orientation="vertical"
-                android:padding="@dimen/margin">
-
-                <TextView
-                    style="@style/AppTheme.TextView_Title.Bold"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@android:color/white"
-                    android:gravity="center|start"
-                    android:maxLines="2"
-                    android:minLines="1"
-                    android:padding="@dimen/margin"
-                    android:text="Chọn địa điểm" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginEnd="@dimen/margin"
-                    android:layout_marginLeft="@dimen/margin"
-                    android:layout_marginRight="@dimen/margin"
-                    android:layout_marginStart="@dimen/margin"
-                    android:baselineAligned="true"
-                    android:orientation="horizontal">
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="@dimen/margin"
-                        android:orientation="vertical">
-
-                        <android.support.v7.widget.AppCompatImageView
-                            android:layout_width="@dimen/icon_size_x2"
-                            android:layout_height="@dimen/icon_size_x2"
-                            android:layout_gravity="center"
-                            app:srcCompat="@drawable/ic_style_circle_blue_none" />
-
-                        <View
-                            android:layout_width="1dp"
-                            android:layout_height="match_parent"
-                            android:layout_gravity="center"
-                            android:background="@color/BlueButton" />
-
-                    </LinearLayout>
-
-                    <TextView
-                        android:id="@+id/text_depart"
-                        style="@style/AppTheme.TextView_Title.Bold"
-                        android:layout_width="match_parent"
-                        android:layout_height="?actionBarSize"
-                        android:layout_marginLeft="@dimen/margin"
-                        android:layout_marginStart="@dimen/margin"
-                        android:layout_weight="1"
-                        android:background="@drawable/ic_style_button_round_corners_default_2"
-                        android:clickable="true"
-                        android:gravity="center"
-                        android:hint="@string/str_depart"
-                        android:padding="@dimen/margin" />
-
-                    <TextView
-                        android:id="@+id/text_time_depart"
-                        style="@style/AppTheme.TextView_Title.Bold"
-                        android:layout_width="match_parent"
-                        android:layout_height="?actionBarSize"
-                        android:layout_marginLeft="@dimen/margin"
-                        android:layout_marginStart="@dimen/margin"
-                        android:layout_weight="1"
-                        android:background="@drawable/ic_style_button_round_corners_default_2"
-                        android:clickable="true"
-                        android:gravity="center"
-                        android:hint="@string/str_time"
-                        android:padding="@dimen/margin" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginEnd="@dimen/margin"
-                    android:layout_marginLeft="@dimen/margin"
-                    android:layout_marginRight="@dimen/margin"
-                    android:layout_marginStart="@dimen/margin"
-                    android:layout_marginTop="@dimen/margin"
-                    android:orientation="horizontal">
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:orientation="vertical">
-
-                        <View
-                            android:layout_width="1dp"
-                            android:layout_height="0dp"
-                            android:layout_gravity="center"
-                            android:layout_weight="1"
-                            android:background="@color/BlueButton" />
-
-                        <android.support.v7.widget.AppCompatImageView
-                            android:layout_width="@dimen/icon_size_x2"
-                            android:layout_height="@dimen/icon_size_x2"
-                            android:layout_gravity="center"
-                            app:srcCompat="@drawable/ic_vector_location" />
-
-                    </LinearLayout>
-
-
-                    <TextView
-                        android:id="@+id/text_arrive"
-                        style="@style/AppTheme.TextView_Title.Bold"
-                        android:layout_width="match_parent"
-                        android:layout_height="?actionBarSize"
-                        android:layout_marginLeft="@dimen/margin"
-                        android:layout_marginStart="@dimen/margin"
-                        android:layout_weight="1"
-                        android:background="@drawable/ic_style_button_round_corners_default_2"
-                        android:clickable="true"
-                        android:gravity="center"
-                        android:hint="@string/str_arrive"
-                        android:padding="@dimen/margin" />
-
-                    <TextView
-                        android:id="@+id/text_time_arrive"
-                        style="@style/AppTheme.TextView_Title.Bold"
-                        android:layout_width="match_parent"
-                        android:layout_height="?actionBarSize"
-                        android:layout_marginLeft="@dimen/margin"
-                        android:layout_marginStart="@dimen/margin"
-                        android:layout_weight="1"
-                        android:background="@drawable/ic_style_button_round_corners_default_2"
-                        android:clickable="true"
-                        android:gravity="center"
-                        android:hint="@string/str_time"
-                        android:padding="@dimen/margin" />
-
-                </LinearLayout>
-
-            </LinearLayout>
+            <include layout="@layout/layout_time_picker" />
 
         </LinearLayout>
+
     </android.support.v4.widget.NestedScrollView>
 
     <Button

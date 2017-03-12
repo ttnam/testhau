@@ -91,6 +91,8 @@
     <string name="str_depart">Xuất phát</string>
     <string name="str_time">Thời gian</string>
     <string name="str_arrive">Đích đến</string>
-    <string name="str_trip_description">Mô tả hành trình của bản</string>
+    <string name="str_trip_description">Mô tả hành trình của bạn</string>
+    <string name="str_pick_date">Chọn ngày</string>
+    <string name="str_pick_time">Chọn giờ</string>
 
 </resources>
