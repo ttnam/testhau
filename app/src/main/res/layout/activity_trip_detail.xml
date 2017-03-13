@@ -58,14 +58,29 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@android:color/white"
             android:orientation="vertical">
 
-            <android.support.v7.widget.AppCompatImageView
-                android:id="@id/image_view"
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/image_height_v3"
-                android:scaleType="centerCrop" />
+                android:layout_height="wrap_content">
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:id="@id/image_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/image_height_v3"
+                    android:scaleType="centerCrop" />
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:id="@+id/image_edit_cover"
+                    style="@style/AppTheme.IconClick"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end|bottom"
+                    android:layout_margin="@dimen/margin"
+                    android:padding="@dimen/margin"
+                    app:srcCompat="@drawable/ic_vector_email" />
+
+            </FrameLayout>
 
 
             <TextView
@@ -98,11 +113,23 @@
                 android:minLines="1" />
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/margin"
                 android:baselineAligned="true"
-                android:orientation="horizontal"
-                android:weightSum="3">
+                android:orientation="horizontal">
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:id="@+id/image_transfer"
+                    style="@style/AppTheme.IconClick"
+                    android:layout_width="?actionBarSize"
+                    android:layout_height="?actionBarSize"
+                    android:layout_gravity="center"
+                    android:background="@drawable/ic_style_button_round_none_default"
+                    android:padding="@dimen/margin_x2"
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@drawable/ic_vector_motor_bike" />
 
                 <LinearLayout
                     android:id="@+id/layout_comment"
@@ -112,8 +139,8 @@
                     android:layout_weight="1"
                     android:background="@drawable/ic_style_button_round_none_default"
                     android:clickable="true"
-                    android:orientation="vertical"
-                    android:padding="@dimen/margin">
+                    android:orientation="horizontal"
+                    android:padding="@dimen/margin_x2">
 
                     <android.support.v7.widget.AppCompatImageView
                         android:layout_width="@dimen/icon_size_x3"
@@ -127,6 +154,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:layout_marginLeft="@dimen/margin"
+                        android:layout_marginStart="@dimen/margin"
                         android:gravity="center"
                         android:text="0" />
                 </LinearLayout>
@@ -136,10 +165,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:background="@drawable/ic_style_button_round_none_default"
-                    android:clickable="true"
-                    android:orientation="vertical"
-                    android:padding="@dimen/margin">
+                    android:orientation="horizontal"
+                    android:padding="@dimen/margin_x2">
 
                     <android.support.v7.widget.AppCompatImageView
                         android:layout_width="@dimen/icon_size_x3"
@@ -153,6 +180,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:layout_marginLeft="@dimen/margin"
+                        android:layout_marginStart="@dimen/margin"
                         android:gravity="center"
                         android:text="0" />
                 </LinearLayout>
@@ -165,8 +194,8 @@
                     android:layout_weight="1"
                     android:background="@drawable/ic_style_button_round_none_default"
                     android:clickable="true"
-                    android:orientation="vertical"
-                    android:padding="@dimen/margin">
+                    android:orientation="horizontal"
+                    android:padding="@dimen/margin_x2">
 
                     <android.support.v7.widget.AppCompatImageView
                         android:layout_width="@dimen/icon_size_x3"
@@ -180,6 +209,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:layout_marginLeft="@dimen/margin"
+                        android:layout_marginStart="@dimen/margin"
                         android:gravity="center"
                         android:text="0" />
                 </LinearLayout>
@@ -211,7 +242,6 @@
             </LinearLayout>
 
         </LinearLayout>
-
 
     </android.support.v4.widget.NestedScrollView>
 

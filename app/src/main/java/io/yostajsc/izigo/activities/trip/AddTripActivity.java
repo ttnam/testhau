@@ -33,6 +33,7 @@ import io.yostajsc.interfaces.CallBack;
 import io.yostajsc.interfaces.CallBackWith;
 import io.yostajsc.izigo.managers.EventManager;
 import io.yostajsc.izigo.models.trip.LocationPick;
+import io.yostajsc.utils.UiUtils;
 import io.yostajsc.utils.validate.ValidateUtils;
 import io.yostajsc.utils.StorageUtils;
 import butterknife.BindView;
@@ -68,9 +69,6 @@ public class AddTripActivity extends ActivityBehavior {
     @BindView(R.id.text_depart_date)
     TextView textDepartDate;
 
-    @BindView(R.id.switch_publish)
-    Switch switchPublish;
-
     @BindView(R.id.image_view)
     AppCompatImageView imageView;
 
@@ -80,54 +78,21 @@ public class AddTripActivity extends ActivityBehavior {
     private DecimalFormat timeFormatter = new DecimalFormat("00");
     private final int YEAR = 0, MONTH = 1, DAY = 2, HOUR = 3, MINUTE = 4;
     private int[] arriveTime = new int[5], departTime = new int[5];
-    /*private FriendAdapter adapter = null;*/
-    /*private List<String> invites = null;*/
+
+    private LocationPick from = new LocationPick();
+    private LocationPick to = new LocationPick();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_trip);
         ButterKnife.bind(this);
-        onApplyViews();
-        onApplyData();
-    }
-
-    @Override
-    public void onApplyViews() {
-        switchPublish.setOnCheckedChangeListener(EventManager.connect().addCheckedChangeListener(new CallBackWith<Boolean>() {
-            @Override
-            public void run(Boolean aBoolean) {
-                if (aBoolean)
-                    Toast.makeText(AddTripActivity.this, "Bạn đã bật chế độ công khai", Toast.LENGTH_SHORT).show();
-                else
-                    Toast.makeText(AddTripActivity.this, "Bạn đã tắt chế độ công khai", Toast.LENGTH_SHORT).show();
-            }
-        }));
-    }
-
-    private void updateTime(int arr[], TextView txtDate, TextView txtTime) {
-        Calendar calendar = Calendar.getInstance();
-        arr[YEAR] = calendar.get(Calendar.YEAR);
-        arr[MONTH] = calendar.get(Calendar.MONTH);
-        arr[DAY] = calendar.get(Calendar.DAY_OF_MONTH);
-        arr[HOUR] = calendar.get(Calendar.HOUR);
-        arr[MINUTE] = calendar.get(Calendar.MINUTE);
-        txtDate.setText(String.format("%s/%s/%s",
-                timeFormatter.format(arr[DAY]),
-                timeFormatter.format(arr[MONTH]),
-                timeFormatter.format(arr[YEAR])));
-        txtTime.setText(String.format("%s:%s",
-                timeFormatter.format(arr[HOUR]),
-                timeFormatter.format(arr[MINUTE])));
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-
-        updateTime(arriveTime, textArriveDate, textArriveTime); // Arrive
-        updateTime(departTime, textDepartDate, textDepartTime); // Depart
-
+        onApplyData();
     }
 
     @OnClick(R.id.text_depart)
@@ -208,9 +173,6 @@ public class AddTripActivity extends ActivityBehavior {
                 }).show();
     }
 
-    private LocationPick from = new LocationPick();
-    private LocationPick to = new LocationPick();
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -223,8 +185,27 @@ public class AddTripActivity extends ActivityBehavior {
         }
     }
 
+    private void updateTime(int arr[], TextView txtDate, TextView txtTime) {
+        Calendar calendar = Calendar.getInstance();
+        arr[YEAR] = calendar.get(Calendar.YEAR);
+        arr[MONTH] = calendar.get(Calendar.MONTH);
+        arr[DAY] = calendar.get(Calendar.DAY_OF_MONTH);
+        arr[HOUR] = calendar.get(Calendar.HOUR);
+        arr[MINUTE] = calendar.get(Calendar.MINUTE);
+        txtDate.setText(String.format("%s/%s/%s",
+                timeFormatter.format(arr[DAY]),
+                timeFormatter.format(arr[MONTH]),
+                timeFormatter.format(arr[YEAR])));
+        txtTime.setText(String.format("%s:%s",
+                timeFormatter.format(arr[HOUR]),
+                timeFormatter.format(arr[MINUTE])));
+    }
+
     @Override
     public void onApplyData() {
+
+        updateTime(arriveTime, textArriveDate, textArriveTime); // Arrive
+        updateTime(departTime, textDepartDate, textDepartTime); // Depart
 
         // invites = new ArrayList<>();
 /*
@@ -279,19 +260,8 @@ public class AddTripActivity extends ActivityBehavior {
         DialogPickTransfer dialogPickTransfer = new DialogPickTransfer(this);
         dialogPickTransfer.setDialogResult(new CallBackWith<Integer>() {
             @Override
-            public void run(@TransferType Integer integer) {
-
-                switch (integer) {
-                    case TransferType.BUS:
-                        imageView.setImageResource(R.drawable.ic_vector_bus);
-                        break;
-                    case TransferType.MOTORBIKE:
-                        imageView.setImageResource(R.drawable.ic_vector_motor_bike);
-                        break;
-                    case TransferType.WALK:
-                        imageView.setImageResource(R.drawable.ic_vector_walk);
-                        break;
-                }
+            public void run(@TransferType Integer type) {
+                UiUtils.showTransfer(type, imageView);
             }
         });
         dialogPickTransfer.show();
@@ -373,7 +343,7 @@ public class AddTripActivity extends ActivityBehavior {
 
         APIManager.connect().createTrips(authorization, groupName,
                 to.toString(), from.toString(), description,
-                switchPublish.isChecked() ? 1 : 1,
+                0,
                 0, 1, new CallBack() {
                     @Override
                     public void run() {
@@ -395,9 +365,10 @@ public class AddTripActivity extends ActivityBehavior {
                 });
     }
 
-    private void onSuccess(String groupId) {
-        StorageUtils.inject(AddTripActivity.this).save(AppDefine.GROUP_ID, groupId);
-        startActivity(new Intent(AddTripActivity.this, GroupDetailActivity.class));
+    private void onSuccess(String tripId) {
+        Intent intent = new Intent(AddTripActivity.this, TripDetailActivity.class);
+        intent.putExtra(AppDefine.TRIP_ID, tripId);
+        startActivity(intent);
         finish();
     }
 

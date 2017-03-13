@@ -46,10 +46,10 @@ public class MainActivity extends ActivityBehavior {
 
         TabLayout.Tab tab = this.mTabLayout.getTabAt(0);
         if (tab != null) {
-            tab.setIcon(getResources().getDrawable(R.drawable.ic_style_tab_trip));
+            tab.setIcon(getResources().getDrawable(R.drawable.ic_style_tab_home ));
         }
         if ((tab = this.mTabLayout.getTabAt(1)) != null) {
-            tab.setIcon(getResources().getDrawable(R.drawable.ic_style_tab_home));
+            tab.setIcon(getResources().getDrawable(R.drawable.ic_style_tab_trip));
         }
         if ((tab = this.mTabLayout.getTabAt(2)) != null) {
             tab.setIcon(getResources().getDrawable(R.drawable.ic_style_tab_noti));
@@ -59,12 +59,11 @@ public class MainActivity extends ActivityBehavior {
 
     private void onApplyViewPager() {
         IconViewPagerAdapter adapter = new IconViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFrag(new OwnTripFragment());
         adapter.addFrag(new TripFragment());
+        adapter.addFrag(new OwnTripFragment());
         adapter.addFrag(new NotificationsFragment());
 
         this.mViewPager.setAdapter(adapter);
-        this.mViewPager.setCurrentItem(1, true);
     }
 
     @Override

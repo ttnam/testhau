@@ -1,14 +1,19 @@
 package io.yostajsc.izigo.activities.trip;
 
+import android.Manifest;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
 import android.webkit.WebView;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,6 +21,8 @@ import com.bumptech.glide.Glide;
 
 import butterknife.OnClick;
 import io.yostajsc.backend.core.APIManager;
+import io.yostajsc.constants.MessageType;
+import io.yostajsc.constants.RoleType;
 import io.yostajsc.interfaces.CallBack;
 import io.yostajsc.interfaces.CallBackWith;
 import io.yostajsc.izigo.R;
@@ -26,6 +33,7 @@ import io.yostajsc.izigo.configs.AppDefine;
 import io.yostajsc.izigo.managers.RealmManager;
 import io.yostajsc.izigo.models.trip.Trip;
 import io.yostajsc.utils.AppUtils;
+import io.yostajsc.utils.DimensionUtil;
 import io.yostajsc.utils.NetworkUtils;
 import io.yostajsc.utils.StorageUtils;
 import io.yostajsc.utils.UiUtils;
@@ -35,7 +43,10 @@ import butterknife.ButterKnife;
 import io.yostajsc.view.BottomSheetDialog;
 import io.yostajsc.view.CropCircleTransformation;
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
+import permissions.dispatcher.NeedsPermission;
+import permissions.dispatcher.RuntimePermissions;
 
+@RuntimePermissions
 public class TripDetailActivity extends ActivityBehavior {
 
     @BindView(R.id.web_view)
@@ -61,6 +72,12 @@ public class TripDetailActivity extends ActivityBehavior {
 
     @BindView(R.id.image_creator_avatar)
     AppCompatImageView imageCreatorAvatar;
+
+    @BindView(R.id.image_transfer)
+    AppCompatImageView imageTransfer;
+
+    @BindView(R.id.image_edit_cover)
+    AppCompatImageView imageEditCover;
 
     @BindView(R.id.text_time)
     TextView textTime;
@@ -92,6 +109,12 @@ public class TripDetailActivity extends ActivityBehavior {
 
     @Override
     public void onApplyViews() {
+
+        // set cover size
+       /* layoutCover.setLayoutParams(new FrameLayout.LayoutParams(
+                DimensionUtil.getScreenWidth(this),
+                DimensionUtil.getScreenWidth(this) * 2 / 3
+        ));*/
         this.albumAdapter = new ImageryAdapter(this);
         UiUtils.onApplyWebViewSetting(webView);
         UiUtils.onApplyAlbumRecyclerView(this.rvAlbum, albumAdapter, new SlideInUpAnimator(), new CallBackWith<Integer>() {
@@ -167,29 +190,41 @@ public class TripDetailActivity extends ActivityBehavior {
 
                 albumAdapter.replaceAll(trip.getAlbum());
 
-                // Photos
+                textViews.setText(String.valueOf(trip.getNumberOfView()));
+
                 int nPhotos = trip.getAlbum().size();
                 textNumberOfPhoto.setText(getResources().getQuantityString(R.plurals.photos, nPhotos, nPhotos));
 
-                textNumberOfComments.setText(getResources().getQuantityString(R.plurals.comments,
-                        trip.getNumberOfComments(), trip.getNumberOfComments()));
-
-                textViews.setText(getResources().getQuantityString(R.plurals.views,
-                        trip.getNumberOfView(), trip.getNumberOfView()));
-
-                textNumberOfActivities.setText(getResources().getQuantityString(R.plurals.activities,
-                        trip.getNumberOfActivities(), trip.getNumberOfActivities()));
+                textNumberOfComments.setText(String.valueOf(trip.getNumberOfComments()));
+                textNumberOfActivities.setText(String.valueOf(trip.getNumberOfActivities()));
 
                 // Time
                 textTime.setText(String.format("%s - %s",
                         AppUtils.builder().getTime(trip.getDepartTime(), AppUtils.DD_MM_YYYY),
                         AppUtils.builder().getTime(trip.getArriveTime(), AppUtils.DD_MM_YYYY)));
 
+                // Update transfer
+                UiUtils.showTransfer(trip.getTransfer(), imageTransfer);
+
+                // Update role
+
+                @RoleType int role = trip.getRole();
+                switch (role) {
+                    case RoleType.ADMIN:
+                        turnToAdminMode();
+                        break;
+                    case RoleType.MEMBER:
+                        turnToMemberMode();
+                        break;
+                    case RoleType.NOT_MEMBER:
+                        turnToGuestMode();
+                        break;
+                }
+
 
             }
         }.execute(trip);
     }
-
 
     @OnClick(R.id.button_share)
     public void share() {
@@ -211,79 +246,34 @@ public class TripDetailActivity extends ActivityBehavior {
         startActivity(intent);
     }
 
-    /*
-        @OnClick(R.id.layout_rating)
-        public void onOpenRating() {
-            startActivity(new Intent(this, RatingActivity.class));
-        }
-
-
-
-    @OnClick(R.id.btn_ranking)
-    public void onRequestRanking() {
-        long ranking = Long.parseLong(btnRanking.getText().toString());
-        ranking = ranking + 1;
-        final String result = String.valueOf(ranking);
-
-        final long finalRanking = ranking;
-       *//* new StandardDialog(this)
-                .setButtonsColor(getResources().getColor(R.color.PureRed))
-                .setCancelable(false)
-                .setTopColorRes(android.R.color.white)
-                .setTopColor(getResources().getColor(android.R.color.white))
-                .setTopColorRes(R.color.PureRed)
-                .setNegativeButton(R.string.message_later, null)
-                .setMessage("If you like this trip please rate for us. Thank you!!")
-                .setPositiveButton("Rate Now", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        mFirebaseUtils.onChangeRanking(mCurrTrip.getTripId(), finalRanking,
-                                new CallBack() {
-                                    @Override
-                                    public void run() {
-                                        btnRanking.setText(String.valueOf(result));
-                                    }
-                                });
-                    }
-                })
-                .show();*//*
-    }*/
-/*
-/*
-
-    // Ranking listener
-    private void onRankingListener(String tripId) {
-        */
-/*mFirebaseUtils.TRIP().child(tripId).child("ranking").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    long ranking = (long) dataSnapshot.getValue();
-                    btnRanking.setText(String.valueOf(ranking));
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });*//*
-
+    @OnClick(R.id.image_edit_cover)
+    @NeedsPermission({Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE})
+    public void getImageFromGallery() {
+        Intent intent = new Intent();
+        intent.setType("image/jpg");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), MessageType.FROM_GALLERY);
     }
 
-    private void onCommentListener(String tripId) {
-       */
-/* mFirebaseUtils.TRIP().child(tripId).child("comment").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                txtComment.setText(String.valueOf(dataSnapshot.getChildrenCount()));
-            }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        TripDetailActivityPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
+    }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
+    /*
+        private void onCommentListener(String tripId) {
+     mFirebaseUtils.TRIP().child(tripId).child("comment").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    txtComment.setText(String.valueOf(dataSnapshot.getChildrenCount()));
+                }
 
-            }
-        });*//*
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });*//*
 
     }
 */
@@ -319,4 +309,19 @@ public class TripDetailActivity extends ActivityBehavior {
 
     }
 
+
+    private void turnToGuestMode() {
+        imageEditCover.setVisibility(View.GONE);
+        Toast.makeText(this, "Guest", Toast.LENGTH_SHORT).show();
+    }
+
+    private void turnToMemberMode() {
+        imageEditCover.setVisibility(View.GONE);
+        Toast.makeText(this, "Member", Toast.LENGTH_SHORT).show();
+    }
+
+    private void turnToAdminMode() {
+        imageEditCover.setVisibility(View.VISIBLE);
+        TripDetailActivityPermissionsDispatcher.getImageFromGalleryWithCheck(this);
+    }
 }

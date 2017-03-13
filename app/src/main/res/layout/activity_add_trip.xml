@@ -22,27 +22,14 @@
 
         <TextView
             style="@style/AppTheme.TextView_Title.Bold"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:layout_weight="1"
             android:ellipsize="end"
             android:gravity="center|start"
             android:maxLines="1"
             android:minLines="1"
             android:text="@string/str_create_trip" />
-
-        <Switch
-            android:id="@+id/switch_publish"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_marginEnd="@dimen/margin_x2"
-            android:layout_marginRight="@dimen/margin_x2"
-            android:checked="true"
-            android:clickable="true"
-            android:enabled="true"
-            android:gravity="center" />
 
     </LinearLayout>
 

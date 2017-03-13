@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
+import io.yostajsc.constants.MessageType;
 import io.yostajsc.izigo.models.photo.BasePhotoInfo;
 import io.yostajsc.izigo.models.user.BaseUserInfo;
 
@@ -34,9 +35,6 @@ public class Trip extends RealmObject implements Serializable {
     @SerializedName("depart")
     private LocationPick mDepart;
 
-    @SerializedName("numberOfView")
-    private String mNumberOfView;
-
     @SerializedName("status")
     private String mStatus;
 
@@ -48,20 +46,29 @@ public class Trip extends RealmObject implements Serializable {
 
     @SerializedName("album")
     private RealmList<BasePhotoInfo> mAlbum;
+
     @SerializedName("is_published")
     private String mIsPublished;
 
     @SerializedName("role")
-    private String mRole;
+    private int mRole;
+
+    @SerializedName("numberOfView")
+    private int mNumberOfView;
 
     @SerializedName("numberOfActivities")
-    private String mNumberOfActivities;
+    private int mNumberOfActivities;
 
     @SerializedName("numberOfComments")
-    private String mNumberOfComments;
+    private int mNumberOfComments;
 
     @SerializedName("numberOfMembers")
-    private String mNumberOfMembers;
+    private int mNumberOfMembers;
+
+
+    @SerializedName("transfer")
+    private int mTransfer;
+
 
     public String getTripName() {
         return mName;
@@ -100,7 +107,7 @@ public class Trip extends RealmObject implements Serializable {
     }
 
     public long getDuration() {
-        return getDepartTime() - getArriveTime();
+        return getArriveTime() - getDepartTime();
     }
 
     public String getDescription() {
@@ -110,43 +117,26 @@ public class Trip extends RealmObject implements Serializable {
     }
 
     public int getNumberOfActivities() {
-        int n = 0;
-        try {
-            n = Integer.parseInt(mNumberOfActivities);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return n;
+        return this.mNumberOfActivities;
     }
 
     public int getNumberOfComments() {
-        int n = 0;
-        try {
-            n = Integer.parseInt(mNumberOfComments);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return n;
+        return this.mNumberOfComments;
     }
 
     public int getNumberOfMembers() {
-        int n = 0;
-        try {
-            n = Integer.parseInt(mNumberOfMembers);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return n;
+        return this.mNumberOfMembers;
     }
 
 
     public int getNumberOfView() {
-        int n = 0;
-        try {
-            n = Integer.parseInt(mNumberOfView);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return n;
+        return this.mNumberOfView;
+    }
+
+    public int getTransfer() {
+        return mTransfer;
+    }
+    public int getRole() {
+        return mRole;
     }
 }

@@ -104,9 +104,6 @@
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".activities.trip.OwnTripActivity"
-            android:theme="@style/AppTheme" />
-        <activity
             android:name=".activities.SearchActivity"
             android:theme="@style/AppTheme" />
         <activity
@@ -117,10 +114,6 @@
             android:name=".activities.WelcomeActivity"
             android:launchMode="singleInstance"
             android:theme="@style/AppTheme.White" />
-        <activity
-            android:name=".activities.trip.GroupDetailActivity"
-            android:launchMode="singleInstance"
-            android:theme="@style/AppTheme" />
         <activity
             android:name=".activities.trip.AddTripActivity"
             android:theme="@style/AppTheme"

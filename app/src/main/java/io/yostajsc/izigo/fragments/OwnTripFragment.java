@@ -22,6 +22,7 @@ import io.yostajsc.izigo.activities.trip.AddTripActivity;
 import io.yostajsc.izigo.activities.trip.TripDetailActivity;
 import io.yostajsc.izigo.adapters.TripAdapter;
 import io.yostajsc.izigo.configs.AppDefine;
+import io.yostajsc.izigo.managers.RealmManager;
 import io.yostajsc.izigo.models.trip.Trips;
 import io.yostajsc.utils.NetworkUtils;
 import io.yostajsc.utils.StorageUtils;
@@ -90,6 +91,12 @@ public class OwnTripFragment extends Fragment {
 
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        onInternetConnected();
+    }
+
     private void onInternetConnected() {
         String authorization = StorageUtils.inject(mContext)
                 .getString(AppDefine.AUTHORIZATION);
@@ -103,7 +110,7 @@ public class OwnTripFragment extends Fragment {
         }, new CallBackWith<Trips>() {
             @Override
             public void run(Trips trips) {
-                // RealmManager.insertOrUpdate(trips);
+                RealmManager.insertOrUpdate(trips);
                 updateUI(trips);
             }
         }, new CallBackWith<String>() {
@@ -117,13 +124,12 @@ public class OwnTripFragment extends Fragment {
     private void onApplyData() {
 
         // Read from disk
-      /*  RealmManager.findTrips(new CallBackWith<Trips>() {
+        RealmManager.findTrips(new CallBackWith<Trips>() {
             @Override
             public void run(Trips trips) {
                 updateUI(trips); // Update UI
             }
         });
-*/
         if (NetworkUtils.isNetworkConnected(mContext)) {
             onInternetConnected();
         }

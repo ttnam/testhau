@@ -1,6 +1,7 @@
 package io.yostajsc.utils;
 
 import android.support.annotation.NonNull;
+import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.LinearSnapHelper;
@@ -10,9 +11,11 @@ import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 
+import io.yostajsc.constants.TransferType;
 import io.yostajsc.designs.decorations.SpacesItemDecoration;
 import io.yostajsc.designs.listeners.RecyclerItemClickListener;
 import io.yostajsc.interfaces.CallBackWith;
+import io.yostajsc.izigo.R;
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 
 /**
@@ -102,5 +105,19 @@ public class UiUtils {
         settings.setGeolocationEnabled(false);
         settings.setNeedInitialFocus(false);
         settings.setSaveFormData(false);
+    }
+
+    public static void showTransfer(int type, AppCompatImageView imageView) {
+        switch (type) {
+            case TransferType.BUS:
+                imageView.setImageResource(R.drawable.ic_vector_bus);
+                break;
+            case TransferType.MOTORBIKE:
+                imageView.setImageResource(R.drawable.ic_vector_motor_bike);
+                break;
+            case TransferType.WALK:
+                imageView.setImageResource(R.drawable.ic_vector_walk);
+                break;
+        }
     }
 }
