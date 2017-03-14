@@ -10,12 +10,16 @@ import android.support.v7.widget.SnapHelper;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import io.yostajsc.constants.TransferType;
 import io.yostajsc.designs.decorations.SpacesItemDecoration;
 import io.yostajsc.designs.listeners.RecyclerItemClickListener;
 import io.yostajsc.interfaces.CallBackWith;
 import io.yostajsc.izigo.R;
+import io.yostajsc.utils.validate.ValidateUtils;
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 
 /**
@@ -120,4 +124,16 @@ public class UiUtils {
                 break;
         }
     }
+
+    public static void showTextCenterInWebView(WebView webView, String text) {
+        String prefix = "<html><body><p style=\"text-align: justify\">";
+        String postfix = "</p></body></html>";
+        if (ValidateUtils.canUse(text)) {
+            webView.loadData(prefix + text + postfix, "text/html; charset=utf-8", "utf-8");
+            webView.setVisibility(View.VISIBLE);
+        } else {
+            webView.setVisibility(View.GONE);
+        }
+    }
+
 }

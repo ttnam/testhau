@@ -2,53 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/white"
-        android:orientation="horizontal">
+    <include layout="@layout/layout_trip_detail_tool_bar" />
 
-        <android.support.v7.widget.AppCompatImageView
-            android:id="@id/button_left"
-            style="@style/AppTheme.IconClick"
-            android:layout_width="?actionBarSize"
-            android:layout_height="?actionBarSize"
-            android:layout_gravity="center"
-            android:padding="@dimen/margin_x2"
-            app:srcCompat="@drawable/ic_vector_back_blue" />
-
-        <android.support.v7.widget.AppCompatImageView
-            android:id="@+id/image_creator_avatar"
-            android:layout_width="@dimen/icon_size_x4"
-            android:layout_height="@dimen/icon_size_x4"
-            android:layout_gravity="center" />
-
-        <TextView
-            android:id="@+id/text_creator_name"
-            style="@style/AppTheme.TextView_Title.Bold"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_marginLeft="@dimen/margin_x2"
-            android:layout_marginStart="@dimen/margin_x2"
-            android:layout_weight="1"
-            android:ellipsize="end"
-            android:gravity="center|start"
-            android:maxLines="1"
-            android:minLines="1" />
-
-        <android.support.v7.widget.AppCompatImageView
-            android:id="@+id/button_share"
-            style="@style/AppTheme.IconClick"
-            android:layout_width="?actionBarSize"
-            android:layout_height="?actionBarSize"
-            android:layout_gravity="center"
-            app:srcCompat="@drawable/ic_vector_share" />
-
-    </LinearLayout>
+    <include layout="@layout/layout_separate_vertical" />
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -67,188 +27,81 @@
                 <android.support.v7.widget.AppCompatImageView
                     android:id="@id/image_view"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/image_height_v3"
+                    android:layout_height="@dimen/image_height_v2"
                     android:scaleType="centerCrop" />
 
                 <android.support.v7.widget.AppCompatImageView
                     android:id="@+id/image_edit_cover"
                     style="@style/AppTheme.IconClick"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/icon_size_x6"
+                    android:layout_height="@dimen/icon_size_x6"
                     android:layout_gravity="end|bottom"
-                    android:layout_margin="@dimen/margin"
                     android:padding="@dimen/margin"
-                    app:srcCompat="@drawable/ic_vector_email" />
+                    android:visibility="invisible"
+                    app:srcCompat="@drawable/ic_vector_pen_backgroud" />
 
             </FrameLayout>
-
 
             <TextView
                 android:id="@+id/text_name"
                 style="@style/AppTheme.TextView_Title.Bold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/margin"
+                android:layout_marginTop="@dimen/margin"
                 android:ellipsize="end"
                 android:gravity="center"
                 android:maxLines="3"
                 android:minLines="1"
                 android:textSize="@dimen/text_size_v3" />
 
-            <View
-                android:layout_width="@dimen/icon_size_x7"
-                android:layout_height="2dp"
-                android:layout_gravity="center"
-                android:background="@android:color/darker_gray" />
-
             <TextView
                 android:id="@+id/text_time"
                 style="@style/AppTheme.TextView_Title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/margin"
                 android:ellipsize="end"
                 android:gravity="center"
                 android:maxLines="3"
                 android:minLines="1" />
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_margin="@dimen/margin"
-                android:baselineAligned="true"
-                android:orientation="horizontal">
 
-                <android.support.v7.widget.AppCompatImageView
-                    android:id="@+id/image_transfer"
-                    style="@style/AppTheme.IconClick"
-                    android:layout_width="?actionBarSize"
-                    android:layout_height="?actionBarSize"
-                    android:layout_gravity="center"
-                    android:background="@drawable/ic_style_button_round_none_default"
-                    android:padding="@dimen/margin_x2"
-                    android:scaleType="centerCrop"
-                    app:srcCompat="@drawable/ic_vector_motor_bike" />
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="none">
 
-                <LinearLayout
-                    android:id="@+id/layout_comment"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:background="@drawable/ic_style_button_round_none_default"
-                    android:clickable="true"
-                    android:orientation="horizontal"
-                    android:padding="@dimen/margin_x2">
+                <include layout="@layout/layout_trip_number_info" />
 
-                    <android.support.v7.widget.AppCompatImageView
-                        android:layout_width="@dimen/icon_size_x3"
-                        android:layout_height="@dimen/icon_size_x3"
-                        android:layout_gravity="center"
-                        app:srcCompat="@drawable/ic_vector_comment" />
+            </HorizontalScrollView>
 
-                    <TextView
-                        android:id="@+id/text_number_of_comment"
-                        style="@style/AppTheme.TextView_Sub_Title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="@dimen/margin"
-                        android:layout_marginStart="@dimen/margin"
-                        android:gravity="center"
-                        android:text="0" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:orientation="horizontal"
-                    android:padding="@dimen/margin_x2">
-
-                    <android.support.v7.widget.AppCompatImageView
-                        android:layout_width="@dimen/icon_size_x3"
-                        android:layout_height="@dimen/icon_size_x3"
-                        android:layout_gravity="center"
-                        app:srcCompat="@drawable/ic_vector_eye_gray" />
-
-                    <TextView
-                        android:id="@+id/text_views"
-                        style="@style/AppTheme.TextView_Sub_Title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="@dimen/margin"
-                        android:layout_marginStart="@dimen/margin"
-                        android:gravity="center"
-                        android:text="0" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/layout_activity"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:background="@drawable/ic_style_button_round_none_default"
-                    android:clickable="true"
-                    android:orientation="horizontal"
-                    android:padding="@dimen/margin_x2">
-
-                    <android.support.v7.widget.AppCompatImageView
-                        android:layout_width="@dimen/icon_size_x3"
-                        android:layout_height="@dimen/icon_size_x3"
-                        android:layout_gravity="center"
-                        app:srcCompat="@drawable/ic_vector_comment" />
-
-                    <TextView
-                        android:id="@+id/text_activities"
-                        style="@style/AppTheme.TextView_Sub_Title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="@dimen/margin"
-                        android:layout_marginStart="@dimen/margin"
-                        android:gravity="center"
-                        android:text="0" />
-                </LinearLayout>
-
-            </LinearLayout>
+            <include layout="@layout/layout_separate_vertical" />
 
             <include layout="@layout/item_web_vew" />
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/text_number_of_photo"
+                style="@style/AppTheme.TextView_Title.Bold"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:padding="@dimen/margin">
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:ellipsize="end"
+                android:gravity="center|start"
+                android:maxLines="1"
+                android:minLines="1"
+                android:padding="@dimen/margin" />
 
-                <TextView
-                    android:id="@+id/text_number_of_photo"
-                    style="@style/AppTheme.TextView_Title.Bold"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:ellipsize="end"
-                    android:gravity="center|start"
-                    android:maxLines="1"
-                    android:minLines="1"
-                    android:paddingBottom="@dimen/margin" />
-
-                <include layout="@layout/layout_recycler_view" />
-
-            </LinearLayout>
+            <include layout="@layout/layout_recycler_view" />
 
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>
 
     <Button
+        android:id="@id/button"
         style="@style/AppTheme.TextView_Title.Bold.White"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
+        android:layout_gravity="bottom"
         android:background="@drawable/ic_style_button_round_none_theme"
         android:text="@string/str_join" />
 </LinearLayout>

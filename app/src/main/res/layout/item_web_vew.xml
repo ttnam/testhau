@@ -5,7 +5,8 @@
         android:id="@id/web_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/margin"
-        android:background="@android:color/transparent" />
+        android:layout_margin="@dimen/margin"
+        android:background="@android:color/transparent"
+        android:padding="@dimen/margin" />
 
 </merge>

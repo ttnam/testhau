@@ -108,7 +108,7 @@ public class TripTimelineActivity extends ActivityBehavior {
     }
 
     private void loadFromDisk() {
-        RealmManager.findActivies(new CallBackWith<Timelines>() {
+        RealmManager.findActivities(new CallBackWith<Timelines>() {
             @Override
             public void run(Timelines timelines) {
                 updateUI(timelines); // Update UI

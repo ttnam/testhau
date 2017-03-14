@@ -18,6 +18,16 @@ public class RealmManager {
         Realm realm = null;
         try {
             realm = Realm.getDefaultInstance();
+/*
+
+            realm.executeTransaction(new Realm.Transaction() {
+                @Override
+                public void execute(Realm realm) {
+                    realm.where(Trip.class).findAll().deleteAllFromRealm();
+                }
+            });
+*/
+
             realm.executeTransaction(new Realm.Transaction() {
                 @Override
                 public void execute(Realm realm) {
@@ -37,6 +47,13 @@ public class RealmManager {
         Realm realm = null;
         try {
             realm = Realm.getDefaultInstance();
+            /*realm.executeTransaction(new Realm.Transaction() {
+                @Override
+                public void execute(Realm realm) {
+                    realm.where(Trip.class).findAll().deleteAllFromRealm();
+                }
+            });*/
+
             realm.executeTransaction(new Realm.Transaction() {
                 @Override
                 public void execute(Realm realm) {
@@ -70,6 +87,7 @@ public class RealmManager {
             }
         }
     }
+
     public static void findTrips(final CallBackWith<Trips> callBack) {
 
         Realm realm = null;
@@ -95,7 +113,7 @@ public class RealmManager {
         }
     }
 
-    public static void findActivies(final CallBackWith<Timelines> callBack) {
+    public static void findActivities(final CallBackWith<Timelines> callBack) {
 
         Realm realm = null;
 

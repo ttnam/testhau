@@ -76,12 +76,39 @@ public class TripFragment extends Fragment {
                 new CallBackWith<Integer>() {
                     @Override
                     public void run(Integer position) {
-                        String tripId = tripAdapter.getItem(position).getTripId();
-                        Intent intent = new Intent(mContext, TripDetailActivity.class);
-                        intent.putExtra(AppDefine.TRIP_ID, tripId);
-                        startActivity(intent);
+                        onTripItemClick(position);
                     }
                 });
+    }
+
+    private void onTripItemClick(int pos) {
+        final String tripId = tripAdapter.getItem(pos).getTripId();
+
+        String authorization = StorageUtils.inject(mContext)
+                .getString(AppDefine.AUTHORIZATION);
+
+        APIManager.connect().updateView(authorization, tripId, new CallBack() {
+            @Override
+            public void run() {
+                // TODO: expired
+            }
+        }, new CallBack() {
+            @Override
+            public void run() {
+                Intent intent = new Intent(mContext, TripDetailActivity.class);
+                intent.putExtra(AppDefine.TRIP_ID, tripId);
+                startActivity(intent);
+            }
+        }, new CallBackWith<String>() {
+            @Override
+            public void run(String error) {
+                Toast.makeText(mContext, error, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        Intent intent = new Intent(mContext, TripDetailActivity.class);
+        intent.putExtra(AppDefine.TRIP_ID, tripId);
+        startActivity(intent);
     }
 
     private void updateUI(Trips trips) {

@@ -1,23 +1,39 @@
 package io.yostajsc.izigo.activities.trip;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.BottomSheetDialogFragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.ContextMenu;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.webkit.WebView;
-import android.widget.FrameLayout;
-import android.widget.LinearLayout;
+import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import butterknife.OnClick;
 import io.yostajsc.backend.core.APIManager;
@@ -33,14 +49,12 @@ import io.yostajsc.izigo.configs.AppDefine;
 import io.yostajsc.izigo.managers.RealmManager;
 import io.yostajsc.izigo.models.trip.Trip;
 import io.yostajsc.utils.AppUtils;
-import io.yostajsc.utils.DimensionUtil;
 import io.yostajsc.utils.NetworkUtils;
 import io.yostajsc.utils.StorageUtils;
 import io.yostajsc.utils.UiUtils;
 import io.yostajsc.utils.validate.ValidateUtils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.yostajsc.view.BottomSheetDialog;
 import io.yostajsc.view.CropCircleTransformation;
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 import permissions.dispatcher.NeedsPermission;
@@ -88,9 +102,16 @@ public class TripDetailActivity extends ActivityBehavior {
     @BindView(R.id.text_activities)
     TextView textNumberOfActivities;
 
-    private String tripId;
+    @BindView(R.id.button_more)
+    AppCompatImageView buttonMore;
 
+    @BindView(R.id.button)
+    Button button;
+
+    private String tripId;
+    private int roleType = RoleType.NOT_MEMBER;
     private ImageryAdapter albumAdapter = null;
+    private final String TAG = TripDetailActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -111,10 +132,6 @@ public class TripDetailActivity extends ActivityBehavior {
     public void onApplyViews() {
 
         // set cover size
-       /* layoutCover.setLayoutParams(new FrameLayout.LayoutParams(
-                DimensionUtil.getScreenWidth(this),
-                DimensionUtil.getScreenWidth(this) * 2 / 3
-        ));*/
         this.albumAdapter = new ImageryAdapter(this);
         UiUtils.onApplyWebViewSetting(webView);
         UiUtils.onApplyAlbumRecyclerView(this.rvAlbum, albumAdapter, new SlideInUpAnimator(), new CallBackWith<Integer>() {
@@ -123,6 +140,21 @@ public class TripDetailActivity extends ActivityBehavior {
 
             }
         });
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        menu.setHeaderTitle(getString(R.string.str_option));
+        menu.add(0, v.getId(), 0, getString(R.string.str_edit));
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        if (item.getOrder() == 0) {
+            enableEditMode();
+        }
+        return super.onContextItemSelected(item);
     }
 
     @Override
@@ -137,14 +169,39 @@ public class TripDetailActivity extends ActivityBehavior {
                     updateUI(trip);
                 }
             });
-
             if (NetworkUtils.isNetworkConnected(this)) {
                 onInternetConnected();
             }
         }
     }
 
-    private void updateUI(Trip trip) {
+    private void updateUI(final Trip trip) {
+
+        if (trip == null) return;
+        roleType = trip.getRole();
+
+        // Avatar
+        Glide.with(TripDetailActivity.this)
+                .load(trip.getCreatorAvatar())
+                .error(R.drawable.ic_vector_avatar)
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                .bitmapTransform(new CropCircleTransformation(TripDetailActivity.this))
+                .into(imageCreatorAvatar);
+
+        // Cover
+        Glide.with(TripDetailActivity.this)
+                .load(trip.getCover())
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                .into(imageCover);
+
+        // Update transfer
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                UiUtils.showTransfer(trip.getTransfer(), imageTransfer);
+            }
+        }, 10);
+
         new AsyncTask<Trip, Void, Trip>() {
 
             @Override
@@ -156,90 +213,106 @@ public class TripDetailActivity extends ActivityBehavior {
             protected void onPostExecute(Trip trip) {
                 super.onPostExecute(trip);
 
-                if (trip == null) return;
-                String prefix = "<html><body><p style=\"text-align: justify\">";
-                String postfix = "</p></body></html>";
-                String content = trip.getDescription();
-                if (ValidateUtils.canUse(content)) {
-                    webView.loadData(prefix + content + postfix, "text/html; charset=utf-8", "utf-8");
-                    webView.setVisibility(View.VISIBLE);
-                } else {
-                    webView.setVisibility(View.GONE);
-                }
-
-                // Cover
-                Glide.with(TripDetailActivity.this)
-                        .load(trip.getCover())
-                        .into(imageCover);
-
-                String tripName = trip.getTripName();
-                if (ValidateUtils.canUse(tripName)) {
-                    textTripName.setText(tripName);
-                    textTripName.setVisibility(View.VISIBLE);
-                } else
-                    textTripName.setVisibility(View.GONE);
-
-                textCreatorName.setText(trip.getCreatorName());
-
-                // Avatar
-                Glide.with(TripDetailActivity.this)
-                        .load(trip.getCreatorAvatar())
-                        .error(R.drawable.ic_vector_avatar)
-                        .bitmapTransform(new CropCircleTransformation(TripDetailActivity.this))
-                        .into(imageCreatorAvatar);
-
-                albumAdapter.replaceAll(trip.getAlbum());
-
-                textViews.setText(String.valueOf(trip.getNumberOfView()));
-
                 int nPhotos = trip.getAlbum().size();
                 textNumberOfPhoto.setText(getResources().getQuantityString(R.plurals.photos, nPhotos, nPhotos));
+                albumAdapter.replaceAll(trip.getAlbum());
 
-                textNumberOfComments.setText(String.valueOf(trip.getNumberOfComments()));
-                textNumberOfActivities.setText(String.valueOf(trip.getNumberOfActivities()));
+                UiUtils.showTextCenterInWebView(webView, trip.getDescription());
 
-                // Time
+                textTripName.setText(trip.getTripName());
+                textCreatorName.setText(trip.getCreatorName());
+
+                int nViews = trip.getNumberOfView();
+                textViews.setText(getResources().getQuantityString(R.plurals.views, nViews, nViews));
+
+                int nComments = trip.getNumberOfComments();
+                textNumberOfComments.setText(getResources().getQuantityString(R.plurals.comments, nComments, nComments));
+
+                int nActivities = trip.getNumberOfActivities();
+                textNumberOfActivities.setText(getResources().getQuantityString(R.plurals.activities, nActivities, nActivities));
+
                 textTime.setText(String.format("%s - %s",
                         AppUtils.builder().getTime(trip.getDepartTime(), AppUtils.DD_MM_YYYY),
                         AppUtils.builder().getTime(trip.getArriveTime(), AppUtils.DD_MM_YYYY)));
-
-                // Update transfer
-                UiUtils.showTransfer(trip.getTransfer(), imageTransfer);
-
-                // Update role
-
-                @RoleType int role = trip.getRole();
-                switch (role) {
-                    case RoleType.ADMIN:
-                        turnToAdminMode();
-                        break;
-                    case RoleType.MEMBER:
-                        turnToMemberMode();
-                        break;
-                    case RoleType.NOT_MEMBER:
-                        turnToGuestMode();
-                        break;
-                }
-
-
             }
         }.execute(trip);
     }
 
-    @OnClick(R.id.button_share)
-    public void share() {
-        BottomSheetDialogFragment bottomSheetDialogFragment = new BottomSheetDialog();
-        bottomSheetDialogFragment.show(getSupportFragmentManager(), bottomSheetDialogFragment.getTag());
+    private void onApplyFirebase(Uri uri) {
+
+        if (NetworkUtils.isNetworkConnected(this)) {
+
+            // Firebase
+            StorageReference riversRef = FirebaseStorage.getInstance()
+                    .getReference().child("images/covers/" + tripId);
+
+            UploadTask uploadTask = riversRef.putFile(uri);
+            uploadTask.addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                    updateCover(task.getResult().getDownloadUrl().toString());
+                }
+            });
+        }
+
     }
 
-    @OnClick(R.id.layout_comment)
+    private void updateCover(String url) {
+
+        String authorization = StorageUtils.inject(this).getString(AppDefine.AUTHORIZATION);
+
+        APIManager.connect().updateCover(authorization, tripId, url, new CallBack() {
+            @Override
+            public void run() {
+                onExpired();
+            }
+        }, new CallBack() {
+            @Override
+            public void run() {
+                Toast.makeText(TripDetailActivity.this, "OK", Toast.LENGTH_SHORT).show();
+            }
+        }, new CallBackWith<String>() {
+            @Override
+            public void run(String error) {
+                // TODO:
+                Log.e(TAG, error);
+                Toast.makeText(TripDetailActivity.this, error, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+
+    @OnClick(R.id.button_more)
+    public void more() {
+        if (roleType == RoleType.ADMIN) {
+            registerForContextMenu(buttonMore);
+            buttonMore.performLongClick();
+        }
+        /*BottomSheetDialogFragment bottomSheetDialogFragment = new BottomSheetDialog();
+        bottomSheetDialogFragment.show(getSupportFragmentManager(), bottomSheetDialogFragment.getTag());*/
+    }
+
+    private void enableEditMode() {
+        imageEditCover.setVisibility(View.VISIBLE);
+        imageTransfer.setClickable(true);
+    }
+
+    @OnClick(R.id.text_number_of_comment)
     public void onLoadComment() {
         DialogComment dialogComment = new DialogComment(this);
         dialogComment.show();
         dialogComment.setTripId(tripId);
     }
 
-    @OnClick(R.id.layout_activity)
+
+    @OnClick(R.id.image_transfer)
+    public void onTransfer() {
+        if (roleType == RoleType.NOT_MEMBER)
+            return;
+    }
+
+
+    @OnClick(R.id.text_activities)
     public void onLoadActivity() {
         Intent intent = new Intent(TripDetailActivity.this, TripTimelineActivity.class);
         intent.putExtra(Trip.TRIP_ID, tripId);
@@ -247,6 +320,10 @@ public class TripDetailActivity extends ActivityBehavior {
     }
 
     @OnClick(R.id.image_edit_cover)
+    public void editCover() {
+        TripDetailActivityPermissionsDispatcher.getImageFromGalleryWithCheck(this);
+    }
+
     @NeedsPermission({Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE})
     public void getImageFromGallery() {
         Intent intent = new Intent();
@@ -261,22 +338,28 @@ public class TripDetailActivity extends ActivityBehavior {
         TripDetailActivityPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
     }
 
-    /*
-        private void onCommentListener(String tripId) {
-     mFirebaseUtils.TRIP().child(tripId).child("comment").addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    txtComment.setText(String.valueOf(dataSnapshot.getChildrenCount()));
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case MessageType.FROM_GALLERY: {
+                    try {
+                        Uri fileUri = data.getData();
+                        Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), fileUri);
+                        if (bitmap != null) {
+                            Glide.with(TripDetailActivity.this).load(fileUri)
+                                    .into(imageCover);
+                            onApplyFirebase(fileUri);
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    break;
                 }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-
-                }
-            });*//*
-
+            }
+        }
     }
-*/
+
     @Override
     protected void onInternetConnected() {
         super.onInternetConnected();
@@ -307,21 +390,5 @@ public class TripDetailActivity extends ActivityBehavior {
     @Override
     protected void onInternetDisconnected() {
 
-    }
-
-
-    private void turnToGuestMode() {
-        imageEditCover.setVisibility(View.GONE);
-        Toast.makeText(this, "Guest", Toast.LENGTH_SHORT).show();
-    }
-
-    private void turnToMemberMode() {
-        imageEditCover.setVisibility(View.GONE);
-        Toast.makeText(this, "Member", Toast.LENGTH_SHORT).show();
-    }
-
-    private void turnToAdminMode() {
-        imageEditCover.setVisibility(View.VISIBLE);
-        TripDetailActivityPermissionsDispatcher.getImageFromGalleryWithCheck(this);
     }
 }
