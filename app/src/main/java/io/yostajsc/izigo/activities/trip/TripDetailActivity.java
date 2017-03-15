@@ -1,7 +1,6 @@
 package io.yostajsc.izigo.activities.trip;
 
 import android.Manifest;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -11,7 +10,7 @@ import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AlertDialog;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -19,17 +18,12 @@ import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
-import android.widget.Button;
-import android.widget.CompoundButton;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -39,10 +33,13 @@ import butterknife.OnClick;
 import io.yostajsc.backend.core.APIManager;
 import io.yostajsc.constants.MessageType;
 import io.yostajsc.constants.RoleType;
+import io.yostajsc.constants.TransferType;
 import io.yostajsc.interfaces.CallBack;
 import io.yostajsc.interfaces.CallBackWith;
 import io.yostajsc.izigo.R;
+import io.yostajsc.izigo.activities.ActivityManagerActivity;
 import io.yostajsc.izigo.activities.dialogs.DialogComment;
+import io.yostajsc.izigo.activities.dialogs.DialogPickTransfer;
 import io.yostajsc.izigo.adapters.ImageryAdapter;
 import io.yostajsc.interfaces.ActivityBehavior;
 import io.yostajsc.izigo.configs.AppDefine;
@@ -106,10 +103,10 @@ public class TripDetailActivity extends ActivityBehavior {
     AppCompatImageView buttonMore;
 
     @BindView(R.id.button)
-    Button button;
+    FloatingActionButton button;
 
     private String tripId;
-    private int roleType = RoleType.NOT_MEMBER;
+    private int roleType = RoleType.GUEST;
     private ImageryAdapter albumAdapter = null;
     private final String TAG = TripDetailActivity.class.getSimpleName();
 
@@ -179,6 +176,17 @@ public class TripDetailActivity extends ActivityBehavior {
 
         if (trip == null) return;
         roleType = trip.getRole();
+
+        switch (roleType) {
+            case RoleType.GUEST:
+                button.setImageResource(R.drawable.ic_add_user);
+                break;
+            case RoleType.MEMBER:
+            case RoleType.ADMIN:
+                button.setImageResource(R.drawable.ic_marker);
+                break;
+
+        }
 
         // Avatar
         Glide.with(TripDetailActivity.this)
@@ -294,6 +302,8 @@ public class TripDetailActivity extends ActivityBehavior {
 
     private void enableEditMode() {
         imageEditCover.setVisibility(View.VISIBLE);
+        imageTransfer.setBackgroundDrawable(getResources().getDrawable(
+                R.drawable.ic_style_button_round_corners_default_2));
         imageTransfer.setClickable(true);
     }
 
@@ -306,11 +316,48 @@ public class TripDetailActivity extends ActivityBehavior {
 
 
     @OnClick(R.id.image_transfer)
-    public void onTransfer() {
-        if (roleType == RoleType.NOT_MEMBER)
+    public void onTransfer(View view) {
+        if (!view.isClickable())
             return;
+        if (roleType == RoleType.ADMIN ||
+                roleType == RoleType.MEMBER) {
+            DialogPickTransfer dialogPickTransfer = new DialogPickTransfer(this);
+            dialogPickTransfer.setDialogResult(new CallBackWith<Integer>() {
+                @Override
+                public void run(@TransferType Integer type) {
+                    UiUtils.showTransfer(type, imageTransfer);
+                }
+            });
+            dialogPickTransfer.show();
+        }
     }
 
+    @OnClick(R.id.button)
+    public void actionLink() {
+        if (roleType == RoleType.GUEST) {
+            String authorization = StorageUtils.inject(this)
+                    .getString(AppDefine.AUTHORIZATION);
+            APIManager.connect().join(authorization, tripId, new CallBack() {
+                @Override
+                public void run() {
+                    onExpired();
+                }
+            }, new CallBack() {
+                @Override
+                public void run() {
+                    Toast.makeText(TripDetailActivity.this, "Thành công", Toast.LENGTH_SHORT).show();
+                }
+            }, new CallBackWith<String>() {
+                @Override
+                public void run(String error) {
+                    Toast.makeText(TripDetailActivity.this, error, Toast.LENGTH_SHORT).show();
+                }
+            });
+        } else {
+            startActivity(new Intent(this, ActivityManagerActivity.class));
+            finish();
+        }
+    }
 
     @OnClick(R.id.text_activities)
     public void onLoadActivity() {

@@ -9,9 +9,9 @@ import java.lang.annotation.RetentionPolicy;
  * Created by Phuc-Hau Nguyen on 12/3/2016.
  */
 @Retention(RetentionPolicy.SOURCE)
-@IntDef({RoleType.NOT_MEMBER, RoleType.MEMBER, RoleType.ADMIN})
+@IntDef({RoleType.GUEST, RoleType.MEMBER, RoleType.ADMIN})
 public @interface RoleType {
-    int NOT_MEMBER = 0;
+    int GUEST = 0;
     int MEMBER = 1;
     int ADMIN = 2;
 }

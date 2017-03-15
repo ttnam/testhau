@@ -468,4 +468,30 @@ public class APIManager {
             }
         });
     }
+
+    public void join(String authorization, String tripId, final CallBack expired,
+                     final CallBack success, final CallBackWith<String> fail) {
+
+        Call<BaseResponse<String>> call = service.join(authorization, tripId);
+        call.enqueue(new Callback<BaseResponse<String>>() {
+            @Override
+            public void onResponse(Call<BaseResponse<String>> call, Response<BaseResponse<String>> response) {
+                if (response.isSuccessful()) {
+                    BaseResponse<String> res = response.body();
+                    if (res.isSuccessful()) {
+                        success.run();
+                    } else if (res.isExpired()) {
+                        expired.run();
+                    } else {
+                        fail.run(res.getDescription());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BaseResponse<String>> call, Throwable t) {
+
+            }
+        });
+    }
 }

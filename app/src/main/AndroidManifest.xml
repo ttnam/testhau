@@ -84,6 +84,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
             <meta-data
                 android:name="android.app.shortcuts"
                 android:resource="@xml/shortcuts" />
@@ -140,7 +141,8 @@
         </service>
 
         <activity android:name=".activities.trip.TripTimelineActivity" />
-        <activity android:name=".activities.PickLocationActivity"></activity>
+        <activity android:name=".activities.PickLocationActivity" />
+        <activity android:name=".activities.ActivityManagerActivity"></activity>
     </application>
 
 </manifest>

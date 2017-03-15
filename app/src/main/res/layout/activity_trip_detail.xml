@@ -10,98 +10,103 @@
 
     <include layout="@layout/layout_separate_vertical" />
 
-    <android.support.v4.widget.NestedScrollView
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_height="match_parent">
 
-        <LinearLayout
+        <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
 
-            <FrameLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-                <android.support.v7.widget.AppCompatImageView
-                    android:id="@id/image_view"
+                <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/image_height_v2"
-                    android:scaleType="centerCrop" />
+                    android:layout_height="wrap_content">
 
-                <android.support.v7.widget.AppCompatImageView
-                    android:id="@+id/image_edit_cover"
-                    style="@style/AppTheme.IconClick"
-                    android:layout_width="@dimen/icon_size_x6"
-                    android:layout_height="@dimen/icon_size_x6"
-                    android:layout_gravity="end|bottom"
-                    android:padding="@dimen/margin"
-                    android:visibility="invisible"
-                    app:srcCompat="@drawable/ic_vector_pen_backgroud" />
+                    <android.support.v7.widget.AppCompatImageView
+                        android:id="@id/image_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/image_height_v2"
+                        android:scaleType="centerCrop" />
 
-            </FrameLayout>
+                    <android.support.v7.widget.AppCompatImageView
+                        android:id="@+id/image_edit_cover"
+                        style="@style/AppTheme.IconClick"
+                        android:layout_width="@dimen/icon_size_x6"
+                        android:layout_height="@dimen/icon_size_x6"
+                        android:layout_gravity="end|bottom"
+                        android:padding="@dimen/margin"
+                        android:visibility="invisible"
+                        app:srcCompat="@drawable/ic_vector_pen_backgroud" />
 
-            <TextView
-                android:id="@+id/text_name"
-                style="@style/AppTheme.TextView_Title.Bold"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin"
-                android:ellipsize="end"
-                android:gravity="center"
-                android:maxLines="3"
-                android:minLines="1"
-                android:textSize="@dimen/text_size_v3" />
+                </FrameLayout>
 
-            <TextView
-                android:id="@+id/text_time"
-                style="@style/AppTheme.TextView_Title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:gravity="center"
-                android:maxLines="3"
-                android:minLines="1" />
+                <TextView
+                    android:id="@+id/text_name"
+                    style="@style/AppTheme.TextView_Title.Bold"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    android:maxLines="3"
+                    android:minLines="1"
+                    android:textSize="@dimen/text_size_v3" />
+
+                <TextView
+                    android:id="@+id/text_time"
+                    style="@style/AppTheme.TextView_Title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    android:maxLines="3"
+                    android:minLines="1" />
 
 
-            <HorizontalScrollView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:scrollbars="none">
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="none">
 
-                <include layout="@layout/layout_trip_number_info" />
+                    <include layout="@layout/layout_trip_number_info" />
 
-            </HorizontalScrollView>
+                </HorizontalScrollView>
 
-            <include layout="@layout/layout_separate_vertical" />
+                <include layout="@layout/layout_separate_vertical" />
 
-            <include layout="@layout/item_web_vew" />
+                <include layout="@layout/item_web_vew" />
 
-            <TextView
-                android:id="@+id/text_number_of_photo"
-                style="@style/AppTheme.TextView_Title.Bold"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:ellipsize="end"
-                android:gravity="center|start"
-                android:maxLines="1"
-                android:minLines="1"
-                android:padding="@dimen/margin" />
+                <TextView
+                    android:id="@+id/text_number_of_photo"
+                    style="@style/AppTheme.TextView_Title.Bold"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:ellipsize="end"
+                    android:gravity="center|start"
+                    android:maxLines="1"
+                    android:minLines="1"
+                    android:padding="@dimen/margin" />
 
-            <include layout="@layout/layout_recycler_view" />
+                <include layout="@layout/layout_recycler_view" />
 
-        </LinearLayout>
+            </LinearLayout>
 
-    </android.support.v4.widget.NestedScrollView>
+        </android.support.v4.widget.NestedScrollView>
 
-    <Button
-        android:id="@id/button"
-        style="@style/AppTheme.TextView_Title.Bold.White"
-        android:layout_width="match_parent"
-        android:layout_height="?actionBarSize"
-        android:layout_gravity="bottom"
-        android:background="@drawable/ic_style_button_round_none_theme"
-        android:text="@string/str_join" />
+        <android.support.design.widget.FloatingActionButton
+            android:id="@id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="@dimen/margin_x2"
+            app:fabSize="normal" />
+
+    </FrameLayout>
+
 </LinearLayout>

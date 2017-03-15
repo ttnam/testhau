@@ -16,9 +16,9 @@
             android:layout_width="@dimen/icon_size_x6"
             android:layout_height="@dimen/icon_size_x6"
             android:layout_gravity="center"
-            android:padding="@dimen/margin"
-            android:background="@drawable/ic_style_button_round_corners_default_2"
+            android:background="@android:color/white"
             android:clickable="false"
+            android:padding="@dimen/margin"
             app:srcCompat="@drawable/ic_vector_motor_bike" />
 
         <TextView
