@@ -15,6 +15,7 @@
     <dimen name="buttonBorders">5dp</dimen>
 
     <dimen name="cardCornerRadius">1dp</dimen>
+    <dimen name="cardCornerRadius_x5">1dp</dimen>
     <dimen name="cardElevation">2dp</dimen>
 
     <dimen name="margin">8dp</dimen>

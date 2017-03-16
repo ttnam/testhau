@@ -58,6 +58,23 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
+        <service
+            android:name=".services.fcm.FirebaseMessagingService"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <service
+            android:name=".services.fcm.FirebaseInstanceIDService"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+
         <activity
             android:name="com.facebook.CustomTabActivity"
             android:exported="true">
@@ -79,12 +96,6 @@
             android:name=".activities.user.LoginActivity"
             android:launchMode="singleTask"
             android:theme="@style/AppTheme.Fullscreen">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-
             <meta-data
                 android:name="android.app.shortcuts"
                 android:resource="@xml/shortcuts" />
@@ -123,26 +134,22 @@
             android:name=".activities.SettingActivity"
             android:theme="@style/AppTheme" />
 
-        <service
-            android:name=".services.fcm.FirebaseMessagingService"
-            android:enabled="true"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-            </intent-filter>
-        </service>
-        <service
-            android:name=".services.fcm.FirebaseInstanceIDService"
-            android:enabled="true"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
-            </intent-filter>
-        </service>
+        <activity
+            android:name=".activities.trip.TripTimelineActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activities.PickLocationActivity"
+            android:theme="@style/AppTheme" />
 
-        <activity android:name=".activities.trip.TripTimelineActivity" />
-        <activity android:name=".activities.PickLocationActivity" />
-        <activity android:name=".activities.ActivityManagerActivity"></activity>
+        <activity
+            android:name=".activities.ActivityManagerActivity"
+            android:theme="@style/AppTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
