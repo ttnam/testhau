@@ -1,22 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_centerVertical="true"
     android:orientation="vertical">
 
     <android.support.v7.widget.AppCompatImageView
+        android:id="@id/image_view"
         android:layout_width="@dimen/icon_size_x9"
         android:layout_height="@dimen/icon_size_x9"
         android:layout_gravity="center"
         android:layout_marginTop="@dimen/margin_x4"
-        android:scaleType="centerInside"
-        app:srcCompat="@drawable/ic_launcher_sad" />
+        android:scaleType="centerInside" />
 
 
     <TextView
-        style="@style/AppTheme.TextView_Sub_Title.Bold"
+        style="@style/CoreAppTheme.TextView_Sub_Title.Bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
@@ -24,12 +23,12 @@
         android:layout_marginRight="@dimen/margin_x4"
         android:layout_marginTop="@dimen/margin_x2"
         android:gravity="center"
-        android:text="@string/error_message_no_internet"
+        android:text="No net"
         android:textAllCaps="true" />
 
 
     <TextView
-        style="@style/AppTheme.TextView_Sub_Title"
+        style="@style/CoreAppTheme.TextView_Sub_Title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
@@ -41,10 +40,10 @@
 
     <Button
         android:id="@id/button"
-        style="@style/AppTheme.TextView_Title.Bold.White"
+        style="@style/CoreAppTheme.TextView_Title.Bold"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/ic_style_button_round_none_theme"
+        android:background="@drawable/ic_style_button_round_none_default"
         android:text="OKAY" />
 
 </LinearLayout>

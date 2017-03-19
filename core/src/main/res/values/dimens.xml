@@ -2,6 +2,7 @@
 <resources>
 
     <dimen name="image_height">128dp</dimen>
+    <dimen name="image_height_v1">172dp</dimen>
     <dimen name="image_height_v2">192dp</dimen>
     <dimen name="image_height_v3">256dp</dimen>
     <dimen name="image_height_v4">320dp</dimen>
@@ -11,10 +12,20 @@
     <dimen name="text_size_v2">16sp</dimen>
     <dimen name="text_size_v2_5">18sp</dimen>
     <dimen name="text_size_v3">24sp</dimen>
+    <dimen name="text_size_v4">32sp</dimen>
+    <dimen name="text_size_v5">48sp</dimen>
+
+
+    <dimen name="card_view">72dp</dimen>
+    <dimen name="card_view_v1">96dp</dimen>
+    <dimen name="card_view_v2">128dp</dimen>
 
     <dimen name="buttonBorders">5dp</dimen>
+    <dimen name="buttonBigBorders">24dp</dimen>
+    <dimen name="min_buttonBorders">3dp</dimen>
 
     <dimen name="cardCornerRadius">1dp</dimen>
+    <dimen name="cardCornerRadius_x10">10dp</dimen>
     <dimen name="cardCornerRadius_x5">1dp</dimen>
     <dimen name="cardElevation">2dp</dimen>
 
@@ -32,7 +43,9 @@
     <dimen name="icon_size_x5">40dp</dimen>
     <dimen name="icon_size_x6">48dp</dimen>
     <dimen name="icon_size_x7">56dp</dimen>
+    <dimen name="icon_size_x8">64dp</dimen>
     <dimen name="icon_size_x9">72dp</dimen>
+    <dimen name="icon_size_x11">88dp</dimen>
     <dimen name="icon_size_x12">96dp</dimen>
     <dimen name="icon_size_x13">104dp</dimen>
     <dimen name="icon_size_x16">128dp</dimen>
