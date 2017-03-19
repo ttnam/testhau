@@ -1,9 +1,7 @@
-package io.yostajsc.core.listeners;
+package io.yostajsc.core.interfaces;
 
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-
-import io.yostajsc.core.callbacks.ActivityCoreInterface;
 
 /**
  * Created by Phuc-Hau Nguyen on 8/3/2016.
