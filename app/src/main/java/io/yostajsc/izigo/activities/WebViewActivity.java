@@ -10,12 +10,11 @@ import android.webkit.WebViewClient;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.yostajsc.core.utils.NetworkUtils;
 import io.yostajsc.izigo.R;
-import io.yostajsc.interfaces.ActivityBehavior;
-import io.yostajsc.utils.NetworkUtils;
 import io.yostajsc.view.OwnToolBar;
 
-public class WebViewActivity extends ActivityBehavior {
+public class WebViewActivity extends ActivityCoreBehavior {
 
     @BindView(R.id.web_view)
     WebView webView;
@@ -74,7 +73,7 @@ public class WebViewActivity extends ActivityBehavior {
     }
 
     @Override
-    protected void onInternetConnected() {
+    public void onInternetConnected() {
         super.onInternetConnected();
         loadWebsite();
     }

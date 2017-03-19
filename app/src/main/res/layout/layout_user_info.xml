@@ -26,7 +26,7 @@
 
             <android.support.design.widget.TextInputEditText
                 android:id="@+id/edit_first_name"
-                style="@style/AppTheme.TextView_Title.Bold"
+                style="@style/CoreAppTheme.TextView_Title.Bold"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/ic_style_rect_round_corners_gray_none"
@@ -50,7 +50,7 @@
 
             <android.support.design.widget.TextInputEditText
                 android:id="@+id/edit_last_name"
-                style="@style/AppTheme.TextView_Title.Bold"
+                style="@style/CoreAppTheme.TextView_Title.Bold"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/ic_style_rect_round_corners_gray_none"
@@ -74,7 +74,7 @@
 
         <android.support.design.widget.TextInputEditText
             android:id="@+id/edit_email"
-            style="@style/AppTheme.TextView_Title.Bold"
+            style="@style/CoreAppTheme.TextView_Title.Bold"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/ic_style_rect_round_corners_gray_none"
@@ -104,7 +104,7 @@
 
         <TextView
             android:id="@+id/text_gender"
-            style="@style/AppTheme.TextView_Title.Bold"
+            style="@style/CoreAppTheme.TextView_Title.Bold"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
@@ -124,7 +124,7 @@
 
         <android.support.design.widget.TextInputEditText
             android:id="@+id/edit_dob"
-            style="@style/AppTheme.TextView_Title.Bold"
+            style="@style/CoreAppTheme.TextView_Title.Bold"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/ic_style_rect_round_corners_gray_none"
@@ -140,7 +140,7 @@
 
     <Button
         android:id="@id/button"
-        style="@style/AppTheme.TextView_Title.Bold.White"
+        style="@style/CoreAppTheme.TextView_Title.Bold.White"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_x3"

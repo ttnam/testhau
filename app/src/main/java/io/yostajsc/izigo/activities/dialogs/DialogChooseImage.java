@@ -10,8 +10,8 @@ import org.greenrobot.eventbus.EventBus;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.yostajsc.constants.MessageInfo;
-import io.yostajsc.constants.MessageType;
+import io.yostajsc.core.code.MessageInfo;
+import io.yostajsc.core.code.MessageType;
 import io.yostajsc.izigo.R;
 
 /**
@@ -22,10 +22,10 @@ public class DialogChooseImage extends Dialog {
     private Activity mOwnerActivity = null;
 
     public DialogChooseImage(Context context) {
-        super(context, R.style.AppTheme_CustomDialog);
+        super(context, R.style.CoreAppTheme_Dialog);
         Window window = getWindow();
         if (window != null) {
-            window.getAttributes().windowAnimations = R.style.AppTheme_AnimDialog_Grow;
+            window.getAttributes().windowAnimations = R.style.CoreAppTheme_AnimDialog_Grow;
         }
         this.mOwnerActivity = (context instanceof Activity) ? (Activity) context : null;
         if (this.mOwnerActivity != null)

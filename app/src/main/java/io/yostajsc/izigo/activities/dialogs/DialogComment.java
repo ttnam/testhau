@@ -20,20 +20,20 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.yostajsc.backend.core.APIManager;
-import io.yostajsc.constants.MessageInfo;
+import io.yostajsc.core.callbacks.CallBack;
+import io.yostajsc.core.callbacks.CallBackWith;
+import io.yostajsc.core.code.MessageInfo;
+import io.yostajsc.core.utils.NetworkUtils;
+import io.yostajsc.core.utils.StorageUtils;
+import io.yostajsc.core.utils.ValidateUtils;
 import io.yostajsc.designs.animations.YoYo;
 import io.yostajsc.designs.animations.fading_entrances.FadeInAnimator;
-import io.yostajsc.interfaces.CallBack;
-import io.yostajsc.interfaces.CallBackWith;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.configs.AppDefine;
 import io.yostajsc.izigo.adapters.CommentAdapter;
 import io.yostajsc.izigo.models.comment.Comments;
 import io.yostajsc.utils.AppUtils;
-import io.yostajsc.utils.NetworkUtils;
-import io.yostajsc.utils.StorageUtils;
 import io.yostajsc.utils.UiUtils;
-import io.yostajsc.utils.validate.ValidateUtils;
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 
 /**
@@ -59,13 +59,13 @@ public class DialogComment extends Dialog {
     private CommentAdapter mCommentsAdapter = null;
 
     public DialogComment(Context context) {
-        super(context, R.style.AppTheme_CustomDialog);
+        super(context, R.style.CoreAppTheme_Dialog);
         mOwnerActivity = (context instanceof Activity) ? (Activity) context : null;
         if (mOwnerActivity != null)
             setOwnerActivity(mOwnerActivity);
         Window window = getWindow();
         if (window != null) {
-            window.getAttributes().windowAnimations = R.style.AppTheme_AnimDialog_SlideUpDown;
+            window.getAttributes().windowAnimations = R.style.CoreAppTheme_AnimDialog_SlideUpDown;
         }
     }
 

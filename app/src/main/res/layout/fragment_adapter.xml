@@ -15,7 +15,7 @@
         android:padding="@dimen/margin_x2">
 
         <TextView
-            style="@style/AppTheme.TextView_Sub_Title.White"
+            style="@style/CoreAppTheme.TextView_Sub_Title.White"
             android:layout_width="@dimen/icon_size_x4"
             android:layout_height="@dimen/icon_size_x4"
             android:layout_gravity="center"
@@ -42,7 +42,6 @@
             android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Etiam eget ligula eu lectus lobortis condimentum." />
 
         <Button
-            style="@style/ButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

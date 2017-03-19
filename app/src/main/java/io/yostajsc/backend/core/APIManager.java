@@ -10,8 +10,8 @@ import java.util.List;
 import java.util.Map;
 
 import io.yostajsc.backend.response.BaseResponse;
-import io.yostajsc.interfaces.CallBack;
-import io.yostajsc.interfaces.CallBackWith;
+import io.yostajsc.core.callbacks.CallBack;
+import io.yostajsc.core.callbacks.CallBackWith;
 import io.yostajsc.izigo.models.Timelines;
 import io.yostajsc.izigo.models.comment.Comments;
 import io.yostajsc.izigo.models.trip.Trip;

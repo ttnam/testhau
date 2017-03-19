@@ -20,8 +20,7 @@ import com.google.android.gms.maps.model.Marker;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.yostajsc.constants.MessageType;
-import io.yostajsc.interfaces.ActivityBehavior;
+import io.yostajsc.core.code.MessageType;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.configs.AppDefine;
 import io.yostajsc.izigo.models.trip.LocationPick;
@@ -30,7 +29,7 @@ import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.RuntimePermissions;
 
 @RuntimePermissions
-public class PickLocationActivity extends ActivityBehavior implements GoogleMap.OnMapClickListener,
+public class PickLocationActivity extends ActivityCoreBehavior implements GoogleMap.OnMapClickListener,
         GoogleMap.OnMapLongClickListener, OnMapReadyCallback, GoogleMap.OnMarkerClickListener,
         GoogleMap.OnMyLocationChangeListener {
 

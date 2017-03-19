@@ -10,17 +10,13 @@ import android.support.v7.widget.SnapHelper;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 import io.yostajsc.constants.TransferType;
+import io.yostajsc.core.callbacks.CallBackWith;
+import io.yostajsc.core.utils.ValidateUtils;
 import io.yostajsc.designs.decorations.SpacesItemDecoration;
 import io.yostajsc.designs.listeners.RecyclerItemClickListener;
-import io.yostajsc.interfaces.CallBackWith;
 import io.yostajsc.izigo.R;
-import io.yostajsc.utils.validate.ValidateUtils;
-import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 
 /**
  * Created by Phuc-Hau Nguyen on 3/8/2017.

@@ -29,7 +29,7 @@
 
             <TextView
                 android:id="@id/text_view"
-                style="@style/AppTheme.TextView_Title"
+                style="@style/CoreAppTheme.TextView_Title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
@@ -41,7 +41,7 @@
 
             <TextView
                 android:id="@+id/text_time"
-                style="@style/AppTheme.TextView_Sub_Title"
+                style="@style/CoreAppTheme.TextView_Sub_Title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
@@ -54,7 +54,7 @@
 
         <TextView
             android:id="@+id/txt_content"
-            style="@style/AppTheme.TextView_Sub_Title"
+            style="@style/CoreAppTheme.TextView_Sub_Title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ellipsize="end"

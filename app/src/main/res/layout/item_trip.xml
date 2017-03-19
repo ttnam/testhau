@@ -27,7 +27,7 @@
 
         <TextView
             android:id="@id/text_view"
-            style="@style/AppTheme.TextView_Title.Bold.White"
+            style="@style/CoreAppTheme.TextView_Title.Bold.White"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -52,7 +52,7 @@
 
             <TextView
                 android:id="@+id/text_views"
-                style="@style/AppTheme.TextView_Sub_Title.White"
+                style="@style/CoreAppTheme.TextView_Sub_Title.White"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
@@ -82,7 +82,7 @@
 
             <TextView
                 android:id="@+id/tv_created_time"
-                style="@style/AppTheme.TextView_Sub_Title.White"
+                style="@style/CoreAppTheme.TextView_Sub_Title.White"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

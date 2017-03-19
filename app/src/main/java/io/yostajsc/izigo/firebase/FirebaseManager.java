@@ -10,7 +10,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-import io.yostajsc.interfaces.CallBack;
+import io.yostajsc.core.callbacks.CallBack;
 
 /**
  * Created by Phuc-Hau Nguyen on 12/1/2016.

@@ -30,7 +30,7 @@
 
             <TextView
 
-                style="@style/AppTheme.TextView_Sub_Title"
+                style="@style/CoreAppTheme.TextView_Sub_Title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -51,7 +51,7 @@
     <include layout="@layout/layout_separate_vertical" />
 
     <TextView
-        style="@style/AppTheme.TextView_Title.Bold"
+        style="@style/CoreAppTheme.TextView_Title.Bold"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/margin_x2"
@@ -71,7 +71,7 @@
 
         <TextView
             android:id="@+id/text_email"
-            style="@style/AppTheme.TextView_Title.Bold"
+            style="@style/CoreAppTheme.TextView_Title.Bold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -95,7 +95,7 @@
 
         <TextView
             android:id="@+id/text_gender"
-            style="@style/AppTheme.TextView_Title.Bold"
+            style="@style/CoreAppTheme.TextView_Title.Bold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"

@@ -31,25 +31,25 @@ import com.google.firebase.storage.UploadTask;
 
 import butterknife.OnClick;
 import io.yostajsc.backend.core.APIManager;
-import io.yostajsc.constants.MessageType;
 import io.yostajsc.constants.RoleType;
 import io.yostajsc.constants.TransferType;
-import io.yostajsc.interfaces.CallBack;
-import io.yostajsc.interfaces.CallBackWith;
+import io.yostajsc.core.callbacks.CallBack;
+import io.yostajsc.core.callbacks.CallBackWith;
+import io.yostajsc.core.code.MessageType;
+import io.yostajsc.core.utils.NetworkUtils;
+import io.yostajsc.core.utils.StorageUtils;
+import io.yostajsc.core.utils.ValidateUtils;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.activities.ActivityManagerActivity;
 import io.yostajsc.izigo.activities.dialogs.DialogComment;
 import io.yostajsc.izigo.activities.dialogs.DialogPickTransfer;
 import io.yostajsc.izigo.adapters.ImageryAdapter;
-import io.yostajsc.interfaces.ActivityBehavior;
+import io.yostajsc.izigo.activities.ActivityCoreBehavior;
 import io.yostajsc.izigo.configs.AppDefine;
 import io.yostajsc.izigo.managers.RealmManager;
 import io.yostajsc.izigo.models.trip.Trip;
 import io.yostajsc.utils.AppUtils;
-import io.yostajsc.utils.NetworkUtils;
-import io.yostajsc.utils.StorageUtils;
 import io.yostajsc.utils.UiUtils;
-import io.yostajsc.utils.validate.ValidateUtils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.yostajsc.view.CropCircleTransformation;
@@ -58,7 +58,7 @@ import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.RuntimePermissions;
 
 @RuntimePermissions
-public class TripDetailActivity extends ActivityBehavior {
+public class TripDetailActivity extends ActivityCoreBehavior {
 
     @BindView(R.id.web_view)
     WebView webView;
@@ -408,7 +408,7 @@ public class TripDetailActivity extends ActivityBehavior {
     }
 
     @Override
-    protected void onInternetConnected() {
+    public void onInternetConnected() {
         super.onInternetConnected();
         String authorization = StorageUtils.inject(this).getString(AppDefine.AUTHORIZATION);
         if (ValidateUtils.canUse(authorization)) {
@@ -435,7 +435,7 @@ public class TripDetailActivity extends ActivityBehavior {
     }
 
     @Override
-    protected void onInternetDisconnected() {
+    public void onInternetDisConnected() {
 
     }
 }

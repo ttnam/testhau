@@ -8,7 +8,7 @@
 
     <android.support.v7.widget.AppCompatImageView
         android:id="@id/button_left"
-        style="@style/AppTheme.IconClick"
+        style="@style/CoreAppTheme.IconClick"
         android:layout_width="?actionBarSize"
         android:layout_height="?actionBarSize"
         android:layout_gravity="center"
@@ -23,7 +23,7 @@
 
     <TextView
         android:id="@+id/text_creator_name"
-        style="@style/AppTheme.TextView_Title.Bold"
+        style="@style/CoreAppTheme.TextView_Title.Bold"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_gravity="center"
@@ -37,7 +37,7 @@
 
     <android.support.v7.widget.AppCompatImageView
         android:id="@+id/button_more"
-        style="@style/AppTheme.IconClick"
+        style="@style/CoreAppTheme.IconClick"
         android:layout_width="?actionBarSize"
         android:layout_height="?actionBarSize"
         android:layout_gravity="center"

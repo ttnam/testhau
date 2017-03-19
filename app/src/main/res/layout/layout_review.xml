@@ -41,7 +41,7 @@
         android:orientation="horizontal">
 
         <TextView
-            style="@style/AppTheme.TextView_Title.Bold.White"
+            style="@style/CoreAppTheme.TextView_Title.Bold.White"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/Green"
@@ -50,7 +50,7 @@
             android:text="500" />
 
         <TextView
-            style="@style/AppTheme.TextView_Title.Italic"
+            style="@style/CoreAppTheme.TextView_Title.Italic"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin"
@@ -62,7 +62,7 @@
 
         <android.support.v7.widget.AppCompatImageView
             android:id="@id/layout_rating"
-            style="@style/AppTheme.IconClick"
+            style="@style/CoreAppTheme.IconClick"
             android:layout_width="@dimen/icon_size_x3"
             android:layout_height="@dimen/icon_size_x3"
             android:layout_gravity="center"

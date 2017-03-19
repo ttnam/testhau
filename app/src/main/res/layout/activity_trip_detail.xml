@@ -35,7 +35,7 @@
 
                     <android.support.v7.widget.AppCompatImageView
                         android:id="@+id/image_edit_cover"
-                        style="@style/AppTheme.IconClick"
+                        style="@style/CoreAppTheme.IconClick"
                         android:layout_width="@dimen/icon_size_x6"
                         android:layout_height="@dimen/icon_size_x6"
                         android:layout_gravity="end|bottom"
@@ -47,7 +47,7 @@
 
                 <TextView
                     android:id="@+id/text_name"
-                    style="@style/AppTheme.TextView_Title.Bold"
+                    style="@style/CoreAppTheme.TextView_Title.Bold"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin"
@@ -59,7 +59,7 @@
 
                 <TextView
                     android:id="@+id/text_time"
-                    style="@style/AppTheme.TextView_Title"
+                    style="@style/CoreAppTheme.TextView_Title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
@@ -83,7 +83,7 @@
 
                 <TextView
                     android:id="@+id/text_number_of_photo"
-                    style="@style/AppTheme.TextView_Title.Bold"
+                    style="@style/CoreAppTheme.TextView_Title.Bold"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"

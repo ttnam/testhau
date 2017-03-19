@@ -31,7 +31,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    style="@style/AppTheme.TextView_Title.Bold"
+                    style="@style/CoreAppTheme.TextView_Title.Bold"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:maxLines="1"
@@ -42,7 +42,7 @@
                     android:textSize="@dimen/text_size_v2" />
 
                 <TextView
-                    style="@style/AppTheme.TextView_Sub_Title"
+                    style="@style/CoreAppTheme.TextView_Sub_Title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
@@ -78,7 +78,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    style="@style/AppTheme.TextView_Title.Bold"
+                    style="@style/CoreAppTheme.TextView_Title.Bold"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:maxLines="1"
@@ -89,7 +89,7 @@
                     android:textSize="@dimen/text_size_v2" />
 
                 <TextView
-                    style="@style/AppTheme.TextView_Sub_Title"
+                    style="@style/CoreAppTheme.TextView_Sub_Title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ellipsize="end"

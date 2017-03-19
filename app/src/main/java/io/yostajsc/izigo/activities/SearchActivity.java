@@ -11,10 +11,9 @@ import io.yostajsc.designs.decorations.SpacesItemDecoration;
 import io.yostajsc.designs.listeners.RecyclerItemClickListener;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.adapters.TripAdapter;
-import io.yostajsc.interfaces.ActivityBehavior;
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 
-public class SearchActivity extends ActivityBehavior {
+public class SearchActivity extends ActivityCoreBehavior {
 
     @BindView(R.id.recycler_view)
     RecyclerView rvTrip;

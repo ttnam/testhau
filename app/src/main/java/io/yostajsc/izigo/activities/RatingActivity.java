@@ -5,12 +5,11 @@ import android.view.View;
 
 import butterknife.ButterKnife;
 import io.yostajsc.izigo.R;
-import io.yostajsc.interfaces.ActivityBehavior;
 import io.yostajsc.view.OwnToolBar;
 
 import butterknife.BindView;
 
-public class RatingActivity extends ActivityBehavior {
+public class RatingActivity extends ActivityCoreBehavior {
 
     @BindView(R.id.own_toolbar)
     OwnToolBar mOwnToolbar;

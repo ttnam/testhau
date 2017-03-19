@@ -19,7 +19,7 @@
 
         <TextView
             android:id="@+id/text_hour"
-            style="@style/AppTheme.TextView_Title.Bold"
+            style="@style/CoreAppTheme.TextView_Title.Bold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -73,7 +73,7 @@
 
             <TextView
                 android:id="@+id/text_day"
-                style="@style/AppTheme.TextView_Title.Bold"
+                style="@style/CoreAppTheme.TextView_Title.Bold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -98,7 +98,7 @@
 
             <TextView
                 android:id="@+id/text_content"
-                style="@style/AppTheme.TextView_Sub_Title"
+                style="@style/CoreAppTheme.TextView_Sub_Title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

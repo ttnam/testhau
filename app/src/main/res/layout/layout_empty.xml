@@ -19,7 +19,7 @@
 
 
     <TextView
-        style="@style/AppTheme.TextView_Sub_Title.Bold"
+        style="@style/CoreAppTheme.TextView_Sub_Title.Bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
@@ -31,7 +31,7 @@
 
 
     <TextView
-        style="@style/AppTheme.TextView_Sub_Title"
+        style="@style/CoreAppTheme.TextView_Sub_Title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
@@ -43,7 +43,7 @@
 
     <Button
         android:id="@id/button"
-        style="@style/AppTheme.TextView_Title.Bold.White"
+        style="@style/CoreAppTheme.TextView_Title.Bold.White"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/ic_style_button_round_corners_theme"

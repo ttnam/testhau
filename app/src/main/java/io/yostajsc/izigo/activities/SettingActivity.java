@@ -12,11 +12,10 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.activities.user.ProfileActivity;
-import io.yostajsc.interfaces.ActivityBehavior;
 import io.yostajsc.izigo.configs.AppDefine;
 import io.yostajsc.view.OwnToolBar;
 
-public class SettingActivity extends ActivityBehavior {
+public class SettingActivity extends ActivityCoreBehavior {
 
     @BindView(R.id.layout)
     OwnToolBar mOwnToolbar;
@@ -64,12 +63,12 @@ public class SettingActivity extends ActivityBehavior {
     }
 
     @Override
-    protected void onInternetConnected() {
+    public void onInternetConnected() {
 
     }
 
     @Override
-    protected void onInternetDisconnected() {
+    public void onInternetDisConnected() {
 
     }
 

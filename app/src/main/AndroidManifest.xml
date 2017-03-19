@@ -91,7 +91,13 @@
             android:name=".activities.MainActivity"
             android:launchMode="singleInstance"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".activities.user.LoginActivity"
             android:launchMode="singleTask"
@@ -108,7 +114,7 @@
             android:name=".activities.trip.TripDetailActivity"
             android:launchMode="singleInstance"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.White"
+            android:theme="@style/CoreAppTheme.White"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".activities.user.ProfileActivity"
@@ -121,11 +127,11 @@
         <activity
             android:name=".activities.RatingActivity"
             android:launchMode="singleInstance"
-            android:theme="@style/AppTheme.White" />
+            android:theme="@style/CoreAppTheme.White" />
         <activity
             android:name=".activities.WelcomeActivity"
             android:launchMode="singleInstance"
-            android:theme="@style/AppTheme.White" />
+            android:theme="@style/CoreAppTheme.White" />
         <activity
             android:name=".activities.trip.AddTripActivity"
             android:theme="@style/AppTheme"
@@ -144,11 +150,7 @@
         <activity
             android:name=".activities.ActivityManagerActivity"
             android:theme="@style/AppTheme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 

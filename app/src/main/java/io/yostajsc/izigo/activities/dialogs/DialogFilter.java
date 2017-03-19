@@ -48,13 +48,13 @@ public class DialogFilter extends Dialog {
     private List<String> mDuringTimes = null, mSortBy = null, mVehicles = null;
 
     public DialogFilter(Context context) {
-        super(context, R.style.AppTheme_CustomDialog);
+        super(context, R.style.CoreAppTheme_Dialog);
         this.mOwnerActivity = (context instanceof Activity) ? (Activity) context : null;
         if (this.mOwnerActivity != null)
             setOwnerActivity(mOwnerActivity);
         Window window = getWindow();
         if (window != null) {
-            window.getAttributes().windowAnimations = R.style.AppTheme_AnimDialog_SlideUpDown;
+            window.getAttributes().windowAnimations = R.style.CoreAppTheme_AnimDialog_SlideUpDown;
         }
         setCancelable(false);
         setCanceledOnTouchOutside(false);

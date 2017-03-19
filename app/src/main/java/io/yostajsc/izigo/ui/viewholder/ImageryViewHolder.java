@@ -9,9 +9,8 @@ import com.bumptech.glide.Glide;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.yostajsc.core.utils.ValidateUtils;
 import io.yostajsc.izigo.R;
-import io.yostajsc.utils.validate.ValidateUtils;
-import io.yostajsc.view.RoundedCornersTransformation;
 
 /**
  * Created by Phuc-Hau Nguyen on 8/25/2016.

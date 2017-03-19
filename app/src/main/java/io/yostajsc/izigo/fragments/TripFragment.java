@@ -11,8 +11,10 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import io.yostajsc.backend.core.APIManager;
-import io.yostajsc.interfaces.CallBack;
-import io.yostajsc.interfaces.CallBackWith;
+import io.yostajsc.core.callbacks.CallBack;
+import io.yostajsc.core.callbacks.CallBackWith;
+import io.yostajsc.core.utils.NetworkUtils;
+import io.yostajsc.core.utils.StorageUtils;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.activities.SettingActivity;
 import io.yostajsc.izigo.activities.dialogs.DialogFilter;
@@ -21,12 +23,10 @@ import io.yostajsc.izigo.adapters.TripAdapter;
 import io.yostajsc.izigo.configs.AppDefine;
 import io.yostajsc.izigo.managers.RealmManager;
 import io.yostajsc.izigo.models.trip.Trips;
-import io.yostajsc.utils.NetworkUtils;
 import io.yostajsc.utils.UiUtils;
 import io.yostajsc.view.OwnToolBar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.yostajsc.utils.StorageUtils;
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 
 public class TripFragment extends Fragment {

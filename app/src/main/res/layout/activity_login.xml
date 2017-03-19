@@ -25,7 +25,7 @@
                 app:srcCompat="@drawable/ic_launcher" />
 
             <TextView
-                style="@style/AppTheme.TextView_Title.Bold"
+                style="@style/CoreAppTheme.TextView_Title.Bold"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
@@ -83,7 +83,7 @@
                 app:srcCompat="@drawable/ic_vector_facebook_white" />
 
             <TextView
-                style="@style/AppTheme.TextView_Title.Bold.White"
+                style="@style/CoreAppTheme.TextView_Title.Bold.White"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
@@ -105,7 +105,7 @@
         </LinearLayout>
 
         <TextView
-            style="@style/AppTheme.TextView_Sub_Title"
+            style="@style/CoreAppTheme.TextView_Sub_Title"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="center"

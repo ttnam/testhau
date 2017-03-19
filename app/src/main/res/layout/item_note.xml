@@ -35,7 +35,7 @@
                 android:padding="@dimen/margin">
 
                 <android.support.v7.widget.AppCompatTextView
-                    style="@style/AppTheme.TextView_Title.Bold"
+                    style="@style/CoreAppTheme.TextView_Title.Bold"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="nphau shared a comment"
@@ -43,7 +43,7 @@
                     android:textStyle="bold" />
 
                 <android.support.v7.widget.AppCompatTextView
-                    style="@style/AppTheme.TextView_Title.Bold"
+                    style="@style/CoreAppTheme.TextView_Title.Bold"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="07:00 am MARCH 2, 2016"
@@ -54,7 +54,7 @@
         </LinearLayout>
 
         <android.support.v7.widget.AppCompatTextView
-            style="@style/AppTheme.TextView_Title.Bold"
+            style="@style/CoreAppTheme.TextView_Title.Bold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingEnd="@dimen/margin"
@@ -65,7 +65,7 @@
             android:textStyle="bold" />
 
         <android.support.v7.widget.AppCompatTextView
-            style="@style/AppTheme.TextView_Sub_Title"
+            style="@style/CoreAppTheme.TextView_Sub_Title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ellipsize="end"

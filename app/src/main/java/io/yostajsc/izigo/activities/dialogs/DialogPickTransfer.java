@@ -12,9 +12,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.yostajsc.constants.TransferType;
-import io.yostajsc.interfaces.CallBackWith;
+import io.yostajsc.core.callbacks.CallBackWith;
+import io.yostajsc.core.utils.DimensionUtil;
 import io.yostajsc.izigo.R;
-import io.yostajsc.utils.DimensionUtil;
 
 /**
  * Created by Phuc-Hau Nguyen on 8/31/2016.
@@ -39,7 +39,7 @@ public class DialogPickTransfer extends Dialog {
     private CallBackWith<Integer> mDialogResult;
 
     public DialogPickTransfer(Context context) {
-        super(context, R.style.AppTheme_CustomDialog);
+        super(context, R.style.CoreAppTheme_Dialog);
 
         this.mOwnerActivity = (context instanceof Activity) ? (Activity) context : null;
         if (this.mOwnerActivity != null)
@@ -61,7 +61,7 @@ public class DialogPickTransfer extends Dialog {
         Window window = getWindow();
         if (window != null) {
             WindowManager.LayoutParams params = window.getAttributes();
-            params.windowAnimations = R.style.AppTheme_AnimDialog_Grow;
+            params.windowAnimations = R.style.CoreAppTheme_AnimDialog_Grow;
             params.width = DimensionUtil.getScreenWidth(mOwnerActivity) * 4 / 5;
             params.height = WindowManager.LayoutParams.WRAP_CONTENT;
             window.setAttributes(params);

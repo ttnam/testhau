@@ -1,22 +1,17 @@
 package io.yostajsc.izigo.adapters;
 
-import android.app.Activity;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import io.realm.RealmList;
+import io.yostajsc.core.utils.DimensionUtil;
+import io.yostajsc.core.utils.ValidateUtils;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.models.photo.BasePhotoInfo;
 import io.yostajsc.izigo.ui.viewholder.ImageryViewHolder;
-import io.yostajsc.utils.DimensionUtil;
-import io.yostajsc.utils.validate.ValidateUtils;
 
 public class ImageryAdapter extends RecyclerView.Adapter<ImageryViewHolder> {
 

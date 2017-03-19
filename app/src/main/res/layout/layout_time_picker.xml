@@ -9,7 +9,7 @@
     android:padding="@dimen/margin">
 
     <TextView
-        style="@style/AppTheme.TextView_Title.Bold"
+        style="@style/CoreAppTheme.TextView_Title.Bold"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/white"
@@ -54,7 +54,7 @@
 
             <TextView
                 android:id="@+id/text_depart"
-                style="@style/AppTheme.TextView_Title.Bold"
+                style="@style/CoreAppTheme.TextView_Title.Bold"
                 android:layout_width="match_parent"
                 android:layout_height="?actionBarSize"
                 android:layout_marginLeft="@dimen/margin"
@@ -74,7 +74,7 @@
 
                 <TextView
                     android:id="@+id/text_depart_date"
-                    style="@style/AppTheme.TextView_Title.Bold"
+                    style="@style/CoreAppTheme.TextView_Title.Bold"
                     android:layout_width="match_parent"
                     android:layout_height="?actionBarSize"
                     android:layout_marginLeft="@dimen/margin"
@@ -88,7 +88,7 @@
 
                 <TextView
                     android:id="@+id/text_depart_time"
-                    style="@style/AppTheme.TextView_Title.Bold"
+                    style="@style/CoreAppTheme.TextView_Title.Bold"
                     android:layout_width="match_parent"
                     android:layout_height="?actionBarSize"
                     android:layout_marginLeft="@dimen/margin"
@@ -142,7 +142,7 @@
 
             <TextView
                 android:id="@+id/text_arrive"
-                style="@style/AppTheme.TextView_Title.Bold"
+                style="@style/CoreAppTheme.TextView_Title.Bold"
                 android:layout_width="match_parent"
                 android:layout_height="?actionBarSize"
                 android:layout_marginLeft="@dimen/margin"
@@ -162,7 +162,7 @@
 
                 <TextView
                     android:id="@+id/text_arrive_date"
-                    style="@style/AppTheme.TextView_Title.Bold"
+                    style="@style/CoreAppTheme.TextView_Title.Bold"
                     android:layout_width="match_parent"
                     android:layout_height="?actionBarSize"
                     android:layout_marginLeft="@dimen/margin"
@@ -176,7 +176,7 @@
 
                 <TextView
                     android:id="@+id/text_arrive_time"
-                    style="@style/AppTheme.TextView_Title.Bold"
+                    style="@style/CoreAppTheme.TextView_Title.Bold"
                     android:layout_width="match_parent"
                     android:layout_height="?actionBarSize"
                     android:layout_marginLeft="@dimen/margin"

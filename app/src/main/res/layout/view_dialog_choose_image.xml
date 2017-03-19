@@ -41,7 +41,7 @@
                 app:srcCompat="@drawable/ic_vector_camera" />
 
             <TextView
-                style="@style/AppTheme.TextView_Title.Bold"
+                style="@style/CoreAppTheme.TextView_Title.Bold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -70,7 +70,7 @@
                 app:srcCompat="@drawable/ic_vector_image" />
 
             <TextView
-                style="@style/AppTheme.TextView_Title.Bold"
+                style="@style/CoreAppTheme.TextView_Title.Bold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

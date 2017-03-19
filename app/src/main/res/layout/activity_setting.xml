@@ -30,7 +30,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    style="@style/AppTheme.TextView_Title.Bold"
+                    style="@style/CoreAppTheme.TextView_Title.Bold"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/margin_x2"
@@ -43,14 +43,14 @@
                     android:orientation="horizontal">
 
                     <android.support.v7.widget.AppCompatImageView
-                        style="@style/AppTheme.IconClick"
+                        style="@style/CoreAppTheme.IconClick"
                         android:layout_width="@dimen/icon_size_x3"
                         android:layout_height="@dimen/icon_size_x3"
                         android:layout_gravity="center_vertical"
                         app:srcCompat="@drawable/ic_vector_avatar" />
 
                     <TextView
-                        style="@style/AppTheme.TextView_Title"
+                        style="@style/CoreAppTheme.TextView_Title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -66,14 +66,14 @@
                     android:orientation="horizontal">
 
                     <android.support.v7.widget.AppCompatImageView
-                        style="@style/AppTheme.IconClick"
+                        style="@style/CoreAppTheme.IconClick"
                         android:layout_width="@dimen/icon_size_x3"
                         android:layout_height="@dimen/icon_size_x3"
                         android:layout_gravity="center_vertical"
                         app:srcCompat="@drawable/ic_vector_works" />
 
                     <TextView
-                        style="@style/AppTheme.TextView_Title"
+                        style="@style/CoreAppTheme.TextView_Title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -93,7 +93,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    style="@style/AppTheme.TextView_Title.Bold"
+                    style="@style/CoreAppTheme.TextView_Title.Bold"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/margin_x2"
@@ -107,14 +107,14 @@
                     android:orientation="horizontal">
 
                     <android.support.v7.widget.AppCompatImageView
-                        style="@style/AppTheme.IconClick"
+                        style="@style/CoreAppTheme.IconClick"
                         android:layout_width="@dimen/icon_size_x3"
                         android:layout_height="@dimen/icon_size_x3"
                         android:layout_gravity="center_vertical"
                         app:srcCompat="@drawable/ic_vector_rate" />
 
                     <TextView
-                        style="@style/AppTheme.TextView_Title"
+                        style="@style/CoreAppTheme.TextView_Title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -130,14 +130,14 @@
                     android:orientation="horizontal">
 
                     <android.support.v7.widget.AppCompatImageView
-                        style="@style/AppTheme.IconClick"
+                        style="@style/CoreAppTheme.IconClick"
                         android:layout_width="@dimen/icon_size_x3"
                         android:layout_height="@dimen/icon_size_x3"
                         android:layout_gravity="center_vertical"
                         app:srcCompat="@drawable/ic_vector_facebook" />
 
                     <TextView
-                        style="@style/AppTheme.TextView_Title"
+                        style="@style/CoreAppTheme.TextView_Title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -157,7 +157,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    style="@style/AppTheme.TextView_Title.Bold"
+                    style="@style/CoreAppTheme.TextView_Title.Bold"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/margin_x2"
@@ -171,7 +171,7 @@
                     android:orientation="horizontal">
 
                     <android.support.v7.widget.AppCompatImageView
-                        style="@style/AppTheme.IconClick"
+                        style="@style/CoreAppTheme.IconClick"
                         android:layout_width="@dimen/icon_size_x3"
                         android:layout_height="@dimen/icon_size_x3"
                         android:layout_gravity="center"
@@ -196,14 +196,14 @@
                             android:orientation="vertical">
 
                             <TextView
-                                style="@style/AppTheme.TextView_Title"
+                                style="@style/CoreAppTheme.TextView_Title"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_horizontal"
                                 android:text="@string/setting_auto_sync" />
 
                             <TextView
-                                style="@style/AppTheme.TextView_Sub_Title"
+                                style="@style/CoreAppTheme.TextView_Sub_Title"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_horizontal"
@@ -242,14 +242,14 @@
                     android:orientation="horizontal">
 
                     <android.support.v7.widget.AppCompatImageView
-                        style="@style/AppTheme.IconClick"
+                        style="@style/CoreAppTheme.IconClick"
                         android:layout_width="@dimen/icon_size_x3"
                         android:layout_height="@dimen/icon_size_x3"
                         android:layout_gravity="center_vertical"
                         app:srcCompat="@drawable/ic_vector_delete" />
 
                     <TextView
-                        style="@style/AppTheme.TextView_Title"
+                        style="@style/CoreAppTheme.TextView_Title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -269,7 +269,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    style="@style/AppTheme.TextView_Title.Bold"
+                    style="@style/CoreAppTheme.TextView_Title.Bold"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/margin_x2"
@@ -281,7 +281,7 @@
                     android:orientation="horizontal">
 
                     <android.support.v7.widget.AppCompatImageView
-                        style="@style/AppTheme.IconClick"
+                        style="@style/CoreAppTheme.IconClick"
                         android:layout_width="@dimen/icon_size_x3"
                         android:layout_height="@dimen/icon_size_x3"
                         android:layout_gravity="center_vertical"
@@ -295,7 +295,7 @@
                         android:orientation="vertical">
 
                         <TextView
-                            style="@style/AppTheme.TextView_Title"
+                            style="@style/CoreAppTheme.TextView_Title"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
@@ -305,7 +305,7 @@
 
                         <TextView
                             android:id="@+id/txt_lang"
-                            style="@style/AppTheme.TextView_Sub_Title"
+                            style="@style/CoreAppTheme.TextView_Sub_Title"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
@@ -325,7 +325,7 @@
                     android:orientation="horizontal">
 
                     <android.support.v7.widget.AppCompatImageView
-                        style="@style/AppTheme.IconClick"
+                        style="@style/CoreAppTheme.IconClick"
                         android:layout_width="@dimen/icon_size_x3"
                         android:layout_height="@dimen/icon_size_x3"
                         android:layout_gravity="center"
@@ -350,14 +350,14 @@
                             android:orientation="vertical">
 
                             <TextView
-                                style="@style/AppTheme.TextView_Title"
+                                style="@style/CoreAppTheme.TextView_Title"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_horizontal"
                                 android:text="@string/setting_notification" />
 
                             <TextView
-                                style="@style/AppTheme.TextView_Sub_Title"
+                                style="@style/CoreAppTheme.TextView_Sub_Title"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_horizontal"
@@ -395,14 +395,14 @@
                     android:orientation="horizontal">
 
                     <android.support.v7.widget.AppCompatImageView
-                        style="@style/AppTheme.IconClick"
+                        style="@style/CoreAppTheme.IconClick"
                         android:layout_width="@dimen/icon_size_x3"
                         android:layout_height="@dimen/icon_size_x3"
                         android:layout_gravity="center_vertical"
                         app:srcCompat="@drawable/ic_vector_help" />
 
                     <TextView
-                        style="@style/AppTheme.TextView_Title"
+                        style="@style/CoreAppTheme.TextView_Title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -419,14 +419,14 @@
                     android:orientation="horizontal">
 
                     <android.support.v7.widget.AppCompatImageView
-                        style="@style/AppTheme.IconClick"
+                        style="@style/CoreAppTheme.IconClick"
                         android:layout_width="@dimen/icon_size_x3"
                         android:layout_height="@dimen/icon_size_x3"
                         android:layout_gravity="center_vertical"
                         app:srcCompat="@drawable/ic_launcher" />
 
                     <TextView
-                        style="@style/AppTheme.TextView_Title"
+                        style="@style/CoreAppTheme.TextView_Title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -442,14 +442,14 @@
                     android:orientation="horizontal">
 
                     <android.support.v7.widget.AppCompatImageView
-                        style="@style/AppTheme.IconClick"
+                        style="@style/CoreAppTheme.IconClick"
                         android:layout_width="@dimen/icon_size_x3"
                         android:layout_height="@dimen/icon_size_x3"
                         android:layout_gravity="center_vertical"
                         app:srcCompat="@drawable/ic_vector_update" />
 
                     <TextView
-                        style="@style/AppTheme.TextView_Title"
+                        style="@style/CoreAppTheme.TextView_Title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"

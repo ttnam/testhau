@@ -17,7 +17,7 @@
             app:srcCompat="@drawable/ic_sample" />
 
         <TextView
-            style="@style/AppTheme.TextView_Title.Bold.White"
+            style="@style/CoreAppTheme.TextView_Title.Bold.White"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
@@ -28,7 +28,7 @@
     </FrameLayout>
 
     <TextView
-        style="@style/AppTheme.TextView_Title"
+        style="@style/CoreAppTheme.TextView_Title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="right"

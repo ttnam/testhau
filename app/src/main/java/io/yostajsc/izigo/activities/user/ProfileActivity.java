@@ -17,15 +17,16 @@ import java.util.Map;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.yostajsc.backend.core.APIManager;
+import io.yostajsc.core.callbacks.CallBack;
+import io.yostajsc.core.callbacks.CallBackWith;
+import io.yostajsc.core.utils.StorageUtils;
+import io.yostajsc.core.utils.ValidateUtils;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.activities.MainActivity;
-import io.yostajsc.interfaces.ActivityBehavior;
+import io.yostajsc.izigo.activities.ActivityCoreBehavior;
 import io.yostajsc.izigo.configs.AppDefine;
-import io.yostajsc.interfaces.CallBack;
-import io.yostajsc.interfaces.CallBackWith;
 import io.yostajsc.izigo.models.user.User;
-import io.yostajsc.utils.StorageUtils;
-import io.yostajsc.utils.validate.ValidateUtils;
+import io.yostajsc.utils.UserPref;
 import io.yostajsc.view.CircleImageView;
 import io.yostajsc.view.OwnToolBar;
 
@@ -33,7 +34,7 @@ import butterknife.BindView;
 
 /*
 @RuntimePermissions*/
-public class ProfileActivity extends ActivityBehavior {
+public class ProfileActivity extends ActivityCoreBehavior {
 
     /*@BindView(R.id.text_member_ship)
     TextView tvMembership;*/
@@ -92,7 +93,7 @@ public class ProfileActivity extends ActivityBehavior {
     @Override
     public void onApplyData() {
         if (isFirstTime) {
-            mUser = StorageUtils.inject(ProfileActivity.this).getUser();
+            mUser = UserPref.inject(ProfileActivity.this).getUser();
             updateValue();
         } else {
             String authorization = StorageUtils.inject(this).getString(AppDefine.AUTHORIZATION);

@@ -5,7 +5,6 @@ import com.google.gson.annotations.SerializedName;
 import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
-import io.yostajsc.constants.MessageType;
 import io.yostajsc.izigo.models.photo.BasePhotoInfo;
 import io.yostajsc.izigo.models.user.BaseUserInfo;
 

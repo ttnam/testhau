@@ -13,14 +13,13 @@ import com.google.android.gms.maps.model.Marker;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.yostajsc.interfaces.ActivityBehavior;
 import io.yostajsc.izigo.R;
 import io.yostajsc.view.OwnToolBar;
 import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.RuntimePermissions;
 
 @RuntimePermissions
-public class ActivityManagerActivity extends ActivityBehavior implements OnMapReadyCallback, GoogleMap.OnMapClickListener, GoogleMap.OnMarkerClickListener, GoogleMap.OnMyLocationChangeListener, GoogleMap.OnMapLongClickListener {
+public class ActivityManagerActivity extends ActivityCoreBehavior implements OnMapReadyCallback, GoogleMap.OnMapClickListener, GoogleMap.OnMarkerClickListener, GoogleMap.OnMyLocationChangeListener, GoogleMap.OnMapLongClickListener {
 
     @BindView(R.id.own_toolbar)
     OwnToolBar toolBar;
@@ -50,12 +49,12 @@ public class ActivityManagerActivity extends ActivityBehavior implements OnMapRe
     }
 
     @Override
-    protected void onInternetConnected() {
+    public void onInternetConnected() {
 
     }
 
     @Override
-    protected void onInternetDisconnected() {
+    public void onInternetDisConnected() {
 
     }
 

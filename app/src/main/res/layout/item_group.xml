@@ -38,7 +38,7 @@
                     android:orientation="vertical">
 
                     <TextView
-                        style="@style/AppTheme.TextView_Title.Bold"
+                        style="@style/CoreAppTheme.TextView_Title.Bold"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
@@ -48,7 +48,7 @@
                         android:textSize="@dimen/text_size_v2_5" />
 
                     <TextView
-                        style="@style/AppTheme.TextView_Title"
+                        style="@style/CoreAppTheme.TextView_Title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
@@ -59,7 +59,7 @@
                 </LinearLayout>
 
                 <android.support.v7.widget.AppCompatImageView
-                    style="@style/AppTheme.IconClick"
+                    style="@style/CoreAppTheme.IconClick"
                     android:layout_width="@dimen/icon_size_x5"
                     android:layout_height="@dimen/icon_size_x5"
                     android:layout_gravity="center"
@@ -87,7 +87,7 @@
 
 
                 <TextView
-                    style="@style/AppTheme.TextView_Sub_Title"
+                    style="@style/CoreAppTheme.TextView_Sub_Title"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"

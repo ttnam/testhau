@@ -9,12 +9,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.yostajsc.designs.tabs.IconViewPagerAdapter;
 import io.yostajsc.izigo.R;
-import io.yostajsc.interfaces.ActivityBehavior;
 import io.yostajsc.izigo.fragments.NotificationsFragment;
 import io.yostajsc.izigo.fragments.OwnTripFragment;
 import io.yostajsc.izigo.fragments.TripFragment;
 
-public class MainActivity extends ActivityBehavior {
+public class MainActivity extends ActivityCoreBehavior {
 
     @BindView(R.id.tabs)
     TabLayout mTabLayout;
@@ -67,12 +66,12 @@ public class MainActivity extends ActivityBehavior {
     }
 
     @Override
-    protected void onInternetDisconnected() {
+    public void onInternetDisConnected() {
 
     }
 
     @Override
-    protected void onInternetConnected() {
+    public void onInternetConnected() {
 
     }
 }

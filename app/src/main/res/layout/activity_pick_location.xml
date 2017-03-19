@@ -13,7 +13,7 @@
 
         <android.support.v7.widget.AppCompatImageView
             android:id="@id/image_view"
-            style="@style/AppTheme.IconClick"
+            style="@style/CoreAppTheme.IconClick"
             android:layout_width="?actionBarSize"
             android:layout_height="?actionBarSize"
             android:layout_gravity="center"
@@ -37,7 +37,7 @@
 
     <Button
         android:id="@id/button"
-        style="@style/AppTheme.TextView_Title.Bold.White"
+        style="@style/CoreAppTheme.TextView_Title.Bold.White"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/ic_style_button_round_none_theme"

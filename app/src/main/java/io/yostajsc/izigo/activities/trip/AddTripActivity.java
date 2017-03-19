@@ -18,27 +18,27 @@ import android.widget.Toast;
 import java.text.DecimalFormat;
 import java.util.Calendar;
 
-import io.yostajsc.constants.MessageType;
 import io.yostajsc.constants.TransferType;
+import io.yostajsc.core.callbacks.CallBack;
+import io.yostajsc.core.callbacks.CallBackWith;
+import io.yostajsc.core.code.MessageType;
+import io.yostajsc.core.utils.StorageUtils;
+import io.yostajsc.core.utils.ValidateUtils;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.activities.PickLocationActivity;
 import io.yostajsc.izigo.activities.dialogs.DialogDatePicker;
 import io.yostajsc.izigo.activities.dialogs.DialogPickTransfer;
 import io.yostajsc.backend.core.APIManager;
-import io.yostajsc.interfaces.ActivityBehavior;
+import io.yostajsc.izigo.activities.ActivityCoreBehavior;
 import io.yostajsc.izigo.activities.dialogs.DialogTimePicker;
 import io.yostajsc.izigo.configs.AppDefine;
-import io.yostajsc.interfaces.CallBack;
-import io.yostajsc.interfaces.CallBackWith;
 import io.yostajsc.izigo.models.trip.LocationPick;
 import io.yostajsc.utils.UiUtils;
-import io.yostajsc.utils.validate.ValidateUtils;
-import io.yostajsc.utils.StorageUtils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class AddTripActivity extends ActivityBehavior {
+public class AddTripActivity extends ActivityCoreBehavior {
 
     /*@BindView(R.id.recycler_view)
     RecyclerView rvFriends;*/
@@ -375,12 +375,12 @@ public class AddTripActivity extends ActivityBehavior {
     }
 
     @Override
-    protected void onInternetDisconnected() {
+    public void onInternetDisConnected() {
         hideProgress();
     }
 
     @Override
-    protected void onInternetConnected() {
+    public void onInternetConnected() {
 
     }
 

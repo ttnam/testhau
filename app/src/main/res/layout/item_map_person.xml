@@ -42,14 +42,14 @@
             android:orientation="vertical">
 
             <TextView
-                style="@style/AppTheme.TextView_Title"
+                style="@style/CoreAppTheme.TextView_Title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/app_name" />
 
 
             <TextView
-                style="@style/AppTheme.TextView_Sub_Title"
+                style="@style/CoreAppTheme.TextView_Sub_Title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/app_name" />
@@ -57,7 +57,7 @@
         </LinearLayout>
 
         <android.support.v7.widget.AppCompatImageView
-            style="@style/AppTheme.IconClick"
+            style="@style/CoreAppTheme.IconClick"
             android:layout_width="@dimen/icon_size_x4"
             android:layout_height="@dimen/icon_size_x4"
             android:layout_gravity="center"

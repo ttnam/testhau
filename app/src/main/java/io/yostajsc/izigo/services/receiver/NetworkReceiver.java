@@ -6,10 +6,9 @@ import android.content.Intent;
 
 import org.greenrobot.eventbus.EventBus;
 
-import io.yostajsc.constants.MessageInfo;
-import io.yostajsc.constants.MessageType;
-import io.yostajsc.utils.AppUtils;
-import io.yostajsc.utils.NetworkUtils;
+import io.yostajsc.core.code.MessageInfo;
+import io.yostajsc.core.code.MessageType;
+import io.yostajsc.core.utils.NetworkUtils;
 
 /**
  * Created by Phuc-Hau Nguyen on 7/22/2016.

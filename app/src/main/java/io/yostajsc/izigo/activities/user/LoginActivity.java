@@ -34,20 +34,21 @@ import org.json.JSONObject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.yostajsc.interfaces.CallBackWith;
+import io.yostajsc.core.callbacks.CallBackWith;
+import io.yostajsc.core.utils.StorageUtils;
+import io.yostajsc.core.utils.ValidateUtils;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.activities.MainActivity;
 import io.yostajsc.backend.core.APIManager;
-import io.yostajsc.interfaces.ActivityBehavior;
+import io.yostajsc.izigo.activities.ActivityCoreBehavior;
 import io.yostajsc.izigo.configs.AppDefine;
 import io.yostajsc.izigo.firebase.FirebaseManager;
 import io.yostajsc.izigo.models.user.User;
 import io.yostajsc.izigo.firebase.model.UserManager;
 import io.yostajsc.izigo.managers.EventManager;
-import io.yostajsc.utils.StorageUtils;
-import io.yostajsc.utils.validate.ValidateUtils;
+import io.yostajsc.utils.UserPref;
 
-public class LoginActivity extends ActivityBehavior {
+public class LoginActivity extends ActivityCoreBehavior {
 
     private final String TAG = LoginActivity.class.getSimpleName();
 
@@ -171,7 +172,7 @@ public class LoginActivity extends ActivityBehavior {
                     Log.e(TAG, "Authentication failed.");
                 } else {
                     user.setFireBaseId(task.getResult().getUser().getUid());
-                    StorageUtils.inject(LoginActivity.this).save(user);
+                    UserPref.inject(LoginActivity.this).save(user);
                     onCallToServer();
                 }
             }
@@ -199,7 +200,7 @@ public class LoginActivity extends ActivityBehavior {
 
 
     private void onCallToServer() {
-        User user = StorageUtils.inject(this).getUser();
+        User user = UserPref.inject(this).getUser();
         if (user != null) {
             String email = user.getEmail();
             String fbId = user.getFbId();
@@ -247,7 +248,7 @@ public class LoginActivity extends ActivityBehavior {
     }
 
     @Override
-    protected void onInternetConnected() {
+    public void onInternetConnected() {
         super.onInternetConnected();
         onApplyData();
     }

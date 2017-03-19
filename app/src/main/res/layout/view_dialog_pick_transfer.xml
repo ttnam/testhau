@@ -7,7 +7,7 @@
 
     <android.support.v7.widget.AppCompatImageView
         android:id="@+id/button_people"
-        style="@style/AppTheme.IconClick"
+        style="@style/CoreAppTheme.IconClick"
         android:layout_width="@dimen/icon_size_x6"
         android:layout_height="@dimen/icon_size_x6"
         android:layout_gravity="center"
@@ -16,7 +16,7 @@
 
     <android.support.v7.widget.AppCompatImageView
         android:id="@+id/button_bicycle"
-        style="@style/AppTheme.IconClick"
+        style="@style/CoreAppTheme.IconClick"
         android:layout_width="@dimen/icon_size_x6"
         android:layout_height="@dimen/icon_size_x6"
         android:layout_gravity="center"
@@ -25,7 +25,7 @@
 
     <android.support.v7.widget.AppCompatImageView
         android:id="@+id/button_bus"
-        style="@style/AppTheme.IconClick"
+        style="@style/CoreAppTheme.IconClick"
         android:layout_width="@dimen/icon_size_x6"
         android:layout_height="@dimen/icon_size_x6"
         android:layout_gravity="center"

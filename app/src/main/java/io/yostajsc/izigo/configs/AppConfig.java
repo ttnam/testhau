@@ -1,16 +1,14 @@
 package io.yostajsc.izigo.configs;
 
 import android.support.multidex.MultiDexApplication;
-import android.util.Log;
 
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.iid.FirebaseInstanceId;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
+import io.yostajsc.core.utils.StorageUtils;
 import io.yostajsc.izigo.firebase.FirebaseManager;
-import io.yostajsc.utils.AppUtils;
-import io.yostajsc.utils.StorageUtils;
 
 /**
  * Created by Phuc-Hau Nguyen on 11/9/2016.
