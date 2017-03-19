@@ -33,9 +33,11 @@ import butterknife.OnClick;
 import io.yostajsc.backend.core.APIManager;
 import io.yostajsc.constants.RoleType;
 import io.yostajsc.constants.TransferType;
-import io.yostajsc.core.callbacks.CallBack;
-import io.yostajsc.core.callbacks.CallBackWith;
+import io.yostajsc.core.interfaces.CallBack;
+import io.yostajsc.core.interfaces.CallBackWith;
 import io.yostajsc.core.code.MessageType;
+import io.yostajsc.core.interfaces.OnConnectionTimeoutListener;
+import io.yostajsc.core.utils.AppUtils;
 import io.yostajsc.core.utils.NetworkUtils;
 import io.yostajsc.core.utils.StorageUtils;
 import io.yostajsc.core.utils.ValidateUtils;
@@ -48,7 +50,6 @@ import io.yostajsc.izigo.activities.ActivityCoreBehavior;
 import io.yostajsc.izigo.configs.AppDefine;
 import io.yostajsc.izigo.managers.RealmManager;
 import io.yostajsc.izigo.models.trip.Trip;
-import io.yostajsc.utils.AppUtils;
 import io.yostajsc.utils.UiUtils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -269,7 +270,12 @@ public class TripDetailActivity extends ActivityCoreBehavior {
 
         String authorization = StorageUtils.inject(this).getString(AppDefine.AUTHORIZATION);
 
-        APIManager.connect().updateCover(authorization, tripId, url, new CallBack() {
+        APIManager.connect(new OnConnectionTimeoutListener() {
+            @Override
+            public void onConnectionTimeout() {
+                // TODO
+            }
+        }).updateCover(authorization, tripId, url, new CallBack() {
             @Override
             public void run() {
                 onExpired();
@@ -337,7 +343,12 @@ public class TripDetailActivity extends ActivityCoreBehavior {
         if (roleType == RoleType.GUEST) {
             String authorization = StorageUtils.inject(this)
                     .getString(AppDefine.AUTHORIZATION);
-            APIManager.connect().join(authorization, tripId, new CallBack() {
+            APIManager.connect(new OnConnectionTimeoutListener() {
+                @Override
+                public void onConnectionTimeout() {
+                    // TODO
+                }
+            }).join(authorization, tripId, new CallBack() {
                 @Override
                 public void run() {
                     onExpired();
@@ -412,7 +423,12 @@ public class TripDetailActivity extends ActivityCoreBehavior {
         super.onInternetConnected();
         String authorization = StorageUtils.inject(this).getString(AppDefine.AUTHORIZATION);
         if (ValidateUtils.canUse(authorization)) {
-            APIManager.connect().getTripDetail(authorization, tripId, new CallBackWith<Trip>() {
+            APIManager.connect(new OnConnectionTimeoutListener() {
+                @Override
+                public void onConnectionTimeout() {
+                    // TODO
+                }
+            }).getTripDetail(authorization, tripId, new CallBackWith<Trip>() {
                 @Override
                 public void run(Trip trip) {
                     RealmManager.insertOrUpdate(trip);

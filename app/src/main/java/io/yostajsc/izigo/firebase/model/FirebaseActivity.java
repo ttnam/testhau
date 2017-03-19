@@ -2,7 +2,7 @@ package io.yostajsc.izigo.firebase.model;
 
 import java.io.Serializable;
 
-import io.yostajsc.utils.AppUtils;
+import io.yostajsc.core.utils.AppUtils;
 
 /**
  * Created by Phuc-Hau Nguyen on 12/11/2016.

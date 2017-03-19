@@ -2,7 +2,7 @@ package io.yostajsc.izigo.managers;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
-import io.yostajsc.core.callbacks.CallBackWith;
+import io.yostajsc.core.interfaces.CallBackWith;
 import io.yostajsc.izigo.models.Timeline;
 import io.yostajsc.izigo.models.Timelines;
 import io.yostajsc.izigo.models.trip.Trip;

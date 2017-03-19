@@ -5,9 +5,13 @@ import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
+import android.content.res.ColorStateList;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
+import android.text.Html;
 import android.util.Base64;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -21,6 +25,9 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
+
+import io.yostajsc.core.R;
+
 /**
  * Created by Phuc-Hau Nguyen on 12/21/2016.
  */
@@ -29,16 +36,6 @@ public class AppUtils {
 
     public static final int H_MM = 0;
     public static final int DD_MM_YYYY = 1;
-
-    public static final String EXTRA_TRIPS = "EXTRA_TRIPS";
-
-    public static final String FONT_LATO_BLACK = "fonts/Lato-Black.ttf";
-    public static final String FONT_LATO_BOLD = "fonts/Lato-Bold.ttf";
-    public static final String FONT_LATO_HEAVY = "fonts/Lato-Heavy.ttf";
-    public static final String FONT_LATO_LIGHT = "fonts/Lato-Light.ttf";
-    public static final String FONT_LATO_MEDIUM = "fonts/Lato-Medium.ttf";
-    public static final String FONT_LATO_THIN = "fonts/Lato-Thin.ttf";
-    public static final String FONT_LATO_ITALIC = "fonts/Lato-Italic.ttf";
 
     public static Builder builder() {
         return new Builder();
@@ -58,6 +55,12 @@ public class AppUtils {
         private Context mContext = null;
         private Resources mResources = null;
 
+        private int pluralsTimeIds[] = {R.plurals.seconds, R.plurals.minutes, R.plurals.hours,
+                R.plurals.days, R.plurals.months, R.plurals.years};
+
+        private int pluralsPastTimeIds[] = {R.plurals.seconds_ago, R.plurals.minutes_ago, R.plurals.hours_ago,
+                R.plurals.days_ago, R.plurals.months_ago, R.plurals.years_ago};
+
         public Builder() {
             mResources = null;
             mContext = null;
@@ -74,7 +77,22 @@ public class AppUtils {
             this.mResources = mContext.getResources();
         }
 
+        public Builder showSnackBarNotify(@NonNull View view, @NonNull String message) {
+            String msg = view.getResources().getString(R.string.message_snack_bar, message);
+            Snackbar.make(view, Html.fromHtml(msg), Snackbar.LENGTH_LONG).show();
+            return this;
+        }
 
+        public Builder showSnackBarNotify(@NonNull View view, @NonNull String message, int duration,
+                                          @NonNull String actionTitle, @NonNull View.OnClickListener listener) {
+            String msg = view.getResources().getString(R.string.message_snack_bar, message);
+            Snackbar.make(view, Html.fromHtml(msg), Snackbar.LENGTH_LONG)
+                    .setDuration(duration)
+                    .setAction(actionTitle, listener)
+                    .setActionTextColor(ColorStateList.valueOf(Color.GREEN))
+                    .show();
+            return this;
+        }
 
         public String getTime(long millis, int filter) {
             Timestamp stamp = new Timestamp(millis);
@@ -91,6 +109,46 @@ public class AppUtils {
         public long getTimeStep(long millis) {
             long currTimes = System.currentTimeMillis();
             return (currTimes - millis);
+        }
+
+        public String getTimeGap(long timeGap) {
+            if (mActivity == null && mContext == null)
+                return "";
+
+            int timeConst[] = {1000, 60, 60, 24, 30, 12};
+            int timeValue = (int) (timeGap / timeConst[0]);
+
+            String res = mResources.getQuantityString(R.plurals.seconds, timeValue, timeValue);
+
+            for (int i = 1; i < pluralsTimeIds.length; ++i) {
+                timeValue /= timeConst[i];
+                if (timeValue != 0) {
+                    res = mResources.getQuantityString(pluralsTimeIds[i], timeValue, timeValue);
+                }
+            }
+            mActivity = null;
+            mContext = null;
+            return res;
+        }
+
+        public String getPastTimeGap(long timeGap) {
+            if (mActivity == null && mContext == null)
+                return "";
+
+            int timeConst[] = {1000, 60, 60, 24, 30, 12};
+            int timeValue = (int) (timeGap / timeConst[0]);
+
+            String res = mResources.getQuantityString(R.plurals.seconds, timeValue, timeValue);
+
+            for (int i = 1; i < pluralsPastTimeIds.length; ++i) {
+                timeValue /= timeConst[i];
+                if (timeValue != 0) {
+                    res = mResources.getQuantityString(pluralsPastTimeIds[i], timeValue, timeValue);
+                }
+            }
+            mActivity = null;
+            mContext = null;
+            return res;
         }
 
         public void setFont(@NonNull String fontName, @NonNull TextView... textViews) {
@@ -118,7 +176,7 @@ public class AppUtils {
         }
     }
 
-    public static String onGetAppVersion(Context context) {
+    public static String getAppVersion(Context context) {
         PackageManager manager = context.getPackageManager();
         PackageInfo info = null;
         try {
@@ -132,7 +190,7 @@ public class AppUtils {
         return null;
     }
 
-    public static String onGetKeyHash(Context context) {
+    public static String getKeyHash(Context context) {
 
         String keyHash = "";
         try {
@@ -149,7 +207,7 @@ public class AppUtils {
         return keyHash;
     }
 
-    public static void onCloseVirtualKeyboard(Activity activity) {
+    public static void closeVirtualKeyboard(Activity activity) {
         InputMethodManager inputManager =
                 (InputMethodManager) activity.
                         getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -160,5 +218,4 @@ public class AppUtils {
                     InputMethodManager.HIDE_NOT_ALWAYS);
         }
     }
-
 }

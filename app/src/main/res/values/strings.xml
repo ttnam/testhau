@@ -56,11 +56,7 @@
     <!-- start message -->
     <string name="message_later"> Later </string>
     <string name="message_new_comment"> Leave a new comment </string>
-    <string name="message_snack_bar">
-        <![CDATA[
-            <font color=\"yellow\"> %s </font>
-        ]]>
-    </string>
+
 
     <!-- end message -->
 

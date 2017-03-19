@@ -12,7 +12,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.yostajsc.constants.TransferType;
-import io.yostajsc.core.callbacks.CallBackWith;
+import io.yostajsc.core.interfaces.CallBackWith;
 import io.yostajsc.core.utils.DimensionUtil;
 import io.yostajsc.izigo.R;
 

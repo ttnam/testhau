@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-import io.yostajsc.utils.AppUtils;
+import io.yostajsc.core.utils.AppUtils;
 
 @IgnoreExtraProperties
 public class User implements Serializable {

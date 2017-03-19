@@ -20,9 +20,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.yostajsc.backend.core.APIManager;
-import io.yostajsc.core.callbacks.CallBack;
-import io.yostajsc.core.callbacks.CallBackWith;
+import io.yostajsc.core.interfaces.CallBack;
+import io.yostajsc.core.interfaces.CallBackWith;
 import io.yostajsc.core.code.MessageInfo;
+import io.yostajsc.core.interfaces.OnConnectionTimeoutListener;
+import io.yostajsc.core.utils.AppUtils;
 import io.yostajsc.core.utils.NetworkUtils;
 import io.yostajsc.core.utils.StorageUtils;
 import io.yostajsc.core.utils.ValidateUtils;
@@ -32,7 +34,6 @@ import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.configs.AppDefine;
 import io.yostajsc.izigo.adapters.CommentAdapter;
 import io.yostajsc.izigo.models.comment.Comments;
-import io.yostajsc.utils.AppUtils;
 import io.yostajsc.utils.UiUtils;
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 
@@ -129,7 +130,12 @@ public class DialogComment extends Dialog {
             String authorization = StorageUtils.inject(mOwnerActivity).getString(AppDefine.AUTHORIZATION);
 
             if (ValidateUtils.canUse(authorization)) {
-                APIManager.connect().getComments(authorization, tripId, new CallBack() {
+                APIManager.connect(new OnConnectionTimeoutListener() {
+                    @Override
+                    public void onConnectionTimeout() {
+                        // TODO
+                    }
+                }).getComments(authorization, tripId, new CallBack() {
                     @Override
                     public void run() {
                         // TODO: expired
@@ -195,7 +201,7 @@ public class DialogComment extends Dialog {
         }*/
         editText.clearFocus();
         editText.setText("");
-        AppUtils.onCloseVirtualKeyboard(mOwnerActivity);
+        AppUtils.closeVirtualKeyboard(mOwnerActivity);
     }
 
     @OnClick(R.id.layout)

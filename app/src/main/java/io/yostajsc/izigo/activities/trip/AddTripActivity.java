@@ -19,9 +19,10 @@ import java.text.DecimalFormat;
 import java.util.Calendar;
 
 import io.yostajsc.constants.TransferType;
-import io.yostajsc.core.callbacks.CallBack;
-import io.yostajsc.core.callbacks.CallBackWith;
+import io.yostajsc.core.interfaces.CallBack;
+import io.yostajsc.core.interfaces.CallBackWith;
 import io.yostajsc.core.code.MessageType;
+import io.yostajsc.core.interfaces.OnConnectionTimeoutListener;
 import io.yostajsc.core.utils.StorageUtils;
 import io.yostajsc.core.utils.ValidateUtils;
 import io.yostajsc.izigo.R;
@@ -339,7 +340,12 @@ public class AddTripActivity extends ActivityCoreBehavior {
 
         progressBar.setVisibility(View.VISIBLE);
 
-        APIManager.connect().createTrips(authorization, groupName,
+        APIManager.connect(new OnConnectionTimeoutListener() {
+            @Override
+            public void onConnectionTimeout() {
+                // TODO
+            }
+        }).createTrips(authorization, groupName,
                 to.toString(), from.toString(), description,
                 0,
                 0, 1, new CallBack() {

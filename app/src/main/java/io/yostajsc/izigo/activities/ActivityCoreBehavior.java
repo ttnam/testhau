@@ -9,7 +9,7 @@ import org.greenrobot.eventbus.Subscribe;
 import io.yostajsc.core.code.MessageInfo;
 import io.yostajsc.core.code.MessageType;
 import io.yostajsc.core.dialogs.DialogNoNet;
-import io.yostajsc.core.callbacks.ActivityCoreInterface;
+import io.yostajsc.core.interfaces.ActivityCoreInterface;
 import io.yostajsc.izigo.activities.user.LoginActivity;
 
 

@@ -12,7 +12,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 
 import io.yostajsc.constants.TransferType;
-import io.yostajsc.core.callbacks.CallBackWith;
+import io.yostajsc.core.interfaces.CallBackWith;
 import io.yostajsc.core.utils.ValidateUtils;
 import io.yostajsc.designs.decorations.SpacesItemDecoration;
 import io.yostajsc.designs.listeners.RecyclerItemClickListener;

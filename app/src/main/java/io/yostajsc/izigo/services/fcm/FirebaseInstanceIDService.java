@@ -6,6 +6,7 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
 
 import io.yostajsc.backend.core.APIManager;
+import io.yostajsc.core.interfaces.OnConnectionTimeoutListener;
 import io.yostajsc.core.utils.StorageUtils;
 import io.yostajsc.core.utils.ValidateUtils;
 import io.yostajsc.izigo.configs.AppDefine;
@@ -26,7 +27,12 @@ public class FirebaseInstanceIDService extends FirebaseInstanceIdService {
         try {
             String authorization = StorageUtils.inject(this).getString(AppDefine.AUTHORIZATION);
             if (ValidateUtils.canUse(authorization))
-                APIManager.connect().updateFcm(authorization, token);
+                APIManager.connect(new OnConnectionTimeoutListener() {
+                    @Override
+                    public void onConnectionTimeout() {
+
+                    }
+                }).updateFcm(authorization, token);
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
         }

@@ -7,11 +7,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import io.yostajsc.core.utils.AppUtils;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.models.comment.Comment;
 import io.yostajsc.izigo.models.comment.Comments;
 import io.yostajsc.izigo.ui.viewholder.CommentViewHolder;
-import io.yostajsc.utils.AppUtils;
 
 /**
  * Created by Phuc-Hau Nguyen on 10/14/2016.

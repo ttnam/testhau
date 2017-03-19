@@ -6,11 +6,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import io.yostajsc.core.utils.AppUtils;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.models.Timeline;
 import io.yostajsc.izigo.models.Timelines;
 import io.yostajsc.izigo.ui.viewholder.TimelineViewHolder;
-import io.yostajsc.utils.AppUtils;
 
 public class TimelineAdapter extends RecyclerView.Adapter<TimelineViewHolder> {
 

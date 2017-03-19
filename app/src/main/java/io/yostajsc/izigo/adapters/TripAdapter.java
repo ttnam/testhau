@@ -6,11 +6,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import io.yostajsc.core.utils.AppUtils;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.models.trip.Trip;
 import io.yostajsc.izigo.models.trip.Trips;
 import io.yostajsc.izigo.ui.viewholder.TripViewHolder;
-import io.yostajsc.utils.AppUtils;
 
 /**
  * Created by Phuc-Hau Nguyen on 10/14/2016.

@@ -6,22 +6,28 @@ import android.util.Log;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.io.IOException;
+import java.net.SocketTimeoutException;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import io.yostajsc.backend.response.BaseResponse;
-import io.yostajsc.core.callbacks.CallBack;
-import io.yostajsc.core.callbacks.CallBackWith;
+import io.yostajsc.core.interfaces.CallBack;
+import io.yostajsc.core.interfaces.CallBackWith;
+import io.yostajsc.core.interfaces.OnConnectionTimeoutListener;
 import io.yostajsc.izigo.models.Timelines;
 import io.yostajsc.izigo.models.comment.Comments;
 import io.yostajsc.izigo.models.trip.Trip;
 import io.yostajsc.izigo.models.trip.Trips;
 import io.yostajsc.izigo.models.user.Friend;
 import io.yostajsc.izigo.models.user.User;
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
+import retrofit2.Response;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
-import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -33,30 +39,60 @@ public class APIManager {
 
     private static final String TAG = APIManager.class.getSimpleName();
 
-    private static String SERVER_DOMAIN = "http://phuotngay.jelasticlw.com.br/";
+    private static String SERVER_DOMAIN = "http://izigo.jelasticlw.com.br/";
+    private static final int CONNECT_TIME_OUT = 5;
+    private static final int READ_TIME_OUT = 5;
+
+    private static OnConnectionTimeoutListener mTimeoutListener = null;
 
     private APIInterface service = null;
     private static APIManager mInstance = null;
 
-    private APIManager() {
+    private APIManager(OnConnectionTimeoutListener timeoutListener) {
 
+
+        mTimeoutListener = timeoutListener;
+
+        // OkHttp
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
+        httpClient.connectTimeout(CONNECT_TIME_OUT, TimeUnit.SECONDS);
+        httpClient.readTimeout(READ_TIME_OUT, TimeUnit.SECONDS);
+        httpClient.interceptors().add(new Interceptor() {
+            @Override
+            public okhttp3.Response intercept(Chain chain) throws IOException {
+                return onOnIntercept(chain);
+            }
+        });
 
-        Gson gson = new GsonBuilder()
-                .setLenient()
-                .create();
+        // G son
+        Gson gson = new GsonBuilder().setLenient().create();
 
+        // Retrofit
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(SERVER_DOMAIN)
                 .client(httpClient.build())
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
+
         service = retrofit.create(APIInterface.class);
     }
 
-    public static APIManager connect() {
+    private okhttp3.Response onOnIntercept(Interceptor.Chain chain) throws IOException {
+        try {
+            okhttp3.Response response = chain.proceed(chain.request());
+            return response.newBuilder().body(ResponseBody.create(response.body().contentType(),
+                    response.body().string())).build();
+        } catch (SocketTimeoutException exception) {
+            if(mTimeoutListener != null)
+                mTimeoutListener.onConnectionTimeout();
+        }
+
+        return chain.proceed(chain.request());
+    }
+
+    public static APIManager connect(OnConnectionTimeoutListener timeoutListener) {
         if (mInstance == null) {
-            mInstance = new APIManager();
+            mInstance = new APIManager(timeoutListener);
         }
         return mInstance;
     }
@@ -489,8 +525,8 @@ public class APIManager {
             }
 
             @Override
-            public void onFailure(Call<BaseResponse<String>> call, Throwable t) {
-
+            public void onFailure(Call<BaseResponse<String>> call, Throwable throwable) {
+                Log.e(TAG, throwable.getMessage());
             }
         });
     }

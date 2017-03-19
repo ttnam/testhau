@@ -1,8 +1,6 @@
 package io.yostajsc.izigo.fragments;
 
 import android.app.Activity;
-import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -19,9 +17,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.yostajsc.izigo.R;
-import io.yostajsc.izigo.activities.SearchActivity;
-import io.yostajsc.utils.AppUtils;
-import io.yostajsc.utils.SearchTripHelper;
 
 public class SearchFragment extends Fragment {
 

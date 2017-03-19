@@ -34,7 +34,8 @@ import org.json.JSONObject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.yostajsc.core.callbacks.CallBackWith;
+import io.yostajsc.core.interfaces.CallBackWith;
+import io.yostajsc.core.interfaces.OnConnectionTimeoutListener;
 import io.yostajsc.core.utils.StorageUtils;
 import io.yostajsc.core.utils.ValidateUtils;
 import io.yostajsc.izigo.R;
@@ -114,6 +115,7 @@ public class LoginActivity extends ActivityCoreBehavior {
     public void onApplyViews() {
         Glide.with(this)
                 .load(R.drawable.ic_loading)
+                .asGif()
                 .error(R.drawable.ic_launcher)
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .into(imageView);
@@ -207,7 +209,12 @@ public class LoginActivity extends ActivityCoreBehavior {
             String fireBaseId = user.getFireBaseId();
             String fcm = StorageUtils.inject(this).getString(FirebaseManager.FIRE_BASE_TOKEN);
 
-            APIManager.connect().onLogin(email, fbId, fireBaseId, fcm, new CallBackWith<String>() {
+            APIManager.connect(new OnConnectionTimeoutListener() {
+                @Override
+                public void onConnectionTimeout() {
+                    // TODO
+                }
+            }).onLogin(email, fbId, fireBaseId, fcm, new CallBackWith<String>() {
                 @Override
                 public void run(String authorization) {
                     Log.d(TAG, authorization);

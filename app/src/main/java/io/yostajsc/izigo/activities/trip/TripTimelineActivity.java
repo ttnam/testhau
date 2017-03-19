@@ -12,8 +12,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.yostajsc.backend.core.APIManager;
-import io.yostajsc.core.callbacks.CallBack;
-import io.yostajsc.core.callbacks.CallBackWith;
+import io.yostajsc.core.interfaces.CallBack;
+import io.yostajsc.core.interfaces.CallBackWith;
+import io.yostajsc.core.interfaces.OnConnectionTimeoutListener;
 import io.yostajsc.core.utils.NetworkUtils;
 import io.yostajsc.core.utils.StorageUtils;
 import io.yostajsc.core.utils.ValidateUtils;
@@ -122,7 +123,12 @@ public class TripTimelineActivity extends ActivityCoreBehavior {
 
         if (ValidateUtils.canUse(authorization)) {
 
-            APIManager.connect().getActivities(authorization, tripId, new CallBack() {
+            APIManager.connect(new OnConnectionTimeoutListener() {
+                @Override
+                public void onConnectionTimeout() {
+                    // TODO
+                }
+            }).getActivities(authorization, tripId, new CallBack() {
                 @Override
                 public void run() {
                     onExpired();

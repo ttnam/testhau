@@ -1,3 +1,7 @@
 <resources>
-    <string name="module_name">core</string>
+     <string name="message_snack_bar">
+        <![CDATA[
+            <font color=\"yellow\"> %s </font>
+        ]]>
+    </string>
 </resources>

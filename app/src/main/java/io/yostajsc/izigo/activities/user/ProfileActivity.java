@@ -17,8 +17,9 @@ import java.util.Map;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.yostajsc.backend.core.APIManager;
-import io.yostajsc.core.callbacks.CallBack;
-import io.yostajsc.core.callbacks.CallBackWith;
+import io.yostajsc.core.interfaces.CallBack;
+import io.yostajsc.core.interfaces.CallBackWith;
+import io.yostajsc.core.interfaces.OnConnectionTimeoutListener;
 import io.yostajsc.core.utils.StorageUtils;
 import io.yostajsc.core.utils.ValidateUtils;
 import io.yostajsc.izigo.R;
@@ -98,7 +99,12 @@ public class ProfileActivity extends ActivityCoreBehavior {
         } else {
             String authorization = StorageUtils.inject(this).getString(AppDefine.AUTHORIZATION);
             if (ValidateUtils.canUse(authorization)) {
-                APIManager.connect().getUserInfo(authorization, new CallBackWith<User>() {
+                APIManager.connect(new OnConnectionTimeoutListener() {
+                    @Override
+                    public void onConnectionTimeout() {
+                        // TODO
+                    }
+                }).getUserInfo(authorization, new CallBackWith<User>() {
                     @Override
                     public void run(User user) {
                         mUser = user;
@@ -177,7 +183,12 @@ public class ProfileActivity extends ActivityCoreBehavior {
             map.put("dateOfBirth", dob);
 
             String authorization = StorageUtils.inject(ProfileActivity.this).getString(AppDefine.AUTHORIZATION);
-            APIManager.connect().updateProfile(authorization, map, new CallBack() {
+            APIManager.connect(new OnConnectionTimeoutListener() {
+                @Override
+                public void onConnectionTimeout() {
+                    // TODO
+                }
+            }).updateProfile(authorization, map, new CallBack() {
                 @Override
                 public void run() {
                     onExpired();

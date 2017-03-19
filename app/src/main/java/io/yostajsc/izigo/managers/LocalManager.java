@@ -1,6 +1,6 @@
 package io.yostajsc.izigo.managers;
 
-import io.yostajsc.core.callbacks.CallBackWith;
+import io.yostajsc.core.interfaces.CallBackWith;
 
 /**
  * Created by Phuc-Hau Nguyen on 3/8/2017.
