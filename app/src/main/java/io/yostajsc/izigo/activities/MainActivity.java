@@ -12,6 +12,7 @@ import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.fragments.NotificationsFragment;
 import io.yostajsc.izigo.fragments.OwnTripFragment;
 import io.yostajsc.izigo.fragments.TripFragment;
+import io.yostajsc.view.NonSwipeAbleViewPager;
 
 public class MainActivity extends ActivityCoreBehavior {
 
@@ -19,7 +20,7 @@ public class MainActivity extends ActivityCoreBehavior {
     TabLayout mTabLayout;
 
     @BindView(R.id.view_pager)
-    ViewPager mViewPager;
+    NonSwipeAbleViewPager mViewPager;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -45,7 +46,7 @@ public class MainActivity extends ActivityCoreBehavior {
 
         TabLayout.Tab tab = this.mTabLayout.getTabAt(0);
         if (tab != null) {
-            tab.setIcon(getResources().getDrawable(R.drawable.ic_style_tab_home ));
+            tab.setIcon(getResources().getDrawable(R.drawable.ic_style_tab_home));
         }
         if ((tab = this.mTabLayout.getTabAt(1)) != null) {
             tab.setIcon(getResources().getDrawable(R.drawable.ic_style_tab_trip));
@@ -73,5 +74,11 @@ public class MainActivity extends ActivityCoreBehavior {
     @Override
     public void onInternetConnected() {
 
+    }
+
+    public void move(int pos) {
+        if(pos < 0)
+            return;
+        this.mViewPager.setCurrentItem(pos, true);
     }
 }

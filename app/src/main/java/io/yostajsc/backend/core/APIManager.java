@@ -18,6 +18,7 @@ import io.yostajsc.core.interfaces.CallBackWith;
 import io.yostajsc.core.interfaces.OnConnectionTimeoutListener;
 import io.yostajsc.izigo.models.Timelines;
 import io.yostajsc.izigo.models.comment.Comments;
+import io.yostajsc.izigo.models.notification.Notifications;
 import io.yostajsc.izigo.models.trip.Trip;
 import io.yostajsc.izigo.models.trip.Trips;
 import io.yostajsc.izigo.models.user.Friend;
@@ -83,7 +84,7 @@ public class APIManager {
             return response.newBuilder().body(ResponseBody.create(response.body().contentType(),
                     response.body().string())).build();
         } catch (SocketTimeoutException exception) {
-            if(mTimeoutListener != null)
+            if (mTimeoutListener != null)
                 mTimeoutListener.onConnectionTimeout();
         }
 
@@ -526,6 +527,32 @@ public class APIManager {
 
             @Override
             public void onFailure(Call<BaseResponse<String>> call, Throwable throwable) {
+                Log.e(TAG, throwable.getMessage());
+            }
+        });
+    }
+
+    public void getNotification(String authorization, final CallBack expired,
+                                final CallBackWith<Notifications> success, final CallBackWith<String> fail) {
+
+        Call<BaseResponse<Notifications>> call = service.getNoti(authorization);
+        call.enqueue(new Callback<BaseResponse<Notifications>>() {
+            @Override
+            public void onResponse(Call<BaseResponse<Notifications>> call, Response<BaseResponse<Notifications>> response) {
+                if (response.isSuccessful()) {
+                    BaseResponse<Notifications> res = response.body();
+                    if (res.isSuccessful()) {
+                        success.run(res.data());
+                    } else if (res.isExpired()) {
+                        expired.run();
+                    } else {
+                        fail.run(res.getDescription());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BaseResponse<Notifications>> call, Throwable throwable) {
                 Log.e(TAG, throwable.getMessage());
             }
         });

@@ -5,6 +5,10 @@
     <item name="edit_text" type="id" />
     <item name="card_view" type="id" />
     <item name="text_view" type="id" />
+
+    <item name="text_title" type="id" />
+    <item name="text_sub_title" type="id" />
+
     <item name="image_view" type="id" />
     <item name="container_item" type="id" />
     <item name="item_click_support" type="id" />

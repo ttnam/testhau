@@ -6,6 +6,7 @@ import java.util.Map;
 import io.yostajsc.backend.response.BaseResponse;
 import io.yostajsc.izigo.models.Timelines;
 import io.yostajsc.izigo.models.comment.Comments;
+import io.yostajsc.izigo.models.notification.Notifications;
 import io.yostajsc.izigo.models.trip.Trips;
 import io.yostajsc.izigo.models.user.User;
 import io.yostajsc.izigo.models.user.Friend;
@@ -23,8 +24,7 @@ import retrofit2.http.Path;
 /**
  * Created by Phuc-Hau Nguyen on 11/9/2016.
  */
-
-public interface APIInterface {
+ interface APIInterface {
 
     @FormUrlEncoded
     @POST("api/user/login")
@@ -90,5 +90,8 @@ public interface APIInterface {
     @PUT("api/trips/{id}/join")
     Call<BaseResponse<String>> join(@Header("authen") String authorization,
                                     @Path("id") String tripId);
+
+    @GET("api/notification")
+    Call<BaseResponse<Notifications>> getNoti(@Header("authen") String authorization);
 
 }
