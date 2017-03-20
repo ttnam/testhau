@@ -5,6 +5,8 @@ import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 
 import io.realm.RealmObject;
+import io.yostajsc.constants.NotificationType;
+import io.yostajsc.izigo.models.trip.BaseTripInfo;
 import io.yostajsc.izigo.models.user.BaseUserInfo;
 
 /**
@@ -14,13 +16,26 @@ import io.yostajsc.izigo.models.user.BaseUserInfo;
 public class Notification extends RealmObject implements Serializable {
 
     @SerializedName("content")
-    private BaseUserInfo mContent;
+    private NotificationContent mContent;
 
     @SerializedName("type")
     private int mType;
 
     @SerializedName("id")
-    private String mTripId;
+    private String mId;
 
+    public BaseUserInfo getFrom() {
+        return mContent.getFrom();
+    }
 
+    public BaseTripInfo getTrip() {
+        return mContent.getTrip();
+    }
+    public @NotificationType int getType() {
+        return mType;
+    }
+
+    public String getId() {
+        return mId;
+    }
 }

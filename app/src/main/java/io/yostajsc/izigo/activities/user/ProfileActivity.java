@@ -3,6 +3,7 @@ package io.yostajsc.izigo.activities.user;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.AppCompatImageView;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -28,7 +29,7 @@ import io.yostajsc.izigo.activities.ActivityCoreBehavior;
 import io.yostajsc.izigo.configs.AppDefine;
 import io.yostajsc.izigo.models.user.User;
 import io.yostajsc.utils.UserPref;
-import io.yostajsc.view.CircleImageView;
+import io.yostajsc.view.CropCircleTransformation;
 import io.yostajsc.view.OwnToolBar;
 
 import butterknife.BindView;
@@ -56,7 +57,7 @@ public class ProfileActivity extends ActivityCoreBehavior {
     EditText editLastName;
 
     @BindView(R.id.image_view)
-    CircleImageView imageAvatar;
+    AppCompatImageView imageAvatar;
 
     @BindView(R.id.layout)
     OwnToolBar ownToolBar;
@@ -138,6 +139,7 @@ public class ProfileActivity extends ActivityCoreBehavior {
         ownToolBar.setTitle(mUser.getFullName(), true);
         Glide.with(ProfileActivity.this)
                 .load(mUser.getAvatar())
+                .bitmapTransform(new CropCircleTransformation(this))
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .into(imageAvatar);
         editEmail.setText(mUser.getEmail());

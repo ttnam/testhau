@@ -1,0 +1,74 @@
+package io.yostajsc.izigo.ui.viewholder;
+
+import android.content.Context;
+import android.support.v7.widget.AppCompatImageView;
+import android.support.v7.widget.RecyclerView;
+import android.text.Html;
+import android.view.View;
+import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import io.yostajsc.constants.NotificationType;
+import io.yostajsc.izigo.R;
+import io.yostajsc.izigo.models.trip.BaseTripInfo;
+import io.yostajsc.izigo.models.user.BaseUserInfo;
+import io.yostajsc.view.CropCircleTransformation;
+
+/**
+ * Created by Phuc-Hau Nguyen on 8/25/2016.
+ */
+public class NotificationsViewHolder extends RecyclerView.ViewHolder {
+
+    private Context mContext;
+
+    @BindView(R.id.image_avatar)
+    AppCompatImageView imageAvatar;
+
+    @BindView(R.id.image_cover)
+    AppCompatImageView imageCover;
+
+    @BindView(R.id.text_view)
+    TextView textView;
+
+    public NotificationsViewHolder(View itemView) {
+        super(itemView);
+        mContext = itemView.getContext();
+        ButterKnife.bind(this, itemView);
+    }
+
+    public void bind(BaseUserInfo userInfo, BaseTripInfo tripInfo, @NotificationType int type) {
+        Glide.with(mContext)
+                .load(tripInfo.getCover())
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                .into(this.imageCover);
+
+        Glide.with(mContext)
+                .load(userInfo.getAvatar())
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                .bitmapTransform(new CropCircleTransformation(mContext))
+                .into(this.imageAvatar);
+
+        String prefix = "<html><body><b>";
+        String postfix = "</b></body></html>";
+
+        String tripName = prefix + tripInfo.getName() + postfix;
+
+        switch (type) {
+
+            case NotificationType.ACCEPT_JOIN_TRIP:
+                textView.setText(userInfo.getName() + " thêm bạn vào trip " + tripName);
+                break;
+            case NotificationType.MEMBER_ADD_TO_TRIP:
+                textView.setText(userInfo.getName() + " được thêm vào trip " + tripName + " của bạn.");
+                break;
+            case NotificationType.REQUEST_JOIN_TRIP:
+                textView.setText(Html.fromHtml(
+                        userInfo.getName() + " xin vào trip " + tripName + " của bạn."));
+                break;
+        }
+    }
+}

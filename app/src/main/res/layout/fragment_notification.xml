@@ -8,13 +8,14 @@
     <io.yostajsc.view.OwnToolBar
         android:id="@id/own_toolbar"
         android:layout_width="match_parent"
+        app:layoutTitle="@string/setting_notification"
         android:layout_height="?actionBarSize"
-        app:layoutBackground="@android:color/transparent" />
+        app:layoutBackground="@color/colorPrimary" />
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="@dimen/margin">
+        android:padding="@dimen/margin"
+        android:layout_height="match_parent">
 
         <include layout="@layout/layout_recycler_view" />
 
