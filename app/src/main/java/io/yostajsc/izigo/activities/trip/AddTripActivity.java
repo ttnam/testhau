@@ -340,12 +340,7 @@ public class AddTripActivity extends ActivityCoreBehavior {
 
         progressBar.setVisibility(View.VISIBLE);
 
-        APIManager.connect(new OnConnectionTimeoutListener() {
-            @Override
-            public void onConnectionTimeout() {
-                // TODO
-            }
-        }).createTrips(authorization, groupName,
+        APIManager.connect().createTrips(authorization, groupName,
                 to.toString(), from.toString(), description,
                 0,
                 0, 1, new CallBack() {

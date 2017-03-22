@@ -15,7 +15,6 @@ import java.util.concurrent.TimeUnit;
 import io.yostajsc.backend.response.BaseResponse;
 import io.yostajsc.core.interfaces.CallBack;
 import io.yostajsc.core.interfaces.CallBackWith;
-import io.yostajsc.core.interfaces.OnConnectionTimeoutListener;
 import io.yostajsc.izigo.models.Timelines;
 import io.yostajsc.izigo.models.comment.Comments;
 import io.yostajsc.izigo.models.notification.Notifications;
@@ -44,16 +43,10 @@ public class APIManager {
     private static final int CONNECT_TIME_OUT = 5;
     private static final int READ_TIME_OUT = 5;
 
-    private static OnConnectionTimeoutListener mTimeoutListener = null;
-
     private APIInterface service = null;
     private static APIManager mInstance = null;
 
-    private APIManager(OnConnectionTimeoutListener timeoutListener) {
-
-
-        mTimeoutListener = timeoutListener;
-
+    private APIManager() {
         // OkHttp
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
         httpClient.connectTimeout(CONNECT_TIME_OUT, TimeUnit.SECONDS);
@@ -84,16 +77,15 @@ public class APIManager {
             return response.newBuilder().body(ResponseBody.create(response.body().contentType(),
                     response.body().string())).build();
         } catch (SocketTimeoutException exception) {
-            if (mTimeoutListener != null)
-                mTimeoutListener.onConnectionTimeout();
+            Log.e(TAG, "SocketTimeoutException");
         }
 
         return chain.proceed(chain.request());
     }
 
-    public static APIManager connect(OnConnectionTimeoutListener timeoutListener) {
+    public static APIManager connect() {
         if (mInstance == null) {
-            mInstance = new APIManager(timeoutListener);
+            mInstance = new APIManager();
         }
         return mInstance;
     }

@@ -123,12 +123,7 @@ public class TripTimelineActivity extends ActivityCoreBehavior {
 
         if (ValidateUtils.canUse(authorization)) {
 
-            APIManager.connect(new OnConnectionTimeoutListener() {
-                @Override
-                public void onConnectionTimeout() {
-                    // TODO
-                }
-            }).getActivities(authorization, tripId, new CallBack() {
+            APIManager.connect().getActivities(authorization, tripId, new CallBack() {
                 @Override
                 public void run() {
                     onExpired();

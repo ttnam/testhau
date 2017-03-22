@@ -287,12 +287,7 @@ public class TripDetailActivity extends ActivityCoreBehavior {
 
         String authorization = StorageUtils.inject(this).getString(AppDefine.AUTHORIZATION);
 
-        APIManager.connect(new OnConnectionTimeoutListener() {
-            @Override
-            public void onConnectionTimeout() {
-                // TODO
-            }
-        }).updateCover(authorization, tripId, url, new CallBack() {
+        APIManager.connect().updateCover(authorization, tripId, url, new CallBack() {
             @Override
             public void run() {
                 onExpired();
@@ -353,12 +348,7 @@ public class TripDetailActivity extends ActivityCoreBehavior {
         if (roleType == RoleType.GUEST) {
             String authorization = StorageUtils.inject(this)
                     .getString(AppDefine.AUTHORIZATION);
-            APIManager.connect(new OnConnectionTimeoutListener() {
-                @Override
-                public void onConnectionTimeout() {
-                    // TODO
-                }
-            }).join(authorization, tripId, new CallBack() {
+            APIManager.connect().join(authorization, tripId, new CallBack() {
                 @Override
                 public void run() {
                     onExpired();
@@ -430,12 +420,7 @@ public class TripDetailActivity extends ActivityCoreBehavior {
         super.onInternetConnected();
         String authorization = StorageUtils.inject(this).getString(AppDefine.AUTHORIZATION);
         if (ValidateUtils.canUse(authorization)) {
-            APIManager.connect(new OnConnectionTimeoutListener() {
-                @Override
-                public void onConnectionTimeout() {
-                    // TODO
-                }
-            }).getTripDetail(authorization, tripId, new CallBackWith<Trip>() {
+            APIManager.connect().getTripDetail(authorization, tripId, new CallBackWith<Trip>() {
                 @Override
                 public void run(Trip trip) {
                     RealmManager.insertOrUpdate(trip);

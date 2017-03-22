@@ -209,12 +209,7 @@ public class LoginActivity extends ActivityCoreBehavior {
             String fireBaseId = user.getFireBaseId();
             String fcm = StorageUtils.inject(this).getString(FirebaseManager.FIRE_BASE_TOKEN);
 
-            APIManager.connect(new OnConnectionTimeoutListener() {
-                @Override
-                public void onConnectionTimeout() {
-                    // TODO
-                }
-            }).onLogin(email, fbId, fireBaseId, fcm, new CallBackWith<String>() {
+            APIManager.connect().onLogin(email, fbId, fireBaseId, fcm, new CallBackWith<String>() {
                 @Override
                 public void run(String authorization) {
                     Log.d(TAG, authorization);

@@ -103,12 +103,7 @@ public class OwnTripFragment extends Fragment {
                 .getString(AppDefine.AUTHORIZATION);
 
         // Load from server
-        APIManager.connect(new OnConnectionTimeoutListener() {
-            @Override
-            public void onConnectionTimeout() {
-                // TODO
-            }
-        }).getOwnTripsList(authorization, new CallBack() {
+        APIManager.connect().getOwnTripsList(authorization, new CallBack() {
             @Override
             public void run() {
                 // TODO: Expired

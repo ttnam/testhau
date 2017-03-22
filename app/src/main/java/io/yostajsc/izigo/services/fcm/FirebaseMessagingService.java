@@ -1,4 +1,6 @@
-package io.yostajsc.izigo.services.fcm; /**
+package io.yostajsc.izigo.services.fcm;
+
+/**
  * Copyright 2016 Google Inc. All Rights Reserved.
  * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,10 +23,9 @@ import android.content.Intent;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
+import android.text.Html;
 import android.util.Log;
-
 import com.google.firebase.messaging.RemoteMessage;
-
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.activities.MainActivity;
 
@@ -32,37 +33,49 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
 
     private static final String TAG = FirebaseMessagingService.class.getSimpleName();
 
+    public static final int NOTIFICATION_ID = 343471;
+
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
-        // TODO(developer): Handle FCM messages here.
-        // If the application is in the foreground handle both data and notification messages here.
-        // Also if you intend on generating your own notifications as a result of a received FCM
-        // message, here is where that should be initiated. See sendNotification method below.
-        Log.d(TAG, "From: " + remoteMessage.getFrom());
-        String sas = remoteMessage.getData().toString();
-        // Log.d(TAG, "Notification Message Body: " + remoteMessage.getNotification().getBody());
-        // sendNotification(remoteMessage.getNotification().getBody());
-        sendNotification(remoteMessage.getData().toString());
+
+        Log.e(TAG, "From: " + remoteMessage.getFrom());
+
+        // Check if message contains a data payload.
+        if (remoteMessage.getData().size() > 0) {
+            Log.e(TAG, "Message data payload: " + remoteMessage.getData());
+        }
+
+        // Check if message contains a notification payload.
+        if (remoteMessage.getNotification() != null) {
+            Log.e(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
+        }
+
+        sendNotification(remoteMessage.getNotification().getBody());
     }
 
     private void sendNotification(String messageBody) {
+
         Intent intent = new Intent(this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 343471 /* Request code */, intent,
-                PendingIntent.FLAG_ONE_SHOT);
+
+        PendingIntent pIntent = PendingIntent.getActivity(this, NOTIFICATION_ID, intent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
 
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
-                .setSmallIcon(R.drawable.ic_england)
-                .setContentTitle("FCM Message")
-                .setContentText(messageBody)
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
+                // .setLargeIcon(image)
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setContentTitle(Html.fromHtml(String.format("<b>%s</b>", messageBody)))
+                // .setStyle(new NotificationCompat.BigPictureStyle().bigPicture(image))
                 .setAutoCancel(true)
                 .setSound(defaultSoundUri)
-                .setContentIntent(pendingIntent);
+                .setContentIntent(pIntent);
+
 
         NotificationManager notificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
-        notificationManager.notify(45458 /* ID of notification */, notificationBuilder.build());
+        notificationManager.notify(0, builder.build());
     }
 }

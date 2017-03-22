@@ -88,12 +88,7 @@ public class TripFragment extends Fragment {
         String authorization = StorageUtils.inject(mContext)
                 .getString(AppDefine.AUTHORIZATION);
 
-        APIManager.connect(new OnConnectionTimeoutListener() {
-            @Override
-            public void onConnectionTimeout() {
-                // TODO
-            }
-        }).updateView(authorization, tripId, new CallBack() {
+        APIManager.connect().updateView(authorization, tripId, new CallBack() {
             @Override
             public void run() {
                 // TODO: expired
@@ -126,13 +121,7 @@ public class TripFragment extends Fragment {
                 .getString(AppDefine.AUTHORIZATION);
 
         // Load from server
-        APIManager.connect(new OnConnectionTimeoutListener() {
-            @Override
-            public void onConnectionTimeout() {
-                // TODO
-            }
-        }
-        ).getTripsList(authorization, new CallBack() {
+        APIManager.connect().getTripsList(authorization, new CallBack() {
             @Override
             public void run() {
                 // TODO: Expired

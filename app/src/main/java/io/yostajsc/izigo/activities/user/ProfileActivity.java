@@ -100,12 +100,7 @@ public class ProfileActivity extends ActivityCoreBehavior {
         } else {
             String authorization = StorageUtils.inject(this).getString(AppDefine.AUTHORIZATION);
             if (ValidateUtils.canUse(authorization)) {
-                APIManager.connect(new OnConnectionTimeoutListener() {
-                    @Override
-                    public void onConnectionTimeout() {
-                        // TODO
-                    }
-                }).getUserInfo(authorization, new CallBackWith<User>() {
+                APIManager.connect().getUserInfo(authorization, new CallBackWith<User>() {
                     @Override
                     public void run(User user) {
                         mUser = user;
@@ -185,12 +180,7 @@ public class ProfileActivity extends ActivityCoreBehavior {
             map.put("dateOfBirth", dob);
 
             String authorization = StorageUtils.inject(ProfileActivity.this).getString(AppDefine.AUTHORIZATION);
-            APIManager.connect(new OnConnectionTimeoutListener() {
-                @Override
-                public void onConnectionTimeout() {
-                    // TODO
-                }
-            }).updateProfile(authorization, map, new CallBack() {
+            APIManager.connect().updateProfile(authorization, map, new CallBack() {
                 @Override
                 public void run() {
                     onExpired();

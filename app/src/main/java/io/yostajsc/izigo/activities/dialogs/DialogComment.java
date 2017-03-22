@@ -130,12 +130,7 @@ public class DialogComment extends Dialog {
             String authorization = StorageUtils.inject(mOwnerActivity).getString(AppDefine.AUTHORIZATION);
 
             if (ValidateUtils.canUse(authorization)) {
-                APIManager.connect(new OnConnectionTimeoutListener() {
-                    @Override
-                    public void onConnectionTimeout() {
-                        // TODO
-                    }
-                }).getComments(authorization, tripId, new CallBack() {
+                APIManager.connect().getComments(authorization, tripId, new CallBack() {
                     @Override
                     public void run() {
                         // TODO: expired

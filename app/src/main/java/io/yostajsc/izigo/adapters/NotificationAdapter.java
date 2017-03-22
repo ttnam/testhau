@@ -103,7 +103,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationsViewH
 
         String authorization = StorageUtils.inject(mContext).getString(AppDefine.AUTHORIZATION);
 
-        APIManager.connect(null).accept(authorization, tripId, notiId, accept, new CallBack() {
+        APIManager.connect().accept(authorization, tripId, notiId, accept, new CallBack() {
             @Override
             public void run() {
 

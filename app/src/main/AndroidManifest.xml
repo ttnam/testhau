@@ -99,16 +99,18 @@
             <meta-data
                 android:name="android.app.shortcuts"
                 android:resource="@xml/shortcuts" />
+
+        </activity>
+        <activity
+            android:name=".activities.WebViewActivity"
+            android:launchMode="singleInstance"
+            android:theme="@style/AppTheme" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".activities.WebViewActivity"
-            android:launchMode="singleInstance"
-            android:theme="@style/AppTheme.Fullscreen" />
         <activity
             android:name=".activities.trip.TripDetailActivity"
             android:launchMode="singleInstance"

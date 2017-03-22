@@ -57,12 +57,7 @@ public class NotificationsFragment extends CoreFragment {
 
         String authorization = StorageUtils.inject(mContext).getString(AppDefine.AUTHORIZATION);
 
-        APIManager.connect(new OnConnectionTimeoutListener() {
-            @Override
-            public void onConnectionTimeout() {
-
-            }
-        }).getNotification(authorization, new CallBack() {
+        APIManager.connect().getNotification(authorization, new CallBack() {
             @Override
             public void run() {
 
