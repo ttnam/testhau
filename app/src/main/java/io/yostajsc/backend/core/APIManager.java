@@ -535,7 +535,7 @@ public class APIManager {
     public void getNotification(String authorization, final CallBack expired,
                                 final CallBackWith<Notifications> success, final CallBackWith<String> fail) {
 
-        Call<BaseResponse<Notifications>> call = service.getNoti(authorization);
+        Call<BaseResponse<Notifications>> call = service.getNotification(authorization);
         call.enqueue(new Callback<BaseResponse<Notifications>>() {
             @Override
             public void onResponse(Call<BaseResponse<Notifications>> call, Response<BaseResponse<Notifications>> response) {
@@ -553,6 +553,32 @@ public class APIManager {
 
             @Override
             public void onFailure(Call<BaseResponse<Notifications>> call, Throwable throwable) {
+                Log.e(TAG, throwable.getMessage());
+            }
+        });
+    }
+
+    public void accept(String authorization, String tripId, String notiId, int verify, final CallBack expired,
+                       final CallBack success, final CallBackWith<String> fail){
+        Call<BaseResponse<String>> call = service.accept(authorization, tripId, notiId, verify);
+
+        call.enqueue(new Callback<BaseResponse<String>>() {
+            @Override
+            public void onResponse(Call<BaseResponse<String>> call, Response<BaseResponse<String>> response) {
+                if (response.isSuccessful()) {
+                    BaseResponse<String> res = response.body();
+                    if (res.isSuccessful()) {
+                        success.run();
+                    } else if (res.isExpired()) {
+                        expired.run();
+                    } else {
+                        fail.run(res.getDescription());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BaseResponse<String>> call, Throwable throwable) {
                 Log.e(TAG, throwable.getMessage());
             }
         });

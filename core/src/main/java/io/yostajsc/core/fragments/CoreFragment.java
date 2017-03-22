@@ -1,4 +1,4 @@
-package io.yostajsc.izigo.fragments;
+package io.yostajsc.core.fragments;
 
 import android.support.v4.app.Fragment;
 import android.content.Context;
@@ -8,7 +8,7 @@ import android.os.Bundle;
  * Created by nphau on 3/19/17.
  */
 
-public class BaseFragment extends Fragment {
+public class CoreFragment extends Fragment {
 
     protected Context mContext = null;
 

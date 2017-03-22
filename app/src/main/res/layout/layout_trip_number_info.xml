@@ -66,5 +66,19 @@
             android:paddingRight="@dimen/margin_x2"
             android:text="0" />
 
+        <TextView
+            android:id="@+id/text_members"
+            style="@style/CoreAppTheme.TextView_Sub_Title.White"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/margin"
+            android:layout_marginStart="@dimen/margin"
+            android:background="@drawable/ic_style_button_circle_corners_blue_none"
+            android:clickable="true"
+            android:gravity="center"
+            android:paddingLeft="@dimen/margin_x2"
+            android:paddingRight="@dimen/margin_x2"
+            android:text="0" />
     </LinearLayout>
 </merge>

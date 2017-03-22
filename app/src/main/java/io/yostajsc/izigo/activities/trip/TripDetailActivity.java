@@ -88,9 +88,6 @@ public class TripDetailActivity extends ActivityCoreBehavior {
     @BindView(R.id.image_transfer)
     AppCompatImageView imageTransfer;
 
-    @BindView(R.id.image_edit_cover)
-    AppCompatImageView imageEditCover;
-
     @BindView(R.id.text_time)
     TextView textTime;
 
@@ -99,6 +96,9 @@ public class TripDetailActivity extends ActivityCoreBehavior {
 
     @BindView(R.id.text_activities)
     TextView textNumberOfActivities;
+
+    @BindView(R.id.text_members)
+    TextView textNumberOfMembers;
 
     @BindView(R.id.button_more)
     AppCompatImageView buttonMore;
@@ -144,13 +144,27 @@ public class TripDetailActivity extends ActivityCoreBehavior {
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
         menu.setHeaderTitle(getString(R.string.str_option));
-        menu.add(0, v.getId(), 0, getString(R.string.str_edit));
+        menu.add(0, v.getId(), 0, "Công khai");
+        menu.add(1, v.getId(), 1, "Đổi ảnh đại diện");
+        menu.add(1, v.getId(), 2, "Chỉnh sửa mô tả");
+        menu.add(1, v.getId(), 3, "Đổi tên hành trình");
+        menu.add(2, v.getId(), 4, "Chia sẻ");
     }
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
-        if (item.getOrder() == 0) {
-            enableEditMode();
+        int order = item.getOrder();
+        switch (order) {
+            case 0:
+
+                break;
+            case 1:
+                TripDetailActivityPermissionsDispatcher.getImageFromGalleryWithCheck(this);
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
         }
         return super.onContextItemSelected(item);
     }
@@ -240,6 +254,9 @@ public class TripDetailActivity extends ActivityCoreBehavior {
                 int nActivities = trip.getNumberOfActivities();
                 textNumberOfActivities.setText(getResources().getQuantityString(R.plurals.activities, nActivities, nActivities));
 
+                int nMembers = trip.getNumberOfMembers();
+                textNumberOfMembers.setText(getResources().getQuantityString(R.plurals.members, nMembers, nMembers));
+
                 textTime.setText(String.format("%s - %s",
                         AppUtils.builder().getTime(trip.getDepartTime(), AppUtils.DD_MM_YYYY),
                         AppUtils.builder().getTime(trip.getArriveTime(), AppUtils.DD_MM_YYYY)));
@@ -306,13 +323,6 @@ public class TripDetailActivity extends ActivityCoreBehavior {
         bottomSheetDialogFragment.show(getSupportFragmentManager(), bottomSheetDialogFragment.getTag());*/
     }
 
-    private void enableEditMode() {
-        imageEditCover.setVisibility(View.VISIBLE);
-        imageTransfer.setBackgroundDrawable(getResources().getDrawable(
-                R.drawable.ic_style_button_round_corners_default_2));
-        imageTransfer.setClickable(true);
-    }
-
     @OnClick(R.id.text_number_of_comment)
     public void onLoadComment() {
         DialogComment dialogComment = new DialogComment(this);
@@ -377,11 +387,6 @@ public class TripDetailActivity extends ActivityCoreBehavior {
         startActivity(intent);
     }
 
-    @OnClick(R.id.image_edit_cover)
-    public void editCover() {
-        TripDetailActivityPermissionsDispatcher.getImageFromGalleryWithCheck(this);
-    }
-
     @NeedsPermission({Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE})
     public void getImageFromGallery() {
         Intent intent = new Intent();
@@ -405,7 +410,9 @@ public class TripDetailActivity extends ActivityCoreBehavior {
                         Uri fileUri = data.getData();
                         Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), fileUri);
                         if (bitmap != null) {
-                            Glide.with(TripDetailActivity.this).load(fileUri)
+                            Glide.with(TripDetailActivity.this)
+                                    .load(fileUri)
+                                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                                     .into(imageCover);
                             onApplyFirebase(fileUri);
                         }

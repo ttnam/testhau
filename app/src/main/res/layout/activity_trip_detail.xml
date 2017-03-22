@@ -23,27 +23,11 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <FrameLayout
+                <android.support.v7.widget.AppCompatImageView
+                    android:id="@id/image_view"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <android.support.v7.widget.AppCompatImageView
-                        android:id="@id/image_view"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/image_height_v2"
-                        android:scaleType="centerCrop" />
-
-                    <android.support.v7.widget.AppCompatImageView
-                        android:id="@+id/image_edit_cover"
-                        style="@style/CoreAppTheme.IconClick"
-                        android:layout_width="@dimen/icon_size_x6"
-                        android:layout_height="@dimen/icon_size_x6"
-                        android:layout_gravity="end|bottom"
-                        android:padding="@dimen/margin"
-                        android:visibility="invisible"
-                        app:srcCompat="@drawable/ic_vector_pen_backgroud" />
-
-                </FrameLayout>
+                    android:layout_height="@dimen/image_height_v2"
+                    android:scaleType="centerCrop" />
 
                 <TextView
                     android:id="@+id/text_name"

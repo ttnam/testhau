@@ -24,7 +24,7 @@ import retrofit2.http.Path;
 /**
  * Created by Phuc-Hau Nguyen on 11/9/2016.
  */
- interface APIInterface {
+interface APIInterface {
 
     @FormUrlEncoded
     @POST("api/user/login")
@@ -92,6 +92,11 @@ import retrofit2.http.Path;
                                     @Path("id") String tripId);
 
     @GET("api/notification")
-    Call<BaseResponse<Notifications>> getNoti(@Header("authen") String authorization);
+    Call<BaseResponse<Notifications>> getNotification(@Header("authen") String authorization);
 
+    @PUT("api/trips/{id}/accept")
+    @FormUrlEncoded
+    Call<BaseResponse<String>> accept(@Header("authen") String authorization,
+                                             @Path("id") String tripId, @Field("notiId") String notyId,
+                                             @Field("verify") int verify);
 }

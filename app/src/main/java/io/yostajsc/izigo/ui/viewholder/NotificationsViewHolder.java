@@ -3,17 +3,25 @@ package io.yostajsc.izigo.ui.viewholder;
 import android.content.Context;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.RecyclerView;
+import android.telecom.Call;
 import android.text.Html;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
+import io.yostajsc.backend.core.APIManager;
 import io.yostajsc.constants.NotificationType;
+import io.yostajsc.core.interfaces.CallBack;
+import io.yostajsc.core.interfaces.CallBackWith;
+import io.yostajsc.core.utils.StorageUtils;
 import io.yostajsc.izigo.R;
+import io.yostajsc.izigo.configs.AppDefine;
 import io.yostajsc.izigo.models.trip.BaseTripInfo;
 import io.yostajsc.izigo.models.user.BaseUserInfo;
 import io.yostajsc.view.CropCircleTransformation;
@@ -34,13 +42,23 @@ public class NotificationsViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.text_view)
     TextView textView;
 
+    @BindView(R.id.text_yes)
+    TextView textYes;
+
+    @BindView(R.id.text_no)
+    TextView textNo;
+
+    private CallBack yesAction, noAction;
+
     public NotificationsViewHolder(View itemView) {
         super(itemView);
         mContext = itemView.getContext();
         ButterKnife.bind(this, itemView);
     }
 
-    public void bind(BaseUserInfo userInfo, BaseTripInfo tripInfo, @NotificationType int type) {
+    public void bind(BaseUserInfo userInfo, BaseTripInfo tripInfo, @NotificationType int type,
+                     CallBack yes, CallBack no) {
+
         Glide.with(mContext)
                 .load(tripInfo.getCover())
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
@@ -56,19 +74,33 @@ public class NotificationsViewHolder extends RecyclerView.ViewHolder {
         String postfix = "</b></body></html>";
 
         String tripName = prefix + tripInfo.getName() + postfix;
+        String from = prefix + userInfo.getName() + postfix;
 
         switch (type) {
 
             case NotificationType.ACCEPT_JOIN_TRIP:
-                textView.setText(userInfo.getName() + " thêm bạn vào trip " + tripName);
+                textView.setText(from + " thêm bạn vào trip " + tripName);
                 break;
             case NotificationType.MEMBER_ADD_TO_TRIP:
-                textView.setText(userInfo.getName() + " được thêm vào trip " + tripName + " của bạn.");
+                textView.setText(from + " được thêm vào trip " + tripName + " của bạn.");
                 break;
             case NotificationType.REQUEST_JOIN_TRIP:
                 textView.setText(Html.fromHtml(
-                        userInfo.getName() + " xin vào trip " + tripName + " của bạn."));
+                        from + " xin vào trip " + tripName + " của bạn."));
                 break;
         }
+        this.noAction = no;
+        this.yesAction = yes;
     }
+
+    @OnClick(R.id.text_yes)
+    public void yes() {
+        yesAction.run();
+    }
+
+    @OnClick(R.id.text_no)
+    public void no() {
+        noAction.run();
+    }
+
 }

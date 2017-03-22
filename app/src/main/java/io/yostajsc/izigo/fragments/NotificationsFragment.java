@@ -11,22 +11,20 @@ import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import io.yostajsc.backend.core.APIManager;
+import io.yostajsc.core.fragments.CoreFragment;
 import io.yostajsc.core.interfaces.CallBack;
 import io.yostajsc.core.interfaces.CallBackWith;
 import io.yostajsc.core.interfaces.OnConnectionTimeoutListener;
 import io.yostajsc.core.utils.StorageUtils;
 import io.yostajsc.izigo.R;
-import io.yostajsc.izigo.activities.MainActivity;
 import io.yostajsc.izigo.adapters.NotificationAdapter;
 import io.yostajsc.izigo.configs.AppDefine;
 import io.yostajsc.izigo.models.notification.Notifications;
 import io.yostajsc.utils.UiUtils;
-import io.yostajsc.view.OwnToolBar;
 import jp.wasabeef.recyclerview.animators.SlideInRightAnimator;
 
-public class NotificationsFragment extends BaseFragment {
+public class NotificationsFragment extends CoreFragment {
 
     @BindView(R.id.layout_empty)
     LinearLayout layoutEmpty;
@@ -49,14 +47,11 @@ public class NotificationsFragment extends BaseFragment {
     }
 
     private void onApplyViews() {
+        button.setVisibility(View.GONE);
         this.adapter = new NotificationAdapter(mContext);
-        UiUtils.onApplyRecyclerView(rvNotification, this.adapter, new SlideInRightAnimator(), new CallBackWith<Integer>() {
-            @Override
-            public void run(Integer integer) {
-
-            }
-        });
+        UiUtils.onApplyRecyclerView(rvNotification, this.adapter, new SlideInRightAnimator(), null);
     }
+
 
     private void onApplyData() {
 
@@ -93,11 +88,5 @@ public class NotificationsFragment extends BaseFragment {
             }
         });
     }
-
-    @OnClick(R.id.button)
-    public void viewHomePage() {
-        ((MainActivity) getActivity()).move(0);
-    }
-
 
 }
