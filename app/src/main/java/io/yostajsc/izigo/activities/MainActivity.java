@@ -3,7 +3,6 @@ package io.yostajsc.izigo.activities;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -12,7 +11,6 @@ import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.fragments.NotificationsFragment;
 import io.yostajsc.izigo.fragments.OwnTripFragment;
 import io.yostajsc.izigo.fragments.TripFragment;
-import io.yostajsc.view.NonSwipeAbleViewPager;
 
 public class MainActivity extends ActivityCoreBehavior {
 

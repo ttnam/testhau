@@ -3,11 +3,9 @@ package io.yostajsc.izigo.ui.viewholder;
 import android.content.Context;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.RecyclerView;
-import android.telecom.Call;
 import android.text.Html;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -15,16 +13,12 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.yostajsc.backend.core.APIManager;
 import io.yostajsc.constants.NotificationType;
 import io.yostajsc.core.interfaces.CallBack;
-import io.yostajsc.core.interfaces.CallBackWith;
-import io.yostajsc.core.utils.StorageUtils;
 import io.yostajsc.izigo.R;
-import io.yostajsc.izigo.configs.AppDefine;
 import io.yostajsc.izigo.models.trip.BaseTripInfo;
 import io.yostajsc.izigo.models.user.BaseUserInfo;
-import io.yostajsc.view.CropCircleTransformation;
+import io.yostajsc.view.glide.CropCircleTransformation;
 
 /**
  * Created by Phuc-Hau Nguyen on 8/25/2016.

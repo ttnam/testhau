@@ -20,7 +20,6 @@ import butterknife.OnClick;
 import io.yostajsc.backend.core.APIManager;
 import io.yostajsc.core.interfaces.CallBack;
 import io.yostajsc.core.interfaces.CallBackWith;
-import io.yostajsc.core.interfaces.OnConnectionTimeoutListener;
 import io.yostajsc.core.utils.StorageUtils;
 import io.yostajsc.core.utils.ValidateUtils;
 import io.yostajsc.izigo.R;
@@ -29,7 +28,7 @@ import io.yostajsc.izigo.activities.ActivityCoreBehavior;
 import io.yostajsc.izigo.configs.AppDefine;
 import io.yostajsc.izigo.models.user.User;
 import io.yostajsc.utils.UserPref;
-import io.yostajsc.view.CropCircleTransformation;
+import io.yostajsc.view.glide.CropCircleTransformation;
 import io.yostajsc.view.OwnToolBar;
 
 import butterknife.BindView;
