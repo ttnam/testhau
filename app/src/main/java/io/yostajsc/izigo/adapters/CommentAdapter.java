@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import io.yostajsc.core.utils.AppUtils;
+import io.yostajsc.core.utils.DatetimeUtils;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.models.comment.Comment;
 import io.yostajsc.izigo.models.comment.Comments;
@@ -40,9 +41,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentViewHolder> {
                 comment.getCreatorAvatar(),
                 comment.getCreatorName(),
                 comment.getContent(),
-                AppUtils.builder(mContext).getTime(
-                        comment.getCreatedTime(), AppUtils.DD_MM_YYYY
-                )
+                DatetimeUtils.getDate(comment.getCreatedTime())
         );
     }
 

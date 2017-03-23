@@ -37,6 +37,7 @@ import io.yostajsc.core.interfaces.CallBack;
 import io.yostajsc.core.interfaces.CallBackWith;
 import io.yostajsc.core.code.MessageType;
 import io.yostajsc.core.utils.AppUtils;
+import io.yostajsc.core.utils.DatetimeUtils;
 import io.yostajsc.core.utils.NetworkUtils;
 import io.yostajsc.core.utils.StorageUtils;
 import io.yostajsc.core.utils.ValidateUtils;
@@ -257,8 +258,9 @@ public class TripDetailActivity extends ActivityCoreBehavior {
                 textNumberOfMembers.setText(getResources().getQuantityString(R.plurals.members, nMembers, nMembers));
 
                 textTime.setText(String.format("%s - %s",
-                        AppUtils.builder().getTime(trip.getDepartTime(), AppUtils.DD_MM_YYYY),
-                        AppUtils.builder().getTime(trip.getArriveTime(), AppUtils.DD_MM_YYYY)));
+                        DatetimeUtils.getDate(trip.getDepartTime()),
+                        DatetimeUtils.getDate(trip.getArriveTime()))
+                );
             }
         }.execute(trip);
     }

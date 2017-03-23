@@ -3,6 +3,7 @@ package io.yostajsc.izigo.firebase.model;
 import java.io.Serializable;
 
 import io.yostajsc.core.utils.AppUtils;
+import io.yostajsc.core.utils.DatetimeUtils;
 
 /**
  * Created by Phuc-Hau Nguyen on 12/16/2016.
@@ -55,7 +56,7 @@ public class FirebaseComment implements Serializable {
     }
 
     public long time() {
-        return AppUtils.builder().getTimeStep(createdtime);
+        return DatetimeUtils.getTimeStep(createdtime);
     }
 
     public void setCreatedtime(long createdtime) {

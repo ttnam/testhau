@@ -42,10 +42,6 @@ public class FirebaseGroup implements Serializable {
         this.cover = cover;
     }
 
-    public String getCreatedtime() {
-        return AppUtils.builder().getTime(createdtime, AppUtils.DD_MM_YYYY);
-    }
-
     public void setCreatedtime(long createdtime) {
         this.createdtime = createdtime;
     }

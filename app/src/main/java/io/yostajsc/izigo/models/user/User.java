@@ -6,6 +6,7 @@ import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 
 import io.yostajsc.core.utils.AppUtils;
+import io.yostajsc.core.utils.DatetimeUtils;
 
 @IgnoreExtraProperties
 public class User implements Serializable {
@@ -103,12 +104,13 @@ public class User implements Serializable {
     public String getLastName() {
         return lastName;
     }
+
     public void setLocation(String location) {
         this.location = location;
     }
 
     public String getMemberShip() {
-        return AppUtils.builder().getTime(this.memberShip, AppUtils.DD_MM_YYYY);
+        return DatetimeUtils.getDate(this.memberShip);
     }
 
     public String getFullName() {

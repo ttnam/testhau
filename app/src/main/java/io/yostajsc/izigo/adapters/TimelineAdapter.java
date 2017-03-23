@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import io.yostajsc.core.utils.AppUtils;
+import io.yostajsc.core.utils.DatetimeUtils;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.models.Timeline;
 import io.yostajsc.izigo.models.Timelines;
@@ -30,7 +31,7 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineViewHolder> {
 
         itemLayoutView.setLayoutParams(new RecyclerView.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT ));
+                ViewGroup.LayoutParams.WRAP_CONTENT));
 
         return new TimelineViewHolder(itemLayoutView);
     }
@@ -40,8 +41,8 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineViewHolder> {
         Timeline timeline = mTimelines.get(position);
 
         holder.bind(
-                AppUtils.builder().getTime(timeline.getTime(), AppUtils.H_MM),
-                AppUtils.builder().getTime(timeline.getTime(), AppUtils.DD_MM_YYYY),
+                DatetimeUtils.getTime(timeline.getTime()),
+                DatetimeUtils.getDate(timeline.getTime()),
                 timeline.getContent()
         );
     }

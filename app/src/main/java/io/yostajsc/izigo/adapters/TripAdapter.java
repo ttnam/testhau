@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import io.yostajsc.core.utils.AppUtils;
+import io.yostajsc.core.utils.DatetimeUtils;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.models.trip.Trip;
 import io.yostajsc.izigo.models.trip.Trips;
@@ -40,9 +41,7 @@ public class TripAdapter extends RecyclerView.Adapter<TripViewHolder> {
                 baseTrip.getCover(),
                 baseTrip.getTripName(),
                 baseTrip.getNumberOfView(),
-                AppUtils.builder(mContext).getTimeGap(
-                        baseTrip.getDuration()
-                )
+                DatetimeUtils.getTimeGap(baseTrip.getDuration())
         );
     }
 

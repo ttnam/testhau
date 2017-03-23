@@ -2,7 +2,7 @@ package io.yostajsc.izigo.firebase.model;
 
 import java.io.Serializable;
 
-import io.yostajsc.core.utils.AppUtils;
+import io.yostajsc.core.utils.DatetimeUtils;
 
 /**
  * Created by Phuc-Hau Nguyen on 12/11/2016.
@@ -23,15 +23,11 @@ public class FirebaseActivity implements Serializable {
     }
 
     public String getDate() {
-        return AppUtils.builder().getTime(time, AppUtils.DD_MM_YYYY);
+        return DatetimeUtils.getDate(time);
     }
 
     public long getTime() {
         return time;
-    }
-
-    public String getHour() {
-        return AppUtils.builder().getTime(time, AppUtils.H_MM);
     }
 
     public void setTime(long time) {
