@@ -114,9 +114,6 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile project(':materialspinner')
-    compile project(':core')
-
-
     compile 'com.android.support:multidex:1.0.1'
     compile 'com.google.code.gson:gson:2.8.0'
     compile 'com.squareup.retrofit2:retrofit:2.2.0'
@@ -146,6 +143,6 @@ dependencies {
     compile 'com.github.hotchemi:permissionsdispatcher:2.3.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
     annotationProcessor 'com.github.hotchemi:permissionsdispatcher-processor:2.3.1'
-
+    compile project(':core')
 }
 apply plugin: 'com.google.gms.google-services'
