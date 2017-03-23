@@ -1,4 +1,4 @@
-package io.yostajsc.core.interfaces;
+package io.yostajsc.core.designs.listeners;
 
 import android.graphics.Canvas;
 import android.support.v7.widget.GridLayoutManager;

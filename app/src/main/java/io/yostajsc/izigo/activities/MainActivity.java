@@ -6,7 +6,8 @@ import android.support.design.widget.TabLayout;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.yostajsc.designs.tabs.IconViewPagerAdapter;
+import io.yostajsc.core.designs.tabs.IconViewPagerAdapter;
+import io.yostajsc.core.designs.viewpager.NonSwipeAbleViewPager;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.fragments.NotificationsFragment;
 import io.yostajsc.izigo.fragments.OwnTripFragment;

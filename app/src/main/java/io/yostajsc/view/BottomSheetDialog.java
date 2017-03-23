@@ -11,7 +11,7 @@ import android.view.View;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.yostajsc.designs.decorations.SpacesItemDecoration;
+import io.yostajsc.core.designs.decorations.SpacesItemDecoration;
 import io.yostajsc.izigo.R;
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 

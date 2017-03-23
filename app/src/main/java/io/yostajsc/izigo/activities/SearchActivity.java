@@ -7,8 +7,8 @@ import android.view.View;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.yostajsc.designs.decorations.SpacesItemDecoration;
-import io.yostajsc.designs.listeners.RecyclerItemClickListener;
+import io.yostajsc.core.designs.decorations.SpacesItemDecoration;
+import io.yostajsc.core.designs.listeners.RecyclerItemClickListener;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.adapters.TripAdapter;
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;

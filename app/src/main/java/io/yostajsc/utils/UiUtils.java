@@ -12,10 +12,10 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 
 import io.yostajsc.constants.TransferType;
+import io.yostajsc.core.designs.decorations.SpacesItemDecoration;
+import io.yostajsc.core.designs.listeners.RecyclerItemClickListener;
 import io.yostajsc.core.interfaces.CallBackWith;
 import io.yostajsc.core.utils.ValidateUtils;
-import io.yostajsc.designs.decorations.SpacesItemDecoration;
-import io.yostajsc.designs.listeners.RecyclerItemClickListener;
 import io.yostajsc.izigo.R;
 
 /**
