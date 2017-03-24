@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.yostajsc.core.interfaces.CallBack;
+import io.yostajsc.core.interfaces.CallBackWith;
 import io.yostajsc.core.interfaces.ItemClick;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.models.user.Friend;
@@ -19,18 +21,23 @@ import io.yostajsc.izigo.ui.viewholder.FriendViewHolder;
  * Created by Phuc-Hau Nguyen on 10/14/2016.
  */
 
-public class FriendAdapter extends RecyclerView.Adapter<FriendViewHolder> {
+public class MemberAdapter extends RecyclerView.Adapter<FriendViewHolder> {
 
     private Context mContext = null;
     private List<Friend> mFriends = null;
     private ItemClick<Integer, Integer> mItemClick;
+    private CallBackWith<Integer> mKick;
+
     private boolean mIsClose = false;
 
-    public FriendAdapter(Context context, boolean isClose, @NonNull ItemClick<Integer, Integer> itemClick) {
+    public MemberAdapter(Context context, boolean isClose,
+                         @NonNull ItemClick<Integer, Integer> itemClick,
+                         CallBackWith<Integer> kick) {
         this.mContext = context;
         this.mFriends = new ArrayList<>();
         this.mItemClick = itemClick;
         this.mIsClose = isClose;
+        this.mKick = kick;
     }
 
     @Override
@@ -43,7 +50,7 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendViewHolder> {
     @Override
     public void onBindViewHolder(FriendViewHolder holder, int position) {
         Friend friend = mFriends.get(position);
-        holder.bind(friend, mIsClose, mItemClick);
+        holder.bind(friend, mIsClose, mItemClick, mKick);
     }
 
     @Override

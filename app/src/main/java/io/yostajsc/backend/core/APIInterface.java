@@ -100,6 +100,10 @@ interface APIInterface {
     @PUT("api/trips/{id}/accept")
     @FormUrlEncoded
     Call<BaseResponse<String>> accept(@Header("authen") String authorization,
-                                             @Path("id") String tripId, @Field("notiId") String notyId,
-                                             @Field("verify") int verify);
+                                      @Path("id") String tripId, @Field("notiId") String notyId,
+                                      @Field("verify") int verify);
+    @PUT("api/trips/kick")
+    @FormUrlEncoded
+    Call<BaseResponse<String>> kick(@Header("authen") String authorization,
+                                    @Field("id") String tripId, @Field("fbId") String fbId);
 }

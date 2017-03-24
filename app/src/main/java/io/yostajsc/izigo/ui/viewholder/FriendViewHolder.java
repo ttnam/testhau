@@ -17,6 +17,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.yostajsc.core.interfaces.CallBackWith;
 import io.yostajsc.core.interfaces.ItemClick;
 import io.yostajsc.core.code.MessageType;
 import io.yostajsc.izigo.R;
@@ -33,6 +34,7 @@ public class FriendViewHolder extends RecyclerView.ViewHolder {
     private boolean toggle = false;
     private Resources resources = null;
     private ItemClick<Integer, Integer> mInviteClick = null;
+    private CallBackWith<Integer> mKick;
 
     @BindView(R.id.button)
     Button button;
@@ -75,8 +77,12 @@ public class FriendViewHolder extends RecyclerView.ViewHolder {
         }
     }
 
-    public void bind(Friend friend, boolean isClose, @NonNull ItemClick<Integer, Integer> inviteClick) {
+    public void bind(Friend friend, boolean isClose, @NonNull ItemClick<Integer, Integer> inviteClick,
+                     CallBackWith<Integer> kick) {
+
         this.mInviteClick = inviteClick;
+        this.mKick = kick;
+
         this.textName.setText(friend.getName());
         Glide.with(mContext)
                 .load(friend.getAvatar())
@@ -86,6 +92,12 @@ public class FriendViewHolder extends RecyclerView.ViewHolder {
         if (isClose) {
             imageClose.setVisibility(View.VISIBLE);
             button.setVisibility(View.INVISIBLE);
+            imageClose.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mKick.run(getAdapterPosition());
+                }
+            });
         } else {
             imageClose.setVisibility(View.INVISIBLE);
             button.setVisibility(View.VISIBLE);

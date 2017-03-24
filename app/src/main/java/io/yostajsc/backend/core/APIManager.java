@@ -30,7 +30,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.Field;
 
 /**
  * Created by Phuc-Hau Nguyen on 11/9/2016.
@@ -48,7 +47,7 @@ public class APIManager {
     private static APIManager mInstance = null;
 
     private APIManager() {
-        // OkHttp
+
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
         httpClient.connectTimeout(CONNECT_TIME_OUT, TimeUnit.SECONDS);
         httpClient.readTimeout(READ_TIME_OUT, TimeUnit.SECONDS);
@@ -59,7 +58,7 @@ public class APIManager {
             }
         });
 
-        // G son
+        // Gson
         Gson gson = new GsonBuilder().setLenient().create();
 
         // Retrofit
@@ -602,5 +601,38 @@ public class APIManager {
                 Log.e(TAG, throwable.getMessage());
             }
         });
+    }
+
+    public void kick(String authorization, String tripId, String fbId,
+                     final CallBack expired,
+                     final CallBack success,
+                     final CallBackWith<String> fail) {
+
+        Call<BaseResponse<String>> call = service.kick(authorization, tripId, fbId);
+
+        call.enqueue(new Callback<BaseResponse<String>>() {
+            @Override
+            public void onResponse(Call<BaseResponse<String>> call, Response<BaseResponse<String>> response) {
+                if (response.isSuccessful()) {
+                    BaseResponse<String> res = response.body();
+                    if (res.isSuccessful()) {
+                        success.run();
+                    } else if (res.isExpired()) {
+                        expired.run();
+                    } else {
+                        fail.run(res.getDescription());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BaseResponse<String>> call, Throwable throwable) {
+                log(throwable.getMessage());
+            }
+        });
+    }
+
+    private void log(String msg) {
+        Log.e(TAG, msg);
     }
 }

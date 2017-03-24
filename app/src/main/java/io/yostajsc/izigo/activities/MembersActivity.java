@@ -20,7 +20,7 @@ import io.yostajsc.core.interfaces.CallBackWith;
 import io.yostajsc.core.interfaces.ItemClick;
 import io.yostajsc.core.utils.StorageUtils;
 import io.yostajsc.izigo.R;
-import io.yostajsc.izigo.adapters.FriendAdapter;
+import io.yostajsc.izigo.adapters.MemberAdapter;
 import io.yostajsc.izigo.configs.AppDefine;
 import io.yostajsc.izigo.models.user.Friend;
 import io.yostajsc.view.OwnToolBar;
@@ -38,8 +38,8 @@ public class MembersActivity extends ActivityCoreBehavior {
     @BindView(R.id.recycler_view_curr_member)
     RecyclerView rvMembers;
 
-
-    private FriendAdapter friendAdapter = null, memberAdapter = null;
+    private String mTripId;
+    private MemberAdapter friendAdapter = null, memberAdapter = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,26 +67,8 @@ public class MembersActivity extends ActivityCoreBehavior {
         super.onStart();
 
         Intent intent = getIntent();
-        String tripId = intent.getStringExtra(AppDefine.TRIP_ID);
-        String authorization = StorageUtils.inject(MembersActivity.this).getString(AppDefine.AUTHORIZATION);
-
-        APIManager.connect().getMembers(authorization, tripId, new CallBack() {
-            @Override
-            public void run() {
-                onExpired();
-            }
-        }, new CallBackWith<List<Friend>>() {
-            @Override
-            public void run(List<Friend> friend) {
-                memberAdapter.replaceAll(friend);
-            }
-        }, new CallBackWith<String>() {
-            @Override
-            public void run(String error) {
-                Toast.makeText(MembersActivity.this, error, Toast.LENGTH_SHORT).show();
-            }
-        });
-
+        mTripId = intent.getStringExtra(AppDefine.TRIP_ID);
+        getMemberList();
     }
 
     @Override
@@ -115,9 +97,30 @@ public class MembersActivity extends ActivityCoreBehavior {
         }
     }
 
+    private void getMemberList() {
+
+        String authorization = StorageUtils.inject(MembersActivity.this).getString(AppDefine.AUTHORIZATION);
+        APIManager.connect().getMembers(authorization, mTripId, new CallBack() {
+            @Override
+            public void run() {
+                onExpired();
+            }
+        }, new CallBackWith<List<Friend>>() {
+            @Override
+            public void run(List<Friend> friend) {
+                memberAdapter.replaceAll(friend);
+            }
+        }, new CallBackWith<String>() {
+            @Override
+            public void run(String error) {
+                Toast.makeText(MembersActivity.this, error, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
     private void onApplyRecyclerView() {
 
-        this.friendAdapter = new FriendAdapter(this, false, new ItemClick<Integer, Integer>() {
+        this.friendAdapter = new MemberAdapter(this, false, new ItemClick<Integer, Integer>() {
             @Override
             public void onClick(Integer type, Integer position) {
                 if (type == MessageType.ITEM_CLICK_INVITE) {
@@ -127,19 +130,23 @@ public class MembersActivity extends ActivityCoreBehavior {
                     // invites.add(adapter.getItem(position).getFbId());
                 }
             }
-        });
+        }, null);
         this.rvFriends.setAdapter(friendAdapter);
         this.rvFriends.setHasFixedSize(true);
         this.rvFriends.setItemAnimator(new SlideInUpAnimator());
         this.rvFriends.setRecycledViewPool(new RecyclerView.RecycledViewPool());
-
         this.rvFriends.setNestedScrollingEnabled(false);
         this.rvFriends.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
-        this.memberAdapter = new FriendAdapter(this, true, new ItemClick<Integer, Integer>() {
+        this.memberAdapter = new MemberAdapter(this, true, new ItemClick<Integer, Integer>() {
             @Override
             public void onClick(Integer type, Integer position) {
 
+            }
+        }, new CallBackWith<Integer>() {
+            @Override
+            public void run(Integer integer) {
+                kick(integer);
             }
         });
         this.rvMembers.setAdapter(memberAdapter);
@@ -150,6 +157,28 @@ public class MembersActivity extends ActivityCoreBehavior {
         this.rvMembers.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
     }
 
+    private void kick(int pos) {
+        String authorization = StorageUtils.inject(MembersActivity.this).getString(AppDefine.AUTHORIZATION);
+        APIManager.connect().kick(
+                authorization,
+                mTripId,
+                memberAdapter.getItem(pos).getFbId(), new CallBack() {
+                    @Override
+                    public void run() {
+                        onExpired();
+                    }
+                }, new CallBack() {
+                    @Override
+                    public void run() {
+                        getMemberList();
+                    }
+                }, new CallBackWith<String>() {
+                    @Override
+                    public void run(String error) {
+                        Toast.makeText(MembersActivity.this, error, Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
   /*  @OnClick(R.id.button_add_friend)
     public void onAddFriends() {
         Intent intent = new Intent(Intent.ACTION_SEND);
