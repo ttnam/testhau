@@ -16,10 +16,10 @@
             android:layout_width="@dimen/icon_size_x3"
             android:layout_height="@dimen/icon_size_x3"
             android:layout_gravity="center"
-            app:srcCompat="@drawable/ic_vector_profile" />
+            app:srcCompat="@drawable/ic_vector_avatar" />
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="@dimen/margin_x2"
