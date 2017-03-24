@@ -22,7 +22,7 @@ import io.yostajsc.constants.TransferType;
 import io.yostajsc.core.interfaces.CallBack;
 import io.yostajsc.core.interfaces.CallBackWith;
 import io.yostajsc.core.code.MessageType;
-import io.yostajsc.core.interfaces.OnConnectionTimeoutListener;
+import io.yostajsc.core.utils.DatetimeUtils;
 import io.yostajsc.core.utils.StorageUtils;
 import io.yostajsc.core.utils.ValidateUtils;
 import io.yostajsc.izigo.R;
@@ -41,8 +41,6 @@ import butterknife.OnClick;
 
 public class AddTripActivity extends ActivityCoreBehavior {
 
-    /*@BindView(R.id.recycler_view)
-    RecyclerView rvFriends;*/
 
     @BindView(R.id.text_view_trip_name)
     TextInputEditText textGroupName;
@@ -186,8 +184,8 @@ public class AddTripActivity extends ActivityCoreBehavior {
 
     private void updateTime(int arr[], TextView txtDate, TextView txtTime) {
         Calendar calendar = Calendar.getInstance();
-        arr[YEAR] = calendar.get(Calendar.YEAR);
-        arr[MONTH] = calendar.get(Calendar.MONTH);
+        arr[YEAR] = DatetimeUtils.getYear();
+        arr[MONTH] = DatetimeUtils.getMonth();
         arr[DAY] = calendar.get(Calendar.DAY_OF_MONTH);
         arr[HOUR] = calendar.get(Calendar.HOUR);
         arr[MINUTE] = calendar.get(Calendar.MINUTE);
@@ -202,56 +200,8 @@ public class AddTripActivity extends ActivityCoreBehavior {
 
     @Override
     public void onApplyData() {
-
         updateTime(arriveTime, textArriveDate, textArriveTime); // Arrive
         updateTime(departTime, textDepartDate, textDepartTime); // Depart
-
-        // invites = new ArrayList<>();
-/*
-        AccessToken token = AccessToken.getCurrentAccessToken();
-        if (token != null) {
-            String authorization = StorageUtils.inject(AddTripActivity.this).getString(AppDefine.AUTHORIZATION);
-            String fbToken = token.getToken();
-            APIManager.connect().getFriendsList(authorization, fbToken, new CallBackWith<List<Friend>>() {
-                @Override
-                public void run(List<Friend> friends) {
-                    adapter.replaceAll(friends);
-                }
-            }, new CallBackWith<String>() {
-                @Override
-                public void run(String error) {
-                    Toast.makeText(AddTripActivity.this, error, Toast.LENGTH_SHORT).show();
-                }
-            }, new CallBack() {
-                @Override
-                public void run() {
-                    onExpired();
-                }
-            });
-        }*/
-    }
-
-    private void onApplyRecyclerViewFriends() {
-
-      /*  this.adapter = new FriendAdapter(this, new ItemClick<Integer, Integer>() {
-            @Override
-            public void onClick(Integer type, Integer position) {
-                if (type == MessageType.ITEM_CLICK_INVITE) {
-                    invites.remove(adapter.getItem(position).getFbId());
-                }
-                if (type == MessageType.ITEM_CLICK_INVITED) {
-                    invites.add(adapter.getItem(position).getFbId());
-                }
-            }
-        });*/
-       /* this.rvFriends.setAdapter(adapter);
-        this.rvFriends.setHasFixedSize(true);
-        this.rvFriends.setItemAnimator(new SlideInUpAnimator());
-        this.rvFriends.setRecycledViewPool(new RecyclerView.RecycledViewPool());
-
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        this.rvFriends.setNestedScrollingEnabled(false);
-        this.rvFriends.setLayoutManager(layoutManager);*/
     }
 
     @OnClick(R.id.image_view)
@@ -266,44 +216,9 @@ public class AddTripActivity extends ActivityCoreBehavior {
         dialogPickTransfer.show();
     }
 
-  /*  @OnClick(R.id.button_add_friend)
-    public void onAddFriends() {
-        Intent intent = new Intent(Intent.ACTION_SEND);
-        intent.setType("image*//*");
-        // intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-        // intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
-        startActivity(Intent.createChooser(intent, getString(R.string.str_send_invite)));
-    }*/
-
-   /* private String makeMembers() {
-        String members = "";
-        if (invites.size() < 1)
-            return members;
-        for (int i = 0; i < invites.size(); i++) {
-            members += invites.get(i) + ",";
-        }
-        return members.substring(0, members.length() - 1);
-    }*/
-
-
     @OnClick(R.id.button)
     @Override
     public void onBackPressed() {
-/*
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Do you want to discard?").setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-            }
-        }).setPositiveButton("Discard", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-            }
-        });
-        AlertDialog alertDialog = builder.create();
-        alertDialog.show();*/
         super.onBackPressed();
     }
 
@@ -340,8 +255,7 @@ public class AddTripActivity extends ActivityCoreBehavior {
 
         progressBar.setVisibility(View.VISIBLE);
 
-        APIManager.connect().createTrips(authorization, groupName,
-                to.toString(), from.toString(), description,
+        APIManager.connect().createTrips(authorization, groupName, to.toString(), from.toString(), description,
                 0,
                 0, 1, new CallBack() {
                     @Override

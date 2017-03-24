@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
@@ -20,6 +21,7 @@ import io.yostajsc.core.interfaces.ItemClick;
 import io.yostajsc.core.code.MessageType;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.models.user.Friend;
+import io.yostajsc.view.glide.CropCircleTransformation;
 
 /**
  * Created by Phuc-Hau Nguyen on 12/1/2016.
@@ -40,6 +42,10 @@ public class FriendViewHolder extends RecyclerView.ViewHolder {
 
     @BindView(R.id.image_view)
     AppCompatImageView imageAvatar;
+
+
+    @BindView(R.id.image_close)
+    AppCompatImageView imageClose;
 
     public FriendViewHolder(View itemView) {
         super(itemView);
@@ -69,13 +75,20 @@ public class FriendViewHolder extends RecyclerView.ViewHolder {
         }
     }
 
-    public void onBind(Friend friend, @NonNull ItemClick<Integer, Integer> inviteClick) {
+    public void bind(Friend friend, boolean isClose, @NonNull ItemClick<Integer, Integer> inviteClick) {
         this.mInviteClick = inviteClick;
         this.textName.setText(friend.getName());
         Glide.with(mContext)
                 .load(friend.getAvatar())
+                .bitmapTransform(new CropCircleTransformation(mContext))
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .into(imageAvatar);
-
+        if (isClose) {
+            imageClose.setVisibility(View.VISIBLE);
+            button.setVisibility(View.INVISIBLE);
+        } else {
+            imageClose.setVisibility(View.INVISIBLE);
+            button.setVisibility(View.VISIBLE);
+        }
     }
 }

@@ -36,7 +36,7 @@
     <string name="setting_backup_restore"> Backup &amp; Restore </string>
 
     <string name="setting_about"> About                         </string>
-    <string name="setting_help"> Help Center                    </string>
+    <string name="setting_help"> Help                           </string>
     <string name="setting_auto_sync"> Auto sync                 </string>
     <string name="setting_notification"> Notification           </string>
 
@@ -89,7 +89,7 @@
     <string name="str_edit">Chỉnh sửa</string>
     <string name="str_option">Tùy chọn</string>
 
-
+    <string name="str_friends_of_system">Friends on Izigo social</string>
     <string name="str_walk">Đi bộ</string>
     <string name="str_bus">Xe du lịch</string>
     <string name="str_motorbike">Xe máy</string>
@@ -98,5 +98,8 @@
     <string name="str_box_empty_des">There are nothing in your box, click button below to start new things with your friends</string>
 
     <string name="str_notification_ticker">FCM</string>
+    <string name="str_logout">Logout</string>
+    <string name="str_member_manager">Member manager</string>
+
 
 </resources>

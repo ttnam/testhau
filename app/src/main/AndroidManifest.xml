@@ -99,6 +99,7 @@
             <meta-data
                 android:name="android.app.shortcuts"
                 android:resource="@xml/shortcuts" />
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -138,19 +139,16 @@
         <activity
             android:name=".activities.SettingActivity"
             android:theme="@style/AppTheme" />
-
         <activity
             android:name=".activities.trip.TripTimelineActivity"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".activities.PickLocationActivity"
             android:theme="@style/AppTheme" />
-
         <activity
             android:name=".activities.ActivityManagerActivity"
-            android:theme="@style/AppTheme">
-
-        </activity>
+            android:theme="@style/AppTheme"></activity>
+        <activity android:name=".activities.MembersActivity"></activity>
     </application>
 
 </manifest>

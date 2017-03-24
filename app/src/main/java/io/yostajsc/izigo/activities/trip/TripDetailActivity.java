@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.RecyclerView;
@@ -36,13 +37,13 @@ import io.yostajsc.constants.TransferType;
 import io.yostajsc.core.interfaces.CallBack;
 import io.yostajsc.core.interfaces.CallBackWith;
 import io.yostajsc.core.code.MessageType;
-import io.yostajsc.core.utils.AppUtils;
 import io.yostajsc.core.utils.DatetimeUtils;
 import io.yostajsc.core.utils.NetworkUtils;
 import io.yostajsc.core.utils.StorageUtils;
 import io.yostajsc.core.utils.ValidateUtils;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.activities.ActivityManagerActivity;
+import io.yostajsc.izigo.activities.MembersActivity;
 import io.yostajsc.izigo.activities.dialogs.DialogComment;
 import io.yostajsc.izigo.activities.dialogs.DialogPickTransfer;
 import io.yostajsc.izigo.adapters.ImageryAdapter;
@@ -53,6 +54,7 @@ import io.yostajsc.izigo.models.trip.Trip;
 import io.yostajsc.utils.UiUtils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.yostajsc.view.BottomSheetDialog;
 import io.yostajsc.view.glide.CropCircleTransformation;
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 import permissions.dispatcher.NeedsPermission;
@@ -143,12 +145,12 @@ public class TripDetailActivity extends ActivityCoreBehavior {
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
-        menu.setHeaderTitle(getString(R.string.str_option));
         menu.add(0, v.getId(), 0, "Công khai");
         menu.add(1, v.getId(), 1, "Đổi ảnh đại diện");
         menu.add(1, v.getId(), 2, "Chỉnh sửa mô tả");
         menu.add(1, v.getId(), 3, "Đổi tên hành trình");
         menu.add(2, v.getId(), 4, "Chia sẻ");
+        menu.add(2, v.getId(), 5, "Quản lý thành viên");
     }
 
     @Override
@@ -156,7 +158,6 @@ public class TripDetailActivity extends ActivityCoreBehavior {
         int order = item.getOrder();
         switch (order) {
             case 0:
-
                 break;
             case 1:
                 TripDetailActivityPermissionsDispatcher.getImageFromGalleryWithCheck(this);
@@ -164,6 +165,15 @@ public class TripDetailActivity extends ActivityCoreBehavior {
             case 2:
                 break;
             case 3:
+                break;
+            case 4:
+                BottomSheetDialogFragment bottomSheetDialogFragment = new BottomSheetDialog();
+                bottomSheetDialogFragment.show(getSupportFragmentManager(), bottomSheetDialogFragment.getTag());
+                break;
+            case 5:
+                Intent intent = new Intent(TripDetailActivity.this, MembersActivity.class);
+                intent.putExtra(AppDefine.TRIP_ID, tripId);
+                startActivity(intent);
                 break;
         }
         return super.onContextItemSelected(item);
@@ -194,10 +204,12 @@ public class TripDetailActivity extends ActivityCoreBehavior {
 
         switch (roleType) {
             case RoleType.GUEST:
+                buttonMore.setVisibility(View.INVISIBLE);
                 button.setImageResource(R.drawable.ic_add_user);
                 break;
             case RoleType.MEMBER:
             case RoleType.ADMIN:
+                buttonMore.setVisibility(View.VISIBLE);
                 button.setImageResource(R.drawable.ic_marker);
                 break;
 
@@ -315,8 +327,6 @@ public class TripDetailActivity extends ActivityCoreBehavior {
             registerForContextMenu(buttonMore);
             buttonMore.performLongClick();
         }
-        /*BottomSheetDialogFragment bottomSheetDialogFragment = new BottomSheetDialog();
-        bottomSheetDialogFragment.show(getSupportFragmentManager(), bottomSheetDialogFragment.getTag());*/
     }
 
     @OnClick(R.id.text_number_of_comment)

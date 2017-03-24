@@ -13,7 +13,6 @@ import android.widget.Toast;
 import io.yostajsc.backend.core.APIManager;
 import io.yostajsc.core.interfaces.CallBack;
 import io.yostajsc.core.interfaces.CallBackWith;
-import io.yostajsc.core.interfaces.OnConnectionTimeoutListener;
 import io.yostajsc.core.utils.NetworkUtils;
 import io.yostajsc.core.utils.StorageUtils;
 import io.yostajsc.izigo.R;
@@ -83,12 +82,12 @@ public class TripFragment extends Fragment {
     }
 
     private void onTripItemClick(int pos) {
+
         final String tripId = tripAdapter.getItem(pos).getTripId();
 
-        String authorization = StorageUtils.inject(mContext)
-                .getString(AppDefine.AUTHORIZATION);
+        String authorization = StorageUtils.inject(mContext).getString(AppDefine.AUTHORIZATION);
 
-        APIManager.connect().updateView(authorization, tripId, new CallBack() {
+        APIManager.connect().trackingViews(authorization, tripId, new CallBack() {
             @Override
             public void run() {
                 // TODO: expired
@@ -96,9 +95,11 @@ public class TripFragment extends Fragment {
         }, new CallBack() {
             @Override
             public void run() {
+
                 Intent intent = new Intent(mContext, TripDetailActivity.class);
                 intent.putExtra(AppDefine.TRIP_ID, tripId);
                 startActivity(intent);
+
             }
         }, new CallBackWith<String>() {
             @Override
@@ -106,10 +107,6 @@ public class TripFragment extends Fragment {
                 Toast.makeText(mContext, error, Toast.LENGTH_SHORT).show();
             }
         });
-
-        Intent intent = new Intent(mContext, TripDetailActivity.class);
-        intent.putExtra(AppDefine.TRIP_ID, tripId);
-        startActivity(intent);
     }
 
     private void updateUI(Trips trips) {

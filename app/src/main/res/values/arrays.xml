@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string-array name="arr_vehicle">
-        <item>Xe máy</item>
-        <item>Xe du lịch</item>
-    </string-array>
-
     <string-array name="arr_during_times">
         <item>Tất cả</item>
         <item>Hôm nay</item>
@@ -15,8 +10,7 @@
     </string-array>
 
     <string-array name="arr_sort_by">
-        <item>Điểm đánh giá</item>
-        <item>Số lượt đi</item>
+        <item>Số lượt xem</item>
     </string-array>
 
     <string-array name="internet_item_text">

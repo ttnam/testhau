@@ -10,7 +10,9 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.yostajsc.core.utils.StorageUtils;
 import io.yostajsc.izigo.R;
+import io.yostajsc.izigo.activities.user.LoginActivity;
 import io.yostajsc.izigo.activities.user.ProfileActivity;
 import io.yostajsc.izigo.configs.AppDefine;
 import io.yostajsc.view.OwnToolBar;
@@ -87,6 +89,13 @@ public class SettingActivity extends ActivityCoreBehavior {
     @OnClick(R.id.layout_notify)
     public void Notify() {
         switchNotify.toggle();
+    }
+
+    @OnClick(R.id.layout_logout)
+    public void logout() {
+        StorageUtils.inject(SettingActivity.this).removes(AppDefine.AUTHORIZATION);
+        startActivity(new Intent(this, LoginActivity.class));
+        finish();
     }
 
     @OnClick(R.id.layout_about)

@@ -26,7 +26,7 @@
 
     <TextView
         android:id="@id/text_view"
-        style="@style/CoreAppTheme.TextView_Title.Bold.White"
+        style="@style/CoreAppTheme.TextView_Title.White"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"

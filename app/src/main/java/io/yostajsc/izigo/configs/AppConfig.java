@@ -6,6 +6,7 @@ import com.google.firebase.iid.FirebaseInstanceId;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
+import io.yostajsc.core.utils.FontUtils;
 import io.yostajsc.core.utils.StorageUtils;
 import io.yostajsc.izigo.firebase.FirebaseManager;
 
@@ -25,6 +26,7 @@ public class AppConfig extends MultiDexApplication {
         mInstance = this;
         initFireBase();
         onApplyRealm();
+        applyFont();
     }
 
 
@@ -55,4 +57,10 @@ public class AppConfig extends MultiDexApplication {
         Realm.getDefaultInstance().close();
         super.onTerminate();
     }
+
+    private void applyFont() {
+        FontUtils.overrideFont(getApplicationContext(), "serif",
+                "fonts/AvenirNext-Regular.ttf");
+    }
+
 }

@@ -9,7 +9,6 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
-import io.yostajsc.core.CoreApp;
 import io.yostajsc.core.R;
 
 /**
@@ -46,9 +45,9 @@ public class DatetimeUtils {
         return (currTimes - millis);
     }
 
-    public static String getTimeGap(long timeGap) {
+    public static String getTimeGap(Context context, long timeGap) {
 
-        Resources resources = CoreApp.getInstance().getResources();
+        Resources resources = context.getResources();
 
         int timeConst[] = {1000, 60, 60, 24, 30, 12};
         int timeValue = (int) (timeGap / timeConst[0]);

@@ -6,7 +6,7 @@
     android:orientation="vertical">
 
     <io.yostajsc.view.OwnToolBar
-        android:id="@id/layout"
+        android:id="@id/own_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layoutBackground="@color/colorPrimary"

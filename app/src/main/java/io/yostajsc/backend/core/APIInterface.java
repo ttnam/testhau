@@ -79,6 +79,9 @@ interface APIInterface {
     @GET("api/trips/{id}/activity")
     Call<BaseResponse<Timelines>> getActivities(@Header("authen") String authorization, @Path("id") String tripId);
 
+    @GET("api/trips/{id}/members")
+    Call<BaseResponse<List<Friend>>> getMembers(@Header("authen") String authorization, @Path("id") String tripId);
+
     @PUT("api/trips/{id}/view")
     Call<BaseResponse<String>> updateView(@Header("authen") String authorization, @Path("id") String tripId);
 

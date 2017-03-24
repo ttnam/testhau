@@ -45,7 +45,7 @@ public class DialogFilter extends Dialog {
     private int mTransfer = TransferType.MOTORBIKE;
 
     private Activity mOwnerActivity = null;
-    private List<String> mDuringTimes = null, mSortBy = null, mVehicles = null;
+    private List<String> mDuringTimes = null, mSortBy = null;
 
     public DialogFilter(Context context) {
         super(context, R.style.CoreAppTheme_Dialog);
@@ -83,7 +83,6 @@ public class DialogFilter extends Dialog {
 
         this.mDuringTimes = Arrays.asList(this.mOwnerActivity.getResources().getStringArray(R.array.arr_during_times));
         this.mSortBy = Arrays.asList(this.mOwnerActivity.getResources().getStringArray(R.array.arr_sort_by));
-        this.mVehicles = Arrays.asList(this.mOwnerActivity.getResources().getStringArray(R.array.arr_vehicle));
         this.mSpinnerSortBy.setItems(mSortBy);
         this.mSpinnerDuringTime.setItems(mDuringTimes);
     }

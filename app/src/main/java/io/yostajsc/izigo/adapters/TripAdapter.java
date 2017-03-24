@@ -41,7 +41,7 @@ public class TripAdapter extends RecyclerView.Adapter<TripViewHolder> {
                 baseTrip.getCover(),
                 baseTrip.getTripName(),
                 baseTrip.getNumberOfView(),
-                DatetimeUtils.getTimeGap(baseTrip.getDuration())
+                DatetimeUtils.getTimeGap(mContext, baseTrip.getDuration())
         );
     }
 

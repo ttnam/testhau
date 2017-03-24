@@ -116,6 +116,7 @@ public class LoginActivity extends ActivityCoreBehavior {
         Glide.with(this)
                 .load(R.drawable.ic_loading)
                 .asGif()
+                .skipMemoryCache(false)
                 .error(R.drawable.ic_launcher)
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .into(imageView);

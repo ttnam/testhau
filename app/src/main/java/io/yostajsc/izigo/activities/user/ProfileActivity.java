@@ -37,9 +37,6 @@ import butterknife.BindView;
 @RuntimePermissions*/
 public class ProfileActivity extends ActivityCoreBehavior {
 
-    /*@BindView(R.id.text_member_ship)
-    TextView tvMembership;*/
-
     @BindView(R.id.edit_email)
     EditText editEmail;
 
@@ -58,17 +55,11 @@ public class ProfileActivity extends ActivityCoreBehavior {
     @BindView(R.id.image_view)
     AppCompatImageView imageAvatar;
 
-    @BindView(R.id.layout)
+    @BindView(R.id.own_toolbar)
     OwnToolBar ownToolBar;
 
     private User mUser = null;
     private boolean isFirstTime = false;
-/*
-
-    private FirebaseManager mFirebaseUtils = null;
-    private List<String> mGender = null;
-*/
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

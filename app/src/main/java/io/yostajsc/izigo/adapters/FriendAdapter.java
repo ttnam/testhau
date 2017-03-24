@@ -24,24 +24,26 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendViewHolder> {
     private Context mContext = null;
     private List<Friend> mFriends = null;
     private ItemClick<Integer, Integer> mItemClick;
+    private boolean mIsClose = false;
 
-    public FriendAdapter(Context context, @NonNull ItemClick<Integer, Integer> itemClick) {
+    public FriendAdapter(Context context, boolean isClose, @NonNull ItemClick<Integer, Integer> itemClick) {
         this.mContext = context;
         this.mFriends = new ArrayList<>();
         this.mItemClick = itemClick;
+        this.mIsClose = isClose;
     }
 
     @Override
     public FriendViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View itemLayoutView = LayoutInflater.from(mContext).inflate(R.layout.item_friend_type_1, null);
+        View itemLayoutView = LayoutInflater.from(mContext).inflate(R.layout.item_member, null);
         return new FriendViewHolder(itemLayoutView);
     }
 
     @Override
     public void onBindViewHolder(FriendViewHolder holder, int position) {
         Friend friend = mFriends.get(position);
-        holder.onBind(friend, mItemClick);
+        holder.bind(friend, mIsClose, mItemClick);
     }
 
     @Override

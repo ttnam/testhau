@@ -7,22 +7,11 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="AppTheme.TabLayout" parent="Widget.Design.TabLayout">
-        <item name="tabIndicatorColor">@color/colorAccent</item>
-        <item name="tabBackground">@color/colorPrimary</item>
-    </style>
-
-    <style name="AppTheme.TabLayout.NoColor" parent="Widget.Design.TabLayout">
-        <item name="tabIndicatorColor">@color/colorAccent</item>
-        <item name="tabBackground">@android:color/white</item>
-    </style>
-
     <style name="AppTheme.Fullscreen" parent="CoreAppTheme.Fullscreen">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
-
 
     <style name="AppTheme.TextView_Title.ColorPrimary" parent="CoreAppTheme.TextView_Title">
         <item name="android:textColor">@color/colorPrimary</item>

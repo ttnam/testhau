@@ -6,7 +6,7 @@
     android:orientation="vertical">
 
     <TextView
-        style="@style/CoreAppTheme.TextView_Title.Bold"
+        style="@style/CoreAppTheme.TextView_Title.White"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
@@ -17,8 +17,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
-        android:padding="@dimen/margin"
         android:orientation="horizontal"
+        android:padding="@dimen/margin"
         android:weightSum="5">
 
         <TextView
@@ -72,7 +72,7 @@
 
     </LinearLayout>
 
-    <include layout="@layout/layout_transfer"/>
+    <include layout="@layout/layout_transfer" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -134,7 +134,7 @@
 
         <TextView
             android:id="@+id/tv_apply"
-            style="@style/CoreAppTheme.TextView_Title.Bold"
+            style="@style/CoreAppTheme.TextView_Title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -148,7 +148,7 @@
 
         <TextView
             android:id="@+id/tv_cancel"
-            style="@style/CoreAppTheme.TextView_Title.Bold.White"
+            style="@style/CoreAppTheme.TextView_Title.White"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

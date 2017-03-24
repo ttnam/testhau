@@ -9,5 +9,7 @@
     <string name="str_depart">Xuất phát</string>
     <string name="str_arrive">Đích đến</string>
     <string name="str_description">Mô tả</string>
+    <string name="str_logout">Đăng xuất</string>
+    <string name="str_member_manager">Quản lý thành viên</string>
 </resources>
 

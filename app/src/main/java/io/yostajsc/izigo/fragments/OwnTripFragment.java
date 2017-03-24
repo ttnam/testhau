@@ -56,7 +56,6 @@ public class OwnTripFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_own_trip, container, false);
         ButterKnife.bind(this, rootView);
         onApplyViews();
-        onApplyData();
         return rootView;
     }
 
@@ -95,7 +94,7 @@ public class OwnTripFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        onInternetConnected();
+        onApplyData();
     }
 
     private void onInternetConnected() {

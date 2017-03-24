@@ -11,33 +11,13 @@
         android:layout_height="0dp"
         android:layout_weight="1">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@id/image_view"
+            android:layout_width="@dimen/icon_size_x16"
+            android:layout_height="@dimen/icon_size_x16"
             android:layout_centerInParent="true"
-            android:orientation="vertical">
-
-            <android.support.v7.widget.AppCompatImageView
-                android:id="@id/image_view"
-                android:layout_width="@dimen/icon_size_x16"
-                android:layout_height="@dimen/icon_size_x16"
-                android:layout_gravity="center"
-                app:srcCompat="@drawable/ic_launcher" />
-
-            <TextView
-                style="@style/CoreAppTheme.TextView_Title.Bold"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:padding="@dimen/margin_x2"
-                android:text="@string/all_app_name"
-                android:textAllCaps="true"
-                android:textColor="@color/BlueButton"
-                android:textSize="@dimen/text_size_v3" />
-
-
-        </LinearLayout>
+            android:layout_gravity="center"
+            app:srcCompat="@drawable/ic_launcher" />
 
     </RelativeLayout>
 
@@ -83,7 +63,7 @@
                 app:srcCompat="@drawable/ic_vector_facebook_white" />
 
             <TextView
-                style="@style/CoreAppTheme.TextView_Title.Bold.White"
+                style="@style/CoreAppTheme.TextView_Title.White"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"

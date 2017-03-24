@@ -30,6 +30,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Field;
 
 /**
  * Created by Phuc-Hau Nguyen on 11/9/2016.
@@ -40,8 +41,8 @@ public class APIManager {
     private static final String TAG = APIManager.class.getSimpleName();
 
     private static String SERVER_DOMAIN = "http://izigo.jelasticlw.com.br/";
-    private static final int CONNECT_TIME_OUT = 5;
-    private static final int READ_TIME_OUT = 5;
+    private static final int CONNECT_TIME_OUT = 20;
+    private static final int READ_TIME_OUT = 20;
 
     private APIInterface service = null;
     private static APIManager mInstance = null;
@@ -440,10 +441,37 @@ public class APIManager {
         });
     }
 
-    public void updateView(String authorization, String tripId,
+    public void getMembers(String authorization, String tripId,
                            final CallBack expired,
-                           final CallBack success,
+                           final CallBackWith<List<Friend>> success,
                            final CallBackWith<String> fail) {
+        Call<BaseResponse<List<Friend>>> call = service.getMembers(authorization, tripId);
+        call.enqueue(new Callback<BaseResponse<List<Friend>>>() {
+            @Override
+            public void onResponse(Call<BaseResponse<List<Friend>>> call, Response<BaseResponse<List<Friend>>> response) {
+                if (response.isSuccessful()) {
+                    BaseResponse<List<Friend>> res = response.body();
+                    if (res.isSuccessful()) {
+                        success.run(res.data());
+                    } else if (res.isExpired()) {
+                        expired.run();
+                    } else {
+                        fail.run(res.getDescription());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BaseResponse<List<Friend>>> call, Throwable throwable) {
+                Log.e(TAG, throwable.getMessage());
+            }
+        });
+    }
+
+    public void trackingViews(String authorization, String tripId,
+                              final CallBack expired,
+                              final CallBack success,
+                              final CallBackWith<String> fail) {
 
         Call<BaseResponse<String>> call = service.updateView(authorization, tripId);
 
@@ -551,7 +579,7 @@ public class APIManager {
     }
 
     public void accept(String authorization, String tripId, String notiId, int verify, final CallBack expired,
-                       final CallBack success, final CallBackWith<String> fail){
+                       final CallBack success, final CallBackWith<String> fail) {
         Call<BaseResponse<String>> call = service.accept(authorization, tripId, notiId, verify);
 
         call.enqueue(new Callback<BaseResponse<String>>() {
