@@ -31,7 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:maxLines="1"
+            android:maxLines="2"
             android:minLines="1"
             android:text="Lake Huron"
             android:textSize="@dimen/text_size_v3" />

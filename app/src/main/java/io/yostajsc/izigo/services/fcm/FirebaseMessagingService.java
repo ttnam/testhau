@@ -24,7 +24,6 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
 import android.text.Html;
-import android.util.Log;
 
 import com.google.firebase.messaging.RemoteMessage;
 
@@ -42,23 +41,6 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
 
-        Log.e(TAG, "From: " + remoteMessage.getFrom());
-
-        // Check if message contains a data payload.
-        if (remoteMessage.getData().size() > 0) {
-            Log.e(TAG, "Message data payload: " + remoteMessage.getData());
-        }
-
-        // Check if message contains a notification payload.
-        if (remoteMessage.getNotification() != null) {
-            Log.e(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
-        }
-
-        sendNotification(remoteMessage.getNotification().getBody());
-    }
-
-    private void sendNotification(String messageBody) {
-
         Intent intent = new Intent(this, MainActivity.class);
         intent.getIntExtra(AppDefine.PAGE_ID, PageType.NOTIFICATION);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -70,7 +52,8 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
                 .setSmallIcon(R.mipmap.ic_launcher)
-                .setContentTitle(Html.fromHtml(messageBody))
+                .setContentTitle(remoteMessage.getNotification().getTitle())
+                .setContentText(Html.fromHtml(remoteMessage.getNotification().getBody()))
                 .setAutoCancel(true)
                 .setSound(defaultSoundUri)
                 .setContentIntent(pIntent);
@@ -81,4 +64,5 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
 
         notificationManager.notify(0, builder.build());
     }
+
 }
