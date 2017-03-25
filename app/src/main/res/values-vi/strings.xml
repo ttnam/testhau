@@ -11,5 +11,7 @@
     <string name="str_description">Mô tả</string>
     <string name="str_logout">Đăng xuất</string>
     <string name="str_member_manager">Quản lý thành viên</string>
+    <string name="str_current_members">Thành viên</string>
+    <string name="str_don_t_see_who_you_re_looking_for">Gửi lời mời kết bạn mới</string>
 </resources>
 

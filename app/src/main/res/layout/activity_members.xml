@@ -37,7 +37,7 @@
                 android:minLines="1"
                 android:paddingLeft="@dimen/margin_x2"
                 android:paddingRight="@dimen/margin_x2"
-                android:text="Current members" />
+                android:text="@string/str_current_members" />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recycler_view_curr_member"
@@ -79,7 +79,7 @@
                     android:maxLines="2"
                     android:minLines="1"
                     android:padding="@dimen/margin"
-                    android:text="Don't see who you're looking for?" />
+                    android:text="@string/str_don_t_see_who_you_re_looking_for" />
 
                 <Button
                     android:id="@+id/button_add_friend"

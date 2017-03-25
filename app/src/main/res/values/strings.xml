@@ -89,7 +89,7 @@
     <string name="str_edit">Chỉnh sửa</string>
     <string name="str_option">Tùy chọn</string>
 
-    <string name="str_friends_of_system">Friends on Izigo social</string>
+    <string name="str_friends_of_system">Bạn bè trong mạng xã hội Izigo</string>
     <string name="str_walk">Đi bộ</string>
     <string name="str_bus">Xe du lịch</string>
     <string name="str_motorbike">Xe máy</string>
@@ -99,7 +99,9 @@
 
     <string name="str_notification_ticker">FCM</string>
     <string name="str_logout">Logout</string>
-    <string name="str_member_manager">Member manager</string>
+    <string name="str_member_manager">Quản lý thành viên</string>
+    <string name="str_current_members">Thành viên</string>
+    <string name="str_don_t_see_who_you_re_looking_for">Gửi lời mời kết bạn mới</string>
 
 
 </resources>

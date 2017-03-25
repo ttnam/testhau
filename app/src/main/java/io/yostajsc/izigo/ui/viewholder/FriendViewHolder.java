@@ -90,14 +90,18 @@ public class FriendViewHolder extends RecyclerView.ViewHolder {
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .into(imageAvatar);
         if (isClose) {
-            imageClose.setVisibility(View.VISIBLE);
-            button.setVisibility(View.INVISIBLE);
-            imageClose.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mKick.run(getAdapterPosition());
-                }
-            });
+            if (getAdapterPosition() == 0) {
+                imageClose.setVisibility(View.INVISIBLE);
+            } else {
+                imageClose.setVisibility(View.VISIBLE);
+                button.setVisibility(View.INVISIBLE);
+                imageClose.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mKick.run(getAdapterPosition());
+                    }
+                });
+            }
         } else {
             imageClose.setVisibility(View.INVISIBLE);
             button.setVisibility(View.VISIBLE);
