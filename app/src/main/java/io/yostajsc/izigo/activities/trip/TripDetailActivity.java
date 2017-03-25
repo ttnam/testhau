@@ -43,6 +43,7 @@ import io.yostajsc.core.utils.StorageUtils;
 import io.yostajsc.core.utils.ValidateUtils;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.activities.ActivityManagerActivity;
+import io.yostajsc.izigo.activities.MainActivity;
 import io.yostajsc.izigo.activities.MembersActivity;
 import io.yostajsc.izigo.activities.dialogs.DialogComment;
 import io.yostajsc.izigo.activities.dialogs.DialogPickTransfer;
@@ -125,7 +126,8 @@ public class TripDetailActivity extends ActivityCoreBehavior {
     @Override
     @OnClick({R.id.button_left, R.id.image_view})
     public void onBackPressed() {
-        super.onBackPressed();
+        startActivity(new Intent(this, MainActivity.class));
+        finish();
     }
 
     @Override
@@ -218,7 +220,6 @@ public class TripDetailActivity extends ActivityCoreBehavior {
         // Avatar
         Glide.with(TripDetailActivity.this)
                 .load(trip.getCreatorAvatar())
-                .error(R.drawable.ic_vector_avatar)
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .bitmapTransform(new CropCircleTransformation(TripDetailActivity.this))
                 .into(imageCreatorAvatar);

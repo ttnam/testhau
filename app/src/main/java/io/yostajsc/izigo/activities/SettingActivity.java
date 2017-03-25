@@ -7,6 +7,8 @@ import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import com.facebook.login.LoginManager;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -19,7 +21,7 @@ import io.yostajsc.view.OwnToolBar;
 
 public class SettingActivity extends ActivityCoreBehavior {
 
-    @BindView(R.id.layout)
+    @BindView(R.id.own_toolbar)
     OwnToolBar mOwnToolbar;
 
     @BindView(R.id.layout_rating)
@@ -94,6 +96,7 @@ public class SettingActivity extends ActivityCoreBehavior {
     @OnClick(R.id.layout_logout)
     public void logout() {
         StorageUtils.inject(SettingActivity.this).removes(AppDefine.AUTHORIZATION);
+        LoginManager.getInstance().logOut();
         startActivity(new Intent(this, LoginActivity.class));
         finish();
     }
