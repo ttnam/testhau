@@ -25,9 +25,13 @@ import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
 import android.text.Html;
 import android.util.Log;
+
 import com.google.firebase.messaging.RemoteMessage;
+
+import io.yostajsc.constants.PageType;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.activities.MainActivity;
+import io.yostajsc.izigo.configs.AppDefine;
 
 public class FirebaseMessagingService extends com.google.firebase.messaging.FirebaseMessagingService {
 
@@ -56,6 +60,7 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
     private void sendNotification(String messageBody) {
 
         Intent intent = new Intent(this, MainActivity.class);
+        intent.getIntExtra(AppDefine.PAGE_ID, PageType.NOTIFICATION);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
         PendingIntent pIntent = PendingIntent.getActivity(this, NOTIFICATION_ID, intent,
@@ -64,10 +69,8 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
-                // .setLargeIcon(image)
                 .setSmallIcon(R.mipmap.ic_launcher)
-                .setContentTitle(Html.fromHtml(String.format("<b>%s</b>", messageBody)))
-                // .setStyle(new NotificationCompat.BigPictureStyle().bigPicture(image))
+                .setContentTitle(Html.fromHtml(messageBody))
                 .setAutoCancel(true)
                 .setSound(defaultSoundUri)
                 .setContentIntent(pIntent);

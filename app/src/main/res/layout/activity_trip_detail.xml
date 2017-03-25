@@ -33,17 +33,72 @@
                         android:layout_height="@dimen/image_height_v2"
                         android:scaleType="centerCrop" />
 
-                    <TextView
-                        android:id="@+id/text_views"
-                        style="@style/CoreAppTheme.TextView_Sub_Title.White"
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="top|end"
-                        android:layout_margin="@dimen/margin"
-                        android:background="@drawable/circle_view_green"
-                        android:gravity="center"
-                        android:maxLines="1"
-                        android:minLines="1" />
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:background="@drawable/circle_view_green"
+                            android:orientation="horizontal"
+                            android:paddingLeft="@dimen/margin"
+                            android:paddingRight="@dimen/margin">
+
+                            <android.support.v7.widget.AppCompatImageView
+                                android:id="@id/image_view"
+                                android:layout_width="@dimen/icon_size_x3"
+                                android:layout_height="@dimen/icon_size_x3"
+                                android:layout_gravity="center"
+                                android:scaleType="centerCrop"
+                                app:srcCompat="@drawable/ic_vector_eye" />
+
+                            <TextView
+                                android:id="@+id/text_views"
+                                style="@style/CoreAppTheme.TextView_Sub_Title.White"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_margin="@dimen/margin"
+                                android:gravity="center"
+                                android:maxLines="1"
+                                android:minLines="1" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:background="@drawable/circle_view_green"
+                            android:orientation="horizontal"
+                            android:paddingLeft="@dimen/margin"
+                            android:paddingRight="@dimen/margin">
+
+                            <android.support.v7.widget.AppCompatImageView
+                                android:id="@id/image_view"
+                                android:layout_width="@dimen/icon_size_x3"
+                                android:layout_height="@dimen/icon_size_x3"
+                                android:layout_gravity="center"
+                                android:scaleType="centerCrop"
+                                app:srcCompat="@drawable/ic_vector_avatar" />
+
+                            <TextView
+                                android:id="@+id/text_members"
+                                style="@style/CoreAppTheme.TextView_Sub_Title.White"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_margin="@dimen/margin"
+                                android:gravity="center"
+                                android:maxLines="1"
+                                android:minLines="1" />
+
+                        </LinearLayout>
+                    </LinearLayout>
 
                 </FrameLayout>
 

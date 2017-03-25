@@ -89,7 +89,7 @@
         </activity>
         <activity
             android:name=".activities.MainActivity"
-            android:launchMode="singleInstance"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity

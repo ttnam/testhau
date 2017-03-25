@@ -270,8 +270,7 @@ public class TripDetailActivity extends ActivityCoreBehavior {
                     int nActivities = trip.getNumberOfActivities();
                     textNumberOfActivities.setText(getResources().getQuantityString(R.plurals.activities, nActivities, nActivities));
 
-                    int nMembers = trip.getNumberOfMembers();
-                    textNumberOfMembers.setText(getResources().getQuantityString(R.plurals.members, nMembers, nMembers));
+                    textNumberOfMembers.setText(String.valueOf(trip.getNumberOfMembers()));
 
                     textTime.setText(String.format("%s - %s",
                             DatetimeUtils.getDate(trip.getDepartTime()),

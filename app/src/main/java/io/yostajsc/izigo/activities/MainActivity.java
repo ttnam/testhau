@@ -1,14 +1,17 @@
 package io.yostajsc.izigo.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.yostajsc.constants.PageType;
 import io.yostajsc.core.designs.tabs.IconViewPagerAdapter;
 import io.yostajsc.core.designs.viewpager.NonSwipeAbleViewPager;
 import io.yostajsc.izigo.R;
+import io.yostajsc.izigo.configs.AppDefine;
 import io.yostajsc.izigo.fragments.NotificationsFragment;
 import io.yostajsc.izigo.fragments.OwnTripFragment;
 import io.yostajsc.izigo.fragments.TripFragment;
@@ -66,6 +69,14 @@ public class MainActivity extends ActivityCoreBehavior {
     }
 
     @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        int pageType = intent.getIntExtra(AppDefine.PAGE_ID, -1);
+        if (pageType == PageType.NOTIFICATION)
+            this.mViewPager.setCurrentItem(2, true);
+    }
+
+    @Override
     public void onInternetDisConnected() {
 
     }
@@ -73,11 +84,5 @@ public class MainActivity extends ActivityCoreBehavior {
     @Override
     public void onInternetConnected() {
 
-    }
-
-    public void move(int pos) {
-        if(pos < 0)
-            return;
-        this.mViewPager.setCurrentItem(pos, true);
     }
 }
