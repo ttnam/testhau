@@ -629,7 +629,32 @@ public class APIManager {
             }
         });
     }
+    public void addMembers(String authorization,  String tripId, String fbId, final CallBack expired,
+                       final CallBack success, final CallBackWith<String> fail) {
 
+        Call<BaseResponse<String>> call = service.addMember(authorization, tripId, fbId);
+
+        call.enqueue(new Callback<BaseResponse<String>>() {
+            @Override
+            public void onResponse(Call<BaseResponse<String>> call, Response<BaseResponse<String>> response) {
+                if (response.isSuccessful()) {
+                    BaseResponse<String> res = response.body();
+                    if (res.isSuccessful()) {
+                        success.run();
+                    } else if (res.isExpired()) {
+                        expired.run();
+                    } else {
+                        fail.run(res.getDescription());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BaseResponse<String>> call, Throwable throwable) {
+                Log.e(TAG, throwable.getMessage());
+            }
+        });
+    }
     public void kick(String authorization, String tripId, String fbId,
                      final CallBack expired,
                      final CallBack success,

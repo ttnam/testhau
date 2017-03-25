@@ -12,10 +12,10 @@ import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.yostajsc.backend.core.APIManager;
+import io.yostajsc.core.designs.decorations.SpacesItemDecoration;
 import io.yostajsc.core.fragments.CoreFragment;
 import io.yostajsc.core.interfaces.CallBack;
 import io.yostajsc.core.interfaces.CallBackWith;
-import io.yostajsc.core.interfaces.OnConnectionTimeoutListener;
 import io.yostajsc.core.utils.StorageUtils;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.adapters.NotificationAdapter;
@@ -50,6 +50,7 @@ public class NotificationsFragment extends CoreFragment {
         button.setVisibility(View.GONE);
         this.adapter = new NotificationAdapter(mContext);
         UiUtils.onApplyRecyclerView(rvNotification, this.adapter, new SlideInRightAnimator(), null);
+        rvNotification.addItemDecoration(new SpacesItemDecoration(3));
     }
 
 
@@ -60,8 +61,7 @@ public class NotificationsFragment extends CoreFragment {
         APIManager.connect().getNotification(authorization, new CallBack() {
             @Override
             public void run() {
-
-
+                // TODO:
             }
         }, new CallBackWith<Notifications>() {
             @Override

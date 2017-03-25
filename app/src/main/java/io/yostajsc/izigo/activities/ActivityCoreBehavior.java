@@ -3,6 +3,8 @@ package io.yostajsc.izigo.activities;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 
+import com.facebook.login.LoginManager;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
@@ -10,7 +12,9 @@ import io.yostajsc.core.code.MessageInfo;
 import io.yostajsc.core.code.MessageType;
 import io.yostajsc.core.dialogs.DialogNoNet;
 import io.yostajsc.core.interfaces.ActivityCoreInterface;
+import io.yostajsc.core.utils.StorageUtils;
 import io.yostajsc.izigo.activities.user.LoginActivity;
+import io.yostajsc.izigo.configs.AppDefine;
 
 
 /**
@@ -57,6 +61,8 @@ public class ActivityCoreBehavior extends AppCompatActivity implements ActivityC
     }
 
     protected void onExpired() {
+        StorageUtils.inject(this).removes(AppDefine.AUTHORIZATION);
+        LoginManager.getInstance().logOut();
         startActivity(new Intent(this, LoginActivity.class));
         finish();
     }

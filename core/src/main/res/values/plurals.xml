@@ -24,12 +24,6 @@
         <item quantity="other">%d members</item>
     </plurals>
 
-    <plurals name="views">
-        <item quantity="zero">No views</item>
-        <item quantity="one">1 view</item>
-        <item quantity="other">%d views</item>
-    </plurals>
-
     <plurals name="seconds">
         <item quantity="one">%d second</item>
         <item quantity="other">%d seconds</item>

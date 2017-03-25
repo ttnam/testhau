@@ -64,8 +64,8 @@ public class NotificationsViewHolder extends RecyclerView.ViewHolder {
                 .bitmapTransform(new CropCircleTransformation(mContext))
                 .into(this.imageAvatar);
 
-        String prefix = "<html><body><b>";
-        String postfix = "</b></body></html>";
+        String prefix = "<b>";
+        String postfix = "</b>";
 
         String tripName = prefix + tripInfo.getName() + postfix;
         String from = prefix + userInfo.getName() + postfix;

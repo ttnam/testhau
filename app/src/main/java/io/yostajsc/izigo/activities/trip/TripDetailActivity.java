@@ -262,7 +262,7 @@ public class TripDetailActivity extends ActivityCoreBehavior {
                     textCreatorName.setText(trip.getCreatorName());
 
                     int nViews = trip.getNumberOfView();
-                    textViews.setText(getResources().getQuantityString(R.plurals.views, nViews, nViews));
+                    textViews.setText(String.valueOf(nViews));
 
                     int nComments = trip.getNumberOfComments();
                     textNumberOfComments.setText(getResources().getQuantityString(R.plurals.comments, nComments, nComments));

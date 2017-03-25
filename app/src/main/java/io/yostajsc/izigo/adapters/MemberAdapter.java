@@ -14,13 +14,13 @@ import io.yostajsc.core.interfaces.CallBackWith;
 import io.yostajsc.core.interfaces.ItemClick;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.models.user.Friend;
-import io.yostajsc.izigo.ui.viewholder.FriendViewHolder;
+import io.yostajsc.izigo.ui.viewholder.MemberViewHolder;
 
 /**
  * Created by Phuc-Hau Nguyen on 10/14/2016.
  */
 
-public class MemberAdapter extends RecyclerView.Adapter<FriendViewHolder> {
+public class MemberAdapter extends RecyclerView.Adapter<MemberViewHolder> {
 
     private Context mContext = null;
     private List<Friend> mFriends = null;
@@ -40,14 +40,14 @@ public class MemberAdapter extends RecyclerView.Adapter<FriendViewHolder> {
     }
 
     @Override
-    public FriendViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public MemberViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View itemLayoutView = LayoutInflater.from(mContext).inflate(R.layout.item_member, null);
-        return new FriendViewHolder(itemLayoutView);
+        return new MemberViewHolder(itemLayoutView);
     }
 
     @Override
-    public void onBindViewHolder(FriendViewHolder holder, int position) {
+    public void onBindViewHolder(MemberViewHolder holder, int position) {
         Friend friend = mFriends.get(position);
         holder.bind(friend, mIsClose, mItemClick, mKick);
     }

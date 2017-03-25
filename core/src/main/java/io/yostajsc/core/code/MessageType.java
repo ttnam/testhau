@@ -11,7 +11,7 @@ import java.lang.annotation.RetentionPolicy;
 @Retention(RetentionPolicy.SOURCE)
 @IntDef({MessageType.TAKE_PHOTO, MessageType.FROM_GALLERY,
         MessageType.LOAD_DONE, MessageType.LOST_INTERNET,
-        MessageType.INTERNET_CONNECTED, MessageType.ITEM_CLICK_INVITE,
+        MessageType.INTERNET_CONNECTED,
         MessageType.ITEM_CLICK_INVITED, MessageType.USER_GPS,
         MessageType.PICK_LOCATION_FROM, MessageType.PICK_LOCATION_TO})
 public @interface MessageType {
@@ -20,7 +20,6 @@ public @interface MessageType {
     int LOAD_DONE = 903;
     int LOST_INTERNET = 904;
     int INTERNET_CONNECTED = 905;
-    int ITEM_CLICK_INVITE = 906;
     int ITEM_CLICK_INVITED = 907;
     int USER_GPS = 908;
     int PICK_LOCATION_FROM = 909;

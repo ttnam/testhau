@@ -40,6 +40,7 @@ public class MembersActivity extends ActivityCoreBehavior {
 
     private String mTripId;
     private MemberAdapter friendAdapter = null, memberAdapter = null;
+    private String mAuthorization;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,11 +75,13 @@ public class MembersActivity extends ActivityCoreBehavior {
     @Override
     public void onApplyData() {
         super.onApplyData();
+
+        mAuthorization = StorageUtils.inject(MembersActivity.this).getString(AppDefine.AUTHORIZATION);
+
         AccessToken token = AccessToken.getCurrentAccessToken();
         if (token != null) {
-            String authorization = StorageUtils.inject(MembersActivity.this).getString(AppDefine.AUTHORIZATION);
             String fbToken = token.getToken();
-            APIManager.connect().getFriendsList(authorization, fbToken, new CallBackWith<List<Friend>>() {
+            APIManager.connect().getFriendsList(mAuthorization, fbToken, new CallBackWith<List<Friend>>() {
                 @Override
                 public void run(List<Friend> friends) {
                     friendAdapter.replaceAll(friends);
@@ -99,8 +102,7 @@ public class MembersActivity extends ActivityCoreBehavior {
 
     private void getMemberList() {
 
-        String authorization = StorageUtils.inject(MembersActivity.this).getString(AppDefine.AUTHORIZATION);
-        APIManager.connect().getMembers(authorization, mTripId, new CallBack() {
+        APIManager.connect().getMembers(mAuthorization, mTripId, new CallBack() {
             @Override
             public void run() {
                 onExpired();
@@ -118,16 +120,33 @@ public class MembersActivity extends ActivityCoreBehavior {
         });
     }
 
+    private void addMember(String fbId) {
+        APIManager.connect().addMembers(mAuthorization, mTripId, fbId, new CallBack() {
+            @Override
+            public void run() {
+                onExpired();
+            }
+        }, new CallBack() {
+            @Override
+            public void run() {
+                Toast.makeText(MembersActivity.this, "Lời mời đã được gửi đi", Toast.LENGTH_SHORT).show();
+                getMemberList();
+            }
+        }, new CallBackWith<String>() {
+            @Override
+            public void run(String error) {
+                Toast.makeText(MembersActivity.this, error, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
     private void onApplyRecyclerView() {
 
         this.friendAdapter = new MemberAdapter(this, false, new ItemClick<Integer, Integer>() {
             @Override
             public void onClick(Integer type, Integer position) {
-                if (type == MessageType.ITEM_CLICK_INVITE) {
-                    // invites.remove(adapter.getItem(position).getFbId());
-                }
                 if (type == MessageType.ITEM_CLICK_INVITED) {
-                    // invites.add(adapter.getItem(position).getFbId());
+                    addMember(friendAdapter.getItem(position).getFbId());
                 }
             }
         }, null);

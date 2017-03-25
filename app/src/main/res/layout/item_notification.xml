@@ -3,15 +3,15 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@android:color/white"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="@dimen/margin">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="@dimen/margin">
+        android:orientation="horizontal">
 
-        <ImageView
+        <android.support.v7.widget.AppCompatImageView
             android:id="@+id/image_avatar"
             android:layout_width="@dimen/icon_size_x5"
             android:layout_height="@dimen/icon_size_x5"
@@ -33,7 +33,7 @@
             android:padding="@dimen/margin"
             android:text="@string/app_name" />
 
-        <ImageView
+        <android.support.v7.widget.AppCompatImageView
             android:id="@+id/image_cover"
             android:layout_width="@dimen/icon_size_x5"
             android:layout_height="@dimen/icon_size_x5"
@@ -53,7 +53,7 @@
 
         <TextView
             android:id="@+id/text_yes"
-            style="@style/AppTheme.TextView_Title.Bold.ColorPrimary"
+            style="@style/CoreAppTheme.TextView_Sub_Title.Bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -61,11 +61,12 @@
             android:clickable="true"
             android:gravity="center"
             android:padding="@dimen/margin"
-            android:text="Chấp nhận" />
+            android:text="Chấp nhận"
+            android:textColor="@color/colorPrimaryDark" />
 
         <TextView
             android:id="@+id/text_no"
-            style="@style/CoreAppTheme.TextView_Title.Bold"
+            style="@style/CoreAppTheme.TextView_Sub_Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -75,7 +76,8 @@
             android:clickable="true"
             android:gravity="center"
             android:padding="@dimen/margin"
-            android:text="Từ chối" />
+            android:text="Từ chối"
+            android:textColor="@color/colorAccentDark" />
 
     </LinearLayout>
 </LinearLayout>

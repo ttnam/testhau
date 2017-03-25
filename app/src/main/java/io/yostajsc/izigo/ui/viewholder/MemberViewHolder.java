@@ -28,10 +28,9 @@ import io.yostajsc.view.glide.CropCircleTransformation;
  * Created by Phuc-Hau Nguyen on 12/1/2016.
  */
 
-public class FriendViewHolder extends RecyclerView.ViewHolder {
+public class MemberViewHolder extends RecyclerView.ViewHolder {
 
     private Context mContext;
-    private boolean toggle = false;
     private Resources resources = null;
     private ItemClick<Integer, Integer> mInviteClick = null;
     private CallBackWith<Integer> mKick;
@@ -49,7 +48,7 @@ public class FriendViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.image_close)
     AppCompatImageView imageClose;
 
-    public FriendViewHolder(View itemView) {
+    public MemberViewHolder(View itemView) {
         super(itemView);
         ButterKnife.bind(this, itemView);
 
@@ -63,18 +62,10 @@ public class FriendViewHolder extends RecyclerView.ViewHolder {
 
     @OnClick(R.id.button)
     public void onInvite() {
-        toggle = !toggle;
-        if (toggle) {
-            button.setBackground(resources.getDrawable(R.drawable.ic_style_rect_round_corners_accent_white));
-            button.setTextColor(resources.getColor(R.color.colorAccentDark));
-            button.setText(resources.getString(R.string.all_invited));
-            mInviteClick.onClick(MessageType.ITEM_CLICK_INVITED, getAdapterPosition());
-        } else {
-            button.setBackground(resources.getDrawable(R.drawable.ic_style_button_round_corners_accent_reflector));
-            button.setTextColor(resources.getColor(android.R.color.white));
-            button.setText(resources.getString(R.string.all_invite));
-            mInviteClick.onClick(MessageType.ITEM_CLICK_INVITE, getAdapterPosition());
-        }
+        button.setBackground(resources.getDrawable(R.drawable.ic_style_rect_round_corners_accent_white));
+        button.setTextColor(resources.getColor(R.color.colorAccentDark));
+        button.setText(resources.getString(R.string.all_invited));
+        mInviteClick.onClick(MessageType.ITEM_CLICK_INVITED, getAdapterPosition());
     }
 
     public void bind(Friend friend, boolean isClose, @NonNull ItemClick<Integer, Integer> inviteClick,

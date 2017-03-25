@@ -104,6 +104,12 @@ interface APIInterface {
                                       @Field("notiId") String notyId,
                                       @Field("verify") int verify);
 
+    @PUT("api/trips/{id}/add")
+    @FormUrlEncoded
+    Call<BaseResponse<String>> addMember(@Header("authen") String authorization,
+                                         @Path("id") String tripId,
+                                         @Field("fbId") String fbId);
+
     @PUT("api/trips/{id}/verify")
     @FormUrlEncoded
     Call<BaseResponse<String>> verify(@Header("authen") String authorization,

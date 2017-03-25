@@ -30,7 +30,6 @@ public class UiUtils {
                                            final CallBackWith<Integer> itemClick) {
 
         view.setHasFixedSize(true);
-
         view.setRecycledViewPool(new RecyclerView.RecycledViewPool());
         view.setNestedScrollingEnabled(false);
 

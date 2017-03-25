@@ -27,7 +27,6 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationsViewH
 
     private Context mContext = null;
     private Notifications mNotifications = null;
-    private CallBack yesAction, noAction;
 
     public NotificationAdapter(Context context) {
         this.mContext = context;
@@ -134,7 +133,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationsViewH
                 if (accept == 1)
                     Toast.makeText(mContext, "Đã chấp nhận", Toast.LENGTH_SHORT).show();
                 else
-                    Toast.makeText(mContext, "Không chấp nhận", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "Đã từ chối", Toast.LENGTH_SHORT).show();
                 remove(pos);
             }
         }, new CallBackWith<String>() {
@@ -160,7 +159,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationsViewH
                 if (accept == 1)
                     Toast.makeText(mContext, "Đã chấp nhận", Toast.LENGTH_SHORT).show();
                 else
-                    Toast.makeText(mContext, "Không chấp nhận", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "Đã từ chối", Toast.LENGTH_SHORT).show();
                 remove(pos);
             }
         }, new CallBackWith<String>() {
