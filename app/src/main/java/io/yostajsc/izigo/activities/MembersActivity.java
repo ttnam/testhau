@@ -170,6 +170,8 @@ public class MembersActivity extends ActivityCoreBehavior {
                 }, new CallBack() {
                     @Override
                     public void run() {
+                        Toast.makeText(MembersActivity.this, "Bạn đã xoá khỏi group thành công", Toast.LENGTH_SHORT).show();
+
                         getMemberList();
                     }
                 }, new CallBackWith<String>() {

@@ -201,81 +201,89 @@ public class TripDetailActivity extends ActivityCoreBehavior {
 
     private void updateUI(final Trip trip) {
 
-        if (trip == null) return;
-        roleType = trip.getRole();
+        try {
 
-        switch (roleType) {
-            case RoleType.GUEST:
-                buttonMore.setVisibility(View.INVISIBLE);
-                button.setImageResource(R.drawable.ic_add_user);
-                break;
-            case RoleType.MEMBER:
-            case RoleType.ADMIN:
-                buttonMore.setVisibility(View.VISIBLE);
-                button.setImageResource(R.drawable.ic_marker);
-                break;
 
+            if (trip == null) return;
+            roleType = trip.getRole();
+
+            switch (roleType) {
+                case RoleType.GUEST:
+                    buttonMore.setVisibility(View.INVISIBLE);
+                    button.setImageResource(R.drawable.ic_add_user);
+                    break;
+                case RoleType.MEMBER:
+                case RoleType.ADMIN:
+                    buttonMore.setVisibility(View.VISIBLE);
+                    button.setImageResource(R.drawable.ic_marker);
+                    break;
+
+            }
+
+            // Avatar
+            Glide.with(TripDetailActivity.this)
+                    .load(trip.getCreatorAvatar())
+                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                    .bitmapTransform(new CropCircleTransformation(TripDetailActivity.this))
+                    .into(imageCreatorAvatar);
+
+            // Cover
+            Glide.with(TripDetailActivity.this)
+                    .load(trip.getCover())
+                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                    .into(imageCover);
+
+            // Update transfer
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    UiUtils.showTransfer(trip.getTransfer(), imageTransfer);
+                }
+            }, 10);
+
+            new AsyncTask<Trip, Void, Trip>() {
+
+                @Override
+                protected Trip doInBackground(Trip... params) {
+                    return params[0];
+                }
+
+                @Override
+                protected void onPostExecute(Trip trip) {
+                    super.onPostExecute(trip);
+
+                    int nPhotos = trip.getAlbum().size();
+                    textNumberOfPhoto.setText(getResources().getQuantityString(R.plurals.photos, nPhotos, nPhotos));
+                    albumAdapter.replaceAll(trip.getAlbum());
+
+                    UiUtils.showTextCenterInWebView(webView, trip.getDescription());
+
+                    textTripName.setText(trip.getTripName());
+                    textCreatorName.setText(trip.getCreatorName());
+
+                    int nViews = trip.getNumberOfView();
+                    textViews.setText(getResources().getQuantityString(R.plurals.views, nViews, nViews));
+
+                    int nComments = trip.getNumberOfComments();
+                    textNumberOfComments.setText(getResources().getQuantityString(R.plurals.comments, nComments, nComments));
+
+                    int nActivities = trip.getNumberOfActivities();
+                    textNumberOfActivities.setText(getResources().getQuantityString(R.plurals.activities, nActivities, nActivities));
+
+                    int nMembers = trip.getNumberOfMembers();
+                    textNumberOfMembers.setText(getResources().getQuantityString(R.plurals.members, nMembers, nMembers));
+
+                    textTime.setText(String.format("%s - %s",
+                            DatetimeUtils.getDate(trip.getDepartTime()),
+                            DatetimeUtils.getDate(trip.getArriveTime()))
+                    );
+                }
+            }.execute(trip);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            finish();
         }
-
-        // Avatar
-        Glide.with(TripDetailActivity.this)
-                .load(trip.getCreatorAvatar())
-                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                .bitmapTransform(new CropCircleTransformation(TripDetailActivity.this))
-                .into(imageCreatorAvatar);
-
-        // Cover
-        Glide.with(TripDetailActivity.this)
-                .load(trip.getCover())
-                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                .into(imageCover);
-
-        // Update transfer
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                UiUtils.showTransfer(trip.getTransfer(), imageTransfer);
-            }
-        }, 10);
-
-        new AsyncTask<Trip, Void, Trip>() {
-
-            @Override
-            protected Trip doInBackground(Trip... params) {
-                return params[0];
-            }
-
-            @Override
-            protected void onPostExecute(Trip trip) {
-                super.onPostExecute(trip);
-
-                int nPhotos = trip.getAlbum().size();
-                textNumberOfPhoto.setText(getResources().getQuantityString(R.plurals.photos, nPhotos, nPhotos));
-                albumAdapter.replaceAll(trip.getAlbum());
-
-                UiUtils.showTextCenterInWebView(webView, trip.getDescription());
-
-                textTripName.setText(trip.getTripName());
-                textCreatorName.setText(trip.getCreatorName());
-
-                int nViews = trip.getNumberOfView();
-                textViews.setText(getResources().getQuantityString(R.plurals.views, nViews, nViews));
-
-                int nComments = trip.getNumberOfComments();
-                textNumberOfComments.setText(getResources().getQuantityString(R.plurals.comments, nComments, nComments));
-
-                int nActivities = trip.getNumberOfActivities();
-                textNumberOfActivities.setText(getResources().getQuantityString(R.plurals.activities, nActivities, nActivities));
-
-                int nMembers = trip.getNumberOfMembers();
-                textNumberOfMembers.setText(getResources().getQuantityString(R.plurals.members, nMembers, nMembers));
-
-                textTime.setText(String.format("%s - %s",
-                        DatetimeUtils.getDate(trip.getDepartTime()),
-                        DatetimeUtils.getDate(trip.getArriveTime()))
-                );
-            }
-        }.execute(trip);
     }
 
     private void onApplyFirebase(Uri uri) {

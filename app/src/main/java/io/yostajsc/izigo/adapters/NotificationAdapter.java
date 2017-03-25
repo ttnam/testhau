@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import io.yostajsc.backend.core.APIManager;
+import io.yostajsc.constants.NotificationType;
 import io.yostajsc.core.interfaces.CallBack;
 import io.yostajsc.core.interfaces.CallBackWith;
 import io.yostajsc.core.utils.StorageUtils;
@@ -47,18 +48,37 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationsViewH
     @Override
     public void onBindViewHolder(NotificationsViewHolder holder, final int position) {
         final Notification notification = mNotifications.get(position);
-        holder.bind(notification.getFrom(), notification.getTrip(), notification.getType(),
-                new CallBack() {
-                    @Override
-                    public void run() {
-                        accept(position, notification.getTrip().getId(), notification.getId(), 1);
-                    }
-                }, new CallBack() {
-                    @Override
-                    public void run() {
-                        accept(position, notification.getTrip().getId(), notification.getId(), 0);
-                    }
-                });
+
+        int notiType = notification.getType();
+        if (notiType == NotificationType.ACCEPT_JOIN_TRIP) {
+
+            holder.bind(notification.getFrom(), notification.getTrip(), notification.getType(),
+                    new CallBack() {
+                        @Override
+                        public void run() {
+                            accept(position, notification.getTrip().getId(), notification.getId(), 1);
+                        }
+                    }, new CallBack() {
+                        @Override
+                        public void run() {
+                            accept(position, notification.getTrip().getId(), notification.getId(), 0);
+                        }
+                    });
+        } else {
+            holder.bind(notification.getFrom(), notification.getTrip(), notification.getType(),
+                    new CallBack() {
+                        @Override
+                        public void run() {
+                            verify(position, notification.getTrip().getId(), notification.getId(), 1);
+                        }
+                    }, new CallBack() {
+                        @Override
+                        public void run() {
+                            verify(position, notification.getTrip().getId(), notification.getId(), 0);
+                        }
+                    });
+        }
+
     }
 
     @Override
@@ -125,4 +145,29 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationsViewH
         });
     }
 
+    private void verify(final int pos, String tripId, String notiId, final int accept) {
+
+        String authorization = StorageUtils.inject(mContext).getString(AppDefine.AUTHORIZATION);
+
+        APIManager.connect().verify(authorization, tripId, notiId, accept, new CallBack() {
+            @Override
+            public void run() {
+
+            }
+        }, new CallBack() {
+            @Override
+            public void run() {
+                if (accept == 1)
+                    Toast.makeText(mContext, "Đã chấp nhận", Toast.LENGTH_SHORT).show();
+                else
+                    Toast.makeText(mContext, "Không chấp nhận", Toast.LENGTH_SHORT).show();
+                remove(pos);
+            }
+        }, new CallBackWith<String>() {
+            @Override
+            public void run(String error) {
+                Toast.makeText(mContext, error, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 }
