@@ -7,10 +7,7 @@
         android:layout_height="wrap_content"
         android:baselineAligned="true"
         android:orientation="horizontal"
-        android:paddingBottom="@dimen/margin"
-        android:paddingLeft="@dimen/margin_x2"
-        android:paddingRight="@dimen/margin_x2"
-        android:paddingTop="@dimen/margin">
+        android:padding="@dimen/margin">
 
         <android.support.v7.widget.AppCompatImageView
             android:id="@+id/image_transfer"

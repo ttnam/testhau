@@ -23,65 +23,9 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                <include layout="@layout/layout_trip_header" />
 
-                    <android.support.v7.widget.AppCompatImageView
-                        android:id="@id/image_view"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/image_height_v3"
-                        android:scaleType="centerCrop" />
-
-                    <HorizontalScrollView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center|bottom"
-                        android:background="@drawable/ic_bak_gradient_footer"
-                        android:scrollbars="none">
-
-                        <include layout="@layout/layout_trip_number_info" />
-
-                    </HorizontalScrollView>
-                </FrameLayout>
-
-                <TextView
-                    android:id="@+id/text_name"
-                    style="@style/CoreAppTheme.TextView_Title.Bold"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin"
-                    android:ellipsize="end"
-                    android:gravity="center"
-                    android:maxLines="3"
-                    android:minLines="1"
-                    android:textSize="@dimen/text_size_v2_5" />
-
-                <TextView
-                    android:id="@+id/text_time"
-                    style="@style/CoreAppTheme.TextView_Title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:gravity="center"
-                    android:maxLines="3"
-                    android:minLines="1" />
-
-                <include layout="@layout/item_web_vew" />
-
-                <TextView
-                    android:id="@+id/text_number_of_photo"
-                    style="@style/CoreAppTheme.TextView_Title.Bold"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:ellipsize="end"
-                    android:gravity="center|start"
-                    android:maxLines="1"
-                    android:minLines="1"
-                    android:padding="@dimen/margin" />
-
-                <include layout="@layout/layout_recycler_view" />
+                <include layout="@layout/layout_trip_body" />
 
             </LinearLayout>
 

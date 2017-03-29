@@ -61,8 +61,7 @@ public class AppConfig extends MultiDexApplication {
     }
 
     private void applyFont() {
-        FontUtils.overrideFont(getApplicationContext(), "serif",
-                "fonts/AvenirNext-Regular.ttf");
+        FontUtils.overrideFont(this, "serif", "fonts/Montserrat-Regular.ttf");
     }
 
     public String getAuthorization() {

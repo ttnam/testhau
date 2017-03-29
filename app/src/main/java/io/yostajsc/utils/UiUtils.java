@@ -94,9 +94,8 @@ public class UiUtils {
 
     public static void onApplyWebViewSetting(WebView webView) {
         WebSettings settings = webView.getSettings();
-        settings.setJavaScriptEnabled(true);
         settings.setDefaultTextEncodingName("utf-8");
-        settings.setDefaultFontSize(14);
+        settings.setDefaultFontSize(13);
         settings.setCacheMode(WebSettings.LOAD_NO_CACHE);
         settings.setAppCacheEnabled(false);
         settings.setBlockNetworkImage(true);

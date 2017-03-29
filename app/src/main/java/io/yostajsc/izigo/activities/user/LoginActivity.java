@@ -35,7 +35,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.yostajsc.core.interfaces.CallBackWith;
-import io.yostajsc.core.interfaces.OnConnectionTimeoutListener;
 import io.yostajsc.core.utils.StorageUtils;
 import io.yostajsc.core.utils.ValidateUtils;
 import io.yostajsc.izigo.R;
@@ -55,7 +54,7 @@ public class LoginActivity extends ActivityCoreBehavior {
     private final String TAG = LoginActivity.class.getSimpleName();
 
     @BindView(R.id.image_view)
-    AppCompatImageView imageView;
+    AppCompatImageView imageLogo;
 
     @BindView(R.id.button_facebook_login)
     LoginButton loginButton;
@@ -105,7 +104,6 @@ public class LoginActivity extends ActivityCoreBehavior {
         }, 1000);
     }
 
-
     @Override
     protected void onStart() {
         super.onStart();
@@ -116,11 +114,10 @@ public class LoginActivity extends ActivityCoreBehavior {
     public void onApplyViews() {
         Glide.with(this)
                 .load(R.drawable.ic_loading)
-                .asGif()
                 .skipMemoryCache(false)
                 .error(R.drawable.ic_launcher)
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                .into(imageView);
+                .into(imageLogo);
     }
 
     private void onFireBaseConfig() {
@@ -195,6 +192,7 @@ public class LoginActivity extends ActivityCoreBehavior {
         if (mAuthListener != null) {
             mAuth.removeAuthStateListener(mAuthListener);
         }
+        Glide.clear(imageLogo);
     }
 
     @OnClick(R.id.btn_facebook)

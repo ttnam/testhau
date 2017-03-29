@@ -9,7 +9,6 @@ import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.RecyclerView;
@@ -43,7 +42,6 @@ import io.yostajsc.core.utils.ValidateUtils;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.activities.ActivityManagerActivity;
 import io.yostajsc.izigo.activities.MainActivity;
-import io.yostajsc.izigo.activities.MembersActivity;
 import io.yostajsc.izigo.activities.dialogs.DialogComment;
 import io.yostajsc.izigo.activities.dialogs.DialogPickTransfer;
 import io.yostajsc.izigo.adapters.ImageryAdapter;
@@ -54,7 +52,6 @@ import io.yostajsc.izigo.models.trip.Trip;
 import io.yostajsc.utils.UiUtils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.yostajsc.view.BottomSheetDialog;
 import io.yostajsc.view.glide.CropCircleTransformation;
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 import permissions.dispatcher.NeedsPermission;
@@ -93,6 +90,9 @@ public class TripDetailActivity extends ActivityCoreBehavior {
     @BindView(R.id.text_time)
     TextView textTime;
 
+    @BindView(R.id.text_edit)
+    TextView textEdit;
+
     @BindView(R.id.text_number_of_photo)
     TextView textNumberOfPhoto;
 
@@ -126,7 +126,7 @@ public class TripDetailActivity extends ActivityCoreBehavior {
     }
 
     @Override
-    @OnClick({R.id.button_left, R.id.image_view})
+    @OnClick(R.id.button_left)
     public void onBackPressed() {
         startActivity(new Intent(this, MainActivity.class));
         finish();
@@ -134,6 +134,9 @@ public class TripDetailActivity extends ActivityCoreBehavior {
 
     @Override
     public void onApplyViews() {
+
+        registerForContextMenu(buttonMore);
+        registerForContextMenu(imageCover);
 
         // set cover size
         this.albumAdapter = new ImageryAdapter(this);
@@ -149,12 +152,12 @@ public class TripDetailActivity extends ActivityCoreBehavior {
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
-        menu.add(0, v.getId(), 0, "Công khai");
-        menu.add(1, v.getId(), 1, "Đổi ảnh đại diện");
-        menu.add(1, v.getId(), 2, "Chỉnh sửa mô tả");
-        menu.add(1, v.getId(), 3, "Đổi tên hành trình");
-        menu.add(2, v.getId(), 4, "Chia sẻ");
-        menu.add(2, v.getId(), 5, "Quản lý thành viên");
+        if (v.getId() == R.id.image_view) {
+            menu.add(0, v.getId(), 0, "Chọn từ thư viện");
+            menu.add(0, v.getId(), 1, "Chụp từ thiết bị");
+        } else if (v.getId() == R.id.button_more) {
+            menu.add(1, v.getId(), 2, "Đổi tên hành trình");
+        }
     }
 
     @Override
@@ -162,11 +165,10 @@ public class TripDetailActivity extends ActivityCoreBehavior {
         int order = item.getOrder();
         switch (order) {
             case 0:
-                break;
             case 1:
                 TripDetailActivityPermissionsDispatcher.getImageFromGalleryWithCheck(this);
                 break;
-            case 2:
+            /*case 2:
                 break;
             case 3:
                 changeTripName();
@@ -179,7 +181,7 @@ public class TripDetailActivity extends ActivityCoreBehavior {
                 Intent intent = new Intent(TripDetailActivity.this, MembersActivity.class);
                 intent.putExtra(AppDefine.TRIP_ID, tripId);
                 startActivity(intent);
-                break;
+                break;*/
         }
         return super.onContextItemSelected(item);
     }
@@ -217,11 +219,13 @@ public class TripDetailActivity extends ActivityCoreBehavior {
                     buttonMore.setVisibility(View.INVISIBLE);
                     button.setImageResource(R.drawable.ic_add_user);
                     switchPublish.setVisibility(View.INVISIBLE);
+                    textEdit.setVisibility(View.GONE);
                     break;
                 case RoleType.ADMIN:
                     buttonMore.setVisibility(View.VISIBLE);
                     button.setImageResource(R.drawable.ic_marker);
                     switchPublish.setVisibility(View.VISIBLE);
+                    textEdit.setVisibility(View.VISIBLE);
                     break;
 
             }
@@ -321,14 +325,6 @@ public class TripDetailActivity extends ActivityCoreBehavior {
     }
 
 
-    @OnClick(R.id.button_more)
-    public void more() {
-        if (roleType == RoleType.ADMIN) {
-            registerForContextMenu(buttonMore);
-            buttonMore.performLongClick();
-        }
-    }
-
     @OnClick(R.id.text_number_of_comment)
     public void onLoadComment() {
         DialogComment dialogComment = new DialogComment(this);
@@ -336,6 +332,20 @@ public class TripDetailActivity extends ActivityCoreBehavior {
         dialogComment.setTripId(tripId);
     }
 
+
+    @OnClick(R.id.image_view)
+    public void editCover() {
+        if (roleType == RoleType.ADMIN) {
+            imageCover.performLongClick();
+        }
+    }
+
+    @OnClick(R.id.button_more)
+    public void more() {
+        if (roleType == RoleType.ADMIN) {
+            buttonMore.performLongClick();
+        }
+    }
 
     @OnClick(R.id.image_transfer)
     public void onTransfer(View view) {

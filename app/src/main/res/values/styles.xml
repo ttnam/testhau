@@ -2,6 +2,7 @@
 <resources>
 
     <style name="AppTheme" parent="CoreAppTheme">
+        <item name="android:typeface">serif</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -9,6 +10,7 @@
 
     <style name="AppTheme.Fullscreen" parent="CoreAppTheme.Fullscreen">
         <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="android:typeface">serif</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>

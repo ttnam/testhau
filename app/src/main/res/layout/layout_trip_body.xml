@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/text_name"
+            style="@style/CoreAppTheme.TextView_Title.Bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="3"
+            android:minLines="1" />
+
+        <TextView
+            android:id="@+id/text_time"
+            style="@style/CoreAppTheme.TextView_Sub_Title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="3"
+            android:minLines="1" />
+
+        <include layout="@layout/item_web_vew" />
+
+        <TextView
+            android:id="@+id/text_number_of_photo"
+            style="@style/CoreAppTheme.TextView_Title.Bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:ellipsize="end"
+            android:gravity="center|start"
+            android:maxLines="1"
+            android:minLines="1"
+            android:padding="@dimen/margin" />
+
+        <include layout="@layout/layout_recycler_view" />
+
+    </LinearLayout>
+
+</merge>
