@@ -5,51 +5,52 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin"
-        android:background="@android:color/white"
         android:baselineAligned="true"
         android:orientation="horizontal"
-        android:padding="@dimen/margin">
+        android:paddingBottom="@dimen/margin"
+        android:paddingLeft="@dimen/margin_x2"
+        android:paddingRight="@dimen/margin_x2"
+        android:paddingTop="@dimen/margin">
 
         <android.support.v7.widget.AppCompatImageView
             android:id="@+id/image_transfer"
-            android:layout_width="@dimen/icon_size_x6"
-            android:layout_height="@dimen/icon_size_x6"
+            android:layout_width="@dimen/icon_size_x5"
+            android:layout_height="@dimen/icon_size_x5"
             android:layout_gravity="center"
-            android:background="@android:color/white"
+            android:background="@drawable/ic_style_circle_white"
             android:clickable="false"
             android:padding="@dimen/margin"
             app:srcCompat="@drawable/ic_vector_motor_bike" />
 
         <TextView
+            android:id="@+id/text_views"
+            style="@style/AppTheme.TextView_Label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+
+        <TextView
+            android:id="@+id/text_members"
+            style="@style/AppTheme.TextView_Label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+
+        <TextView
             android:id="@+id/text_number_of_comment"
-            style="@style/CoreAppTheme.TextView_Sub_Title.White"
+            style="@style/AppTheme.TextView_Label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginLeft="@dimen/margin"
-            android:layout_marginStart="@dimen/margin"
-            android:background="@drawable/ic_style_button_circle_corners_blue_none"
-            android:clickable="true"
-            android:gravity="center"
-            android:paddingLeft="@dimen/margin_x2"
-            android:paddingRight="@dimen/margin_x2"
-            android:text="0" />
+            android:clickable="true" />
 
         <TextView
             android:id="@+id/text_activities"
-            style="@style/CoreAppTheme.TextView_Sub_Title.White"
+            style="@style/AppTheme.TextView_Label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginLeft="@dimen/margin"
-            android:layout_marginStart="@dimen/margin"
-            android:background="@drawable/ic_style_button_circle_corners_blue_none"
-            android:clickable="true"
-            android:gravity="center"
-            android:paddingLeft="@dimen/margin_x2"
-            android:paddingRight="@dimen/margin_x2"
-            android:text="0" />
+            android:clickable="true" />
 
     </LinearLayout>
 </merge>

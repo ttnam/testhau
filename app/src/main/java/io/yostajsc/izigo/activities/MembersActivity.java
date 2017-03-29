@@ -21,6 +21,7 @@ import io.yostajsc.core.interfaces.ItemClick;
 import io.yostajsc.core.utils.StorageUtils;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.adapters.MemberAdapter;
+import io.yostajsc.izigo.configs.AppConfig;
 import io.yostajsc.izigo.configs.AppDefine;
 import io.yostajsc.izigo.models.user.Friend;
 import io.yostajsc.view.OwnToolBar;
@@ -76,7 +77,7 @@ public class MembersActivity extends ActivityCoreBehavior {
     public void onApplyData() {
         super.onApplyData();
 
-        mAuthorization = StorageUtils.inject(MembersActivity.this).getString(AppDefine.AUTHORIZATION);
+        mAuthorization = AppConfig.getInstance().getAuthorization();
 
         AccessToken token = AccessToken.getCurrentAccessToken();
         if (token != null) {
@@ -177,9 +178,7 @@ public class MembersActivity extends ActivityCoreBehavior {
     }
 
     private void kick(int pos) {
-        String authorization = StorageUtils.inject(MembersActivity.this).getString(AppDefine.AUTHORIZATION);
         APIManager.connect().kick(
-                authorization,
                 mTripId,
                 memberAdapter.getItem(pos).getFbId(), new CallBack() {
                     @Override

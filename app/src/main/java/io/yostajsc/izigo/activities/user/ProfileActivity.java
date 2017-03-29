@@ -88,26 +88,23 @@ public class ProfileActivity extends ActivityCoreBehavior {
             mUser = UserPref.inject(ProfileActivity.this).getUser();
             updateValue();
         } else {
-            String authorization = StorageUtils.inject(this).getString(AppDefine.AUTHORIZATION);
-            if (ValidateUtils.canUse(authorization)) {
-                APIManager.connect().getUserInfo(authorization, new CallBackWith<User>() {
-                    @Override
-                    public void run(User user) {
-                        mUser = user;
-                        updateValue();
-                    }
-                }, new CallBack() {
-                    @Override
-                    public void run() {
-                        onExpired();
-                    }
-                }, new CallBackWith<String>() {
-                    @Override
-                    public void run(String error) {
-                        Toast.makeText(ProfileActivity.this, error, Toast.LENGTH_LONG).show();
-                    }
-                });
-            }
+            APIManager.connect().getUserInfo(new CallBackWith<User>() {
+                @Override
+                public void run(User user) {
+                    mUser = user;
+                    updateValue();
+                }
+            }, new CallBack() {
+                @Override
+                public void run() {
+                    onExpired();
+                }
+            }, new CallBackWith<String>() {
+                @Override
+                public void run(String error) {
+                    Toast.makeText(ProfileActivity.this, error, Toast.LENGTH_LONG).show();
+                }
+            });
         }
     }
 
@@ -169,8 +166,7 @@ public class ProfileActivity extends ActivityCoreBehavior {
             map.put("gender", gender);
             map.put("dateOfBirth", dob);
 
-            String authorization = StorageUtils.inject(ProfileActivity.this).getString(AppDefine.AUTHORIZATION);
-            APIManager.connect().updateProfile(authorization, map, new CallBack() {
+            APIManager.connect().updateProfile(map, new CallBack() {
                 @Override
                 public void run() {
                     onExpired();

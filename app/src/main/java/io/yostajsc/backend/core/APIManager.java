@@ -15,6 +15,7 @@ import java.util.concurrent.TimeUnit;
 import io.yostajsc.backend.response.BaseResponse;
 import io.yostajsc.core.interfaces.CallBack;
 import io.yostajsc.core.interfaces.CallBackWith;
+import io.yostajsc.izigo.configs.AppConfig;
 import io.yostajsc.izigo.models.Timelines;
 import io.yostajsc.izigo.models.comment.Comments;
 import io.yostajsc.izigo.models.notification.Notifications;
@@ -141,10 +142,10 @@ public class APIManager {
         });
     }
 
-    public void getTripsList(String authorization, final CallBack expired,
+    public void getTripsList(final CallBack expired,
                              final CallBackWith<Trips> success, final CallBackWith<String> fail) {
 
-        Call<BaseResponse<Trips>> call = service.getTrips(authorization);
+        Call<BaseResponse<Trips>> call = service.getTrips(AppConfig.getInstance().getAuthorization());
         call.enqueue(new Callback<BaseResponse<Trips>>() {
             @Override
             public void onResponse(Call<BaseResponse<Trips>> call, Response<BaseResponse<Trips>> response) {
@@ -169,10 +170,10 @@ public class APIManager {
     }
 
 
-    public void getOwnTripsList(String authorization, final CallBack expired,
+    public void getOwnTripsList(final CallBack expired,
                                 final CallBackWith<Trips> success, final CallBackWith<String> fail) {
 
-        Call<BaseResponse<Trips>> call = service.getOwnTrips(authorization);
+        Call<BaseResponse<Trips>> call = service.getOwnTrips(AppConfig.getInstance().getAuthorization());
         call.enqueue(new Callback<BaseResponse<Trips>>() {
             @Override
             public void onResponse(Call<BaseResponse<Trips>> call, Response<BaseResponse<Trips>> response) {
@@ -196,8 +197,8 @@ public class APIManager {
 
     }
 
-    public void updateFcm(String authorization, String fcm) {
-        Call<BaseResponse> call = service.updateFcm(authorization, fcm);
+    public void updateFcm(String fcm) {
+        Call<BaseResponse> call = service.updateFcm(AppConfig.getInstance().getAuthorization(), fcm);
         call.enqueue(new Callback<BaseResponse>() {
             @Override
             public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
@@ -211,11 +212,11 @@ public class APIManager {
         });
     }
 
-    public void getTripDetail(String authorization, String tripId,
+    public void getTripDetail(String tripId,
                               final CallBackWith<Trip> success,
                               final CallBack expired,
                               final CallBackWith<String> fail) {
-        Call<BaseResponse<Trip>> call = service.getTripDetail(authorization, tripId);
+        Call<BaseResponse<Trip>> call = service.getTripDetail(AppConfig.getInstance().getAuthorization(), tripId);
 
         call.enqueue(new Callback<BaseResponse<Trip>>() {
             @Override
@@ -239,10 +240,10 @@ public class APIManager {
         });
     }
 
-    public void getUserInfo(String authorization, final CallBackWith<User> success,
+    public void getUserInfo(final CallBackWith<User> success,
                             final CallBack expired, final CallBackWith<String> fail) {
 
-        Call<BaseResponse<User>> call = service.getUserInfo(authorization);
+        Call<BaseResponse<User>> call = service.getUserInfo(AppConfig.getInstance().getAuthorization());
         call.enqueue(new Callback<BaseResponse<User>>() {
             @Override
             public void onResponse(Call<BaseResponse<User>> call, Response<BaseResponse<User>> response) {
@@ -266,18 +267,12 @@ public class APIManager {
 
     }
 
-    public void createTrips(String authorization,
-                            String groupName,
-                            String arrive,
-                            String depart,
-                            String description,
-                            int is_published,
-                            int status,
-                            int transfer,
+    public void createTrips(String groupName, String arrive, String depart, String description,
+                            int is_published, int status, int transfer,
                             final CallBack expired,
                             final CallBackWith<String> success,
                             final CallBackWith<String> fail) {
-        Call<BaseResponse<String>> call = service.createTrips(authorization, groupName, arrive, depart, description,
+        Call<BaseResponse<String>> call = service.createTrips(AppConfig.getInstance().getAuthorization(), groupName, arrive, depart, description,
                 is_published, status, transfer);
         call.enqueue(new Callback<BaseResponse<String>>() {
             @Override
@@ -359,11 +354,11 @@ public class APIManager {
         });
     }
 
-    public void updateProfile(String authorization, Map<String, String> body,
+    public void updateProfile(Map<String, String> body,
                               final CallBack expired,
                               final CallBack success,
                               final CallBackWith<String> fail) {
-        Call<BaseResponse> call = service.updateProfile(authorization, body);
+        Call<BaseResponse> call = service.updateProfile(AppConfig.getInstance().getAuthorization(), body);
         call.enqueue(new Callback<BaseResponse>() {
             @Override
             public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
@@ -386,11 +381,11 @@ public class APIManager {
         });
     }
 
-    public void getComments(String authorization, String tripId,
+    public void getComments(String tripId,
                             final CallBack expired,
                             final CallBackWith<Comments> success,
                             final CallBackWith<String> fail) {
-        Call<BaseResponse<Comments>> call = service.getComments(authorization, tripId);
+        Call<BaseResponse<Comments>> call = service.getComments(AppConfig.getInstance().getAuthorization(), tripId);
         call.enqueue(new Callback<BaseResponse<Comments>>() {
             @Override
             public void onResponse(Call<BaseResponse<Comments>> call, Response<BaseResponse<Comments>> response) {
@@ -413,11 +408,11 @@ public class APIManager {
         });
     }
 
-    public void getActivities(String authorization, String tripId,
+    public void getActivities(String tripId,
                               final CallBack expired,
                               final CallBackWith<Timelines> success,
                               final CallBackWith<String> fail) {
-        Call<BaseResponse<Timelines>> call = service.getActivities(authorization, tripId);
+        Call<BaseResponse<Timelines>> call = service.getActivities(AppConfig.getInstance().getAuthorization(), tripId);
         call.enqueue(new Callback<BaseResponse<Timelines>>() {
             @Override
             public void onResponse(Call<BaseResponse<Timelines>> call, Response<BaseResponse<Timelines>> response) {
@@ -467,12 +462,12 @@ public class APIManager {
         });
     }
 
-    public void trackingViews(String authorization, String tripId,
+    public void trackingViews(String tripId,
                               final CallBack expired,
                               final CallBack success,
                               final CallBackWith<String> fail) {
 
-        Call<BaseResponse<String>> call = service.updateView(authorization, tripId);
+        Call<BaseResponse<String>> call = service.updateView(AppConfig.getInstance().getAuthorization(), tripId);
 
         call.enqueue(new Callback<BaseResponse<String>>() {
             @Override
@@ -496,12 +491,12 @@ public class APIManager {
         });
     }
 
-    public void updateCover(String authorization, String tripId, String cover,
+    public void updateCover(String tripId, String cover,
                             final CallBack expired,
                             final CallBack success,
                             final CallBackWith<String> fail) {
 
-        Call<BaseResponse<String>> call = service.updateCover(authorization, tripId, cover);
+        Call<BaseResponse<String>> call = service.updateCover(AppConfig.getInstance().getAuthorization(), tripId, cover);
 
         call.enqueue(new Callback<BaseResponse<String>>() {
             @Override
@@ -525,10 +520,10 @@ public class APIManager {
         });
     }
 
-    public void join(String authorization, String tripId, final CallBack expired,
+    public void join(String tripId, final CallBack expired,
                      final CallBack success, final CallBackWith<String> fail) {
 
-        Call<BaseResponse<String>> call = service.join(authorization, tripId);
+        Call<BaseResponse<String>> call = service.join(AppConfig.getInstance().getAuthorization(), tripId);
         call.enqueue(new Callback<BaseResponse<String>>() {
             @Override
             public void onResponse(Call<BaseResponse<String>> call, Response<BaseResponse<String>> response) {
@@ -551,10 +546,10 @@ public class APIManager {
         });
     }
 
-    public void getNotification(String authorization, final CallBack expired,
+    public void getNotification(final CallBack expired,
                                 final CallBackWith<Notifications> success, final CallBackWith<String> fail) {
 
-        Call<BaseResponse<Notifications>> call = service.getNotification(authorization);
+        Call<BaseResponse<Notifications>> call = service.getNotification(AppConfig.getInstance().getAuthorization());
         call.enqueue(new Callback<BaseResponse<Notifications>>() {
             @Override
             public void onResponse(Call<BaseResponse<Notifications>> call, Response<BaseResponse<Notifications>> response) {
@@ -577,10 +572,10 @@ public class APIManager {
         });
     }
 
-    public void accept(String authorization, String tripId, String notiId, int verify, final CallBack expired,
+    public void accept(String tripId, String notiId, int verify, final CallBack expired,
                        final CallBack success, final CallBackWith<String> fail) {
 
-        Call<BaseResponse<String>> call = service.accept(authorization, tripId, notiId, verify);
+        Call<BaseResponse<String>> call = service.accept(AppConfig.getInstance().getAuthorization(), tripId, notiId, verify);
 
         call.enqueue(new Callback<BaseResponse<String>>() {
             @Override
@@ -603,10 +598,11 @@ public class APIManager {
             }
         });
     }
-    public void verify(String authorization, String tripId, String notiId, int verify, final CallBack expired,
+
+    public void verify(String tripId, String notiId, int verify, final CallBack expired,
                        final CallBack success, final CallBackWith<String> fail) {
 
-        Call<BaseResponse<String>> call = service.verify(authorization, tripId, notiId, verify);
+        Call<BaseResponse<String>> call = service.verify(AppConfig.getInstance().getAuthorization(), tripId, notiId, verify);
 
         call.enqueue(new Callback<BaseResponse<String>>() {
             @Override
@@ -629,8 +625,9 @@ public class APIManager {
             }
         });
     }
-    public void addMembers(String authorization,  String tripId, String fbId, final CallBack expired,
-                       final CallBack success, final CallBackWith<String> fail) {
+
+    public void addMembers(String authorization, String tripId, String fbId, final CallBack expired,
+                           final CallBack success, final CallBackWith<String> fail) {
 
         Call<BaseResponse<String>> call = service.addMember(authorization, tripId, fbId);
 
@@ -655,12 +652,13 @@ public class APIManager {
             }
         });
     }
-    public void kick(String authorization, String tripId, String fbId,
+
+    public void kick(String tripId, String fbId,
                      final CallBack expired,
                      final CallBack success,
                      final CallBackWith<String> fail) {
 
-        Call<BaseResponse<String>> call = service.kick(authorization, tripId, fbId);
+        Call<BaseResponse<String>> call = service.kick(AppConfig.getInstance().getAuthorization(), tripId, fbId);
 
         call.enqueue(new Callback<BaseResponse<String>>() {
             @Override

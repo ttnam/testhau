@@ -16,6 +16,7 @@ import io.yostajsc.core.utils.StorageUtils;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.activities.user.LoginActivity;
 import io.yostajsc.izigo.activities.user.ProfileActivity;
+import io.yostajsc.izigo.configs.AppConfig;
 import io.yostajsc.izigo.configs.AppDefine;
 import io.yostajsc.view.OwnToolBar;
 
@@ -93,12 +94,10 @@ public class SettingActivity extends ActivityCoreBehavior {
         switchNotify.toggle();
     }
 
+    @Override
     @OnClick(R.id.layout_logout)
-    public void logout() {
-        StorageUtils.inject(SettingActivity.this).removes(AppDefine.AUTHORIZATION);
-        LoginManager.getInstance().logOut();
-        startActivity(new Intent(this, LoginActivity.class));
-        finish();
+    protected void onExpired() {
+        super.onExpired();
     }
 
     @OnClick(R.id.layout_about)

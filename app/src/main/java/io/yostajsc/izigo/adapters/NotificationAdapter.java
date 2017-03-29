@@ -120,9 +120,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationsViewH
 
     private void accept(final int pos, String tripId, String notiId, final int accept) {
 
-        String authorization = StorageUtils.inject(mContext).getString(AppDefine.AUTHORIZATION);
-
-        APIManager.connect().accept(authorization, tripId, notiId, accept, new CallBack() {
+        APIManager.connect().accept(tripId, notiId, accept, new CallBack() {
             @Override
             public void run() {
 
@@ -146,9 +144,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationsViewH
 
     private void verify(final int pos, String tripId, String notiId, final int accept) {
 
-        String authorization = StorageUtils.inject(mContext).getString(AppDefine.AUTHORIZATION);
-
-        APIManager.connect().verify(authorization, tripId, notiId, accept, new CallBack() {
+        APIManager.connect().verify(tripId, notiId, accept, new CallBack() {
             @Override
             public void run() {
 

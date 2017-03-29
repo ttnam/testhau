@@ -17,6 +17,10 @@
         <item name="android:textColor">@color/colorPrimary</item>
     </style>
 
+    <style name="AppTheme.TextView_Label" parent="CoreAppTheme.TextView_Label">
+        <item name="android:background">@drawable/ic_style_circle_blue_none</item>
+    </style>
+
     <style name="AppTheme.TextView_Title.Bold.ColorPrimary" parent="CoreAppTheme.TextView_Title.Bold">
         <item name="android:textColor">@color/colorPrimary</item>
     </style>

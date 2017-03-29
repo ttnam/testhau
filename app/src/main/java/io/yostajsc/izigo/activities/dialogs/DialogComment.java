@@ -126,10 +126,7 @@ public class DialogComment extends Dialog {
         // Load from internet
         if (NetworkUtils.isNetworkConnected(mOwnerActivity)) {
 
-            String authorization = StorageUtils.inject(mOwnerActivity).getString(AppDefine.AUTHORIZATION);
-
-            if (ValidateUtils.canUse(authorization)) {
-                APIManager.connect().getComments(authorization, tripId, new CallBack() {
+                APIManager.connect().getComments(tripId, new CallBack() {
                     @Override
                     public void run() {
                         // TODO: expired
@@ -147,7 +144,6 @@ public class DialogComment extends Dialog {
 
                     }
                 });
-            }
         }
     }
 

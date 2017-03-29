@@ -83,7 +83,7 @@
                     android:layout_gravity="center"
                     android:layout_marginEnd="@dimen/margin"
                     android:layout_marginRight="@dimen/margin"
-                    app:srcCompat="@drawable/circle_view_green" />
+                    app:srcCompat="@drawable/ic_style_circle_green_none" />
 
 
                 <TextView

@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
+
 import io.yostajsc.backend.core.APIManager;
 import io.yostajsc.core.utils.StorageUtils;
 import io.yostajsc.core.utils.ValidateUtils;
@@ -23,10 +24,7 @@ public class FirebaseInstanceIDService extends FirebaseInstanceIdService {
 
     private void sendRegistrationToServer(String token) {
         try {
-            String authorization = StorageUtils.inject(this).getString(AppDefine.AUTHORIZATION);
-            if (ValidateUtils.canUse(authorization)) {
-                APIManager.connect().updateFcm(authorization, token);
-            }
+            APIManager.connect().updateFcm(token);
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
         }

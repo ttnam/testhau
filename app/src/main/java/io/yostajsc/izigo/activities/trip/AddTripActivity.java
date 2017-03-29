@@ -251,11 +251,9 @@ public class AddTripActivity extends ActivityCoreBehavior {
             Toast.makeText(this, "Thời gian đến không hợp lệ", Toast.LENGTH_SHORT).show();
             return;
         }
-        String authorization = StorageUtils.inject(this).getString(AppDefine.AUTHORIZATION);
-
         progressBar.setVisibility(View.VISIBLE);
 
-        APIManager.connect().createTrips(authorization, groupName, to.toString(), from.toString(), description,
+        APIManager.connect().createTrips(groupName, to.toString(), from.toString(), description,
                 0,
                 0, 1, new CallBack() {
                     @Override

@@ -14,6 +14,7 @@ import io.yostajsc.core.dialogs.DialogNoNet;
 import io.yostajsc.core.interfaces.ActivityCoreInterface;
 import io.yostajsc.core.utils.StorageUtils;
 import io.yostajsc.izigo.activities.user.LoginActivity;
+import io.yostajsc.izigo.configs.AppConfig;
 import io.yostajsc.izigo.configs.AppDefine;
 
 
@@ -61,7 +62,7 @@ public class ActivityCoreBehavior extends AppCompatActivity implements ActivityC
     }
 
     protected void onExpired() {
-        StorageUtils.inject(this).removes(AppDefine.AUTHORIZATION);
+        StorageUtils.inject(this).removes(AppConfig.AUTHORIZATION);
         LoginManager.getInstance().logOut();
         startActivity(new Intent(this, LoginActivity.class));
         finish();

@@ -17,9 +17,7 @@ import butterknife.OnClick;
 import io.yostajsc.backend.core.APIManager;
 import io.yostajsc.core.interfaces.CallBack;
 import io.yostajsc.core.interfaces.CallBackWith;
-import io.yostajsc.core.interfaces.OnConnectionTimeoutListener;
 import io.yostajsc.core.utils.NetworkUtils;
-import io.yostajsc.core.utils.StorageUtils;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.activities.trip.AddTripActivity;
 import io.yostajsc.izigo.activities.trip.TripDetailActivity;
@@ -98,11 +96,8 @@ public class OwnTripFragment extends Fragment {
     }
 
     private void onInternetConnected() {
-        String authorization = StorageUtils.inject(mContext)
-                .getString(AppDefine.AUTHORIZATION);
-
         // Load from server
-        APIManager.connect().getOwnTripsList(authorization, new CallBack() {
+        APIManager.connect().getOwnTripsList(new CallBack() {
             @Override
             public void run() {
                 // TODO: Expired

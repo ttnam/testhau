@@ -42,6 +42,7 @@ import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.activities.MainActivity;
 import io.yostajsc.backend.core.APIManager;
 import io.yostajsc.izigo.activities.ActivityCoreBehavior;
+import io.yostajsc.izigo.configs.AppConfig;
 import io.yostajsc.izigo.configs.AppDefine;
 import io.yostajsc.izigo.firebase.FirebaseManager;
 import io.yostajsc.izigo.models.user.User;
@@ -90,7 +91,7 @@ public class LoginActivity extends ActivityCoreBehavior {
             public void run() {
                 AccessToken token = AccessToken.getCurrentAccessToken();
                 if (token != null) {
-                    String authorization = StorageUtils.inject(LoginActivity.this).getString(AppDefine.AUTHORIZATION);
+                    String authorization = AppConfig.getInstance().getAuthorization();
                     if (ValidateUtils.canUse(authorization)) {
                         startActivity(new Intent(LoginActivity.this, MainActivity.class));
                         finish();
@@ -215,7 +216,7 @@ public class LoginActivity extends ActivityCoreBehavior {
                 public void run(String authorization) {
                     Log.d(TAG, authorization);
 
-                    StorageUtils.inject(LoginActivity.this).save(AppDefine.AUTHORIZATION, authorization);
+                    StorageUtils.inject(LoginActivity.this).save(AppConfig.AUTHORIZATION, authorization);
 
                     int isFirstTime = StorageUtils.inject(LoginActivity.this)
                             .getInt(AppDefine.FIRST_TIME);

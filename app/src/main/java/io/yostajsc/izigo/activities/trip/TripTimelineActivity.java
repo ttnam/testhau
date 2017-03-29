@@ -119,28 +119,23 @@ public class TripTimelineActivity extends ActivityCoreBehavior {
 
     @Override
     public void onInternetConnected() {
-        String authorization = StorageUtils.inject(this).getString(AppDefine.AUTHORIZATION);
-
-        if (ValidateUtils.canUse(authorization)) {
-
-            APIManager.connect().getActivities(authorization, tripId, new CallBack() {
-                @Override
-                public void run() {
-                    onExpired();
-                }
-            }, new CallBackWith<Timelines>() {
-                @Override
-                public void run(final Timelines timelines) {
-                    RealmManager.insertOrUpdate(timelines);
-                    updateUI(timelines);
-                }
-            }, new CallBackWith<String>() {
-                @Override
-                public void run(String error) {
-                    Toast.makeText(TripTimelineActivity.this, error, Toast.LENGTH_SHORT).show();
-                }
-            });
-        }
+        APIManager.connect().getActivities(tripId, new CallBack() {
+            @Override
+            public void run() {
+                onExpired();
+            }
+        }, new CallBackWith<Timelines>() {
+            @Override
+            public void run(final Timelines timelines) {
+                RealmManager.insertOrUpdate(timelines);
+                updateUI(timelines);
+            }
+        }, new CallBackWith<String>() {
+            @Override
+            public void run(String error) {
+                Toast.makeText(TripTimelineActivity.this, error, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override

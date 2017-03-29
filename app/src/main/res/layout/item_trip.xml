@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_centerInParent="true"
-        android:background="@color/transparent_60" />
+        android:background="@color/transparent_40_black" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -34,7 +34,7 @@
             android:maxLines="2"
             android:minLines="1"
             android:text="Lake Huron"
-            android:textSize="@dimen/text_size_v3" />
+            android:textSize="@dimen/text_size_v2_5" />
 
         <View
             android:layout_width="@dimen/icon_size_x7"
@@ -59,9 +59,7 @@
                 android:gravity="center"
                 android:maxLines="1"
                 android:minLines="1"
-                android:text="0"
-                android:textAllCaps="true"
-                android:textSize="@dimen/text_size_v2" />
+                android:textAllCaps="true" />
 
             <android.support.v7.widget.AppCompatImageView
                 android:layout_width="@dimen/icon_size_x2"
@@ -88,9 +86,7 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:maxLines="1"
-                android:minLines="1"
-                android:text="CARSONVILLE"
-                android:textSize="@dimen/text_size_v2" />
+                android:minLines="1" />
 
 
         </LinearLayout>

@@ -20,7 +20,7 @@
             android:layout_height="@dimen/icon_size_x4"
             android:layout_gravity="center"
             android:layout_margin="@dimen/margin"
-            android:background="@drawable/circle_view_blue"
+            android:background="@drawable/ic_style_circle_blue_none"
             android:gravity="center"
             android:padding="@dimen/margin"
             android:text="1" />

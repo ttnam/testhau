@@ -235,29 +235,6 @@
 
                 </LinearLayout>
 
-                <LinearLayout
-                    style="@style/Style_Menu_Item.Press"
-                    android:layout_width="match_parent"
-                    android:orientation="horizontal">
-
-                    <android.support.v7.widget.AppCompatImageView
-                        style="@style/CoreAppTheme.IconClick"
-                        android:layout_width="@dimen/icon_size_x3"
-                        android:layout_height="@dimen/icon_size_x3"
-                        android:layout_gravity="center_vertical"
-                        app:srcCompat="@drawable/ic_vector_delete" />
-
-                    <TextView
-                        style="@style/CoreAppTheme.TextView_Sub_Title"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="@dimen/margin_x2"
-                        android:layout_marginStart="@dimen/margin_x2"
-                        android:text="Clear Search History" />
-
-                </LinearLayout>
-
             </LinearLayout>
 
             <LinearLayout
@@ -385,29 +362,6 @@
 
                         </LinearLayout>
                     </LinearLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    style="@style/Style_Menu_Item.Press"
-                    android:layout_width="match_parent"
-                    android:orientation="horizontal">
-
-                    <android.support.v7.widget.AppCompatImageView
-                        style="@style/CoreAppTheme.IconClick"
-                        android:layout_width="@dimen/icon_size_x3"
-                        android:layout_height="@dimen/icon_size_x3"
-                        android:layout_gravity="center_vertical"
-                        app:srcCompat="@drawable/ic_vector_help" />
-
-                    <TextView
-                        style="@style/CoreAppTheme.TextView_Title"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="@dimen/margin_x2"
-                        android:layout_marginStart="@dimen/margin_x2"
-                        android:text="@string/setting_help" />
 
                 </LinearLayout>
 

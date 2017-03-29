@@ -4,7 +4,6 @@ import android.Manifest;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
@@ -19,6 +18,7 @@ import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,7 +39,6 @@ import io.yostajsc.core.interfaces.CallBackWith;
 import io.yostajsc.core.code.MessageType;
 import io.yostajsc.core.utils.DatetimeUtils;
 import io.yostajsc.core.utils.NetworkUtils;
-import io.yostajsc.core.utils.StorageUtils;
 import io.yostajsc.core.utils.ValidateUtils;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.activities.ActivityManagerActivity;
@@ -106,6 +105,9 @@ public class TripDetailActivity extends ActivityCoreBehavior {
     @BindView(R.id.button_more)
     AppCompatImageView buttonMore;
 
+    @BindView(R.id.switch_publish)
+    Switch switchPublish;
+
     @BindView(R.id.button)
     FloatingActionButton button;
 
@@ -167,6 +169,7 @@ public class TripDetailActivity extends ActivityCoreBehavior {
             case 2:
                 break;
             case 3:
+                changeTripName();
                 break;
             case 4:
                 BottomSheetDialogFragment bottomSheetDialogFragment = new BottomSheetDialog();
@@ -179,6 +182,10 @@ public class TripDetailActivity extends ActivityCoreBehavior {
                 break;
         }
         return super.onContextItemSelected(item);
+    }
+
+    private void changeTripName() {
+
     }
 
     @Override
@@ -202,20 +209,19 @@ public class TripDetailActivity extends ActivityCoreBehavior {
     private void updateUI(final Trip trip) {
 
         try {
-
-
             if (trip == null) return;
             roleType = trip.getRole();
-
             switch (roleType) {
+                case RoleType.MEMBER:
                 case RoleType.GUEST:
                     buttonMore.setVisibility(View.INVISIBLE);
                     button.setImageResource(R.drawable.ic_add_user);
+                    switchPublish.setVisibility(View.INVISIBLE);
                     break;
-                case RoleType.MEMBER:
                 case RoleType.ADMIN:
                     buttonMore.setVisibility(View.VISIBLE);
                     button.setImageResource(R.drawable.ic_marker);
+                    switchPublish.setVisibility(View.VISIBLE);
                     break;
 
             }
@@ -241,43 +247,31 @@ public class TripDetailActivity extends ActivityCoreBehavior {
                 }
             }, 10);
 
-            new AsyncTask<Trip, Void, Trip>() {
+            int nPhotos = trip.getAlbum().size();
+            textNumberOfPhoto.setText(getResources().getQuantityString(R.plurals.photos, nPhotos, nPhotos));
+            albumAdapter.replaceAll(trip.getAlbum());
 
-                @Override
-                protected Trip doInBackground(Trip... params) {
-                    return params[0];
-                }
+            UiUtils.showTextCenterInWebView(webView, trip.getDescription());
 
-                @Override
-                protected void onPostExecute(Trip trip) {
-                    super.onPostExecute(trip);
+            textTripName.setText(trip.getTripName());
+            textCreatorName.setText(trip.getCreatorName());
 
-                    int nPhotos = trip.getAlbum().size();
-                    textNumberOfPhoto.setText(getResources().getQuantityString(R.plurals.photos, nPhotos, nPhotos));
-                    albumAdapter.replaceAll(trip.getAlbum());
+            int nViews = trip.getNumberOfView();
+            textViews.setText(getResources().getQuantityString(R.plurals.views, nViews, nViews));
 
-                    UiUtils.showTextCenterInWebView(webView, trip.getDescription());
+            int nComments = trip.getNumberOfComments();
+            textNumberOfComments.setText(getResources().getQuantityString(R.plurals.comments, nComments, nComments));
 
-                    textTripName.setText(trip.getTripName());
-                    textCreatorName.setText(trip.getCreatorName());
+            int nActivities = trip.getNumberOfActivities();
+            textNumberOfActivities.setText(getResources().getQuantityString(R.plurals.activities, nActivities, nActivities));
 
-                    int nViews = trip.getNumberOfView();
-                    textViews.setText(String.valueOf(nViews));
+            int nMembers = trip.getNumberOfMembers();
+            textNumberOfMembers.setText(getResources().getQuantityString(R.plurals.members, nMembers, nMembers));
 
-                    int nComments = trip.getNumberOfComments();
-                    textNumberOfComments.setText(getResources().getQuantityString(R.plurals.comments, nComments, nComments));
-
-                    int nActivities = trip.getNumberOfActivities();
-                    textNumberOfActivities.setText(getResources().getQuantityString(R.plurals.activities, nActivities, nActivities));
-
-                    textNumberOfMembers.setText(String.valueOf(trip.getNumberOfMembers()));
-
-                    textTime.setText(String.format("%s - %s",
-                            DatetimeUtils.getDate(trip.getDepartTime()),
-                            DatetimeUtils.getDate(trip.getArriveTime()))
-                    );
-                }
-            }.execute(trip);
+            textTime.setText(String.format("%s - %s",
+                    DatetimeUtils.getDate(trip.getDepartTime()),
+                    DatetimeUtils.getDate(trip.getArriveTime()))
+            );
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -306,9 +300,7 @@ public class TripDetailActivity extends ActivityCoreBehavior {
 
     private void updateCover(String url) {
 
-        String authorization = StorageUtils.inject(this).getString(AppDefine.AUTHORIZATION);
-
-        APIManager.connect().updateCover(authorization, tripId, url, new CallBack() {
+        APIManager.connect().updateCover(tripId, url, new CallBack() {
             @Override
             public void run() {
                 onExpired();
@@ -349,8 +341,7 @@ public class TripDetailActivity extends ActivityCoreBehavior {
     public void onTransfer(View view) {
         if (!view.isClickable())
             return;
-        if (roleType == RoleType.ADMIN ||
-                roleType == RoleType.MEMBER) {
+        if (roleType == RoleType.ADMIN) {
             DialogPickTransfer dialogPickTransfer = new DialogPickTransfer(this);
             dialogPickTransfer.setDialogResult(new CallBackWith<Integer>() {
                 @Override
@@ -365,9 +356,7 @@ public class TripDetailActivity extends ActivityCoreBehavior {
     @OnClick(R.id.button)
     public void actionLink() {
         if (roleType == RoleType.GUEST) {
-            String authorization = StorageUtils.inject(this)
-                    .getString(AppDefine.AUTHORIZATION);
-            APIManager.connect().join(authorization, tripId, new CallBack() {
+            APIManager.connect().join(tripId, new CallBack() {
                 @Override
                 public void run() {
                     onExpired();
@@ -437,28 +426,23 @@ public class TripDetailActivity extends ActivityCoreBehavior {
     @Override
     public void onInternetConnected() {
         super.onInternetConnected();
-        String authorization = StorageUtils.inject(this).getString(AppDefine.AUTHORIZATION);
-        if (ValidateUtils.canUse(authorization)) {
-            APIManager.connect().getTripDetail(authorization, tripId, new CallBackWith<Trip>() {
-                @Override
-                public void run(Trip trip) {
-                    RealmManager.insertOrUpdate(trip);
-                    updateUI(trip);
-                }
-            }, new CallBack() {
-                @Override
-                public void run() {
-                    onExpired();
-                }
-            }, new CallBackWith<String>() {
-                @Override
-                public void run(String error) {
-                    Toast.makeText(TripDetailActivity.this, error, Toast.LENGTH_SHORT).show();
-                }
-            });
-        } else {
-            onExpired();
-        }
+        APIManager.connect().getTripDetail(tripId, new CallBackWith<Trip>() {
+            @Override
+            public void run(Trip trip) {
+                RealmManager.insertOrUpdate(trip);
+                updateUI(trip);
+            }
+        }, new CallBack() {
+            @Override
+            public void run() {
+                onExpired();
+            }
+        }, new CallBackWith<String>() {
+            @Override
+            public void run(String error) {
+                Toast.makeText(TripDetailActivity.this, error, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override

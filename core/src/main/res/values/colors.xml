@@ -158,10 +158,19 @@
     <color name="Yellow">#FFFF00</color>
     <color name="YellowGreen">#9ACD32</color>
 
-    <color name="transparent_20">#33000000</color>
-    <color name="transparent_30">#4D000000</color>
-    <color name="transparent_40">#66000000</color>
-    <color name="transparent_60">#99000000</color>
+
+    <color name="transparent_20_white">#33FFFFFF</color>
+    <color name="transparent_30_white">#4DFFFFFF</color>
+    <color name="transparent_40_white">#66FFFFFF</color>
+    <color name="transparent_50_white">#80FFFFFF</color>
+    <color name="transparent_60_white">#99FFFFFF</color>
+
+    <color name="transparent_20_black">#33000000</color>
+    <color name="transparent_30_black">#4D000000</color>
+    <color name="transparent_40_black">#66000000</color>
+    <color name="transparent_50_black">#80000000</color>
+    <color name="transparent_60_black">#99000000</color>
+    <color name="transparent_70_black">#B3000000</color>
 
     <color name="colorTextColorPrimary">#212121</color>
     <color name="colorTextColorSecondary">#757575</color>

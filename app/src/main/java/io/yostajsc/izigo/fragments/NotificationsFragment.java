@@ -56,9 +56,7 @@ public class NotificationsFragment extends CoreFragment {
 
     private void onApplyData() {
 
-        String authorization = StorageUtils.inject(mContext).getString(AppDefine.AUTHORIZATION);
-
-        APIManager.connect().getNotification(authorization, new CallBack() {
+        APIManager.connect().getNotification(new CallBack() {
             @Override
             public void run() {
                 // TODO:

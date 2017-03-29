@@ -27,7 +27,7 @@
                 android:layout_width="@dimen/icon_size"
                 android:layout_height="@dimen/icon_size"
                 android:layout_gravity="center|end"
-                android:background="@drawable/circle_view_green" />
+                android:background="@drawable/ic_style_circle_green_none" />
 
         </FrameLayout>
 

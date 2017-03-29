@@ -1,6 +1,7 @@
 package io.yostajsc.izigo.configs;
 
 import android.support.multidex.MultiDexApplication;
+
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.iid.FirebaseInstanceId;
 
@@ -17,6 +18,7 @@ import io.yostajsc.izigo.firebase.FirebaseManager;
 public class AppConfig extends MultiDexApplication {
 
     public static final String TAG = AppConfig.class.getSimpleName();
+    public static final String AUTHORIZATION = "AUTHORIZATION";
 
     private static AppConfig mInstance;
 
@@ -63,4 +65,7 @@ public class AppConfig extends MultiDexApplication {
                 "fonts/AvenirNext-Regular.ttf");
     }
 
+    public String getAuthorization() {
+        return StorageUtils.inject(this).getString(AUTHORIZATION);
+    }
 }

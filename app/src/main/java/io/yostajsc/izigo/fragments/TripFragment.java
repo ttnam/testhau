@@ -84,10 +84,7 @@ public class TripFragment extends Fragment {
     private void onTripItemClick(int pos) {
 
         final String tripId = tripAdapter.getItem(pos).getTripId();
-
-        String authorization = StorageUtils.inject(mContext).getString(AppDefine.AUTHORIZATION);
-
-        APIManager.connect().trackingViews(authorization, tripId, new CallBack() {
+        APIManager.connect().trackingViews(tripId, new CallBack() {
             @Override
             public void run() {
                 // TODO: expired
@@ -114,11 +111,8 @@ public class TripFragment extends Fragment {
     }
 
     private void onInternetConnected() {
-        String authorization = StorageUtils.inject(mContext)
-                .getString(AppDefine.AUTHORIZATION);
-
         // Load from server
-        APIManager.connect().getTripsList(authorization, new CallBack() {
+        APIManager.connect().getTripsList(new CallBack() {
             @Override
             public void run() {
                 // TODO: Expired
