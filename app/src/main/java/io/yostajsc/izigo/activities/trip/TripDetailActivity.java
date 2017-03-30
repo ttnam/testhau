@@ -1,6 +1,7 @@
 package io.yostajsc.izigo.activities.trip;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -10,13 +11,16 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.ContextMenu;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
+import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,6 +37,7 @@ import butterknife.OnClick;
 import io.yostajsc.backend.core.APIManager;
 import io.yostajsc.constants.RoleType;
 import io.yostajsc.constants.TransferType;
+import io.yostajsc.constants.TripTypePermission;
 import io.yostajsc.core.interfaces.CallBack;
 import io.yostajsc.core.interfaces.CallBackWith;
 import io.yostajsc.core.code.MessageType;
@@ -41,11 +46,11 @@ import io.yostajsc.core.utils.NetworkUtils;
 import io.yostajsc.core.utils.ValidateUtils;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.activities.ActivityManagerActivity;
-import io.yostajsc.izigo.activities.MainActivity;
 import io.yostajsc.izigo.activities.dialogs.DialogComment;
 import io.yostajsc.izigo.activities.dialogs.DialogPickTransfer;
 import io.yostajsc.izigo.adapters.ImageryAdapter;
 import io.yostajsc.izigo.activities.ActivityCoreBehavior;
+import io.yostajsc.izigo.configs.AppConfig;
 import io.yostajsc.izigo.configs.AppDefine;
 import io.yostajsc.izigo.managers.RealmManager;
 import io.yostajsc.izigo.models.trip.Trip;
@@ -122,21 +127,69 @@ public class TripDetailActivity extends ActivityCoreBehavior {
         setContentView(R.layout.activity_trip_detail);
         ButterKnife.bind(this);
         onApplyViews();
+        onApplyEvents();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
         onApplyData();
+    }
+
+    @Override
+    public void onApplyEvents() {
+        super.onApplyEvents();
+
+        switchPublish.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    APIManager.connect().updateTripInfo(tripId, "1", TripTypePermission.STATUS, new CallBack() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(TripDetailActivity.this, getString(R.string.str_success), Toast.LENGTH_SHORT).show();
+                        }
+                    }, new CallBackWith<String>() {
+                        @Override
+                        public void run(String error) {
+                            Toast.makeText(TripDetailActivity.this, error, Toast.LENGTH_SHORT).show();
+                        }
+                    }, new CallBack() {
+                        @Override
+                        public void run() {
+                            onExpired();
+                        }
+                    });
+                } else {
+                    APIManager.connect().updateTripInfo(tripId, "0", TripTypePermission.STATUS, new CallBack() {
+                        @Override
+                        public void run() {
+                            AppConfig.showToast(TripDetailActivity.this, getString(R.string.str_success));
+                        }
+                    }, new CallBackWith<String>() {
+                        @Override
+                        public void run(String error) {
+                            AppConfig.showToast(TripDetailActivity.this, error);
+                        }
+                    }, new CallBack() {
+                        @Override
+                        public void run() {
+                            onExpired();
+                        }
+                    });
+                }
+            }
+        });
     }
 
     @Override
     @OnClick(R.id.button_left)
     public void onBackPressed() {
-        startActivity(new Intent(this, MainActivity.class));
-        finish();
+        super.onBackPressed();
     }
 
     @Override
     public void onApplyViews() {
-
-        registerForContextMenu(buttonMore);
-        registerForContextMenu(imageCover);
 
         // set cover size
         this.albumAdapter = new ImageryAdapter(this);
@@ -168,9 +221,10 @@ public class TripDetailActivity extends ActivityCoreBehavior {
             case 1:
                 TripDetailActivityPermissionsDispatcher.getImageFromGalleryWithCheck(this);
                 break;
-            /*case 2:
+            case 2:
+                changeTripName();
                 break;
-            case 3:
+            /*case 3:
                 changeTripName();
                 break;
             case 4:
@@ -188,6 +242,35 @@ public class TripDetailActivity extends ActivityCoreBehavior {
 
     private void changeTripName() {
 
+        View promptsView = LayoutInflater.from(this).inflate(R.layout.view_dialog_input, null);
+
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setView(promptsView);
+        final EditText userInput = (EditText) promptsView
+                .findViewById(R.id.text_view);
+        userInput.setText(textTripName.getText());
+        // set dialog message
+        alertDialogBuilder.setCancelable(false)
+                .setPositiveButton(android.R.string.ok,
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                String res = userInput.getText().toString();
+                                if (ValidateUtils.canUse(res)) {
+                                    textTripName.setText(res);
+                                    updateTrip(res, TripTypePermission.NAME);
+                                }
+                            }
+                        })
+                .setNegativeButton(android.R.string.cancel,
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+
     }
 
     @Override
@@ -195,13 +278,6 @@ public class TripDetailActivity extends ActivityCoreBehavior {
         Intent intent = this.getIntent();
         tripId = intent.getStringExtra(AppDefine.TRIP_ID);
         if (ValidateUtils.canUse(tripId)) {
-            // Read from disk
-            RealmManager.findTripById(tripId, new CallBackWith<Trip>() {
-                @Override
-                public void run(Trip trip) {
-                    updateUI(trip);
-                }
-            });
             if (NetworkUtils.isNetworkConnected(this)) {
                 onInternetConnected();
             }
@@ -221,13 +297,17 @@ public class TripDetailActivity extends ActivityCoreBehavior {
                     switchPublish.setVisibility(View.INVISIBLE);
                     textEdit.setVisibility(View.GONE);
                     break;
-                case RoleType.ADMIN:
+                case RoleType.ADMIN: {
                     buttonMore.setVisibility(View.VISIBLE);
                     button.setImageResource(R.drawable.ic_marker);
                     switchPublish.setVisibility(View.VISIBLE);
                     textEdit.setVisibility(View.VISIBLE);
-                    break;
+                    registerForContextMenu(buttonMore);
+                    registerForContextMenu(imageCover);
+                    switchPublish.setChecked(trip.isPublished());
 
+                    break;
+                }
             }
 
             // Avatar
@@ -295,35 +375,27 @@ public class TripDetailActivity extends ActivityCoreBehavior {
             uploadTask.addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                    updateCover(task.getResult().getDownloadUrl().toString());
+                    updateTrip(task.getResult().getDownloadUrl().toString(), TripTypePermission.COVER);
                 }
             });
         }
 
     }
 
-    private void updateCover(String url) {
+    private void updateTrip(String data, @TripTypePermission int type) {
 
-        APIManager.connect().updateCover(tripId, url, new CallBack() {
+        APIManager.connect().updateTripInfo(tripId, data, type, new CallBack() {
             @Override
             public void run() {
-                onExpired();
-            }
-        }, new CallBack() {
-            @Override
-            public void run() {
-                Toast.makeText(TripDetailActivity.this, "OK", Toast.LENGTH_SHORT).show();
+                Toast.makeText(TripDetailActivity.this, getString(R.string.str_success), Toast.LENGTH_SHORT).show();
             }
         }, new CallBackWith<String>() {
             @Override
             public void run(String error) {
-                // TODO:
-                Log.e(TAG, error);
-                Toast.makeText(TripDetailActivity.this, error, Toast.LENGTH_SHORT).show();
+                AppConfig.showToast(TripDetailActivity.this, error);
             }
-        });
+        }, mExpireCallBack);
     }
-
 
     @OnClick(R.id.text_number_of_comment)
     public void onLoadComment() {
@@ -332,18 +404,10 @@ public class TripDetailActivity extends ActivityCoreBehavior {
         dialogComment.setTripId(tripId);
     }
 
-
-    @OnClick(R.id.image_view)
-    public void editCover() {
+    @OnClick({R.id.button_more, R.id.image_view})
+    public void showContextMenu(AppCompatImageView button) {
         if (roleType == RoleType.ADMIN) {
-            imageCover.performLongClick();
-        }
-    }
-
-    @OnClick(R.id.button_more)
-    public void more() {
-        if (roleType == RoleType.ADMIN) {
-            buttonMore.performLongClick();
+            button.performLongClick();
         }
     }
 
@@ -379,7 +443,7 @@ public class TripDetailActivity extends ActivityCoreBehavior {
             }, new CallBackWith<String>() {
                 @Override
                 public void run(String error) {
-                    Toast.makeText(TripDetailActivity.this, error, Toast.LENGTH_SHORT).show();
+                    AppConfig.showToast(TripDetailActivity.this, error);
                 }
             });
         } else {
@@ -450,7 +514,7 @@ public class TripDetailActivity extends ActivityCoreBehavior {
         }, new CallBackWith<String>() {
             @Override
             public void run(String error) {
-                Toast.makeText(TripDetailActivity.this, error, Toast.LENGTH_SHORT).show();
+                AppConfig.showToast(TripDetailActivity.this, error);
             }
         });
     }

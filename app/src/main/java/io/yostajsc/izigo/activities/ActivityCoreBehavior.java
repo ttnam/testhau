@@ -12,10 +12,10 @@ import io.yostajsc.core.code.MessageInfo;
 import io.yostajsc.core.code.MessageType;
 import io.yostajsc.core.dialogs.DialogNoNet;
 import io.yostajsc.core.interfaces.ActivityCoreInterface;
+import io.yostajsc.core.interfaces.CallBack;
 import io.yostajsc.core.utils.StorageUtils;
 import io.yostajsc.izigo.activities.user.LoginActivity;
 import io.yostajsc.izigo.configs.AppConfig;
-import io.yostajsc.izigo.configs.AppDefine;
 
 
 /**
@@ -24,8 +24,13 @@ import io.yostajsc.izigo.configs.AppDefine;
 public class ActivityCoreBehavior extends AppCompatActivity implements ActivityCoreInterface {
 
 
-    private DialogNoNet dialogNoNet = null;
-
+    private DialogNoNet mDialogNoNet = null;
+    protected CallBack mExpireCallBack = new CallBack() {
+        @Override
+        public void run() {
+            onExpired();
+        }
+    };
 
     @Override
     public void onApplyViews() {
@@ -51,7 +56,7 @@ public class ActivityCoreBehavior extends AppCompatActivity implements ActivityC
     protected void onStart() {
         super.onStart();
         EventBus.getDefault().register(this);
-        this.dialogNoNet = new DialogNoNet(this);
+        this.mDialogNoNet = new DialogNoNet(this);
     }
 
     @Override
@@ -92,12 +97,12 @@ public class ActivityCoreBehavior extends AppCompatActivity implements ActivityC
     }
 
     private void dismissNoNetDialog() {
-        if (this.dialogNoNet != null)
-            this.dialogNoNet.dismiss();
+        if (this.mDialogNoNet != null)
+            this.mDialogNoNet.dismiss();
     }
 
     private void showNoNetDialog() {
-        if (this.dialogNoNet != null)
-            this.dialogNoNet.show();
+        if (this.mDialogNoNet != null)
+            this.mDialogNoNet.show();
     }
 }

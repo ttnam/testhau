@@ -1,6 +1,8 @@
 package io.yostajsc.izigo.configs;
 
+import android.app.Activity;
 import android.support.multidex.MultiDexApplication;
+import android.widget.Toast;
 
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -9,6 +11,8 @@ import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import io.yostajsc.core.utils.FontUtils;
 import io.yostajsc.core.utils.StorageUtils;
+import io.yostajsc.izigo.R;
+import io.yostajsc.izigo.activities.trip.TripDetailActivity;
 import io.yostajsc.izigo.firebase.FirebaseManager;
 
 /**
@@ -67,4 +71,10 @@ public class AppConfig extends MultiDexApplication {
     public String getAuthorization() {
         return StorageUtils.inject(this).getString(AUTHORIZATION);
     }
+
+    public static void showToast(Activity activity, String message) {
+        Toast.makeText(activity, message, Toast.LENGTH_SHORT).show();
+    }
+
+
 }

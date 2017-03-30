@@ -13,6 +13,7 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import io.yostajsc.backend.response.BaseResponse;
+import io.yostajsc.constants.TripTypePermission;
 import io.yostajsc.core.interfaces.CallBack;
 import io.yostajsc.core.interfaces.CallBackWith;
 import io.yostajsc.izigo.configs.AppConfig;
@@ -491,13 +492,17 @@ public class APIManager {
         });
     }
 
-    public void updateCover(String tripId, String cover,
-                            final CallBack expired,
-                            final CallBack success,
-                            final CallBackWith<String> fail) {
+    public void updateTripInfo(String tripId, String data, int type,
+                               final CallBack success,
+                               final CallBackWith<String> fail, final CallBack expired) {
 
-        Call<BaseResponse<String>> call = service.updateCover(AppConfig.getInstance().getAuthorization(), tripId, cover);
+        Call<BaseResponse<String>> call = service.updateTripCover(AppConfig.getInstance().getAuthorization(), tripId, data);
 
+        if (type == TripTypePermission.NAME) {
+            call = service.updateTripName(AppConfig.getInstance().getAuthorization(), tripId, data);
+        } else if (type == TripTypePermission.STATUS) {
+            call = service.updateTripStatus(AppConfig.getInstance().getAuthorization(), tripId, data);
+        }
         call.enqueue(new Callback<BaseResponse<String>>() {
             @Override
             public void onResponse(Call<BaseResponse<String>> call, Response<BaseResponse<String>> response) {
@@ -515,7 +520,7 @@ public class APIManager {
 
             @Override
             public void onFailure(Call<BaseResponse<String>> call, Throwable throwable) {
-                Log.e(TAG, throwable.getMessage());
+                log(throwable.getMessage());
             }
         });
     }

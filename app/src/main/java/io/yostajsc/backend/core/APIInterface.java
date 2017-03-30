@@ -87,8 +87,18 @@ interface APIInterface {
 
     @PUT("api/trips/{id}")
     @FormUrlEncoded
-    Call<BaseResponse<String>> updateCover(@Header("authen") String authorization,
-                                           @Path("id") String tripId, @Field("cover") String cover);
+    Call<BaseResponse<String>> updateTripCover(@Header("authen") String authorization,
+                                               @Path("id") String tripId, @Field("cover") String cover);
+
+    @PUT("api/trips/{id}")
+    @FormUrlEncoded
+    Call<BaseResponse<String>> updateTripName(@Header("authen") String authorization,
+                                              @Path("id") String tripId, @Field("name") String cover);
+
+    @PUT("api/trips/{id}")
+    @FormUrlEncoded
+    Call<BaseResponse<String>> updateTripStatus(@Header("authen") String authorization,
+                                                @Path("id") String tripId, @Field("is_published") String cover);
 
     @PUT("api/trips/{id}/join")
     Call<BaseResponse<String>> join(@Header("authen") String authorization,

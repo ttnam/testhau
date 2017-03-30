@@ -135,7 +135,12 @@ public class Trip extends RealmObject implements Serializable {
     public int getTransfer() {
         return mTransfer;
     }
+
     public int getRole() {
         return mRole;
+    }
+
+    public boolean isPublished() {
+        return this.mIsPublished.equals("1");
     }
 }
