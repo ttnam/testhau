@@ -10,6 +10,7 @@ import butterknife.ButterKnife;
 import io.yostajsc.core.designs.decorations.SpacesItemDecoration;
 import io.yostajsc.core.designs.listeners.RecyclerItemClickListener;
 import io.yostajsc.izigo.R;
+import io.yostajsc.izigo.activities.core.ActivityCoreBehavior;
 import io.yostajsc.izigo.adapters.TripAdapter;
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 

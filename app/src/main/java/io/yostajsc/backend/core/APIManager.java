@@ -24,6 +24,9 @@ import io.yostajsc.izigo.models.trip.Trip;
 import io.yostajsc.izigo.models.trip.Trips;
 import io.yostajsc.izigo.models.user.Friend;
 import io.yostajsc.izigo.models.user.User;
+import io.yostajsc.realm.trip.OwnTrip;
+import io.yostajsc.realm.trip.OwnTrips;
+import io.yostajsc.realm.trip.PublicTrips;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import retrofit2.Response;
@@ -42,8 +45,11 @@ public class APIManager {
     private static final String TAG = APIManager.class.getSimpleName();
 
     private static String SERVER_DOMAIN = "http://izigo.jelasticlw.com.br/";
+
     private static final int CONNECT_TIME_OUT = 20;
     private static final int READ_TIME_OUT = 20;
+
+    private static String mAuthorization = null;
 
     private APIInterface service = null;
     private static APIManager mInstance = null;
@@ -89,6 +95,7 @@ public class APIManager {
         if (mInstance == null) {
             mInstance = new APIManager();
         }
+        mAuthorization = AppConfig.getInstance().getAuthorization();
         return mInstance;
     }
 
@@ -143,59 +150,69 @@ public class APIManager {
         });
     }
 
-    public void getTripsList(final CallBack expired,
-                             final CallBackWith<Trips> success, final CallBackWith<String> fail) {
+    public void getAllPublicTrips(final CallBackWith<PublicTrips> successful,
+                                  final CallBack expired,
+                                  final CallBackWith<String> fail) {
+        try {
 
-        Call<BaseResponse<Trips>> call = service.getTrips(AppConfig.getInstance().getAuthorization());
-        call.enqueue(new Callback<BaseResponse<Trips>>() {
-            @Override
-            public void onResponse(Call<BaseResponse<Trips>> call, Response<BaseResponse<Trips>> response) {
-                if (response.isSuccessful()) {
-                    BaseResponse<Trips> res = response.body();
-                    if (res.isSuccessful()) {
-                        success.run(res.data());
-                    } else if (res.isExpired()) {
-                        expired.run();
-                    } else {
-                        fail.run(res.getDescription());
+
+            Call<BaseResponse<PublicTrips>> call = service.getAllPublicTrips(mAuthorization);
+            call.enqueue(new Callback<BaseResponse<PublicTrips>>() {
+                @Override
+                public void onResponse(Call<BaseResponse<PublicTrips>> call, Response<BaseResponse<PublicTrips>> response) {
+                    if (response.isSuccessful()) {
+                        BaseResponse<PublicTrips> res = response.body();
+                        if (res.isSuccessful()) {
+                            successful.run(res.data());
+                        } else if (res.isExpired()) {
+                            expired.run();
+                        } else {
+                            fail.run(res.getDescription());
+                        }
                     }
                 }
-            }
 
-            @Override
-            public void onFailure(Call<BaseResponse<Trips>> call, Throwable throwable) {
-                Log.e(TAG, throwable.getMessage());
-            }
-        });
-
+                @Override
+                public void onFailure(Call<BaseResponse<PublicTrips>> call, Throwable throwable) {
+                    fail.run(throwable.getMessage());
+                    log(throwable.getMessage());
+                }
+            });
+        } catch (Exception e) {
+            log(e.getMessage());
+        }
     }
 
 
-    public void getOwnTripsList(final CallBack expired,
-                                final CallBackWith<Trips> success, final CallBackWith<String> fail) {
-
-        Call<BaseResponse<Trips>> call = service.getOwnTrips(AppConfig.getInstance().getAuthorization());
-        call.enqueue(new Callback<BaseResponse<Trips>>() {
-            @Override
-            public void onResponse(Call<BaseResponse<Trips>> call, Response<BaseResponse<Trips>> response) {
-                if (response.isSuccessful()) {
-                    BaseResponse<Trips> res = response.body();
-                    if (res.isSuccessful()) {
-                        success.run(res.data());
-                    } else if (res.isExpired()) {
-                        expired.run();
-                    } else {
-                        fail.run(res.getDescription());
+    public void getAllOwnTripsList(final CallBackWith<OwnTrips> onSuccessful,
+                                   final CallBack expired,
+                                   final CallBackWith<String> fail) {
+        try {
+            Call<BaseResponse<OwnTrips>> call = service.getAllOwnTrips(mAuthorization);
+            call.enqueue(new Callback<BaseResponse<OwnTrips>>() {
+                @Override
+                public void onResponse(Call<BaseResponse<OwnTrips>> call, Response<BaseResponse<OwnTrips>> response) {
+                    if (response.isSuccessful()) {
+                        BaseResponse<OwnTrips> res = response.body();
+                        if (res.isSuccessful()) {
+                            onSuccessful.run(res.data());
+                        } else if (res.isExpired()) {
+                            expired.run();
+                        } else {
+                            fail.run(res.getDescription());
+                        }
                     }
                 }
-            }
 
-            @Override
-            public void onFailure(Call<BaseResponse<Trips>> call, Throwable throwable) {
-                Log.e(TAG, throwable.getMessage());
-            }
-        });
-
+                @Override
+                public void onFailure(Call<BaseResponse<OwnTrips>> call, Throwable throwable) {
+                    fail.run(throwable.getMessage());
+                    log(throwable.getMessage());
+                }
+            });
+        } catch (Exception e) {
+            log(e.getMessage());
+        }
     }
 
     public void updateFcm(String fcm) {

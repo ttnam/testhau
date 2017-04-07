@@ -20,6 +20,8 @@
     </style>
 
     <style name="AppTheme.TextView_Label" parent="CoreAppTheme.TextView_Label">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
         <item name="android:background">@drawable/ic_style_circle_blue_none</item>
     </style>
 
@@ -38,6 +40,7 @@
 
     <style name="Style_Menu_Item.Press" parent="CoreAppTheme.TextView_Title.Bold">
         <item name="android:layout_height">?actionBarSize</item>
+        <item name="android:layout_width">match_parent</item>
         <item name="android:paddingLeft">@dimen/margin_x2</item>
         <item name="android:paddingRight">@dimen/margin_x2</item>
         <item name="android:background">@drawable/ic_style_button_round_none_default</item>

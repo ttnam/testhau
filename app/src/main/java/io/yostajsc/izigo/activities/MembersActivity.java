@@ -18,11 +18,10 @@ import io.yostajsc.core.code.MessageType;
 import io.yostajsc.core.interfaces.CallBack;
 import io.yostajsc.core.interfaces.CallBackWith;
 import io.yostajsc.core.interfaces.ItemClick;
-import io.yostajsc.core.utils.StorageUtils;
 import io.yostajsc.izigo.R;
+import io.yostajsc.izigo.activities.core.ActivityCoreBehavior;
 import io.yostajsc.izigo.adapters.MemberAdapter;
 import io.yostajsc.izigo.configs.AppConfig;
-import io.yostajsc.izigo.configs.AppDefine;
 import io.yostajsc.izigo.models.user.Friend;
 import io.yostajsc.view.OwnToolBar;
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
@@ -69,7 +68,7 @@ public class MembersActivity extends ActivityCoreBehavior {
         super.onStart();
 
         Intent intent = getIntent();
-        mTripId = intent.getStringExtra(AppDefine.TRIP_ID);
+        mTripId = intent.getStringExtra(AppConfig.TRIP_ID);
         getMemberList();
     }
 

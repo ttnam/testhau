@@ -4,20 +4,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.Switch;
 import android.widget.TextView;
-
-import com.facebook.login.LoginManager;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.yostajsc.core.utils.StorageUtils;
 import io.yostajsc.izigo.R;
-import io.yostajsc.izigo.activities.user.LoginActivity;
+import io.yostajsc.izigo.activities.core.ActivityCoreBehavior;
 import io.yostajsc.izigo.activities.user.ProfileActivity;
 import io.yostajsc.izigo.configs.AppConfig;
-import io.yostajsc.izigo.configs.AppDefine;
 import io.yostajsc.view.OwnToolBar;
 
 public class SettingActivity extends ActivityCoreBehavior {
@@ -27,12 +22,6 @@ public class SettingActivity extends ActivityCoreBehavior {
 
     @BindView(R.id.layout_rating)
     LinearLayout layoutRating;
-
-    @BindView(R.id.switch_sync)
-    Switch switchSync;
-
-    @BindView(R.id.switch_notify)
-    Switch switchNotify;
 
     @BindView(R.id.txt_lang)
     TextView txtLang;
@@ -80,18 +69,8 @@ public class SettingActivity extends ActivityCoreBehavior {
     @OnClick(R.id.layout_profile)
     public void onCallProfile() {
         Intent intent = new Intent(this, ProfileActivity.class);
-        intent.putExtra(AppDefine.FIRST_TIME, false);
+        intent.putExtra(AppConfig.FIRST_TIME, false);
         startActivity(intent);
-    }
-
-    @OnClick(R.id.layout_auto_sync)
-    public void AutoSync() {
-        switchSync.toggle();
-    }
-
-    @OnClick(R.id.layout_notify)
-    public void Notify() {
-        switchNotify.toggle();
     }
 
     @Override

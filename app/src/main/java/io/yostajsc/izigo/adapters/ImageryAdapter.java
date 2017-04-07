@@ -1,6 +1,7 @@
 package io.yostajsc.izigo.adapters;
 
 import android.content.Context;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,8 +31,7 @@ public class ImageryAdapter extends RecyclerView.Adapter<ImageryViewHolder> {
                 .inflate(R.layout.item_imagery, null);
 
         int width = DimensionUtil.getScreenWidth(mContext) / 3;
-        int height = width * 2 / 3;
-        itemLayoutView.setLayoutParams(new RecyclerView.LayoutParams(width, height ));
+        itemLayoutView.setLayoutParams(new CardView.LayoutParams(width, CardView.LayoutParams.WRAP_CONTENT));
         return new ImageryViewHolder(itemLayoutView);
     }
 
@@ -55,6 +55,20 @@ public class ImageryAdapter extends RecyclerView.Adapter<ImageryViewHolder> {
             this.mUrls = new RealmList<>();
         clear();
         this.mUrls.addAll(photoInfos);
+        notifyDataSetChanged();
+    }
+
+    public void replaceAll(RealmList<BasePhotoInfo> album, int numberOfItem) {
+        if (mUrls == null)
+            this.mUrls = new RealmList<>();
+        clear();
+        int size = album.size();
+        if (size > numberOfItem) {
+            for (int i = 0; i < numberOfItem; i++)
+                this.mUrls.add(album.get(i));
+        } else {
+            this.mUrls.addAll(album);
+        }
         notifyDataSetChanged();
     }
 

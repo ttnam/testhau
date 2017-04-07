@@ -22,7 +22,7 @@ import io.yostajsc.core.interfaces.ItemClick;
 import io.yostajsc.core.code.MessageType;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.models.user.Friend;
-import io.yostajsc.view.glide.CropCircleTransformation;
+import io.yostajsc.core.glide.CropCircleTransformation;
 
 /**
  * Created by Phuc-Hau Nguyen on 12/1/2016.

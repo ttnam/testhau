@@ -1,4 +1,4 @@
-package io.yostajsc.view.glide;
+package io.yostajsc.core.glide;
 
 import android.content.Context;
 import android.graphics.Bitmap;

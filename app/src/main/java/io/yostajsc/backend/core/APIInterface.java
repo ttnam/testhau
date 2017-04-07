@@ -7,10 +7,11 @@ import io.yostajsc.backend.response.BaseResponse;
 import io.yostajsc.izigo.models.Timelines;
 import io.yostajsc.izigo.models.comment.Comments;
 import io.yostajsc.izigo.models.notification.Notifications;
-import io.yostajsc.izigo.models.trip.Trips;
 import io.yostajsc.izigo.models.user.User;
 import io.yostajsc.izigo.models.user.Friend;
 import io.yostajsc.izigo.models.trip.Trip;
+import io.yostajsc.realm.trip.OwnTrips;
+import io.yostajsc.realm.trip.PublicTrips;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
@@ -39,7 +40,10 @@ interface APIInterface {
                                      @FieldMap Map<String, String> fieldsFieldMap);
 
     @GET("api/trips")
-    Call<BaseResponse<Trips>> getTrips(@Header("authen") String authorization);
+    Call<BaseResponse<PublicTrips>> getAllPublicTrips(@Header("authen") String authorization);
+
+    @GET("api/trips/own")
+    Call<BaseResponse<OwnTrips>> getAllOwnTrips(@Header("authen") String authorization);
 
     @FormUrlEncoded
     @PUT("api/user")
@@ -72,9 +76,6 @@ interface APIInterface {
 
     @GET("api/trips/{id}/comment")
     Call<BaseResponse<Comments>> getComments(@Header("authen") String authorization, @Path("id") String tripId);
-
-    @GET("api/trips/own")
-    Call<BaseResponse<Trips>> getOwnTrips(@Header("authen") String authorization);
 
     @GET("api/trips/{id}/activity")
     Call<BaseResponse<Timelines>> getActivities(@Header("authen") String authorization, @Path("id") String tripId);

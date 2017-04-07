@@ -1,4 +1,4 @@
-package io.yostajsc.view.glide;
+package io.yostajsc.core.glide;
 
 /**
  * Created by Phuc-Hau Nguyen on 3/9/2017.

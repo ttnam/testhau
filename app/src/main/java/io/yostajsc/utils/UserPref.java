@@ -6,8 +6,7 @@ import android.preference.PreferenceManager;
 
 import com.google.gson.Gson;
 
-import io.yostajsc.core.utils.StorageUtils;
-import io.yostajsc.izigo.configs.AppDefine;
+import io.yostajsc.izigo.configs.AppConfig;
 import io.yostajsc.izigo.models.user.User;
 
 /**
@@ -39,7 +38,7 @@ public class UserPref {
         String json = gson.toJson(user);
 
         SharedPreferences.Editor editor = preferences.edit();
-        editor.putString(AppDefine.USER, json);
+        editor.putString(AppConfig.USER, json);
         editor.apply();
 
         return true;
@@ -50,8 +49,8 @@ public class UserPref {
         Gson gson = new Gson();
 
         User user = null;
-        if (preferences != null && preferences.contains(AppDefine.USER)) {
-            String json = preferences.getString(AppDefine.USER, "");
+        if (preferences != null && preferences.contains(AppConfig.USER)) {
+            String json = preferences.getString(AppConfig.USER, "");
             user = gson.fromJson(json, User.class);
         }
         return user;

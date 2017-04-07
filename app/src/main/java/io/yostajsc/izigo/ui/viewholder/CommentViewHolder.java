@@ -11,7 +11,7 @@ import com.bumptech.glide.Glide;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.yostajsc.izigo.R;
-import io.yostajsc.view.glide.CropCircleTransformation;
+import io.yostajsc.core.glide.CropCircleTransformation;
 
 /**
  * Created by Phuc-Hau Nguyen on 12/1/2016.

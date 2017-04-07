@@ -30,7 +30,7 @@ import com.google.firebase.messaging.RemoteMessage;
 import io.yostajsc.constants.PageType;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.activities.MainActivity;
-import io.yostajsc.izigo.configs.AppDefine;
+import io.yostajsc.izigo.configs.AppConfig;
 
 public class FirebaseMessagingService extends com.google.firebase.messaging.FirebaseMessagingService {
 
@@ -42,7 +42,7 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
     public void onMessageReceived(RemoteMessage remoteMessage) {
 
         Intent intent = new Intent(this, MainActivity.class);
-        intent.getIntExtra(AppDefine.PAGE_ID, PageType.NOTIFICATION);
+        intent.getIntExtra(AppConfig.PAGE_ID, PageType.NOTIFICATION);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
         PendingIntent pIntent = PendingIntent.getActivity(this, NOTIFICATION_ID, intent,

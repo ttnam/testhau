@@ -14,395 +14,250 @@
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorWindowBackground"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/white"
-                android:orientation="vertical">
+                android:id="@+id/layout_profile"
+                style="@style/Style_Menu_Item.Press"
+                android:orientation="horizontal">
+
+                <android.support.v7.widget.AppCompatImageView
+                    style="@style/CoreAppTheme.IconClick"
+                    android:layout_width="@dimen/icon_size_x3"
+                    android:layout_height="@dimen/icon_size_x3"
+                    android:layout_gravity="center_vertical"
+                    app:srcCompat="@drawable/ic_vector_avatar" />
 
                 <TextView
-                    style="@style/CoreAppTheme.TextView_Title"
+                    style="@style/CoreAppTheme.TextView_Sub_Title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/margin_x2"
-                    android:text="@string/setting_basic_settings" />
-
-                <LinearLayout
-                    android:id="@+id/layout_profile"
-                    style="@style/Style_Menu_Item.Press"
-                    android:layout_width="match_parent"
-                    android:orientation="horizontal">
-
-                    <android.support.v7.widget.AppCompatImageView
-                        style="@style/CoreAppTheme.IconClick"
-                        android:layout_width="@dimen/icon_size_x3"
-                        android:layout_height="@dimen/icon_size_x3"
-                        android:layout_gravity="center_vertical"
-                        app:srcCompat="@drawable/ic_vector_avatar" />
-
-                    <TextView
-                        style="@style/CoreAppTheme.TextView_Sub_Title"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="@dimen/margin_x2"
-                        android:layout_marginStart="@dimen/margin_x2"
-                        android:text="View your profile" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    style="@style/Style_Menu_Item.Press"
-                    android:layout_width="match_parent"
-                    android:orientation="horizontal">
-
-                    <android.support.v7.widget.AppCompatImageView
-                        style="@style/CoreAppTheme.IconClick"
-                        android:layout_width="@dimen/icon_size_x3"
-                        android:layout_height="@dimen/icon_size_x3"
-                        android:layout_gravity="center_vertical"
-                        app:srcCompat="@drawable/ic_vector_work" />
-
-                    <TextView
-                        style="@style/CoreAppTheme.TextView_Sub_Title"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="@dimen/margin_x2"
-                        android:layout_marginStart="@dimen/margin_x2"
-                        android:text="How it works" />
-
-                </LinearLayout>
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/margin_x2"
+                    android:layout_marginStart="@dimen/margin_x2"
+                    android:text="View your profile" />
 
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin"
-                android:background="@android:color/white"
-                android:orientation="vertical">
+                style="@style/Style_Menu_Item.Press"
+                android:orientation="horizontal">
+
+                <android.support.v7.widget.AppCompatImageView
+                    style="@style/CoreAppTheme.IconClick"
+                    android:layout_width="@dimen/icon_size_x3"
+                    android:layout_height="@dimen/icon_size_x3"
+                    android:layout_gravity="center_vertical"
+                    app:srcCompat="@drawable/ic_vector_work" />
 
                 <TextView
-                    style="@style/CoreAppTheme.TextView_Title"
+                    style="@style/CoreAppTheme.TextView_Sub_Title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/margin_x2"
-                    android:text="Tell your friend about us"
-                    android:textColor="@color/colorAccentDark" />
-
-                <LinearLayout
-                    android:id="@+id/layout_rating"
-                    style="@style/Style_Menu_Item.Press"
-                    android:layout_width="match_parent"
-                    android:orientation="horizontal">
-
-                    <android.support.v7.widget.AppCompatImageView
-                        style="@style/CoreAppTheme.IconClick"
-                        android:layout_width="@dimen/icon_size_x3"
-                        android:layout_height="@dimen/icon_size_x3"
-                        android:layout_gravity="center_vertical"
-                        app:srcCompat="@drawable/ic_vector_rate" />
-
-                    <TextView
-                        style="@style/CoreAppTheme.TextView_Sub_Title"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="@dimen/margin_x2"
-                        android:layout_marginStart="@dimen/margin_x2"
-                        android:text="Rate Us" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    style="@style/Style_Menu_Item.Press"
-                    android:layout_width="match_parent"
-                    android:orientation="horizontal">
-
-                    <android.support.v7.widget.AppCompatImageView
-                        style="@style/CoreAppTheme.IconClick"
-                        android:layout_width="@dimen/icon_size_x3"
-                        android:layout_height="@dimen/icon_size_x3"
-                        android:layout_gravity="center_vertical"
-                        app:srcCompat="@drawable/ic_vector_facebook" />
-
-                    <TextView
-                        style="@style/CoreAppTheme.TextView_Sub_Title"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="@dimen/margin_x2"
-                        android:layout_marginStart="@dimen/margin_x2"
-                        android:text="Share on Facebook" />
-
-                </LinearLayout>
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/margin_x2"
+                    android:layout_marginStart="@dimen/margin_x2"
+                    android:text="How it works" />
 
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:id="@+id/layout_rating"
+                style="@style/Style_Menu_Item.Press"
                 android:layout_marginTop="@dimen/margin"
-                android:background="@android:color/white"
-                android:orientation="vertical">
+                android:orientation="horizontal">
+
+                <android.support.v7.widget.AppCompatImageView
+                    style="@style/CoreAppTheme.IconClick"
+                    android:layout_width="@dimen/icon_size_x3"
+                    android:layout_height="@dimen/icon_size_x3"
+                    android:layout_gravity="center_vertical"
+                    app:srcCompat="@drawable/ic_vector_rate" />
 
                 <TextView
-                    style="@style/CoreAppTheme.TextView_Title"
+                    style="@style/CoreAppTheme.TextView_Sub_Title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/margin_x2"
-                    android:text="@string/setting_backup_restore" />
-
-                <LinearLayout
-                    android:id="@+id/layout_auto_sync"
-                    style="@style/Style_Menu_Item.Press"
-                    android:layout_width="match_parent"
-                    android:layout_height="?actionBarSize"
-                    android:orientation="horizontal">
-
-                    <android.support.v7.widget.AppCompatImageView
-                        style="@style/CoreAppTheme.IconClick"
-                        android:layout_width="@dimen/icon_size_x3"
-                        android:layout_height="@dimen/icon_size_x3"
-                        android:layout_gravity="center"
-                        app:srcCompat="@drawable/ic_vector_sync" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="@dimen/margin_x2"
-                        android:layout_marginStart="@dimen/margin_x2"
-                        android:baselineAligned="false"
-                        android:orientation="horizontal"
-                        android:weightSum="6">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_weight="3"
-                            android:gravity="center"
-                            android:orientation="vertical">
-
-                            <TextView
-                                style="@style/CoreAppTheme.TextView_Sub_Title"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_horizontal"
-                                android:text="@string/setting_auto_sync" />
-
-                            <TextView
-                                style="@style/CoreAppTheme.TextView_Sub_Title.Italic"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_horizontal"
-                                android:text="@string/str_access_sync" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginEnd="@dimen/margin_x2"
-                            android:layout_marginRight="@dimen/margin_x2"
-                            android:layout_weight="3"
-                            android:orientation="vertical">
-
-                            <Switch
-                                android:id="@+id/switch_sync"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_gravity="center"
-                                android:checked="true"
-                                android:clickable="true"
-                                android:enabled="true"
-                                android:gravity="center" />
-
-                        </LinearLayout>
-                    </LinearLayout>
-
-                </LinearLayout>
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/margin_x2"
+                    android:layout_marginStart="@dimen/margin_x2"
+                    android:text="Rate Us" />
 
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin"
-                android:background="@android:color/white"
-                android:orientation="vertical">
+                style="@style/Style_Menu_Item.Press"
+                android:orientation="horizontal">
+
+                <android.support.v7.widget.AppCompatImageView
+                    style="@style/CoreAppTheme.IconClick"
+                    android:layout_width="@dimen/icon_size_x3"
+                    android:layout_height="@dimen/icon_size_x3"
+                    android:layout_gravity="center_vertical"
+                    app:srcCompat="@drawable/ic_vector_facebook" />
 
                 <TextView
-                    style="@style/CoreAppTheme.TextView_Title"
+                    style="@style/CoreAppTheme.TextView_Sub_Title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/margin_x2"
-                    android:text="@string/setting_basic_settings" />
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/margin_x2"
+                    android:layout_marginStart="@dimen/margin_x2"
+                    android:text="Share on Facebook" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/Style_Menu_Item.Press"
+                android:orientation="horizontal">
+
+                <android.support.v7.widget.AppCompatImageView
+                    style="@style/CoreAppTheme.IconClick"
+                    android:layout_width="@dimen/icon_size_x3"
+                    android:layout_height="@dimen/icon_size_x3"
+                    android:layout_gravity="center_vertical"
+                    app:srcCompat="@drawable/ic_vector_language" />
 
                 <LinearLayout
-                    style="@style/Style_Menu_Item.Press"
                     android:layout_width="match_parent"
-                    android:orientation="horizontal">
-
-                    <android.support.v7.widget.AppCompatImageView
-                        style="@style/CoreAppTheme.IconClick"
-                        android:layout_width="@dimen/icon_size_x3"
-                        android:layout_height="@dimen/icon_size_x3"
-                        android:layout_gravity="center_vertical"
-                        app:srcCompat="@drawable/ic_vector_language" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:baselineAligned="true"
-                        android:orientation="vertical">
-
-                        <TextView
-                            style="@style/CoreAppTheme.TextView_Title"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginLeft="@dimen/margin_x2"
-                            android:layout_marginStart="@dimen/margin_x2"
-                            android:text="@string/setting_language" />
-
-                        <TextView
-                            android:id="@+id/txt_lang"
-                            style="@style/CoreAppTheme.TextView_Sub_Title"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginLeft="@dimen/margin_x2"
-                            android:layout_marginStart="@dimen/margin_x2"
-                            android:text="@string/str_action_change_language_title"
-                            android:textStyle="italic" />
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/layout_notify"
-                    style="@style/Style_Menu_Item.Press"
-                    android:layout_width="match_parent"
-                    android:orientation="horizontal">
-
-                    <android.support.v7.widget.AppCompatImageView
-                        style="@style/CoreAppTheme.IconClick"
-                        android:layout_width="@dimen/icon_size_x3"
-                        android:layout_height="@dimen/icon_size_x3"
-                        android:layout_gravity="center"
-                        app:srcCompat="@drawable/ic_vector_notification" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="@dimen/margin_x2"
-                        android:layout_marginStart="@dimen/margin_x2"
-                        android:baselineAligned="false"
-                        android:orientation="horizontal"
-                        android:weightSum="6">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_weight="3"
-                            android:gravity="center"
-                            android:orientation="vertical">
-
-                            <TextView
-                                style="@style/CoreAppTheme.TextView_Title"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_horizontal"
-                                android:text="@string/setting_notification" />
-
-                            <TextView
-                                style="@style/CoreAppTheme.TextView_Sub_Title"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_horizontal"
-                                android:text="@string/str_access_sync"
-                                android:textStyle="italic" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginRight="@dimen/margin_x2"
-                            android:layout_weight="3"
-                            android:orientation="vertical">
-
-                            <Switch
-                                android:id="@+id/switch_notify"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_gravity="center"
-                                android:checked="true"
-                                android:clickable="true"
-                                android:enabled="true"
-                                android:gravity="center" />
-
-                        </LinearLayout>
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/layout_about"
-                    style="@style/Style_Menu_Item.Press"
-                    android:layout_width="match_parent"
-                    android:orientation="horizontal">
-
-                    <android.support.v7.widget.AppCompatImageView
-                        style="@style/CoreAppTheme.IconClick"
-                        android:layout_width="@dimen/icon_size_x3"
-                        android:layout_height="@dimen/icon_size_x3"
-                        android:layout_gravity="center_vertical"
-                        app:srcCompat="@drawable/ic_launcher" />
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/margin_x2"
+                    android:layout_marginStart="@dimen/margin_x2"
+                    android:baselineAligned="true"
+                    android:orientation="vertical">
 
                     <TextView
                         style="@style/CoreAppTheme.TextView_Title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="@dimen/margin_x2"
-                        android:layout_marginStart="@dimen/margin_x2"
-                        android:text="@string/setting_about" />
+                        android:text="@string/setting_language" />
+
+                    <TextView
+                        android:id="@+id/txt_lang"
+                        style="@style/CoreAppTheme.TextView_Sub_Title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/str_action_change_language_title"
+                        android:textStyle="italic" />
 
                 </LinearLayout>
 
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/layout_logout"
-                style="@style/CoreAppTheme.TextView_Title.Bold.White"
-                android:layout_width="match_parent"
-                android:layout_height="?actionBarSize"
-                android:layout_gravity="center_vertical"
-                android:background="@drawable/ic_style_button_round_none_theme"
-                android:gravity="center"
-                android:text="@string/str_logout" />
+            <LinearLayout
+                android:id="@+id/layout_notify"
+                style="@style/Style_Menu_Item.Press"
+                android:orientation="horizontal">
+
+                <android.support.v7.widget.AppCompatImageView
+                    style="@style/CoreAppTheme.IconClick"
+                    android:layout_width="@dimen/icon_size_x3"
+                    android:layout_height="@dimen/icon_size_x3"
+                    android:layout_gravity="center"
+                    app:srcCompat="@drawable/ic_vector_notification" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/margin_x2"
+                    android:layout_marginStart="@dimen/margin_x2"
+                    android:baselineAligned="false"
+                    android:orientation="horizontal"
+                    android:weightSum="6">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="3"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/CoreAppTheme.TextView_Title"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:text="@string/setting_notification" />
+
+                        <TextView
+                            style="@style/CoreAppTheme.TextView_Sub_Title"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:text="@string/str_access_sync"
+                            android:textStyle="italic" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginRight="@dimen/margin"
+                        android:layout_weight="3"
+                        android:orientation="vertical">
+
+                        <Switch
+                            android:id="@+id/switch_notify"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:checked="true"
+                            android:clickable="true"
+                            android:enabled="true"
+                            android:gravity="center" />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_about"
+                style="@style/Style_Menu_Item.Press"
+                android:orientation="horizontal">
+
+                <android.support.v7.widget.AppCompatImageView
+                    style="@style/CoreAppTheme.IconClick"
+                    android:layout_width="@dimen/icon_size_x3"
+                    android:layout_height="@dimen/icon_size_x3"
+                    android:layout_gravity="center_vertical"
+                    app:srcCompat="@drawable/ic_launcher" />
+
+                <TextView
+                    style="@style/CoreAppTheme.TextView_Title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/margin_x2"
+                    android:layout_marginStart="@dimen/margin_x2"
+                    android:text="@string/setting_about" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>
 
+    <TextView
+        android:id="@+id/layout_logout"
+        style="@style/CoreAppTheme.TextView_Title.Bold.White"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:layout_gravity="center_vertical"
+        android:background="@drawable/ic_style_button_round_none_theme"
+        android:gravity="center"
+        android:text="@string/str_logout" />
 </LinearLayout>

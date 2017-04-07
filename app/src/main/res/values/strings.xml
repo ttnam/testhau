@@ -33,7 +33,6 @@
     <!-- start setting-->
     <string name="setting"> Setting                             </string>
     <string name="setting_basic_settings"> Basic settings       </string>
-    <string name="setting_backup_restore"> Backup &amp; Restore </string>
 
     <string name="setting_about"> About                         </string>
     <string name="setting_help"> Help                           </string>

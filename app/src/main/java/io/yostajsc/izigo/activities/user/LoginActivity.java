@@ -40,9 +40,8 @@ import io.yostajsc.core.utils.ValidateUtils;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.activities.MainActivity;
 import io.yostajsc.backend.core.APIManager;
-import io.yostajsc.izigo.activities.ActivityCoreBehavior;
+import io.yostajsc.izigo.activities.core.ActivityCoreBehavior;
 import io.yostajsc.izigo.configs.AppConfig;
-import io.yostajsc.izigo.configs.AppDefine;
 import io.yostajsc.izigo.firebase.FirebaseManager;
 import io.yostajsc.izigo.models.user.User;
 import io.yostajsc.izigo.firebase.model.UserManager;
@@ -155,7 +154,7 @@ public class LoginActivity extends ActivityCoreBehavior {
                             }
                         });
                 Bundle parameters = new Bundle();
-                parameters.putString("fields", AppDefine.PARAMETERS);
+                parameters.putString("fields", AppConfig.PARAMETERS);
                 request.setParameters(parameters);
                 request.executeAsync();
             }
@@ -217,15 +216,15 @@ public class LoginActivity extends ActivityCoreBehavior {
                     StorageUtils.inject(LoginActivity.this).save(AppConfig.AUTHORIZATION, authorization);
 
                     int isFirstTime = StorageUtils.inject(LoginActivity.this)
-                            .getInt(AppDefine.FIRST_TIME);
+                            .getInt(AppConfig.FIRST_TIME);
                     Intent intent;
                     if (isFirstTime == 1) {
                         intent = new Intent(LoginActivity.this, ProfileActivity.class);
-                        intent.putExtra(AppDefine.FIRST_TIME, true);
+                        intent.putExtra(AppConfig.FIRST_TIME, true);
                     } else {
                         intent = new Intent(LoginActivity.this, MainActivity.class);
                     }
-                    StorageUtils.inject(LoginActivity.this).save(AppDefine.FIRST_TIME, 0);
+                    StorageUtils.inject(LoginActivity.this).save(AppConfig.FIRST_TIME, 0);
                     startActivity(intent);
                     finish();
                 }
@@ -246,7 +245,7 @@ public class LoginActivity extends ActivityCoreBehavior {
         LoginManager.getInstance().logOut();
         progressBar.setVisibility(View.GONE);
         layoutFacebook.setVisibility(View.VISIBLE);
-        StorageUtils.inject(LoginActivity.this).save(AppDefine.FIRST_TIME, 1);
+        StorageUtils.inject(LoginActivity.this).save(AppConfig.FIRST_TIME, 1);
     }
 
     @Override

@@ -1,7 +1,5 @@
 package io.yostajsc.izigo.models.trip;
 
-import java.io.Serializable;
-
 import io.realm.RealmList;
 
 /**

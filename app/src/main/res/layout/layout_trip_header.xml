@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge>
+<merge xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
@@ -24,16 +24,6 @@
             android:paddingTop="@dimen/margin"
             android:text="@string/str_edit" />
 
-        <HorizontalScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center|bottom"
-            android:background="@drawable/ic_bak_gradient_footer"
-            android:scrollbars="none">
-
-            <include layout="@layout/layout_trip_number_info" />
-
-        </HorizontalScrollView>
     </FrameLayout>
 
 </merge>

@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -32,8 +33,7 @@ public class ImageryViewHolder extends RecyclerView.ViewHolder {
         if (ValidateUtils.canUse(url)) {
             Glide.with(mContext)
                     .load(url)
-                    .centerCrop()
-                    //.bitmapTransform(new RoundedCornersTransformation(mContext, 24, 0))
+                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                     .into(imageView);
         }
     }

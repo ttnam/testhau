@@ -64,7 +64,6 @@ public class UiUtils {
         SnapHelper snapHelper = new LinearSnapHelper();
         snapHelper.attachToRecyclerView(view);
         view.setHasFixedSize(true);
-        view.addItemDecoration(new SpacesItemDecoration(5));
         view.setRecycledViewPool(new RecyclerView.RecycledViewPool());
         view.setNestedScrollingEnabled(false);
 

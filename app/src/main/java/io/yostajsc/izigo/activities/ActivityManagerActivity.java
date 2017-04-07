@@ -14,6 +14,7 @@ import com.google.android.gms.maps.model.Marker;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.yostajsc.izigo.R;
+import io.yostajsc.izigo.activities.core.ActivityCoreBehavior;
 import io.yostajsc.view.OwnToolBar;
 import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.RuntimePermissions;

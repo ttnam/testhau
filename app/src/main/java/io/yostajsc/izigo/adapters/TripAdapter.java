@@ -3,16 +3,16 @@ package io.yostajsc.izigo.adapters;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import io.yostajsc.core.utils.AppUtils;
 import io.yostajsc.core.utils.DatetimeUtils;
 import io.yostajsc.izigo.R;
-import io.yostajsc.izigo.models.trip.Trip;
-import io.yostajsc.izigo.models.trip.Trips;
+import io.yostajsc.izigo.interfaces.TripModel;
 import io.yostajsc.izigo.ui.viewholder.TripViewHolder;
+import io.yostajsc.realm.trip.PublicTrip;
 
 /**
  * Created by Phuc-Hau Nguyen on 10/14/2016.
@@ -21,11 +21,11 @@ import io.yostajsc.izigo.ui.viewholder.TripViewHolder;
 public class TripAdapter extends RecyclerView.Adapter<TripViewHolder> {
 
     private Context mContext = null;
-    private Trips mTrips = null;
+    private SparseArray<TripModel> mList;
 
     public TripAdapter(Context context) {
         this.mContext = context;
-        this.mTrips = new Trips();
+        this.mList = new SparseArray<>();
     }
 
     @Override
@@ -36,45 +36,38 @@ public class TripAdapter extends RecyclerView.Adapter<TripViewHolder> {
 
     @Override
     public void onBindViewHolder(TripViewHolder holder, int position) {
-        Trip baseTrip = mTrips.get(position);
+        TripModel trip = mList.get(position);
         holder.bind(
-                baseTrip.getCover(),
-                baseTrip.getTripName(),
-                baseTrip.getNumberOfView(),
-                DatetimeUtils.getTimeGap(mContext, baseTrip.getDuration())
+                trip.getCoverUrl(), // cover
+                trip.getName(), // name
+                trip.getNumberOfViews(),
+                DatetimeUtils.getTimeGap(mContext, trip.getDurationTimeInMillis())
         );
     }
 
     @Override
     public int getItemCount() {
-        if (mTrips == null)
+        if (mList == null)
             return 0;
-        return mTrips.size();
+        return mList.size();
     }
 
-    public void replaceAll(Trips trips) {
-        if (this.mTrips == null)
-            return;
-        clear();
-        this.mTrips.addAll(trips);
-        notifyDataSetChanged();
-    }
-
-    public Trip getItem(int position) {
+    public TripModel getItem(int position) {
         if (position < 0 || position >= getItemCount()) {
             return null;
         }
-        return this.mTrips.get(position);
+        return this.mList.get(position);
     }
 
-    public int add(@NonNull Trip trip) {
-        this.mTrips.add(trip);
-        int index = this.mTrips.size() - 1;
-        notifyItemChanged(index);
-        return index;
+    public void add(@NonNull TripModel trip) {
+        if (this.mList == null)
+            this.mList = new SparseArray<>();
+        this.mList.put(this.mList.size(), trip);
+        notifyDataSetChanged();
     }
 
     public void clear() {
-        this.mTrips.clear();
+        this.mList.clear();
     }
+
 }

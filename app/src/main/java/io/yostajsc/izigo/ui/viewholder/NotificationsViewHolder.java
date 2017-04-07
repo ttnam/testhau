@@ -18,7 +18,7 @@ import io.yostajsc.core.interfaces.CallBack;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.models.trip.BaseTripInfo;
 import io.yostajsc.izigo.models.user.BaseUserInfo;
-import io.yostajsc.view.glide.CropCircleTransformation;
+import io.yostajsc.core.glide.CropCircleTransformation;
 
 /**
  * Created by Phuc-Hau Nguyen on 8/25/2016.

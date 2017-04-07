@@ -11,11 +11,6 @@
         <item quantity="one">1 comment</item>
         <item quantity="other">%d comments</item>
     </plurals>
-    <plurals name="views">
-        <item quantity="zero">No views</item>
-        <item quantity="one">1 view</item>
-        <item quantity="other">%d views</item>
-    </plurals>
     <plurals name="activities">
         <item quantity="zero">No activities</item>
         <item quantity="one">1 activity</item>

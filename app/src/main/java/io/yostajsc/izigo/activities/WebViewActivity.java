@@ -12,6 +12,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.yostajsc.core.utils.NetworkUtils;
 import io.yostajsc.izigo.R;
+import io.yostajsc.izigo.activities.core.ActivityCoreBehavior;
 import io.yostajsc.view.OwnToolBar;
 
 public class WebViewActivity extends ActivityCoreBehavior {

@@ -1,35 +1,34 @@
 package io.yostajsc.izigo.fragments;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.yostajsc.backend.core.APIManager;
+import io.yostajsc.core.fragments.CoreFragment;
 import io.yostajsc.core.interfaces.CallBack;
 import io.yostajsc.core.interfaces.CallBackWith;
 import io.yostajsc.core.utils.NetworkUtils;
 import io.yostajsc.izigo.R;
+import io.yostajsc.izigo.activities.MainActivity;
 import io.yostajsc.izigo.activities.trip.AddTripActivity;
 import io.yostajsc.izigo.activities.trip.TripDetailActivity;
 import io.yostajsc.izigo.adapters.TripAdapter;
-import io.yostajsc.izigo.configs.AppDefine;
+import io.yostajsc.izigo.configs.AppConfig;
 import io.yostajsc.izigo.managers.RealmManager;
-import io.yostajsc.izigo.models.trip.Trips;
+import io.yostajsc.realm.trip.OwnTrips;
 import io.yostajsc.utils.UiUtils;
 import io.yostajsc.view.OwnToolBar;
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 
-public class OwnTripFragment extends Fragment {
+public class OwnTripFragment extends CoreFragment {
 
     @BindView(R.id.own_toolbar)
     OwnToolBar mOwnToolbar;
@@ -40,13 +39,11 @@ public class OwnTripFragment extends Fragment {
     @BindView(R.id.layout_empty)
     LinearLayout layoutEmpty;
 
-    private Context mContext = null;
     private TripAdapter tripAdapter = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.mContext = getContext();
     }
 
     @Override
@@ -54,6 +51,7 @@ public class OwnTripFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_own_trip, container, false);
         ButterKnife.bind(this, rootView);
         onApplyViews();
+        onApplyData();
         return rootView;
     }
 
@@ -71,62 +69,61 @@ public class OwnTripFragment extends Fragment {
                 new CallBackWith<Integer>() {
                     @Override
                     public void run(Integer position) {
-                        String tripId = tripAdapter.getItem(position).getTripId();
+                        String tripId = tripAdapter.getItem(position).getId();
                         Intent intent = new Intent(mContext, TripDetailActivity.class);
-                        intent.putExtra(AppDefine.TRIP_ID, tripId);
+                        intent.putExtra(AppConfig.TRIP_ID, tripId);
                         startActivity(intent);
                     }
                 });
     }
 
-    private void updateUI(Trips trips) {
-        if (trips != null && trips.size() > 0) {
-            tripAdapter.replaceAll(trips);
+    private void updateUI(OwnTrips trips) {
+        int size = trips.size();
+        if (size > 0) {
             layoutEmpty.setVisibility(View.GONE);
+            for (int i = 0; i < size; i++) {
+                tripAdapter.add(trips.get(i));
+            }
         } else {
             layoutEmpty.setVisibility(View.VISIBLE);
         }
-
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        onApplyData();
-    }
-
-    private void onInternetConnected() {
-        // Load from server
-        APIManager.connect().getOwnTripsList(new CallBack() {
+    private void loadFromServer() {
+        APIManager.connect().getAllOwnTripsList(new CallBackWith<OwnTrips>() {
+            @Override
+            public void run(OwnTrips ownTrips) {
+                RealmManager.insertOrUpdate(ownTrips);
+                updateUI(ownTrips);
+            }
+        }, new CallBack() {
             @Override
             public void run() {
-                // TODO: Expired
-            }
-        }, new CallBackWith<Trips>() {
-            @Override
-            public void run(Trips trips) {
-                RealmManager.insertOrUpdate(trips);
-                updateUI(trips);
+                ((MainActivity) getActivity()).onExpired();
             }
         }, new CallBackWith<String>() {
             @Override
             public void run(String error) {
-                Toast.makeText(mContext, error, Toast.LENGTH_SHORT).show();
+                AppConfig.showToast(mContext, error);
+                loadFromDisk();
+            }
+        });
+    }
+
+    private void loadFromDisk() {
+        RealmManager.findAllOwnTrips(new CallBackWith<OwnTrips>() {
+            @Override
+            public void run(OwnTrips ownTrips) {
+                updateUI(ownTrips); // Update UI
             }
         });
     }
 
     private void onApplyData() {
-
-        // Read from disk
-        RealmManager.findTrips(new CallBackWith<Trips>() {
-            @Override
-            public void run(Trips trips) {
-                updateUI(trips); // Update UI
-            }
-        });
         if (NetworkUtils.isNetworkConnected(mContext)) {
-            onInternetConnected();
+            loadFromServer();
+        } else {
+            loadFromDisk();
         }
     }
 

@@ -1,4 +1,4 @@
-package io.yostajsc.izigo.activities;
+package io.yostajsc.izigo.activities.core;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +14,7 @@ import io.yostajsc.core.dialogs.DialogNoNet;
 import io.yostajsc.core.interfaces.ActivityCoreInterface;
 import io.yostajsc.core.interfaces.CallBack;
 import io.yostajsc.core.utils.StorageUtils;
+import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.activities.user.LoginActivity;
 import io.yostajsc.izigo.configs.AppConfig;
 
@@ -57,6 +58,7 @@ public class ActivityCoreBehavior extends AppCompatActivity implements ActivityC
         super.onStart();
         EventBus.getDefault().register(this);
         this.mDialogNoNet = new DialogNoNet(this);
+        mDialogNoNet.setIcon(R.mipmap.ic_launcher);
     }
 
     @Override

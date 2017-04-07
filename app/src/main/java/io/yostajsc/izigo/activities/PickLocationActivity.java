@@ -22,7 +22,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.yostajsc.core.code.MessageType;
 import io.yostajsc.izigo.R;
-import io.yostajsc.izigo.configs.AppDefine;
+import io.yostajsc.izigo.activities.core.ActivityCoreBehavior;
+import io.yostajsc.izigo.configs.AppConfig;
 import io.yostajsc.izigo.models.trip.LocationPick;
 import io.yostajsc.utils.LocationCore;
 import permissions.dispatcher.NeedsPermission;
@@ -172,7 +173,7 @@ public class PickLocationActivity extends ActivityCoreBehavior implements Google
         locationPick.setLat(currLatLng.latitude);
         locationPick.setLng(currLatLng.longitude);
         locationPick.setName(locationName);
-        intent.putExtra(AppDefine.KEY_PICK_LOCATION, locationPick);
+        intent.putExtra(AppConfig.KEY_PICK_LOCATION, locationPick);
         setResult(Activity.RESULT_OK, intent);
         finish();
     }

@@ -23,16 +23,15 @@ import io.yostajsc.core.interfaces.CallBack;
 import io.yostajsc.core.interfaces.CallBackWith;
 import io.yostajsc.core.code.MessageType;
 import io.yostajsc.core.utils.DatetimeUtils;
-import io.yostajsc.core.utils.StorageUtils;
 import io.yostajsc.core.utils.ValidateUtils;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.activities.PickLocationActivity;
 import io.yostajsc.izigo.activities.dialogs.DialogDatePicker;
 import io.yostajsc.izigo.activities.dialogs.DialogPickTransfer;
 import io.yostajsc.backend.core.APIManager;
-import io.yostajsc.izigo.activities.ActivityCoreBehavior;
+import io.yostajsc.izigo.activities.core.ActivityCoreBehavior;
 import io.yostajsc.izigo.activities.dialogs.DialogTimePicker;
-import io.yostajsc.izigo.configs.AppDefine;
+import io.yostajsc.izigo.configs.AppConfig;
 import io.yostajsc.izigo.models.trip.LocationPick;
 import io.yostajsc.utils.UiUtils;
 import butterknife.BindView;
@@ -174,10 +173,10 @@ public class AddTripActivity extends ActivityCoreBehavior {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK && requestCode == MessageType.PICK_LOCATION_FROM) {
-            from = (LocationPick) data.getSerializableExtra(AppDefine.KEY_PICK_LOCATION);
+            from = (LocationPick) data.getSerializableExtra(AppConfig.KEY_PICK_LOCATION);
             textDepart.setText(from.getName());
         } else if (resultCode == Activity.RESULT_OK && requestCode == MessageType.PICK_LOCATION_TO) {
-            to = (LocationPick) data.getSerializableExtra(AppDefine.KEY_PICK_LOCATION);
+            to = (LocationPick) data.getSerializableExtra(AppConfig.KEY_PICK_LOCATION);
             textArrive.setText(to.getName());
         }
     }
@@ -278,7 +277,7 @@ public class AddTripActivity extends ActivityCoreBehavior {
 
     private void onSuccess(String tripId) {
         Intent intent = new Intent(AddTripActivity.this, TripDetailActivity.class);
-        intent.putExtra(AppDefine.TRIP_ID, tripId);
+        intent.putExtra(AppConfig.TRIP_ID, tripId);
         startActivity(intent);
         finish();
     }

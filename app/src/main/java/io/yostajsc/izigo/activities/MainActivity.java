@@ -11,7 +11,8 @@ import io.yostajsc.constants.PageType;
 import io.yostajsc.core.designs.tabs.IconViewPagerAdapter;
 import io.yostajsc.core.designs.viewpager.NonSwipeAbleViewPager;
 import io.yostajsc.izigo.R;
-import io.yostajsc.izigo.configs.AppDefine;
+import io.yostajsc.izigo.activities.core.ActivityCoreBehavior;
+import io.yostajsc.izigo.configs.AppConfig;
 import io.yostajsc.izigo.fragments.NotificationsFragment;
 import io.yostajsc.izigo.fragments.OwnTripFragment;
 import io.yostajsc.izigo.fragments.TripFragment;
@@ -71,7 +72,7 @@ public class MainActivity extends ActivityCoreBehavior {
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        int pageType = intent.getIntExtra(AppDefine.PAGE_ID, -1);
+        int pageType = intent.getIntExtra(AppConfig.PAGE_ID, -1);
         if (pageType == PageType.NOTIFICATION)
             this.mViewPager.setCurrentItem(2, true);
     }
@@ -84,5 +85,10 @@ public class MainActivity extends ActivityCoreBehavior {
     @Override
     public void onInternetConnected() {
 
+    }
+
+    @Override
+    public void onExpired() {
+        super.onExpired();
     }
 }
