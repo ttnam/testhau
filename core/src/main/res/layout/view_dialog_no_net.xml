@@ -36,7 +36,7 @@
         android:layout_marginLeft="@dimen/margin_x4"
         android:layout_marginRight="@dimen/margin_x4"
         android:gravity="center"
-        android:text="You are not connected to the internet. Make sure Wi-Fi/3D is on, Airplane Mode is off and try again" />
+        android:text="You are not connected to the internet. Make sure Wi-Fi/3G is on, Airplane Mode is off and try again" />
 
     <Button
         android:id="@id/button"
