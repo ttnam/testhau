@@ -11,8 +11,6 @@ import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import io.yostajsc.core.utils.FontUtils;
 import io.yostajsc.core.utils.StorageUtils;
-import io.yostajsc.izigo.R;
-import io.yostajsc.izigo.activities.trip.TripDetailActivity;
 import io.yostajsc.izigo.firebase.FirebaseManager;
 
 /**
