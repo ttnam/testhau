@@ -1,6 +1,4 @@
-package io.yostajsc.realm.trip;
-
-import android.util.SparseArray;
+package io.yostajsc.usecase.realm.trip;
 
 import com.google.gson.annotations.SerializedName;
 
