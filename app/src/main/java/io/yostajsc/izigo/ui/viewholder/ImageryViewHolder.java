@@ -32,9 +32,7 @@ public class ImageryViewHolder extends RecyclerView.ViewHolder {
     public void bind(String url) {
         if (ValidateUtils.canUse(url)) {
             Glide.with(mContext)
-                    .load(url)
-                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                    .into(imageView);
+                    .load(url).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imageView);
         }
     }
 }

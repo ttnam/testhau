@@ -20,27 +20,6 @@ import io.yostajsc.usecase.realm.trip.PublicTrips;
  */
 
 public class RealmManager {
-    /*
-
-        public static void insertOrUpdate(final Trip trip) {
-            Realm realm = null;
-            try {
-                realm = Realm.getDefaultInstance();
-                realm.executeTransaction(new Realm.Transaction() {
-                    @Override
-                    public void execute(Realm realm) {
-                        realm.insertOrUpdate(trip);
-                    }
-                });
-            } catch (Exception e) {
-                e.printStackTrace();
-            } finally {
-                if (realm != null) {
-                    realm.close();
-                }
-            }
-        }
-    */
     public static void insertOrUpdate(final RealmObject realmLObject) {
         Realm realm = null;
         try {
@@ -78,44 +57,6 @@ public class RealmManager {
             }
         }
     }
-/*
-    public static void insertOrUpdate(final Trips trips) {
-        Realm realm = null;
-        try {
-            realm = Realm.getDefaultInstance();
-            realm.executeTransaction(new Realm.Transaction() {
-                @Override
-                public void execute(Realm realm) {
-                    realm.insertOrUpdate(trips);
-                }
-            });
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (realm != null) {
-                realm.close();
-            }
-        }
-    }
-
-    public static void insertOrUpdate(final Timelines timelines) {
-        Realm realm = null;
-        try {
-            realm = Realm.getDefaultInstance();
-            realm.executeTransaction(new Realm.Transaction() {
-                @Override
-                public void execute(Realm realm) {
-                    realm.insertOrUpdate(timelines);
-                }
-            });
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (realm != null) {
-                realm.close();
-            }
-        }
-    }*/
 
     public static void clearAllTrips() {
 

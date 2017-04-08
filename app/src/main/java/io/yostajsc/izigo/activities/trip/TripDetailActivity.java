@@ -12,14 +12,16 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatImageView;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearSnapHelper;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SnapHelper;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.EditText;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +34,8 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import butterknife.OnClick;
+import io.yostajsc.core.designs.listeners.RecyclerItemClickListener;
+import io.yostajsc.izigo.activities.MembersActivity;
 import io.yostajsc.usecase.backend.core.APIManager;
 import io.yostajsc.constants.RoleType;
 import io.yostajsc.constants.TransferType;
@@ -52,7 +56,7 @@ import io.yostajsc.izigo.models.trip.Trip;
 import io.yostajsc.utils.UiUtils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
+import jp.wasabeef.recyclerview.animators.FadeInUpAnimator;
 import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.RuntimePermissions;
 
@@ -69,9 +73,6 @@ public class TripDetailActivity extends ActivityCoreBehavior {
 
     @BindView(R.id.image_view)
     AppCompatImageView imageCover;
-
-    @BindView(R.id.text_number_of_comment)
-    TextView textNumberOfComments;
 
     @BindView(R.id.text_name)
     TextView textTripName;
@@ -94,17 +95,8 @@ public class TripDetailActivity extends ActivityCoreBehavior {
     @BindView(R.id.text_edit)
     TextView textEdit;
 
-    @BindView(R.id.text_activities)
-    TextView textNumberOfActivities;
-
-    @BindView(R.id.text_members)
-    TextView textNumberOfMembers;
-
     @BindView(R.id.button_more)
     AppCompatImageView buttonMore;
-
-    @BindView(R.id.switch_publish)
-    Switch switchPublish;
 
     @BindView(R.id.button)
     FloatingActionButton button;
@@ -112,6 +104,7 @@ public class TripDetailActivity extends ActivityCoreBehavior {
     private String tripId;
     private int mCurrentRoleType = RoleType.GUEST;
     private ImageryAdapter albumAdapter = null;
+    private boolean mIsPublic = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -136,15 +129,23 @@ public class TripDetailActivity extends ActivityCoreBehavior {
     @Override
     public void onApplyViews() {
 
-        // set cover size
-        this.albumAdapter = new ImageryAdapter(this);
         UiUtils.onApplyWebViewSetting(webView);
-        UiUtils.onApplyAlbumRecyclerView(this.rvAlbum, albumAdapter, new SlideInUpAnimator(), new CallBackWith<Integer>() {
+
+        this.albumAdapter = new ImageryAdapter(this);
+        this.rvAlbum.setAdapter(this.albumAdapter);
+        SnapHelper snapHelper = new LinearSnapHelper();
+        snapHelper.attachToRecyclerView(this.rvAlbum);
+        this.rvAlbum.setHasFixedSize(true);
+        this.rvAlbum.setRecycledViewPool(new RecyclerView.RecycledViewPool());
+        this.rvAlbum.setNestedScrollingEnabled(false);
+        this.rvAlbum.setLayoutManager(new GridLayoutManager(this, 2, GridLayoutManager.HORIZONTAL, false));
+        this.rvAlbum.setItemAnimator(new FadeInUpAnimator());
+        this.rvAlbum.addOnItemTouchListener(new RecyclerItemClickListener(this, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
-            public void run(Integer integer) {
+            public void onItemClick(View view, int position) {
 
             }
-        });
+        }));
     }
 
     @Override
@@ -155,6 +156,11 @@ public class TripDetailActivity extends ActivityCoreBehavior {
             menu.add(0, v.getId(), 1, "Chụp từ thiết bị");
         } else if (v.getId() == R.id.button_more) {
             menu.add(1, v.getId(), 2, "Đổi tên hành trình");
+            if (mIsPublic) {
+                menu.add(1, v.getId(), 3, "Hiển thị chỉ mình tôi");
+            } else {
+                menu.add(1, v.getId(), 4, "Hiển thị cho mọi người");
+            }
         }
     }
 
@@ -169,40 +175,35 @@ public class TripDetailActivity extends ActivityCoreBehavior {
             case 2:
                 changeTripName();
                 break;
+            case 3:
+                makeTripPublic(false);
+                break;
+            case 4:
+                makeTripPublic(true);
+                break;
             /*case 4:
                 BottomSheetDialogFragment bottomSheetDialogFragment = new BottomSheetDialog();
                 bottomSheetDialogFragment.show(getSupportFragmentManager(), bottomSheetDialogFragment.getTag());
                 break;
-            case 5:
-                Intent intent = new Intent(TripDetailActivity.this, MembersActivity.class);
-                intent.putExtra(AppConfig.TRIP_ID, tripId);
-                startActivity(intent);
                 break;*/
         }
         return super.onContextItemSelected(item);
     }
 
-    @OnClick(R.id.switch_publish)
-    public void publish() {
-        if (switchPublish.isChecked()) {
-            APIManager.connect().updateTripInfo(tripId, "1", TripTypePermission.STATUS, new CallBack() {
-                @Override
-                public void run() {
-                    Toast.makeText(TripDetailActivity.this, getString(R.string.str_success), Toast.LENGTH_SHORT).show();
-                }
-            }, new CallBackWith<String>() {
-                @Override
-                public void run(String error) {
-                    Toast.makeText(TripDetailActivity.this, error, Toast.LENGTH_SHORT).show();
-                }
-            }, new CallBack() {
-                @Override
-                public void run() {
-                    onExpired();
-                }
-            });
-        } else {
-            APIManager.connect().updateTripInfo(tripId, "0", TripTypePermission.STATUS, new CallBack() {
+    @OnClick(R.id.layout_member)
+    public void showMembers() {
+        Intent intent = new Intent(TripDetailActivity.this, MembersActivity.class);
+        intent.putExtra(AppConfig.TRIP_ID, tripId);
+        startActivity(intent);
+    }
+
+    private void makeTripPublic(boolean isPublic) {
+        try {
+            String params = "0";
+            if (isPublic) {
+                params = "1";
+            }
+            APIManager.connect().updateTripInfo(tripId, params, TripTypePermission.STATUS, new CallBack() {
                 @Override
                 public void run() {
                     AppConfig.showToast(TripDetailActivity.this, getString(R.string.str_success));
@@ -212,12 +213,9 @@ public class TripDetailActivity extends ActivityCoreBehavior {
                 public void run(String error) {
                     AppConfig.showToast(TripDetailActivity.this, error);
                 }
-            }, new CallBack() {
-                @Override
-                public void run() {
-                    onExpired();
-                }
-            });
+            }, mExpireCallBack);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -256,14 +254,29 @@ public class TripDetailActivity extends ActivityCoreBehavior {
 
     @Override
     public void onApplyData() {
-        Intent intent = this.getIntent();
-        tripId = intent.getStringExtra(AppConfig.TRIP_ID);
-        if (ValidateUtils.canUse(tripId)) {
-            if (NetworkUtils.isNetworkConnected(this)) {
-                loadTripFromServer();
-            } else {
-                loadTripFromRealm();
+        try {
+
+            Intent intent = this.getIntent();
+            tripId = intent.getStringExtra(AppConfig.TRIP_ID);
+            if (ValidateUtils.canUse(tripId)) {
+                if (NetworkUtils.isNetworkConnected(this)) {
+                    APIManager.connect().trackingViews(tripId, new CallBack() {
+                        @Override
+                        public void run() {
+                        }
+                    }, new CallBackWith<String>() {
+                        @Override
+                        public void run(String error) {
+                            AppConfig.showToast(TripDetailActivity.this, error);
+                        }
+                    }, mExpireCallBack);
+                    loadTripFromServer();
+                } else {
+                    loadTripFromRealm();
+                }
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -271,21 +284,17 @@ public class TripDetailActivity extends ActivityCoreBehavior {
         APIManager.connect().getTripDetail(tripId, new CallBackWith<Trip>() {
             @Override
             public void run(Trip trip) {
+                updateUI(trip);
                 // RealmManager.deleteTripById(tripId);
                 RealmManager.insertOrUpdate(trip);
-                updateUI(trip);
-            }
-        }, new CallBack() {
-            @Override
-            public void run() {
-                onExpired();
             }
         }, new CallBackWith<String>() {
             @Override
             public void run(String error) {
+                AppConfig.showToast(TripDetailActivity.this, error);
                 loadTripFromRealm();
             }
-        });
+        }, mExpireCallBack);
     }
 
     private void loadTripFromRealm() {
@@ -302,21 +311,18 @@ public class TripDetailActivity extends ActivityCoreBehavior {
 
             if (trip == null) return;
 
-            albumAdapter.replaceAll(trip.getAlbum(), 6);
-
+            albumAdapter.replaceAll(trip.getAlbum());
+            mIsPublic = trip.isPublished();
             mCurrentRoleType = trip.getRole();
             TripDetailActivityView.inject(this)
-                    .switchMode(mCurrentRoleType, trip.isPublished())       // Mode, is publish
+                    .switchMode(mCurrentRoleType)                // Mode, is publish
                     .setTripCover(trip.getCover())                          // Cover
                     .setTripName(trip.getTripName())                        // Trip name
                     .showTransfer(trip.getTransfer())                       // Transfer
                     .setViews(trip.getNumberOfView())                       // Views
                     .setOwnerName(trip.getCreatorName())                    // Own name
-                    .setMembers(trip.getNumberOfMembers())                  // Members
-                    .setComments(trip.getNumberOfComments())                // Comments
                     .setOwnerAvatar(trip.getCreatorAvatar())                // Avatar
                     .showTripDescription(trip.getDescription())             // Description
-                    .setActivities(trip.getNumberOfActivities())            // Activities
                     .setTime(trip.getDepartTime(), trip.getArriveTime());   // Time
 
         } catch (Exception e) {
@@ -358,8 +364,8 @@ public class TripDetailActivity extends ActivityCoreBehavior {
         }, mExpireCallBack);
     }
 
-    @OnClick(R.id.text_number_of_comment)
-    public void onLoadComment() {
+    @OnClick(R.id.layout_comment)
+    public void loadComment() {
         DialogComment dialogComment = new DialogComment(this);
         dialogComment.show();
         dialogComment.setTripId(tripId);
@@ -394,11 +400,6 @@ public class TripDetailActivity extends ActivityCoreBehavior {
             APIManager.connect().join(tripId, new CallBack() {
                 @Override
                 public void run() {
-                    onExpired();
-                }
-            }, new CallBack() {
-                @Override
-                public void run() {
                     Toast.makeText(TripDetailActivity.this, "Thành công", Toast.LENGTH_SHORT).show();
                 }
             }, new CallBackWith<String>() {
@@ -406,15 +407,15 @@ public class TripDetailActivity extends ActivityCoreBehavior {
                 public void run(String error) {
                     AppConfig.showToast(TripDetailActivity.this, error);
                 }
-            });
+            }, mExpireCallBack);
         } else {
             startActivity(new Intent(this, MapsActivity.class));
             finish();
         }
     }
 
-    @OnClick(R.id.text_activities)
-    public void onLoadActivity() {
+    @OnClick(R.id.layout_activity)
+    public void loadActivity() {
         Intent intent = new Intent(TripDetailActivity.this, TripTimelineActivity.class);
         intent.putExtra(Trip.TRIP_ID, tripId);
         startActivity(intent);

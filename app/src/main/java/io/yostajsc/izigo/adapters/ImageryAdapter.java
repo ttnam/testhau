@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 
 import io.realm.RealmList;
 import io.yostajsc.core.utils.DimensionUtil;
@@ -27,11 +28,9 @@ public class ImageryAdapter extends RecyclerView.Adapter<ImageryViewHolder> {
     @Override
     public ImageryViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View itemLayoutView = LayoutInflater.from(mContext)
-                .inflate(R.layout.item_imagery, null);
-
+        View itemLayoutView = LayoutInflater.from(mContext).inflate(R.layout.item_imagery, null);
         int width = DimensionUtil.getScreenWidth(mContext) / 3;
-        itemLayoutView.setLayoutParams(new CardView.LayoutParams(width, CardView.LayoutParams.WRAP_CONTENT));
+        itemLayoutView.setLayoutParams(new FrameLayout.LayoutParams(width, width));
         return new ImageryViewHolder(itemLayoutView);
     }
 
@@ -64,7 +63,7 @@ public class ImageryAdapter extends RecyclerView.Adapter<ImageryViewHolder> {
         clear();
         int size = album.size();
         if (size > numberOfItem) {
-            for (int i = 0; i < numberOfItem; i++)
+            for (int i = 0; i <= numberOfItem; i++)
                 this.mUrls.add(album.get(i));
         } else {
             this.mUrls.addAll(album);

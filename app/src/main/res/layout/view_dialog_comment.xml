@@ -127,6 +127,7 @@
                 android:layout_toStartOf="@id/button"
                 android:bufferType="editable"
                 android:hint="@string/message_new_comment"
+                android:imeOptions="actionSend"
                 android:inputType="text"
                 android:maxLines="2"
                 android:minLines="1">

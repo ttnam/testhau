@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge xmlns:android="http://schemas.android.com/apk/res/android">
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -41,15 +42,85 @@
 
         <include layout="@layout/item_web_vew" />
 
-        <FrameLayout
+        <include layout="@layout/layout_separate_vertical" />
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin"
-            android:background="@color/colorWindowBackground">
+            android:layout_height="?actionBarSize"
+            android:baselineAligned="true"
+            android:orientation="horizontal"
+            android:weightSum="4">
 
-            <include layout="@layout/layout_recycler_view" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:background="@drawable/ic_style_button_round_none_default"
+                android:clickable="true">
 
-        </FrameLayout>
+                <android.support.v7.widget.AppCompatImageView
+                    android:layout_width="@dimen/icon_size_x3"
+                    android:layout_height="@dimen/icon_size_x3"
+                    android:layout_centerInParent="true"
+                    app:srcCompat="@drawable/ic_vector_image" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/layout_activity"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:background="@drawable/ic_style_button_round_none_default"
+                android:clickable="true">
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:layout_width="@dimen/icon_size_x3"
+                    android:layout_height="@dimen/icon_size_x3"
+                    android:layout_centerInParent="true"
+                    app:srcCompat="@drawable/ic_vector_diagram_line" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/layout_comment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:background="@drawable/ic_style_button_round_none_default"
+                android:clickable="true">
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:layout_width="@dimen/icon_size_x3"
+                    android:layout_height="@dimen/icon_size_x3"
+                    android:layout_centerInParent="true"
+                    app:srcCompat="@drawable/ic_vector_comment" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/layout_member"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:background="@drawable/ic_style_button_round_none_default"
+                android:clickable="true">
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:layout_width="@dimen/icon_size_x3"
+                    android:layout_height="@dimen/icon_size_x3"
+                    android:layout_centerInParent="true"
+                    app:srcCompat="@drawable/ic_vector_contact_line" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <include layout="@layout/layout_recycler_view" />
 
     </LinearLayout>
 

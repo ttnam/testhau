@@ -3,21 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/margin_x2"
+    android:layout_margin="@dimen/margin"
     app:cardCornerRadius="@dimen/cardCornerRadius_x5"
     app:cardElevation="@dimen/cardview_default_elevation">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:padding="@dimen/margin">
 
         <android.support.v7.widget.AppCompatImageView
             android:layout_width="@dimen/icon_size_x4"
             android:layout_height="@dimen/icon_size_x4"
             android:layout_gravity="center"
-            android:layout_marginLeft="@dimen/margin"
-            android:layout_marginStart="@dimen/margin"
             app:srcCompat="@drawable/ic_vector_avatar" />
 
         <LinearLayout
@@ -33,23 +32,23 @@
                 style="@style/CoreAppTheme.TextView_Sub_Title.Bold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/app_name" />
+                android:text="Donald Trump" />
 
 
             <TextView
                 style="@style/CoreAppTheme.TextView_Sub_Title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/app_name" />
+                android:text="0.6 km" />
 
         </LinearLayout>
 
         <android.support.v7.widget.AppCompatImageView
             style="@style/CoreAppTheme.IconClick"
-            android:layout_width="@dimen/icon_size_x4"
-            android:layout_height="@dimen/icon_size_x4"
+            android:layout_width="@dimen/icon_size_x3"
+            android:layout_height="@dimen/icon_size_x3"
             android:layout_gravity="center"
             android:layout_margin="@dimen/margin"
-            app:srcCompat="@drawable/ic_vector_alarm_clock" />
+            app:srcCompat="@drawable/ic_vector_close_red" />
     </LinearLayout>
 </android.support.v7.widget.CardView>

@@ -28,6 +28,8 @@
     <dimen name="cardCornerRadius_x5">5dp</dimen>
 
     <dimen name="margin">8dp</dimen>
+    <dimen name="margin_min_s">2dp</dimen>
+    <dimen name="margin_min">4dp</dimen>
     <dimen name="margin_x2">16dp</dimen>
     <dimen name="margin_x3">24dp</dimen>
     <dimen name="margin_x4">32dp</dimen>

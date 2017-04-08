@@ -3,6 +3,7 @@ package io.yostajsc.izigo.activities.trip;
 import android.view.View;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import io.yostajsc.constants.RoleType;
@@ -20,29 +21,29 @@ public class TripDetailActivityView {
     private TripDetailActivity mActivity = null;
     private static TripDetailActivityView mInstance = null;
 
-    private TripDetailActivityView(TripDetailActivity tripDetailActivity) {
-        this.mActivity = tripDetailActivity;
+    private TripDetailActivityView(TripDetailActivity activity) {
+        this.mActivity = activity;
     }
 
-    public static TripDetailActivityView inject(TripDetailActivity tripDetailActivity) {
-        if (mInstance == null)
-            mInstance = new TripDetailActivityView(tripDetailActivity);
+    public static TripDetailActivityView inject(TripDetailActivity activity) {
+        mInstance = new TripDetailActivityView(activity);
         return mInstance;
     }
 
     public TripDetailActivityView setOwnerAvatar(String url) {
-        // Avatar
         Glide.with(mActivity)
                 .load(url)
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                .animate(R.anim.anim_down_from_top)
                 .bitmapTransform(new CropCircleTransformation(mActivity))
                 .into(mActivity.imageCreatorAvatar);
         return this;
     }
 
     public TripDetailActivityView setTripCover(String url) {
-        // Avatar
         Glide.with(mActivity).load(url)
+                .priority(Priority.IMMEDIATE)
+                .animate(R.anim.anim_slide_in_right)
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .into(mActivity.imageCover);
         return this;
@@ -72,18 +73,6 @@ public class TripDetailActivityView {
         mActivity.textViews.setText(String.valueOf(numberOfViews));
         return this;
     }
-
-    public TripDetailActivityView setComments(int numberOfComment) {
-        mActivity.textNumberOfComments.setText(String.valueOf(numberOfComment));
-        return this;
-    }
-
-    public TripDetailActivityView setActivities(int numberOfActivites) {
-        mActivity.textNumberOfActivities.setText(mActivity.getResources().getQuantityString(R.plurals.comments,
-                numberOfActivites, numberOfActivites));
-        return this;
-    }
-
     public TripDetailActivityView setTime(long depart, long arrive) {
 
         mActivity.textTime.setText(String.format("%s - %s",
@@ -94,30 +83,20 @@ public class TripDetailActivityView {
         return this;
     }
 
-    public TripDetailActivityView setMembers(int numberOfMembers) {
-
-        mActivity.textNumberOfMembers.setText(mActivity.getResources().getQuantityString(R.plurals.members,
-                numberOfMembers, numberOfMembers));
-        return this;
-    }
-
-    public TripDetailActivityView switchMode(int roleType, boolean isPublish) {
+    public TripDetailActivityView switchMode(int roleType) {
         switch (roleType) {
             case RoleType.MEMBER:
             case RoleType.GUEST:
-                mActivity.buttonMore.setVisibility(View.INVISIBLE);
-                mActivity.button.setImageResource(R.drawable.ic_add_user);
-                mActivity.switchPublish.setVisibility(View.INVISIBLE);
+                mActivity.buttonMore.setVisibility(View.GONE);
                 mActivity.textEdit.setVisibility(View.GONE);
+                mActivity.button.setImageResource(R.drawable.ic_add_user);
                 break;
             case RoleType.ADMIN: {
                 mActivity.buttonMore.setVisibility(View.VISIBLE);
                 mActivity.button.setImageResource(R.drawable.ic_marker);
-                mActivity.switchPublish.setVisibility(View.VISIBLE);
                 mActivity.textEdit.setVisibility(View.VISIBLE);
                 mActivity.registerForContextMenu(mActivity.buttonMore);
                 mActivity.registerForContextMenu(mActivity.imageCover);
-                mActivity.switchPublish.setChecked(isPublish);
                 break;
             }
         }

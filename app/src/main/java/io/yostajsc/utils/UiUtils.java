@@ -56,41 +56,6 @@ public class UiUtils {
         }
     }
 
-    public static void onApplyAlbumRecyclerView(@NonNull RecyclerView view,
-                                                @NonNull RecyclerView.Adapter adapter,
-                                                RecyclerView.ItemAnimator animator,
-                                                final CallBackWith<Integer> itemClick) {
-
-        SnapHelper snapHelper = new LinearSnapHelper();
-        snapHelper.attachToRecyclerView(view);
-        view.setHasFixedSize(true);
-        view.setRecycledViewPool(new RecyclerView.RecycledViewPool());
-        view.setNestedScrollingEnabled(false);
-
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(
-                view.getContext(),
-                2,
-                GridLayoutManager.HORIZONTAL,
-                false);
-
-        view.setLayoutManager(gridLayoutManager);
-
-        if (animator != null)
-            view.setItemAnimator(animator);
-
-        view.setAdapter(adapter);
-
-        if (itemClick != null) {
-            view.addOnItemTouchListener(new RecyclerItemClickListener(view.getContext(),
-                    new RecyclerItemClickListener.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(View view, int position) {
-                            itemClick.run(position);
-                        }
-                    }));
-        }
-    }
-
     public static void onApplyWebViewSetting(WebView webView) {
         WebSettings settings = webView.getSettings();
         settings.setDefaultTextEncodingName("utf-8");

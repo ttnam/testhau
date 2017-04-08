@@ -100,7 +100,11 @@
             <meta-data
                 android:name="android.app.shortcuts"
                 android:resource="@xml/shortcuts" />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".activities.WebViewActivity"
@@ -109,10 +113,9 @@
             android:theme="@style/AppTheme" />
         <activity
             android:name=".activities.trip.TripDetailActivity"
-            android:launchMode="singleTask"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait"
-            android:theme="@style/CoreAppTheme.White"
-            android:windowSoftInputMode="adjustResize" />
+            android:theme="@style/CoreAppTheme.White" />
         <activity
             android:name=".activities.user.ProfileActivity"
             android:launchMode="singleTask"
@@ -154,14 +157,8 @@
         <activity
             android:name=".activities.trip.MapsActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait">
-
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:screenOrientation="portrait"
+            android:theme="@style/CoreAppTheme.White"></activity>
     </application>
 
 </manifest>

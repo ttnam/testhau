@@ -47,8 +47,13 @@ public class TripFragment extends CoreFragment {
         View rootView = inflater.inflate(R.layout.fragment_trip, container, false);
         ButterKnife.bind(this, rootView);
         onApplyViews();
-        onApplyData();
         return rootView;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        onApplyData();
     }
 
     private void onApplyViews() {
@@ -78,30 +83,10 @@ public class TripFragment extends CoreFragment {
     }
 
     private void onTripItemClick(int pos) {
-
         final String tripId = tripAdapter.getItem(pos).getId();
-
         Intent intent = new Intent(mContext, TripDetailActivity.class);
         intent.putExtra(AppConfig.TRIP_ID, tripId);
         startActivity(intent);
-
-       /* APIManager.connect().trackingViews(tripId, new CallBack() {
-            @Override
-            public void run() {
-                // TODO: expired
-            }
-        }, new CallBack() {
-            @Override
-            public void run() {
-
-
-            }
-        }, new CallBackWith<String>() {
-            @Override
-            public void run(String error) {
-                Toast.makeText(mContext, error, Toast.LENGTH_SHORT).show();
-            }
-        });*/
     }
 
     private void onApplyData() {

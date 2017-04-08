@@ -230,8 +230,8 @@ public class APIManager {
 
     public void getTripDetail(String tripId,
                               final CallBackWith<Trip> success,
-                              final CallBack expired,
-                              final CallBackWith<String> fail) {
+                              final CallBackWith<String> fail,
+                              final CallBack expired) {
         Call<BaseResponse<Trip>> call = service.getTripDetail(AppConfig.getInstance().getAuthorization(), tripId);
 
         call.enqueue(new Callback<BaseResponse<Trip>>() {
@@ -478,12 +478,9 @@ public class APIManager {
         });
     }
 
-    public void trackingViews(String tripId,
-                              final CallBack expired,
-                              final CallBack success,
-                              final CallBackWith<String> fail) {
+    public void trackingViews(String tripId, final CallBack success, final CallBackWith<String> fail, final CallBack expired) {
 
-        Call<BaseResponse<String>> call = service.updateView(AppConfig.getInstance().getAuthorization(), tripId);
+        Call<BaseResponse<String>> call = service.updateView(mAuthorization, tripId);
 
         call.enqueue(new Callback<BaseResponse<String>>() {
             @Override
@@ -540,8 +537,7 @@ public class APIManager {
         });
     }
 
-    public void join(String tripId, final CallBack expired,
-                     final CallBack success, final CallBackWith<String> fail) {
+    public void join(String tripId, final CallBack success, final CallBackWith<String> fail, final CallBack expired) {
 
         Call<BaseResponse<String>> call = service.join(AppConfig.getInstance().getAuthorization(), tripId);
         call.enqueue(new Callback<BaseResponse<String>>() {

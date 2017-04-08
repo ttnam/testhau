@@ -58,7 +58,7 @@ public class ActivityCoreBehavior extends AppCompatActivity implements ActivityC
         super.onStart();
         EventBus.getDefault().register(this);
         this.mDialogNoNet = new DialogNoNet(this);
-        mDialogNoNet.setIcon(R.mipmap.ic_launcher);
+        mDialogNoNet.setIcon(R.drawable.ic_launcher_sad);
     }
 
     @Override
