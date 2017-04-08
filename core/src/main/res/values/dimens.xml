@@ -24,9 +24,8 @@
     <dimen name="buttonBigBorders">24dp</dimen>
     <dimen name="min_buttonBorders">3dp</dimen>
 
-    <dimen name="cardCornerRadius">1dp</dimen>
     <dimen name="cardCornerRadius_x10">10dp</dimen>
-    <dimen name="cardCornerRadius_x5">1dp</dimen>
+    <dimen name="cardCornerRadius_x5">5dp</dimen>
 
     <dimen name="margin">8dp</dimen>
     <dimen name="margin_x2">16dp</dimen>

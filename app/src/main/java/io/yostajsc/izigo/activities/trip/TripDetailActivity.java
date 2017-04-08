@@ -32,7 +32,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import butterknife.OnClick;
-import io.yostajsc.backend.core.APIManager;
+import io.yostajsc.usecase.backend.core.APIManager;
 import io.yostajsc.constants.RoleType;
 import io.yostajsc.constants.TransferType;
 import io.yostajsc.constants.TripTypePermission;
@@ -42,7 +42,6 @@ import io.yostajsc.core.code.MessageType;
 import io.yostajsc.core.utils.NetworkUtils;
 import io.yostajsc.core.utils.ValidateUtils;
 import io.yostajsc.izigo.R;
-import io.yostajsc.izigo.activities.ActivityManagerActivity;
 import io.yostajsc.izigo.activities.dialogs.DialogComment;
 import io.yostajsc.izigo.activities.dialogs.DialogPickTransfer;
 import io.yostajsc.izigo.adapters.ImageryAdapter;
@@ -272,6 +271,7 @@ public class TripDetailActivity extends ActivityCoreBehavior {
         APIManager.connect().getTripDetail(tripId, new CallBackWith<Trip>() {
             @Override
             public void run(Trip trip) {
+                // RealmManager.deleteTripById(tripId);
                 RealmManager.insertOrUpdate(trip);
                 updateUI(trip);
             }
@@ -408,7 +408,7 @@ public class TripDetailActivity extends ActivityCoreBehavior {
                 }
             });
         } else {
-            startActivity(new Intent(this, ActivityManagerActivity.class));
+            startActivity(new Intent(this, MapsActivity.class));
             finish();
         }
     }

@@ -4,19 +4,16 @@ import android.support.annotation.NonNull;
 
 import io.realm.Realm;
 import io.realm.RealmList;
-import io.realm.RealmModel;
 import io.realm.RealmObject;
 import io.realm.RealmResults;
-import io.realm.annotations.RealmClass;
 import io.yostajsc.core.interfaces.CallBackWith;
 import io.yostajsc.izigo.models.Timeline;
 import io.yostajsc.izigo.models.Timelines;
 import io.yostajsc.izigo.models.trip.Trip;
-import io.yostajsc.izigo.models.trip.Trips;
-import io.yostajsc.realm.trip.OwnTrip;
-import io.yostajsc.realm.trip.OwnTrips;
-import io.yostajsc.realm.trip.PublicTrip;
-import io.yostajsc.realm.trip.PublicTrips;
+import io.yostajsc.usecase.realm.trip.OwnTrip;
+import io.yostajsc.usecase.realm.trip.OwnTrips;
+import io.yostajsc.usecase.realm.trip.PublicTrip;
+import io.yostajsc.usecase.realm.trip.PublicTrips;
 
 /**
  * Created by Phuc-Hau Nguyen on 2/20/2017.
@@ -162,7 +159,7 @@ public class RealmManager {
 
         try {
             realm = Realm.getDefaultInstance();
-            realm.executeTransactionAsync(new Realm.Transaction() {
+            realm.executeTransaction(new Realm.Transaction() {
                 @Override
                 public void execute(Realm realm) {
                     RealmResults<PublicTrip> res = realm.where(PublicTrip.class).findAll();
@@ -186,7 +183,7 @@ public class RealmManager {
 
         try {
             realm = Realm.getDefaultInstance();
-            realm.executeTransactionAsync(new Realm.Transaction() {
+            realm.executeTransaction(new Realm.Transaction() {
                 @Override
                 public void execute(Realm realm) {
                     RealmResults<OwnTrip> res = realm.where(OwnTrip.class).findAll();

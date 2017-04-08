@@ -6,9 +6,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
-import io.yostajsc.backend.core.APIManager;
+import io.yostajsc.usecase.backend.core.APIManager;
 import io.yostajsc.core.fragments.CoreFragment;
 import io.yostajsc.core.interfaces.CallBack;
 import io.yostajsc.core.interfaces.CallBackWith;
@@ -21,7 +20,7 @@ import io.yostajsc.izigo.activities.trip.TripDetailActivity;
 import io.yostajsc.izigo.adapters.TripAdapter;
 import io.yostajsc.izigo.configs.AppConfig;
 import io.yostajsc.izigo.managers.RealmManager;
-import io.yostajsc.realm.trip.PublicTrips;
+import io.yostajsc.usecase.realm.trip.PublicTrips;
 import io.yostajsc.utils.UiUtils;
 import io.yostajsc.view.OwnToolBar;
 import butterknife.BindView;
@@ -86,7 +85,7 @@ public class TripFragment extends CoreFragment {
         intent.putExtra(AppConfig.TRIP_ID, tripId);
         startActivity(intent);
 
-        APIManager.connect().trackingViews(tripId, new CallBack() {
+       /* APIManager.connect().trackingViews(tripId, new CallBack() {
             @Override
             public void run() {
                 // TODO: expired
@@ -102,7 +101,7 @@ public class TripFragment extends CoreFragment {
             public void run(String error) {
                 Toast.makeText(mContext, error, Toast.LENGTH_SHORT).show();
             }
-        });
+        });*/
     }
 
     private void onApplyData() {
@@ -141,11 +140,15 @@ public class TripFragment extends CoreFragment {
     }
 
     private void updateUI(PublicTrips publicTrips) {
-        int size = publicTrips.size();
-        if (size < 0)
-            return;
-        for (int i = 0; i < size; i++) {
-            tripAdapter.add(publicTrips.get(i));
+        try {
+            int size = publicTrips.size();
+            if (size < 0)
+                return;
+            for (int i = 0; i < size; i++) {
+                tripAdapter.add(publicTrips.get(i));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

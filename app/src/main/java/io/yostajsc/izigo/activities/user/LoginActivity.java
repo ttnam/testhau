@@ -39,7 +39,7 @@ import io.yostajsc.core.utils.StorageUtils;
 import io.yostajsc.core.utils.ValidateUtils;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.activities.MainActivity;
-import io.yostajsc.backend.core.APIManager;
+import io.yostajsc.usecase.backend.core.APIManager;
 import io.yostajsc.izigo.activities.core.ActivityCoreBehavior;
 import io.yostajsc.izigo.configs.AppConfig;
 import io.yostajsc.izigo.firebase.FirebaseManager;

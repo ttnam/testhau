@@ -74,8 +74,7 @@ public class TripDetailActivityView {
     }
 
     public TripDetailActivityView setComments(int numberOfComment) {
-        mActivity.textNumberOfComments.setText(mActivity.getResources().getQuantityString(R.plurals.comments,
-                numberOfComment, numberOfComment));
+        mActivity.textNumberOfComments.setText(String.valueOf(numberOfComment));
         return this;
     }
 

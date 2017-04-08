@@ -11,7 +11,7 @@ import android.widget.LinearLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.yostajsc.backend.core.APIManager;
+import io.yostajsc.usecase.backend.core.APIManager;
 import io.yostajsc.core.fragments.CoreFragment;
 import io.yostajsc.core.interfaces.CallBack;
 import io.yostajsc.core.interfaces.CallBackWith;
@@ -23,7 +23,7 @@ import io.yostajsc.izigo.activities.trip.TripDetailActivity;
 import io.yostajsc.izigo.adapters.TripAdapter;
 import io.yostajsc.izigo.configs.AppConfig;
 import io.yostajsc.izigo.managers.RealmManager;
-import io.yostajsc.realm.trip.OwnTrips;
+import io.yostajsc.usecase.realm.trip.OwnTrips;
 import io.yostajsc.utils.UiUtils;
 import io.yostajsc.view.OwnToolBar;
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
@@ -78,14 +78,18 @@ public class OwnTripFragment extends CoreFragment {
     }
 
     private void updateUI(OwnTrips trips) {
-        int size = trips.size();
-        if (size > 0) {
-            layoutEmpty.setVisibility(View.GONE);
-            for (int i = 0; i < size; i++) {
-                tripAdapter.add(trips.get(i));
+        try {
+            int size = trips.size();
+            if (size > 0) {
+                layoutEmpty.setVisibility(View.GONE);
+                for (int i = 0; i < size; i++) {
+                    tripAdapter.add(trips.get(i));
+                }
+            } else {
+                layoutEmpty.setVisibility(View.VISIBLE);
             }
-        } else {
-            layoutEmpty.setVisibility(View.VISIBLE);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

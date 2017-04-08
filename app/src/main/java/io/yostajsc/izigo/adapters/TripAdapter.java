@@ -12,7 +12,6 @@ import io.yostajsc.core.utils.DatetimeUtils;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.interfaces.TripModel;
 import io.yostajsc.izigo.ui.viewholder.TripViewHolder;
-import io.yostajsc.realm.trip.PublicTrip;
 
 /**
  * Created by Phuc-Hau Nguyen on 10/14/2016.
