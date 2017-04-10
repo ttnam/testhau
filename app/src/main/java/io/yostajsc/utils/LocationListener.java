@@ -2,6 +2,15 @@ package io.yostajsc.utils;
 
 import android.location.Location;
 import android.os.Bundle;
+import android.util.Log;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.Calendar;
+
+import io.yostajsc.core.utils.StorageUtils;
+import io.yostajsc.izigo.configs.AppConfig;
 
 /**
  * Created by nphau on 3/21/17.
@@ -11,34 +20,29 @@ public class LocationListener implements android.location.LocationListener {
 
     private static final String TAG = LocationListener.class.getSimpleName();
 
-    public LocationListener(String provider) {
+    private DatabaseReference mDatabase;
+    private Location mLastLocation;
 
+    public LocationListener(String provider) {
+        mLastLocation = new Location(provider);
+        mDatabase = FirebaseDatabase.getInstance().getReference();
     }
 
     @Override
     public void onLocationChanged(final Location location) {
 
-     /*   APIManager.connect().updateLocation(
-                location.getLongitude() + "",
-                location.getLatitude() + "",
-                DatetimeUtils.getTimeZone(), "android" + Build.VERSION.RELEASE,
-                Build.SERIAL, new CallBack() {
-                    @Override
-                    public void run() {
-                        Log.e(TAG, "Success - " + location.toString());
-                    }
-                }, new CallBackWith<String>() {
-                    @Override
-                    public void run(String error) {
-                        Log.e(TAG, error);
-                    }
-                }, new CallBack() {
-                    @Override
-                    public void run() {
-                        Log.e(TAG, "Expired");
-                    }
-                });*/
+        if (LocationCore.make().isBetter(location, mLastLocation)) {
 
+            mLastLocation = location;
+
+            final String tripId = StorageUtils.inject(AppConfig.getInstance()).getString(AppConfig.TRIP_ID);
+            final String fbId = StorageUtils.inject(AppConfig.getInstance()).getString(AppConfig.FB_ID);
+
+            mDatabase.child("TRACK/" + tripId + "/" + fbId + "/geo/" + Calendar.getInstance().getTimeInMillis())
+                    .setValue(
+                            location.getLatitude() + ", " +
+                                    location.getLongitude() + ", 1");
+        }
     }
 
     @Override

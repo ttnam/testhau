@@ -10,11 +10,11 @@ import butterknife.ButterKnife;
 import io.yostajsc.core.designs.decorations.SpacesItemDecoration;
 import io.yostajsc.core.designs.listeners.RecyclerItemClickListener;
 import io.yostajsc.izigo.R;
-import io.yostajsc.izigo.activities.core.ActivityCoreBehavior;
+import io.yostajsc.izigo.activities.core.OwnCoreActivity;
 import io.yostajsc.izigo.adapters.TripAdapter;
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 
-public class SearchActivity extends ActivityCoreBehavior {
+public class SearchActivity extends OwnCoreActivity {
 
     @BindView(R.id.recycler_view)
     RecyclerView rvTrip;

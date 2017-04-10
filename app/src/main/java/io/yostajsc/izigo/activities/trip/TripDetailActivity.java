@@ -36,6 +36,7 @@ import com.google.firebase.storage.UploadTask;
 import butterknife.OnClick;
 import io.yostajsc.core.designs.listeners.RecyclerItemClickListener;
 import io.yostajsc.izigo.activities.MembersActivity;
+import io.yostajsc.izigo.activities.core.OwnCoreActivity;
 import io.yostajsc.usecase.backend.core.APIManager;
 import io.yostajsc.constants.RoleType;
 import io.yostajsc.constants.TransferType;
@@ -49,7 +50,6 @@ import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.activities.dialogs.DialogComment;
 import io.yostajsc.izigo.activities.dialogs.DialogPickTransfer;
 import io.yostajsc.izigo.adapters.ImageryAdapter;
-import io.yostajsc.izigo.activities.core.ActivityCoreBehavior;
 import io.yostajsc.izigo.configs.AppConfig;
 import io.yostajsc.izigo.managers.RealmManager;
 import io.yostajsc.izigo.models.trip.Trip;
@@ -61,7 +61,7 @@ import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.RuntimePermissions;
 
 @RuntimePermissions
-public class TripDetailActivity extends ActivityCoreBehavior {
+public class TripDetailActivity extends OwnCoreActivity {
 
     private static final String TAG = TripDetailActivity.class.getSimpleName();
 
@@ -213,7 +213,7 @@ public class TripDetailActivity extends ActivityCoreBehavior {
                 public void run(String error) {
                     AppConfig.showToast(TripDetailActivity.this, error);
                 }
-            }, mExpireCallBack);
+            }, mOnExpiredCallBack);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -269,7 +269,7 @@ public class TripDetailActivity extends ActivityCoreBehavior {
                         public void run(String error) {
                             AppConfig.showToast(TripDetailActivity.this, error);
                         }
-                    }, mExpireCallBack);
+                    }, mOnExpiredCallBack);
                     loadTripFromServer();
                 } else {
                     loadTripFromRealm();
@@ -294,7 +294,7 @@ public class TripDetailActivity extends ActivityCoreBehavior {
                 AppConfig.showToast(TripDetailActivity.this, error);
                 loadTripFromRealm();
             }
-        }, mExpireCallBack);
+        }, mOnExpiredCallBack);
     }
 
     private void loadTripFromRealm() {
@@ -361,7 +361,7 @@ public class TripDetailActivity extends ActivityCoreBehavior {
             public void run(String error) {
                 AppConfig.showToast(TripDetailActivity.this, error);
             }
-        }, mExpireCallBack);
+        }, mOnExpiredCallBack);
     }
 
     @OnClick(R.id.layout_comment)
@@ -369,6 +369,7 @@ public class TripDetailActivity extends ActivityCoreBehavior {
         DialogComment dialogComment = new DialogComment(this);
         dialogComment.show();
         dialogComment.setTripId(tripId);
+        dialogComment.setTripName(tripId);
     }
 
     @OnClick({R.id.button_more, R.id.image_view})
@@ -407,7 +408,7 @@ public class TripDetailActivity extends ActivityCoreBehavior {
                 public void run(String error) {
                     AppConfig.showToast(TripDetailActivity.this, error);
                 }
-            }, mExpireCallBack);
+            }, mOnExpiredCallBack);
         } else {
             startActivity(new Intent(this, MapsActivity.class));
             finish();

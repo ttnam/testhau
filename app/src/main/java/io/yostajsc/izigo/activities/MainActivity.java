@@ -11,13 +11,13 @@ import io.yostajsc.constants.PageType;
 import io.yostajsc.core.designs.tabs.IconViewPagerAdapter;
 import io.yostajsc.core.designs.viewpager.NonSwipeAbleViewPager;
 import io.yostajsc.izigo.R;
-import io.yostajsc.izigo.activities.core.ActivityCoreBehavior;
+import io.yostajsc.izigo.activities.core.OwnCoreActivity;
 import io.yostajsc.izigo.configs.AppConfig;
 import io.yostajsc.izigo.fragments.NotificationsFragment;
 import io.yostajsc.izigo.fragments.OwnTripFragment;
 import io.yostajsc.izigo.fragments.TripFragment;
 
-public class MainActivity extends ActivityCoreBehavior {
+public class MainActivity extends OwnCoreActivity {
 
     @BindView(R.id.tabs)
     TabLayout mTabLayout;

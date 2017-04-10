@@ -39,8 +39,8 @@ import io.yostajsc.core.utils.StorageUtils;
 import io.yostajsc.core.utils.ValidateUtils;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.activities.MainActivity;
+import io.yostajsc.izigo.activities.core.OwnCoreActivity;
 import io.yostajsc.usecase.backend.core.APIManager;
-import io.yostajsc.izigo.activities.core.ActivityCoreBehavior;
 import io.yostajsc.izigo.configs.AppConfig;
 import io.yostajsc.izigo.firebase.FirebaseManager;
 import io.yostajsc.izigo.models.user.User;
@@ -48,7 +48,7 @@ import io.yostajsc.izigo.firebase.model.UserManager;
 import io.yostajsc.izigo.managers.EventManager;
 import io.yostajsc.utils.UserPref;
 
-public class LoginActivity extends ActivityCoreBehavior {
+public class LoginActivity extends OwnCoreActivity {
 
     private final String TAG = LoginActivity.class.getSimpleName();
 
@@ -89,8 +89,7 @@ public class LoginActivity extends ActivityCoreBehavior {
             public void run() {
                 AccessToken token = AccessToken.getCurrentAccessToken();
                 if (token != null) {
-                    String authorization = AppConfig.getInstance().getAuthorization();
-                    if (ValidateUtils.canUse(authorization)) {
+                    if (ValidateUtils.canUse(AppConfig.getInstance().getAuthorization())) {
                         startActivity(new Intent(LoginActivity.this, MainActivity.class));
                         finish();
                     } else {
@@ -100,7 +99,7 @@ public class LoginActivity extends ActivityCoreBehavior {
                     onReset();
                 }
             }
-        }, 1000);
+        }, 500);
     }
 
     @Override
@@ -120,6 +119,7 @@ public class LoginActivity extends ActivityCoreBehavior {
     }
 
     private void onFireBaseConfig() {
+
         // Initialize Fire base Auth
         mAuth = FirebaseAuth.getInstance();
 
@@ -211,7 +211,6 @@ public class LoginActivity extends ActivityCoreBehavior {
             APIManager.connect().onLogin(email, fbId, fireBaseId, fcm, new CallBackWith<String>() {
                 @Override
                 public void run(String authorization) {
-                    Log.d(TAG, authorization);
 
                     StorageUtils.inject(LoginActivity.this).save(AppConfig.AUTHORIZATION, authorization);
 
@@ -232,7 +231,7 @@ public class LoginActivity extends ActivityCoreBehavior {
                 @Override
                 public void run(String error) {
                     onReset();
-                    Toast.makeText(LoginActivity.this, error, Toast.LENGTH_LONG).show();
+                    AppConfig.showToast(LoginActivity.this, error);
                 }
             });
         } else {

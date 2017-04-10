@@ -11,12 +11,12 @@ import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.yostajsc.izigo.activities.core.OwnCoreActivity;
 import io.yostajsc.usecase.backend.core.APIManager;
 import io.yostajsc.core.interfaces.CallBack;
 import io.yostajsc.core.interfaces.CallBackWith;
 import io.yostajsc.core.utils.NetworkUtils;
 import io.yostajsc.core.utils.ValidateUtils;
-import io.yostajsc.izigo.activities.core.ActivityCoreBehavior;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.adapters.TimelineAdapter;
 import io.yostajsc.izigo.managers.RealmManager;
@@ -26,8 +26,7 @@ import io.yostajsc.utils.UiUtils;
 import io.yostajsc.view.OwnToolBar;
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 
-public class TripTimelineActivity extends ActivityCoreBehavior {
-
+public class TripTimelineActivity extends OwnCoreActivity {
 
     @BindView(R.id.layout)
     OwnToolBar mOwnToolbar;

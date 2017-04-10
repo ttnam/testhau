@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import io.yostajsc.izigo.models.user.Friends;
 import io.yostajsc.usecase.backend.response.BaseResponse;
 import io.yostajsc.constants.TripTypePermission;
 import io.yostajsc.core.interfaces.CallBack;
@@ -313,18 +314,18 @@ public class APIManager {
         });
     }
 
-    public void getFriendsList(String authorization, String fbAccessToken,
-                               final CallBackWith<List<Friend>> success,
+    public void getFriendsList(String fbAccessToken,
+                               final CallBackWith<Friends> success,
                                final CallBackWith<String> fail,
                                final CallBack expired) {
 
-        Call<BaseResponse<List<Friend>>> call = service.getFriendsList(authorization, fbAccessToken);
+        Call<BaseResponse<Friends>> call = service.getFriendsList(mAuthorization, fbAccessToken);
 
-        call.enqueue(new Callback<BaseResponse<List<Friend>>>() {
+        call.enqueue(new Callback<BaseResponse<Friends>>() {
             @Override
-            public void onResponse(Call<BaseResponse<List<Friend>>> call, Response<BaseResponse<List<Friend>>> response) {
+            public void onResponse(Call<BaseResponse<Friends>> call, Response<BaseResponse<Friends>> response) {
                 if (response.isSuccessful()) {
-                    BaseResponse<List<Friend>> res = response.body();
+                    BaseResponse<Friends> res = response.body();
                     if (res.isExpired()) {
                         expired.run();
                     } else if (res.isSuccessful()) {
@@ -336,7 +337,7 @@ public class APIManager {
             }
 
             @Override
-            public void onFailure(Call<BaseResponse<List<Friend>>> call, Throwable throwable) {
+            public void onFailure(Call<BaseResponse<Friends>> call, Throwable throwable) {
                 Log.e(TAG, throwable.getMessage());
             }
         });
@@ -446,21 +447,21 @@ public class APIManager {
 
             @Override
             public void onFailure(Call<BaseResponse<Timelines>> call, Throwable throwable) {
-                Log.e(TAG, throwable.getMessage());
+                log(throwable.getMessage());
             }
         });
     }
 
-    public void getMembers(String authorization, String tripId,
-                           final CallBack expired,
-                           final CallBackWith<List<Friend>> success,
-                           final CallBackWith<String> fail) {
-        Call<BaseResponse<List<Friend>>> call = service.getMembers(authorization, tripId);
-        call.enqueue(new Callback<BaseResponse<List<Friend>>>() {
+    public void getMembers(String tripId,
+                           final CallBackWith<Friends> success,
+                           final CallBackWith<String> fail,
+                           final CallBack expired) {
+        Call<BaseResponse<Friends>> call = service.getMembers(mAuthorization, tripId);
+        call.enqueue(new Callback<BaseResponse<Friends>>() {
             @Override
-            public void onResponse(Call<BaseResponse<List<Friend>>> call, Response<BaseResponse<List<Friend>>> response) {
+            public void onResponse(Call<BaseResponse<Friends>> call, Response<BaseResponse<Friends>> response) {
                 if (response.isSuccessful()) {
-                    BaseResponse<List<Friend>> res = response.body();
+                    BaseResponse<Friends> res = response.body();
                     if (res.isSuccessful()) {
                         success.run(res.data());
                     } else if (res.isExpired()) {
@@ -472,8 +473,8 @@ public class APIManager {
             }
 
             @Override
-            public void onFailure(Call<BaseResponse<List<Friend>>> call, Throwable throwable) {
-                Log.e(TAG, throwable.getMessage());
+            public void onFailure(Call<BaseResponse<Friends>> call, Throwable throwable) {
+                log(throwable.getMessage());
             }
         });
     }

@@ -9,24 +9,22 @@ import android.widget.Toast;
 
 import com.facebook.AccessToken;
 
-import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.yostajsc.izigo.activities.core.OwnCoreActivity;
+import io.yostajsc.izigo.models.user.Friends;
 import io.yostajsc.usecase.backend.core.APIManager;
 import io.yostajsc.core.code.MessageType;
 import io.yostajsc.core.interfaces.CallBack;
 import io.yostajsc.core.interfaces.CallBackWith;
 import io.yostajsc.core.interfaces.ItemClick;
 import io.yostajsc.izigo.R;
-import io.yostajsc.izigo.activities.core.ActivityCoreBehavior;
 import io.yostajsc.izigo.adapters.MemberAdapter;
 import io.yostajsc.izigo.configs.AppConfig;
-import io.yostajsc.izigo.models.user.Friend;
 import io.yostajsc.view.OwnToolBar;
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 
-public class MembersActivity extends ActivityCoreBehavior {
+public class MembersActivity extends OwnCoreActivity {
 
 
     @BindView(R.id.recycler_view)
@@ -81,15 +79,15 @@ public class MembersActivity extends ActivityCoreBehavior {
         AccessToken token = AccessToken.getCurrentAccessToken();
         if (token != null) {
             String fbToken = token.getToken();
-            APIManager.connect().getFriendsList(mAuthorization, fbToken, new CallBackWith<List<Friend>>() {
+            APIManager.connect().getFriendsList(fbToken, new CallBackWith<Friends>() {
                 @Override
-                public void run(List<Friend> friends) {
+                public void run(Friends friends) {
                     friendAdapter.replaceAll(friends);
                 }
             }, new CallBackWith<String>() {
                 @Override
                 public void run(String error) {
-                    Toast.makeText(MembersActivity.this, error, Toast.LENGTH_SHORT).show();
+                    AppConfig.showToast(MembersActivity.this, error);
                 }
             }, new CallBack() {
                 @Override
@@ -101,21 +99,20 @@ public class MembersActivity extends ActivityCoreBehavior {
     }
 
     private void getMemberList() {
-
-        APIManager.connect().getMembers(mAuthorization, mTripId, new CallBack() {
+        APIManager.connect().getMembers(mTripId, new CallBackWith<Friends>() {
             @Override
-            public void run() {
-                onExpired();
-            }
-        }, new CallBackWith<List<Friend>>() {
-            @Override
-            public void run(List<Friend> friend) {
-                memberAdapter.replaceAll(friend);
+            public void run(Friends friends) {
+                memberAdapter.replaceAll(friends);
             }
         }, new CallBackWith<String>() {
             @Override
             public void run(String error) {
-                Toast.makeText(MembersActivity.this, error, Toast.LENGTH_SHORT).show();
+                AppConfig.showToast(MembersActivity.this, error);
+            }
+        }, new CallBack() {
+            @Override
+            public void run() {
+                onExpired();
             }
         });
     }

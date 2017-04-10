@@ -51,7 +51,7 @@ public class DialogComment extends Dialog {
     @BindView(R.id.button)
     AppCompatImageView btnSend;
 
-
+    private String tripId, tripName;
     private Activity mOwnerActivity = null;
     private CommentAdapter mCommentsAdapter = null;
 
@@ -116,6 +116,10 @@ public class DialogComment extends Dialog {
         }*/
     }
 
+    public void setTripName(String tripName) {
+
+    }
+
     public void setTripId(String tripId) {
 
         // Load from disk
@@ -123,24 +127,24 @@ public class DialogComment extends Dialog {
         // Load from internet
         if (NetworkUtils.isNetworkConnected(mOwnerActivity)) {
 
-                APIManager.connect().getComments(tripId, new CallBack() {
-                    @Override
-                    public void run() {
-                        // TODO: expired
-                    }
-                }, new CallBackWith<Comments>() {
-                    @Override
-                    public void run(Comments comments) {
-                        // TODO: Write to disk
+            APIManager.connect().getComments(tripId, new CallBack() {
+                @Override
+                public void run() {
+                    // TODO: expired
+                }
+            }, new CallBackWith<Comments>() {
+                @Override
+                public void run(Comments comments) {
+                    // TODO: Write to disk
 
-                        updateUI(comments);
-                    }
-                }, new CallBackWith<String>() {
-                    @Override
-                    public void run(String s) {
+                    updateUI(comments);
+                }
+            }, new CallBackWith<String>() {
+                @Override
+                public void run(String s) {
 
-                    }
-                });
+                }
+            });
         }
     }
 

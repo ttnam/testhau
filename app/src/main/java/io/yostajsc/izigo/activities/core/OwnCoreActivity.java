@@ -1,7 +1,6 @@
 package io.yostajsc.izigo.activities.core;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 
 import com.facebook.login.LoginManager;
 
@@ -11,22 +10,22 @@ import org.greenrobot.eventbus.Subscribe;
 import io.yostajsc.core.code.MessageInfo;
 import io.yostajsc.core.code.MessageType;
 import io.yostajsc.core.dialogs.DialogNoNet;
-import io.yostajsc.core.interfaces.ActivityCoreInterface;
 import io.yostajsc.core.interfaces.CallBack;
+import io.yostajsc.core.interfaces.CoreActivity;
 import io.yostajsc.core.utils.StorageUtils;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.activities.user.LoginActivity;
 import io.yostajsc.izigo.configs.AppConfig;
 
-
 /**
- * Created by Phuc-Hau Nguyen on 8/3/2016.
+ * Created by nphau on 4/10/17.
  */
-public class ActivityCoreBehavior extends AppCompatActivity implements ActivityCoreInterface {
 
+public class OwnCoreActivity extends CoreActivity {
 
     private DialogNoNet mDialogNoNet = null;
-    protected CallBack mExpireCallBack = new CallBack() {
+
+    protected CallBack mOnExpiredCallBack = new CallBack() {
         @Override
         public void run() {
             onExpired();
@@ -69,8 +68,7 @@ public class ActivityCoreBehavior extends AppCompatActivity implements ActivityC
     }
 
     protected void onExpired() {
-        StorageUtils.inject(this).removes(AppConfig.AUTHORIZATION);
-        LoginManager.getInstance().logOut();
+        AppConfig.getInstance().logout();
         startActivity(new Intent(this, LoginActivity.class));
         finish();
     }
@@ -84,6 +82,26 @@ public class ActivityCoreBehavior extends AppCompatActivity implements ActivityC
                 break;
             case MessageType.LOST_INTERNET:
                 onInternetDisConnected();
+                break;
+            case MessageType.FROM_GALLERY:
+                break;
+            case MessageType.ITEM_CLICK_INVITED:
+                break;
+            case MessageType.LOAD_DONE:
+                break;
+            case MessageType.PICK_LOCATION_FROM:
+                break;
+            case MessageType.PICK_LOCATION_TO:
+                break;
+            case MessageType.TAKE_PHOTO:
+                break;
+            case MessageType.USER_GPS:
+                break;
+            case MessageType.GPS_OFF:
+                onGpsOff();
+                break;
+            case MessageType.GPS_ON:
+                onGpsOn();
                 break;
         }
     }
@@ -106,5 +124,13 @@ public class ActivityCoreBehavior extends AppCompatActivity implements ActivityC
     private void showNoNetDialog() {
         if (this.mDialogNoNet != null)
             this.mDialogNoNet.show();
+    }
+
+    protected void onGpsOn(){
+
+    }
+
+    protected void onGpsOff(){
+
     }
 }

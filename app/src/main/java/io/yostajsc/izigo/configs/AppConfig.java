@@ -5,6 +5,7 @@ import android.app.Application;
 import android.content.Context;
 import android.widget.Toast;
 
+import com.facebook.login.LoginManager;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.iid.FirebaseInstanceId;
 
@@ -25,6 +26,7 @@ public class AppConfig extends Application {
 
     public static final String USER = "USER";
     public static final String TRIP_ID = "TRIP_ID";
+    public static final String FB_ID = "FB_ID";
     public static final String FIRST_TIME = "FIRST_TIME";
     public static final String KEY_PICK_LOCATION = "KEY_PICK_LOCATION";
     public static final String PARAMETERS = "id, first_name, last_name, email, cover, gender, birthday, location";
@@ -80,8 +82,13 @@ public class AppConfig extends Application {
     public static void showToast(Activity activity, String message) {
         Toast.makeText(activity, message, Toast.LENGTH_SHORT).show();
     }
+
     public static void showToast(Context context, String message) {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
     }
 
+    public void logout() {
+        StorageUtils.inject(this).removes(AppConfig.AUTHORIZATION);
+        LoginManager.getInstance().logOut();
+    }
 }

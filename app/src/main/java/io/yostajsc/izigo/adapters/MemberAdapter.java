@@ -7,13 +7,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import io.yostajsc.core.interfaces.CallBackWith;
 import io.yostajsc.core.interfaces.ItemClick;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.models.user.Friend;
+import io.yostajsc.izigo.models.user.Friends;
 import io.yostajsc.izigo.ui.viewholder.MemberViewHolder;
 
 /**
@@ -23,7 +23,7 @@ import io.yostajsc.izigo.ui.viewholder.MemberViewHolder;
 public class MemberAdapter extends RecyclerView.Adapter<MemberViewHolder> {
 
     private Context mContext = null;
-    private List<Friend> mFriends = null;
+    private Friends mFriends = null;
     private ItemClick<Integer, Integer> mItemClick;
     private CallBackWith<Integer> mKick;
 
@@ -33,7 +33,7 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberViewHolder> {
                          @NonNull ItemClick<Integer, Integer> itemClick,
                          CallBackWith<Integer> kick) {
         this.mContext = context;
-        this.mFriends = new ArrayList<>();
+        this.mFriends = new Friends();
         this.mItemClick = itemClick;
         this.mIsClose = isClose;
         this.mKick = kick;
@@ -57,11 +57,6 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberViewHolder> {
         return mFriends.size();
     }
 
-    public void adds(List<Friend> friends) {
-        this.mFriends.addAll(friends);
-        notifyDataSetChanged();
-    }
-
     public Friend getItem(int position) {
         if (position < 0 || position >= getItemCount()) {
             return null;
@@ -76,11 +71,8 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberViewHolder> {
         return index;
     }
 
-    public void replaceAll(List<Friend> friends) {
-        if (this.mFriends != null) {
-            clear();
-            this.mFriends.addAll(friends);
-        }
+    public void replaceAll(Friends friends) {
+        this.mFriends = friends;
         notifyDataSetChanged();
     }
 

@@ -3,6 +3,7 @@ package io.yostajsc.usecase.backend.core;
 import java.util.List;
 import java.util.Map;
 
+import io.yostajsc.izigo.models.user.Friends;
 import io.yostajsc.usecase.backend.response.BaseResponse;
 import io.yostajsc.izigo.models.Timelines;
 import io.yostajsc.izigo.models.comment.Comments;
@@ -67,7 +68,7 @@ interface APIInterface {
                                            @Field("transfer") int transfer);
 
     @GET("api/user/friends")
-    Call<BaseResponse<List<Friend>>> getFriendsList(
+    Call<BaseResponse<Friends>> getFriendsList(
             @Header("authen") String authorization,
             @Header("x-access-token") String fbAccessToken);
 
@@ -81,7 +82,7 @@ interface APIInterface {
     Call<BaseResponse<Timelines>> getActivities(@Header("authen") String authorization, @Path("id") String tripId);
 
     @GET("api/trips/{id}/members")
-    Call<BaseResponse<List<Friend>>> getMembers(@Header("authen") String authorization, @Path("id") String tripId);
+    Call<BaseResponse<Friends>> getMembers(@Header("authen") String authorization, @Path("id") String tripId);
 
     @PUT("api/trips/{id}/view")
     Call<BaseResponse<String>> updateView(@Header("authen") String authorization, @Path("id") String tripId);

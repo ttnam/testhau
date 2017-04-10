@@ -30,16 +30,6 @@
             android:maxLines="1"
             android:minLines="1" />
 
-        <HorizontalScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center|bottom"
-            android:scrollbars="none">
-
-            <include layout="@layout/layout_trip_number_info" />
-
-        </HorizontalScrollView>
-
         <include layout="@layout/item_web_vew" />
 
         <include layout="@layout/layout_separate_vertical" />

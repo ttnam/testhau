@@ -28,7 +28,6 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import io.yostajsc.core.code.MessageType;
 
-
 /**
  * Created by Phuc-Hau Nguyen on 12/27/2016.
  */
@@ -38,8 +37,7 @@ public class LocationCore implements GoogleApiClient.ConnectionCallbacks, Google
     public static String TAG = LocationCore.class.getSimpleName();
 
     private static final double RADIUS_OF_EARTH_METERS = 6371009.0;
-    private static final int THIRTY_MINUTES = 1000 * 60 * 30;
-    private static final int TWO_MINUTES = 1000 * 60 * 20;
+    private static final int TIME = 1000 * 60;
 
     private static volatile LocationCore defaultInstance;
 
@@ -131,15 +129,17 @@ public class LocationCore implements GoogleApiClient.ConnectionCallbacks, Google
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
     }
 
-    public boolean isBetter(Location location, Location current) {
+    public boolean isBetter(Location newLocation, Location current) {
         // A new location is always better than no location
         if (current == null) {
             return true;
         }
-
+        if (newLocation.distanceTo(current) > 50) {
+            return true;
+        }
         // Check whether the new location fix is newer or older
-        long timeDelta = location.getTime() - current.getTime();
-        return (timeDelta > THIRTY_MINUTES);
+        long timeDelta = newLocation.getTime() - current.getTime();
+        return (timeDelta > TIME);
     }
 
     /**

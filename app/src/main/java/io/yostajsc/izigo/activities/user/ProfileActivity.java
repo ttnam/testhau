@@ -17,6 +17,7 @@ import java.util.Map;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.yostajsc.izigo.activities.core.OwnCoreActivity;
 import io.yostajsc.usecase.backend.core.APIManager;
 import io.yostajsc.core.interfaces.CallBack;
 import io.yostajsc.core.interfaces.CallBackWith;
@@ -24,7 +25,6 @@ import io.yostajsc.core.utils.StorageUtils;
 import io.yostajsc.core.utils.ValidateUtils;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.activities.MainActivity;
-import io.yostajsc.izigo.activities.core.ActivityCoreBehavior;
 import io.yostajsc.izigo.configs.AppConfig;
 import io.yostajsc.izigo.models.user.User;
 import io.yostajsc.utils.UserPref;
@@ -35,7 +35,7 @@ import butterknife.BindView;
 
 /*
 @RuntimePermissions*/
-public class ProfileActivity extends ActivityCoreBehavior {
+public class ProfileActivity extends OwnCoreActivity {
 
     @BindView(R.id.edit_email)
     EditText editEmail;

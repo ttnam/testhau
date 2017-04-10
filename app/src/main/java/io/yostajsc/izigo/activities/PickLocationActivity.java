@@ -22,7 +22,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.yostajsc.core.code.MessageType;
 import io.yostajsc.izigo.R;
-import io.yostajsc.izigo.activities.core.ActivityCoreBehavior;
+import io.yostajsc.izigo.activities.core.OwnCoreActivity;
 import io.yostajsc.izigo.configs.AppConfig;
 import io.yostajsc.izigo.models.trip.LocationPick;
 import io.yostajsc.utils.LocationCore;
@@ -30,7 +30,7 @@ import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.RuntimePermissions;
 
 @RuntimePermissions
-public class PickLocationActivity extends ActivityCoreBehavior implements GoogleMap.OnMapClickListener,
+public class PickLocationActivity extends OwnCoreActivity implements GoogleMap.OnMapClickListener,
         GoogleMap.OnMapLongClickListener, OnMapReadyCallback, GoogleMap.OnMarkerClickListener,
         GoogleMap.OnMyLocationChangeListener {
 

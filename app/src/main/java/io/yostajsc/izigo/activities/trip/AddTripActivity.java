@@ -26,10 +26,10 @@ import io.yostajsc.core.utils.DatetimeUtils;
 import io.yostajsc.core.utils.ValidateUtils;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.activities.PickLocationActivity;
+import io.yostajsc.izigo.activities.core.OwnCoreActivity;
 import io.yostajsc.izigo.activities.dialogs.DialogDatePicker;
 import io.yostajsc.izigo.activities.dialogs.DialogPickTransfer;
 import io.yostajsc.usecase.backend.core.APIManager;
-import io.yostajsc.izigo.activities.core.ActivityCoreBehavior;
 import io.yostajsc.izigo.activities.dialogs.DialogTimePicker;
 import io.yostajsc.izigo.configs.AppConfig;
 import io.yostajsc.izigo.models.trip.LocationPick;
@@ -38,7 +38,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class AddTripActivity extends ActivityCoreBehavior {
+public class AddTripActivity extends OwnCoreActivity {
 
 
     @BindView(R.id.text_view_trip_name)
