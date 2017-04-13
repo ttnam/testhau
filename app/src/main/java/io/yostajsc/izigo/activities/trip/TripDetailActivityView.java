@@ -43,7 +43,7 @@ public class TripDetailActivityView {
     public TripDetailActivityView setTripCover(String url) {
         Glide.with(mActivity).load(url)
                 .priority(Priority.IMMEDIATE)
-                .animate(R.anim.anim_slide_in_right)
+                .animate(R.anim.anim_fade_in)
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .into(mActivity.imageCover);
         return this;
@@ -89,11 +89,9 @@ public class TripDetailActivityView {
             case RoleType.GUEST:
                 mActivity.buttonMore.setVisibility(View.GONE);
                 mActivity.textEdit.setVisibility(View.GONE);
-                mActivity.button.setImageResource(R.drawable.ic_add_user);
                 break;
             case RoleType.ADMIN: {
                 mActivity.buttonMore.setVisibility(View.VISIBLE);
-                mActivity.button.setImageResource(R.drawable.ic_marker);
                 mActivity.textEdit.setVisibility(View.VISIBLE);
                 mActivity.registerForContextMenu(mActivity.buttonMore);
                 mActivity.registerForContextMenu(mActivity.imageCover);

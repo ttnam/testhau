@@ -3,8 +3,11 @@ package io.yostajsc.izigo.configs;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
 import android.widget.Toast;
 
+import com.facebook.AccessToken;
+import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -13,7 +16,10 @@ import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import io.yostajsc.core.utils.FontUtils;
 import io.yostajsc.core.utils.StorageUtils;
-import io.yostajsc.izigo.firebase.FirebaseManager;
+import io.yostajsc.izigo.models.user.Authorization;
+import io.yostajsc.usecase.firebase.FirebaseManager;
+import io.yostajsc.utils.LocationService;
+import io.yostajsc.utils.PrefsUtil;
 
 /**
  * Created by Phuc-Hau Nguyen on 11/9/2016.
@@ -23,6 +29,7 @@ public class AppConfig extends Application {
 
     public static final String TAG = AppConfig.class.getSimpleName();
     public static final String AUTHORIZATION = "AUTHORIZATION";
+    public static final String EXPIRED = "EXPIRED";
 
     public static final String USER = "USER";
     public static final String TRIP_ID = "TRIP_ID";
@@ -38,14 +45,18 @@ public class AppConfig extends Application {
     public void onCreate() {
         super.onCreate();
         mInstance = this;
-        onApplyFireBase();
+        onApplyFont();
         onApplyRealm();
-        applyFont();
+        onApplyFireBase();
+        onApplyFacebookSDK();
     }
-
 
     public static synchronized AppConfig getInstance() {
         return mInstance;
+    }
+
+    private void onApplyFacebookSDK() {
+        FacebookSdk.sdkInitialize(this);
     }
 
     private void onApplyFireBase() {
@@ -71,7 +82,7 @@ public class AppConfig extends Application {
         super.onTerminate();
     }
 
-    private void applyFont() {
+    private void onApplyFont() {
         FontUtils.overrideFont(this, "serif", "fonts/Montserrat-Regular.ttf");
     }
 
@@ -90,5 +101,28 @@ public class AppConfig extends Application {
     public void logout() {
         StorageUtils.inject(this).removes(AppConfig.AUTHORIZATION);
         LoginManager.getInstance().logOut();
+    }
+
+    public void updateAuthorization(Authorization authorization) {
+        PrefsUtil.inject(this).updateAuthorization(authorization);
+    }
+
+    public boolean isExpired() {
+        Authorization authorization = PrefsUtil.inject(this).getAuthorization();
+        return authorization == null || authorization.getToken() == null || authorization.isExpired();
+    }
+
+    public void startLocationServer(String tripId, String fbId) {
+        StorageUtils.inject(this).save(AppConfig.TRIP_ID, tripId);
+        StorageUtils.inject(this).save(AppConfig.FB_ID, fbId);
+        startService(new Intent(this, LocationService.class));
+    }
+
+    public void stopLocationService() {
+        stopService(new Intent(this, LocationService.class));
+    }
+
+    public String getFbToken() {
+        return AccessToken.getCurrentAccessToken().getToken();
     }
 }

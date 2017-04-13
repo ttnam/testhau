@@ -13,10 +13,8 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
-import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.login.LoginManager;
@@ -40,11 +38,12 @@ import io.yostajsc.core.utils.ValidateUtils;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.activities.MainActivity;
 import io.yostajsc.izigo.activities.core.OwnCoreActivity;
+import io.yostajsc.izigo.models.user.Authorization;
 import io.yostajsc.usecase.backend.core.APIManager;
 import io.yostajsc.izigo.configs.AppConfig;
-import io.yostajsc.izigo.firebase.FirebaseManager;
+import io.yostajsc.usecase.firebase.FirebaseManager;
 import io.yostajsc.izigo.models.user.User;
-import io.yostajsc.izigo.firebase.model.UserManager;
+import io.yostajsc.izigo.managers.UserManager;
 import io.yostajsc.izigo.managers.EventManager;
 import io.yostajsc.utils.UserPref;
 
@@ -74,7 +73,6 @@ public class LoginActivity extends OwnCoreActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
         onApplyViews();
@@ -87,16 +85,23 @@ public class LoginActivity extends OwnCoreActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
+
+                if(SessionHelper.isExpired()){
+                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                    finish();
+                }
+                else{
+                    onReset();
+                }
                 AccessToken token = AccessToken.getCurrentAccessToken();
-                if (token != null) {
+                if (token != null && !token.isExpired()) {
                     if (ValidateUtils.canUse(AppConfig.getInstance().getAuthorization())) {
-                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                        finish();
+
                     } else {
                         onCallToServer();
                     }
                 } else {
-                    onReset();
+
                 }
             }
         }, 500);
@@ -110,12 +115,7 @@ public class LoginActivity extends OwnCoreActivity {
 
     @Override
     public void onApplyViews() {
-        Glide.with(this)
-                .load(R.drawable.ic_loading)
-                .skipMemoryCache(false)
-                .error(R.drawable.ic_launcher)
-                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                .into(imageLogo);
+       LoginActivityView.inject().setLogo(this);
     }
 
     private void onFireBaseConfig() {
@@ -199,7 +199,6 @@ public class LoginActivity extends OwnCoreActivity {
         loginButton.performClick();
     }
 
-
     private void onCallToServer() {
         User user = UserPref.inject(this).getUser();
         if (user != null) {
@@ -208,12 +207,10 @@ public class LoginActivity extends OwnCoreActivity {
             String fireBaseId = user.getFireBaseId();
             String fcm = StorageUtils.inject(this).getString(FirebaseManager.FIRE_BASE_TOKEN);
 
-            APIManager.connect().onLogin(email, fbId, fireBaseId, fcm, new CallBackWith<String>() {
+            APIManager.connect().login(email, fbId, fireBaseId, fcm, new CallBackWith<Authorization>() {
                 @Override
-                public void run(String authorization) {
-
-                    StorageUtils.inject(LoginActivity.this).save(AppConfig.AUTHORIZATION, authorization);
-
+                public void run(Authorization authorization) {
+Sess
                     int isFirstTime = StorageUtils.inject(LoginActivity.this)
                             .getInt(AppConfig.FIRST_TIME);
                     Intent intent;

@@ -1,8 +1,7 @@
-package io.yostajsc.izigo.firebase.model;
+package io.yostajsc.usecase.firebase.model;
 
 import java.io.Serializable;
 
-import io.yostajsc.core.utils.AppUtils;
 import io.yostajsc.core.utils.DatetimeUtils;
 
 /**

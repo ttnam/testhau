@@ -1,4 +1,4 @@
-package io.yostajsc.izigo.managers;
+package io.yostajsc.usecase.realm;
 
 import android.support.annotation.NonNull;
 
@@ -6,10 +6,12 @@ import io.realm.Realm;
 import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.RealmResults;
+import io.yostajsc.core.interfaces.CallBack;
 import io.yostajsc.core.interfaces.CallBackWith;
 import io.yostajsc.izigo.models.Timeline;
 import io.yostajsc.izigo.models.Timelines;
 import io.yostajsc.izigo.models.trip.Trip;
+import io.yostajsc.izigo.models.user.BaseUserInfo;
 import io.yostajsc.usecase.realm.trip.OwnTrip;
 import io.yostajsc.usecase.realm.trip.OwnTrips;
 import io.yostajsc.usecase.realm.trip.PublicTrip;
@@ -28,6 +30,30 @@ public class RealmManager {
                 @Override
                 public void execute(Realm realm) {
                     realm.insertOrUpdate(realmLObject);
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (realm != null) {
+                realm.close();
+            }
+        }
+    }
+
+    public static void insertOrUpdate(final BaseUserInfo userInfo, final CallBack onSuccessful) {
+        Realm realm = null;
+        try {
+            realm = Realm.getDefaultInstance();
+            realm.executeTransactionAsync(new Realm.Transaction() {
+                @Override
+                public void execute(Realm realm) {
+                    realm.insertOrUpdate(userInfo);
+                }
+            }, new Realm.Transaction.OnSuccess() {
+                @Override
+                public void onSuccess() {
+                    onSuccessful.run();
                 }
             });
         } catch (Exception e) {

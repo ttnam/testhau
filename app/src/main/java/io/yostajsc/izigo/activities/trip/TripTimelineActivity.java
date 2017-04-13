@@ -19,7 +19,7 @@ import io.yostajsc.core.utils.NetworkUtils;
 import io.yostajsc.core.utils.ValidateUtils;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.adapters.TimelineAdapter;
-import io.yostajsc.izigo.managers.RealmManager;
+import io.yostajsc.usecase.realm.RealmManager;
 import io.yostajsc.izigo.models.Timelines;
 import io.yostajsc.izigo.models.trip.Trip;
 import io.yostajsc.utils.UiUtils;

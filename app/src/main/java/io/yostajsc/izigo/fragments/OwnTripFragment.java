@@ -22,7 +22,7 @@ import io.yostajsc.izigo.activities.trip.AddTripActivity;
 import io.yostajsc.izigo.activities.trip.TripDetailActivity;
 import io.yostajsc.izigo.adapters.TripAdapter;
 import io.yostajsc.izigo.configs.AppConfig;
-import io.yostajsc.izigo.managers.RealmManager;
+import io.yostajsc.usecase.realm.RealmManager;
 import io.yostajsc.usecase.realm.trip.OwnTrips;
 import io.yostajsc.utils.UiUtils;
 import io.yostajsc.view.OwnToolBar;

@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.GridLayoutManager;
@@ -47,11 +46,11 @@ import io.yostajsc.core.code.MessageType;
 import io.yostajsc.core.utils.NetworkUtils;
 import io.yostajsc.core.utils.ValidateUtils;
 import io.yostajsc.izigo.R;
-import io.yostajsc.izigo.activities.dialogs.DialogComment;
-import io.yostajsc.izigo.activities.dialogs.DialogPickTransfer;
+import io.yostajsc.izigo.dialogs.DialogComment;
+import io.yostajsc.izigo.dialogs.DialogPickTransfer;
 import io.yostajsc.izigo.adapters.ImageryAdapter;
 import io.yostajsc.izigo.configs.AppConfig;
-import io.yostajsc.izigo.managers.RealmManager;
+import io.yostajsc.usecase.realm.RealmManager;
 import io.yostajsc.izigo.models.trip.Trip;
 import io.yostajsc.utils.UiUtils;
 import butterknife.BindView;
@@ -97,9 +96,6 @@ public class TripDetailActivity extends OwnCoreActivity {
 
     @BindView(R.id.button_more)
     AppCompatImageView buttonMore;
-
-    @BindView(R.id.button)
-    FloatingActionButton button;
 
     private String tripId;
     private int mCurrentRoleType = RoleType.GUEST;
@@ -394,11 +390,11 @@ public class TripDetailActivity extends OwnCoreActivity {
             dialogPickTransfer.show();
         }
     }
-
+/*
     @OnClick(R.id.button)
     public void actionLink() {
         if (mCurrentRoleType == RoleType.GUEST) {
-            APIManager.connect().join(tripId, new CallBack() {
+            APIManager.connect().apiJoinGroup(tripId, new CallBack() {
                 @Override
                 public void run() {
                     Toast.makeText(TripDetailActivity.this, "Thành công", Toast.LENGTH_SHORT).show();
@@ -413,7 +409,7 @@ public class TripDetailActivity extends OwnCoreActivity {
             startActivity(new Intent(this, MapsActivity.class));
             finish();
         }
-    }
+    }*/
 
     @OnClick(R.id.layout_activity)
     public void loadActivity() {

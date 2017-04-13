@@ -32,7 +32,7 @@
 
         <include layout="@layout/item_web_vew" />
 
-        <include layout="@layout/layout_separate_vertical" />
+        <include layout="@layout/layout_shadow" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -109,6 +109,8 @@
             </RelativeLayout>
 
         </LinearLayout>
+
+        <include layout="@layout/layout_shadow" />
 
         <include layout="@layout/layout_recycler_view" />
 

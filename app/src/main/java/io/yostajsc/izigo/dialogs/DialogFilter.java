@@ -1,4 +1,4 @@
-package io.yostajsc.izigo.activities.dialogs;
+package io.yostajsc.izigo.dialogs;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -54,7 +54,7 @@ public class DialogFilter extends Dialog {
             setOwnerActivity(mOwnerActivity);
         Window window = getWindow();
         if (window != null) {
-            window.getAttributes().windowAnimations = R.style.CoreAppTheme_AnimDialog_SlideUpDown;
+            window.getAttributes().windowAnimations = R.style.CoreAppTheme_AnimDialog_Grow;
         }
         setCancelable(false);
         setCanceledOnTouchOutside(false);

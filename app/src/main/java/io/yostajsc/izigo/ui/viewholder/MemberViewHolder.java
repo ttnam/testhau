@@ -21,7 +21,7 @@ import io.yostajsc.core.interfaces.CallBackWith;
 import io.yostajsc.core.interfaces.ItemClick;
 import io.yostajsc.core.code.MessageType;
 import io.yostajsc.izigo.R;
-import io.yostajsc.izigo.models.user.Friend;
+import io.yostajsc.usecase.realm.user.FriendRealm;
 import io.yostajsc.core.glide.CropCircleTransformation;
 
 /**
@@ -68,7 +68,7 @@ public class MemberViewHolder extends RecyclerView.ViewHolder {
         mInviteClick.onClick(MessageType.ITEM_CLICK_INVITED, getAdapterPosition());
     }
 
-    public void bind(Friend friend, boolean isClose, @NonNull ItemClick<Integer, Integer> inviteClick,
+    public void bind(FriendRealm friend, boolean isClose, @NonNull ItemClick<Integer, Integer> inviteClick,
                      CallBackWith<Integer> kick) {
 
         this.mInviteClick = inviteClick;

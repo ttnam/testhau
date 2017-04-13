@@ -1,4 +1,4 @@
-package io.yostajsc.izigo.firebase.model;
+package io.yostajsc.izigo.managers;
 
 import org.json.JSONObject;
 

@@ -8,11 +8,11 @@ import com.google.gson.GsonBuilder;
 
 import java.io.IOException;
 import java.net.SocketTimeoutException;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-import io.yostajsc.izigo.models.user.Friends;
+import io.yostajsc.izigo.models.user.Authorization;
+import io.yostajsc.usecase.realm.user.FriendsRealm;
 import io.yostajsc.usecase.backend.response.BaseResponse;
 import io.yostajsc.constants.TripTypePermission;
 import io.yostajsc.core.interfaces.CallBack;
@@ -22,7 +22,6 @@ import io.yostajsc.izigo.models.Timelines;
 import io.yostajsc.izigo.models.comment.Comments;
 import io.yostajsc.izigo.models.notification.Notifications;
 import io.yostajsc.izigo.models.trip.Trip;
-import io.yostajsc.izigo.models.user.Friend;
 import io.yostajsc.izigo.models.user.User;
 import io.yostajsc.usecase.realm.trip.OwnTrips;
 import io.yostajsc.usecase.realm.trip.PublicTrips;
@@ -98,18 +97,21 @@ public class APIManager {
         return mInstance;
     }
 
-    public void onLogin(String email, String fbId, String fireBaseUid, String fcm,
-                        final CallBackWith<String> success, final CallBackWith<String> fail) {
+    public void login(String email, String fbId, String fireBaseUid, String fcm,
+                      final CallBackWith<Authorization> success, final CallBackWith<String> fail) {
 
-        Call<BaseResponse<String>> call = service.login(email, fbId, fireBaseUid, fcm);
+        String fbToken = AppConfig.getInstance().getFbToken();
+        Call<BaseResponse<Authorization>> call = service.apiLogin(fbToken, email, fbId, fireBaseUid, fcm);
 
-        call.enqueue(new Callback<BaseResponse<String>>() {
+        call.enqueue(new Callback<BaseResponse<Authorization>>() {
             @Override
-            public void onResponse(Call<BaseResponse<String>> call,
-                                   Response<BaseResponse<String>> response) {
-
+            public void onResponse(Call<BaseResponse<Authorization>> call, Response<BaseResponse<Authorization>> response) {
                 if (response.isSuccessful()) {
-                    BaseResponse<String> loginRes = response.body();
+
+                    BaseResponse<Authorization> loginRes = response.body();
+
+                    // Update to sharePreferences
+                    AppConfig.getInstance().updateAuthorization(loginRes.data());
                     if (loginRes.isSuccessful()) {
                         success.run(loginRes.data());
                     } else {
@@ -117,9 +119,8 @@ public class APIManager {
                     }
                 }
             }
-
             @Override
-            public void onFailure(Call<BaseResponse<String>> call, Throwable throwable) {
+            public void onFailure(Call<BaseResponse<Authorization>> call, Throwable throwable) {
                 Log.e(TAG, throwable.getMessage());
             }
         });
@@ -128,7 +129,7 @@ public class APIManager {
     public void onUpdate(String authorization, @NonNull Map<String, String> data,
                          final CallBack success, final CallBackWith<String> fail) {
 
-        Call<BaseResponse> call = service.updateProfile(authorization, data);
+        Call<BaseResponse> call = service.apiUpdateUserInfo(authorization, data);
         call.enqueue(new Callback<BaseResponse>() {
             @Override
             public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
@@ -155,7 +156,7 @@ public class APIManager {
         try {
 
 
-            Call<BaseResponse<PublicTrips>> call = service.getAllPublicTrips(mAuthorization);
+            Call<BaseResponse<PublicTrips>> call = service.apiGetAllPublicTrips(mAuthorization);
             call.enqueue(new Callback<BaseResponse<PublicTrips>>() {
                 @Override
                 public void onResponse(Call<BaseResponse<PublicTrips>> call, Response<BaseResponse<PublicTrips>> response) {
@@ -187,7 +188,7 @@ public class APIManager {
                                    final CallBack expired,
                                    final CallBackWith<String> fail) {
         try {
-            Call<BaseResponse<OwnTrips>> call = service.getAllOwnTrips(mAuthorization);
+            Call<BaseResponse<OwnTrips>> call = service.apiGetAllOwnTrips(mAuthorization);
             call.enqueue(new Callback<BaseResponse<OwnTrips>>() {
                 @Override
                 public void onResponse(Call<BaseResponse<OwnTrips>> call, Response<BaseResponse<OwnTrips>> response) {
@@ -215,7 +216,7 @@ public class APIManager {
     }
 
     public void updateFcm(String fcm) {
-        Call<BaseResponse> call = service.updateFcm(AppConfig.getInstance().getAuthorization(), fcm);
+        Call<BaseResponse> call = service.apiUpdateFcm(AppConfig.getInstance().getAuthorization(), fcm);
         call.enqueue(new Callback<BaseResponse>() {
             @Override
             public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
@@ -233,7 +234,7 @@ public class APIManager {
                               final CallBackWith<Trip> success,
                               final CallBackWith<String> fail,
                               final CallBack expired) {
-        Call<BaseResponse<Trip>> call = service.getTripDetail(AppConfig.getInstance().getAuthorization(), tripId);
+        Call<BaseResponse<Trip>> call = service.apiGetTripDetail(AppConfig.getInstance().getAuthorization(), tripId);
 
         call.enqueue(new Callback<BaseResponse<Trip>>() {
             @Override
@@ -260,7 +261,7 @@ public class APIManager {
     public void getUserInfo(final CallBackWith<User> success,
                             final CallBack expired, final CallBackWith<String> fail) {
 
-        Call<BaseResponse<User>> call = service.getUserInfo(AppConfig.getInstance().getAuthorization());
+        Call<BaseResponse<User>> call = service.apiGetUserInfo(AppConfig.getInstance().getAuthorization());
         call.enqueue(new Callback<BaseResponse<User>>() {
             @Override
             public void onResponse(Call<BaseResponse<User>> call, Response<BaseResponse<User>> response) {
@@ -289,7 +290,7 @@ public class APIManager {
                             final CallBack expired,
                             final CallBackWith<String> success,
                             final CallBackWith<String> fail) {
-        Call<BaseResponse<String>> call = service.createTrips(AppConfig.getInstance().getAuthorization(), groupName, arrive, depart, description,
+        Call<BaseResponse<String>> call = service.apiCreateTrips(AppConfig.getInstance().getAuthorization(), groupName, arrive, depart, description,
                 is_published, status, transfer);
         call.enqueue(new Callback<BaseResponse<String>>() {
             @Override
@@ -315,17 +316,17 @@ public class APIManager {
     }
 
     public void getFriendsList(String fbAccessToken,
-                               final CallBackWith<Friends> success,
+                               final CallBackWith<FriendsRealm> success,
                                final CallBackWith<String> fail,
                                final CallBack expired) {
 
-        Call<BaseResponse<Friends>> call = service.getFriendsList(mAuthorization, fbAccessToken);
+        Call<BaseResponse<FriendsRealm>> call = service.apiGetFriendsList(mAuthorization, fbAccessToken);
 
-        call.enqueue(new Callback<BaseResponse<Friends>>() {
+        call.enqueue(new Callback<BaseResponse<FriendsRealm>>() {
             @Override
-            public void onResponse(Call<BaseResponse<Friends>> call, Response<BaseResponse<Friends>> response) {
+            public void onResponse(Call<BaseResponse<FriendsRealm>> call, Response<BaseResponse<FriendsRealm>> response) {
                 if (response.isSuccessful()) {
-                    BaseResponse<Friends> res = response.body();
+                    BaseResponse<FriendsRealm> res = response.body();
                     if (res.isExpired()) {
                         expired.run();
                     } else if (res.isSuccessful()) {
@@ -337,7 +338,7 @@ public class APIManager {
             }
 
             @Override
-            public void onFailure(Call<BaseResponse<Friends>> call, Throwable throwable) {
+            public void onFailure(Call<BaseResponse<FriendsRealm>> call, Throwable throwable) {
                 Log.e(TAG, throwable.getMessage());
             }
         });
@@ -348,7 +349,7 @@ public class APIManager {
                                final CallBackWith<String> success,
                                final CallBackWith<String> fail,
                                final CallBack expired) {
-        Call<BaseResponse<String>> call = service.getGroupDetail(authorization, groupId);
+        Call<BaseResponse<String>> call = service.apiGetGroupDetail(authorization, groupId);
         call.enqueue(new Callback<BaseResponse<String>>() {
             @Override
             public void onResponse(Call<BaseResponse<String>> call, Response<BaseResponse<String>> response) {
@@ -375,7 +376,7 @@ public class APIManager {
                               final CallBack expired,
                               final CallBack success,
                               final CallBackWith<String> fail) {
-        Call<BaseResponse> call = service.updateProfile(AppConfig.getInstance().getAuthorization(), body);
+        Call<BaseResponse> call = service.apiUpdateUserInfo(AppConfig.getInstance().getAuthorization(), body);
         call.enqueue(new Callback<BaseResponse>() {
             @Override
             public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
@@ -402,7 +403,7 @@ public class APIManager {
                             final CallBack expired,
                             final CallBackWith<Comments> success,
                             final CallBackWith<String> fail) {
-        Call<BaseResponse<Comments>> call = service.getComments(AppConfig.getInstance().getAuthorization(), tripId);
+        Call<BaseResponse<Comments>> call = service.apiGetComments(AppConfig.getInstance().getAuthorization(), tripId);
         call.enqueue(new Callback<BaseResponse<Comments>>() {
             @Override
             public void onResponse(Call<BaseResponse<Comments>> call, Response<BaseResponse<Comments>> response) {
@@ -429,7 +430,7 @@ public class APIManager {
                               final CallBack expired,
                               final CallBackWith<Timelines> success,
                               final CallBackWith<String> fail) {
-        Call<BaseResponse<Timelines>> call = service.getActivities(AppConfig.getInstance().getAuthorization(), tripId);
+        Call<BaseResponse<Timelines>> call = service.apiGetActivities(AppConfig.getInstance().getAuthorization(), tripId);
         call.enqueue(new Callback<BaseResponse<Timelines>>() {
             @Override
             public void onResponse(Call<BaseResponse<Timelines>> call, Response<BaseResponse<Timelines>> response) {
@@ -453,15 +454,15 @@ public class APIManager {
     }
 
     public void getMembers(String tripId,
-                           final CallBackWith<Friends> success,
+                           final CallBackWith<FriendsRealm> success,
                            final CallBackWith<String> fail,
                            final CallBack expired) {
-        Call<BaseResponse<Friends>> call = service.getMembers(mAuthorization, tripId);
-        call.enqueue(new Callback<BaseResponse<Friends>>() {
+        Call<BaseResponse<FriendsRealm>> call = service.apiGetMembers(mAuthorization, tripId);
+        call.enqueue(new Callback<BaseResponse<FriendsRealm>>() {
             @Override
-            public void onResponse(Call<BaseResponse<Friends>> call, Response<BaseResponse<Friends>> response) {
+            public void onResponse(Call<BaseResponse<FriendsRealm>> call, Response<BaseResponse<FriendsRealm>> response) {
                 if (response.isSuccessful()) {
-                    BaseResponse<Friends> res = response.body();
+                    BaseResponse<FriendsRealm> res = response.body();
                     if (res.isSuccessful()) {
                         success.run(res.data());
                     } else if (res.isExpired()) {
@@ -473,7 +474,7 @@ public class APIManager {
             }
 
             @Override
-            public void onFailure(Call<BaseResponse<Friends>> call, Throwable throwable) {
+            public void onFailure(Call<BaseResponse<FriendsRealm>> call, Throwable throwable) {
                 log(throwable.getMessage());
             }
         });
@@ -481,7 +482,7 @@ public class APIManager {
 
     public void trackingViews(String tripId, final CallBack success, final CallBackWith<String> fail, final CallBack expired) {
 
-        Call<BaseResponse<String>> call = service.updateView(mAuthorization, tripId);
+        Call<BaseResponse<String>> call = service.apiUpdateView(mAuthorization, tripId);
 
         call.enqueue(new Callback<BaseResponse<String>>() {
             @Override
@@ -509,12 +510,12 @@ public class APIManager {
                                final CallBack success,
                                final CallBackWith<String> fail, final CallBack expired) {
 
-        Call<BaseResponse<String>> call = service.updateTripCover(AppConfig.getInstance().getAuthorization(), tripId, data);
+        Call<BaseResponse<String>> call = service.apiUpdateTripCover(AppConfig.getInstance().getAuthorization(), tripId, data);
 
         if (type == TripTypePermission.NAME) {
-            call = service.updateTripName(AppConfig.getInstance().getAuthorization(), tripId, data);
+            call = service.apiUpdateTripName(AppConfig.getInstance().getAuthorization(), tripId, data);
         } else if (type == TripTypePermission.STATUS) {
-            call = service.updateTripStatus(AppConfig.getInstance().getAuthorization(), tripId, data);
+            call = service.apiUpdateTripStatus(AppConfig.getInstance().getAuthorization(), tripId, data);
         }
         call.enqueue(new Callback<BaseResponse<String>>() {
             @Override
@@ -540,7 +541,7 @@ public class APIManager {
 
     public void join(String tripId, final CallBack success, final CallBackWith<String> fail, final CallBack expired) {
 
-        Call<BaseResponse<String>> call = service.join(AppConfig.getInstance().getAuthorization(), tripId);
+        Call<BaseResponse<String>> call = service.apiJoinGroup(AppConfig.getInstance().getAuthorization(), tripId);
         call.enqueue(new Callback<BaseResponse<String>>() {
             @Override
             public void onResponse(Call<BaseResponse<String>> call, Response<BaseResponse<String>> response) {
@@ -566,7 +567,7 @@ public class APIManager {
     public void getNotification(final CallBack expired,
                                 final CallBackWith<Notifications> success, final CallBackWith<String> fail) {
 
-        Call<BaseResponse<Notifications>> call = service.getNotification(AppConfig.getInstance().getAuthorization());
+        Call<BaseResponse<Notifications>> call = service.apiGetNotification(AppConfig.getInstance().getAuthorization());
         call.enqueue(new Callback<BaseResponse<Notifications>>() {
             @Override
             public void onResponse(Call<BaseResponse<Notifications>> call, Response<BaseResponse<Notifications>> response) {
@@ -592,7 +593,7 @@ public class APIManager {
     public void accept(String tripId, String notiId, int verify, final CallBack expired,
                        final CallBack success, final CallBackWith<String> fail) {
 
-        Call<BaseResponse<String>> call = service.accept(AppConfig.getInstance().getAuthorization(), tripId, notiId, verify);
+        Call<BaseResponse<String>> call = service.apiAccept(AppConfig.getInstance().getAuthorization(), tripId, notiId, verify);
 
         call.enqueue(new Callback<BaseResponse<String>>() {
             @Override
@@ -619,7 +620,7 @@ public class APIManager {
     public void verify(String tripId, String notiId, int verify, final CallBack expired,
                        final CallBack success, final CallBackWith<String> fail) {
 
-        Call<BaseResponse<String>> call = service.verify(AppConfig.getInstance().getAuthorization(), tripId, notiId, verify);
+        Call<BaseResponse<String>> call = service.apiVerify(AppConfig.getInstance().getAuthorization(), tripId, notiId, verify);
 
         call.enqueue(new Callback<BaseResponse<String>>() {
             @Override
@@ -646,7 +647,7 @@ public class APIManager {
     public void addMembers(String authorization, String tripId, String fbId, final CallBack expired,
                            final CallBack success, final CallBackWith<String> fail) {
 
-        Call<BaseResponse<String>> call = service.addMember(authorization, tripId, fbId);
+        Call<BaseResponse<String>> call = service.apiAddMember(authorization, tripId, fbId);
 
         call.enqueue(new Callback<BaseResponse<String>>() {
             @Override
@@ -675,7 +676,7 @@ public class APIManager {
                      final CallBack success,
                      final CallBackWith<String> fail) {
 
-        Call<BaseResponse<String>> call = service.kick(AppConfig.getInstance().getAuthorization(), tripId, fbId);
+        Call<BaseResponse<String>> call = service.apiKickMember(AppConfig.getInstance().getAuthorization(), tripId, fbId);
 
         call.enqueue(new Callback<BaseResponse<String>>() {
             @Override

@@ -29,7 +29,6 @@ public class User implements Serializable {
     @SerializedName("firstName")
     private String firstName;
 
-
     @SerializedName("lastName")
     private String lastName;
 

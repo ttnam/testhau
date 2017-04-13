@@ -9,11 +9,11 @@ import android.preference.PreferenceManager;
  */
 public class StorageUtils {
 
-    private SharedPreferences preferences = null;
+    protected SharedPreferences preferences = null;
 
     private static StorageUtils mInstance = null;
 
-    private StorageUtils(Context context) {
+    protected StorageUtils(Context context) {
         preferences = PreferenceManager.getDefaultSharedPreferences(context);
     }
 

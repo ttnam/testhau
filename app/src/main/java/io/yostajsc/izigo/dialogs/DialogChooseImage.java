@@ -1,4 +1,4 @@
-package io.yostajsc.izigo.activities.dialogs;
+package io.yostajsc.izigo.dialogs;
 
 import android.app.Activity;
 import android.app.Dialog;

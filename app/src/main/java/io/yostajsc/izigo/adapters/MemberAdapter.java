@@ -7,13 +7,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.List;
-
 import io.yostajsc.core.interfaces.CallBackWith;
 import io.yostajsc.core.interfaces.ItemClick;
 import io.yostajsc.izigo.R;
-import io.yostajsc.izigo.models.user.Friend;
-import io.yostajsc.izigo.models.user.Friends;
+import io.yostajsc.usecase.realm.user.FriendRealm;
+import io.yostajsc.usecase.realm.user.FriendsRealm;
 import io.yostajsc.izigo.ui.viewholder.MemberViewHolder;
 
 /**
@@ -23,7 +21,7 @@ import io.yostajsc.izigo.ui.viewholder.MemberViewHolder;
 public class MemberAdapter extends RecyclerView.Adapter<MemberViewHolder> {
 
     private Context mContext = null;
-    private Friends mFriends = null;
+    private FriendsRealm mFriends = null;
     private ItemClick<Integer, Integer> mItemClick;
     private CallBackWith<Integer> mKick;
 
@@ -33,7 +31,7 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberViewHolder> {
                          @NonNull ItemClick<Integer, Integer> itemClick,
                          CallBackWith<Integer> kick) {
         this.mContext = context;
-        this.mFriends = new Friends();
+        this.mFriends = new FriendsRealm();
         this.mItemClick = itemClick;
         this.mIsClose = isClose;
         this.mKick = kick;
@@ -48,7 +46,7 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberViewHolder> {
 
     @Override
     public void onBindViewHolder(MemberViewHolder holder, int position) {
-        Friend friend = mFriends.get(position);
+        FriendRealm friend = mFriends.get(position);
         holder.bind(friend, mIsClose, mItemClick, mKick);
     }
 
@@ -57,21 +55,21 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberViewHolder> {
         return mFriends.size();
     }
 
-    public Friend getItem(int position) {
+    public FriendRealm getItem(int position) {
         if (position < 0 || position >= getItemCount()) {
             return null;
         }
         return this.mFriends.get(position);
     }
 
-    public int add(Friend trip) {
+    public int add(FriendRealm trip) {
         this.mFriends.add(trip);
         int index = this.mFriends.size() - 1;
         notifyItemChanged(index);
         return index;
     }
 
-    public void replaceAll(Friends friends) {
+    public void replaceAll(FriendsRealm friends) {
         this.mFriends = friends;
         notifyDataSetChanged();
     }

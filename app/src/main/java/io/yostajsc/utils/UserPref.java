@@ -47,7 +47,6 @@ public class UserPref {
 
     public User getUser() {
         Gson gson = new Gson();
-
         User user = null;
         if (preferences != null && preferences.contains(AppConfig.USER)) {
             String json = preferences.getString(AppConfig.USER, "");

@@ -12,7 +12,7 @@ import com.facebook.AccessToken;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.yostajsc.izigo.activities.core.OwnCoreActivity;
-import io.yostajsc.izigo.models.user.Friends;
+import io.yostajsc.usecase.realm.user.FriendsRealm;
 import io.yostajsc.usecase.backend.core.APIManager;
 import io.yostajsc.core.code.MessageType;
 import io.yostajsc.core.interfaces.CallBack;
@@ -79,9 +79,9 @@ public class MembersActivity extends OwnCoreActivity {
         AccessToken token = AccessToken.getCurrentAccessToken();
         if (token != null) {
             String fbToken = token.getToken();
-            APIManager.connect().getFriendsList(fbToken, new CallBackWith<Friends>() {
+            APIManager.connect().getFriendsList(fbToken, new CallBackWith<FriendsRealm>() {
                 @Override
-                public void run(Friends friends) {
+                public void run(FriendsRealm friends) {
                     friendAdapter.replaceAll(friends);
                 }
             }, new CallBackWith<String>() {
@@ -99,9 +99,9 @@ public class MembersActivity extends OwnCoreActivity {
     }
 
     private void getMemberList() {
-        APIManager.connect().getMembers(mTripId, new CallBackWith<Friends>() {
+        APIManager.connect().getMembers(mTripId, new CallBackWith<FriendsRealm>() {
             @Override
-            public void run(Friends friends) {
+            public void run(FriendsRealm friends) {
                 memberAdapter.replaceAll(friends);
             }
         }, new CallBackWith<String>() {

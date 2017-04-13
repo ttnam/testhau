@@ -23,7 +23,7 @@
             android:paddingRight="@dimen/margin_x2"
             android:paddingTop="@dimen/margin"
             android:text="@string/str_edit"
-            android:visibility="gone" />
+            android:visibility="visible" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -36,6 +36,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|start"
                 android:layout_marginLeft="@dimen/margin"
+                android:layout_marginStart="@dimen/margin"
                 android:background="@drawable/ic_style_rect_round_corners_theme_dark"
                 android:orientation="horizontal"
                 android:padding="@dimen/margin">
