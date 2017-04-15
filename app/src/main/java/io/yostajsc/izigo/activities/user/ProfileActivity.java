@@ -15,6 +15,7 @@ import java.util.Map;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.yostajsc.core.utils.NetworkUtils;
 import io.yostajsc.izigo.activities.core.OwnCoreActivity;
 import io.yostajsc.usecase.backend.core.APIManager;
 import io.yostajsc.core.interfaces.CallBack;
@@ -22,7 +23,6 @@ import io.yostajsc.core.interfaces.CallBackWith;
 import io.yostajsc.core.utils.ValidateUtils;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.models.user.User;
-import io.yostajsc.utils.PrefsUtil;
 
 import butterknife.BindView;
 
@@ -46,35 +46,18 @@ public class ProfileActivity extends OwnCoreActivity {
     AppCompatImageView imageAvatar;
 
     private User mUser = null;
-    private boolean isFirstTime = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         ButterKnife.bind(this);
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        /*Intent intent = getIntent();
-        isFirstTime = intent.getBooleanExtra(AppConfig.FIRST_TIME, false);
-        if (!isFirstTime)
-            ownToolBar.setLeft(R.drawable.ic_vector_back_white, new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onBackPressed();
-                }
-            });*/
+        onApplyData();
     }
 
     @Override
     public void onApplyData() {
-        if (isFirstTime) {
-            mUser = PrefsUtil.inject(ProfileActivity.this).getUser();
-            updateValue();
-        } else {
+        if (NetworkUtils.isNetworkConnected(this)) {
             APIManager.connect().getUserInfo(new CallBackWith<User>() {
                 @Override
                 public void run(User user) {
@@ -95,17 +78,13 @@ public class ProfileActivity extends OwnCoreActivity {
         }
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        onApplyData();
-    }
-
     private void updateValue() {
         if (mUser == null) {
             return;
         }
         editName.setText(mUser.getFullName());
+        editName.setSelection(editName.getText().length());
+
         Glide.with(ProfileActivity.this)
                 .load(mUser.getAvatar())
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
@@ -115,19 +94,10 @@ public class ProfileActivity extends OwnCoreActivity {
         textMemberShip.setText(mUser.getMemberShip());
     }
 
-    @Override
-    public void onBackPressed() {
-        if (isFirstTime) {
-            Toast.makeText(this, "Vui lòng xác nhận thông tin tài khoản", Toast.LENGTH_SHORT).show();
-        } else {
-            super.onBackPressed();
-        }
-    }
-
     @OnClick(R.id.button)
     public void onConfirm() {
 
-        String firstName = editName.getText().toString();
+        String name = editName.getText().toString();
         String email, gender;
 
         if (mUser == null) {
@@ -138,13 +108,12 @@ public class ProfileActivity extends OwnCoreActivity {
             gender = mUser.getGender();
         }
 
-        if (ValidateUtils.canUse(firstName, "", email, gender)) {
+        if (ValidateUtils.canUse(name, email, gender)) {
 
             Map<String, String> map = new HashMap<>();
             map.put("avatar", mUser.getAvatar());
             map.put("email", email);
-            map.put("firstName", firstName);
-            map.put("lastName", "");
+            map.put("name", name);
             map.put("gender", gender);
             APIManager.connect().updateProfile(map, new CallBack() {
                 @Override

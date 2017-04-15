@@ -27,14 +27,10 @@ public class UserManager {
             URL profile_pic = new URL("https://graph.facebook.com/" + id + "/picture?width=200&height=150");
             user.setAvatar(profile_pic.toString());
             user.setFbId(id);
-            if (object.has("name"))
-                user.setLastName(object.getString("name"));
-            if (object.has("first_name"))
-                user.setFirstName(object.getString("first_name"));
-            if (object.has("last_name"))
-                user.setLastName(object.getString("last_name"));
-            if (object.has("link"))
-                user.setLastName(object.getString("link"));
+            if (object.has("first_name") && object.has("last_name")) {
+                user.setName(
+                        object.getString("first_name") + object.getString("last_name"));
+            }
             if (object.has("gender"))
                 user.setGender(object.getString("gender"));
             if (object.has("locale"))
@@ -45,10 +41,6 @@ public class UserManager {
                 user.setEmail(object.getString("picture"));
             if (object.has("timezone"))
                 user.setEmail(object.getString("timezone"));
-            if (object.has("birthday"))
-                user.setBirthday(object.getString("birthday"));
-            if (object.has("updated_time"))
-                user.setBirthday(object.getString("updated_time"));
             if (object.has("location"))
                 user.setLocation(object.getJSONObject("location").getString("name"));
         } catch (Exception e) {

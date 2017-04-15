@@ -132,30 +132,6 @@ public class APIManager {
         });
     }
 
-    public void onUpdate(String authorization, @NonNull Map<String, String> data,
-                         final CallBack success, final CallBackWith<String> fail) {
-
-        Call<BaseResponse> call = service.apiUpdateUserInfo(authorization, data);
-        call.enqueue(new Callback<BaseResponse>() {
-            @Override
-            public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
-                if (response.isSuccessful()) {
-                    BaseResponse baseResponse = response.body();
-                    if (baseResponse.isSuccessful()) {
-                        success.run();
-                    } else {
-                        fail.run(baseResponse.getDescription());
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<BaseResponse> call, Throwable throwable) {
-                Log.e(TAG, throwable.getMessage());
-            }
-        });
-    }
-
     public void getAllPublicTrips(final CallBackWith<PublicTrips> successful,
                                   final CallBack expired,
                                   final CallBackWith<String> fail) {
@@ -380,7 +356,7 @@ public class APIManager {
                               final CallBack expired,
                               final CallBack success,
                               final CallBackWith<String> fail) {
-        Call<BaseResponse> call = service.apiUpdateUserInfo(AppConfig.getInstance().getAuthorization(), body);
+        Call<BaseResponse> call = service.apiUpdateUserInfo(mAuthorization, body);
         call.enqueue(new Callback<BaseResponse>() {
             @Override
             public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
