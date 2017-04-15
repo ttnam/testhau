@@ -10,6 +10,7 @@ import butterknife.ButterKnife;
 import io.yostajsc.constants.PageType;
 import io.yostajsc.core.designs.tabs.IconViewPagerAdapter;
 import io.yostajsc.core.designs.viewpager.NonSwipeAbleViewPager;
+import io.yostajsc.core.utils.NetworkUtils;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.activities.core.OwnCoreActivity;
 import io.yostajsc.izigo.configs.AppConfig;
@@ -25,22 +26,21 @@ public class MainActivity extends OwnCoreActivity {
     @BindView(R.id.view_pager)
     NonSwipeAbleViewPager mViewPager;
 
+    private TripFragment tripFragment = new TripFragment();
+    private OwnTripFragment ownTripFragment = new OwnTripFragment();
+    private NotificationsFragment notificationsFragment = new NotificationsFragment();
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-
-        onApplyViews();
-
-    }
-
-    @Override
-    public void onApplyViews() {
-
         onApplyViewPager();
         onApplyTabLayout();
 
+        if (!NetworkUtils.isNetworkConnected(this)) {
+            onInternetDisConnected();
+        }
     }
 
     private void onApplyTabLayout() {
@@ -62,10 +62,9 @@ public class MainActivity extends OwnCoreActivity {
 
     private void onApplyViewPager() {
         IconViewPagerAdapter adapter = new IconViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFrag(new TripFragment());
-        adapter.addFrag(new OwnTripFragment());
-        adapter.addFrag(new NotificationsFragment());
-
+        adapter.addFrag(tripFragment);
+        adapter.addFrag(ownTripFragment);
+        adapter.addFrag(notificationsFragment);
         this.mViewPager.setAdapter(adapter);
     }
 
@@ -79,12 +78,15 @@ public class MainActivity extends OwnCoreActivity {
 
     @Override
     public void onInternetDisConnected() {
-
+        super.onInternetDisConnected();
     }
 
     @Override
     public void onInternetConnected() {
-
+        super.onInternetConnected();
+        if (this.mViewPager.getCurrentItem() == 0) {
+            tripFragment.processingLoadPublicTripsFromServer();
+        }
     }
 
     @Override

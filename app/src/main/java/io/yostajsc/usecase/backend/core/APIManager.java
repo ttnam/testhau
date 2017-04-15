@@ -97,11 +97,16 @@ public class APIManager {
         return mInstance;
     }
 
-    public void login(String email, String fbId, String fireBaseUid, String fcm,
-                      final CallBackWith<Authorization> success, final CallBackWith<String> fail) {
+    public void login(String email, String fbId, String fireBaseUid,
+                      final CallBackWith<Authorization> success,
+                      final CallBackWith<String> fail) {
 
-        String fbToken = AppConfig.getInstance().getFbToken();
-        Call<BaseResponse<Authorization>> call = service.apiLogin(fbToken, email, fbId, fireBaseUid, fcm);
+        Call<BaseResponse<Authorization>> call = service.apiLogin(
+                AppConfig.getInstance().getFbToken(),
+                email,
+                fbId,
+                fireBaseUid,
+                AppConfig.getInstance().getFcmKey());
 
         call.enqueue(new Callback<BaseResponse<Authorization>>() {
             @Override
@@ -119,6 +124,7 @@ public class APIManager {
                     }
                 }
             }
+
             @Override
             public void onFailure(Call<BaseResponse<Authorization>> call, Throwable throwable) {
                 Log.e(TAG, throwable.getMessage());
@@ -154,8 +160,6 @@ public class APIManager {
                                   final CallBack expired,
                                   final CallBackWith<String> fail) {
         try {
-
-
             Call<BaseResponse<PublicTrips>> call = service.apiGetAllPublicTrips(mAuthorization);
             call.enqueue(new Callback<BaseResponse<PublicTrips>>() {
                 @Override

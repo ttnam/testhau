@@ -101,16 +101,7 @@
             android:name=".activities.user.LoginActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Fullscreen">
-            <meta-data
-                android:name="android.app.shortcuts"
-                android:resource="@xml/shortcuts" />
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:theme="@style/CoreAppTheme.White" />
         <activity
             android:name=".activities.WebViewActivity"
             android:launchMode="singleTask"
@@ -163,8 +154,21 @@
             android:name=".activities.trip.MapsActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
+            android:theme="@style/CoreAppTheme.White" />
+        <activity
+            android:name=".activities.user.SplashActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
             android:theme="@style/CoreAppTheme.White">
+            <meta-data
+                android:name="android.app.shortcuts"
+                android:resource="@xml/shortcuts" />
 
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 

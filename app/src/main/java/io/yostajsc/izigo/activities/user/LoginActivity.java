@@ -2,15 +2,14 @@ package io.yostajsc.izigo.activities.user;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatImageView;
 import android.util.Log;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.facebook.AccessToken;
@@ -33,8 +32,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.yostajsc.core.interfaces.CallBackWith;
+import io.yostajsc.core.utils.NetworkUtils;
 import io.yostajsc.core.utils.StorageUtils;
-import io.yostajsc.core.utils.ValidateUtils;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.activities.MainActivity;
 import io.yostajsc.izigo.activities.core.OwnCoreActivity;
@@ -45,7 +44,7 @@ import io.yostajsc.usecase.firebase.FirebaseManager;
 import io.yostajsc.izigo.models.user.User;
 import io.yostajsc.izigo.managers.UserManager;
 import io.yostajsc.izigo.managers.EventManager;
-import io.yostajsc.utils.UserPref;
+import io.yostajsc.usecase.session.SessionManager;
 
 public class LoginActivity extends OwnCoreActivity {
 
@@ -60,8 +59,8 @@ public class LoginActivity extends OwnCoreActivity {
     @BindView(R.id.btn_facebook)
     LinearLayout layoutFacebook;
 
-    @BindView(R.id.progress_bar)
-    ProgressBar progressBar;
+    @BindView(R.id.layout)
+    FrameLayout layout;
 
     private User user;
 
@@ -75,47 +74,8 @@ public class LoginActivity extends OwnCoreActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
-        onApplyViews();
         onFacebookConfig();
         onFireBaseConfig();
-    }
-
-    @Override
-    public void onApplyData() {
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-
-                if(SessionHelper.isExpired()){
-                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                    finish();
-                }
-                else{
-                    onReset();
-                }
-                AccessToken token = AccessToken.getCurrentAccessToken();
-                if (token != null && !token.isExpired()) {
-                    if (ValidateUtils.canUse(AppConfig.getInstance().getAuthorization())) {
-
-                    } else {
-                        onCallToServer();
-                    }
-                } else {
-
-                }
-            }
-        }, 500);
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        onApplyData();
-    }
-
-    @Override
-    public void onApplyViews() {
-       LoginActivityView.inject().setLogo(this);
     }
 
     private void onFireBaseConfig() {
@@ -144,7 +104,7 @@ public class LoginActivity extends OwnCoreActivity {
 
         loginButton.registerCallback(mCallbackManager, EventManager.connect().registerFacebookCallback(new CallBackWith<AccessToken>() {
             @Override
-            public void run(AccessToken token) {
+            public void run(final AccessToken token) {
                 handleFacebookAccessToken(token);
                 GraphRequest request = GraphRequest.newMeRequest(token,
                         new GraphRequest.GraphJSONObjectCallback() {
@@ -167,13 +127,9 @@ public class LoginActivity extends OwnCoreActivity {
         mAuth.signInWithCredential(credential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                if (!task.isSuccessful()) {
-                    // TODO
-                    Log.e(TAG, "Authentication failed.");
-                } else {
+                if (task.isSuccessful()) {
                     user.setFireBaseId(task.getResult().getUser().getUid());
-                    UserPref.inject(LoginActivity.this).save(user);
-                    onCallToServer();
+                    onCallToServer(user);
                 }
             }
         });
@@ -191,7 +147,6 @@ public class LoginActivity extends OwnCoreActivity {
         if (mAuthListener != null) {
             mAuth.removeAuthStateListener(mAuthListener);
         }
-        Glide.clear(imageLogo);
     }
 
     @OnClick(R.id.btn_facebook)
@@ -199,29 +154,18 @@ public class LoginActivity extends OwnCoreActivity {
         loginButton.performClick();
     }
 
-    private void onCallToServer() {
-        User user = UserPref.inject(this).getUser();
+    private void onCallToServer(User user) {
         if (user != null) {
+
             String email = user.getEmail();
             String fbId = user.getFbId();
             String fireBaseId = user.getFireBaseId();
-            String fcm = StorageUtils.inject(this).getString(FirebaseManager.FIRE_BASE_TOKEN);
-
-            APIManager.connect().login(email, fbId, fireBaseId, fcm, new CallBackWith<Authorization>() {
+            showProgress();
+            APIManager.connect().login(email, fbId, fireBaseId, new CallBackWith<Authorization>() {
                 @Override
                 public void run(Authorization authorization) {
-Sess
-                    int isFirstTime = StorageUtils.inject(LoginActivity.this)
-                            .getInt(AppConfig.FIRST_TIME);
-                    Intent intent;
-                    if (isFirstTime == 1) {
-                        intent = new Intent(LoginActivity.this, ProfileActivity.class);
-                        intent.putExtra(AppConfig.FIRST_TIME, true);
-                    } else {
-                        intent = new Intent(LoginActivity.this, MainActivity.class);
-                    }
-                    StorageUtils.inject(LoginActivity.this).save(AppConfig.FIRST_TIME, 0);
-                    startActivity(intent);
+                    onReset();
+                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
                     finish();
                 }
             }, new CallBackWith<String>() {
@@ -231,22 +175,25 @@ Sess
                     AppConfig.showToast(LoginActivity.this, error);
                 }
             });
-        } else {
-            onReset();
-            Toast.makeText(LoginActivity.this, getString(R.string.error_st_wrongs), Toast.LENGTH_LONG).show();
         }
     }
 
     private void onReset() {
         LoginManager.getInstance().logOut();
-        progressBar.setVisibility(View.GONE);
+        hideProgress();
         layoutFacebook.setVisibility(View.VISIBLE);
-        StorageUtils.inject(LoginActivity.this).save(AppConfig.FIRST_TIME, 1);
+    }
+
+    private void hideProgress(){
+        layout.setVisibility(View.GONE);
+    }
+    private void showProgress(){
+        layout.setVisibility(View.VISIBLE);
     }
 
     @Override
-    public void onInternetConnected() {
-        super.onInternetConnected();
-        onApplyData();
+    public void onInternetDisConnected() {
+        onReset();
+        super.onInternetDisConnected();
     }
 }

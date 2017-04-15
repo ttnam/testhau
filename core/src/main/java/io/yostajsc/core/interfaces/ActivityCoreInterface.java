@@ -11,8 +11,6 @@ public interface ActivityCoreInterface {
 
     void onApplyData();
 
-    void onApplyFont();
-
     void onInternetConnected();
 
     void onInternetDisConnected();

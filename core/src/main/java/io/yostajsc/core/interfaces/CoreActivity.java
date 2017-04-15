@@ -24,11 +24,6 @@ public class CoreActivity extends AppCompatActivity implements ActivityCoreInter
     }
 
     @Override
-    public void onApplyFont() {
-
-    }
-
-    @Override
     public void onInternetConnected() {
 
     }

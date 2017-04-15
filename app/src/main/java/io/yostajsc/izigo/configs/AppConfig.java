@@ -28,13 +28,11 @@ import io.yostajsc.utils.PrefsUtil;
 public class AppConfig extends Application {
 
     public static final String TAG = AppConfig.class.getSimpleName();
-    public static final String AUTHORIZATION = "AUTHORIZATION";
-    public static final String EXPIRED = "EXPIRED";
 
+    public static final String AUTHORIZATION = "AUTHORIZATION";
     public static final String USER = "USER";
     public static final String TRIP_ID = "TRIP_ID";
     public static final String FB_ID = "FB_ID";
-    public static final String FIRST_TIME = "FIRST_TIME";
     public static final String KEY_PICK_LOCATION = "KEY_PICK_LOCATION";
     public static final String PARAMETERS = "id, first_name, last_name, email, cover, gender, birthday, location";
     public static final String PAGE_ID = "PAGE_ID";
@@ -87,7 +85,10 @@ public class AppConfig extends Application {
     }
 
     public String getAuthorization() {
-        return StorageUtils.inject(this).getString(AUTHORIZATION);
+        Authorization authorization = PrefsUtil.inject(this).getAuthorization();
+        if (authorization == null)
+            return null;
+        return authorization.getToken();
     }
 
     public static void showToast(Activity activity, String message) {
@@ -124,5 +125,9 @@ public class AppConfig extends Application {
 
     public String getFbToken() {
         return AccessToken.getCurrentAccessToken().getToken();
+    }
+
+    public String getFcmKey() {
+        return StorageUtils.inject(this).getString(FirebaseManager.FIRE_BASE_TOKEN);
     }
 }

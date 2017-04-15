@@ -1,99 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@android:color/white"
-    android:orientation="vertical">
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-
-        <android.support.v7.widget.AppCompatImageView
-            android:id="@id/image_view"
-            android:layout_width="@dimen/icon_size_x12"
-            android:layout_height="@dimen/icon_size_x12"
-            android:layout_centerInParent="true"
-            android:layout_gravity="center"
-            app:srcCompat="@drawable/ic_launcher" />
-
-    </RelativeLayout>
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="@dimen/margin_x2">
+        android:layout_height="match_parent"
+        android:background="@android:color/white"
+        android:orientation="vertical">
 
-        <ProgressBar
-            android:id="@id/progress_bar"
-            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_x4"
-            android:indeterminate="true" />
-
-        <LinearLayout
-            android:id="@+id/btn_facebook"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="@dimen/margin_x2"
-            android:background="@drawable/ic_style_button_circle_corners_blue_none"
-            android:clickable="true"
-            android:orientation="horizontal"
-            android:paddingBottom="@dimen/margin"
-            android:paddingLeft="@dimen/margin_x3"
-            android:paddingRight="@dimen/margin_x3"
-            android:paddingTop="@dimen/margin"
-            android:visibility="gone">
+            android:layout_height="0dp"
+            android:layout_weight="1">
 
             <android.support.v7.widget.AppCompatImageView
-                android:layout_width="@dimen/icon_size_x3"
-                android:layout_height="@dimen/icon_size_x3"
+                android:id="@id/image_view"
+                android:layout_width="@dimen/icon_size_x9"
+                android:layout_height="@dimen/icon_size_x9"
+                android:layout_centerInParent="true"
                 android:layout_gravity="center"
-                android:layout_marginBottom="@dimen/margin"
-                android:layout_marginEnd="@dimen/margin"
-                android:layout_marginLeft="@dimen/margin"
-                android:layout_marginRight="@dimen/margin"
-                android:layout_marginStart="@dimen/margin"
-                android:layout_marginTop="@dimen/margin"
-                app:srcCompat="@drawable/ic_vector_facebook_white" />
+                app:srcCompat="@drawable/ic_launcher" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/margin_x2">
+
+            <LinearLayout
+                android:id="@+id/btn_facebook"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/margin_x2"
+                android:background="@drawable/ic_style_button_circle_corners_blue_none"
+                android:clickable="true"
+                android:orientation="horizontal"
+                android:paddingBottom="@dimen/margin"
+                android:paddingLeft="@dimen/margin_x3"
+                android:paddingRight="@dimen/margin_x3"
+                android:paddingTop="@dimen/margin">
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:layout_width="@dimen/icon_size_x3"
+                    android:layout_height="@dimen/icon_size_x3"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="@dimen/margin"
+                    android:layout_marginEnd="@dimen/margin"
+                    android:layout_marginLeft="@dimen/margin"
+                    android:layout_marginRight="@dimen/margin"
+                    android:layout_marginStart="@dimen/margin"
+                    android:layout_marginTop="@dimen/margin"
+                    app:srcCompat="@drawable/ic_vector_facebook_white" />
+
+                <TextView
+                    style="@style/CoreAppTheme.TextView_Title.White"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="@dimen/margin"
+                    android:layout_marginEnd="@dimen/margin"
+                    android:layout_marginLeft="@dimen/margin"
+                    android:layout_marginRight="@dimen/margin"
+                    android:layout_marginStart="@dimen/margin"
+                    android:layout_marginTop="@dimen/margin"
+                    android:gravity="center"
+                    android:text="Continue with Facebook" />
+
+                <com.facebook.login.widget.LoginButton
+                    android:id="@+id/button_facebook_login"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:visibility="gone" />
+            </LinearLayout>
 
             <TextView
-                style="@style/CoreAppTheme.TextView_Title.White"
+                style="@style/CoreAppTheme.TextView_Sub_Title"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:layout_marginBottom="@dimen/margin"
-                android:layout_marginEnd="@dimen/margin"
-                android:layout_marginLeft="@dimen/margin"
-                android:layout_marginRight="@dimen/margin"
-                android:layout_marginStart="@dimen/margin"
-                android:layout_marginTop="@dimen/margin"
+                android:layout_margin="@dimen/margin_x2"
                 android:gravity="center"
-                android:text="Continue with Facebook" />
+                android:padding="@dimen/margin_x2"
+                android:text="By continue to Phượt Ngay you agree to our Terms of Sevice and Privacy Policy" />
 
-            <com.facebook.login.widget.LoginButton
-                android:id="@+id/button_facebook_login"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:visibility="gone" />
         </LinearLayout>
-
-        <TextView
-            style="@style/CoreAppTheme.TextView_Sub_Title"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_margin="@dimen/margin_x2"
-            android:gravity="center"
-            android:padding="@dimen/margin_x2"
-            android:text="By continue to Phượt Ngay you agree to our Terms of Sevice and Privacy Policy" />
 
     </LinearLayout>
 
-</LinearLayout>
+    <FrameLayout
+        android:id="@id/layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:background="@color/transparent_60_white">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:indeterminate="true" />
+
+    </FrameLayout>
+
+</FrameLayout>

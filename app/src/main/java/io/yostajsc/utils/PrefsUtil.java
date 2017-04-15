@@ -2,13 +2,13 @@ package io.yostajsc.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 
 import com.google.gson.Gson;
 
 import io.yostajsc.core.utils.StorageUtils;
 import io.yostajsc.izigo.configs.AppConfig;
 import io.yostajsc.izigo.models.user.Authorization;
+import io.yostajsc.izigo.models.user.User;
 
 /**
  * Created by nphau on 4/13/17.
@@ -16,9 +16,9 @@ import io.yostajsc.izigo.models.user.Authorization;
 
 public class PrefsUtil extends StorageUtils {
 
-    protected static PrefsUtil mInstance =  null;
+    private static PrefsUtil mInstance =  null;
 
-    protected PrefsUtil(Context context) {
+    private PrefsUtil(Context context) {
         super(context);
     }
 
@@ -49,6 +49,30 @@ public class PrefsUtil extends StorageUtils {
             authorization = gson.fromJson(json, Authorization.class);
         }
         return authorization;
+    }
+    public boolean save(User user) {
+
+        if (preferences == null) return false;
+
+        Gson gson = new Gson();
+        String json = gson.toJson(user);
+
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString(AppConfig.USER, json);
+        editor.apply();
+
+        return true;
+
+    }
+
+    public User getUser() {
+        Gson gson = new Gson();
+        User user = null;
+        if (preferences != null && preferences.contains(AppConfig.USER)) {
+            String json = preferences.getString(AppConfig.USER, "");
+            user = gson.fromJson(json, User.class);
+        }
+        return user;
     }
 
 }

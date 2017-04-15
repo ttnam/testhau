@@ -22,6 +22,7 @@ import io.yostajsc.usecase.realm.trip.PublicTrips;
  */
 
 public class RealmManager {
+
     public static void insertOrUpdate(final RealmObject realmLObject) {
         Realm realm = null;
         try {
@@ -83,16 +84,20 @@ public class RealmManager {
             }
         }
     }
-
-    public static void clearAllTrips() {
-
+    public static void insertOrUpdate(@NonNull final PublicTrips publicTrips) {
         Realm realm = null;
         try {
             realm = Realm.getDefaultInstance();
-            RealmResults<Trip> results = realm.where(Trip.class).findAll();
-            realm.beginTransaction();
-            results.deleteAllFromRealm();
-            realm.commitTransaction();
+            realm.executeTransaction(new Realm.Transaction() {
+                @Override
+                public void execute(Realm realm) {
+                    RealmResults<PublicTrip> results = realm.where(PublicTrip.class).findAll();
+                    realm.beginTransaction();
+                    results.deleteAllFromRealm();
+                    realm.commitTransaction();
+                    realm.insertOrUpdate(publicTrips);
+                }
+            });
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -120,7 +125,9 @@ public class RealmManager {
         }
     }
 
-    public static void findAllPublicTrips(final CallBackWith<PublicTrips> onSuccessful) {
+    public static void getAllPublicTrips(
+            final CallBackWith<PublicTrips> onSuccessful,
+            final CallBack onUnSuccessful) {
 
         Realm realm = null;
 
@@ -130,10 +137,12 @@ public class RealmManager {
                 @Override
                 public void execute(Realm realm) {
                     RealmResults<PublicTrip> res = realm.where(PublicTrip.class).findAll();
-                    if (res.isValid()) {
+                    if (res != null && res.size() > 0) {
                         PublicTrips trips = new PublicTrips();
                         trips.addAll(res);
                         onSuccessful.run(trips);
+                    } else {
+                        onUnSuccessful.run();
                     }
                 }
             });

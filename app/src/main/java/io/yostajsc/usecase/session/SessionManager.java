@@ -13,19 +13,15 @@ import io.yostajsc.izigo.configs.AppConfig;
  * Created by nphau on 4/13/17.
  */
 
-
 public class SessionManager {
 
     public static
     @TOKEN
     int isExpired() {
         int res = TOKEN.STILL_LIVE;
-        AccessToken facebookAccessToken = AccessToken.getCurrentAccessToken();
-        if (facebookAccessToken != null && !facebookAccessToken.isExpired()) {
-            if (AppConfig.getInstance().isExpired())
-                res = TOKEN.APP_TOKEN_EXPIRED;
-        } else
-            res = TOKEN.FACEBOOK_TOKEN_EXPIRED;
+        if (AppConfig.getInstance().isExpired()) {
+            res = TOKEN.APP_TOKEN_EXPIRED;
+        }
         return res;
     }
 

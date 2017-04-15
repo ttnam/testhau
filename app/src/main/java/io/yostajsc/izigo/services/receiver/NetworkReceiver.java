@@ -27,7 +27,7 @@ public class NetworkReceiver extends BroadcastReceiver {
         } else if (NetworkUtils.isNetworkConnected(context)) {
             EventBus.getDefault().post(new MessageInfo(MessageType.INTERNET_CONNECTED));
         } else {
-            EventBus.getDefault().post(new MessageInfo(MessageType.LOST_INTERNET));
+            EventBus.getDefault().post(new MessageInfo(MessageType.INTERNET_NO_CONNECTED));
         }
     }
 }

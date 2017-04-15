@@ -68,9 +68,7 @@ public class SettingActivity extends OwnCoreActivity {
 
     @OnClick(R.id.layout_profile)
     public void onCallProfile() {
-        Intent intent = new Intent(this, ProfileActivity.class);
-        intent.putExtra(AppConfig.FIRST_TIME, false);
-        startActivity(intent);
+        startActivity(new Intent(this, ProfileActivity.class));
     }
 
     @Override

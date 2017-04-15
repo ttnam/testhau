@@ -6,13 +6,30 @@
     android:orientation="vertical">
 
     <io.yostajsc.view.OwnToolBar
-        android:id="@id/layout"
+        android:id="@id/own_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
         app:layoutBackground="@color/colorPrimary"
         app:layoutType="title_center" />
 
-    <include layout="@layout/layout_recycler_view" />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
+        <include layout="@layout/layout_recycler_view" />
+
+        <FrameLayout
+            android:id="@id/layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/transparent_60_white">
+
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:indeterminate="true" />
+        </FrameLayout>
+    </FrameLayout>
 
 </LinearLayout>

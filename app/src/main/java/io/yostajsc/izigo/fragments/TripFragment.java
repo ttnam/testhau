@@ -6,7 +6,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 
+import io.yostajsc.izigo.activities.user.ProfileActivity;
 import io.yostajsc.usecase.backend.core.APIManager;
 import io.yostajsc.core.fragments.CoreFragment;
 import io.yostajsc.core.interfaces.CallBack;
@@ -19,7 +21,6 @@ import io.yostajsc.izigo.dialogs.DialogFilter;
 import io.yostajsc.izigo.activities.trip.TripDetailActivity;
 import io.yostajsc.izigo.adapters.TripAdapter;
 import io.yostajsc.izigo.configs.AppConfig;
-import io.yostajsc.usecase.realm.RealmManager;
 import io.yostajsc.usecase.realm.trip.PublicTrips;
 import io.yostajsc.utils.UiUtils;
 import io.yostajsc.view.OwnToolBar;
@@ -29,13 +30,22 @@ import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 
 public class TripFragment extends CoreFragment {
 
-    @BindView(R.id.layout)
+    @BindView(R.id.own_toolbar)
     OwnToolBar mOwnToolbar;
 
     @BindView(R.id.recycler_view)
     RecyclerView rvTrip;
 
+    @BindView(R.id.layout)
+    FrameLayout layout;
+
     private TripAdapter tripAdapter = null;
+    private CallBack mOnExpired = new CallBack() {
+        @Override
+        public void run() {
+            ((MainActivity) getActivity()).onExpired();
+        }
+    };
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -47,19 +57,14 @@ public class TripFragment extends CoreFragment {
         View rootView = inflater.inflate(R.layout.fragment_trip, container, false);
         ButterKnife.bind(this, rootView);
         onApplyViews();
+        processingLoadPublicTripsFromServer();
         return rootView;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        onApplyData();
     }
 
     private void onApplyViews() {
 
         mOwnToolbar.setTitle(getString(R.string.all_popular))
-                .setBinding(R.drawable.ic_vector_filter, R.drawable.ic_tab_menu_selected, new View.OnClickListener() {
+                .setBinding(R.drawable.ic_vector_filter, R.drawable.ic_vector_profile, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         DialogFilter dialog = new DialogFilter(mContext);
@@ -68,7 +73,7 @@ public class TripFragment extends CoreFragment {
                 }, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        startActivity(new Intent(mContext, SettingActivity.class));
+                        startActivity(new Intent(mContext, ProfileActivity.class));
                     }
                 });
 
@@ -77,63 +82,42 @@ public class TripFragment extends CoreFragment {
                 new CallBackWith<Integer>() {
                     @Override
                     public void run(Integer position) {
-                        onTripItemClick(position);
+                        final String tripId = tripAdapter.getItem(position).getId();
+                        Intent intent = new Intent(mContext, TripDetailActivity.class);
+                        intent.putExtra(AppConfig.TRIP_ID, tripId);
+                        startActivity(intent);
                     }
                 });
     }
 
-    private void onTripItemClick(int pos) {
-        final String tripId = tripAdapter.getItem(pos).getId();
-        Intent intent = new Intent(mContext, TripDetailActivity.class);
-        intent.putExtra(AppConfig.TRIP_ID, tripId);
-        startActivity(intent);
-    }
+    public void processingLoadPublicTripsFromServer() {
 
-    private void onApplyData() {
-        // Check internet
-        if (NetworkUtils.isNetworkConnected(mContext)) {
+        if (NetworkUtils.isNetworkConnected(mContext)) { // Check internet
             APIManager.connect().getAllPublicTrips(new CallBackWith<PublicTrips>() {
                 @Override
                 public void run(PublicTrips publicTrips) {
-                    RealmManager.insertOrUpdate(publicTrips);
-                    updateUI(publicTrips);
+                    processingUiUpdate(publicTrips);
                 }
-            }, new CallBack() {
-                @Override
-                public void run() {
-                    ((MainActivity) getActivity()).onExpired();
-                }
-            }, new CallBackWith<String>() {
+            }, mOnExpired, new CallBackWith<String>() {
                 @Override
                 public void run(String error) {
                     AppConfig.showToast(mContext, error);
-                    loadFromDisk();
                 }
             });
-        } else {
-            loadFromDisk();
         }
     }
 
-    private void loadFromDisk() {
-        RealmManager.findAllPublicTrips(new CallBackWith<PublicTrips>() {
-            @Override
-            public void run(PublicTrips publicTrips) {
-                updateUI(publicTrips);
-            }
-        });
+    private void processingUiUpdate(PublicTrips publicTrips) {
+        int size = publicTrips.size();
+        if (size < 0)
+            return;
+        for (int i = 0; i < size; i++) {
+            tripAdapter.add(publicTrips.get(i));
+        }
+        hideProgress();
     }
 
-    private void updateUI(PublicTrips publicTrips) {
-        try {
-            int size = publicTrips.size();
-            if (size < 0)
-                return;
-            for (int i = 0; i < size; i++) {
-                tripAdapter.add(publicTrips.get(i));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    private void hideProgress() {
+        layout.setVisibility(View.GONE);
     }
 }

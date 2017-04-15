@@ -5,7 +5,6 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import io.yostajsc.core.utils.DatetimeUtils;
@@ -29,8 +28,7 @@ public class TripAdapter extends RecyclerView.Adapter<TripViewHolder> {
 
     @Override
     public TripViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemLayoutView = LayoutInflater.from(mContext).inflate(R.layout.item_trip, null);
-        return new TripViewHolder(itemLayoutView);
+        return new TripViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_trip, null));
     }
 
     @Override
@@ -58,10 +56,8 @@ public class TripAdapter extends RecyclerView.Adapter<TripViewHolder> {
         return this.mList.get(position);
     }
 
-    public void add(@NonNull TripModel trip) {
-        if (this.mList == null)
-            this.mList = new SparseArray<>();
-        this.mList.put(this.mList.size(), trip);
+    public void add(@NonNull TripModel newTrip) {
+        this.mList.put(this.mList.size(), newTrip);
         notifyDataSetChanged();
     }
 

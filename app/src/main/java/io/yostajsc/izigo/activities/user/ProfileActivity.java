@@ -27,8 +27,8 @@ import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.activities.MainActivity;
 import io.yostajsc.izigo.configs.AppConfig;
 import io.yostajsc.izigo.models.user.User;
-import io.yostajsc.utils.UserPref;
 import io.yostajsc.core.glide.CropCircleTransformation;
+import io.yostajsc.utils.PrefsUtil;
 import io.yostajsc.view.OwnToolBar;
 
 import butterknife.BindView;
@@ -71,7 +71,7 @@ public class ProfileActivity extends OwnCoreActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        Intent intent = getIntent();
+        /*Intent intent = getIntent();
         isFirstTime = intent.getBooleanExtra(AppConfig.FIRST_TIME, false);
         if (!isFirstTime)
             ownToolBar.setLeft(R.drawable.ic_vector_back_white, new View.OnClickListener() {
@@ -79,13 +79,13 @@ public class ProfileActivity extends OwnCoreActivity {
                 public void onClick(View v) {
                     onBackPressed();
                 }
-            });
+            });*/
     }
 
     @Override
     public void onApplyData() {
         if (isFirstTime) {
-            mUser = UserPref.inject(ProfileActivity.this).getUser();
+            mUser = PrefsUtil.inject(ProfileActivity.this).getUser();
             updateValue();
         } else {
             APIManager.connect().getUserInfo(new CallBackWith<User>() {
@@ -174,13 +174,13 @@ public class ProfileActivity extends OwnCoreActivity {
             }, new CallBack() {
                 @Override
                 public void run() {
-                    if (isFirstTime) {
+                    /*if (isFirstTime) {
                         StorageUtils.inject(ProfileActivity.this).save(AppConfig.FIRST_TIME, 0);
                         startActivity(new Intent(ProfileActivity.this, MainActivity.class));
                         finish();
                     } else {
                         finish();
-                    }
+                    }*/
 
                 }
             }, new CallBackWith<String>() {
