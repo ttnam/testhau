@@ -9,8 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_centerInParent="true"
-        android:scaleType="centerCrop"
-        app:srcCompat="@drawable/ic_sample" />
+        android:scaleType="centerCrop" />
 
     <View
         android:layout_width="match_parent"

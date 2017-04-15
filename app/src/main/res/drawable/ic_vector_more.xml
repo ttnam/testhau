@@ -1,40 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="128dp"
-    android:height="128dp"
-    android:viewportHeight="512"
-    android:viewportWidth="512">
-    <path
-        android:fillColor="#dfdfdf"
-        android:pathData="M8.6999998 151.10001l72.6999972 0 0 72.69999 -72.6999972 0z" />
-    <path
-        android:fillColor="#dfdfdf"
-        android:pathData="M114.2 151.10001l72.69999 0 0 72.69999 -72.69999 0z" />
-    <path
-        android:fillColor="#dfdfdf"
-        android:pathData="M114.2 151.10001l72.69999 0 0 72.69999 -72.69999 0z" />
-    <path
-        android:fillColor="#dfdfdf"
-        android:pathData="M219.7 151.10001l72.69999 0 0 72.69999 -72.69999 0z" />
-    <path
-        android:fillColor="#dfdfdf"
-        android:pathData="M325.10001 151.10001l72.69999 0 0 72.69999 -72.69999 0z" />
-    <path
-        android:fillColor="#dfdfdf"
-        android:pathData="M430.60001 151.10001l72.69999 0 0 72.69999 -72.69999 0z" />
-    <path
-        android:fillColor="#dfdfdf"
-        android:pathData="M8.6999998 288.20001l72.6999972 0 0 72.7 -72.6999972 0z" />
-    <path
-        android:fillColor="#dfdfdf"
-        android:pathData="M114.2 288.20001l72.69999 0 0 72.7 -72.69999 0z" />
-    <path
-        android:fillColor="#dfdfdf"
-        android:pathData="M219.7 288.20001l72.69999 0 0 72.7 -72.69999 0z" />
-    <path
-        android:fillColor="#dfdfdf"
-        android:pathData="M325.10001 288.20001l72.69999 0 0 72.7 -72.69999 0z" />
-    <path
-        android:fillColor="#dfdfdf"
-        android:pathData="M430.60001 288.20001l72.69999 0 0 72.7 -72.69999 0z" />
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportHeight="24"
+    android:viewportWidth="24">
+    <group
+        android:translateX="-215"
+        android:translateY="-479">
+        <path
+            android:fillColor="#757575"
+            android:pathData="M218.5 493C219.8807 493 221 491.8807 221 490.5C221 489.1193 219.8807 488 218.5 488C217.1193 488 216 489.1193 216 490.5C216 491.8807 217.1193 493 218.5 493ZM227 493C228.3807 493 229.5 491.8807 229.5 490.5C229.5 489.1193 228.3807 488 227 488C225.6193 488 224.5 489.1193 224.5 490.5C224.5 491.8807 225.6193 493 227 493ZM235.5 493C236.8807 493 238 491.8807 238 490.5C238 489.1193 236.8807 488 235.5 488C234.1193 488 233 489.1193 233 490.5C233 491.8807 234.1193 493 235.5 493ZM218.5 492C217.6716 492 217 491.3284 217 490.5C217 489.6716 217.6716 489 218.5 489C219.3284 489 220 489.6716 220 490.5C220 491.3284 219.3284 492 218.5 492ZM227 492C226.1716 492 225.5 491.3284 225.5 490.5C225.5 489.6716 226.1716 489 227 489C227.8284 489 228.5 489.6716 228.5 490.5C228.5 491.3284 227.8284 492 227 492ZM235.5 492C234.6716 492 234 491.3284 234 490.5C234 489.6716 234.6716 489 235.5 489C236.3284 489 237 489.6716 237 490.5C237 491.3284 236.3284 492 235.5 492Z" />
+    </group>
 </vector>

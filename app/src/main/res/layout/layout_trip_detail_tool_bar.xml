@@ -17,8 +17,8 @@
 
     <android.support.v7.widget.AppCompatImageView
         android:id="@+id/image_creator_avatar"
-        android:layout_width="@dimen/icon_size_x5"
-        android:layout_height="@dimen/icon_size_x5"
+        android:layout_width="@dimen/icon_size_x4"
+        android:layout_height="@dimen/icon_size_x4"
         android:layout_gravity="center" />
 
     <TextView

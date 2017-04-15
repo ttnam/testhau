@@ -484,7 +484,7 @@ public class APIManager {
         });
     }
 
-    public void trackingViews(String tripId, final CallBack success, final CallBackWith<String> fail, final CallBack expired) {
+    public void apiTrackingTripView(String tripId) {
 
         Call<BaseResponse<String>> call = service.apiUpdateView(mAuthorization, tripId);
 
@@ -493,19 +493,14 @@ public class APIManager {
             public void onResponse(Call<BaseResponse<String>> call, Response<BaseResponse<String>> response) {
                 if (response.isSuccessful()) {
                     BaseResponse<String> res = response.body();
-                    if (res.isSuccessful()) {
-                        success.run();
-                    } else if (res.isExpired()) {
-                        expired.run();
-                    } else {
-                        fail.run(res.getDescription());
+                    if (!res.isSuccessful()) {
+                        log(res.data());
                     }
                 }
             }
-
             @Override
             public void onFailure(Call<BaseResponse<String>> call, Throwable throwable) {
-                Log.e(TAG, throwable.getMessage());
+                log(throwable.getMessage());
             }
         });
     }

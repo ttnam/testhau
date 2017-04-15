@@ -6,5 +6,6 @@
         android:bottomLeftRadius="@dimen/buttonBorders"
         android:bottomRightRadius="@dimen/buttonBorders"
         android:radius="@dimen/buttonBorders"
+        android:topRightRadius="@dimen/buttonBorders"
         android:topLeftRadius="@dimen/buttonBorders" />
 </shape>

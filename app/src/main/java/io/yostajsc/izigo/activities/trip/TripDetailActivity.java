@@ -1,7 +1,6 @@
 package io.yostajsc.izigo.activities.trip;
 
 import android.Manifest;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -9,17 +8,16 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearSnapHelper;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SnapHelper;
 import android.view.ContextMenu;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,8 +32,8 @@ import com.google.firebase.storage.UploadTask;
 
 import butterknife.OnClick;
 import io.yostajsc.core.designs.listeners.RecyclerItemClickListener;
-import io.yostajsc.izigo.activities.MembersActivity;
 import io.yostajsc.izigo.activities.core.OwnCoreActivity;
+import io.yostajsc.izigo.dialogs.DialogComment;
 import io.yostajsc.usecase.backend.core.APIManager;
 import io.yostajsc.constants.RoleType;
 import io.yostajsc.constants.TransferType;
@@ -44,13 +42,11 @@ import io.yostajsc.core.interfaces.CallBack;
 import io.yostajsc.core.interfaces.CallBackWith;
 import io.yostajsc.core.code.MessageType;
 import io.yostajsc.core.utils.NetworkUtils;
-import io.yostajsc.core.utils.ValidateUtils;
 import io.yostajsc.izigo.R;
-import io.yostajsc.izigo.dialogs.DialogComment;
 import io.yostajsc.izigo.dialogs.DialogPickTransfer;
 import io.yostajsc.izigo.adapters.ImageryAdapter;
 import io.yostajsc.izigo.configs.AppConfig;
-import io.yostajsc.usecase.realm.RealmManager;
+import io.yostajsc.usecase.backend.core.ApiCaller;
 import io.yostajsc.izigo.models.trip.Trip;
 import io.yostajsc.utils.UiUtils;
 import butterknife.BindView;
@@ -74,7 +70,7 @@ public class TripDetailActivity extends OwnCoreActivity {
     AppCompatImageView imageCover;
 
     @BindView(R.id.text_name)
-    TextView textTripName;
+    EditText textTripName;
 
     @BindView(R.id.text_creator_name)
     TextView textCreatorName;
@@ -85,14 +81,29 @@ public class TripDetailActivity extends OwnCoreActivity {
     @BindView(R.id.image_creator_avatar)
     AppCompatImageView imageCreatorAvatar;
 
-    @BindView(R.id.image_transfer)
-    AppCompatImageView imageTransfer;
+    @BindView(R.id.image_vehicle)
+    AppCompatImageView imageVehicle;
 
-    @BindView(R.id.text_time)
-    TextView textTime;
+    @BindView(R.id.text_vehicle)
+    TextView textVehicle;
+
+    @BindView(R.id.text_time_start)
+    TextView textTimeStart;
+
+    @BindView(R.id.text_time_end)
+    TextView textTimeEnd;
+
+    @BindView(R.id.text_from)
+    TextView textFrom;
+
+    @BindView(R.id.text_to)
+    TextView textTo;
 
     @BindView(R.id.text_edit)
     TextView textEdit;
+
+    @BindView(R.id.button_update)
+    Button buttonUpdate;
 
     @BindView(R.id.button_more)
     AppCompatImageView buttonMore;
@@ -108,6 +119,9 @@ public class TripDetailActivity extends OwnCoreActivity {
         setContentView(R.layout.activity_trip_detail);
         ButterKnife.bind(this);
         onApplyViews();
+
+        // Get data from intent
+        tripId = getIntent().getStringExtra(AppConfig.TRIP_ID);
     }
 
     @Override
@@ -151,11 +165,10 @@ public class TripDetailActivity extends OwnCoreActivity {
             menu.add(0, v.getId(), 0, "Chọn từ thư viện");
             menu.add(0, v.getId(), 1, "Chụp từ thiết bị");
         } else if (v.getId() == R.id.button_more) {
-            menu.add(1, v.getId(), 2, "Đổi tên hành trình");
             if (mIsPublic) {
-                menu.add(1, v.getId(), 3, "Hiển thị chỉ mình tôi");
+                menu.add(1, v.getId(), 2, "Hiển thị chỉ mình tôi");
             } else {
-                menu.add(1, v.getId(), 4, "Hiển thị cho mọi người");
+                menu.add(1, v.getId(), 3, "Hiển thị cho mọi người");
             }
         }
     }
@@ -169,12 +182,9 @@ public class TripDetailActivity extends OwnCoreActivity {
                 TripDetailActivityPermissionsDispatcher.getImageFromGalleryWithCheck(this);
                 break;
             case 2:
-                changeTripName();
-                break;
-            case 3:
                 makeTripPublic(false);
                 break;
-            case 4:
+            case 3:
                 makeTripPublic(true);
                 break;
             /*case 4:
@@ -185,13 +195,13 @@ public class TripDetailActivity extends OwnCoreActivity {
         }
         return super.onContextItemSelected(item);
     }
-
+/*
     @OnClick(R.id.layout_member)
     public void showMembers() {
         Intent intent = new Intent(TripDetailActivity.this, MembersActivity.class);
         intent.putExtra(AppConfig.TRIP_ID, tripId);
         startActivity(intent);
-    }
+    }*/
 
     private void makeTripPublic(boolean isPublic) {
         try {
@@ -215,65 +225,25 @@ public class TripDetailActivity extends OwnCoreActivity {
         }
     }
 
-    private void changeTripName() {
-
-        View promptsView = LayoutInflater.from(this).inflate(R.layout.view_dialog_input, null);
-
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-        alertDialogBuilder.setView(promptsView);
-        final EditText userInput = (EditText) promptsView
-                .findViewById(R.id.text_view);
-        userInput.setText(textTripName.getText());
-        // set dialog message
-        alertDialogBuilder.setCancelable(false)
-                .setPositiveButton(android.R.string.ok,
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                String res = userInput.getText().toString();
-                                if (ValidateUtils.canUse(res)) {
-                                    textTripName.setText(res);
-                                    updateTrip(res, TripTypePermission.NAME);
-                                }
-                            }
-                        })
-                .setNegativeButton(android.R.string.cancel,
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-                            }
-                        });
-
-        AlertDialog alertDialog = alertDialogBuilder.create();
-        alertDialog.show();
-
-    }
-
     @Override
     public void onApplyData() {
         try {
 
-            Intent intent = this.getIntent();
-            tripId = intent.getStringExtra(AppConfig.TRIP_ID);
-            if (ValidateUtils.canUse(tripId)) {
-                if (NetworkUtils.isNetworkConnected(this)) {
-                    APIManager.connect().trackingViews(tripId, new CallBack() {
-                        @Override
-                        public void run() {
-                        }
-                    }, new CallBackWith<String>() {
-                        @Override
-                        public void run(String error) {
-                            AppConfig.showToast(TripDetailActivity.this, error);
-                        }
-                    }, mOnExpiredCallBack);
-                    loadTripFromServer();
-                } else {
-                    loadTripFromRealm();
-                }
+            if (NetworkUtils.isNetworkConnected(this)) {
+                ApiCaller.callApiUpdateTripView(tripId);
+                loadTripFromServer();
+            } else {
+                onInternetDisConnected();
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void onInternetConnected() {
+        super.onInternetConnected();
+        onApplyData();
     }
 
     private void loadTripFromServer() {
@@ -281,56 +251,38 @@ public class TripDetailActivity extends OwnCoreActivity {
             @Override
             public void run(Trip trip) {
                 updateUI(trip);
-                // RealmManager.deleteTripById(tripId);
-                RealmManager.insertOrUpdate(trip);
             }
         }, new CallBackWith<String>() {
             @Override
             public void run(String error) {
                 AppConfig.showToast(TripDetailActivity.this, error);
-                loadTripFromRealm();
             }
         }, mOnExpiredCallBack);
     }
 
-    private void loadTripFromRealm() {
-        RealmManager.findTripById(tripId, new CallBackWith<Trip>() {
-            @Override
-            public void run(Trip trip) {
-                updateUI(trip);
-            }
-        });
-    }
-
     private void updateUI(final Trip trip) {
-        try {
-
-            if (trip == null) return;
-
-            albumAdapter.replaceAll(trip.getAlbum());
-            mIsPublic = trip.isPublished();
-            mCurrentRoleType = trip.getRole();
-            TripDetailActivityView.inject(this)
-                    .switchMode(mCurrentRoleType)                // Mode, is publish
-                    .setTripCover(trip.getCover())                          // Cover
-                    .setTripName(trip.getTripName())                        // Trip name
-                    .showTransfer(trip.getTransfer())                       // Transfer
-                    .setViews(trip.getNumberOfView())                       // Views
-                    .setOwnerName(trip.getCreatorName())                    // Own name
-                    .setOwnerAvatar(trip.getCreatorAvatar())                // Avatar
-                    .showTripDescription(trip.getDescription())             // Description
-                    .setTime(trip.getDepartTime(), trip.getArriveTime());   // Time
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        if (trip == null) return;
+        albumAdapter.replaceAll(trip.getAlbum());
+        mIsPublic = trip.isPublished();
+        mCurrentRoleType = trip.getRole();
+        TripDetailActivityView.inject(this)
+                .switchMode(mCurrentRoleType)                // Mode, is publish
+                .setTripCover(trip.getCover())                          // Cover
+                .setTripName(trip.getTripName())                        // Trip name
+                .setVehicle(trip.getTransfer())                       // Transfer
+                .setViews(trip.getNumberOfView())                       // Views
+                .setOwnerName(trip.getCreatorName())                    // Own name
+                .setOwnerAvatar(trip.getCreatorAvatar())                // Avatar
+                .showTripDescription(trip.getDescription())             // Description
+                .setFromTo(trip.getFrom(), trip.getTo())
+                .setTime(trip.getDepartTime(), trip.getArriveTime());   // Time
     }
 
-    private void onApplyFirebase(Uri uri) {
+    private void onApplyFireBase(Uri uri) {
 
         if (NetworkUtils.isNetworkConnected(this)) {
 
-            // Firebase
+            // Fire Base
             StorageReference riversRef = FirebaseStorage.getInstance()
                     .getReference().child("images/covers/" + tripId);
 
@@ -375,7 +327,7 @@ public class TripDetailActivity extends OwnCoreActivity {
         }
     }
 
-    @OnClick(R.id.image_transfer)
+    @OnClick(R.id.layout_vehicle)
     public void onTransfer(View view) {
         if (!view.isClickable())
             return;
@@ -384,7 +336,7 @@ public class TripDetailActivity extends OwnCoreActivity {
             dialogPickTransfer.setDialogResult(new CallBackWith<Integer>() {
                 @Override
                 public void run(@TransferType Integer type) {
-                    UiUtils.showTransfer(type, imageTransfer);
+                    TripDetailActivityView.inject(TripDetailActivity.this).setVehicle(type);
                 }
             });
             dialogPickTransfer.show();
@@ -445,7 +397,7 @@ public class TripDetailActivity extends OwnCoreActivity {
                                     .load(fileUri)
                                     .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                                     .into(imageCover);
-                            onApplyFirebase(fileUri);
+                            onApplyFireBase(fileUri);
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -454,15 +406,5 @@ public class TripDetailActivity extends OwnCoreActivity {
                 }
             }
         }
-    }
-
-    @Override
-    public void onInternetConnected() {
-
-    }
-
-    @Override
-    public void onInternetDisConnected() {
-
     }
 }

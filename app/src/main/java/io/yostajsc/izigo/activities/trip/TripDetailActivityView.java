@@ -49,8 +49,8 @@ public class TripDetailActivityView {
         return this;
     }
 
-    public TripDetailActivityView showTransfer(int transfer) {
-        UiUtils.showTransfer(transfer, mActivity.imageTransfer);
+    public TripDetailActivityView setVehicle(int transfer) {
+        UiUtils.showTransfer(transfer, mActivity.imageVehicle, mActivity.textVehicle);
         return this;
     }
 
@@ -61,6 +61,7 @@ public class TripDetailActivityView {
 
     public TripDetailActivityView setTripName(String name) {
         mActivity.textTripName.setText(name);
+        mActivity.textTripName.setSelection(mActivity.textTripName.getText().length());
         return this;
     }
 
@@ -73,13 +74,10 @@ public class TripDetailActivityView {
         mActivity.textViews.setText(String.valueOf(numberOfViews));
         return this;
     }
+
     public TripDetailActivityView setTime(long depart, long arrive) {
-
-        mActivity.textTime.setText(String.format("%s - %s",
-                DatetimeUtils.getDate(depart),
-                DatetimeUtils.getDate(arrive)
-        ));
-
+        mActivity.textTimeStart.setText(DatetimeUtils.getDate(depart));
+        mActivity.textTimeEnd.setText(DatetimeUtils.getDate(arrive));
         return this;
     }
 
@@ -89,10 +87,14 @@ public class TripDetailActivityView {
             case RoleType.GUEST:
                 mActivity.buttonMore.setVisibility(View.GONE);
                 mActivity.textEdit.setVisibility(View.GONE);
+                mActivity.textTripName.setEnabled(false);
+                mActivity.buttonUpdate.setVisibility(View.GONE);
                 break;
             case RoleType.ADMIN: {
                 mActivity.buttonMore.setVisibility(View.VISIBLE);
                 mActivity.textEdit.setVisibility(View.VISIBLE);
+                mActivity.textTripName.setEnabled(true);
+                mActivity.buttonUpdate.setVisibility(View.VISIBLE);
                 mActivity.registerForContextMenu(mActivity.buttonMore);
                 mActivity.registerForContextMenu(mActivity.imageCover);
                 break;
@@ -101,4 +103,9 @@ public class TripDetailActivityView {
         return this;
     }
 
+    public TripDetailActivityView setFromTo(String from, String to) {
+        mActivity.textFrom.setText(from);
+        mActivity.textTo.setText(to);
+        return this;
+    }
 }

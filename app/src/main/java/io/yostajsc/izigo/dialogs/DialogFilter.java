@@ -138,12 +138,12 @@ public class DialogFilter extends Dialog {
                 buttonBus.setImageResource(R.drawable.ic_vector_bus_dark);
                 break;
             case TransferType.BUS:
-                buttonBicycle.setImageResource(R.drawable.ic_vector_motobike_dark);
+                buttonBicycle.setImageResource(R.drawable.ic_vector_motor_bike_dark);
                 buttonPeople.setImageResource(R.drawable.ic_vector_walk_dark);
                 buttonBus.setImageResource(R.drawable.ic_vector_bus);
                 break;
             case TransferType.WALK:
-                buttonBicycle.setImageResource(R.drawable.ic_vector_motobike_dark);
+                buttonBicycle.setImageResource(R.drawable.ic_vector_motor_bike_dark);
                 buttonPeople.setImageResource(R.drawable.ic_vector_walk);
                 buttonBus.setImageResource(R.drawable.ic_vector_bus_dark);
                 break;

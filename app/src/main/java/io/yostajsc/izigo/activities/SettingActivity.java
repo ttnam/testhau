@@ -11,8 +11,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.activities.core.OwnCoreActivity;
-import io.yostajsc.izigo.activities.user.ProfileActivity;
-import io.yostajsc.izigo.configs.AppConfig;
 import io.yostajsc.view.OwnToolBar;
 
 public class SettingActivity extends OwnCoreActivity {
@@ -35,16 +33,6 @@ public class SettingActivity extends OwnCoreActivity {
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-    }
-
-    @Override
     public void onApplyViews() {
 
         mOwnToolbar.setTitle(getString(R.string.setting)).setLeft(R.drawable.ic_vector_back_white, new View.OnClickListener() {
@@ -64,11 +52,6 @@ public class SettingActivity extends OwnCoreActivity {
     @Override
     public void onInternetDisConnected() {
 
-    }
-
-    @OnClick(R.id.layout_profile)
-    public void onCallProfile() {
-        startActivity(new Intent(this, ProfileActivity.class));
     }
 
     @Override

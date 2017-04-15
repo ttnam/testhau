@@ -10,6 +10,7 @@ import android.support.v7.widget.SnapHelper;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.widget.TextView;
 
 import io.yostajsc.constants.TransferType;
 import io.yostajsc.core.designs.decorations.SpacesItemDecoration;
@@ -79,6 +80,23 @@ public class UiUtils {
                 break;
             case TransferType.WALK:
                 imageView.setImageResource(R.drawable.ic_vector_walk);
+                break;
+        }
+    }
+
+    public static void showTransfer(int type, AppCompatImageView imageView, TextView textView) {
+        switch (type) {
+            case TransferType.BUS:
+                imageView.setImageResource(R.drawable.ic_vector_bus_dark);
+                textView.setText("Bus");
+                break;
+            case TransferType.MOTORBIKE:
+                imageView.setImageResource(R.drawable.ic_vector_motor_bike_dark);
+                textView.setText("Motorbike");
+                break;
+            case TransferType.WALK:
+                imageView.setImageResource(R.drawable.ic_vector_walk_dark);
+                textView.setText("Walk");
                 break;
         }
     }

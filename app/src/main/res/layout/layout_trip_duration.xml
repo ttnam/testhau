@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/margin_x2"
+        android:paddingRight="@dimen/margin_x2"
+        android:weightSum="2">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/text_from"
+                style="@style/CoreAppTheme.TextView_Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:maxLines="1"
+                android:minLines="1"
+                android:text="From" />
+
+            <TextView
+                android:id="@+id/text_time_start"
+                style="@style/CoreAppTheme.TextView_Sub_Title.White"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/ic_style_circle_blue_none"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:maxLines="1"
+                android:minLines="1" />
+        </LinearLayout>
+
+        <android.support.v7.widget.AppCompatImageView
+            android:layout_width="@dimen/icon_size_x8"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/margin"
+            android:layout_marginRight="@dimen/margin"
+            app:srcCompat="@drawable/ic_vector_route_arrow" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/text_to"
+                style="@style/CoreAppTheme.TextView_Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:maxLines="1"
+                android:minLines="1"
+                android:text="To" />
+
+            <TextView
+                android:id="@+id/text_time_end"
+                style="@style/CoreAppTheme.TextView_Sub_Title.White"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/ic_style_circle_blue_none"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:maxLines="1"
+                android:minLines="1" />
+        </LinearLayout>
+    </LinearLayout>
+
+</merge>

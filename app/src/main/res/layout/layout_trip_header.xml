@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge xmlns:app="http://schemas.android.com/apk/res-auto">
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -18,12 +19,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="top|end"
             android:background="@drawable/ic_style_rect_round_corners_white_none"
-            android:paddingBottom="@dimen/margin"
             android:paddingLeft="@dimen/margin_x2"
             android:paddingRight="@dimen/margin_x2"
-            android:paddingTop="@dimen/margin"
             android:text="@string/str_edit"
-            android:visibility="visible" />
+            android:visibility="gone" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -58,14 +57,6 @@
                     android:textColor="@android:color/white" />
             </LinearLayout>
 
-            <android.support.v7.widget.AppCompatImageView
-                android:id="@+id/image_transfer"
-                android:layout_width="@dimen/icon_size_x7"
-                android:layout_height="@dimen/icon_size_x7"
-                android:layout_gravity="center"
-                android:clickable="false"
-                android:padding="@dimen/margin"
-                app:srcCompat="@drawable/ic_vector_motor_bike" />
         </LinearLayout>
 
     </FrameLayout>

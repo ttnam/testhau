@@ -105,28 +105,19 @@ public class Trip extends RealmObject implements Serializable {
         return mDepart.getTime();
     }
 
-    public long getDuration() {
-        return getArriveTime() - getDepartTime();
-    }
-
     public String getDescription() {
         if (mDescription == null)
             return "";
         return mDescription;
     }
 
-    public int getNumberOfActivities() {
-        return this.mNumberOfActivities;
+    public String getFrom() {
+        return this.mDepart.getName();
     }
 
-    public int getNumberOfComments() {
-        return this.mNumberOfComments;
+    public String getTo() {
+        return this.mArrive.getName();
     }
-
-    public int getNumberOfMembers() {
-        return this.mNumberOfMembers;
-    }
-
 
     public int getNumberOfView() {
         return this.mNumberOfView;

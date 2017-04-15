@@ -44,7 +44,6 @@ public class CommentViewHolder extends RecyclerView.ViewHolder {
         Glide.with(mContext)
                 .load(avatar)
                 .bitmapTransform(new CropCircleTransformation(mContext))
-                .error(R.drawable.ic_vector_avatar)
                 .into(mImageAvatar);
 
         textName.setText(name);

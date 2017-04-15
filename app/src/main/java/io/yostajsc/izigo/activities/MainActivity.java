@@ -16,6 +16,7 @@ import io.yostajsc.izigo.activities.core.OwnCoreActivity;
 import io.yostajsc.izigo.configs.AppConfig;
 import io.yostajsc.izigo.fragments.NotificationsFragment;
 import io.yostajsc.izigo.fragments.OwnTripFragment;
+import io.yostajsc.izigo.fragments.SettingsFragment;
 import io.yostajsc.izigo.fragments.TripFragment;
 
 public class MainActivity extends OwnCoreActivity {
@@ -29,6 +30,7 @@ public class MainActivity extends OwnCoreActivity {
     private TripFragment tripFragment = new TripFragment();
     private OwnTripFragment ownTripFragment = new OwnTripFragment();
     private NotificationsFragment notificationsFragment = new NotificationsFragment();
+    private SettingsFragment settingsFragment = new SettingsFragment();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -57,6 +59,9 @@ public class MainActivity extends OwnCoreActivity {
         if ((tab = this.mTabLayout.getTabAt(2)) != null) {
             tab.setIcon(getResources().getDrawable(R.drawable.ic_style_tab_noti));
         }
+        if ((tab = this.mTabLayout.getTabAt(3)) != null) {
+            tab.setIcon(getResources().getDrawable(R.drawable.ic_style_tab_menu));
+        }
         this.mTabLayout.setSmoothScrollingEnabled(true);
     }
 
@@ -65,6 +70,7 @@ public class MainActivity extends OwnCoreActivity {
         adapter.addFrag(tripFragment);
         adapter.addFrag(ownTripFragment);
         adapter.addFrag(notificationsFragment);
+        adapter.addFrag(settingsFragment);
         this.mViewPager.setAdapter(adapter);
     }
 
