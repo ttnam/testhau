@@ -16,7 +16,6 @@ import io.yostajsc.core.interfaces.CallBackWith;
 import io.yostajsc.core.utils.NetworkUtils;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.activities.MainActivity;
-import io.yostajsc.izigo.activities.SettingActivity;
 import io.yostajsc.izigo.dialogs.DialogFilter;
 import io.yostajsc.izigo.activities.trip.TripDetailActivity;
 import io.yostajsc.izigo.adapters.TripAdapter;

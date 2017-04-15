@@ -6,16 +6,16 @@
     android:orientation="vertical">
 
     <io.yostajsc.view.OwnToolBar
+        android:id="@id/own_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
         app:layoutBackground="@color/colorPrimary"
         app:layoutTitle="@string/setting"
-        app:layoutType="title_center" />
+        app:layoutType="title_left" />
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
@@ -220,13 +220,4 @@
 
     </android.support.v4.widget.NestedScrollView>
 
-    <TextView
-        android:id="@+id/layout_logout"
-        style="@style/CoreAppTheme.TextView_Title.Bold.White"
-        android:layout_width="match_parent"
-        android:layout_height="?actionBarSize"
-        android:layout_gravity="center_vertical"
-        android:background="@drawable/ic_style_button_round_none_theme"
-        android:gravity="center"
-        android:text="@string/str_logout" />
 </LinearLayout>

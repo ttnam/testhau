@@ -1,10 +1,8 @@
 package io.yostajsc.izigo.activities.user;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatImageView;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,15 +19,10 @@ import io.yostajsc.izigo.activities.core.OwnCoreActivity;
 import io.yostajsc.usecase.backend.core.APIManager;
 import io.yostajsc.core.interfaces.CallBack;
 import io.yostajsc.core.interfaces.CallBackWith;
-import io.yostajsc.core.utils.StorageUtils;
 import io.yostajsc.core.utils.ValidateUtils;
 import io.yostajsc.izigo.R;
-import io.yostajsc.izigo.activities.MainActivity;
-import io.yostajsc.izigo.configs.AppConfig;
 import io.yostajsc.izigo.models.user.User;
-import io.yostajsc.core.glide.CropCircleTransformation;
 import io.yostajsc.utils.PrefsUtil;
-import io.yostajsc.view.OwnToolBar;
 
 import butterknife.BindView;
 
@@ -37,26 +30,20 @@ import butterknife.BindView;
 @RuntimePermissions*/
 public class ProfileActivity extends OwnCoreActivity {
 
-    @BindView(R.id.edit_email)
-    EditText editEmail;
+    @BindView(R.id.text_email)
+    TextView textEmail;
 
     @BindView(R.id.text_gender)
     TextView textGender;
 
-    @BindView(R.id.edit_dob)
-    EditText editDob;
+    @BindView(R.id.text_member_ship)
+    TextView textMemberShip;
 
-    @BindView(R.id.edit_first_name)
-    EditText editFirstName;
-
-    @BindView(R.id.edit_last_name)
-    EditText editLastName;
+    @BindView(R.id.edit_name)
+    EditText editName;
 
     @BindView(R.id.image_view)
     AppCompatImageView imageAvatar;
-
-    @BindView(R.id.own_toolbar)
-    OwnToolBar ownToolBar;
 
     private User mUser = null;
     private boolean isFirstTime = false;
@@ -118,17 +105,14 @@ public class ProfileActivity extends OwnCoreActivity {
         if (mUser == null) {
             return;
         }
-        ownToolBar.setTitle(mUser.getFullName(), true);
+        editName.setText(mUser.getFullName());
         Glide.with(ProfileActivity.this)
                 .load(mUser.getAvatar())
-                .bitmapTransform(new CropCircleTransformation(this))
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .into(imageAvatar);
-        editEmail.setText(mUser.getEmail());
+        textEmail.setText(mUser.getEmail());
         textGender.setText(mUser.getGender());
-        editDob.setText(mUser.getBirthday());
-        editLastName.setText(mUser.getLastName());
-        editFirstName.setText(mUser.getFirstName());
+        textMemberShip.setText(mUser.getMemberShip());
     }
 
     @Override
@@ -143,29 +127,25 @@ public class ProfileActivity extends OwnCoreActivity {
     @OnClick(R.id.button)
     public void onConfirm() {
 
-        String dob = editDob.getText().toString();
-        String firstName = editFirstName.getText().toString();
-        String lastName = editLastName.getText().toString();
+        String firstName = editName.getText().toString();
         String email, gender;
 
         if (mUser == null) {
-            email = editEmail.getText().toString();
+            email = textEmail.getText().toString();
             gender = textGender.getText().toString();
         } else {
             email = mUser.getEmail();
             gender = mUser.getGender();
         }
 
-        if (ValidateUtils.canUse(dob, firstName, lastName, email, gender)) {
+        if (ValidateUtils.canUse(firstName, "", email, gender)) {
 
             Map<String, String> map = new HashMap<>();
             map.put("avatar", mUser.getAvatar());
             map.put("email", email);
             map.put("firstName", firstName);
-            map.put("lastName", lastName);
+            map.put("lastName", "");
             map.put("gender", gender);
-            map.put("dateOfBirth", dob);
-
             APIManager.connect().updateProfile(map, new CallBack() {
                 @Override
                 public void run() {
@@ -335,30 +315,4 @@ public class ProfileActivity extends OwnCoreActivity {
         tVEmail.setText(user.getEmail());
         spinnerGender.setSelectedIndex((int) user.getGender());
     }*/
-    /*
-
-    @OnClick(R.id.layout_logout)
-    public void onShowLogout() {
-        new StandardDialog(this)
-                .setButtonsColor(getResources().getColor(R.color.Red))
-                .setCancelable(false)
-                .setTopColorRes(android.R.color.white)
-                .setTopColor(getResources().getColor(android.R.color.white))
-                .setTopColorRes(R.color.BlueTitle)
-                .setIcon(R.drawable.ic_vector_logout)
-                .setMessage("If you like or even dislike this app, Please rate for us. Thank you!!")
-                .setNegativeButton("No, thanks!", null)
-                .setPositiveButton("Logout", onLogout)
-                .show();
-    }
-
-    private View.OnClickListener onLogout = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            AppConfig appConfig = (AppConfig) getApplication();
-            appConfig.userLogout();
-            startActivity(new Intent(getApplicationContext(), SplashActivity.class));
-            finish();
-        }
-    };*/
 }

@@ -96,14 +96,6 @@ public class User implements Serializable {
         return location;
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
     public void setLocation(String location) {
         this.location = location;
     }
