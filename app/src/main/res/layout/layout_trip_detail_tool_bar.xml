@@ -35,14 +35,12 @@
         android:maxLines="1"
         android:minLines="1" />
 
-    <android.support.v7.widget.AppCompatImageView
-        android:id="@+id/button_more"
-        style="@style/CoreAppTheme.IconClick"
+    <Switch
+        android:id="@+id/switch_publish"
         android:layout_width="?actionBarSize"
         android:layout_height="?actionBarSize"
-        android:layout_gravity="center"
-        android:padding="@dimen/margin_x2"
-        android:visibility="gone"
-        app:srcCompat="@drawable/ic_vector_more_stand" />
+        android:layout_marginEnd="@dimen/margin"
+        android:layout_marginRight="@dimen/margin"
+        android:visibility="gone" />
 
 </LinearLayout>

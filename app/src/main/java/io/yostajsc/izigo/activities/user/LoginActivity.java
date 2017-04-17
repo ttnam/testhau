@@ -9,9 +9,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
-
-import com.bumptech.glide.Glide;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.GraphRequest;
@@ -32,19 +29,15 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.yostajsc.core.interfaces.CallBackWith;
-import io.yostajsc.core.utils.NetworkUtils;
-import io.yostajsc.core.utils.StorageUtils;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.activities.MainActivity;
 import io.yostajsc.izigo.activities.core.OwnCoreActivity;
 import io.yostajsc.izigo.models.user.Authorization;
 import io.yostajsc.usecase.backend.core.APIManager;
 import io.yostajsc.izigo.configs.AppConfig;
-import io.yostajsc.usecase.firebase.FirebaseManager;
 import io.yostajsc.izigo.models.user.User;
 import io.yostajsc.izigo.managers.UserManager;
 import io.yostajsc.izigo.managers.EventManager;
-import io.yostajsc.usecase.session.SessionManager;
 
 public class LoginActivity extends OwnCoreActivity {
 

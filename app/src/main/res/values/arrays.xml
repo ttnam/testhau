@@ -23,9 +23,4 @@
         <item>@drawable/ic_vietnam</item>
     </integer-array>
 
-    <integer-array name="bottom_sheet_icon">
-        <item>@drawable/ic_vector_google</item>
-        <item>@drawable/ic_vector_facebook</item>
-    </integer-array>
-
 </resources>

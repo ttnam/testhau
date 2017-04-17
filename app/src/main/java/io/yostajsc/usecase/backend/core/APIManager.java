@@ -1,6 +1,5 @@
 package io.yostajsc.usecase.backend.core;
 
-import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.google.gson.Gson;

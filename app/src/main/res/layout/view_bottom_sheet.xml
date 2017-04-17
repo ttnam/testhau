@@ -1,22 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:paddingBottom="@dimen/margin_x2"
-    android:paddingLeft="@dimen/margin_x2"
-    android:paddingRight="@dimen/margin_x2">
+    android:background="@color/colorWindowBackground"
+    android:orientation="vertical">
 
-    <TextView
-        android:id="@id/text_view"
-        style="@style/AppTheme.TextView_Title.ColorPrimary"
-        android:layout_width="match_parent"
-        android:layout_height="?actionBarSize"
-        android:gravity="center|start"
-        android:text="Share" />
+    <LinearLayout
+        android:id="@+id/layout_member"
+        style="@style/Style_Menu_Item.Press"
+        android:orientation="horizontal">
 
-    <include layout="@layout/layout_separate_vertical" />
+        <android.support.v7.widget.AppCompatImageView
+            android:layout_width="@dimen/icon_size_x4"
+            android:layout_height="@dimen/icon_size_x4"
+            android:layout_gravity="center"
+            android:padding="@dimen/margin"
+            app:srcCompat="@drawable/ic_vector_profile_dark" />
 
-    <include layout="@layout/layout_recycler_view" />
+        <TextView
+            style="@style/CoreAppTheme.TextView_Sub_Title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center|start"
+            android:text="Quản lý thành viên" />
+    </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/layout_share"
+        style="@style/Style_Menu_Item.Press"
+        android:clickable="true"
+        android:orientation="horizontal">
+
+        <android.support.v7.widget.AppCompatImageView
+            android:layout_width="@dimen/icon_size_x4"
+            android:layout_height="@dimen/icon_size_x4"
+            android:layout_gravity="center"
+            android:padding="@dimen/margin"
+            app:srcCompat="@drawable/ic_vector_share" />
+
+        <TextView
+            style="@style/CoreAppTheme.TextView_Sub_Title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center|start"
+            android:text="Chia sẻ" />
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/Style_Menu_Item.Press"
+        android:clickable="true"
+        android:orientation="horizontal">
+
+        <android.support.v7.widget.AppCompatImageView
+            android:layout_width="@dimen/icon_size_x4"
+            android:layout_height="@dimen/icon_size_x4"
+            android:layout_gravity="center"
+            android:padding="@dimen/margin"
+            app:srcCompat="@drawable/ic_vector_edit" />
+
+        <TextView
+            style="@style/CoreAppTheme.TextView_Sub_Title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center|start"
+            android:text="Thay đổi nội dung mô tả" />
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/Style_Menu_Item.Press"
+        android:clickable="true"
+        android:orientation="horizontal">
+
+        <android.support.v7.widget.AppCompatImageView
+            android:layout_width="@dimen/icon_size_x4"
+            android:layout_height="@dimen/icon_size_x4"
+            android:layout_gravity="center"
+            android:padding="@dimen/margin"
+            app:srcCompat="@drawable/ic_vector_close_red" />
+
+        <TextView
+            style="@style/CoreAppTheme.TextView_Sub_Title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center|start"
+            android:text="Xoá" />
+    </LinearLayout>
 </LinearLayout>

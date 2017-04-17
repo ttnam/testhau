@@ -1,6 +1,5 @@
 package io.yostajsc.izigo.activities;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,6 +11,7 @@ import com.facebook.AccessToken;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.yostajsc.izigo.activities.core.OwnCoreActivity;
+import io.yostajsc.izigo.models.trip.Trip;
 import io.yostajsc.usecase.realm.user.FriendsRealm;
 import io.yostajsc.usecase.backend.core.APIManager;
 import io.yostajsc.core.code.MessageType;
@@ -21,6 +21,7 @@ import io.yostajsc.core.interfaces.ItemClick;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.adapters.MemberAdapter;
 import io.yostajsc.izigo.configs.AppConfig;
+import io.yostajsc.utils.PrefsUtil;
 import io.yostajsc.view.OwnToolBar;
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 
@@ -64,9 +65,7 @@ public class MembersActivity extends OwnCoreActivity {
     @Override
     protected void onStart() {
         super.onStart();
-
-        Intent intent = getIntent();
-        mTripId = intent.getStringExtra(AppConfig.TRIP_ID);
+        mTripId = PrefsUtil.inject(this).getString(Trip.TRIP_ID);
         getMemberList();
     }
 

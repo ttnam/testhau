@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearSnapHelper;
@@ -19,6 +20,7 @@ import android.view.View;
 import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +34,7 @@ import com.google.firebase.storage.UploadTask;
 
 import butterknife.OnClick;
 import io.yostajsc.core.designs.listeners.RecyclerItemClickListener;
+import io.yostajsc.izigo.activities.MembersActivity;
 import io.yostajsc.izigo.activities.core.OwnCoreActivity;
 import io.yostajsc.izigo.dialogs.DialogComment;
 import io.yostajsc.usecase.backend.core.APIManager;
@@ -48,9 +51,11 @@ import io.yostajsc.izigo.adapters.ImageryAdapter;
 import io.yostajsc.izigo.configs.AppConfig;
 import io.yostajsc.usecase.backend.core.ApiCaller;
 import io.yostajsc.izigo.models.trip.Trip;
+import io.yostajsc.utils.PrefsUtil;
 import io.yostajsc.utils.UiUtils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.yostajsc.view.BottomSheetDialog;
 import jp.wasabeef.recyclerview.animators.FadeInUpAnimator;
 import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.RuntimePermissions;
@@ -74,9 +79,6 @@ public class TripDetailActivity extends OwnCoreActivity {
 
     @BindView(R.id.text_creator_name)
     TextView textCreatorName;
-
-    @BindView(R.id.text_views)
-    TextView textViews;
 
     @BindView(R.id.image_creator_avatar)
     AppCompatImageView imageCreatorAvatar;
@@ -105,8 +107,8 @@ public class TripDetailActivity extends OwnCoreActivity {
     @BindView(R.id.button_update)
     Button buttonUpdate;
 
-    @BindView(R.id.button_more)
-    AppCompatImageView buttonMore;
+    @BindView(R.id.switch_publish)
+    Switch switchPublish;
 
     private String tripId;
     private int mCurrentRoleType = RoleType.GUEST;
@@ -134,6 +136,12 @@ public class TripDetailActivity extends OwnCoreActivity {
     @OnClick(R.id.button_left)
     public void onBackPressed() {
         super.onBackPressed();
+    }
+
+    @OnClick(R.id.switch_publish)
+    public void onMakePublish() {
+        mIsPublic = switchPublish.isChecked();
+        Toast.makeText(this, mIsPublic ? "Yes" : "No", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -164,12 +172,6 @@ public class TripDetailActivity extends OwnCoreActivity {
         if (v.getId() == R.id.image_view) {
             menu.add(0, v.getId(), 0, "Chọn từ thư viện");
             menu.add(0, v.getId(), 1, "Chụp từ thiết bị");
-        } else if (v.getId() == R.id.button_more) {
-            if (mIsPublic) {
-                menu.add(1, v.getId(), 2, "Hiển thị chỉ mình tôi");
-            } else {
-                menu.add(1, v.getId(), 3, "Hiển thị cho mọi người");
-            }
         }
     }
 
@@ -187,21 +189,16 @@ public class TripDetailActivity extends OwnCoreActivity {
             case 3:
                 makeTripPublic(true);
                 break;
-            /*case 4:
-                BottomSheetDialogFragment bottomSheetDialogFragment = new BottomSheetDialog();
-                bottomSheetDialogFragment.show(getSupportFragmentManager(), bottomSheetDialogFragment.getTag());
-                break;
-                break;*/
         }
         return super.onContextItemSelected(item);
     }
-/*
-    @OnClick(R.id.layout_member)
-    public void showMembers() {
-        Intent intent = new Intent(TripDetailActivity.this, MembersActivity.class);
-        intent.putExtra(AppConfig.TRIP_ID, tripId);
-        startActivity(intent);
-    }*/
+
+    @OnClick(R.id.layout_more)
+    public void showMore() {
+        PrefsUtil.inject(this).save(Trip.TRIP_ID, tripId);
+        BottomSheetDialogFragment bottomSheetDialogFragment = new BottomSheetDialog();
+        bottomSheetDialogFragment.show(getSupportFragmentManager(), bottomSheetDialogFragment.getTag());
+    }
 
     private void makeTripPublic(boolean isPublic) {
         try {
@@ -266,15 +263,14 @@ public class TripDetailActivity extends OwnCoreActivity {
         mIsPublic = trip.isPublished();
         mCurrentRoleType = trip.getRole();
         TripDetailActivityView.inject(this)
-                .switchMode(mCurrentRoleType)                // Mode, is publish
+                .switchMode(mCurrentRoleType)                           // Mode, is publish
                 .setTripCover(trip.getCover())                          // Cover
                 .setTripName(trip.getTripName())                        // Trip name
-                .setVehicle(trip.getTransfer())                       // Transfer
-                .setViews(trip.getNumberOfView())                       // Views
+                .setVehicle(trip.getTransfer())                         // Transfer
                 .setOwnerName(trip.getCreatorName())                    // Own name
                 .setOwnerAvatar(trip.getCreatorAvatar())                // Avatar
                 .showTripDescription(trip.getDescription())             // Description
-                .setFromTo(trip.getFrom(), trip.getTo())
+                .setFromTo(trip.getFrom(), trip.getTo())                // From, To
                 .setTime(trip.getDepartTime(), trip.getArriveTime());   // Time
     }
 
@@ -320,7 +316,7 @@ public class TripDetailActivity extends OwnCoreActivity {
         dialogComment.setTripName(tripId);
     }
 
-    @OnClick({R.id.button_more, R.id.image_view})
+    @OnClick(R.id.image_view)
     public void showContextMenu(AppCompatImageView button) {
         if (mCurrentRoleType == RoleType.ADMIN) {
             button.performLongClick();

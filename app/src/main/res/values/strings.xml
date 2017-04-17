@@ -63,6 +63,7 @@
     <string name="message_please_connect_internet"> Connect internet to update events. </string>
 
     <!--Add Trip Activity-->
+    <string name="str_description">Description</string>
     <string name="str_your_trip">Hành trình của bạn</string>
     <string name="str_trip_name">Tên hành trình</string>
     <string name="str_create_trip">Tạo hành trình</string>
@@ -99,5 +100,6 @@
     <string name="str_current_members">Thành viên</string>
     <string name="str_don_t_see_who_you_re_looking_for">Gửi lời mời kết bạn mới</string>
     <string name="str_success">Thành công</string>
+    <string name="str_share">Share</string>
 
 </resources>

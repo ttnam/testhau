@@ -29,12 +29,13 @@
         <include layout="@layout/layout_trip_duration" />
 
         <TextView
+            android:layout_marginTop="@dimen/margin"
             style="@style/CoreAppTheme.TextView_Title.Bold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin"
             android:layout_marginStart="@dimen/margin"
-            android:text="Summary" />
+            android:text="@string/str_description" />
 
         <include layout="@layout/item_web_vew" />
 

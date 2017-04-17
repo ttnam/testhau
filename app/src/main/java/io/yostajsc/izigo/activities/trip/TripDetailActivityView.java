@@ -69,12 +69,6 @@ public class TripDetailActivityView {
         mActivity.textCreatorName.setText(name);
         return this;
     }
-
-    public TripDetailActivityView setViews(int numberOfViews) {
-        mActivity.textViews.setText(String.valueOf(numberOfViews));
-        return this;
-    }
-
     public TripDetailActivityView setTime(long depart, long arrive) {
         mActivity.textTimeStart.setText(DatetimeUtils.getDate(depart));
         mActivity.textTimeEnd.setText(DatetimeUtils.getDate(arrive));
@@ -85,17 +79,16 @@ public class TripDetailActivityView {
         switch (roleType) {
             case RoleType.MEMBER:
             case RoleType.GUEST:
-                mActivity.buttonMore.setVisibility(View.GONE);
+                mActivity.switchPublish.setVisibility(View.GONE);
                 mActivity.textEdit.setVisibility(View.GONE);
                 mActivity.textTripName.setEnabled(false);
                 mActivity.buttonUpdate.setVisibility(View.GONE);
                 break;
             case RoleType.ADMIN: {
-                mActivity.buttonMore.setVisibility(View.VISIBLE);
+                mActivity.switchPublish.setVisibility(View.VISIBLE);
                 mActivity.textEdit.setVisibility(View.VISIBLE);
                 mActivity.textTripName.setEnabled(true);
                 mActivity.buttonUpdate.setVisibility(View.VISIBLE);
-                mActivity.registerForContextMenu(mActivity.buttonMore);
                 mActivity.registerForContextMenu(mActivity.imageCover);
                 break;
             }
