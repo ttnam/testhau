@@ -12,7 +12,6 @@ import android.widget.LinearLayout;
 import butterknife.ButterKnife;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.activities.MembersActivity;
-import io.yostajsc.izigo.configs.AppConfig;
 
 /**
  * Created by HenryPhuc on 6/9/2016.
@@ -59,7 +58,7 @@ public class BottomSheetDialog extends android.support.design.widget.BottomSheet
 
     private void onApplyView(View contentView) {
         mLayoutMember = (LinearLayout) contentView.findViewById(R.id.layout_member);
-        mLayoutShare = (LinearLayout) contentView.findViewById(R.id.layout_share);
+        // mLayoutShare = (LinearLayout) contentView.findViewById(R.id.layout_share);
     }
 
     private void onApplyEvent() {
@@ -74,7 +73,7 @@ public class BottomSheetDialog extends android.support.design.widget.BottomSheet
                 dismiss();
             }
         });
-        mLayoutShare.setOnClickListener(new View.OnClickListener() {
+       /* mLayoutShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -82,16 +81,16 @@ public class BottomSheetDialog extends android.support.design.widget.BottomSheet
                 sendIntent.setAction(Intent.ACTION_SEND);
                 sendIntent.setType("text/plain");
                 startActivity(Intent.createChooser(sendIntent, getString(R.string.str_share)));
-/*
+*//*
                 // TODO
                 Intent sendIntent = new Intent(Intent.ACTION_VIEW);
                 sendIntent.putExtra("sms_body",
                         "Xin chao ban! Hay tham gia ... voi toi nha. Hen gap ban tai su kien sap toi.");
                 sendIntent.setType("vnd.android-dir/mms-sms");
-                startActivity(sendIntent);*/
+                startActivity(sendIntent);*//*
                 dismiss();
             }
-        });
+        });*/
        /* layoutGooglePlus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

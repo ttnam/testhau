@@ -7,24 +7,21 @@
         android:background="@android:color/white"
         android:orientation="vertical">
 
-        <EditText
+        <TextView
             android:id="@+id/text_name"
             style="@style/CoreAppTheme.TextView_Title.Bold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
             android:ellipsize="end"
-            android:enabled="false"
-            android:focusableInTouchMode="true"
             android:gravity="center"
-            android:inputType="text"
-            android:maxLines="3"
+            android:maxLines="2"
             android:minLines="1"
             android:maxLength="100"
-            android:paddingTop="@dimen/margin_x2"
-            android:textSize="@dimen/text_size_v3" />
+            android:paddingTop="@dimen/margin"
+            android:textSize="@dimen/text_size_v2_5" />
 
-        <include layout="@layout/layout_hot_trip_action" />
+        <include layout="@layout/layout_trip_hot_action" />
 
         <include layout="@layout/layout_trip_duration" />
 

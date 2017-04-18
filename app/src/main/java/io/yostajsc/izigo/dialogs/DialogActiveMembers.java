@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -25,7 +26,6 @@ import io.yostajsc.usecase.realm.user.FriendsRealm;
  * Created by Phuc-Hau Nguyen on 8/31/2016.
  */
 public class DialogActiveMembers extends Dialog {
-
 
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
@@ -87,6 +87,8 @@ public class DialogActiveMembers extends Dialog {
     }
 
     public void setData(FriendsRealm realms) {
+        if(realms == null)
+            return;
         adapter.replaceAll(realms);
     }
 }

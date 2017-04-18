@@ -44,6 +44,8 @@ public class MemberActiveOnMapsAdapter extends RecyclerView.Adapter<ActiveMember
 
     @Override
     public int getItemCount() {
+        if(mList == null)
+            return 0;
         return mList.size();
     }
 
@@ -60,6 +62,8 @@ public class MemberActiveOnMapsAdapter extends RecyclerView.Adapter<ActiveMember
     }
 
     public void replaceAll(FriendsRealm friends) {
+        if(friends == null)
+            return;
         this.mList = friends;
         notifyDataSetChanged();
     }

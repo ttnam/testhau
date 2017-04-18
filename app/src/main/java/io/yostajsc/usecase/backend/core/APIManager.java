@@ -445,7 +445,8 @@ public class APIManager {
                     if (res.isSuccessful()) {
                         success.run(res.data());
                     } else if (res.isExpired()) {
-                        expired.run();
+                        if(expired !=null)
+                            expired.run();
                     } else {
                         fail.run(res.getDescription());
                     }

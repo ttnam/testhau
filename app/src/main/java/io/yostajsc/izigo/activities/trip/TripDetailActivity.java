@@ -19,7 +19,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,7 +33,6 @@ import com.google.firebase.storage.UploadTask;
 
 import butterknife.OnClick;
 import io.yostajsc.core.designs.listeners.RecyclerItemClickListener;
-import io.yostajsc.izigo.activities.MembersActivity;
 import io.yostajsc.izigo.activities.core.OwnCoreActivity;
 import io.yostajsc.izigo.dialogs.DialogComment;
 import io.yostajsc.usecase.backend.core.APIManager;
@@ -75,7 +73,7 @@ public class TripDetailActivity extends OwnCoreActivity {
     AppCompatImageView imageCover;
 
     @BindView(R.id.text_name)
-    EditText textTripName;
+    TextView textTripName;
 
     @BindView(R.id.text_creator_name)
     TextView textCreatorName;
@@ -103,9 +101,6 @@ public class TripDetailActivity extends OwnCoreActivity {
 
     @BindView(R.id.text_edit)
     TextView textEdit;
-
-    @BindView(R.id.button_update)
-    Button buttonUpdate;
 
     @BindView(R.id.switch_publish)
     Switch switchPublish;
@@ -361,6 +356,7 @@ public class TripDetailActivity extends OwnCoreActivity {
 
     @OnClick(R.id.layout_activity)
     public void loadActivity() {
+        PrefsUtil.inject(this).save(Trip.TRIP_ID, tripId);
         Intent intent = new Intent(TripDetailActivity.this, TripTimelineActivity.class);
         intent.putExtra(Trip.TRIP_ID, tripId);
         startActivity(intent);

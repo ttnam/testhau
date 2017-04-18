@@ -27,12 +27,4 @@
 
     </android.support.v4.widget.NestedScrollView>
 
-    <Button
-        android:id="@+id/button_update"
-        style="@style/CoreAppTheme.TextView_Title.Bold"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/ic_style_button_round_none_theme"
-        android:text="Cập nhật"
-        android:visibility="gone" />
 </LinearLayout>

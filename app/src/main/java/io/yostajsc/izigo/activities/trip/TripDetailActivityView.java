@@ -61,7 +61,6 @@ public class TripDetailActivityView {
 
     public TripDetailActivityView setTripName(String name) {
         mActivity.textTripName.setText(name);
-        mActivity.textTripName.setSelection(mActivity.textTripName.getText().length());
         return this;
     }
 
@@ -81,14 +80,10 @@ public class TripDetailActivityView {
             case RoleType.GUEST:
                 mActivity.switchPublish.setVisibility(View.GONE);
                 mActivity.textEdit.setVisibility(View.GONE);
-                mActivity.textTripName.setEnabled(false);
-                mActivity.buttonUpdate.setVisibility(View.GONE);
                 break;
             case RoleType.ADMIN: {
                 mActivity.switchPublish.setVisibility(View.VISIBLE);
                 mActivity.textEdit.setVisibility(View.VISIBLE);
-                mActivity.textTripName.setEnabled(true);
-                mActivity.buttonUpdate.setVisibility(View.VISIBLE);
                 mActivity.registerForContextMenu(mActivity.imageCover);
                 break;
             }

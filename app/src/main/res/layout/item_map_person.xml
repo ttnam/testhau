@@ -46,11 +46,11 @@
     </LinearLayout>
 
     <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/image_close"
         style="@style/CoreAppTheme.IconClick"
         android:layout_width="@dimen/icon_size_x3"
         android:layout_height="@dimen/icon_size_x3"
         android:layout_gravity="center"
         android:layout_margin="@dimen/margin"
-        android:visibility="gone"
         app:srcCompat="@drawable/ic_vector_close_red" />
 </LinearLayout>

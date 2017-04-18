@@ -28,7 +28,6 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/layout_share"
         style="@style/Style_Menu_Item.Press"
         android:clickable="true"
         android:orientation="horizontal">
@@ -38,7 +37,7 @@
             android:layout_height="@dimen/icon_size_x4"
             android:layout_gravity="center"
             android:padding="@dimen/margin"
-            app:srcCompat="@drawable/ic_vector_share" />
+            app:srcCompat="@drawable/ic_vector_edit" />
 
         <TextView
             style="@style/CoreAppTheme.TextView_Sub_Title"
@@ -46,7 +45,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center|start"
-            android:text="Chia sẻ" />
+            android:text="Đổi tên hành trình" />
     </LinearLayout>
 
     <LinearLayout
@@ -90,4 +89,5 @@
             android:gravity="center|start"
             android:text="Xoá" />
     </LinearLayout>
+
 </LinearLayout>
