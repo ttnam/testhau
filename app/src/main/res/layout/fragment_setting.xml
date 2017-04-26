@@ -9,19 +9,46 @@
         android:id="@id/own_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
-        app:layoutBackground="@color/colorPrimary"
+        app:layoutBackground="@android:color/white"
         app:layoutTitle="@string/setting"
+        app:layoutTitleColor="@color/colorTextColorPrimary"
         app:layoutType="title_left" />
+
+    <include layout="@layout/layout_shadow" />
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/margin"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/layout_profile"
+                style="@style/Style_Menu_Item.Press"
+                android:orientation="horizontal">
+
+                <android.support.v7.widget.AppCompatImageView
+                    style="@style/CoreAppTheme.IconClick"
+                    android:layout_width="@dimen/icon_size_x3"
+                    android:layout_height="@dimen/icon_size_x3"
+                    android:layout_gravity="center_vertical"
+                    app:srcCompat="@drawable/ic_vector_profile_blue" />
+
+                <TextView
+                    style="@style/CoreAppTheme.TextView_Sub_Title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/margin_x2"
+                    android:layout_marginStart="@dimen/margin_x2"
+                    android:text="@string/str_profile" />
+
+            </LinearLayout>
 
             <LinearLayout
                 style="@style/Style_Menu_Item.Press"

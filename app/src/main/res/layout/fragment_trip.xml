@@ -9,7 +9,7 @@
         android:id="@id/own_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
-        app:layoutBackground="@color/colorPrimary"
+        app:layoutBackground="@android:color/white"
         app:layoutTitleColor="@color/colorTextColorPrimary"
         app:layoutType="title_left" />
 

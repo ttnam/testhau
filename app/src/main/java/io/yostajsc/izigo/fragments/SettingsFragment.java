@@ -5,35 +5,26 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import butterknife.BindView;
+
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.yostajsc.core.fragments.CoreFragment;
 import io.yostajsc.izigo.R;
-import io.yostajsc.izigo.activities.MainActivity;
 import io.yostajsc.izigo.activities.WebViewActivity;
-import io.yostajsc.view.OwnToolBar;
+import io.yostajsc.izigo.activities.user.ProfileActivity;
 
 public class SettingsFragment extends CoreFragment {
-
-    @BindView(R.id.own_toolbar)
-    OwnToolBar ownToolBar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_setting, container, false);
         ButterKnife.bind(this, rootView);
-        onApplyViews();
         return rootView;
     }
 
-    public void onApplyViews() {
-        ownToolBar.setRight(R.drawable.ic_vector_logout, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((MainActivity) getActivity()).onExpired();
-            }
-        });
+    @OnClick(R.id.layout_profile)
+    public void openProfile() {
+        startActivity(new Intent(mContext, ProfileActivity.class));
     }
 
     @OnClick(R.id.layout_about)

@@ -16,7 +16,7 @@
             android:layout_height="@dimen/icon_size_x4"
             android:layout_gravity="center"
             android:padding="@dimen/margin"
-            app:srcCompat="@drawable/ic_vector_profile_dark" />
+            app:srcCompat="@drawable/ic_vector_profile_gray" />
 
         <TextView
             style="@style/CoreAppTheme.TextView_Sub_Title"
