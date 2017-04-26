@@ -32,7 +32,7 @@ import io.yostajsc.core.interfaces.CallBackWith;
 import io.yostajsc.core.utils.NetworkUtils;
 import io.yostajsc.core.utils.ValidateUtils;
 import io.yostajsc.izigo.R;
-import io.yostajsc.izigo.configs.AppConfig;
+import io.yostajsc.AppConfig;
 import io.yostajsc.izigo.dialogs.DialogActiveMembers;
 import io.yostajsc.izigo.models.trip.Trip;
 import io.yostajsc.usecase.backend.core.APIManager;

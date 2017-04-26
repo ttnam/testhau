@@ -2,7 +2,6 @@ package io.yostajsc.utils;
 
 import android.location.Location;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -10,7 +9,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.Calendar;
 
 import io.yostajsc.core.utils.StorageUtils;
-import io.yostajsc.izigo.configs.AppConfig;
+import io.yostajsc.AppConfig;
 
 /**
  * Created by nphau on 3/21/17.

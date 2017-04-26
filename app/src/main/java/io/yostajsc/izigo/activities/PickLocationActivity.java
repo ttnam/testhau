@@ -23,7 +23,7 @@ import butterknife.OnClick;
 import io.yostajsc.core.code.MessageType;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.activities.core.OwnCoreActivity;
-import io.yostajsc.izigo.configs.AppConfig;
+import io.yostajsc.AppConfig;
 import io.yostajsc.izigo.models.trip.LocationPick;
 import io.yostajsc.utils.LocationCore;
 import permissions.dispatcher.NeedsPermission;

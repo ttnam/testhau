@@ -20,7 +20,7 @@ import io.yostajsc.core.interfaces.CallBackWith;
 import io.yostajsc.core.interfaces.ItemClick;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.adapters.MemberAdapter;
-import io.yostajsc.izigo.configs.AppConfig;
+import io.yostajsc.AppConfig;
 import io.yostajsc.utils.PrefsUtil;
 import io.yostajsc.view.OwnToolBar;
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;

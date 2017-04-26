@@ -2,12 +2,10 @@ package io.yostajsc.usecase.session;
 
 import android.support.annotation.IntDef;
 
-import com.facebook.AccessToken;
-
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-import io.yostajsc.izigo.configs.AppConfig;
+import io.yostajsc.AppConfig;
 
 /**
  * Created by nphau on 4/13/17.

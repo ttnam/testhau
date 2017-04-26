@@ -12,7 +12,7 @@ import io.yostajsc.core.interfaces.CallBack;
 import io.yostajsc.core.interfaces.CoreActivity;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.activities.user.LoginActivity;
-import io.yostajsc.izigo.configs.AppConfig;
+import io.yostajsc.AppConfig;
 
 /**
  * Created by nphau on 4/10/17.

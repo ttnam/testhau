@@ -16,7 +16,7 @@ import io.yostajsc.usecase.backend.response.BaseResponse;
 import io.yostajsc.constants.TripTypePermission;
 import io.yostajsc.core.interfaces.CallBack;
 import io.yostajsc.core.interfaces.CallBackWith;
-import io.yostajsc.izigo.configs.AppConfig;
+import io.yostajsc.AppConfig;
 import io.yostajsc.izigo.models.Timelines;
 import io.yostajsc.izigo.models.comment.Comments;
 import io.yostajsc.izigo.models.notification.Notifications;

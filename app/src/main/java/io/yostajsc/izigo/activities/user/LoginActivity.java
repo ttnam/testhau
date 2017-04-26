@@ -34,7 +34,7 @@ import io.yostajsc.izigo.activities.MainActivity;
 import io.yostajsc.izigo.activities.core.OwnCoreActivity;
 import io.yostajsc.izigo.models.user.Authorization;
 import io.yostajsc.usecase.backend.core.APIManager;
-import io.yostajsc.izigo.configs.AppConfig;
+import io.yostajsc.AppConfig;
 import io.yostajsc.izigo.models.user.User;
 import io.yostajsc.izigo.managers.UserManager;
 import io.yostajsc.izigo.managers.EventManager;

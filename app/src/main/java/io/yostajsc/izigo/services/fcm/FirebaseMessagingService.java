@@ -30,7 +30,7 @@ import com.google.firebase.messaging.RemoteMessage;
 import io.yostajsc.constants.PageType;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.activities.MainActivity;
-import io.yostajsc.izigo.configs.AppConfig;
+import io.yostajsc.AppConfig;
 
 public class FirebaseMessagingService extends com.google.firebase.messaging.FirebaseMessagingService {
 

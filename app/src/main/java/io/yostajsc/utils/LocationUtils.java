@@ -26,7 +26,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import io.yostajsc.core.code.MessageType;
-import io.yostajsc.izigo.configs.AppConfig;
+import io.yostajsc.AppConfig;
 
 import static android.content.Context.LOCATION_SERVICE;
 

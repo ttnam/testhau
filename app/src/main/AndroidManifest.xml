@@ -27,7 +27,7 @@
         android:required="true" />
 
     <application
-        android:name=".configs.AppConfig"
+        android:name="io.yostajsc.AppConfig"
         android:allowBackup="true"
         android:allowClearUserData="false"
         android:fullBackupContent="true"

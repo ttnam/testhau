@@ -19,7 +19,7 @@ import io.yostajsc.izigo.activities.MainActivity;
 import io.yostajsc.izigo.dialogs.DialogFilter;
 import io.yostajsc.izigo.activities.trip.TripDetailActivity;
 import io.yostajsc.izigo.adapters.TripAdapter;
-import io.yostajsc.izigo.configs.AppConfig;
+import io.yostajsc.AppConfig;
 import io.yostajsc.usecase.realm.trip.PublicTrips;
 import io.yostajsc.utils.UiUtils;
 import io.yostajsc.view.OwnToolBar;

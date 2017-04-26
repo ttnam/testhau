@@ -50,7 +50,8 @@ public class FontUtils {
             defaultFontTypefaceField.setAccessible(true);
             defaultFontTypefaceField.set(null, customFontTypeface);
         } catch (Exception e) {
-            Log.e(TAG, e.toString());
+            String tag = "Can not set custom font " + customFontFileNameInAssets + " instead of " + defaultFontNameToOverride;
+            Log.e(TAG, tag);
         }
     }
 }

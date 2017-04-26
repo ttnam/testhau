@@ -1,9 +1,10 @@
-package io.yostajsc.izigo.configs;
+package io.yostajsc;
 
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.widget.Toast;
 
 import com.facebook.AccessToken;
@@ -81,7 +82,7 @@ public class AppConfig extends Application {
     }
 
     private void onApplyFont() {
-        FontUtils.overrideFont(this, "serif", "fonts/Montserrat-Regular.ttf");
+        FontUtils.overrideFont(this, "SERIF", "fonts/Roboto-Regular.ttf");
     }
 
     public String getAuthorization() {

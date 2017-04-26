@@ -6,7 +6,7 @@ import android.content.SharedPreferences;
 import com.google.gson.Gson;
 
 import io.yostajsc.core.utils.StorageUtils;
-import io.yostajsc.izigo.configs.AppConfig;
+import io.yostajsc.AppConfig;
 import io.yostajsc.izigo.models.user.Authorization;
 import io.yostajsc.izigo.models.user.User;
 

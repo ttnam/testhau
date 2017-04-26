@@ -31,7 +31,7 @@ import io.yostajsc.izigo.dialogs.DialogDatePicker;
 import io.yostajsc.izigo.dialogs.DialogPickTransfer;
 import io.yostajsc.usecase.backend.core.APIManager;
 import io.yostajsc.izigo.dialogs.DialogTimePicker;
-import io.yostajsc.izigo.configs.AppConfig;
+import io.yostajsc.AppConfig;
 import io.yostajsc.izigo.models.trip.LocationPick;
 import io.yostajsc.utils.UiUtils;
 import butterknife.BindView;
