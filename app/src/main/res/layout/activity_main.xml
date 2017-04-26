@@ -16,6 +16,8 @@
             android:layout_weight="1"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
+        <include layout="@layout/layout_shadow"/>
+
         <android.support.design.widget.TabLayout
             android:id="@id/tabs"
             android:layout_width="match_parent"

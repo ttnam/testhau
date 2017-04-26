@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
-import io.yostajsc.izigo.activities.user.ProfileActivity;
 import io.yostajsc.usecase.backend.core.IzigoApiManager;
 import io.yostajsc.core.fragments.CoreFragment;
 import io.yostajsc.core.interfaces.CallBack;
@@ -61,21 +60,14 @@ public class TripFragment extends CoreFragment {
     }
 
     private void onApplyViews() {
-
         mOwnToolbar.setTitle(getString(R.string.all_popular))
-                .setBinding(R.drawable.ic_vector_filter, R.drawable.ic_vector_profile, new View.OnClickListener() {
+                .setRight(R.drawable.ic_vector_filter_gray, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         DialogFilter dialog = new DialogFilter(mContext);
                         dialog.show();
                     }
-                }, new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        startActivity(new Intent(mContext, ProfileActivity.class));
-                    }
                 });
-
         this.tripAdapter = new TripAdapter(mContext);
         UiUtils.onApplyRecyclerView(this.rvTrip, this.tripAdapter, new SlideInUpAnimator(),
                 new CallBackWith<Integer>() {
