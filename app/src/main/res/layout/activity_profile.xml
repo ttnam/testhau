@@ -44,7 +44,6 @@
                     android:text="@string/str_update" />
             </LinearLayout>
 
-
             <View
                 android:layout_width="@dimen/icon_size_x12"
                 android:layout_height="2dp"
@@ -88,81 +87,68 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin"
+                style="@style/Style_Menu_Item.Press"
                 android:orientation="horizontal">
 
                 <android.support.v7.widget.AppCompatImageView
-                    android:layout_width="@dimen/icon_size_x6"
-                    android:layout_height="@dimen/icon_size_x6"
-                    android:layout_gravity="center"
-                    android:background="@color/colorPrimary"
-                    android:scaleType="centerInside"
-                    app:srcCompat="@drawable/ic_vector_email" />
+                    style="@style/CoreAppTheme.IconClick"
+                    android:layout_width="@dimen/icon_size_x3"
+                    android:layout_height="@dimen/icon_size_x3"
+                    android:layout_gravity="center_vertical"
+                    app:srcCompat="@drawable/ic_vector_profile_blue" />
 
                 <TextView
                     android:id="@+id/text_email"
-                    style="@style/CoreAppTheme.TextView_Title"
+                    style="@style/CoreAppTheme.TextView_Sub_Title"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="@dimen/margin"
-                    android:layout_marginStart="@dimen/margin"
-                    android:gravity="center|start" />
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/margin_x2"
+                    android:layout_marginStart="@dimen/margin_x2" />
 
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin"
+                style="@style/Style_Menu_Item.Press"
                 android:orientation="horizontal">
 
                 <android.support.v7.widget.AppCompatImageView
-                    android:id="@+id/img_gender"
-                    android:layout_width="@dimen/icon_size_x6"
-                    android:layout_height="@dimen/icon_size_x6"
-                    android:layout_gravity="center"
-                    android:background="@color/colorPrimary"
-                    android:scaleType="centerInside"
+                    style="@style/CoreAppTheme.IconClick"
+                    android:layout_width="@dimen/icon_size_x3"
+                    android:layout_height="@dimen/icon_size_x3"
+                    android:layout_gravity="center_vertical"
                     app:srcCompat="@drawable/ic_vector_male" />
 
                 <TextView
                     android:id="@+id/text_gender"
-                    style="@style/CoreAppTheme.TextView_Title"
+                    style="@style/CoreAppTheme.TextView_Sub_Title"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="@dimen/margin"
-                    android:layout_marginStart="@dimen/margin"
-                    android:gravity="center|start" />
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/margin_x2"
+                    android:layout_marginStart="@dimen/margin_x2" />
 
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin"
+                style="@style/Style_Menu_Item.Press"
                 android:orientation="horizontal">
 
                 <android.support.v7.widget.AppCompatImageView
-                    android:layout_width="@dimen/icon_size_x6"
-                    android:layout_height="@dimen/icon_size_x6"
-                    android:layout_gravity="center"
-                    android:background="@color/colorPrimary"
-                    android:scaleType="centerInside"
+                    style="@style/CoreAppTheme.IconClick"
+                    android:layout_width="@dimen/icon_size_x3"
+                    android:layout_height="@dimen/icon_size_x3"
+                    android:layout_gravity="center_vertical"
                     app:srcCompat="@drawable/ic_vector_clock" />
 
                 <TextView
                     android:id="@+id/text_member_ship"
-                    style="@style/CoreAppTheme.TextView_Title"
+                    style="@style/CoreAppTheme.TextView_Sub_Title"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="@dimen/margin"
-                    android:layout_marginStart="@dimen/margin"
-                    android:gravity="center|start" />
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/margin_x2"
+                    android:layout_marginStart="@dimen/margin_x2" />
 
             </LinearLayout>
 
@@ -171,6 +157,7 @@
     </android.support.v4.widget.NestedScrollView>
 
     <Button
+        android:id="@+id/button_logout"
         style="@style/CoreAppTheme.TextView_Title.Bold.White"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

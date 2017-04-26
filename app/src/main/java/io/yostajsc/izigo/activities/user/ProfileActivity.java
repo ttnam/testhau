@@ -94,6 +94,12 @@ public class ProfileActivity extends OwnCoreActivity {
         textMemberShip.setText(mUser.getMemberShip());
     }
 
+    @OnClick(R.id.button_logout)
+    @Override
+    protected void onExpired() {
+        super.onExpired();
+    }
+
     @OnClick(R.id.button)
     public void onConfirm() {
 
