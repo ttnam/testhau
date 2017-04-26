@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import io.yostajsc.izigo.activities.user.ProfileActivity;
-import io.yostajsc.usecase.backend.core.APIManager;
+import io.yostajsc.usecase.backend.core.IzigoApiManager;
 import io.yostajsc.core.fragments.CoreFragment;
 import io.yostajsc.core.interfaces.CallBack;
 import io.yostajsc.core.interfaces.CallBackWith;
@@ -92,7 +92,7 @@ public class TripFragment extends CoreFragment {
     public void processingLoadPublicTripsFromServer() {
 
         if (NetworkUtils.isNetworkConnected(mContext)) { // Check internet
-            APIManager.connect().getAllPublicTrips(new CallBackWith<PublicTrips>() {
+            IzigoApiManager.connect().getAllPublicTrips(new CallBackWith<PublicTrips>() {
                 @Override
                 public void run(PublicTrips publicTrips) {
                     processingUiUpdate(publicTrips);

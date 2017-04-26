@@ -5,33 +5,57 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@android:color/white"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="@dimen/margin">
 
-        <TextView
-            android:id="@+id/text_name"
-            style="@style/CoreAppTheme.TextView_Title.Bold"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:ellipsize="end"
-            android:gravity="center"
-            android:maxLines="2"
-            android:minLines="1"
-            android:maxLength="100"
-            android:paddingTop="@dimen/margin"
-            android:textSize="@dimen/text_size_v2_5" />
+            android:layout_margin="@dimen/margin"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/text_name"
+                style="@style/CoreAppTheme.TextView_Title.Bold"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:maxLength="150"
+                android:maxLines="2"
+                android:minLines="1"
+                android:textSize="@dimen/text_size_v2_5" />
+
+            <TextView
+                android:id="@+id/text_publish"
+                style="@style/CoreAppTheme.TextView_Sub_Title.Bold.White"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/margin"
+                android:layout_marginStart="@dimen/margin"
+                android:background="@drawable/ic_style_button_round_corners_green"
+                android:clickable="true"
+                android:gravity="center"
+                android:paddingBottom="@dimen/margin"
+                android:paddingLeft="@dimen/margin_x2"
+                android:paddingRight="@dimen/margin_x2"
+                android:paddingTop="@dimen/margin" />
+
+        </LinearLayout>
 
         <include layout="@layout/layout_trip_hot_action" />
 
         <include layout="@layout/layout_trip_duration" />
 
         <TextView
-            android:layout_marginTop="@dimen/margin"
             style="@style/CoreAppTheme.TextView_Title.Bold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin"
             android:layout_marginStart="@dimen/margin"
+            android:layout_marginTop="@dimen/margin"
             android:text="@string/str_description" />
 
         <include layout="@layout/item_web_vew" />
@@ -43,7 +67,7 @@
             android:layout_marginBottom="@dimen/margin"
             android:layout_marginLeft="@dimen/margin"
             android:layout_marginRight="@dimen/margin"
-            android:text="Photos" />
+            android:text="@string/str_photos" />
 
         <include layout="@layout/layout_recycler_view" />
 

@@ -87,7 +87,9 @@
     <style name="CoreAppTheme.TextView_Sub_Title.Italic.White" parent="CoreAppTheme.TextView_Sub_Title.White">
         <item name="android:textStyle">italic</item>
     </style>
-
+    <style name="CoreAppTheme.TextView_Sub_Title.Bold.White" parent="CoreAppTheme.TextView_Sub_Title.White">
+        <item name="android:textStyle">bold</item>
+    </style>
     <style name="CoreAppTheme.AnimDialog.SlideUpDown" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="android:windowEnterAnimation">@anim/anim_slide_in_up</item>
         <item name="android:windowExitAnimation">@anim/anim_slide_out_down</item>

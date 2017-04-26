@@ -29,7 +29,7 @@ import io.yostajsc.izigo.activities.PickLocationActivity;
 import io.yostajsc.izigo.activities.core.OwnCoreActivity;
 import io.yostajsc.izigo.dialogs.DialogDatePicker;
 import io.yostajsc.izigo.dialogs.DialogPickTransfer;
-import io.yostajsc.usecase.backend.core.APIManager;
+import io.yostajsc.usecase.backend.core.IzigoApiManager;
 import io.yostajsc.izigo.dialogs.DialogTimePicker;
 import io.yostajsc.AppConfig;
 import io.yostajsc.izigo.models.trip.LocationPick;
@@ -252,7 +252,7 @@ public class AddTripActivity extends OwnCoreActivity {
         }
         progressBar.setVisibility(View.VISIBLE);
 
-        APIManager.connect().createTrips(groupName, to.toString(), from.toString(), description,
+        IzigoApiManager.connect().createTrips(groupName, to.toString(), from.toString(), description,
                 0,
                 0, 1, new CallBack() {
                     @Override

@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import io.yostajsc.izigo.models.user.Authorization;
+import io.yostajsc.usecase.backend.interfaces.IGCallback;
 import io.yostajsc.usecase.realm.user.FriendsRealm;
 import io.yostajsc.usecase.backend.response.BaseResponse;
 import io.yostajsc.constants.TripTypePermission;
@@ -37,9 +38,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Created by Phuc-Hau Nguyen on 11/9/2016.
  */
 
-public class APIManager {
+public class IzigoApiManager {
 
-    private static final String TAG = APIManager.class.getSimpleName();
+    private static final String TAG = IzigoApiManager.class.getSimpleName();
 
     private static String SERVER_DOMAIN = "http://izigo.jelasticlw.com.br/";
 
@@ -48,10 +49,10 @@ public class APIManager {
 
     private static String mAuthorization = null;
 
-    private APIInterface service = null;
-    private static APIManager mInstance = null;
+    private IzigoApiInterface service = null;
+    private static IzigoApiManager mInstance = null;
 
-    private APIManager() {
+    private IzigoApiManager() {
 
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
         httpClient.connectTimeout(CONNECT_TIME_OUT, TimeUnit.SECONDS);
@@ -73,7 +74,7 @@ public class APIManager {
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
 
-        service = retrofit.create(APIInterface.class);
+        service = retrofit.create(IzigoApiInterface.class);
     }
 
     private okhttp3.Response onOnIntercept(Interceptor.Chain chain) throws IOException {
@@ -88,9 +89,9 @@ public class APIManager {
         return chain.proceed(chain.request());
     }
 
-    public static APIManager connect() {
+    public static IzigoApiManager connect() {
         if (mInstance == null) {
-            mInstance = new APIManager();
+            mInstance = new IzigoApiManager();
         }
         mAuthorization = AppConfig.getInstance().getAuthorization();
         return mInstance;
@@ -445,7 +446,7 @@ public class APIManager {
                     if (res.isSuccessful()) {
                         success.run(res.data());
                     } else if (res.isExpired()) {
-                        if(expired !=null)
+                        if (expired != null)
                             expired.run();
                     } else {
                         fail.run(res.getDescription());
@@ -474,6 +475,7 @@ public class APIManager {
                     }
                 }
             }
+
             @Override
             public void onFailure(Call<BaseResponse<String>> call, Throwable throwable) {
                 log(throwable.getMessage());
@@ -482,15 +484,14 @@ public class APIManager {
     }
 
     public void updateTripInfo(String tripId, String data, int type,
-                               final CallBack success,
-                               final CallBackWith<String> fail, final CallBack expired) {
+                               final IGCallback<Void, String> callback) {
 
         Call<BaseResponse<String>> call = service.apiUpdateTripCover(AppConfig.getInstance().getAuthorization(), tripId, data);
 
         if (type == TripTypePermission.NAME) {
-            call = service.apiUpdateTripName(AppConfig.getInstance().getAuthorization(), tripId, data);
+            call = service.changeName(AppConfig.getInstance().getAuthorization(), tripId, data);
         } else if (type == TripTypePermission.STATUS) {
-            call = service.apiUpdateTripStatus(AppConfig.getInstance().getAuthorization(), tripId, data);
+            call = service.publish(AppConfig.getInstance().getAuthorization(), tripId, data);
         }
         call.enqueue(new Callback<BaseResponse<String>>() {
             @Override
@@ -498,17 +499,18 @@ public class APIManager {
                 if (response.isSuccessful()) {
                     BaseResponse<String> res = response.body();
                     if (res.isSuccessful()) {
-                        success.run();
+                        callback.onSuccessful(null);
                     } else if (res.isExpired()) {
-                        expired.run();
+                        callback.onExpired();
                     } else {
-                        fail.run(res.getDescription());
+                        callback.onFail(res.getDescription());
                     }
                 }
             }
 
             @Override
             public void onFailure(Call<BaseResponse<String>> call, Throwable throwable) {
+                callback.onFail(throwable.getMessage());
                 log(throwable.getMessage());
             }
         });

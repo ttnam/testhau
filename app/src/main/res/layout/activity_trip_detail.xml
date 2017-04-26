@@ -19,7 +19,31 @@
             android:orientation="vertical"
             android:paddingBottom="@dimen/margin_x4">
 
-            <include layout="@layout/layout_trip_header" />
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:id="@id/image_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/image_height_v3"
+                    android:scaleType="centerCrop" />
+
+                <TextView
+                    android:id="@+id/text_edit"
+                    style="@style/CoreAppTheme.TextView_Sub_Title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="top|end"
+                    android:background="@drawable/ic_style_rect_round_corners_white_none"
+                    android:paddingBottom="@dimen/margin"
+                    android:paddingLeft="@dimen/margin_x2"
+                    android:paddingRight="@dimen/margin_x2"
+                    android:paddingTop="@dimen/margin"
+                    android:text="@string/str_edit"
+                    android:visibility="gone" />
+
+            </FrameLayout>
 
             <include layout="@layout/layout_trip_body" />
 

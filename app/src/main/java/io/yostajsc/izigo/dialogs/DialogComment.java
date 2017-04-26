@@ -19,7 +19,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.yostajsc.usecase.backend.core.APIManager;
+import io.yostajsc.usecase.backend.core.IzigoApiManager;
 import io.yostajsc.core.interfaces.CallBack;
 import io.yostajsc.core.interfaces.CallBackWith;
 import io.yostajsc.core.code.MessageInfo;
@@ -127,7 +127,7 @@ public class DialogComment extends Dialog {
         // Load from internet
         if (NetworkUtils.isNetworkConnected(mOwnerActivity)) {
 
-            APIManager.connect().getComments(tripId, new CallBack() {
+            IzigoApiManager.connect().getComments(tripId, new CallBack() {
                 @Override
                 public void run() {
                     // TODO: expired
@@ -166,7 +166,7 @@ public class DialogComment extends Dialog {
             final String uid = "KGSdIvQ1ESWOJfHPJYqkCeX1juf2";
             final String username = "Nguyễn Phúc Hậu";
 
-            FirebaseManager.inject().USER().child(uid).child("avatar")
+            FirebaseManager.bind().USER().child(uid).child("avatar")
                     .addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
@@ -180,7 +180,7 @@ public class DialogComment extends Dialog {
                                 comment.setContent(cmtContent);
                                 comment.setCreatedtime(System.currentTimeMillis());
                                 comment.setUserid(uid);
-                                FirebaseManager.inject().COMMENT(mTripId).push().setValue(comment);
+                                FirebaseManager.bind().COMMENT(mTripId).push().setValue(comment);
                             }
                         }
 

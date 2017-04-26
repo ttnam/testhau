@@ -5,7 +5,7 @@ import android.util.Log;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
 
-import io.yostajsc.usecase.backend.core.APIManager;
+import io.yostajsc.usecase.backend.core.IzigoApiManager;
 import io.yostajsc.core.utils.StorageUtils;
 import io.yostajsc.usecase.firebase.FirebaseManager;
 
@@ -22,7 +22,7 @@ public class FirebaseInstanceIDService extends FirebaseInstanceIdService {
 
     private void sendRegistrationToServer(String token) {
         try {
-            APIManager.connect().updateFcm(token);
+            IzigoApiManager.connect().updateFcm(token);
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
         }

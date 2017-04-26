@@ -17,7 +17,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.yostajsc.core.utils.NetworkUtils;
 import io.yostajsc.izigo.activities.core.OwnCoreActivity;
-import io.yostajsc.usecase.backend.core.APIManager;
+import io.yostajsc.usecase.backend.core.IzigoApiManager;
 import io.yostajsc.core.interfaces.CallBack;
 import io.yostajsc.core.interfaces.CallBackWith;
 import io.yostajsc.core.utils.ValidateUtils;
@@ -58,7 +58,7 @@ public class ProfileActivity extends OwnCoreActivity {
     @Override
     public void onApplyData() {
         if (NetworkUtils.isNetworkConnected(this)) {
-            APIManager.connect().getUserInfo(new CallBackWith<User>() {
+            IzigoApiManager.connect().getUserInfo(new CallBackWith<User>() {
                 @Override
                 public void run(User user) {
                     mUser = user;
@@ -115,7 +115,7 @@ public class ProfileActivity extends OwnCoreActivity {
             map.put("email", email);
             map.put("name", name);
             map.put("gender", gender);
-            APIManager.connect().updateProfile(map, new CallBack() {
+            IzigoApiManager.connect().updateProfile(map, new CallBack() {
                 @Override
                 public void run() {
                     onExpired();
@@ -124,7 +124,7 @@ public class ProfileActivity extends OwnCoreActivity {
                 @Override
                 public void run() {
                     /*if (isFirstTime) {
-                        StorageUtils.inject(ProfileActivity.this).save(AppConfig.FIRST_TIME, 0);
+                        StorageUtils.bind(ProfileActivity.this).save(AppConfig.FIRST_TIME, 0);
                         startActivity(new Intent(ProfileActivity.this, MainActivity.class));
                         finish();
                     } else {
@@ -149,7 +149,7 @@ public class ProfileActivity extends OwnCoreActivity {
     public void onApplyRecyclerView() {
         super.onApplyRecyclerView();
 
-        // this.mFirebaseUtils = FirebaseManager.inject();
+        // this.mFirebaseUtils = FirebaseManager.bind();
 
         this.ownToolBar.setBinding(
                 "Nguyễn Phúc Hậu",

@@ -33,7 +33,7 @@ import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.activities.MainActivity;
 import io.yostajsc.izigo.activities.core.OwnCoreActivity;
 import io.yostajsc.izigo.models.user.Authorization;
-import io.yostajsc.usecase.backend.core.APIManager;
+import io.yostajsc.usecase.backend.core.IzigoApiManager;
 import io.yostajsc.AppConfig;
 import io.yostajsc.izigo.models.user.User;
 import io.yostajsc.izigo.managers.UserManager;
@@ -154,7 +154,7 @@ public class LoginActivity extends OwnCoreActivity {
             String fbId = user.getFbId();
             String fireBaseId = user.getFireBaseId();
             showProgress();
-            APIManager.connect().login(email, fbId, fireBaseId, new CallBackWith<Authorization>() {
+            IzigoApiManager.connect().login(email, fbId, fireBaseId, new CallBackWith<Authorization>() {
                 @Override
                 public void run(Authorization authorization) {
                     onReset();

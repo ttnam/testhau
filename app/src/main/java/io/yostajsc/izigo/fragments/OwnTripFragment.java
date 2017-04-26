@@ -11,7 +11,7 @@ import android.widget.LinearLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.yostajsc.usecase.backend.core.APIManager;
+import io.yostajsc.usecase.backend.core.IzigoApiManager;
 import io.yostajsc.core.fragments.CoreFragment;
 import io.yostajsc.core.interfaces.CallBack;
 import io.yostajsc.core.interfaces.CallBackWith;
@@ -94,7 +94,7 @@ public class OwnTripFragment extends CoreFragment {
     }
 
     private void loadFromServer() {
-        APIManager.connect().getAllOwnTripsList(new CallBackWith<OwnTrips>() {
+        IzigoApiManager.connect().getAllOwnTripsList(new CallBackWith<OwnTrips>() {
             @Override
             public void run(OwnTrips ownTrips) {
                 RealmManager.insertOrUpdate(ownTrips);

@@ -13,7 +13,7 @@ import butterknife.ButterKnife;
 import io.yostajsc.izigo.activities.core.OwnCoreActivity;
 import io.yostajsc.izigo.models.trip.Trip;
 import io.yostajsc.usecase.realm.user.FriendsRealm;
-import io.yostajsc.usecase.backend.core.APIManager;
+import io.yostajsc.usecase.backend.core.IzigoApiManager;
 import io.yostajsc.core.code.MessageType;
 import io.yostajsc.core.interfaces.CallBack;
 import io.yostajsc.core.interfaces.CallBackWith;
@@ -78,7 +78,7 @@ public class MembersActivity extends OwnCoreActivity {
         AccessToken token = AccessToken.getCurrentAccessToken();
         if (token != null) {
             String fbToken = token.getToken();
-            APIManager.connect().getFriendsList(fbToken, new CallBackWith<FriendsRealm>() {
+            IzigoApiManager.connect().getFriendsList(fbToken, new CallBackWith<FriendsRealm>() {
                 @Override
                 public void run(FriendsRealm friends) {
                     friendAdapter.replaceAll(friends);
@@ -98,7 +98,7 @@ public class MembersActivity extends OwnCoreActivity {
     }
 
     private void getMemberList() {
-        APIManager.connect().getMembers(mTripId, new CallBackWith<FriendsRealm>() {
+        IzigoApiManager.connect().getMembers(mTripId, new CallBackWith<FriendsRealm>() {
             @Override
             public void run(FriendsRealm friends) {
                 memberAdapter.replaceAll(friends);
@@ -117,7 +117,7 @@ public class MembersActivity extends OwnCoreActivity {
     }
 
     private void addMember(String fbId) {
-        APIManager.connect().addMembers(mAuthorization, mTripId, fbId, new CallBack() {
+        IzigoApiManager.connect().addMembers(mAuthorization, mTripId, fbId, new CallBack() {
             @Override
             public void run() {
                 onExpired();
@@ -173,7 +173,7 @@ public class MembersActivity extends OwnCoreActivity {
     }
 
     private void kick(int pos) {
-        APIManager.connect().kick(
+        IzigoApiManager.connect().kick(
                 mTripId,
                 memberAdapter.getItem(pos).getFbId(), new CallBack() {
                     @Override

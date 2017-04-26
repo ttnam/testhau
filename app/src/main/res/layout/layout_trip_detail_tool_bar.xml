@@ -35,12 +35,4 @@
         android:maxLines="1"
         android:minLines="1" />
 
-    <Switch
-        android:id="@+id/switch_publish"
-        android:layout_width="?actionBarSize"
-        android:layout_height="?actionBarSize"
-        android:layout_marginEnd="@dimen/margin"
-        android:layout_marginRight="@dimen/margin"
-        android:visibility="gone" />
-
 </LinearLayout>

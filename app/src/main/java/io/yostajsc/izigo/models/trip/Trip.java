@@ -64,7 +64,6 @@ public class Trip extends RealmObject implements Serializable {
     @SerializedName("numberOfMembers")
     private int mNumberOfMembers;
 
-
     @SerializedName("transfer")
     private int mTransfer;
 

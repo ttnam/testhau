@@ -18,27 +18,19 @@ import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 
 import butterknife.OnClick;
 import io.yostajsc.core.designs.listeners.RecyclerItemClickListener;
 import io.yostajsc.izigo.activities.core.OwnCoreActivity;
 import io.yostajsc.izigo.dialogs.DialogComment;
-import io.yostajsc.usecase.backend.core.APIManager;
+import io.yostajsc.usecase.backend.core.IzigoApiManager;
 import io.yostajsc.constants.RoleType;
 import io.yostajsc.constants.TransferType;
-import io.yostajsc.constants.TripTypePermission;
-import io.yostajsc.core.interfaces.CallBack;
 import io.yostajsc.core.interfaces.CallBackWith;
 import io.yostajsc.core.code.MessageType;
 import io.yostajsc.core.utils.NetworkUtils;
@@ -46,8 +38,8 @@ import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.dialogs.DialogPickTransfer;
 import io.yostajsc.izigo.adapters.ImageryAdapter;
 import io.yostajsc.AppConfig;
-import io.yostajsc.usecase.backend.core.ApiCaller;
 import io.yostajsc.izigo.models.trip.Trip;
+import io.yostajsc.usecase.backend.sdk.IzigoSdkExecutor;
 import io.yostajsc.utils.PrefsUtil;
 import io.yostajsc.utils.UiUtils;
 import butterknife.BindView;
@@ -101,8 +93,8 @@ public class TripDetailActivity extends OwnCoreActivity {
     @BindView(R.id.text_edit)
     TextView textEdit;
 
-    @BindView(R.id.switch_publish)
-    Switch switchPublish;
+    @BindView(R.id.text_publish)
+    TextView textPublish;
 
     private String tripId;
     private int mCurrentRoleType = RoleType.GUEST;
@@ -114,15 +106,15 @@ public class TripDetailActivity extends OwnCoreActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trip_detail);
         ButterKnife.bind(this);
+        TripDetailActivityView.bind(this);
         onApplyViews();
-
-        // Get data from intent
-        tripId = getIntent().getStringExtra(AppConfig.TRIP_ID);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
+
+        tripId = getIntent().getStringExtra(AppConfig.TRIP_ID);
         onApplyData();
     }
 
@@ -132,10 +124,21 @@ public class TripDetailActivity extends OwnCoreActivity {
         super.onBackPressed();
     }
 
-    @OnClick(R.id.switch_publish)
+    @Override
+    protected void onStop() {
+        super.onStop();
+        TripDetailActivityView.unbind();
+    }
+
+    @OnClick(R.id.text_publish)
     public void onMakePublish() {
-        mIsPublic = switchPublish.isChecked();
-        Toast.makeText(this, mIsPublic ? "Yes" : "No", Toast.LENGTH_SHORT).show();
+        mIsPublic = !mIsPublic;
+        TripDetailActivityView.publishTrip(tripId, mIsPublic, new CallBackWith<String>() {
+            @Override
+            public void run(String error) {
+                AppConfig.showToast(TripDetailActivity.this, error);
+            }
+        }, mOnExpiredCallBack);
     }
 
     @Override
@@ -155,7 +158,7 @@ public class TripDetailActivity extends OwnCoreActivity {
         this.rvAlbum.addOnItemTouchListener(new RecyclerItemClickListener(this, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-
+                Toast.makeText(TripDetailActivity.this, "showAlbum " + position, Toast.LENGTH_SHORT).show();
             }
         }));
     }
@@ -177,12 +180,6 @@ public class TripDetailActivity extends OwnCoreActivity {
             case 1:
                 TripDetailActivityPermissionsDispatcher.getImageFromGalleryWithCheck(this);
                 break;
-            case 2:
-                makeTripPublic(false);
-                break;
-            case 3:
-                makeTripPublic(true);
-                break;
         }
         return super.onContextItemSelected(item);
     }
@@ -194,34 +191,12 @@ public class TripDetailActivity extends OwnCoreActivity {
         bottomSheetDialogFragment.show(getSupportFragmentManager(), bottomSheetDialogFragment.getTag());
     }
 
-    private void makeTripPublic(boolean isPublic) {
-        try {
-            String params = "0";
-            if (isPublic) {
-                params = "1";
-            }
-            APIManager.connect().updateTripInfo(tripId, params, TripTypePermission.STATUS, new CallBack() {
-                @Override
-                public void run() {
-                    AppConfig.showToast(TripDetailActivity.this, getString(R.string.str_success));
-                }
-            }, new CallBackWith<String>() {
-                @Override
-                public void run(String error) {
-                    AppConfig.showToast(TripDetailActivity.this, error);
-                }
-            }, mOnExpiredCallBack);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     @Override
     public void onApplyData() {
         try {
 
             if (NetworkUtils.isNetworkConnected(this)) {
-                ApiCaller.callApiUpdateTripView(tripId);
+                IzigoSdkExecutor.TripExecutor.increaseTripView(tripId);
                 loadTripFromServer();
             } else {
                 onInternetDisConnected();
@@ -238,7 +213,7 @@ public class TripDetailActivity extends OwnCoreActivity {
     }
 
     private void loadTripFromServer() {
-        APIManager.connect().getTripDetail(tripId, new CallBackWith<Trip>() {
+        IzigoApiManager.connect().getTripDetail(tripId, new CallBackWith<Trip>() {
             @Override
             public void run(Trip trip) {
                 updateUI(trip);
@@ -256,50 +231,16 @@ public class TripDetailActivity extends OwnCoreActivity {
         albumAdapter.replaceAll(trip.getAlbum());
         mIsPublic = trip.isPublished();
         mCurrentRoleType = trip.getRole();
-        TripDetailActivityView.inject(this)
-                .switchMode(mCurrentRoleType)                           // Mode, is publish
-                .setTripCover(trip.getCover())                          // Cover
-                .setTripName(trip.getTripName())                        // Trip name
-                .setVehicle(trip.getTransfer())                         // Transfer
-                .setOwnerName(trip.getCreatorName())                    // Own name
-                .setOwnerAvatar(trip.getCreatorAvatar())                // Avatar
-                .showTripDescription(trip.getDescription())             // Description
-                .setFromTo(trip.getFrom(), trip.getTo())                // From, To
-                .setTime(trip.getDepartTime(), trip.getArriveTime());   // Time
-    }
-
-    private void onApplyFireBase(Uri uri) {
-
-        if (NetworkUtils.isNetworkConnected(this)) {
-
-            // Fire Base
-            StorageReference riversRef = FirebaseStorage.getInstance()
-                    .getReference().child("images/covers/" + tripId);
-
-            UploadTask uploadTask = riversRef.putFile(uri);
-            uploadTask.addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                    updateTrip(task.getResult().getDownloadUrl().toString(), TripTypePermission.COVER);
-                }
-            });
-        }
-
-    }
-
-    private void updateTrip(String data, @TripTypePermission int type) {
-
-        APIManager.connect().updateTripInfo(tripId, data, type, new CallBack() {
-            @Override
-            public void run() {
-                Toast.makeText(TripDetailActivity.this, getString(R.string.str_success), Toast.LENGTH_SHORT).show();
-            }
-        }, new CallBackWith<String>() {
-            @Override
-            public void run(String error) {
-                AppConfig.showToast(TripDetailActivity.this, error);
-            }
-        }, mOnExpiredCallBack);
+        TripDetailActivityView.setPublishMode(mIsPublic);                               // Publish
+        TripDetailActivityView.switchMode(mCurrentRoleType);                            // Mode, is publish
+        TripDetailActivityView.setTripCover(trip.getCover());                           // Cover
+        TripDetailActivityView.setTripName(trip.getTripName());                         // Trip name
+        TripDetailActivityView.setVehicle(trip.getTransfer());                          // Transfer
+        TripDetailActivityView.setOwnerName(trip.getCreatorName());                     // Own name
+        TripDetailActivityView.setOwnerAvatar(trip.getCreatorAvatar());                 // Avatar
+        TripDetailActivityView.setFromTo(trip.getFrom(), trip.getTo());                 // From, To
+        TripDetailActivityView.showTripDescription(trip.getDescription());              // Description
+        TripDetailActivityView.setTime(trip.getDepartTime(), trip.getArriveTime());     // Time
     }
 
     @OnClick(R.id.layout_comment)
@@ -326,7 +267,7 @@ public class TripDetailActivity extends OwnCoreActivity {
             dialogPickTransfer.setDialogResult(new CallBackWith<Integer>() {
                 @Override
                 public void run(@TransferType Integer type) {
-                    TripDetailActivityView.inject(TripDetailActivity.this).setVehicle(type);
+                    TripDetailActivityView.setVehicle(type);
                 }
             });
             dialogPickTransfer.show();
@@ -336,7 +277,7 @@ public class TripDetailActivity extends OwnCoreActivity {
     @OnClick(R.id.button)
     public void actionLink() {
         if (mCurrentRoleType == RoleType.GUEST) {
-            APIManager.connect().apiJoinGroup(tripId, new CallBack() {
+            IzigoApiManager.connect().apiJoinGroup(tripId, new CallBack() {
                 @Override
                 public void run() {
                     Toast.makeText(TripDetailActivity.this, "Thành công", Toast.LENGTH_SHORT).show();
@@ -384,11 +325,21 @@ public class TripDetailActivity extends OwnCoreActivity {
                         Uri fileUri = data.getData();
                         Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), fileUri);
                         if (bitmap != null) {
+
+                            // Update UI
                             Glide.with(TripDetailActivity.this)
                                     .load(fileUri)
                                     .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                                     .into(imageCover);
-                            onApplyFireBase(fileUri);
+
+                            // Update server
+                            TripDetailActivityView.changeTripCover(tripId, fileUri, new CallBackWith<String>() {
+                                @Override
+                                public void run(String error) {
+                                    AppConfig.showToast(TripDetailActivity.this, error);
+                                }
+                            }, mOnExpiredCallBack);
+
                         }
                     } catch (Exception e) {
                         e.printStackTrace();

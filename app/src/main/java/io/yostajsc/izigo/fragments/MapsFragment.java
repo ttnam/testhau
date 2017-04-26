@@ -35,7 +35,7 @@ import io.yostajsc.izigo.R;
 import io.yostajsc.AppConfig;
 import io.yostajsc.izigo.dialogs.DialogActiveMembers;
 import io.yostajsc.izigo.models.trip.Trip;
-import io.yostajsc.usecase.backend.core.APIManager;
+import io.yostajsc.usecase.backend.core.IzigoApiManager;
 import io.yostajsc.usecase.firebase.FirebaseManager;
 import io.yostajsc.usecase.maps.Track;
 import io.yostajsc.usecase.realm.user.FriendRealm;
@@ -79,7 +79,7 @@ public class MapsFragment extends CoreFragment implements
         mTripId = PrefsUtil.inject(mContext).getString(Trip.TRIP_ID);
 
         if (NetworkUtils.isNetworkConnected(mContext)) {
-            APIManager.connect().getMembers(mTripId, new CallBackWith<FriendsRealm>() {
+            IzigoApiManager.connect().getMembers(mTripId, new CallBackWith<FriendsRealm>() {
                 @Override
                 public void run(FriendsRealm friends) {
                     for (FriendRealm friendRealm : friends) {

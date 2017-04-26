@@ -25,7 +25,7 @@ import retrofit2.http.Path;
 /**
  * Created by Phuc-Hau Nguyen on 11/9/2016.
  */
-interface APIInterface {
+interface IzigoApiInterface {
 
     @FormUrlEncoded
     @POST("api/user/login")
@@ -101,15 +101,15 @@ interface APIInterface {
 
     @FormUrlEncoded
     @PUT("api/trips/{id}")
-    Call<BaseResponse<String>> apiUpdateTripName(@Header("authorization") String authorization,
-                                                 @Path("id") String tripId,
-                                                 @Field("name") String cover);
+    Call<BaseResponse<String>> changeName(@Header("authorization") String authorization,
+                                          @Path("id") String tripId,
+                                          @Field("name") String cover);
 
     @PUT("api/trips/{id}")
     @FormUrlEncoded
-    Call<BaseResponse<String>> apiUpdateTripStatus(@Header("authorization") String authorization,
-                                                   @Path("id") String tripId,
-                                                   @Field("is_published") String cover);
+    Call<BaseResponse<String>> publish(@Header("authorization") String authorization,
+                                       @Path("id") String tripId,
+                                       @Field("is_published") String cover);
 
     @PUT("api/trips/{id}/apiJoinGroup")
     Call<BaseResponse<String>> apiJoinGroup(@Header("authorization") String authorization,

@@ -175,8 +175,7 @@
 
     <color name="colorTextColorPrimary">#212121</color>
     <color name="colorTextColorSecondary">#757575</color>
-    <color name="colorWindowBackground">#f0f0f0</color>
-
+    <color name="colorWindowBackground">#f5f7f9</color>
     <!--
        99% — FC
        98% — FA

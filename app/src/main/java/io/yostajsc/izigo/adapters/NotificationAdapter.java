@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import io.yostajsc.usecase.backend.core.APIManager;
+import io.yostajsc.usecase.backend.core.IzigoApiManager;
 import io.yostajsc.constants.NotificationType;
 import io.yostajsc.core.interfaces.CallBack;
 import io.yostajsc.core.interfaces.CallBackWith;
@@ -118,7 +118,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationsViewH
 
     private void accept(final int pos, String tripId, String notiId, final int accept) {
 
-        APIManager.connect().accept(tripId, notiId, accept, new CallBack() {
+        IzigoApiManager.connect().accept(tripId, notiId, accept, new CallBack() {
             @Override
             public void run() {
 
@@ -142,7 +142,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationsViewH
 
     private void verify(final int pos, String tripId, String notiId, final int accept) {
 
-        APIManager.connect().verify(tripId, notiId, accept, new CallBack() {
+        IzigoApiManager.connect().verify(tripId, notiId, accept, new CallBack() {
             @Override
             public void run() {
 

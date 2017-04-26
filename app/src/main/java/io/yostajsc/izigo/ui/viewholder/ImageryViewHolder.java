@@ -3,6 +3,7 @@ package io.yostajsc.izigo.ui.viewholder;
 import android.content.Context;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.bumptech.glide.Glide;
@@ -21,7 +22,7 @@ public class ImageryViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.image_view)
     AppCompatImageView imageView;
 
-    private Context mContext;
+    protected Context mContext;
 
     public ImageryViewHolder(View itemView) {
         super(itemView);
@@ -29,10 +30,13 @@ public class ImageryViewHolder extends RecyclerView.ViewHolder {
         mContext = itemView.getContext();
     }
 
-    public void bind(String url) {
-        if (ValidateUtils.canUse(url)) {
+    protected void bind(String url) {
+
+        if (!TextUtils.isEmpty(url)) {
             Glide.with(mContext)
-                    .load(url).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imageView);
+                    .load(url)
+                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                    .into(imageView);
         }
     }
 }

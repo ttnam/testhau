@@ -75,7 +75,8 @@
     <string name="str_create_trip_des">Create new trip with your friends</string>
     <string name="str_join">Tham gia</string>
     <string name="str_status">Trạng thái</string>
-    <string name="str_publish">Công khai</string>
+    <string name="str_published">Published</string>
+    <string name="str_private">Private</string>
     <string name="str_depart">Xuất phát</string>
     <string name="str_time">Thời gian</string>
     <string name="str_arrive">Đích đến</string>
@@ -101,5 +102,6 @@
     <string name="str_don_t_see_who_you_re_looking_for">Gửi lời mời kết bạn mới</string>
     <string name="str_success">Thành công</string>
     <string name="str_share">Share</string>
+    <string name="str_photos">Photos</string>
 
 </resources>
