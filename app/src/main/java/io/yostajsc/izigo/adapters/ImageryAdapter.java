@@ -14,7 +14,6 @@ import java.lang.annotation.RetentionPolicy;
 import io.realm.RealmList;
 import io.yostajsc.core.utils.DimensionUtil;
 import io.yostajsc.izigo.R;
-import io.yostajsc.izigo.models.photo.BasePhotoInfo;
 import io.yostajsc.izigo.ui.viewholder.ImageryMoreViewHolder;
 import io.yostajsc.izigo.ui.viewholder.ImageryNormalViewHolder;
 import io.yostajsc.izigo.ui.viewholder.ImageryViewHolder;
@@ -26,11 +25,11 @@ public class ImageryAdapter extends RecyclerView.Adapter<ImageryViewHolder> {
     private static boolean isMore = false;
     private static int size = 0;
     private Context mContext;
-    private RealmList<BasePhotoInfo> mUrls;
+    // private RealmList<BasePhotoInfo> mUrls;
 
     public ImageryAdapter(Context context) {
         this.mContext = context;
-        this.mUrls = new RealmList<>();
+        // this.mUrls = new RealmList<>();
     }
 
     @Override
@@ -56,19 +55,20 @@ public class ImageryAdapter extends RecyclerView.Adapter<ImageryViewHolder> {
 
     @Override
     public void onBindViewHolder(final ImageryViewHolder holder, final int position) {
-        if (isMore && position == MAX_ITEM - 1) {
+        /*if (isMore && position == MAX_ITEM - 1) {
             ((ImageryMoreViewHolder) holder).bind(mUrls.get(position).getUrl(), size - MAX_ITEM);
         } else {
             ((ImageryNormalViewHolder) holder).bind(mUrls.get(position).getUrl());
-        }
+        }*/
     }
 
     @Override
     public int getItemCount() {
-        if (mUrls == null)
+        // if (mUrls == null)
             return 0;
-        return mUrls.size();
+        // return mUrls.size();
     }
+/*
 
     public void replaceAll(RealmList<BasePhotoInfo> photos) {
         if (mUrls == null)
@@ -92,12 +92,7 @@ public class ImageryAdapter extends RecyclerView.Adapter<ImageryViewHolder> {
         this.mUrls.add(photoInfo);
         notifyDataSetChanged();
     }
-
-    public void clear() {
-        if (mUrls != null)
-            mUrls.clear();
-        notifyDataSetChanged();
-    }
+*/
 
     @Retention(RetentionPolicy.SOURCE)
     @IntDef({Type.MORE, Type.NORMAL})

@@ -21,7 +21,7 @@ import io.yostajsc.core.interfaces.CallBackWith;
 import io.yostajsc.core.interfaces.ItemClick;
 import io.yostajsc.core.code.MessageType;
 import io.yostajsc.izigo.R;
-import io.yostajsc.usecase.realm.user.FriendRealm;
+import io.yostajsc.core.realm.user.FriendRealm;
 import io.yostajsc.core.glide.CropCircleTransformation;
 
 /**

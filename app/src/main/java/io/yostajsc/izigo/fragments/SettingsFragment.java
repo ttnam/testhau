@@ -30,13 +30,13 @@ public class SettingsFragment extends CoreFragment {
     @OnClick(R.id.layout_about)
     public void AboutSetting() {
         startActivity(new Intent(mContext, WebViewActivity.class));
+        getActivity().finish();
     }
-
     /*
         @Override
         public void onActivityCreated(@Nullable Bundle savedInstanceState) {
             super.onActivityCreated(savedInstanceState);
-            // presUtils = new StorageUtils(getActivity());
+            // presUtils = new PrefsUtils(getActivity());
             switchSync.setOnCheckedChangeListener(ListenerHelpers.SwitchSync);
         }
 
@@ -69,7 +69,7 @@ public class SettingsFragment extends CoreFragment {
             }
 
             // Language
-            int lang = (presUtils.getSettingInt(StorageUtils.KEY_LANGUAGE) == 0) ? R.string.setting_language_vietnamese : R.string.setting_language_english;
+            int lang = (presUtils.getSettingInt(PrefsUtils.KEY_LANGUAGE) == 0) ? R.string.setting_language_vietnamese : R.string.setting_language_english;
             txtLang.setText(getResources().getString(lang));
         }
 

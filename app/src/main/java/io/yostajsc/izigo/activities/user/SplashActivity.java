@@ -4,10 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
+import com.facebook.AccessToken;
+
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.activities.MainActivity;
 import io.yostajsc.izigo.activities.core.OwnCoreActivity;
-import io.yostajsc.usecase.session.SessionManager;
+import io.yostajsc.sdk.IzigoSdk;
 
 public class SplashActivity extends OwnCoreActivity {
 
@@ -25,18 +27,14 @@ public class SplashActivity extends OwnCoreActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-
-                switch (SessionManager.isExpired()) {
-                    case SessionManager.TOKEN.APP_TOKEN_EXPIRED:
-                    case SessionManager.TOKEN.FACEBOOK_TOKEN_EXPIRED:
-                        startActivity(new Intent(SplashActivity.this, LoginActivity.class));
-                        finish();
-                        break;
-                    case SessionManager.TOKEN.STILL_LIVE:
-                        startActivity(new Intent(SplashActivity.this, MainActivity.class));
-                        finish();
-                        break;
-                }
+                AccessToken accessToken = AccessToken.getCurrentAccessToken();
+                if (accessToken != null &&
+                        !accessToken.isExpired() &&
+                        IzigoSdk.UserExecutor.isLoggedIn()) {
+                    startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                } else
+                    startActivity(new Intent(SplashActivity.this, LoginActivity.class));
+                finish();
             }
         }, 1000);
     }

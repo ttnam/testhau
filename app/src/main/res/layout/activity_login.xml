@@ -16,7 +16,6 @@
             android:layout_weight="1">
 
             <android.support.v7.widget.AppCompatImageView
-                android:id="@id/image_view"
                 android:layout_width="@dimen/icon_size_x9"
                 android:layout_height="@dimen/icon_size_x9"
                 android:layout_centerInParent="true"

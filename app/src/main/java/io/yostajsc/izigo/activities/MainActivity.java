@@ -29,8 +29,8 @@ public class MainActivity extends OwnCoreActivity {
 
     private TripFragment tripFragment = new TripFragment();
     private OwnTripFragment ownTripFragment = new OwnTripFragment();
-    private NotificationsFragment notificationsFragment = new NotificationsFragment();
     private SettingsFragment settingsFragment = new SettingsFragment();
+    private NotificationsFragment notificationsFragment = new NotificationsFragment();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -91,7 +91,7 @@ public class MainActivity extends OwnCoreActivity {
     public void onInternetConnected() {
         super.onInternetConnected();
         if (this.mViewPager.getCurrentItem() == 0) {
-            tripFragment.processingLoadPublicTripsFromServer();
+            tripFragment.loadTripsFromServer();
         }
     }
 

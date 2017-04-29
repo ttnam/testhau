@@ -11,14 +11,13 @@ import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.yostajsc.usecase.backend.core.IzigoApiManager;
+import io.yostajsc.sdk.api.IzigoApiManager;
 import io.yostajsc.core.designs.decorations.SpacesItemDecoration;
 import io.yostajsc.core.fragments.CoreFragment;
 import io.yostajsc.core.interfaces.CallBack;
 import io.yostajsc.core.interfaces.CallBackWith;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.adapters.NotificationAdapter;
-import io.yostajsc.izigo.models.notification.Notifications;
 import io.yostajsc.utils.UiUtils;
 import jp.wasabeef.recyclerview.animators.SlideInRightAnimator;
 
@@ -54,7 +53,7 @@ public class NotificationsFragment extends CoreFragment {
 
     private void onApplyData() {
 
-        IzigoApiManager.connect().getNotification(new CallBack() {
+        /*IzigoApiManager.connect().getNotification(new CallBack() {
             @Override
             public void run() {
                 // TODO:
@@ -77,7 +76,7 @@ public class NotificationsFragment extends CoreFragment {
             public void run(String error) {
                 Toast.makeText(mContext, error, Toast.LENGTH_SHORT).show();
             }
-        });
+        });*/
     }
 
 }

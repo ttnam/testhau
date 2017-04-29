@@ -71,8 +71,8 @@ public class MenuAdapter extends ArrayAdapter<MenuItem> {
             txtName.setText(menu.getName());
 
             if (menuName.equalsIgnoreCase("account")) {
-                // StorageUtils utils = new StorageUtils(activity);
-                /*User user = sharedPresUtils.getUserPrefs();
+                // PrefsUtils utils = new PrefsUtils(activity);
+                /*IgUser user = sharedPresUtils.getUserPrefs();
                 String name = user.getName();
                 if (!name.isEmpty()) {
                     txtName.setText(name);

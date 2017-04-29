@@ -4,11 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.AppCompatImageView;
 import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.GraphRequest;
@@ -28,23 +28,20 @@ import org.json.JSONObject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.yostajsc.core.interfaces.CallBack;
 import io.yostajsc.core.interfaces.CallBackWith;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.activities.MainActivity;
 import io.yostajsc.izigo.activities.core.OwnCoreActivity;
-import io.yostajsc.izigo.models.user.Authorization;
-import io.yostajsc.usecase.backend.core.IzigoApiManager;
+import io.yostajsc.sdk.IzigoSdk;
 import io.yostajsc.AppConfig;
-import io.yostajsc.izigo.models.user.User;
+import io.yostajsc.sdk.model.IgUser;
 import io.yostajsc.izigo.managers.UserManager;
 import io.yostajsc.izigo.managers.EventManager;
 
 public class LoginActivity extends OwnCoreActivity {
 
     private final String TAG = LoginActivity.class.getSimpleName();
-
-    @BindView(R.id.image_view)
-    AppCompatImageView imageLogo;
 
     @BindView(R.id.button_facebook_login)
     LoginButton loginButton;
@@ -55,7 +52,7 @@ public class LoginActivity extends OwnCoreActivity {
     @BindView(R.id.layout)
     FrameLayout layout;
 
-    private User user;
+    private IgUser igUser;
 
     // Fire base instance variables
     private FirebaseAuth mAuth;
@@ -103,7 +100,7 @@ public class LoginActivity extends OwnCoreActivity {
                         new GraphRequest.GraphJSONObjectCallback() {
                             @Override
                             public void onCompleted(JSONObject object, GraphResponse response) {
-                                user = UserManager.inject().getFacebookUserInfo(object);
+                                igUser = UserManager.inject().getFacebookUserInfo(object);
                             }
                         });
                 Bundle parameters = new Bundle();
@@ -121,8 +118,8 @@ public class LoginActivity extends OwnCoreActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                    user.setFireBaseId(task.getResult().getUser().getUid());
-                    onCallToServer(user);
+                    igUser.setFireBaseId(task.getResult().getUser().getUid());
+                    onCallToServer(igUser);
                 }
             }
         });
@@ -147,40 +144,49 @@ public class LoginActivity extends OwnCoreActivity {
         loginButton.performClick();
     }
 
-    private void onCallToServer(User user) {
-        if (user != null) {
+    private void onCallToServer(IgUser igUser) {
+        if (igUser != null) {
 
-            String email = user.getEmail();
-            String fbId = user.getFbId();
-            String fireBaseId = user.getFireBaseId();
+            String email = igUser.getEmail();
+            String fbId = igUser.getFbId();
+            String fireBaseId = igUser.getFireBaseId();
             showProgress();
-            IzigoApiManager.connect().login(email, fbId, fireBaseId, new CallBackWith<Authorization>() {
-                @Override
-                public void run(Authorization authorization) {
-                    onReset();
-                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                    finish();
-                }
-            }, new CallBackWith<String>() {
-                @Override
-                public void run(String error) {
-                    onReset();
-                    AppConfig.showToast(LoginActivity.this, error);
-                }
-            });
+
+            IzigoSdk.UserExecutor.login(
+                    AppConfig.getInstance().getFbToken(),   // Facebook token
+                    email,                                  // Email
+                    fbId,                                   // Facebook id
+                    fireBaseId,                             // Firebase id
+                    AppConfig.getInstance().getFcmKey(),    // Fcm key
+                    new CallBack() {
+                        @Override
+                        public void run() {
+                            hideProgress();
+                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                            finish();
+                        }
+                    }, new CallBackWith<String>() {
+                        @Override
+                        public void run(String error) {
+                            onReset();
+                            AppConfig.showToast(LoginActivity.this, error);
+                        }
+                    });
         }
     }
 
     private void onReset() {
         LoginManager.getInstance().logOut();
+        IzigoSdk.UserExecutor.logOut();
         hideProgress();
         layoutFacebook.setVisibility(View.VISIBLE);
     }
 
-    private void hideProgress(){
+    private void hideProgress() {
         layout.setVisibility(View.GONE);
     }
-    private void showProgress(){
+
+    private void showProgress() {
         layout.setVisibility(View.VISIBLE);
     }
 

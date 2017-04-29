@@ -29,10 +29,10 @@ import io.yostajsc.izigo.activities.PickLocationActivity;
 import io.yostajsc.izigo.activities.core.OwnCoreActivity;
 import io.yostajsc.izigo.dialogs.DialogDatePicker;
 import io.yostajsc.izigo.dialogs.DialogPickTransfer;
-import io.yostajsc.usecase.backend.core.IzigoApiManager;
+import io.yostajsc.sdk.api.IzigoApiManager;
 import io.yostajsc.izigo.dialogs.DialogTimePicker;
 import io.yostajsc.AppConfig;
-import io.yostajsc.izigo.models.trip.LocationPick;
+import io.yostajsc.core.realm.trip.LocationPick;
 import io.yostajsc.utils.UiUtils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -251,7 +251,7 @@ public class AddTripActivity extends OwnCoreActivity {
             return;
         }
         progressBar.setVisibility(View.VISIBLE);
-
+/*
         IzigoApiManager.connect().createTrips(groupName, to.toString(), from.toString(), description,
                 0,
                 0, 1, new CallBack() {
@@ -272,7 +272,7 @@ public class AddTripActivity extends OwnCoreActivity {
                         hideProgress();
                         Toast.makeText(AddTripActivity.this, error, Toast.LENGTH_SHORT).show();
                     }
-                });
+                });*/
     }
 
     private void onSuccess(String tripId) {

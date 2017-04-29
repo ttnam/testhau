@@ -18,8 +18,8 @@ import io.yostajsc.core.interfaces.CallBackWith;
 import io.yostajsc.core.utils.DimensionUtil;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.adapters.MemberActiveOnMapsAdapter;
-import io.yostajsc.usecase.realm.user.FriendRealm;
-import io.yostajsc.usecase.realm.user.FriendsRealm;
+import io.yostajsc.core.realm.user.FriendRealm;
+import io.yostajsc.core.realm.user.FriendsRealm;
 
 /**
  * Created by Phuc-Hau Nguyen on 8/31/2016.

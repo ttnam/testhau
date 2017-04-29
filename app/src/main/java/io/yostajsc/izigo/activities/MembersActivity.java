@@ -10,10 +10,11 @@ import com.facebook.AccessToken;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.yostajsc.core.utils.PrefsUtils;
 import io.yostajsc.izigo.activities.core.OwnCoreActivity;
-import io.yostajsc.izigo.models.trip.Trip;
-import io.yostajsc.usecase.realm.user.FriendsRealm;
-import io.yostajsc.usecase.backend.core.IzigoApiManager;
+import io.yostajsc.core.realm.trip.IgTrip;
+import io.yostajsc.core.realm.user.FriendsRealm;
+import io.yostajsc.sdk.api.IzigoApiManager;
 import io.yostajsc.core.code.MessageType;
 import io.yostajsc.core.interfaces.CallBack;
 import io.yostajsc.core.interfaces.CallBackWith;
@@ -21,7 +22,6 @@ import io.yostajsc.core.interfaces.ItemClick;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.adapters.MemberAdapter;
 import io.yostajsc.AppConfig;
-import io.yostajsc.utils.PrefsUtil;
 import io.yostajsc.view.OwnToolBar;
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 
@@ -65,7 +65,7 @@ public class MembersActivity extends OwnCoreActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        mTripId = PrefsUtil.inject(this).getString(Trip.TRIP_ID);
+        mTripId = PrefsUtils.inject(this).getString(IgTrip.TRIP_ID);
         getMemberList();
     }
 
@@ -73,7 +73,7 @@ public class MembersActivity extends OwnCoreActivity {
     public void onApplyData() {
         super.onApplyData();
 
-        mAuthorization = AppConfig.getInstance().getAuthorization();
+        /*mAuthorization = AppConfig.getInstance().getAuthorization();
 
         AccessToken token = AccessToken.getCurrentAccessToken();
         if (token != null) {
@@ -94,11 +94,11 @@ public class MembersActivity extends OwnCoreActivity {
                     onExpired();
                 }
             });
-        }
+        }*/
     }
 
     private void getMemberList() {
-        IzigoApiManager.connect().getMembers(mTripId, new CallBackWith<FriendsRealm>() {
+       /* IzigoApiManager.connect().getMembers(mTripId, new CallBackWith<FriendsRealm>() {
             @Override
             public void run(FriendsRealm friends) {
                 memberAdapter.replaceAll(friends);
@@ -113,7 +113,7 @@ public class MembersActivity extends OwnCoreActivity {
             public void run() {
                 onExpired();
             }
-        });
+        });*/
     }
 
     private void addMember(String fbId) {
@@ -173,7 +173,7 @@ public class MembersActivity extends OwnCoreActivity {
     }
 
     private void kick(int pos) {
-        IzigoApiManager.connect().kick(
+       /* IzigoApiManager.connect().kick(
                 mTripId,
                 memberAdapter.getItem(pos).getFbId(), new CallBack() {
                     @Override
@@ -192,7 +192,7 @@ public class MembersActivity extends OwnCoreActivity {
                     public void run(String error) {
                         Toast.makeText(MembersActivity.this, error, Toast.LENGTH_SHORT).show();
                     }
-                });
+                });*/
     }
   /*  @OnClick(R.id.button_add_friend)
     public void onAddFriends() {

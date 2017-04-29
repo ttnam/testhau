@@ -94,11 +94,11 @@
         </activity>
         <activity
             android:name=".activities.MainActivity"
-            android:launchMode="singleTask"
+            android:launchMode="singleInstance"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".activities.user.LoginActivity"
+            android:name=".activities.igUser.LoginActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/CoreAppTheme.White" />
@@ -108,14 +108,14 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".activities.trip.TripDetailActivity"
+            android:name=".activities.igTrip.TripDetailActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/CoreAppTheme.White"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:name=".activities.user.ProfileActivity"
-            android:launchMode="singleTask"
+            android:name=".activities.igUser.ProfileActivity"
+            android:launchMode="singleInstance"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
@@ -129,12 +129,12 @@
             android:screenOrientation="portrait"
             android:theme="@style/CoreAppTheme.White" />
         <activity
-            android:name=".activities.trip.AddTripActivity"
+            android:name=".activities.igTrip.AddTripActivity"
             android:launchMode="singleTask"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".activities.trip.TripTimelineActivity"
+            android:name=".activities.igTrip.TripTimelineActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
@@ -147,7 +147,7 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activities.user.SplashActivity"
+            android:name=".activities.igUser.SplashActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/CoreAppTheme.White">

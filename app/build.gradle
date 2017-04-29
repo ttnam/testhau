@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-apply plugin: 'realm-android'
 apply plugin: 'com.jakewharton.butterknife'
 
 buildscript {
@@ -25,17 +24,15 @@ allprojects {
 }
 android {
 
-    compileSdkVersion Integer.parseInt(project.ANDROID_BUILD_SDK_VERSION)
-    buildToolsVersion project.ANDROID_BUILD_TOOLS_VERSION
+    compileSdkVersion rootProject.compileSdkVersion
+    buildToolsVersion rootProject.buildToolsVersion
+
     defaultConfig {
         applicationId 'io.yostajsc.izigo'
-
-        // Defines the minimum API level required to run the app.
-        minSdkVersion Integer.parseInt(project.ANDROID_BUILD_MIN_SDK_VERSION)
-        // Specifies the API level used to test the app.
-        targetSdkVersion Integer.parseInt(project.ANDROID_BUILD_TARGET_SDK_VERSION)
-        versionCode 1 // Defines the version number of your app.
-        versionName "1.0" // Defines a user-friendly version name for your app.
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled true
     }
@@ -73,20 +70,6 @@ android {
         exclude 'META-INF/NOTICE.txt'
         exclude 'META-INF/LICENSE-FIREBASE.txt'
     }
-    productFlavors {
-        free {
-            applicationId 'io.yostajsc.izigo.free'
-        }
-        paid {
-            applicationId 'io.yostajsc.izigo.paid'
-        }
-        dev {
-            minSdkVersion Integer.parseInt(project.ANDROID_BUILD_MIN_SDK_VERSION)
-        }
-        prod {
-            minSdkVersion Integer.parseInt(project.ANDROID_BUILD_MIN_SDK_VERSION)
-        }
-    }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_7
         targetCompatibility JavaVersion.VERSION_1_7
@@ -102,7 +85,6 @@ android {
         density {
             enable false // Enable or disable the density split mechanism
             exclude "ldpi", "tvdpi", "xxxhdpi", "400dpi", "560dpi"
-            // Exclude these densities from splits
         }
     }
     dexOptions {
@@ -114,29 +96,39 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile project(':materialspinner')
-    compile project(':core')
-    compile 'com.squareup.retrofit2:retrofit:2.2.0'
-    compile 'com.squareup.retrofit2:converter-gson:2.2.0'
-    compile 'com.android.support:cardview-v7:25.3.0'
-    compile 'com.android.support:support-annotations:25.3.0'
+    compile project(':izigo-sdk')
+
+    compile "com.android.support:support-v4:$rootProject.googleLibraryVersion"
+    compile "com.android.support:cardview-v7:$rootProject.googleLibraryVersion"
+    compile "com.android.support:appcompat-v7:$rootProject.googleLibraryVersion"
+    compile "com.android.support:recyclerview-v7:$rootProject.googleLibraryVersion"
+    compile "com.android.support:support-annotations:$rootProject.googleLibraryVersion"
+
     compile 'jp.wasabeef:recyclerview-animators:2.2.3'
+
     compile 'com.facebook.android:facebook-android-sdk:[4,5)'
+
     compile 'com.daimajia.easing:library:1.0.1@aar'
     compile 'com.nineoldandroids:library:2.4.0'
-    compile 'org.greenrobot:eventbus:3.0.0'
-    compile 'com.google.firebase:firebase-core:10.0.0'
-    compile 'com.google.firebase:firebase-database:10.0.0'
-    compile 'com.google.firebase:firebase-auth:10.0.0'
-    compile 'com.google.firebase:firebase-storage:10.0.0'
-    compile 'com.google.firebase:firebase-messaging:10.0.0'
+
+    compile "com.google.firebase:firebase-core:$rootProject.firebaseVersion"
+    compile "com.google.firebase:firebase-auth:$rootProject.firebaseVersion"
+    compile "com.google.firebase:firebase-crash:$rootProject.firebaseVersion"
+    compile "com.google.firebase:firebase-storage:$rootProject.firebaseVersion"
+    compile "com.google.firebase:firebase-database:$rootProject.firebaseVersion"
+    compile "com.google.firebase:firebase-messaging:$rootProject.firebaseVersion"
+
     compile 'com.firebaseui:firebase-ui-database:1.0.1'
-    compile 'com.google.firebase:firebase-crash:10.0.0'
     compile 'com.firebase:firebase-client-android:2.3.1'
-    compile 'com.google.android.gms:play-services-auth:10.0.0'
-    compile 'com.google.android.gms:play-services-plus:10.0.0'
-    compile 'com.google.android.gms:play-services-maps:10.0.0'
-    compile 'com.google.android.gms:play-services-places:10.0.0'
-    compile 'com.google.android.gms:play-services-location:10.0.0'
+
+    compile "org.greenrobot:eventbus:$rootProject.eventBusVersion"
+
+    compile "com.google.android.gms:play-services-auth:$rootProject.googlePlayServicesVersion"
+    compile "com.google.android.gms:play-services-plus:$rootProject.googlePlayServicesVersion"
+    compile "com.google.android.gms:play-services-maps:$rootProject.googlePlayServicesVersion"
+    compile "com.google.android.gms:play-services-places:$rootProject.googlePlayServicesVersion"
+    compile "com.google.android.gms:play-services-location:$rootProject.googlePlayServicesVersion"
+
     compile 'com.jakewharton:butterknife:8.5.1'
     compile 'com.github.hotchemi:permissionsdispatcher:2.3.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'

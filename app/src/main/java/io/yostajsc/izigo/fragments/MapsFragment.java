@@ -30,17 +30,17 @@ import io.yostajsc.core.fragments.CoreFragment;
 import io.yostajsc.core.glide.CropCircleTransformation;
 import io.yostajsc.core.interfaces.CallBackWith;
 import io.yostajsc.core.utils.NetworkUtils;
+import io.yostajsc.core.utils.PrefsUtils;
 import io.yostajsc.core.utils.ValidateUtils;
 import io.yostajsc.izigo.R;
 import io.yostajsc.AppConfig;
 import io.yostajsc.izigo.dialogs.DialogActiveMembers;
-import io.yostajsc.izigo.models.trip.Trip;
-import io.yostajsc.usecase.backend.core.IzigoApiManager;
+import io.yostajsc.core.realm.trip.IgTrip;
+import io.yostajsc.sdk.api.IzigoApiManager;
 import io.yostajsc.usecase.firebase.FirebaseManager;
 import io.yostajsc.usecase.maps.Track;
-import io.yostajsc.usecase.realm.user.FriendRealm;
-import io.yostajsc.usecase.realm.user.FriendsRealm;
-import io.yostajsc.utils.PrefsUtil;
+import io.yostajsc.core.realm.user.FriendRealm;
+import io.yostajsc.core.realm.user.FriendsRealm;
 
 public class MapsFragment extends CoreFragment implements
         OnMapReadyCallback,
@@ -76,10 +76,10 @@ public class MapsFragment extends CoreFragment implements
     public void onStart() {
         super.onStart();
 
-        mTripId = PrefsUtil.inject(mContext).getString(Trip.TRIP_ID);
+        mTripId = PrefsUtils.inject(mContext).getString(IgTrip.TRIP_ID);
 
         if (NetworkUtils.isNetworkConnected(mContext)) {
-            IzigoApiManager.connect().getMembers(mTripId, new CallBackWith<FriendsRealm>() {
+            /*IzigoApiManager.connect().getMembers(mTripId, new CallBackWith<FriendsRealm>() {
                 @Override
                 public void run(FriendsRealm friends) {
                     for (FriendRealm friendRealm : friends) {
@@ -93,7 +93,7 @@ public class MapsFragment extends CoreFragment implements
                 public void run(String error) {
                     AppConfig.showToast(mContext, error);
                 }
-            }, null);
+            }, null);*/
         }
         if (ValidateUtils.canUse(mTripId, mFbId)) {
             AppConfig.getInstance().startLocationServer(mTripId, mFbId);

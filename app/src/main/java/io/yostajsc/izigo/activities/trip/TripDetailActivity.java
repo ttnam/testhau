@@ -26,9 +26,11 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import butterknife.OnClick;
 import io.yostajsc.core.designs.listeners.RecyclerItemClickListener;
+import io.yostajsc.core.realm.trip.IgTrip;
+import io.yostajsc.core.utils.PrefsUtils;
 import io.yostajsc.izigo.activities.core.OwnCoreActivity;
 import io.yostajsc.izigo.dialogs.DialogComment;
-import io.yostajsc.usecase.backend.core.IzigoApiManager;
+import io.yostajsc.sdk.api.IzigoApiManager;
 import io.yostajsc.constants.RoleType;
 import io.yostajsc.constants.TransferType;
 import io.yostajsc.core.interfaces.CallBackWith;
@@ -38,9 +40,7 @@ import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.dialogs.DialogPickTransfer;
 import io.yostajsc.izigo.adapters.ImageryAdapter;
 import io.yostajsc.AppConfig;
-import io.yostajsc.izigo.models.trip.Trip;
-import io.yostajsc.usecase.backend.sdk.IzigoSdkExecutor;
-import io.yostajsc.utils.PrefsUtil;
+import io.yostajsc.sdk.IzigoSdk;
 import io.yostajsc.utils.UiUtils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -186,7 +186,7 @@ public class TripDetailActivity extends OwnCoreActivity {
 
     @OnClick(R.id.layout_more)
     public void showMore() {
-        PrefsUtil.inject(this).save(Trip.TRIP_ID, tripId);
+        PrefsUtils.inject(this).save(IgTrip.TRIP_ID, tripId);
         BottomSheetDialogFragment bottomSheetDialogFragment = new BottomSheetDialog();
         bottomSheetDialogFragment.show(getSupportFragmentManager(), bottomSheetDialogFragment.getTag());
     }
@@ -196,7 +196,7 @@ public class TripDetailActivity extends OwnCoreActivity {
         try {
 
             if (NetworkUtils.isNetworkConnected(this)) {
-                IzigoSdkExecutor.TripExecutor.increaseTripView(tripId);
+                IzigoSdk.TripExecutor.increaseTripView(tripId);
                 loadTripFromServer();
             } else {
                 onInternetDisConnected();
@@ -213,34 +213,34 @@ public class TripDetailActivity extends OwnCoreActivity {
     }
 
     private void loadTripFromServer() {
-        IzigoApiManager.connect().getTripDetail(tripId, new CallBackWith<Trip>() {
+        /*IzigoApiManager.connect().getTripDetail(tripId, new CallBackWith<IgTrip>() {
             @Override
-            public void run(Trip trip) {
-                updateUI(trip);
+            public void run(IgTrip igTrip) {
+                updateUI(igTrip);
             }
         }, new CallBackWith<String>() {
             @Override
             public void run(String error) {
                 AppConfig.showToast(TripDetailActivity.this, error);
             }
-        }, mOnExpiredCallBack);
+        }, mOnExpiredCallBack);*/
     }
 
-    private void updateUI(final Trip trip) {
-        if (trip == null) return;
-        albumAdapter.replaceAll(trip.getAlbum());
-        mIsPublic = trip.isPublished();
-        mCurrentRoleType = trip.getRole();
+    private void updateUI(final IgTrip igTrip) {
+        if (igTrip == null) return;
+        // albumAdapter.replaceAll(igTrip.getAlbum());
+        mIsPublic = igTrip.isPublished();
+        mCurrentRoleType = igTrip.getRole();
         TripDetailActivityView.setPublishMode(mIsPublic);                               // Publish
         TripDetailActivityView.switchMode(mCurrentRoleType);                            // Mode, is publish
-        TripDetailActivityView.setTripCover(trip.getCover());                           // Cover
-        TripDetailActivityView.setTripName(trip.getTripName());                         // Trip name
-        TripDetailActivityView.setVehicle(trip.getTransfer());                          // Transfer
-        TripDetailActivityView.setOwnerName(trip.getCreatorName());                     // Own name
-        TripDetailActivityView.setOwnerAvatar(trip.getCreatorAvatar());                 // Avatar
-        TripDetailActivityView.setFromTo(trip.getFrom(), trip.getTo());                 // From, To
-        TripDetailActivityView.showTripDescription(trip.getDescription());              // Description
-        TripDetailActivityView.setTime(trip.getDepartTime(), trip.getArriveTime());     // Time
+        TripDetailActivityView.setTripName(igTrip.getName());                           // IgTrip name
+        TripDetailActivityView.setVehicle(igTrip.getTransfer());                        // Transfer
+        TripDetailActivityView.setTripCover(igTrip.getCoverUrl());                      // Cover
+        TripDetailActivityView.setOwnerName(igTrip.getCreatorName());                   // Own name
+        TripDetailActivityView.setOwnerAvatar(igTrip.getCreatorAvatar());               // Avatar
+        TripDetailActivityView.setFromTo(igTrip.getFrom(), igTrip.getTo());             // From, To
+        TripDetailActivityView.showTripDescription(igTrip.getDescription());            // Description
+        TripDetailActivityView.setTime(igTrip.getDepartTime(), igTrip.getArriveTime()); // Time
     }
 
     @OnClick(R.id.layout_comment)
@@ -296,9 +296,9 @@ public class TripDetailActivity extends OwnCoreActivity {
 
     @OnClick(R.id.layout_activity)
     public void loadActivity() {
-        PrefsUtil.inject(this).save(Trip.TRIP_ID, tripId);
+        PrefsUtils.inject(this).save(IgTrip.TRIP_ID, tripId);
         Intent intent = new Intent(TripDetailActivity.this, TripTimelineActivity.class);
-        intent.putExtra(Trip.TRIP_ID, tripId);
+        intent.putExtra(IgTrip.TRIP_ID, tripId);
         startActivity(intent);
     }
 

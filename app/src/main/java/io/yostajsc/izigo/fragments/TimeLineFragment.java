@@ -15,8 +15,8 @@ import io.yostajsc.core.fragments.CoreFragment;
 import io.yostajsc.core.interfaces.CallBackWith;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.adapters.TimelineAdapter;
-import io.yostajsc.izigo.models.Timelines;
-import io.yostajsc.usecase.realm.RealmManager;
+import io.yostajsc.sdk.model.Timelines;
+import io.yostajsc.core.realm.RealmManager;
 import io.yostajsc.utils.UiUtils;
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 
@@ -58,7 +58,7 @@ public class TimeLineFragment extends CoreFragment {
 
     private void onApplyData() {
         Intent intent = getIntent();
-        tripId = intent.getStringExtra(Trip.TRIP_ID);
+        tripId = intent.getStringExtra(IgTrip.TRIP_ID);
         if (ValidateUtils.canUse(tripId)) {
 
             // Load from disk

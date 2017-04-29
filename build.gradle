@@ -18,6 +18,23 @@ allprojects {
         jcenter()
     }
 }
+
+ext {
+    compileSdkVersion = 25
+    buildToolsVersion = "25.0.2"
+
+    minSdkVersion = 15
+    targetSdkVersion = 25
+
+    googlePlayServicesVersion = '10.2.0'
+    googleLibraryVersion = '25.3.0'
+    firebaseVersion = '10.2.0'
+    glideVersion = '3.7.0'
+    eventBusVersion = '3.0.0'
+    gsonVersion = '2.8.0'
+    retrofitVersion = '2.0.2'
+
+}
 task clean(type: Delete) {
     delete rootProject.buildDir
 }

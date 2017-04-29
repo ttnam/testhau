@@ -8,10 +8,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
-import io.yostajsc.usecase.backend.core.IzigoApiManager;
+import java.util.List;
+
 import io.yostajsc.core.fragments.CoreFragment;
 import io.yostajsc.core.interfaces.CallBack;
 import io.yostajsc.core.interfaces.CallBackWith;
+import io.yostajsc.core.realm.trip.IgTrip;
 import io.yostajsc.core.utils.NetworkUtils;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.activities.MainActivity;
@@ -19,7 +21,8 @@ import io.yostajsc.izigo.dialogs.DialogFilter;
 import io.yostajsc.izigo.activities.trip.TripDetailActivity;
 import io.yostajsc.izigo.adapters.TripAdapter;
 import io.yostajsc.AppConfig;
-import io.yostajsc.usecase.realm.trip.PublicTrips;
+import io.yostajsc.sdk.IzigoSdk;
+import io.yostajsc.sdk.model.IGCallback;
 import io.yostajsc.utils.UiUtils;
 import io.yostajsc.view.OwnToolBar;
 import butterknife.BindView;
@@ -55,8 +58,13 @@ public class TripFragment extends CoreFragment {
         View rootView = inflater.inflate(R.layout.fragment_trip, container, false);
         ButterKnife.bind(this, rootView);
         onApplyViews();
-        processingLoadPublicTripsFromServer();
         return rootView;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        loadTripsFromServer();
     }
 
     private void onApplyViews() {
@@ -81,24 +89,30 @@ public class TripFragment extends CoreFragment {
                 });
     }
 
-    public void processingLoadPublicTripsFromServer() {
+    public void loadTripsFromServer() {
 
-        if (NetworkUtils.isNetworkConnected(mContext)) { // Check internet
-            IzigoApiManager.connect().getAllPublicTrips(new CallBackWith<PublicTrips>() {
+        if (NetworkUtils.isNetworkConnected(mContext)) {
+
+            IzigoSdk.TripExecutor.getPublishTrip(new IGCallback<List<IgTrip>, String>() {
                 @Override
-                public void run(PublicTrips publicTrips) {
+                public void onSuccessful(List<IgTrip> publicTrips) {
                     processingUiUpdate(publicTrips);
                 }
-            }, mOnExpired, new CallBackWith<String>() {
+
                 @Override
-                public void run(String error) {
+                public void onFail(String error) {
                     AppConfig.showToast(mContext, error);
+                }
+
+                @Override
+                public void onExpired() {
+                    mOnExpired.run();
                 }
             });
         }
     }
 
-    private void processingUiUpdate(PublicTrips publicTrips) {
+    private void processingUiUpdate(List<IgTrip> publicTrips) {
         int size = publicTrips.size();
         if (size < 0)
             return;

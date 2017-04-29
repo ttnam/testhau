@@ -1,9 +1,12 @@
 package io.yostajsc.izigo.activities.user;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatImageView;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,16 +18,19 @@ import java.util.Map;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.yostajsc.core.utils.NetworkUtils;
+import io.yostajsc.AppConfig;
+import io.yostajsc.izigo.activities.MainActivity;
 import io.yostajsc.izigo.activities.core.OwnCoreActivity;
-import io.yostajsc.usecase.backend.core.IzigoApiManager;
+import io.yostajsc.sdk.api.IzigoApiManager;
 import io.yostajsc.core.interfaces.CallBack;
 import io.yostajsc.core.interfaces.CallBackWith;
 import io.yostajsc.core.utils.ValidateUtils;
 import io.yostajsc.izigo.R;
-import io.yostajsc.izigo.models.user.User;
+import io.yostajsc.sdk.model.IgUser;
 
 import butterknife.BindView;
+import io.yostajsc.sdk.model.IGCallback;
+import io.yostajsc.sdk.IzigoSdk;
 
 /*
 @RuntimePermissions*/
@@ -45,7 +51,10 @@ public class ProfileActivity extends OwnCoreActivity {
     @BindView(R.id.image_view)
     AppCompatImageView imageAvatar;
 
-    private User mUser = null;
+    @BindView(R.id.layout)
+    FrameLayout layout;
+
+    private IgUser mIgUser = null;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -57,41 +66,48 @@ public class ProfileActivity extends OwnCoreActivity {
 
     @Override
     public void onApplyData() {
-        if (NetworkUtils.isNetworkConnected(this)) {
-            IzigoApiManager.connect().getUserInfo(new CallBackWith<User>() {
-                @Override
-                public void run(User user) {
-                    mUser = user;
-                    updateValue();
-                }
-            }, new CallBack() {
-                @Override
-                public void run() {
-                    onExpired();
-                }
-            }, new CallBackWith<String>() {
-                @Override
-                public void run(String error) {
-                    Toast.makeText(ProfileActivity.this, error, Toast.LENGTH_LONG).show();
-                }
-            });
-        }
+
+        IzigoSdk.UserExecutor.getInfo(new IGCallback<IgUser, String>() {
+            @Override
+            public void onSuccessful(IgUser igUser) {
+                mIgUser = igUser;
+                updateValue();
+            }
+
+            @Override
+            public void onFail(String error) {
+                AppConfig.showToast(ProfileActivity.this, error);
+            }
+
+            @Override
+            public void onExpired() {
+
+            }
+        });
+    }
+
+    private void showProgressBar() {
+        layout.setVisibility(View.VISIBLE);
+    }
+
+    private void hideProgressBar() {
+        layout.setVisibility(View.GONE);
     }
 
     private void updateValue() {
-        if (mUser == null) {
+        if (mIgUser == null) {
             return;
         }
-        editName.setText(mUser.getFullName());
+        editName.setText(mIgUser.getFullName());
         editName.setSelection(editName.getText().length());
 
         Glide.with(ProfileActivity.this)
-                .load(mUser.getAvatar())
+                .load(mIgUser.getAvatar())
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .into(imageAvatar);
-        textEmail.setText(mUser.getEmail());
-        textGender.setText(mUser.getGender());
-        textMemberShip.setText(mUser.getMemberShip());
+        textEmail.setText(mIgUser.getEmail());
+        textGender.setText(mIgUser.getGender());
+        textMemberShip.setText(mIgUser.getMemberShip());
     }
 
     @OnClick(R.id.button_logout)
@@ -106,22 +122,22 @@ public class ProfileActivity extends OwnCoreActivity {
         String name = editName.getText().toString();
         String email, gender;
 
-        if (mUser == null) {
+        if (mIgUser == null) {
             email = textEmail.getText().toString();
             gender = textGender.getText().toString();
         } else {
-            email = mUser.getEmail();
-            gender = mUser.getGender();
+            email = mIgUser.getEmail();
+            gender = mIgUser.getGender();
         }
 
         if (ValidateUtils.canUse(name, email, gender)) {
 
             Map<String, String> map = new HashMap<>();
-            map.put("avatar", mUser.getAvatar());
+            map.put("avatar", mIgUser.getAvatar());
             map.put("email", email);
             map.put("name", name);
             map.put("gender", gender);
-            IzigoApiManager.connect().updateProfile(map, new CallBack() {
+            /*IzigoApiManager.connect().updateProfile(map, new CallBack() {
                 @Override
                 public void run() {
                     onExpired();
@@ -129,13 +145,13 @@ public class ProfileActivity extends OwnCoreActivity {
             }, new CallBack() {
                 @Override
                 public void run() {
-                    /*if (isFirstTime) {
-                        StorageUtils.bind(ProfileActivity.this).save(AppConfig.FIRST_TIME, 0);
+                    *//*if (isFirstTime) {
+                        PrefsUtils.bind(ProfileActivity.this).save(AppConfig.FIRST_TIME, 0);
                         startActivity(new Intent(ProfileActivity.this, MainActivity.class));
                         finish();
                     } else {
                         finish();
-                    }*/
+                    }*//*
 
                 }
             }, new CallBackWith<String>() {
@@ -143,11 +159,18 @@ public class ProfileActivity extends OwnCoreActivity {
                 public void run(String error) {
                     Toast.makeText(ProfileActivity.this, error, Toast.LENGTH_SHORT).show();
                 }
-            });
+            });*/
         } else {
             Toast.makeText(this, getString(R.string.error_message_empty), Toast.LENGTH_SHORT).show();
         }
     }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(this, MainActivity.class));
+        finish();
+    }
+
     /*
 
 
@@ -180,7 +203,7 @@ public class ProfileActivity extends OwnCoreActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    User user = dataSnapshot.getValue(User.class);
+                    IgUser user = dataSnapshot.getValue(IgUser.class);
                     if (user != null) {
                         onUpdateUserInfo(user);
                     }
@@ -277,7 +300,7 @@ public class ProfileActivity extends OwnCoreActivity {
         ProfileActivityPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
     }
 
-    private void onUpdateUserInfo(User user) {
+    private void onUpdateUserInfo(IgUser user) {
 
         Glide.with(ProfileActivity.this).load(user.getAvatar())
                 .error(R.drawable.ic_launcher)

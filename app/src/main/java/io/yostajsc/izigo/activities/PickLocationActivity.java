@@ -24,7 +24,7 @@ import io.yostajsc.core.code.MessageType;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.activities.core.OwnCoreActivity;
 import io.yostajsc.AppConfig;
-import io.yostajsc.izigo.models.trip.LocationPick;
+import io.yostajsc.core.realm.trip.LocationPick;
 import io.yostajsc.utils.LocationCore;
 import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.RuntimePermissions;

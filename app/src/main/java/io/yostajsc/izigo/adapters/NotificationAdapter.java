@@ -8,13 +8,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import io.yostajsc.usecase.backend.core.IzigoApiManager;
+import io.yostajsc.sdk.api.IzigoApiManager;
 import io.yostajsc.constants.NotificationType;
 import io.yostajsc.core.interfaces.CallBack;
 import io.yostajsc.core.interfaces.CallBackWith;
 import io.yostajsc.izigo.R;
-import io.yostajsc.izigo.models.notification.Notification;
-import io.yostajsc.izigo.models.notification.Notifications;
+import io.yostajsc.sdk.model.Notification;
 import io.yostajsc.izigo.ui.viewholder.NotificationsViewHolder;
 
 /**
@@ -24,11 +23,11 @@ import io.yostajsc.izigo.ui.viewholder.NotificationsViewHolder;
 public class NotificationAdapter extends RecyclerView.Adapter<NotificationsViewHolder> {
 
     private Context mContext = null;
-    private Notifications mNotifications = null;
+    // private Notifications mNotifications = null;
 
     public NotificationAdapter(Context context) {
         this.mContext = context;
-        this.mNotifications = new Notifications();
+        // this.mNotifications = new Notifications();
     }
 
     @Override
@@ -44,7 +43,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationsViewH
 
     @Override
     public void onBindViewHolder(NotificationsViewHolder holder, final int position) {
-        final Notification notification = mNotifications.get(position);
+      /*  final Notification notification = mNotifications.get(position);
 
         int notiType = notification.getType();
         if (notiType == NotificationType.ACCEPT_JOIN_TRIP) {
@@ -74,26 +73,26 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationsViewH
                             verify(position, notification.getTrip().getId(), notification.getId(), 0);
                         }
                     });
-        }
+        }*/
 
     }
 
     @Override
     public int getItemCount() {
-        if (mNotifications == null)
+        // if (mNotifications == null)
             return 0;
-        return mNotifications.size();
+        // return mNotifications.size();
     }
 
-    public void replaceAll(Notifications notifications) {
+    /*public void replaceAll(Notifications notifications) {
         if (this.mNotifications == null)
             return;
         clear();
         this.mNotifications.addAll(notifications);
         notifyDataSetChanged();
-    }
+    }*/
 
-    public Notification getItem(int position) {
+    /*public Notification getItem(int position) {
         if (position < 0 || position >= getItemCount()) {
             return null;
         }
@@ -162,5 +161,5 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationsViewH
                 Toast.makeText(mContext, error, Toast.LENGTH_SHORT).show();
             }
         });
-    }
+    }*/
 }

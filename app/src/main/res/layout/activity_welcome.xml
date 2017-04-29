@@ -51,7 +51,7 @@
                     android:paddingBottom="@dimen/margin"
                     android:paddingLeft="@dimen/margin"
                     android:paddingRight="@dimen/margin"
-                    android:text="Create new trip now, make wonderful things with your friends ..." />
+                    android:text="Create new igTrip now, make wonderful things with your friends ..." />
 
             </LinearLayout>
         </LinearLayout>
@@ -98,7 +98,7 @@
                     android:paddingBottom="@dimen/margin"
                     android:paddingLeft="@dimen/margin"
                     android:paddingRight="@dimen/margin"
-                    android:text="Create new trip now, make wonderful things with your friends ..." />
+                    android:text="Create new igTrip now, make wonderful things with your friends ..." />
 
             </LinearLayout>
         </LinearLayout>

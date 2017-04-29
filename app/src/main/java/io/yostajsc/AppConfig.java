@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.widget.Toast;
 
 import com.facebook.AccessToken;
@@ -16,11 +15,10 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import io.yostajsc.core.utils.FontUtils;
-import io.yostajsc.core.utils.StorageUtils;
-import io.yostajsc.izigo.models.user.Authorization;
+import io.yostajsc.core.utils.PrefsUtils;
+import io.yostajsc.sdk.model.token.IgToken;
 import io.yostajsc.usecase.firebase.FirebaseManager;
 import io.yostajsc.utils.LocationService;
-import io.yostajsc.utils.PrefsUtil;
 
 /**
  * Created by Phuc-Hau Nguyen on 11/9/2016.
@@ -61,7 +59,7 @@ public class AppConfig extends Application {
     private void onApplyFireBase() {
         FirebaseApp.initializeApp(this);
         String token = FirebaseInstanceId.getInstance().getToken();
-        StorageUtils.inject(this).save(FirebaseManager.FIRE_BASE_TOKEN, token);
+        PrefsUtils.inject(this).save(FirebaseManager.FIRE_BASE_TOKEN, token);
     }
 
     private void onApplyRealm() {
@@ -85,13 +83,6 @@ public class AppConfig extends Application {
         FontUtils.overrideFont(this, "SERIF", "fonts/Roboto-Regular.ttf");
     }
 
-    public String getAuthorization() {
-        Authorization authorization = PrefsUtil.inject(this).getAuthorization();
-        if (authorization == null)
-            return null;
-        return authorization.getToken();
-    }
-
     public static void showToast(Activity activity, String message) {
         Toast.makeText(activity, message, Toast.LENGTH_SHORT).show();
     }
@@ -101,22 +92,13 @@ public class AppConfig extends Application {
     }
 
     public void logout() {
-        StorageUtils.inject(this).removes(AppConfig.AUTHORIZATION);
+        PrefsUtils.inject(this).removes(AppConfig.AUTHORIZATION);
         LoginManager.getInstance().logOut();
     }
 
-    public void updateAuthorization(Authorization authorization) {
-        PrefsUtil.inject(this).updateAuthorization(authorization);
-    }
-
-    public boolean isExpired() {
-        Authorization authorization = PrefsUtil.inject(this).getAuthorization();
-        return authorization == null || authorization.getToken() == null || authorization.isExpired();
-    }
-
     public void startLocationServer(String tripId, String fbId) {
-        StorageUtils.inject(this).save(AppConfig.TRIP_ID, tripId);
-        StorageUtils.inject(this).save(AppConfig.FB_ID, fbId);
+        PrefsUtils.inject(this).save(AppConfig.TRIP_ID, tripId);
+        PrefsUtils.inject(this).save(AppConfig.FB_ID, fbId);
         startService(new Intent(this, LocationService.class));
     }
 
@@ -129,6 +111,6 @@ public class AppConfig extends Application {
     }
 
     public String getFcmKey() {
-        return StorageUtils.inject(this).getString(FirebaseManager.FIRE_BASE_TOKEN);
+        return PrefsUtils.inject(this).getString(FirebaseManager.FIRE_BASE_TOKEN);
     }
 }

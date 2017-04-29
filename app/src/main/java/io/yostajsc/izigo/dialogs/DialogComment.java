@@ -19,7 +19,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.yostajsc.usecase.backend.core.IzigoApiManager;
+import io.yostajsc.sdk.api.IzigoApiManager;
 import io.yostajsc.core.interfaces.CallBack;
 import io.yostajsc.core.interfaces.CallBackWith;
 import io.yostajsc.core.code.MessageInfo;
@@ -29,7 +29,6 @@ import io.yostajsc.animations.YoYo;
 import io.yostajsc.animations.fading_entrances.FadeInAnimator;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.adapters.CommentAdapter;
-import io.yostajsc.izigo.models.comment.Comments;
 import io.yostajsc.utils.UiUtils;
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 
@@ -125,7 +124,7 @@ public class DialogComment extends Dialog {
         // Load from disk
 
         // Load from internet
-        if (NetworkUtils.isNetworkConnected(mOwnerActivity)) {
+       /* if (NetworkUtils.isNetworkConnected(mOwnerActivity)) {
 
             IzigoApiManager.connect().getComments(tripId, new CallBack() {
                 @Override
@@ -145,9 +144,9 @@ public class DialogComment extends Dialog {
 
                 }
             });
-        }
+        }*/
     }
-
+/*
     private void updateUI(Comments comments) {
         if (comments != null && comments.size() > 0) {
             mCommentsAdapter.replaceAll(comments);
@@ -155,7 +154,7 @@ public class DialogComment extends Dialog {
         } else {
             layouNoNet.setVisibility(View.VISIBLE);
         }
-    }
+    }*/
 
     @OnClick(R.id.button)
     public void onSendComment() {

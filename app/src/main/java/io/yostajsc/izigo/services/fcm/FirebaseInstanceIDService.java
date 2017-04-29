@@ -5,8 +5,8 @@ import android.util.Log;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
 
-import io.yostajsc.usecase.backend.core.IzigoApiManager;
-import io.yostajsc.core.utils.StorageUtils;
+import io.yostajsc.sdk.IzigoSdk;
+import io.yostajsc.core.utils.PrefsUtils;
 import io.yostajsc.usecase.firebase.FirebaseManager;
 
 public class FirebaseInstanceIDService extends FirebaseInstanceIdService {
@@ -16,13 +16,13 @@ public class FirebaseInstanceIDService extends FirebaseInstanceIdService {
     @Override
     public void onTokenRefresh() {
         String refreshedToken = FirebaseInstanceId.getInstance().getToken();
-        StorageUtils.inject(this).save(FirebaseManager.FIRE_BASE_TOKEN, refreshedToken);
+        PrefsUtils.inject(this).save(FirebaseManager.FIRE_BASE_TOKEN, refreshedToken);
         sendRegistrationToServer(refreshedToken);
     }
 
     private void sendRegistrationToServer(String token) {
         try {
-            IzigoApiManager.connect().updateFcm(token);
+            IzigoSdk.UserExecutor.updateFcm(token);
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
         }

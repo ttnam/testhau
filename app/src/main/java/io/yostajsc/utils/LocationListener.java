@@ -8,7 +8,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Calendar;
 
-import io.yostajsc.core.utils.StorageUtils;
+import io.yostajsc.core.utils.PrefsUtils;
 import io.yostajsc.AppConfig;
 
 /**
@@ -34,8 +34,8 @@ public class LocationListener implements android.location.LocationListener {
 
             mLastLocation = location;
 
-            final String tripId = StorageUtils.inject(AppConfig.getInstance()).getString(AppConfig.TRIP_ID);
-            final String fbId = StorageUtils.inject(AppConfig.getInstance()).getString(AppConfig.FB_ID);
+            final String tripId = PrefsUtils.inject(AppConfig.getInstance()).getString(AppConfig.TRIP_ID);
+            final String fbId = PrefsUtils.inject(AppConfig.getInstance()).getString(AppConfig.FB_ID);
 
             mDatabase.child("TRACK/" + tripId + "/" + fbId + "/geo/" + Calendar.getInstance().getTimeInMillis())
                     .setValue(

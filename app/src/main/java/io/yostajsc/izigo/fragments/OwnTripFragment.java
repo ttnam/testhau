@@ -11,7 +11,7 @@ import android.widget.LinearLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.yostajsc.usecase.backend.core.IzigoApiManager;
+import io.yostajsc.sdk.api.IzigoApiManager;
 import io.yostajsc.core.fragments.CoreFragment;
 import io.yostajsc.core.interfaces.CallBack;
 import io.yostajsc.core.interfaces.CallBackWith;
@@ -22,8 +22,8 @@ import io.yostajsc.izigo.activities.trip.AddTripActivity;
 import io.yostajsc.izigo.activities.trip.TripDetailActivity;
 import io.yostajsc.izigo.adapters.TripAdapter;
 import io.yostajsc.AppConfig;
-import io.yostajsc.usecase.realm.RealmManager;
-import io.yostajsc.usecase.realm.trip.OwnTrips;
+import io.yostajsc.core.realm.RealmManager;
+import io.yostajsc.core.realm.trip.OwnTrips;
 import io.yostajsc.utils.UiUtils;
 import io.yostajsc.view.OwnToolBar;
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
@@ -94,7 +94,7 @@ public class OwnTripFragment extends CoreFragment {
     }
 
     private void loadFromServer() {
-        IzigoApiManager.connect().getAllOwnTripsList(new CallBackWith<OwnTrips>() {
+       /* IzigoApiManager.connect().getAllOwnTripsList(new CallBackWith<OwnTrips>() {
             @Override
             public void run(OwnTrips ownTrips) {
                 RealmManager.insertOrUpdate(ownTrips);
@@ -111,7 +111,7 @@ public class OwnTripFragment extends CoreFragment {
                 AppConfig.showToast(mContext, error);
                 loadFromDisk();
             }
-        });
+        });*/
     }
 
     private void loadFromDisk() {

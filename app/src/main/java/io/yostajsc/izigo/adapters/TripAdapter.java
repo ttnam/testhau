@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 
 import io.yostajsc.core.utils.DatetimeUtils;
 import io.yostajsc.izigo.R;
-import io.yostajsc.izigo.interfaces.TripModel;
+import io.yostajsc.core.realm.trip.TripModel;
 import io.yostajsc.izigo.ui.viewholder.TripViewHolder;
 
 /**

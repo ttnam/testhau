@@ -9,8 +9,8 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import io.yostajsc.izigo.R;
-import io.yostajsc.usecase.realm.user.FriendRealm;
-import io.yostajsc.usecase.realm.user.FriendsRealm;
+import io.yostajsc.core.realm.user.FriendRealm;
+import io.yostajsc.core.realm.user.FriendsRealm;
 import io.yostajsc.izigo.ui.viewholder.ActiveMemberOnMapsViewHolder;
 
 /**

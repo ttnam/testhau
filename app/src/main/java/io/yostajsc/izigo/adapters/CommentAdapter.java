@@ -7,11 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import io.yostajsc.core.utils.AppUtils;
 import io.yostajsc.core.utils.DatetimeUtils;
 import io.yostajsc.izigo.R;
-import io.yostajsc.izigo.models.comment.Comment;
-import io.yostajsc.izigo.models.comment.Comments;
+import io.yostajsc.sdk.model.Comment;
 import io.yostajsc.izigo.ui.viewholder.CommentViewHolder;
 
 /**
@@ -21,11 +19,11 @@ import io.yostajsc.izigo.ui.viewholder.CommentViewHolder;
 public class CommentAdapter extends RecyclerView.Adapter<CommentViewHolder> {
 
     private Context mContext = null;
-    private Comments mComments = null;
+    // private Comments mComments = null;
 
     public CommentAdapter(Context context) {
         this.mContext = context;
-        this.mComments = new Comments();
+//         this.mComments = new Comments();
     }
 
     @Override
@@ -36,22 +34,22 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentViewHolder> {
 
     @Override
     public void onBindViewHolder(CommentViewHolder holder, int position) {
-        Comment comment = mComments.get(position);
+       /* Comment comment = mComments.get(position);
         holder.bind(
                 comment.getCreatorAvatar(),
                 comment.getCreatorName(),
                 comment.getContent(),
                 DatetimeUtils.getDate(comment.getCreatedTime())
-        );
+        );*/
     }
 
     @Override
     public int getItemCount() {
-        if (mComments == null)
+        // if (mComments == null)
             return 0;
-        return mComments.size();
+        // return mComments.size();
     }
-
+/*
     public void replaceAll(Comments comments) {
         if (this.mComments == null)
             return;
@@ -76,5 +74,5 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentViewHolder> {
 
     public void clear() {
         this.mComments.clear();
-    }
+    }*/
 }

@@ -62,7 +62,7 @@
     <string name="str_access_sync">Access every where</string>
     <string name="message_please_connect_internet"> Connect internet to update events. </string>
 
-    <!--Add Trip Activity-->
+    <!--Add IgTrip Activity-->
     <string name="str_description">Description</string>
     <string name="str_your_trip">Hành trình của bạn</string>
     <string name="str_trip_name">Tên hành trình</string>
@@ -72,7 +72,7 @@
     <string name="str_send_invite">Send the invitation to your friends</string>
     <string name="str_confirm">Confirmn</string>
     <string name="str_update">Cập nhật</string>
-    <string name="str_create_trip_des">Create new trip with your friends</string>
+    <string name="str_create_trip_des">Create new igTrip with your friends</string>
     <string name="str_join">Tham gia</string>
     <string name="str_status">Trạng thái</string>
     <string name="str_published">Published</string>

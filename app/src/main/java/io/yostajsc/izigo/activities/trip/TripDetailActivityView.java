@@ -8,14 +8,13 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
-import io.yostajsc.AppConfig;
 import io.yostajsc.constants.RoleType;
 import io.yostajsc.core.interfaces.CallBack;
 import io.yostajsc.core.interfaces.CallBackWith;
 import io.yostajsc.core.utils.DatetimeUtils;
 import io.yostajsc.izigo.R;
-import io.yostajsc.usecase.backend.interfaces.IGCallback;
-import io.yostajsc.usecase.backend.sdk.IzigoSdkExecutor;
+import io.yostajsc.sdk.model.IGCallback;
+import io.yostajsc.sdk.IzigoSdk;
 import io.yostajsc.usecase.firebase.FirebaseExecutor;
 import io.yostajsc.utils.UiUtils;
 import io.yostajsc.core.glide.CropCircleTransformation;
@@ -181,7 +180,7 @@ public class TripDetailActivityView {
             @Override
             public void run(Uri uri) {
 
-                IzigoSdkExecutor.TripExecutor.changeCover(tripId, uri.toString(), new IGCallback<Void, String>() {
+                IzigoSdk.TripExecutor.changeCover(tripId, uri.toString(), new IGCallback<Void, String>() {
                     @Override
                     public void onSuccessful(Void aVoid) {
 
@@ -206,7 +205,7 @@ public class TripDetailActivityView {
                                    final boolean mIsPublic,
                                    final CallBackWith<String> fail,
                                    final CallBack expired) {
-        IzigoSdkExecutor.TripExecutor.publishTrip(tripId, mIsPublic, new IGCallback<Void, String>() {
+        IzigoSdk.TripExecutor.publishTrip(tripId, mIsPublic, new IGCallback<Void, String>() {
             @Override
             public void onSuccessful(Void aVoid) {
                 setPublishMode(mIsPublic);
