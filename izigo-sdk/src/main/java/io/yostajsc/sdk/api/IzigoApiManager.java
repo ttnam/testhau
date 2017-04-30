@@ -11,13 +11,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import io.yostajsc.sdk.model.user.IgFriend;
 import io.yostajsc.sdk.model.trip.IgTrip;
 import io.yostajsc.sdk.model.IGCallback;
-import io.yostajsc.sdk.model.IgUser;
+import io.yostajsc.sdk.model.user.IgUser;
 import io.yostajsc.sdk.model.Timelines;
 import io.yostajsc.sdk.model.TripTypePermission;
 import io.yostajsc.sdk.model.token.IgToken;
-import io.yostajsc.core.realm.user.FriendsRealm;
 import io.yostajsc.sdk.response.BaseResponse;
 import io.yostajsc.core.interfaces.CallBack;
 import io.yostajsc.core.interfaces.CallBackWith;
@@ -34,7 +34,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Created by Phuc-Hau Nguyen on 11/9/2016.
  */
 
-public class IzigoApiManager {
+class IzigoApiManager {
 
     private static final String TAG = IzigoApiManager.class.getSimpleName();
 
@@ -278,31 +278,28 @@ public class IzigoApiManager {
         });
     }
 
-    public void getFriendsList(String authorization, String fbAccessToken,
-                               final CallBackWith<FriendsRealm> success,
-                               final CallBackWith<String> fail,
-                               final CallBack expired) {
+    public void getFriendsList(String authorization, String fbAccessToken, final IGCallback<List<IgFriend>, String> callback) {
 
-        Call<BaseResponse<FriendsRealm>> call = service.apiGetFriendsList(authorization, fbAccessToken);
+        Call<BaseResponse<List<IgFriend>>> call = service.apiGetFriendsList(authorization, fbAccessToken);
 
-        call.enqueue(new Callback<BaseResponse<FriendsRealm>>() {
+        call.enqueue(new Callback<BaseResponse<List<IgFriend>>>() {
             @Override
-            public void onResponse(Call<BaseResponse<FriendsRealm>> call, Response<BaseResponse<FriendsRealm>> response) {
+            public void onResponse(Call<BaseResponse<List<IgFriend>>> call, Response<BaseResponse<List<IgFriend>>> response) {
                 if (response.isSuccessful()) {
-                    BaseResponse<FriendsRealm> res = response.body();
+                    BaseResponse<List<IgFriend>> res = response.body();
                     if (res.isExpired()) {
-                        expired.run();
+                        callback.onExpired();
                     } else if (res.isSuccessful()) {
-                        success.run(res.data());
+                        callback.onSuccessful(res.data());
                     } else {
-                        fail.run(res.getDescription());
+                        callback.onFail(res.getDescription());
                     }
                 }
             }
 
             @Override
-            public void onFailure(Call<BaseResponse<FriendsRealm>> call, Throwable throwable) {
-                Log.e(TAG, throwable.getMessage());
+            public void onFailure(Call<BaseResponse<List<IgFriend>>> call, Throwable throwable) {
+                callback.onFail(throwable.getMessage());
             }
         });
     }
@@ -416,30 +413,26 @@ public class IzigoApiManager {
         });
     }
 
-    public void getMembers(String authorization, String tripId,
-                           final CallBackWith<FriendsRealm> success,
-                           final CallBackWith<String> fail,
-                           final CallBack expired) {
-        Call<BaseResponse<FriendsRealm>> call = service.apiGetMembers(authorization, tripId);
-        call.enqueue(new Callback<BaseResponse<FriendsRealm>>() {
+    public void getMembers(String authorization, String tripId, final IGCallback<List<IgFriend>, String> callback) {
+        Call<BaseResponse<List<IgFriend>>> call = service.apiGetMembers(authorization, tripId);
+        call.enqueue(new Callback<BaseResponse<List<IgFriend>>>() {
             @Override
-            public void onResponse(Call<BaseResponse<FriendsRealm>> call, Response<BaseResponse<FriendsRealm>> response) {
+            public void onResponse(Call<BaseResponse<List<IgFriend>>> call, Response<BaseResponse<List<IgFriend>>> response) {
                 if (response.isSuccessful()) {
-                    BaseResponse<FriendsRealm> res = response.body();
+                    BaseResponse<List<IgFriend>> res = response.body();
                     if (res.isSuccessful()) {
-                        success.run(res.data());
+                        callback.onSuccessful(res.data());
                     } else if (res.isExpired()) {
-                        if (expired != null)
-                            expired.run();
+                        callback.onExpired();
                     } else {
-                        fail.run(res.getDescription());
+                        callback.onFail(res.getDescription());
                     }
                 }
             }
 
             @Override
-            public void onFailure(Call<BaseResponse<FriendsRealm>> call, Throwable throwable) {
-                log(throwable.getMessage());
+            public void onFailure(Call<BaseResponse<List<IgFriend>>> call, Throwable throwable) {
+                callback.onFail(throwable.getMessage());
             }
         });
     }
@@ -606,8 +599,8 @@ public class IzigoApiManager {
         });
     }
 
-    public void addMembers(String authorization, String tripId, String fbId, final CallBack expired,
-                           final CallBack success, final CallBackWith<String> fail) {
+    public void addMembers(String authorization, String tripId, String fbId,
+                           final IGCallback<Void, String> callback) {
 
         Call<BaseResponse<String>> call = service.apiAddMember(authorization, tripId, fbId);
 
@@ -617,26 +610,24 @@ public class IzigoApiManager {
                 if (response.isSuccessful()) {
                     BaseResponse<String> res = response.body();
                     if (res.isSuccessful()) {
-                        success.run();
+                        callback.onSuccessful(null);
                     } else if (res.isExpired()) {
-                        expired.run();
+                        callback.onExpired();
                     } else {
-                        fail.run(res.getDescription());
+                        callback.onFail(res.getDescription());
                     }
                 }
             }
 
             @Override
             public void onFailure(Call<BaseResponse<String>> call, Throwable throwable) {
-                Log.e(TAG, throwable.getMessage());
+                callback.onFail(throwable.getMessage());
             }
         });
     }
 
-    public void kick(String authorization, String tripId, String fbId,
-                     final CallBack expired,
-                     final CallBack success,
-                     final CallBackWith<String> fail) {
+    public void kickMember(String authorization, String tripId, String fbId,
+                           final IGCallback<Void, String> callback) {
 
         Call<BaseResponse<String>> call = service.apiKickMember(authorization, tripId, fbId);
 
@@ -646,18 +637,18 @@ public class IzigoApiManager {
                 if (response.isSuccessful()) {
                     BaseResponse<String> res = response.body();
                     if (res.isSuccessful()) {
-                        success.run();
+                        callback.onSuccessful(null);
                     } else if (res.isExpired()) {
-                        expired.run();
+                        callback.onExpired();
                     } else {
-                        fail.run(res.getDescription());
+                        callback.onFail(res.getDescription());
                     }
                 }
             }
 
             @Override
             public void onFailure(Call<BaseResponse<String>> call, Throwable throwable) {
-                log(throwable.getMessage());
+                callback.onFail(throwable.getMessage());
             }
         });
     }

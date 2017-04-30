@@ -8,9 +8,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import io.yostajsc.izigo.R;
-import io.yostajsc.core.realm.user.FriendRealm;
-import io.yostajsc.core.realm.user.FriendsRealm;
+import io.yostajsc.sdk.model.user.IgFriend;
 import io.yostajsc.izigo.ui.viewholder.ActiveMemberOnMapsViewHolder;
 
 /**
@@ -20,12 +22,12 @@ import io.yostajsc.izigo.ui.viewholder.ActiveMemberOnMapsViewHolder;
 public class MemberActiveOnMapsAdapter extends RecyclerView.Adapter<ActiveMemberOnMapsViewHolder> {
 
     private Context mContext = null;
-    private FriendsRealm mList = null;
+    private List<IgFriend> mList = null;
 
 
     public MemberActiveOnMapsAdapter(Context context) {
         this.mContext = context;
-        this.mList = new FriendsRealm();
+        this.mList = new ArrayList<>();
     }
 
     @Override
@@ -38,7 +40,7 @@ public class MemberActiveOnMapsAdapter extends RecyclerView.Adapter<ActiveMember
 
     @Override
     public void onBindViewHolder(ActiveMemberOnMapsViewHolder holder, int position) {
-        FriendRealm friend = mList.get(position);
+        IgFriend friend = mList.get(position);
         holder.bind(friend.getAvatar(), friend.getName(), "5km");
     }
 
@@ -49,19 +51,19 @@ public class MemberActiveOnMapsAdapter extends RecyclerView.Adapter<ActiveMember
         return mList.size();
     }
 
-    public FriendRealm getItem(int position) {
+    public IgFriend getItem(int position) {
         if (position < 0 || position >= getItemCount()) {
             return null;
         }
         return this.mList.get(position);
     }
 
-    public void add(FriendRealm trip) {
+    public void add(IgFriend trip) {
         this.mList.add(trip);
         notifyDataSetChanged();
     }
 
-    public void replaceAll(FriendsRealm friends) {
+    public void replaceAll(List<IgFriend> friends) {
         if(friends == null)
             return;
         this.mList = friends;

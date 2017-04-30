@@ -9,9 +9,9 @@
         android:id="@id/own_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layoutBackground="@color/colorPrimary"
+        app:layoutBackground="@android:color/white"
         app:layoutTitle="@string/str_member_manager"
-        app:layoutTitleColor="@android:color/white"
+        app:layoutTitleColor="@color/colorTextColorPrimary"
         app:layoutType="title_center" />
 
     <include layout="@layout/layout_separate_vertical" />
@@ -87,7 +87,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:background="@drawable/ic_style_button_round_corners_theme"
+                    android:background="@drawable/ic_style_button_round_corners_accent_dark"
                     android:text="@string/str_add_friends"
                     android:textAllCaps="true" />
 

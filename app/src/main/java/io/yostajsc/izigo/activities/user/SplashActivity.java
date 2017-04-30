@@ -9,7 +9,7 @@ import com.facebook.AccessToken;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.activities.MainActivity;
 import io.yostajsc.izigo.activities.core.OwnCoreActivity;
-import io.yostajsc.sdk.IzigoSdk;
+import io.yostajsc.sdk.api.IzigoSdk;
 
 public class SplashActivity extends OwnCoreActivity {
 

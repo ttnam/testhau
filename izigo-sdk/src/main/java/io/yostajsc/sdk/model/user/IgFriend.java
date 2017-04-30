@@ -1,18 +1,21 @@
-package io.yostajsc.core.realm.user;
+package io.yostajsc.sdk.model.user;
 
 import java.io.Serializable;
 
-import io.realm.RealmObject;
 
 /**
  * Created by Phuc-Hau Nguyen on 3/4/2017.
  */
 
-public class FriendRealm extends RealmObject implements Serializable {
+public class IgFriend implements Serializable {
 
     private String fbId;
     private String name;
     private String avatar;
+
+
+    public IgFriend() {
+    }
 
     public String getFbId() {
         return fbId;

@@ -104,15 +104,6 @@ public class TripAlbumActivity extends CoreActivity {
         this.albumAdapter.replaceAll(AppConfig.igImages);
     }
 
-    @NeedsPermission({Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE})
-    public void getImageFromGallery() {
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Select Picture"), MessageType.FROM_GALLERY);
-    }
-
     @NeedsPermission({Manifest.permission.WRITE_EXTERNAL_STORAGE,
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.CAMERA})
@@ -133,20 +124,6 @@ public class TripAlbumActivity extends CoreActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
-                case MessageType.FROM_GALLERY: {
-                    try {
-                        Uri fileUri = data.getData();
-                        // albumAdapter.add(new IgImage(fileUri.toString()));
-                        Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), fileUri);
-                        if (bitmap != null) {
-
-
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    break;
-                }
                 case MessageType.FROM_MULTI_GALLERY:
                     ArrayList<String> res = data.getStringArrayListExtra("MULTI_IMAGE");
                     for (String url : res) {

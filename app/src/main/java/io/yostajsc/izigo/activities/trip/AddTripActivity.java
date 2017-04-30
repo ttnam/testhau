@@ -19,7 +19,6 @@ import java.text.DecimalFormat;
 import java.util.Calendar;
 
 import io.yostajsc.constants.TransferType;
-import io.yostajsc.core.interfaces.CallBack;
 import io.yostajsc.core.interfaces.CallBackWith;
 import io.yostajsc.core.code.MessageType;
 import io.yostajsc.core.utils.DatetimeUtils;
@@ -29,7 +28,6 @@ import io.yostajsc.izigo.activities.PickLocationActivity;
 import io.yostajsc.izigo.activities.core.OwnCoreActivity;
 import io.yostajsc.izigo.dialogs.DialogDatePicker;
 import io.yostajsc.izigo.dialogs.DialogPickTransfer;
-import io.yostajsc.sdk.api.IzigoApiManager;
 import io.yostajsc.izigo.dialogs.DialogTimePicker;
 import io.yostajsc.AppConfig;
 import io.yostajsc.core.realm.trip.LocationPick;

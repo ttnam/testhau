@@ -1,19 +1,11 @@
 package io.yostajsc.izigo.adapters;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
-
-import io.yostajsc.sdk.api.IzigoApiManager;
-import io.yostajsc.constants.NotificationType;
-import io.yostajsc.core.interfaces.CallBack;
-import io.yostajsc.core.interfaces.CallBackWith;
 import io.yostajsc.izigo.R;
-import io.yostajsc.sdk.model.Notification;
 import io.yostajsc.izigo.ui.viewholder.NotificationsViewHolder;
 
 /**

@@ -22,7 +22,7 @@ import io.yostajsc.izigo.dialogs.DialogFilter;
 import io.yostajsc.izigo.activities.trip.TripDetailActivity;
 import io.yostajsc.izigo.adapters.TripAdapter;
 import io.yostajsc.AppConfig;
-import io.yostajsc.sdk.IzigoSdk;
+import io.yostajsc.sdk.api.IzigoSdk;
 import io.yostajsc.sdk.model.IGCallback;
 import io.yostajsc.utils.UiUtils;
 import io.yostajsc.ui.OwnToolBar;

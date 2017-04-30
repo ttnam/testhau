@@ -3,13 +3,13 @@ package io.yostajsc.sdk.api;
 import java.util.List;
 import java.util.Map;
 
+import io.yostajsc.sdk.model.user.IgFriend;
 import io.yostajsc.sdk.model.trip.IgTrip;
-import io.yostajsc.sdk.model.IgUser;
+import io.yostajsc.sdk.model.user.IgUser;
 import io.yostajsc.sdk.model.Notification;
 import io.yostajsc.sdk.model.Timelines;
 import io.yostajsc.sdk.model.Comment;
 import io.yostajsc.sdk.model.token.IgToken;
-import io.yostajsc.core.realm.user.FriendsRealm;
 import io.yostajsc.sdk.response.BaseResponse;
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -69,8 +69,8 @@ interface IzigoApiInterface {
                                               @Field("transfer") int transfer);
 
     @GET("api/user/friends")
-    Call<BaseResponse<FriendsRealm>> apiGetFriendsList(@Header("authorization") String authorization,
-                                                       @Header("fbToken") String fbAccessToken);
+    Call<BaseResponse<List<IgFriend>>> apiGetFriendsList(@Header("authorization") String authorization,
+                                                         @Header("fbToken") String fbAccessToken);
 
     @GET("api/group/{id}")
     Call<BaseResponse<String>> apiGetGroupDetail(@Header("authorization") String authorization,
@@ -85,7 +85,7 @@ interface IzigoApiInterface {
                                                    @Path("id") String tripId);
 
     @GET("api/trips/{id}/members")
-    Call<BaseResponse<FriendsRealm>> apiGetMembers(@Header("authorization") String authorization,
+    Call<BaseResponse<List<IgFriend>>> apiGetMembers(@Header("authorization") String authorization,
                                                    @Path("id") String tripId);
 
     @PUT("api/trips/{id}/view")
@@ -110,7 +110,7 @@ interface IzigoApiInterface {
                                        @Path("id") String tripId,
                                        @Field("is_published") String cover);
 
-    @PUT("api/trips/{id}/apiJoinGroup")
+    @PUT("api/trips/{id}/join")
     Call<BaseResponse<String>> apiJoinGroup(@Header("authorization") String authorization,
                                             @Path("id") String tripId);
 
@@ -131,14 +131,14 @@ interface IzigoApiInterface {
                                             @Field("fbId") String fbId);
 
     @FormUrlEncoded
-    @PUT("api/trips/{id}/apiVerify")
+    @PUT("api/trips/{id}/verify")
     Call<BaseResponse<String>> apiVerify(@Header("authorization") String authorization,
                                          @Path("id") String tripId,
                                          @Field("notiId") String notyId,
                                          @Field("apiVerify") int verify);
 
     @FormUrlEncoded
-    @PUT("api/trips/{id}/apiKickMember")
+    @PUT("api/trips/{id}/kick")
     Call<BaseResponse<String>> apiKickMember(@Header("authorization") String authorization,
                                              @Path("id") String tripId,
                                              @Field("fbId") String fbId);

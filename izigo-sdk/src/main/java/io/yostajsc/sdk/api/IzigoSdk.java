@@ -1,4 +1,4 @@
-package io.yostajsc.sdk;
+package io.yostajsc.sdk.api;
 
 import android.app.Application;
 
@@ -6,12 +6,12 @@ import java.util.List;
 
 import io.yostajsc.core.interfaces.CallBack;
 import io.yostajsc.core.interfaces.CallBackWith;
+import io.yostajsc.sdk.model.user.IgFriend;
 import io.yostajsc.sdk.model.trip.IgTrip;
 import io.yostajsc.core.utils.LogUtils;
-import io.yostajsc.sdk.api.IzigoApiManager;
 import io.yostajsc.sdk.consts.IgError;
 import io.yostajsc.sdk.model.IGCallback;
-import io.yostajsc.sdk.model.IgUser;
+import io.yostajsc.sdk.model.user.IgUser;
 import io.yostajsc.sdk.model.token.IgToken;
 import io.yostajsc.sdk.model.TripTypePermission;
 import io.yostajsc.core.utils.PrefsUtils;
@@ -127,10 +127,37 @@ public class IzigoSdk {
                 callback.onExpired();
             }
         }
-        public static void getTripDetail(String tripId, final IGCallback<IgTrip, String> callback){
+
+        public static void getTripDetail(String tripId, final IGCallback<IgTrip, String> callback) {
             if (IzigoSession.isLoggedIn()) {
                 String auth = IzigoSession.getToken().getToken();
                 IzigoApiManager.connect().getTripDetail(auth, tripId, callback);
+            } else {
+                callback.onExpired();
+            }
+        }
+
+        public static void getMembers(String tripId, final IGCallback<List<IgFriend>, String> callback) {
+            if (IzigoSession.isLoggedIn()) {
+                String auth = IzigoSession.getToken().getToken();
+                IzigoApiManager.connect().getMembers(auth, tripId, callback);
+            } else {
+                callback.onExpired();
+            }
+        }
+
+        public static void addMembers(String tripId, String fbId, final IGCallback<Void, String> callback) {
+            if (IzigoSession.isLoggedIn()) {
+                String auth = IzigoSession.getToken().getToken();
+                IzigoApiManager.connect().addMembers(auth, tripId, fbId, callback);
+            } else {
+                callback.onExpired();
+            }
+        }
+        public static void kickMembers(String tripId, String fbId, final IGCallback<Void, String> callback) {
+            if (IzigoSession.isLoggedIn()) {
+                String auth = IzigoSession.getToken().getToken();
+                IzigoApiManager.connect().kickMember(auth, tripId, fbId, callback);
             } else {
                 callback.onExpired();
             }
@@ -201,5 +228,15 @@ public class IzigoSdk {
                 });
             }
         }
+
+        public static void getFriends(String fbToken, final IGCallback<List<IgFriend>, String> callback) {
+            if (IzigoSession.isLoggedIn()) {
+                String auth = IzigoSession.getToken().getToken();
+                IzigoApiManager.connect().getFriendsList(auth, fbToken, callback);
+            } else {
+                callback.onExpired();
+            }
+        }
+
     }
 }

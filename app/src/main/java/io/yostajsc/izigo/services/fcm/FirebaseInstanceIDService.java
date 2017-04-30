@@ -5,7 +5,7 @@ import android.util.Log;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
 
-import io.yostajsc.sdk.IzigoSdk;
+import io.yostajsc.sdk.api.IzigoSdk;
 import io.yostajsc.core.utils.PrefsUtils;
 import io.yostajsc.usecase.firebase.FirebaseManager;
 

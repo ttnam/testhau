@@ -21,16 +21,13 @@ import butterknife.OnClick;
 import io.yostajsc.AppConfig;
 import io.yostajsc.izigo.activities.MainActivity;
 import io.yostajsc.izigo.activities.core.OwnCoreActivity;
-import io.yostajsc.sdk.api.IzigoApiManager;
-import io.yostajsc.core.interfaces.CallBack;
-import io.yostajsc.core.interfaces.CallBackWith;
 import io.yostajsc.core.utils.ValidateUtils;
 import io.yostajsc.izigo.R;
-import io.yostajsc.sdk.model.IgUser;
+import io.yostajsc.sdk.model.user.IgUser;
 
 import butterknife.BindView;
 import io.yostajsc.sdk.model.IGCallback;
-import io.yostajsc.sdk.IzigoSdk;
+import io.yostajsc.sdk.api.IzigoSdk;
 
 /*
 @RuntimePermissions*/

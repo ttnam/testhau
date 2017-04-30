@@ -22,6 +22,7 @@ import com.google.firebase.database.DataSnapshot;
 
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,6 +30,7 @@ import butterknife.OnClick;
 import io.yostajsc.core.fragments.CoreFragment;
 import io.yostajsc.core.glide.CropCircleTransformation;
 import io.yostajsc.core.interfaces.CallBackWith;
+import io.yostajsc.sdk.model.user.IgFriend;
 import io.yostajsc.core.utils.NetworkUtils;
 import io.yostajsc.core.utils.PrefsUtils;
 import io.yostajsc.core.utils.ValidateUtils;
@@ -38,8 +40,6 @@ import io.yostajsc.izigo.dialogs.DialogActiveMembers;
 import io.yostajsc.sdk.model.trip.IgTrip;
 import io.yostajsc.usecase.firebase.FirebaseManager;
 import io.yostajsc.usecase.maps.Track;
-import io.yostajsc.core.realm.user.FriendRealm;
-import io.yostajsc.core.realm.user.FriendsRealm;
 
 public class MapsFragment extends CoreFragment implements
         OnMapReadyCallback,
@@ -59,7 +59,7 @@ public class MapsFragment extends CoreFragment implements
 
     private GoogleMap mMap = null;
     private String mTripId, mFbId, mFocus;
-    private FriendsRealm mCurrentActiveMembers = null;
+    private List<IgFriend> mCurrentActiveMembers = null;
     private HashMap<String, Track> mTracks = new HashMap<>();
     private DialogActiveMembers mDialogActiveMembers = null;
 
@@ -81,7 +81,7 @@ public class MapsFragment extends CoreFragment implements
             /*IzigoApiManager.connect().getMembers(mTripId, new CallBackWith<FriendsRealm>() {
                 @Override
                 public void run(FriendsRealm friends) {
-                    for (FriendRealm friendRealm : friends) {
+                    for (IgFriend friendRealm : friends) {
                         mTracks.put(friendRealm.getFbId(), new Track());
                     }
                     mCurrentActiveMembers = friends;
@@ -108,20 +108,20 @@ public class MapsFragment extends CoreFragment implements
     }
 
 
-    private void processingUpdateUiOnFocusMember(FriendRealm friendRealm) {
+    private void processingUpdateUiOnFocusMember(IgFriend igFriend) {
 
-        if (friendRealm == null)
+        if (igFriend == null)
             return;
         layout.setVisibility(View.VISIBLE);
         Glide.with(this)
-                .load(friendRealm.getAvatar())
+                .load(igFriend.getAvatar())
                 .bitmapTransform(new CropCircleTransformation(mContext))
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .into(imageAvatar);
 
-        this.textName.setText(friendRealm.getName());
+        this.textName.setText(igFriend.getName());
         this.textDistance.setText("5 km");
-        mFocus = friendRealm.getFbId();
+        mFocus = igFriend.getFbId();
     }
 
     @OnClick(R.id.image_close)
@@ -205,10 +205,10 @@ public class MapsFragment extends CoreFragment implements
         SupportMapFragment m = ((SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map));
         m.getMapAsync(this);
 
-        mDialogActiveMembers = new DialogActiveMembers(mContext, new CallBackWith<FriendRealm>() {
+        mDialogActiveMembers = new DialogActiveMembers(mContext, new CallBackWith<IgFriend>() {
             @Override
-            public void run(FriendRealm friendRealm) {
-                processingUpdateUiOnFocusMember(friendRealm);
+            public void run(IgFriend igFriend) {
+                processingUpdateUiOnFocusMember(igFriend);
             }
         });
     }

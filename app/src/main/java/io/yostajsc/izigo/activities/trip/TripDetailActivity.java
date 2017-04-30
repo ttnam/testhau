@@ -40,7 +40,7 @@ import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.dialogs.DialogPickTransfer;
 import io.yostajsc.izigo.adapters.ImageryAdapter;
 import io.yostajsc.AppConfig;
-import io.yostajsc.sdk.IzigoSdk;
+import io.yostajsc.sdk.api.IzigoSdk;
 import io.yostajsc.sdk.model.IGCallback;
 import io.yostajsc.utils.UiUtils;
 import butterknife.BindView;

@@ -1,4 +1,4 @@
-package io.yostajsc.sdk.model;
+package io.yostajsc.sdk.model.user;
 
 import com.google.gson.annotations.SerializedName;
 

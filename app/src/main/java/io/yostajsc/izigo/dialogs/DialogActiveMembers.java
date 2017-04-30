@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.yostajsc.core.designs.decorations.SpacesItemDecoration;
@@ -18,8 +20,7 @@ import io.yostajsc.core.interfaces.CallBackWith;
 import io.yostajsc.core.utils.DimensionUtil;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.adapters.MemberActiveOnMapsAdapter;
-import io.yostajsc.core.realm.user.FriendRealm;
-import io.yostajsc.core.realm.user.FriendsRealm;
+import io.yostajsc.sdk.model.user.IgFriend;
 
 /**
  * Created by Phuc-Hau Nguyen on 8/31/2016.
@@ -31,11 +32,11 @@ public class DialogActiveMembers extends Dialog {
 
     private MemberActiveOnMapsAdapter adapter = null;
 
-    private CallBackWith<FriendRealm> mOnItemClick = null;
+    private CallBackWith<IgFriend> mOnItemClick = null;
 
     private Activity mOwnerActivity = null;
 
-    public DialogActiveMembers(Context context, CallBackWith<FriendRealm> onItemClick) {
+    public DialogActiveMembers(Context context, CallBackWith<IgFriend> onItemClick) {
         super(context, R.style.CoreAppTheme_Dialog);
 
         this.mOwnerActivity = (context instanceof Activity) ? (Activity) context : null;
@@ -85,7 +86,7 @@ public class DialogActiveMembers extends Dialog {
         }));
     }
 
-    public void setData(FriendsRealm realms) {
+    public void setData(List<IgFriend> realms) {
         if (realms == null)
             return;
         adapter.replaceAll(realms);

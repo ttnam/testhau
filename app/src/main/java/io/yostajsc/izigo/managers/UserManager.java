@@ -4,7 +4,7 @@ import org.json.JSONObject;
 
 import java.net.URL;
 
-import io.yostajsc.sdk.model.IgUser;
+import io.yostajsc.sdk.model.user.IgUser;
 
 /**
  * Created by Phuc-Hau Nguyen on 1/24/2017.

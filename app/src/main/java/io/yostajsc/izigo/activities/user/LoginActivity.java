@@ -33,9 +33,9 @@ import io.yostajsc.core.interfaces.CallBackWith;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.activities.MainActivity;
 import io.yostajsc.izigo.activities.core.OwnCoreActivity;
-import io.yostajsc.sdk.IzigoSdk;
+import io.yostajsc.sdk.api.IzigoSdk;
 import io.yostajsc.AppConfig;
-import io.yostajsc.sdk.model.IgUser;
+import io.yostajsc.sdk.model.user.IgUser;
 import io.yostajsc.izigo.managers.UserManager;
 import io.yostajsc.izigo.managers.EventManager;
 
