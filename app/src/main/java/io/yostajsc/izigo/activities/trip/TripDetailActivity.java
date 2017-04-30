@@ -158,7 +158,7 @@ public class TripDetailActivity extends OwnCoreActivity {
         this.rvAlbum.addOnItemTouchListener(new RecyclerItemClickListener(this, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                Toast.makeText(TripDetailActivity.this, "showAlbum " + position, Toast.LENGTH_SHORT).show();
+
             }
         }));
     }
