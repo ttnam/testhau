@@ -15,6 +15,9 @@ import android.support.v7.widget.SnapHelper;
 import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -42,6 +45,12 @@ public class TripAlbumActivity extends CoreActivity {
 
     @BindView(R.id.recycler_view)
     RecyclerView rvAlbum;
+
+    @BindView(R.id.layout_empty)
+    LinearLayout layoutEmpty;
+
+    @BindView(R.id.button)
+    Button button;
 
     private ImageryOnlyAdapter albumAdapter = null;
 
@@ -79,6 +88,7 @@ public class TripAlbumActivity extends CoreActivity {
             }
         }));
         registerForContextMenu(btnRight);
+        button.setText(getString(R.string.str_add_image));
     }
 
     @OnClick(R.id.button_left)
@@ -87,7 +97,7 @@ public class TripAlbumActivity extends CoreActivity {
         super.onBackPressed();
     }
 
-    @OnClick(R.id.button_right)
+    @OnClick({R.id.button_right, R.id.button})
     public void addImage() {
         btnRight.performLongClick();
     }
@@ -101,7 +111,10 @@ public class TripAlbumActivity extends CoreActivity {
     @Override
     public void onApplyData() {
         super.onApplyData();
-        this.albumAdapter.replaceAll(AppConfig.igImages);
+        if (AppConfig.igImages.size() > 0) {
+            this.albumAdapter.replaceAll(AppConfig.igImages);
+            showUi();
+        }
     }
 
     @NeedsPermission({Manifest.permission.WRITE_EXTERNAL_STORAGE,
@@ -126,15 +139,20 @@ public class TripAlbumActivity extends CoreActivity {
             switch (requestCode) {
                 case MessageType.FROM_MULTI_GALLERY:
                     ArrayList<String> res = data.getStringArrayListExtra("MULTI_IMAGE");
-                    for (String url : res) {
-                        albumAdapter.add(new IgImage(url));
+                    if (res.size() > 0) {
+                        for (String url : res) {
+                            albumAdapter.add(new IgImage(url));
+                        }
+                        showUi();
                     }
+
                     break;
                 case MessageType.TAKE_PHOTO: {
                     try {
                         Bitmap photo = (Bitmap) data.getExtras().get("data");
                         Uri tempUri = FileUtils.getImageUri(TripAlbumActivity.this, photo);
                         albumAdapter.add(new IgImage(tempUri.toString()));
+                        showUi();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -142,6 +160,11 @@ public class TripAlbumActivity extends CoreActivity {
                 }
             }
         }
+    }
+
+    private void showUi() {
+        this.rvAlbum.setVisibility(View.VISIBLE);
+        this.layoutEmpty.setVisibility(View.GONE);
     }
 
     @Override

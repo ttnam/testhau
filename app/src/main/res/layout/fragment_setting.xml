@@ -37,7 +37,7 @@
                     android:layout_width="@dimen/icon_size_x3"
                     android:layout_height="@dimen/icon_size_x3"
                     android:layout_gravity="center_vertical"
-                    app:srcCompat="@drawable/ic_vector_profile_blue" />
+                    app:srcCompat="@drawable/ic_vector_profile" />
 
                 <TextView
                     style="@style/CoreAppTheme.TextView_Sub_Title"

@@ -16,15 +16,14 @@
             android:layout_height="@dimen/icon_size_x4"
             android:layout_gravity="center"
             android:padding="@dimen/margin"
-            app:srcCompat="@drawable/ic_vector_profile_gray" />
+            app:srcCompat="@drawable/ic_vector_profile" />
 
         <TextView
             style="@style/CoreAppTheme.TextView_Sub_Title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:gravity="center|start"
-            android:text="Quản lý thành viên" />
+            android:text="@string/str_member_manager" />
     </LinearLayout>
 
     <LinearLayout
@@ -44,7 +43,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:gravity="center|start"
             android:text="Đổi tên hành trình" />
     </LinearLayout>
 
@@ -65,7 +63,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:gravity="center|start"
             android:text="Thay đổi nội dung mô tả" />
     </LinearLayout>
 
@@ -86,7 +83,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:gravity="center|start"
             android:text="Xoá" />
     </LinearLayout>
 

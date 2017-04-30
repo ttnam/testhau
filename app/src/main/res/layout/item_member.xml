@@ -15,7 +15,7 @@
         android:layout_gravity="center"
         android:layout_margin="@dimen/margin"
         android:scaleType="centerCrop"
-        app:srcCompat="@drawable/ic_profile" />
+        app:srcCompat="@drawable/ic_profile_holder" />
 
     <TextView
         android:id="@id/text_view"

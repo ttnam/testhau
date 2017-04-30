@@ -93,7 +93,7 @@
     <string name="str_motorbike">Xe máy</string>
 
     <string name="str_box_empty">The box is empty</string>
-    <string name="str_box_empty_des">There are nothing in your box, click button below to start new things with your friends</string>
+    <string name="str_box_empty_des">There are nothing in your box, click button below to make somethings new</string>
 
     <string name="str_notification_ticker">FCM</string>
     <string name="str_logout">Logout</string>
@@ -103,5 +103,6 @@
     <string name="str_success">Thành công</string>
     <string name="str_share">Share</string>
     <string name="str_photos">Photos</string>
+    <string name="str_add_image">Add images</string>
 
 </resources>
