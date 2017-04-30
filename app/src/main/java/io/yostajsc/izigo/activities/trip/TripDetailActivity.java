@@ -26,11 +26,13 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import butterknife.OnClick;
 import io.yostajsc.core.designs.listeners.RecyclerItemClickListener;
-import io.yostajsc.core.realm.trip.IgTrip;
+import io.yostajsc.core.interfaces.CallBack;
+import io.yostajsc.sdk.cache.IgCache;
+import io.yostajsc.sdk.model.trip.IgImage;
+import io.yostajsc.sdk.model.trip.IgTrip;
 import io.yostajsc.core.utils.PrefsUtils;
 import io.yostajsc.izigo.activities.core.OwnCoreActivity;
 import io.yostajsc.izigo.dialogs.DialogComment;
-import io.yostajsc.sdk.api.IzigoApiManager;
 import io.yostajsc.constants.RoleType;
 import io.yostajsc.constants.TransferType;
 import io.yostajsc.core.interfaces.CallBackWith;
@@ -126,9 +128,9 @@ public class TripDetailActivity extends OwnCoreActivity {
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
+    protected void onDestroy() {
         TripDetailActivityView.unbind();
+        super.onDestroy();
     }
 
     @OnClick(R.id.text_publish)
@@ -197,8 +199,25 @@ public class TripDetailActivity extends OwnCoreActivity {
         try {
 
             if (NetworkUtils.isNetworkConnected(this)) {
+
                 IzigoSdk.TripExecutor.increaseTripView(tripId);
-                loadTripFromServer();
+
+                IzigoSdk.TripExecutor.getTripDetail(tripId, new IGCallback<IgTrip, String>() {
+                    @Override
+                    public void onSuccessful(IgTrip igTrip) {
+                        updateUI(igTrip);
+                    }
+
+                    @Override
+                    public void onFail(String error) {
+                        AppConfig.showToast(TripDetailActivity.this, error);
+                    }
+
+                    @Override
+                    public void onExpired() {
+                        mOnExpiredCallBack.run();
+                    }
+                });
             } else {
                 onInternetDisConnected();
             }
@@ -213,31 +232,20 @@ public class TripDetailActivity extends OwnCoreActivity {
         onApplyData();
     }
 
-    private void loadTripFromServer() {
-
-        IzigoSdk.TripExecutor.getTripDetail(tripId, new IGCallback<IgTrip, String>() {
-            @Override
-            public void onSuccessful(IgTrip igTrip) {
-                updateUI(igTrip);
-            }
-
-            @Override
-            public void onFail(String error) {
-                AppConfig.showToast(TripDetailActivity.this, error);
-            }
-
-            @Override
-            public void onExpired() {
-                mOnExpiredCallBack.run();
-            }
-        });
+    @OnClick(R.id.layout_album)
+    public void openAlbum() {
+        startActivity(new Intent(this, TripAlbumActivity.class));
     }
 
     private void updateUI(final IgTrip igTrip) {
+
         if (igTrip == null) return;
-        albumAdapter.replaceAll(igTrip.getAlbum());
-        mIsPublic = igTrip.isPublished();
-        mCurrentRoleType = igTrip.getRole();
+        // Cache
+        AppConfig.igImages = igTrip.getAlbum();
+        this.albumAdapter.replaceAll(igTrip.getAlbum());
+
+        this.mIsPublic = igTrip.isPublished();
+        this.mCurrentRoleType = igTrip.getRole();
         TripDetailActivityView.setPublishMode(mIsPublic);                               // Publish
         TripDetailActivityView.switchMode(mCurrentRoleType);                            // Mode, is publish
         TripDetailActivityView.setTripName(igTrip.getName());                           // IgTrip name

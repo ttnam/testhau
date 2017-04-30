@@ -15,7 +15,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.yostajsc.core.fragments.CoreFragment;
 import io.yostajsc.core.interfaces.CallBackWith;
-import io.yostajsc.core.realm.trip.IgTrip;
+import io.yostajsc.sdk.model.trip.IgTrip;
 import io.yostajsc.core.utils.NetworkUtils;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.activities.MainActivity;
@@ -58,7 +58,7 @@ public class OwnTripFragment extends CoreFragment {
 
     private void onApplyViews() {
 
-        mOwnToolbar.setRight(R.drawable.ic_vector_add_group, new View.OnClickListener() {
+        mOwnToolbar.setOnlyRight(R.drawable.ic_vector_add_group, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 addGroup();

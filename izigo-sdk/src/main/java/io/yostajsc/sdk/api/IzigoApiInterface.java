@@ -3,7 +3,7 @@ package io.yostajsc.sdk.api;
 import java.util.List;
 import java.util.Map;
 
-import io.yostajsc.core.realm.trip.IgTrip;
+import io.yostajsc.sdk.model.trip.IgTrip;
 import io.yostajsc.sdk.model.IgUser;
 import io.yostajsc.sdk.model.Notification;
 import io.yostajsc.sdk.model.Timelines;
@@ -11,7 +11,6 @@ import io.yostajsc.sdk.model.Comment;
 import io.yostajsc.sdk.model.token.IgToken;
 import io.yostajsc.core.realm.user.FriendsRealm;
 import io.yostajsc.sdk.response.BaseResponse;
-import io.yostajsc.core.realm.trip.OwnTrips;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FieldMap;

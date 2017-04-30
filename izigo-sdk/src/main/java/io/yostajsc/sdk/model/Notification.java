@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 
 import io.yostajsc.core.realm.trip.BaseTripInfo;
-import io.yostajsc.core.realm.trip.IgTrip;
+import io.yostajsc.sdk.model.trip.IgTrip;
 
 /**
  * Created by nphau on 3/19/17.

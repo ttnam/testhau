@@ -6,7 +6,7 @@
 
     <include layout="@layout/layout_trip_detail_tool_bar" />
 
-    <include layout="@layout/layout_shadow" />
+    <include layout="@layout/layout_separate_vertical" />
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"

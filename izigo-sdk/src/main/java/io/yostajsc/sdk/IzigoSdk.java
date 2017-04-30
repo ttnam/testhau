@@ -6,7 +6,7 @@ import java.util.List;
 
 import io.yostajsc.core.interfaces.CallBack;
 import io.yostajsc.core.interfaces.CallBackWith;
-import io.yostajsc.core.realm.trip.IgTrip;
+import io.yostajsc.sdk.model.trip.IgTrip;
 import io.yostajsc.core.utils.LogUtils;
 import io.yostajsc.sdk.api.IzigoApiManager;
 import io.yostajsc.sdk.consts.IgError;

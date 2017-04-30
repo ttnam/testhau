@@ -6,14 +6,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Toast;
 
-import com.facebook.AccessToken;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.yostajsc.core.utils.PrefsUtils;
 import io.yostajsc.izigo.activities.core.OwnCoreActivity;
-import io.yostajsc.core.realm.trip.IgTrip;
-import io.yostajsc.core.realm.user.FriendsRealm;
+import io.yostajsc.sdk.model.trip.IgTrip;
 import io.yostajsc.sdk.api.IzigoApiManager;
 import io.yostajsc.core.code.MessageType;
 import io.yostajsc.core.interfaces.CallBack;
@@ -21,7 +18,6 @@ import io.yostajsc.core.interfaces.CallBackWith;
 import io.yostajsc.core.interfaces.ItemClick;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.adapters.MemberAdapter;
-import io.yostajsc.AppConfig;
 import io.yostajsc.view.OwnToolBar;
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 
@@ -53,7 +49,7 @@ public class MembersActivity extends OwnCoreActivity {
     @Override
     public void onApplyViews() {
         super.onApplyViews();
-        mOwnToolbar.setLeft(R.drawable.ic_vector_back_white, new View.OnClickListener() {
+        mOwnToolbar.setOnlyLeft(R.drawable.ic_vector_back_white, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();

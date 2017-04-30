@@ -1,4 +1,4 @@
-package io.yostajsc.core.realm.trip;
+package io.yostajsc.sdk.model.trip;
 
 /**
  * Created by nphau on 4/7/17.

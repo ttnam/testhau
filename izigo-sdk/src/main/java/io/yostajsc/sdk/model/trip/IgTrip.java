@@ -1,8 +1,9 @@
-package io.yostajsc.core.realm.trip;
+package io.yostajsc.sdk.model.trip;
 
 import com.google.gson.annotations.SerializedName;
 
 import io.realm.annotations.PrimaryKey;
+import io.yostajsc.core.realm.trip.LocationPick;
 
 import java.io.Serializable;
 import java.util.List;
@@ -41,7 +42,7 @@ public class IgTrip implements TripModel, Serializable {
     private BaseUserInfo mCreator;
 
     @SerializedName("album")
-    private List<Image> mAlbum;
+    private List<IgImage> mAlbum;
 
     @SerializedName("is_published")
     private String mIsPublished;
@@ -76,7 +77,7 @@ public class IgTrip implements TripModel, Serializable {
         return mCreator.getAvatar();
     }
 
-    public List<Image> getAlbum() {
+    public List<IgImage> getAlbum() {
         return this.mAlbum;
     }
 
@@ -156,20 +157,6 @@ public class IgTrip implements TripModel, Serializable {
 
         public String getName() {
             return name;
-        }
-    }
-
-    public class Image implements Serializable {
-
-        @PrimaryKey
-        @SerializedName("id")
-        private String mId;
-
-        @SerializedName("url")
-        private String mUrl;
-
-        public String getUrl() {
-            return this.mUrl;
         }
     }
 

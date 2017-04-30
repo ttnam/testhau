@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-import io.yostajsc.core.realm.trip.IgTrip;
+import io.yostajsc.sdk.model.trip.IgTrip;
 import io.yostajsc.sdk.model.IGCallback;
 import io.yostajsc.sdk.model.IgUser;
 import io.yostajsc.sdk.model.Timelines;
@@ -21,7 +21,6 @@ import io.yostajsc.core.realm.user.FriendsRealm;
 import io.yostajsc.sdk.response.BaseResponse;
 import io.yostajsc.core.interfaces.CallBack;
 import io.yostajsc.core.interfaces.CallBackWith;
-import io.yostajsc.core.realm.trip.OwnTrips;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import retrofit2.Response;

@@ -1,6 +1,7 @@
 package io.yostajsc.izigo.ui.viewholder;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -38,5 +39,10 @@ public class ImageryViewHolder extends RecyclerView.ViewHolder {
                     .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                     .into(imageView);
         }
+    }
+
+    protected void bind(Bitmap bitmap) {
+        if (bitmap != null)
+            imageView.setImageBitmap(bitmap);
     }
 }

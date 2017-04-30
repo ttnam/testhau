@@ -12,11 +12,14 @@ import com.facebook.login.LoginManager;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.iid.FirebaseInstanceId;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import io.yostajsc.core.utils.FontUtils;
 import io.yostajsc.core.utils.PrefsUtils;
-import io.yostajsc.sdk.model.token.IgToken;
+import io.yostajsc.sdk.model.trip.IgImage;
 import io.yostajsc.usecase.firebase.FirebaseManager;
 import io.yostajsc.utils.LocationService;
 
@@ -35,6 +38,8 @@ public class AppConfig extends Application {
     public static final String KEY_PICK_LOCATION = "KEY_PICK_LOCATION";
     public static final String PARAMETERS = "id, first_name, last_name, email, cover, gender, birthday, location";
     public static final String PAGE_ID = "PAGE_ID";
+
+    public static List<IgImage> igImages = new ArrayList<>();
 
     private static AppConfig mInstance;
 

@@ -134,7 +134,7 @@ public class OwnToolBar extends RelativeLayout {
         setDrawableRight(drawableRight);
     }
 
-    public OwnToolBar setLeft(int icon, @NonNull View.OnClickListener listener) {
+    public OwnToolBar setOnlyLeft(int icon, @NonNull View.OnClickListener listener) {
         setDrawableLeft(icon);
         setOnLeftClickListener(listener);
 
@@ -143,7 +143,7 @@ public class OwnToolBar extends RelativeLayout {
         return this;
     }
 
-    public OwnToolBar setRight(int icon, @NonNull View.OnClickListener listener) {
+    public OwnToolBar setOnlyRight(int icon, @NonNull View.OnClickListener listener) {
         setDrawableRight(icon);
         setOnRightClickListener(listener);
 

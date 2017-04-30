@@ -43,7 +43,7 @@ public class WebViewActivity extends OwnCoreActivity {
             }
         });
 
-        mOwnToolbar.setLeft(R.drawable.ic_vector_back_white, new View.OnClickListener() {
+        mOwnToolbar.setOnlyLeft(R.drawable.ic_vector_back_white, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();

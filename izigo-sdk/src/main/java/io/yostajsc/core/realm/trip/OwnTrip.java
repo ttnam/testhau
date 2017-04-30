@@ -6,6 +6,7 @@ import java.io.Serializable;
 
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
+import io.yostajsc.sdk.model.trip.TripModel;
 
 /**
  * Created by nphau on 4/7/17.

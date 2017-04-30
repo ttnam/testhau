@@ -4,9 +4,8 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
-import io.yostajsc.core.realm.trip.IgTrip;
+import io.yostajsc.sdk.model.trip.IgTrip;
 
 /**
  * Created by Phuc-Hau Nguyen on 8/25/2016.

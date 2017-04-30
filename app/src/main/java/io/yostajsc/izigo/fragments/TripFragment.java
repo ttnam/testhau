@@ -14,7 +14,7 @@ import io.yostajsc.core.designs.decorations.SpacesItemDecoration;
 import io.yostajsc.core.fragments.CoreFragment;
 import io.yostajsc.core.interfaces.CallBack;
 import io.yostajsc.core.interfaces.CallBackWith;
-import io.yostajsc.core.realm.trip.IgTrip;
+import io.yostajsc.sdk.model.trip.IgTrip;
 import io.yostajsc.core.utils.NetworkUtils;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.activities.MainActivity;
@@ -70,7 +70,7 @@ public class TripFragment extends CoreFragment {
 
     private void onApplyViews() {
         mOwnToolbar.setTitle(getString(R.string.all_popular))
-                .setRight(R.drawable.ic_vector_filter_gray, new View.OnClickListener() {
+                .setOnlyRight(R.drawable.ic_vector_filter_gray, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         DialogFilter dialog = new DialogFilter(mContext);

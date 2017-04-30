@@ -13,7 +13,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.yostajsc.core.realm.trip.IgTrip;
+import io.yostajsc.sdk.model.trip.IgImage;
+import io.yostajsc.sdk.model.trip.IgTrip;
 import io.yostajsc.core.utils.DimensionUtil;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.ui.viewholder.ImageryMoreViewHolder;
@@ -23,11 +24,10 @@ import io.yostajsc.izigo.ui.viewholder.ImageryViewHolder;
 public class ImageryAdapter extends RecyclerView.Adapter<ImageryViewHolder> {
 
     private final static int MAX_ITEM = 6;
-
     private static boolean isMore = false;
     private static int size = 0;
     private Context mContext;
-    private List<IgTrip.Image> mUrls = null;
+    private List<IgImage> mUrls = null;
 
     public ImageryAdapter(Context context) {
         this.mContext = context;
@@ -71,7 +71,7 @@ public class ImageryAdapter extends RecyclerView.Adapter<ImageryViewHolder> {
         return mUrls.size();
     }
 
-    public void replaceAll(List<IgTrip.Image> album) {
+    public void replaceAll(List<IgImage> album) {
         if (mUrls == null)
             this.mUrls = new ArrayList<>();
         clear();
@@ -87,10 +87,11 @@ public class ImageryAdapter extends RecyclerView.Adapter<ImageryViewHolder> {
         notifyDataSetChanged();
     }
 
-    public void clear(){
+    public void clear() {
         this.mUrls.clear();
     }
-    public void add(IgTrip.Image image) {
+
+    public void add(IgImage image) {
         if (this.mUrls == null)
             this.mUrls = new ArrayList<>();
         this.mUrls.add(image);
