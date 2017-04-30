@@ -4,4 +4,5 @@
             <font color=\"yellow\"> %s </font>
         ]]>
     </string>
+    <string name="internal_storage">Internal storage</string>
 </resources>

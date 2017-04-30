@@ -16,8 +16,7 @@ import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,9 +25,11 @@ import io.yostajsc.AppConfig;
 import io.yostajsc.core.code.MessageType;
 import io.yostajsc.core.designs.listeners.RecyclerItemClickListener;
 import io.yostajsc.core.interfaces.CoreActivity;
+import io.yostajsc.core.utils.FileUtils;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.adapters.ImageryOnlyAdapter;
 import io.yostajsc.sdk.model.trip.IgImage;
+import io.yostajsc.ui.gallery.GalleryActivity;
 import jp.wasabeef.recyclerview.animators.FadeInUpAnimator;
 import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.RuntimePermissions;
@@ -109,7 +110,17 @@ public class TripAlbumActivity extends CoreActivity {
         intent.setType("image/*");
         intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
         intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent,"Select Picture"), MessageType.FROM_GALLERY);
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), MessageType.FROM_GALLERY);
+    }
+
+    @NeedsPermission({Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.CAMERA})
+    public void onTakePhoto() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(takePictureIntent, MessageType.TAKE_PHOTO);
+        }
     }
 
     @Override
@@ -136,6 +147,22 @@ public class TripAlbumActivity extends CoreActivity {
                     }
                     break;
                 }
+                case MessageType.FROM_MULTI_GALLERY:
+                    ArrayList<String> res = data.getStringArrayListExtra("MULTI_IMAGE");
+                    for (String url : res) {
+                        albumAdapter.add(new IgImage(url));
+                    }
+                    break;
+                case MessageType.TAKE_PHOTO: {
+                    try {
+                        Bitmap photo = (Bitmap) data.getExtras().get("data");
+                        Uri tempUri = FileUtils.getImageUri(TripAlbumActivity.this, photo);
+                        albumAdapter.add(new IgImage(tempUri.toString()));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                }
             }
         }
     }
@@ -145,8 +172,12 @@ public class TripAlbumActivity extends CoreActivity {
         int order = item.getOrder();
         switch (order) {
             case 0:
+                startActivityForResult(
+                        new Intent(TripAlbumActivity.this, GalleryActivity.class),
+                        MessageType.FROM_MULTI_GALLERY);
+                break;
             case 1:
-                TripAlbumActivityPermissionsDispatcher.getImageFromGalleryWithCheck(this);
+                TripAlbumActivityPermissionsDispatcher.onTakePhotoWithCheck(this);
                 break;
         }
         return super.onContextItemSelected(item);

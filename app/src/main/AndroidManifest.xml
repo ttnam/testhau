@@ -166,6 +166,11 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/CoreAppTheme.White" />
+        <activity
+            android:name="io.yostajsc.ui.gallery.GalleryActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/CoreAppTheme.White" />
     </application>
 
 </manifest>

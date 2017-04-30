@@ -112,8 +112,9 @@ dependencies {
     compile "com.google.firebase:firebase-database:$rootProject.firebaseVersion"
     compile "com.google.firebase:firebase-messaging:$rootProject.firebaseVersion"
 
-    compile 'com.jakewharton:butterknife:8.5.1'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
+    compile 'jp.wasabeef:recyclerview-animators:2.2.3'
+    compile 'com.daimajia.easing:library:1.0.1@aar'
+    compile 'com.nineoldandroids:library:2.4.0'
 
     compile "org.greenrobot:eventbus:$rootProject.eventBusVersion"
     compile "com.google.android.gms:play-services-auth:$rootProject.googlePlayServicesVersion"
@@ -122,14 +123,15 @@ dependencies {
     compile "com.google.android.gms:play-services-places:$rootProject.googlePlayServicesVersion"
     compile "com.google.android.gms:play-services-location:$rootProject.googlePlayServicesVersion"
 
-    compile 'jp.wasabeef:recyclerview-animators:2.2.3'
-    compile 'com.daimajia.easing:library:1.0.1@aar'
-    compile 'com.nineoldandroids:library:2.4.0'
+
+
+
+    compile 'com.jakewharton:butterknife:8.5.1'
+
     compile 'com.firebaseui:firebase-ui-database:1.0.1'
     compile 'com.firebase:firebase-client-android:2.3.1'
-
     compile 'com.github.hotchemi:permissionsdispatcher:2.3.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
     annotationProcessor 'com.github.hotchemi:permissionsdispatcher-processor:2.3.1'
-
 }
 apply plugin: 'com.google.gms.google-services'

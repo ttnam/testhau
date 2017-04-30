@@ -12,7 +12,6 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.yostajsc.core.utils.ValidateUtils;
 import io.yostajsc.izigo.R;
 
 /**

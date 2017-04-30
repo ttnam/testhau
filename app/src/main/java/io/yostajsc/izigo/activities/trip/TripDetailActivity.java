@@ -25,6 +25,8 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import butterknife.OnClick;
 import io.yostajsc.core.designs.listeners.RecyclerItemClickListener;
+import io.yostajsc.core.utils.FileUtils;
+import io.yostajsc.sdk.model.trip.IgImage;
 import io.yostajsc.sdk.model.trip.IgTrip;
 import io.yostajsc.core.utils.PrefsUtils;
 import io.yostajsc.izigo.activities.core.OwnCoreActivity;
@@ -176,8 +178,9 @@ public class TripDetailActivity extends OwnCoreActivity {
         int order = item.getOrder();
         switch (order) {
             case 0:
-            case 1:
                 TripDetailActivityPermissionsDispatcher.getImageFromGalleryWithCheck(this);
+            case 1:
+                TripDetailActivityPermissionsDispatcher.onTakePhotoWithCheck(this);
                 break;
         }
         return super.onContextItemSelected(item);
@@ -313,12 +316,23 @@ public class TripDetailActivity extends OwnCoreActivity {
         startActivity(intent);
     }
 
-    @NeedsPermission({Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE})
+    @NeedsPermission({Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE})
     public void getImageFromGallery() {
         Intent intent = new Intent();
         intent.setType("image/jpg");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent, "Select Picture"), MessageType.FROM_GALLERY);
+    }
+
+    @NeedsPermission({Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.CAMERA})
+    public void onTakePhoto() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(takePictureIntent, MessageType.TAKE_PHOTO);
+        }
     }
 
     @Override
@@ -352,6 +366,17 @@ public class TripDetailActivity extends OwnCoreActivity {
                             }, mOnExpiredCallBack);
 
                         }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                }
+                case MessageType.TAKE_PHOTO: {
+                    try {
+                        Bitmap photo = (Bitmap) data.getExtras().get("data");
+                        Uri tempUri = FileUtils.getImageUri(TripDetailActivity.this, photo);
+                        albumAdapter.add(new IgImage(tempUri.toString()));
+
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

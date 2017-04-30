@@ -11,7 +11,7 @@ import java.lang.annotation.RetentionPolicy;
 @Retention(RetentionPolicy.SOURCE)
 @IntDef({MessageType.TAKE_PHOTO, MessageType.FROM_GALLERY,
         MessageType.LOAD_DONE, MessageType.INTERNET_NO_CONNECTED,
-        MessageType.INTERNET_CONNECTED,
+        MessageType.INTERNET_CONNECTED,MessageType.FROM_MULTI_GALLERY,
         MessageType.ITEM_CLICK_INVITED, MessageType.USER_GPS,
         MessageType.PICK_LOCATION_FROM, MessageType.PICK_LOCATION_TO,
         MessageType.GPS_ON, MessageType.GPS_OFF})
@@ -27,4 +27,5 @@ public @interface MessageType {
     int PICK_LOCATION_TO = 910;
     int GPS_ON = 911;
     int GPS_OFF = 912;
+    int FROM_MULTI_GALLERY = 913;
 }

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/margin_min_s">
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@id/image_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop" />
+
+    <View
+        android:id="@+id/layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/ic_style_rect_round_none_none_blue"
+        android:visibility="gone" />
+
+</FrameLayout>
