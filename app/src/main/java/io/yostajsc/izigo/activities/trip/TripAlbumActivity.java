@@ -16,6 +16,9 @@ import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -25,6 +28,7 @@ import io.yostajsc.core.designs.listeners.RecyclerItemClickListener;
 import io.yostajsc.core.interfaces.CoreActivity;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.adapters.ImageryOnlyAdapter;
+import io.yostajsc.sdk.model.trip.IgImage;
 import jp.wasabeef.recyclerview.animators.FadeInUpAnimator;
 import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.RuntimePermissions;
@@ -81,10 +85,12 @@ public class TripAlbumActivity extends CoreActivity {
     public void onBackPressed() {
         super.onBackPressed();
     }
+
     @OnClick(R.id.button_right)
     public void addImage() {
         btnRight.performLongClick();
     }
+
     @Override
     protected void onDestroy() {
         unregisterForContextMenu(btnRight);
@@ -100,9 +106,10 @@ public class TripAlbumActivity extends CoreActivity {
     @NeedsPermission({Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE})
     public void getImageFromGallery() {
         Intent intent = new Intent();
-        intent.setType("image/jpg");
+        intent.setType("image/*");
+        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
         intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Select Picture"), MessageType.FROM_GALLERY);
+        startActivityForResult(Intent.createChooser(intent,"Select Picture"), MessageType.FROM_GALLERY);
     }
 
     @Override
@@ -118,6 +125,7 @@ public class TripAlbumActivity extends CoreActivity {
                 case MessageType.FROM_GALLERY: {
                     try {
                         Uri fileUri = data.getData();
+                        // albumAdapter.add(new IgImage(fileUri.toString()));
                         Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), fileUri);
                         if (bitmap != null) {
 

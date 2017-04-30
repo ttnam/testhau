@@ -25,7 +25,7 @@ import io.yostajsc.AppConfig;
 import io.yostajsc.sdk.IzigoSdk;
 import io.yostajsc.sdk.model.IGCallback;
 import io.yostajsc.utils.UiUtils;
-import io.yostajsc.view.OwnToolBar;
+import io.yostajsc.ui.OwnToolBar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;

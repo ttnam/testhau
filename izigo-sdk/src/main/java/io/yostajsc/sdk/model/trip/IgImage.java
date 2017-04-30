@@ -35,8 +35,13 @@ public class IgImage implements Serializable {
         return mBitmap;
     }
 
+    public IgImage(String url) {
+        this.mUrl = url;
+    }
+
     public IgImage(String id, Bitmap bitmap) {
         this.mId = id;
         this.mBitmap = bitmap;
     }
+
 }

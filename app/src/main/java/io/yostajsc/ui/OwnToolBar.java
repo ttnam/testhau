@@ -1,4 +1,4 @@
-package io.yostajsc.view;
+package io.yostajsc.ui;
 
 import android.content.Context;
 import android.content.res.TypedArray;

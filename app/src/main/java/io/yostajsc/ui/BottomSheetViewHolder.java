@@ -1,4 +1,4 @@
-package io.yostajsc.view;
+package io.yostajsc.ui;
 
 import android.support.annotation.DrawableRes;
 import android.support.v7.widget.AppCompatImageView;

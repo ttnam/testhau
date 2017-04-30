@@ -26,7 +26,7 @@ import io.yostajsc.AppConfig;
 import io.yostajsc.sdk.IzigoSdk;
 import io.yostajsc.sdk.model.IGCallback;
 import io.yostajsc.utils.UiUtils;
-import io.yostajsc.view.OwnToolBar;
+import io.yostajsc.ui.OwnToolBar;
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 
 public class OwnTripFragment extends CoreFragment {
