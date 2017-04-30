@@ -41,6 +41,7 @@ import io.yostajsc.izigo.dialogs.DialogPickTransfer;
 import io.yostajsc.izigo.adapters.ImageryAdapter;
 import io.yostajsc.AppConfig;
 import io.yostajsc.sdk.IzigoSdk;
+import io.yostajsc.sdk.model.IGCallback;
 import io.yostajsc.utils.UiUtils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -213,22 +214,28 @@ public class TripDetailActivity extends OwnCoreActivity {
     }
 
     private void loadTripFromServer() {
-        /*IzigoApiManager.connect().getTripDetail(tripId, new CallBackWith<IgTrip>() {
+
+        IzigoSdk.TripExecutor.getTripDetail(tripId, new IGCallback<IgTrip, String>() {
             @Override
-            public void run(IgTrip igTrip) {
+            public void onSuccessful(IgTrip igTrip) {
                 updateUI(igTrip);
             }
-        }, new CallBackWith<String>() {
+
             @Override
-            public void run(String error) {
+            public void onFail(String error) {
                 AppConfig.showToast(TripDetailActivity.this, error);
             }
-        }, mOnExpiredCallBack);*/
+
+            @Override
+            public void onExpired() {
+                mOnExpiredCallBack.run();
+            }
+        });
     }
 
     private void updateUI(final IgTrip igTrip) {
         if (igTrip == null) return;
-        // albumAdapter.replaceAll(igTrip.getAlbum());
+        albumAdapter.replaceAll(igTrip.getAlbum());
         mIsPublic = igTrip.isPublished();
         mCurrentRoleType = igTrip.getRole();
         TripDetailActivityView.setPublishMode(mIsPublic);                               // Publish

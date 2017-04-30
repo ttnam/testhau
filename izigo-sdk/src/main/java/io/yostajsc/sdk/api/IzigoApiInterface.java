@@ -44,7 +44,7 @@ interface IzigoApiInterface {
     Call<BaseResponse<List<IgTrip>>> apiGetAllPublicTrips(@Header("authorization") String authorization);
 
     @GET("api/trips/own")
-    Call<BaseResponse<OwnTrips>> apiGetAllOwnTrips(@Header("authorization") String authorization);
+    Call<BaseResponse<List<IgTrip>>> apiGetAllOwnTrips(@Header("authorization") String authorization);
 
     @FormUrlEncoded
     @PUT("api/user")

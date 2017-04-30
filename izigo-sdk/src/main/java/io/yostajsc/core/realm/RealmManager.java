@@ -56,30 +56,6 @@ public class RealmManager {
         }
     }
 
-    public static void findAllOwnTrips(final CallBackWith<OwnTrips> onSuccessful) {
-
-        Realm realm = null;
-
-        try {
-            realm = Realm.getDefaultInstance();
-            realm.executeTransaction(new Realm.Transaction() {
-                @Override
-                public void execute(Realm realm) {
-                    RealmResults<OwnTrip> res = realm.where(OwnTrip.class).findAll();
-                    if (res.isValid()) {
-                        OwnTrips trips = new OwnTrips();
-                        trips.addAll(res);
-                        onSuccessful.run(trips);
-                    }
-                }
-            });
-        } finally {
-            if (realm != null) {
-                realm.close();
-            }
-        }
-    }
-
     public static void findActivities(final CallBackWith<Timelines> callBack) {
 
         Realm realm = null;

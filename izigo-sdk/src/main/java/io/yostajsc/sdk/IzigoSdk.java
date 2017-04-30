@@ -118,6 +118,23 @@ public class IzigoSdk {
                 callback.onExpired();
             }
         }
+
+        public static void getOwnTrip(final IGCallback<List<IgTrip>, String> callback) {
+            if (IzigoSession.isLoggedIn()) {
+                String auth = IzigoSession.getToken().getToken();
+                IzigoApiManager.connect().getAllOwnTripsList(auth, callback);
+            } else {
+                callback.onExpired();
+            }
+        }
+        public static void getTripDetail(String tripId, final IGCallback<IgTrip, String> callback){
+            if (IzigoSession.isLoggedIn()) {
+                String auth = IzigoSession.getToken().getToken();
+                IzigoApiManager.connect().getTripDetail(auth, tripId, callback);
+            } else {
+                callback.onExpired();
+            }
+        }
     }
 
     public static class UserExecutor {

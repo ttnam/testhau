@@ -39,7 +39,7 @@ public class IzigoApiManager {
 
     private static final String TAG = IzigoApiManager.class.getSimpleName();
 
-    private static String SERVER_DOMAIN = "http://izigo.jelasticlw.com.br/";
+    private static String SERVER_DOMAIN = "http://izigo2.jelasticlw.com.br/";
 
     private static final int CONNECT_TIME_OUT = 60;
     private static final int READ_TIME_OUT = 60;
@@ -147,30 +147,27 @@ public class IzigoApiManager {
     }
 
 
-    public void getAllOwnTripsList(String authorization,
-                                   final CallBackWith<OwnTrips> onSuccessful,
-                                   final CallBack expired,
-                                   final CallBackWith<String> fail) {
+    public void getAllOwnTripsList(String authorization, final IGCallback<List<IgTrip>, String> callback) {
         try {
-            Call<BaseResponse<OwnTrips>> call = service.apiGetAllOwnTrips(authorization);
-            call.enqueue(new Callback<BaseResponse<OwnTrips>>() {
+            Call<BaseResponse<List<IgTrip>>> call = service.apiGetAllOwnTrips(authorization);
+            call.enqueue(new Callback<BaseResponse<List<IgTrip>>>() {
                 @Override
-                public void onResponse(Call<BaseResponse<OwnTrips>> call, Response<BaseResponse<OwnTrips>> response) {
+                public void onResponse(Call<BaseResponse<List<IgTrip>>> call, Response<BaseResponse<List<IgTrip>>> response) {
                     if (response.isSuccessful()) {
-                        BaseResponse<OwnTrips> res = response.body();
+                        BaseResponse<List<IgTrip>> res = response.body();
                         if (res.isSuccessful()) {
-                            onSuccessful.run(res.data());
+                            callback.onSuccessful(res.data());
                         } else if (res.isExpired()) {
-                            expired.run();
+                            callback.onExpired();
                         } else {
-                            fail.run(res.getDescription());
+                            callback.onFail(res.getDescription());
                         }
                     }
                 }
 
                 @Override
-                public void onFailure(Call<BaseResponse<OwnTrips>> call, Throwable throwable) {
-                    fail.run(throwable.getMessage());
+                public void onFailure(Call<BaseResponse<List<IgTrip>>> call, Throwable throwable) {
+                    callback.onFail(throwable.getMessage());
                     log(throwable.getMessage());
                 }
             });
@@ -198,10 +195,8 @@ public class IzigoApiManager {
         });
     }
 
-    public void getTripDetail(String authorization, String tripId,
-                              final CallBackWith<IgTrip> success,
-                              final CallBackWith<String> fail,
-                              final CallBack expired) {
+    public void getTripDetail(String authorization, String tripId, final IGCallback<IgTrip, String> callback) {
+
         Call<BaseResponse<IgTrip>> call = service.apiGetTripDetail(authorization, tripId);
 
         call.enqueue(new Callback<BaseResponse<IgTrip>>() {
@@ -210,17 +205,18 @@ public class IzigoApiManager {
                 if (response.isSuccessful()) {
                     BaseResponse<IgTrip> res = response.body();
                     if (res.isSuccessful()) {
-                        success.run(res.data());
+                        callback.onSuccessful(res.data());
                     } else if (res.isExpired()) {
-                        expired.run();
+                        callback.onExpired();
                     } else {
-                        fail.run(res.getDescription());
+                        callback.onFail(res.getDescription());
                     }
                 }
             }
 
             @Override
             public void onFailure(Call<BaseResponse<IgTrip>> call, Throwable throwable) {
+                callback.onFail(throwable.getMessage());
                 Log.e(TAG, throwable.getMessage());
             }
         });

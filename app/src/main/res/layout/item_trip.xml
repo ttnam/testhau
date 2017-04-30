@@ -49,25 +49,24 @@
             android:layout_gravity="center"
             android:orientation="horizontal">
 
+
+            <android.support.v7.widget.AppCompatImageView
+                android:layout_width="@dimen/icon_size_x2"
+                android:layout_height="@dimen/icon_size_x2"
+                android:layout_gravity="center"
+                android:scaleType="centerInside"
+                app:srcCompat="@drawable/ic_vector_eye" />
+
             <TextView
                 android:id="@+id/text_views"
                 style="@style/CoreAppTheme.TextView_Sub_Title.White"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/margin_min"
+                android:layout_marginStart="@dimen/margin_min"
                 android:gravity="center"
-                android:maxLines="1"
-                android:minLines="1"
-                android:textAllCaps="true" />
-
-            <android.support.v7.widget.AppCompatImageView
-                android:layout_width="@dimen/icon_size_x2"
-                android:layout_height="@dimen/icon_size_x2"
-                android:layout_gravity="center"
-                android:layout_marginLeft="@dimen/margin"
-                android:layout_marginStart="@dimen/margin"
-                android:scaleType="centerInside"
-                app:srcCompat="@drawable/ic_vector_eye" />
+                android:maxLines="1" />
 
             <View
                 android:layout_width="@dimen/icon_size"

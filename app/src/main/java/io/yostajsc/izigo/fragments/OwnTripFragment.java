@@ -8,13 +8,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.yostajsc.sdk.api.IzigoApiManager;
 import io.yostajsc.core.fragments.CoreFragment;
-import io.yostajsc.core.interfaces.CallBack;
 import io.yostajsc.core.interfaces.CallBackWith;
+import io.yostajsc.core.realm.trip.IgTrip;
 import io.yostajsc.core.utils.NetworkUtils;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.activities.MainActivity;
@@ -22,8 +23,8 @@ import io.yostajsc.izigo.activities.trip.AddTripActivity;
 import io.yostajsc.izigo.activities.trip.TripDetailActivity;
 import io.yostajsc.izigo.adapters.TripAdapter;
 import io.yostajsc.AppConfig;
-import io.yostajsc.core.realm.RealmManager;
-import io.yostajsc.core.realm.trip.OwnTrips;
+import io.yostajsc.sdk.IzigoSdk;
+import io.yostajsc.sdk.model.IGCallback;
 import io.yostajsc.utils.UiUtils;
 import io.yostajsc.view.OwnToolBar;
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
@@ -77,7 +78,7 @@ public class OwnTripFragment extends CoreFragment {
                 });
     }
 
-    private void updateUI(OwnTrips trips) {
+    private void updateUI(List<IgTrip> trips) {
         try {
             int size = trips.size();
             if (size > 0) {
@@ -94,31 +95,21 @@ public class OwnTripFragment extends CoreFragment {
     }
 
     private void loadFromServer() {
-       /* IzigoApiManager.connect().getAllOwnTripsList(new CallBackWith<OwnTrips>() {
-            @Override
-            public void run(OwnTrips ownTrips) {
-                RealmManager.insertOrUpdate(ownTrips);
-                updateUI(ownTrips);
-            }
-        }, new CallBack() {
-            @Override
-            public void run() {
-                ((MainActivity) getActivity()).onExpired();
-            }
-        }, new CallBackWith<String>() {
-            @Override
-            public void run(String error) {
-                AppConfig.showToast(mContext, error);
-                loadFromDisk();
-            }
-        });*/
-    }
 
-    private void loadFromDisk() {
-        RealmManager.findAllOwnTrips(new CallBackWith<OwnTrips>() {
+        IzigoSdk.TripExecutor.getOwnTrip(new IGCallback<List<IgTrip>, String>() {
             @Override
-            public void run(OwnTrips ownTrips) {
-                updateUI(ownTrips); // Update UI
+            public void onSuccessful(List<IgTrip> trips) {
+                updateUI(trips);
+            }
+
+            @Override
+            public void onFail(String error) {
+                AppConfig.showToast(mContext, error);
+            }
+
+            @Override
+            public void onExpired() {
+                ((MainActivity) getActivity()).onExpired();
             }
         });
     }
@@ -126,8 +117,6 @@ public class OwnTripFragment extends CoreFragment {
     private void onApplyData() {
         if (NetworkUtils.isNetworkConnected(mContext)) {
             loadFromServer();
-        } else {
-            loadFromDisk();
         }
     }
 

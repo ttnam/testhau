@@ -10,6 +10,7 @@ import android.widget.FrameLayout;
 
 import java.util.List;
 
+import io.yostajsc.core.designs.decorations.SpacesItemDecoration;
 import io.yostajsc.core.fragments.CoreFragment;
 import io.yostajsc.core.interfaces.CallBack;
 import io.yostajsc.core.interfaces.CallBackWith;
@@ -87,6 +88,7 @@ public class TripFragment extends CoreFragment {
                         startActivity(intent);
                     }
                 });
+        this.rvTrip.addItemDecoration(new SpacesItemDecoration(5));
     }
 
     public void loadTripsFromServer() {
@@ -116,6 +118,7 @@ public class TripFragment extends CoreFragment {
         int size = publicTrips.size();
         if (size < 0)
             return;
+        tripAdapter.clear();
         for (int i = 0; i < size; i++) {
             tripAdapter.add(publicTrips.get(i));
         }

@@ -10,8 +10,10 @@ import android.widget.FrameLayout;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.util.ArrayList;
+import java.util.List;
 
-import io.realm.RealmList;
+import io.yostajsc.core.realm.trip.IgTrip;
 import io.yostajsc.core.utils.DimensionUtil;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.ui.viewholder.ImageryMoreViewHolder;
@@ -25,11 +27,11 @@ public class ImageryAdapter extends RecyclerView.Adapter<ImageryViewHolder> {
     private static boolean isMore = false;
     private static int size = 0;
     private Context mContext;
-    // private RealmList<BasePhotoInfo> mUrls;
+    private List<IgTrip.Image> mUrls = null;
 
     public ImageryAdapter(Context context) {
         this.mContext = context;
-        // this.mUrls = new RealmList<>();
+        this.mUrls = new ArrayList<>();
     }
 
     @Override
@@ -55,44 +57,45 @@ public class ImageryAdapter extends RecyclerView.Adapter<ImageryViewHolder> {
 
     @Override
     public void onBindViewHolder(final ImageryViewHolder holder, final int position) {
-        /*if (isMore && position == MAX_ITEM - 1) {
+        if (isMore && position == MAX_ITEM - 1) {
             ((ImageryMoreViewHolder) holder).bind(mUrls.get(position).getUrl(), size - MAX_ITEM);
         } else {
             ((ImageryNormalViewHolder) holder).bind(mUrls.get(position).getUrl());
-        }*/
+        }
     }
 
     @Override
     public int getItemCount() {
-        // if (mUrls == null)
-            return 0;
-        // return mUrls.size();
-    }
-/*
-
-    public void replaceAll(RealmList<BasePhotoInfo> photos) {
         if (mUrls == null)
-            this.mUrls = new RealmList<>();
+            return 0;
+        return mUrls.size();
+    }
+
+    public void replaceAll(List<IgTrip.Image> album) {
+        if (mUrls == null)
+            this.mUrls = new ArrayList<>();
         clear();
-        size = photos.size();
+        size = album.size();
         if (size > MAX_ITEM) {
             isMore = true;
             for (int i = 0; i < MAX_ITEM; i++) {
-                this.mUrls.add(photos.get(i));
+                this.mUrls.add(album.get(i));
             }
         } else {
-            this.mUrls.addAll(photos);
+            this.mUrls.addAll(album);
         }
         notifyDataSetChanged();
     }
 
-    public void add(BasePhotoInfo photoInfo) {
+    public void clear(){
+        this.mUrls.clear();
+    }
+    public void add(IgTrip.Image image) {
         if (this.mUrls == null)
-            this.mUrls = new RealmList<>();
-        this.mUrls.add(photoInfo);
+            this.mUrls = new ArrayList<>();
+        this.mUrls.add(image);
         notifyDataSetChanged();
     }
-*/
 
     @Retention(RetentionPolicy.SOURCE)
     @IntDef({Type.MORE, Type.NORMAL})
