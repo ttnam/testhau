@@ -26,9 +26,6 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import butterknife.OnClick;
 import io.yostajsc.core.designs.listeners.RecyclerItemClickListener;
-import io.yostajsc.core.interfaces.CallBack;
-import io.yostajsc.sdk.cache.IgCache;
-import io.yostajsc.sdk.model.trip.IgImage;
 import io.yostajsc.sdk.model.trip.IgTrip;
 import io.yostajsc.core.utils.PrefsUtils;
 import io.yostajsc.izigo.activities.core.OwnCoreActivity;
