@@ -7,7 +7,7 @@ import com.google.firebase.iid.FirebaseInstanceIdService;
 
 import io.yostajsc.sdk.api.IzigoSdk;
 import io.yostajsc.core.utils.PrefsUtils;
-import io.yostajsc.usecase.firebase.FirebaseManager;
+import io.yostajsc.firebase.FirebaseManager;
 
 public class FirebaseInstanceIDService extends FirebaseInstanceIdService {
 

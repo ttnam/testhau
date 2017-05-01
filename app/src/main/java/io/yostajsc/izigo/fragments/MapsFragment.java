@@ -49,7 +49,7 @@ import io.yostajsc.izigo.R;
 import io.yostajsc.AppConfig;
 import io.yostajsc.izigo.dialogs.DialogActiveMembers;
 import io.yostajsc.sdk.model.trip.IgTrip;
-import io.yostajsc.usecase.firebase.FirebaseManager;
+import io.yostajsc.firebase.FirebaseManager;
 
 public class MapsFragment extends CoreFragment implements OnMapReadyCallback, GoogleMap.OnMyLocationChangeListener,
         ClusterManager.OnClusterClickListener<Person>, ClusterManager.OnClusterItemClickListener<Person> {

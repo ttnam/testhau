@@ -1,4 +1,4 @@
-package io.yostajsc.izigo.ui.viewpagercards;
+package io.yostajsc.ui.viewpagercards;
 
 import android.app.Activity;
 import android.os.Bundle;

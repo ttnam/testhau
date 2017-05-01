@@ -1,4 +1,4 @@
-package io.yostajsc.izigo.ui.viewholder;
+package io.yostajsc.ui.viewholder;
 
 import android.view.View;
 import android.widget.TextView;

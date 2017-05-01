@@ -1,7 +1,5 @@
-package io.yostajsc.usecase.firebase;
+package io.yostajsc.firebase;
 
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;

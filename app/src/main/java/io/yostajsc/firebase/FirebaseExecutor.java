@@ -1,4 +1,4 @@
-package io.yostajsc.usecase.firebase;
+package io.yostajsc.firebase;
 
 import android.net.Uri;
 import android.support.annotation.NonNull;

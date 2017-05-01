@@ -10,7 +10,7 @@ import io.yostajsc.core.utils.DatetimeUtils;
 import io.yostajsc.izigo.R;
 import io.yostajsc.sdk.model.Timeline;
 import io.yostajsc.sdk.model.Timelines;
-import io.yostajsc.izigo.ui.viewholder.TimelineViewHolder;
+import io.yostajsc.ui.viewholder.TimelineViewHolder;
 
 public class TimelineAdapter extends RecyclerView.Adapter<TimelineViewHolder> {
 

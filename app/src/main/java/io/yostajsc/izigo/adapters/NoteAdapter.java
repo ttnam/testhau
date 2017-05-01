@@ -1,7 +1,5 @@
 package io.yostajsc.izigo.adapters;
 
-import io.yostajsc.izigo.ui.viewholder.NoteViewHolder;
-
 public class NoteAdapter {/* extends RecyclerView.Adapter<NoteViewHolder> {
 
     private Context mContext;

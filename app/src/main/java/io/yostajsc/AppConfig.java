@@ -20,7 +20,7 @@ import io.realm.RealmConfiguration;
 import io.yostajsc.core.utils.FontUtils;
 import io.yostajsc.core.utils.PrefsUtils;
 import io.yostajsc.sdk.model.trip.IgImage;
-import io.yostajsc.usecase.firebase.FirebaseManager;
+import io.yostajsc.firebase.FirebaseManager;
 import io.yostajsc.utils.LocationService;
 
 /**

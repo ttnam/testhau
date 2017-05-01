@@ -14,12 +14,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.yostajsc.sdk.model.trip.IgImage;
-import io.yostajsc.sdk.model.trip.IgTrip;
 import io.yostajsc.core.utils.DimensionUtil;
 import io.yostajsc.izigo.R;
-import io.yostajsc.izigo.ui.viewholder.ImageryMoreViewHolder;
-import io.yostajsc.izigo.ui.viewholder.ImageryNormalViewHolder;
-import io.yostajsc.izigo.ui.viewholder.ImageryViewHolder;
+import io.yostajsc.ui.viewholder.ImageryMoreViewHolder;
+import io.yostajsc.ui.viewholder.ImageryNormalViewHolder;
+import io.yostajsc.ui.viewholder.ImageryViewHolder;
 
 public class ImageryAdapter extends RecyclerView.Adapter<ImageryViewHolder> {
 

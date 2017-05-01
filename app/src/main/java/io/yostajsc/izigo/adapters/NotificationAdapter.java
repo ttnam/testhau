@@ -6,7 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import io.yostajsc.izigo.R;
-import io.yostajsc.izigo.ui.viewholder.NotificationsViewHolder;
+import io.yostajsc.ui.viewholder.NotificationsViewHolder;
 
 /**
  * Created by Phuc-Hau Nguyen on 10/14/2016.

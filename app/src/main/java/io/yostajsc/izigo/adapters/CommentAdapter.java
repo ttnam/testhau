@@ -1,16 +1,13 @@
 package io.yostajsc.izigo.adapters;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import io.yostajsc.core.utils.DatetimeUtils;
 import io.yostajsc.izigo.R;
-import io.yostajsc.sdk.model.Comment;
-import io.yostajsc.izigo.ui.viewholder.CommentViewHolder;
+import io.yostajsc.ui.viewholder.CommentViewHolder;
 
 /**
  * Created by Phuc-Hau Nguyen on 10/14/2016.

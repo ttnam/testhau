@@ -1,4 +1,4 @@
-package io.yostajsc.izigo.ui.viewpagercards;
+package io.yostajsc.ui.viewpagercards;
 
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.CardView;

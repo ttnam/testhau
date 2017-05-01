@@ -15,7 +15,7 @@ import io.yostajsc.core.utils.DatetimeUtils;
 import io.yostajsc.izigo.R;
 import io.yostajsc.sdk.model.IGCallback;
 import io.yostajsc.sdk.api.IzigoSdk;
-import io.yostajsc.usecase.firebase.FirebaseExecutor;
+import io.yostajsc.firebase.FirebaseExecutor;
 import io.yostajsc.utils.UiUtils;
 import io.yostajsc.core.glide.CropCircleTransformation;
 

@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import io.yostajsc.core.utils.DatetimeUtils;
 import io.yostajsc.izigo.R;
 import io.yostajsc.sdk.model.trip.TripModel;
-import io.yostajsc.izigo.ui.viewholder.TripViewHolder;
+import io.yostajsc.ui.viewholder.TripViewHolder;
 
 /**
  * Created by Phuc-Hau Nguyen on 10/14/2016.

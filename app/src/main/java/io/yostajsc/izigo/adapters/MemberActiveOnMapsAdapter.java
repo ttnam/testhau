@@ -13,7 +13,7 @@ import java.util.List;
 
 import io.yostajsc.izigo.R;
 import io.yostajsc.sdk.model.user.IgFriend;
-import io.yostajsc.izigo.ui.viewholder.ActiveMemberOnMapsViewHolder;
+import io.yostajsc.ui.viewholder.ActiveMemberOnMapsViewHolder;
 
 /**
  * Created by Phuc-Hau Nguyen on 10/14/2016.
