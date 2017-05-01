@@ -71,7 +71,6 @@ public class IgCache {
 
         private void cache(String key, Bitmap bitmap) {
             if (get(key) == null) {
-                Log.e(TAG, key);
                 mBitmapCaching.put(key, bitmap);
             }
         }

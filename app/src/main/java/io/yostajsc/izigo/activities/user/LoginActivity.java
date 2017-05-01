@@ -30,6 +30,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.yostajsc.core.interfaces.CallBack;
 import io.yostajsc.core.interfaces.CallBackWith;
+import io.yostajsc.core.utils.PrefsUtils;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.activities.MainActivity;
 import io.yostajsc.izigo.activities.core.OwnCoreActivity;
@@ -148,7 +149,7 @@ public class LoginActivity extends OwnCoreActivity {
         if (igUser != null) {
 
             String email = igUser.getEmail();
-            String fbId = igUser.getFbId();
+            final String fbId = igUser.getFbId();
             String fireBaseId = igUser.getFireBaseId();
             showProgress();
 
@@ -161,6 +162,7 @@ public class LoginActivity extends OwnCoreActivity {
                     new CallBack() {
                         @Override
                         public void run() {
+                            PrefsUtils.inject(LoginActivity.this).save(AppConfig.FB_ID, fbId);
                             hideProgress();
                             startActivity(new Intent(LoginActivity.this, MainActivity.class));
                             finish();

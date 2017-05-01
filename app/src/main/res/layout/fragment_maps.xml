@@ -38,16 +38,6 @@
                 android:text="2km away" />
         </LinearLayout>
 
-        <FrameLayout
-            android:id="@id/layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone">
-
-            <include layout="@layout/item_map_person" />
-
-        </FrameLayout>
-
     </LinearLayout>
 
     <android.support.design.widget.FloatingActionButton

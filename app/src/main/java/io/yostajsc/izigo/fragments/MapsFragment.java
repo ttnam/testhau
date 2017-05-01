@@ -13,6 +13,8 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -25,6 +27,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.database.DataSnapshot;
 import com.google.maps.android.clustering.Cluster;
+import com.google.maps.android.clustering.ClusterItem;
 import com.google.maps.android.clustering.ClusterManager;
 import com.google.maps.android.clustering.view.DefaultClusterRenderer;
 import com.google.maps.android.ui.IconGenerator;
@@ -39,6 +42,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.yostajsc.core.fragments.CoreFragment;
+import io.yostajsc.core.glide.CropCircleTransformation;
 import io.yostajsc.core.interfaces.CallBack;
 import io.yostajsc.core.interfaces.CallBackWith;
 import io.yostajsc.sdk.api.IzigoSdk;
@@ -54,31 +58,16 @@ import io.yostajsc.izigo.dialogs.DialogActiveMembers;
 import io.yostajsc.sdk.model.trip.IgTrip;
 import io.yostajsc.usecase.firebase.FirebaseManager;
 
-public class MapsFragment extends CoreFragment implements OnMapReadyCallback, GoogleMap.OnMyLocationChangeListener
-        /*GoogleMap.OnMarkerClickListener, ClusterManager.OnClusterClickListener<Person>, ClusterManager.OnClusterItemClickListener<Person>*/ {
+public class MapsFragment extends CoreFragment implements OnMapReadyCallback, GoogleMap.OnMyLocationChangeListener,
+        ClusterManager.OnClusterClickListener<Person>, ClusterManager.OnClusterItemClickListener<Person> {
 
     private static final String TAG = MapsFragment.class.getSimpleName();
 
-    @BindView(R.id.text_view_distance)
-    TextView textDistance;
+    private SupportMapFragment mapFragment = null;
 
-    @BindView(R.id.layout)
-    FrameLayout layout;
-
-    @BindView(R.id.text_view_name)
-    TextView textName;
-
-    @BindView(R.id.image_view)
-    AppCompatImageView imageAvatar;
-
-
-    private boolean mIsFirst = false;
-
-    private LatLngBounds mFirstBound = null;
-    private Person mCurrentPerson = null;
+    private boolean mIsFirst = true;
 
     private DialogActiveMembers mDialogActiveMembers = null;
-
 
     private GoogleMap mMap = null;
     private List<IgFriend> mMembers = null;
@@ -101,10 +90,7 @@ public class MapsFragment extends CoreFragment implements OnMapReadyCallback, Go
     }
 
     private void onApplyViews() {
-
-        SupportMapFragment mapFragment = ((SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map));
-        mapFragment.getMapAsync(this);
-
+        initMapsIfNecessary();
         this.mDialogActiveMembers = new DialogActiveMembers(mContext, new CallBackWith<IgFriend>() {
             @Override
             public void run(IgFriend igFriend) {
@@ -114,15 +100,19 @@ public class MapsFragment extends CoreFragment implements OnMapReadyCallback, Go
         });
     }
 
+    private void initMapsIfNecessary() {
+        if (mapFragment != null)
+            return;
+        mapFragment = ((SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map));
+        mapFragment.getMapAsync(this);
+    }
 
     @Override
     public void onStart() {
         super.onStart();
 
         mTripId = PrefsUtils.inject(mContext).getString(IgTrip.TRIP_ID);
-
-        // Register fire base data change listener
-        registerDataChangeListener();
+        AppConfig.getInstance().startLocationServer(mTripId);
 
         if (NetworkUtils.isNetworkConnected(mContext)) {
 
@@ -138,6 +128,8 @@ public class MapsFragment extends CoreFragment implements OnMapReadyCallback, Go
                                 friend.getAvatar()
                         ));
                     }
+                    // Register fire base data change listener
+                    registerDataChangeListener();
                 }
 
                 @Override
@@ -168,12 +160,14 @@ public class MapsFragment extends CoreFragment implements OnMapReadyCallback, Go
     @Override
     public void onMapReady(GoogleMap googleMap) {
         this.mMap = googleMap;
-        this.mMap.setMaxZoomPreference(20f);
-        this.mMap.setMinZoomPreference(2f);
+        this.mMap.setMaxZoomPreference(15f);
+        this.mMap.setMinZoomPreference(4f);
+        this.mMap.setMyLocationEnabled(true);
         this.mMap.setOnMyLocationChangeListener(this);
         this.mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(mContext, R.raw.map_style));
         this.mMap.getUiSettings().setMyLocationButtonEnabled(true);
         this.mMap.getUiSettings().setCompassEnabled(true);
+        this.mMap.getUiSettings().setMapToolbarEnabled(false);
         this.mMap.getUiSettings().setRotateGesturesEnabled(true);
         this.mMap.getUiSettings().setScrollGesturesEnabled(true);
         this.mMap.getUiSettings().setZoomGesturesEnabled(true);
@@ -181,6 +175,10 @@ public class MapsFragment extends CoreFragment implements OnMapReadyCallback, Go
         // Cluster renderer
         this.mClusterManager = new ClusterManager<>(mContext, mMap);
         this.mClusterManager.setRenderer(new PersonRenderer());
+        this.mMap.setOnCameraIdleListener(mClusterManager);
+        this.mMap.setOnMarkerClickListener(mClusterManager);
+        this.mClusterManager.setOnClusterClickListener(this);
+        this.mClusterManager.setOnClusterItemClickListener(this);
     }
 
     private void registerDataChangeListener() {
@@ -198,6 +196,7 @@ public class MapsFragment extends CoreFragment implements OnMapReadyCallback, Go
     }
 
     private void onLocationsChange(DataSnapshot dataSnapshot) {
+
         for (String fbId : mTracks.keySet()) {
             if (dataSnapshot.hasChild(fbId)) {
 
@@ -231,19 +230,13 @@ public class MapsFragment extends CoreFragment implements OnMapReadyCallback, Go
         makeCluster();
     }
 
-    private void clearAll() {
-        if (this.mClusterManager != null) {
-            this.mClusterManager.clearItems();
-        }
-    }
-
     private void makeCluster() {
 
         // Not initialize yet
         if (mClusterManager == null)
             return;
 
-        clearAll();
+        this.mClusterManager.clearItems();
 
         // Call caching
         List<IgImage> igImages = new ArrayList<>();
@@ -253,16 +246,15 @@ public class MapsFragment extends CoreFragment implements OnMapReadyCallback, Go
             mClusterManager.addItem(entry.getValue());
             igImages.add(new IgImage(entry.getKey(), entry.getValue().getAvatar()));
         }
+        mClusterManager.cluster();
         // Bitmaps caching
         IgCache.BitmapsCache.askForMemory().cache(new CallBack() {
             @Override
             public void run() {
-                mClusterManager.cluster();
+
             }
         }, igImages.toArray(new IgImage[mTracks.size()]));
     }
-/*
-
 
     @Override
     public void onDestroyView() {
@@ -271,80 +263,27 @@ public class MapsFragment extends CoreFragment implements OnMapReadyCallback, Go
         FirebaseManager.inject().unregisterListenerOnTrack();
     }
 
-    private void processingUpdateUiOnFocusMember(IgFriend igFriend) {
-
-        if (igFriend == null)
-            return;
-        layout.setVisibility(View.VISIBLE);
-        Glide.with(this)
-                .load(igFriend.getAvatar())
-                .bitmapTransform(new CropCircleTransformation(mContext))
-                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                .into(imageAvatar);
-
-        this.textName.setText(igFriend.getName());
-        this.textDistance.setText("5 km");
-        mFocus = igFriend.getFbId();
-    }
-
-    @OnClick(R.id.image_close)
-    public void closeInfoPanel() {
-        layout.setVisibility(View.GONE);
-    }
-
-    @Override
-    public boolean onMarkerClick(Marker marker) {
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(marker.getPosition()));
-        mFocus = marker.getTitle();
-        return false;
-    }
-
-
     @Override
     public boolean onClusterClick(Cluster<Person> cluster) {
-        try {
-            LatLngBounds.Builder builder = LatLngBounds.builder();
-            for (ClusterItem item : cluster.getItems()) {
-                builder.include(item.getPosition());
-            }
-            // Get the LatLngBounds
-            final LatLngBounds latLngBounds = builder.build();
-            if (mIsFirst)
-                mFirstBound = latLngBounds;
-            // Animate camera to the bounds
-
-            mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(new LatLngBounds(
-                    latLngBounds.southwest,
-                    latLngBounds.northeast), 150));
-
-        } catch (Exception e) {
-            e.printStackTrace();
+        LatLngBounds.Builder builder = LatLngBounds.builder();
+        for (ClusterItem item : cluster.getItems()) {
+            builder.include(item.getPosition());
         }
+        // Get the LatLngBounds
+        final LatLngBounds latLngBounds = builder.build();
+        // Animate camera to the bounds
+        mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(new LatLngBounds(
+                latLngBounds.southwest,
+                latLngBounds.northeast), 150));
+
         return true;
     }
 
     @Override
     public boolean onClusterItemClick(Person person) {
-        try {
-            this.mCurrentPerson = person;
-            // this.layoutInfo.setVisibility(View.VISIBLE);
-            */
-/*this.textName.setText(person.getName());
-            this.textDistance.setText(person.getDistance() + " km");
-            Glide.with(mContext)
-                    .load(person.getAvatar())
-                    .priority(Priority.IMMEDIATE)
-                    .bitmapTransform(new CropCircleTransformation(mContext))
-                    .diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imageAvatar);*//*
-
-        } catch (Exception e) {
-            LogUtils.log(TAG, e.getMessage());
-        }
+        this.mFocus = person.getId();
         return false;
     }
-
-*/
-
 
     private class PersonRenderer extends DefaultClusterRenderer<Person> {
 
@@ -414,7 +353,7 @@ public class MapsFragment extends CoreFragment implements OnMapReadyCallback, Go
                 Bitmap icon = mMultiGenerator.makeIcon(String.valueOf(cluster.getSize()));
                 markerOptions.icon(BitmapDescriptorFactory.fromBitmap(icon));
                 if (mIsFirst) {
-                    //onClusterClick(cluster);
+                    onClusterClick(cluster);
                     mIsFirst = false;
                 }
             } catch (Exception e) {

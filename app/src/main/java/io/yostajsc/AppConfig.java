@@ -32,7 +32,6 @@ public class AppConfig extends Application {
     public static final String TAG = AppConfig.class.getSimpleName();
 
     public static final String AUTHORIZATION = "AUTHORIZATION";
-    public static final String USER = "USER";
     public static final String TRIP_ID = "TRIP_ID";
     public static final String FB_ID = "FB_ID";
     public static final String KEY_PICK_LOCATION = "KEY_PICK_LOCATION";
@@ -101,9 +100,8 @@ public class AppConfig extends Application {
         LoginManager.getInstance().logOut();
     }
 
-    public void startLocationServer(String tripId, String fbId) {
+    public void startLocationServer(String tripId) {
         PrefsUtils.inject(this).save(AppConfig.TRIP_ID, tripId);
-        PrefsUtils.inject(this).save(AppConfig.FB_ID, fbId);
         startService(new Intent(this, LocationService.class));
     }
 
