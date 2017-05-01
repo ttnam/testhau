@@ -7,8 +7,6 @@ import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.RealmResults;
 import io.yostajsc.core.interfaces.CallBackWith;
-import io.yostajsc.core.realm.trip.OwnTrip;
-import io.yostajsc.core.realm.trip.OwnTrips;
 import io.yostajsc.sdk.model.Timeline;
 import io.yostajsc.sdk.model.Timelines;
 

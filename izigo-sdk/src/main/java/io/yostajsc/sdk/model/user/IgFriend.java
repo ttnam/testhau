@@ -7,7 +7,7 @@ import java.io.Serializable;
  * Created by Phuc-Hau Nguyen on 3/4/2017.
  */
 
-public class IgFriend implements Serializable {
+public class IgFriend implements Serializable{
 
     private String fbId;
     private String name;

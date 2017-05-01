@@ -40,6 +40,12 @@ public class TripTimelineActivity extends OwnCoreActivity {
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        TripTimelineActivityPermissionsDispatcher.askGPSWithCheck(this);
+    }
+
+    @Override
     public void onApplyViews() {
         onApplyViewPager();
         onApplyTabLayout();
