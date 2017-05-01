@@ -112,10 +112,6 @@ dependencies {
     compile "com.google.firebase:firebase-database:$rootProject.firebaseVersion"
     compile "com.google.firebase:firebase-messaging:$rootProject.firebaseVersion"
 
-    compile 'jp.wasabeef:recyclerview-animators:2.2.3'
-    compile 'com.daimajia.easing:library:1.0.1@aar'
-    compile 'com.nineoldandroids:library:2.4.0'
-
     compile 'com.google.maps.android:android-maps-utils:0.4.4'
     compile "org.greenrobot:eventbus:$rootProject.eventBusVersion"
     compile "com.google.android.gms:play-services-auth:$rootProject.googlePlayServicesVersion"

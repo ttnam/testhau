@@ -9,12 +9,7 @@ import android.support.v7.widget.AppCompatImageView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.TextView;
-
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -38,11 +33,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.yostajsc.core.fragments.CoreFragment;
-import io.yostajsc.core.glide.CropCircleTransformation;
 import io.yostajsc.core.interfaces.CallBack;
 import io.yostajsc.core.interfaces.CallBackWith;
 import io.yostajsc.sdk.api.IzigoSdk;
@@ -119,17 +112,7 @@ public class MapsFragment extends CoreFragment implements OnMapReadyCallback, Go
             IzigoSdk.TripExecutor.getMembers(mTripId, new IGCallback<List<IgFriend>, String>() {
                 @Override
                 public void onSuccessful(List<IgFriend> igFriends) {
-                    mMembers = igFriends;
-                    mFocus = mMembers.get(0).getFbId();
-                    for (IgFriend friend : igFriends) {
-                        mTracks.put(friend.getFbId(), new Person(
-                                friend.getFbId(),
-                                friend.getName(),
-                                friend.getAvatar()
-                        ));
-                    }
-                    // Register fire base data change listener
-                    registerDataChangeListener();
+                    onReceiveMembers(igFriends);
                 }
 
                 @Override
@@ -142,6 +125,24 @@ public class MapsFragment extends CoreFragment implements OnMapReadyCallback, Go
 
                 }
             });
+        }
+    }
+
+    private void onReceiveMembers(List<IgFriend> igFriends) {
+        if (igFriends.size() > 0) {
+            mMembers = igFriends;
+            mFocus = mMembers.get(0).getFbId();
+            for (IgFriend friend : igFriends) {
+                mTracks.put(friend.getFbId(), new Person(
+                        friend.getFbId(),
+                        friend.getName(),
+                        friend.getAvatar()
+                ));
+            }
+            // Register fire base data change listener
+            registerDataChangeListener();
+        } else {
+            AppConfig.showToast(mContext, "Chưa có thành viên nào!");
         }
     }
 
@@ -162,7 +163,7 @@ public class MapsFragment extends CoreFragment implements OnMapReadyCallback, Go
         this.mMap = googleMap;
         this.mMap.setMaxZoomPreference(15f);
         this.mMap.setMinZoomPreference(4f);
-        this.mMap.setMyLocationEnabled(true);
+        // this.mMap.setMyLocationEnabled(true);
         this.mMap.setOnMyLocationChangeListener(this);
         this.mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(mContext, R.raw.map_style));
         this.mMap.getUiSettings().setMyLocationButtonEnabled(true);
@@ -227,7 +228,8 @@ public class MapsFragment extends CoreFragment implements OnMapReadyCallback, Go
 
         // mMap.moveCamera(CameraUpdateFactory.newLatLng(mTracks.get(mFocus).getPosition()));
 
-        makeCluster();
+        if (mTracks.size() > 0)
+            makeCluster();
     }
 
     private void makeCluster() {
@@ -243,8 +245,12 @@ public class MapsFragment extends CoreFragment implements OnMapReadyCallback, Go
 
         // Convert to cluster
         for (Map.Entry<String, Person> entry : mTracks.entrySet()) {
-            mClusterManager.addItem(entry.getValue());
-            igImages.add(new IgImage(entry.getKey(), entry.getValue().getAvatar()));
+
+            Person person = entry.getValue();
+            if (person.getPosition() != null) {
+                mClusterManager.addItem(person);
+                igImages.add(new IgImage(entry.getKey(), entry.getValue().getAvatar()));
+            }
         }
         mClusterManager.cluster();
         // Bitmaps caching
