@@ -311,7 +311,7 @@ public class TripDetailActivity extends OwnCoreActivity {
     @OnClick(R.id.layout_activity)
     public void loadActivity() {
         PrefsUtils.inject(this).save(IgTrip.TRIP_ID, tripId);
-        Intent intent = new Intent(TripDetailActivity.this, TripTimelineActivity.class);
+        Intent intent = new Intent(TripDetailActivity.this, MapsActivity.class);
         intent.putExtra(IgTrip.TRIP_ID, tripId);
         startActivity(intent);
     }

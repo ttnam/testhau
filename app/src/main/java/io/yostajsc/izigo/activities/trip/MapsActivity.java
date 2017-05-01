@@ -1,15 +1,18 @@
-package io.yostajsc.izigo.fragments;
+package io.yostajsc.izigo.activities.trip;
 
+import android.Manifest;
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.AppCompatImageView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
+
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -35,79 +38,71 @@ import java.util.Map;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.yostajsc.core.fragments.CoreFragment;
+import io.yostajsc.AppConfig;
+import io.yostajsc.core.code.MessageType;
 import io.yostajsc.core.interfaces.CallBack;
 import io.yostajsc.core.interfaces.CallBackWith;
+import io.yostajsc.core.utils.NetworkUtils;
+import io.yostajsc.core.utils.PrefsUtils;
+import io.yostajsc.firebase.FirebaseManager;
+import io.yostajsc.izigo.R;
+import io.yostajsc.izigo.activities.OwnCoreActivity;
+import io.yostajsc.izigo.dialogs.DialogActiveMembers;
+import io.yostajsc.izigo.fragments.MultiDrawable;
+import io.yostajsc.izigo.fragments.Person;
 import io.yostajsc.sdk.api.IzigoSdk;
 import io.yostajsc.sdk.cache.IgCache;
 import io.yostajsc.sdk.model.IGCallback;
 import io.yostajsc.sdk.model.trip.IgImage;
-import io.yostajsc.sdk.model.user.IgFriend;
-import io.yostajsc.core.utils.NetworkUtils;
-import io.yostajsc.core.utils.PrefsUtils;
-import io.yostajsc.izigo.R;
-import io.yostajsc.AppConfig;
-import io.yostajsc.izigo.dialogs.DialogActiveMembers;
 import io.yostajsc.sdk.model.trip.IgTrip;
-import io.yostajsc.firebase.FirebaseManager;
+import io.yostajsc.sdk.model.user.IgFriend;
+import io.yostajsc.utils.LocationUtils;
+import permissions.dispatcher.NeedsPermission;
+import permissions.dispatcher.RuntimePermissions;
 
-public class MapsFragment extends CoreFragment implements OnMapReadyCallback, GoogleMap.OnMyLocationChangeListener,
-        ClusterManager.OnClusterClickListener<Person>, ClusterManager.OnClusterItemClickListener<Person> {
+@RuntimePermissions
+public class MapsActivity extends OwnCoreActivity
+        implements
+        OnMapReadyCallback, GoogleMap.OnMyLocationChangeListener,
+        ClusterManager.OnClusterClickListener<Person>,
+        ClusterManager.OnClusterItemClickListener<Person> {
 
-    private static final String TAG = MapsFragment.class.getSimpleName();
-
-    private SupportMapFragment mapFragment = null;
+    private static final String TAG = MapsActivity.class.getSimpleName();
 
     private boolean mIsFirst = true;
-
+    private GoogleMap mMap = null;
+    private String mTripId = null, mFocus = null;
+    private List<IgFriend> mMembers = null;
+    private HashMap<String, Person> mTracks = null;
+    private ClusterManager<Person> mClusterManager;
     private DialogActiveMembers mDialogActiveMembers = null;
 
-    private GoogleMap mMap = null;
-    private List<IgFriend> mMembers = null;
-    private String mTripId = null, mFocus = null;
-    private HashMap<String, Person> mTracks = null;
-
-    private ClusterManager<Person> mClusterManager;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_maps);
+        ButterKnife.bind(this);
+        onApplyViews();
+        onApplyData();
+    }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_maps, container, false);
-        ButterKnife.bind(this, rootView);
+    protected void onStart() {
+        super.onStart();
+        MapsActivityPermissionsDispatcher.askGPSWithCheck(this);
+    }
 
-        onApplyViews();
+    @Override
+    public void onApplyData() {
+        super.onApplyData();
 
         this.mTracks = new HashMap<>();
         this.mMembers = new ArrayList<>();
 
-        return rootView;
-    }
-
-    private void onApplyViews() {
-        initMapsIfNecessary();
-        this.mDialogActiveMembers = new DialogActiveMembers(mContext, new CallBackWith<IgFriend>() {
-            @Override
-            public void run(IgFriend igFriend) {
-                mFocus = igFriend.getFbId();
-                mMap.moveCamera(CameraUpdateFactory.newLatLng(mTracks.get(mFocus).getPosition()));
-            }
-        });
-    }
-
-    private void initMapsIfNecessary() {
-        if (mapFragment != null)
-            return;
-        mapFragment = ((SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map));
-        mapFragment.getMapAsync(this);
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        mTripId = PrefsUtils.inject(mContext).getString(IgTrip.TRIP_ID);
+        mTripId = PrefsUtils.inject(this).getString(IgTrip.TRIP_ID);
         AppConfig.getInstance().startLocationServer(mTripId);
 
-        if (NetworkUtils.isNetworkConnected(mContext)) {
+        if (NetworkUtils.isNetworkConnected(this)) {
 
             IzigoSdk.TripExecutor.getMembers(mTripId, new IGCallback<List<IgFriend>, String>() {
                 @Override
@@ -117,7 +112,7 @@ public class MapsFragment extends CoreFragment implements OnMapReadyCallback, Go
 
                 @Override
                 public void onFail(String error) {
-                    AppConfig.showToast(mContext, error);
+                    AppConfig.showToast(MapsActivity.this, error);
                 }
 
                 @Override
@@ -126,6 +121,21 @@ public class MapsFragment extends CoreFragment implements OnMapReadyCallback, Go
                 }
             });
         }
+    }
+
+    @Override
+    public void onApplyViews() {
+        super.onApplyViews();
+        SupportMapFragment mapFragment
+                = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
+        this.mDialogActiveMembers = new DialogActiveMembers(this, new CallBackWith<IgFriend>() {
+            @Override
+            public void run(IgFriend igFriend) {
+                mFocus = igFriend.getFbId();
+                mMap.moveCamera(CameraUpdateFactory.newLatLng(mTracks.get(mFocus).getPosition()));
+            }
+        });
     }
 
     private void onReceiveMembers(List<IgFriend> igFriends) {
@@ -142,7 +152,7 @@ public class MapsFragment extends CoreFragment implements OnMapReadyCallback, Go
             // Register fire base data change listener
             registerDataChangeListener();
         } else {
-            AppConfig.showToast(mContext, "Chưa có thành viên nào!");
+            AppConfig.showToast(this, "Chưa có thành viên nào!");
         }
     }
 
@@ -153,33 +163,10 @@ public class MapsFragment extends CoreFragment implements OnMapReadyCallback, Go
     }
 
     @Override
-    public void onMyLocationChange(Location location) {
-        /*if (mFocus == null)
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(location.getLatitude(), location.getLongitude())));*/
-    }
-
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        this.mMap = googleMap;
-        this.mMap.setMaxZoomPreference(15f);
-        this.mMap.setMinZoomPreference(4f);
-        // this.mMap.setMyLocationEnabled(true);
-        this.mMap.setOnMyLocationChangeListener(this);
-        this.mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(mContext, R.raw.map_style));
-        this.mMap.getUiSettings().setMyLocationButtonEnabled(true);
-        this.mMap.getUiSettings().setCompassEnabled(true);
-        this.mMap.getUiSettings().setMapToolbarEnabled(false);
-        this.mMap.getUiSettings().setRotateGesturesEnabled(true);
-        this.mMap.getUiSettings().setScrollGesturesEnabled(true);
-        this.mMap.getUiSettings().setZoomGesturesEnabled(true);
-
-        // Cluster renderer
-        this.mClusterManager = new ClusterManager<>(mContext, mMap);
-        this.mClusterManager.setRenderer(new PersonRenderer());
-        this.mMap.setOnCameraIdleListener(mClusterManager);
-        this.mMap.setOnMarkerClickListener(mClusterManager);
-        this.mClusterManager.setOnClusterClickListener(this);
-        this.mClusterManager.setOnClusterItemClickListener(this);
+    protected void onDestroy() {
+        super.onDestroy();
+        AppConfig.getInstance().stopLocationService();
+        FirebaseManager.inject().unregisterListenerOnTrack();
     }
 
     private void registerDataChangeListener() {
@@ -191,7 +178,7 @@ public class MapsFragment extends CoreFragment implements OnMapReadyCallback, Go
         }, new CallBackWith<String>() {
             @Override
             public void run(String error) {
-                AppConfig.showToast(mContext, error);
+                AppConfig.showToast(MapsActivity.this, error);
             }
         });
     }
@@ -263,11 +250,33 @@ public class MapsFragment extends CoreFragment implements OnMapReadyCallback, Go
     }
 
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        AppConfig.getInstance().stopLocationService();
-        FirebaseManager.inject().unregisterListenerOnTrack();
+    public void onMyLocationChange(Location location) {
+
     }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        this.mMap = googleMap;
+        this.mMap.setMaxZoomPreference(15f);
+        this.mMap.setMinZoomPreference(4f);
+        this.mMap.setOnMyLocationChangeListener(this);
+        this.mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, R.raw.map_style));
+        this.mMap.getUiSettings().setMyLocationButtonEnabled(true);
+        this.mMap.getUiSettings().setCompassEnabled(true);
+        this.mMap.getUiSettings().setMapToolbarEnabled(false);
+        this.mMap.getUiSettings().setRotateGesturesEnabled(true);
+        this.mMap.getUiSettings().setScrollGesturesEnabled(true);
+        this.mMap.getUiSettings().setZoomGesturesEnabled(true);
+
+        // Cluster renderer
+        this.mClusterManager = new ClusterManager<>(this, mMap);
+        this.mClusterManager.setRenderer(new PersonRenderer(this));
+        this.mMap.setOnCameraIdleListener(mClusterManager);
+        this.mMap.setOnMarkerClickListener(mClusterManager);
+        this.mClusterManager.setOnClusterClickListener(this);
+        this.mClusterManager.setOnClusterItemClickListener(this);
+    }
+
 
     @Override
     public boolean onClusterClick(Cluster<Person> cluster) {
@@ -291,23 +300,56 @@ public class MapsFragment extends CoreFragment implements OnMapReadyCallback, Go
         return false;
     }
 
+
+    @NeedsPermission({Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION})
+    public void askGPS() {
+        if (!LocationUtils.Gps.connect().isEnable())
+            LocationUtils.Gps.request(this).askGPS();
+    }
+
+    @Override
+    protected void onGpsOff() {
+        super.onGpsOff();
+        MapsActivityPermissionsDispatcher.askGPSWithCheck(this);
+    }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        MapsActivityPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == MessageType.USER_GPS) {
+            if (resultCode != RESULT_OK) {
+                MapsActivityPermissionsDispatcher.askGPSWithCheck(this);
+            }
+        }
+    }
+
     private class PersonRenderer extends DefaultClusterRenderer<Person> {
 
-        private final IconGenerator mSingleGenerator = new IconGenerator(mContext);
-        private final IconGenerator mMultiGenerator = new IconGenerator(mContext);
+        private final IconGenerator mSingleGenerator;
+        private final IconGenerator mMultiGenerator;
         private final ImageView mSingleImageView, mMultiImageView;
         private int mDimension;
 
-        PersonRenderer() {
-            super(mContext, mMap, mClusterManager);
+        PersonRenderer(Context context) {
+            super(context, mMap, mClusterManager);
+
+            mSingleGenerator = new IconGenerator(getApplicationContext());
+            mMultiGenerator = new IconGenerator(getApplicationContext());
 
             // Single profile
-            View singleProfile = getActivity().getLayoutInflater().inflate(R.layout.layout_marker_profile, null);
+            View singleProfile = getLayoutInflater().inflate(R.layout.layout_marker_profile, null);
             mSingleImageView = (AppCompatImageView) singleProfile.findViewById(R.id.image_view);
             mSingleGenerator.setContentView(singleProfile);
 
             // Multi profile
-            View multiProfile = getActivity().getLayoutInflater().inflate(R.layout.layout_multi_profile, null);
+            View multiProfile = getLayoutInflater().inflate(R.layout.layout_multi_profile, null);
             mMultiGenerator.setContentView(multiProfile);
             mMultiImageView = (AppCompatImageView) multiProfile.findViewById(R.id.image_view);
 
