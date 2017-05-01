@@ -7,26 +7,24 @@ import android.os.Bundle;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
+import android.text.TextUtils;
 import android.view.Window;
-import android.view.animation.AccelerateDecelerateInterpolator;
-import android.widget.RelativeLayout;
+import android.widget.TextView;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.yostajsc.AppConfig;
 import io.yostajsc.core.interfaces.CallBackWith;
-import io.yostajsc.core.code.MessageInfo;
 import io.yostajsc.core.utils.AppUtils;
-import io.yostajsc.core.utils.NetworkUtils;
-import io.yostajsc.core.designs.animations.YoYo;
-import io.yostajsc.core.designs.animations.fading_entrances.FadeInAnimator;
+import io.yostajsc.core.utils.ValidateUtils;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.adapters.CommentAdapter;
+import io.yostajsc.sdk.api.IzigoSdk;
+import io.yostajsc.sdk.model.Comment;
+import io.yostajsc.sdk.model.IGCallback;
 import io.yostajsc.utils.UiUtils;
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 
@@ -39,16 +37,15 @@ public class DialogComment extends Dialog {
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
 
-    @BindView(R.id.layout)
-    RelativeLayout layouNoNet;
-
     @BindView(R.id.edit_text)
     AppCompatEditText editText;
+
+    @BindView(R.id.text_trip_name)
+    TextView textTripName;
 
     @BindView(R.id.button)
     AppCompatImageView btnSend;
 
-    private String tripId, tripName;
     private Activity mOwnerActivity = null;
     private CommentAdapter mCommentsAdapter = null;
 
@@ -76,13 +73,6 @@ public class DialogComment extends Dialog {
         setContentView(R.layout.view_dialog_comment);
         ButterKnife.bind(this);
         onApplyRecyclerView();
-        // onToggleUI(NetworkUtils.isNetworkConnected(mOwnerActivity));
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        EventBus.getDefault().register(this);
     }
 
     private void onApplyRecyclerView() {
@@ -95,75 +85,49 @@ public class DialogComment extends Dialog {
         });
     }
 
-    private void onToggleUI(boolean IsConnected) {
-        if (IsConnected) {
-            layouNoNet.setVisibility(View.GONE);
-            recyclerView.setVisibility(View.VISIBLE);
-        } else {
-            layouNoNet.setVisibility(View.VISIBLE);
-            recyclerView.setVisibility(View.GONE);
-        }
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onEvent(MessageInfo messageInfo) {
-        /*if (messageInfo.getMessage() == MessageType.INTERNET_CONNECTED) {
-            layoutRelative.setVisibility(View.GONE);
-            recyclerView.setVisibility(View.VISIBLE);
-        }*/
-    }
-
     public void setTripName(String tripName) {
-
+        textTripName.setText(tripName);
     }
 
     public void setTripId(String tripId) {
+        if (TextUtils.isEmpty(tripId))
+            return;
+        IzigoSdk.TripExecutor.getComments(tripId, new IGCallback<List<Comment>, String>() {
+            @Override
+            public void onSuccessful(List<Comment> comments) {
+                updateUI(comments);
+            }
 
-        // Load from disk
+            @Override
+            public void onFail(String error) {
+                AppConfig.showToast(getContext(), error);
+            }
 
-        // Load from internet
-       /* if (NetworkUtils.isNetworkConnected(mOwnerActivity)) {
+            @Override
+            public void onExpired() {
 
-            IzigoApiManager.connect().getComments(tripId, new CallBack() {
-                @Override
-                public void run() {
-                    // TODO: expired
-                }
-            }, new CallBackWith<Comments>() {
-                @Override
-                public void run(Comments comments) {
-                    // TODO: Write to disk
-
-                    updateUI(comments);
-                }
-            }, new CallBackWith<String>() {
-                @Override
-                public void run(String s) {
-
-                }
-            });
-        }*/
+            }
+        });
     }
-/*
-    private void updateUI(Comments comments) {
-        if (comments != null && comments.size() > 0) {
+
+    private void updateUI(List<Comment> comments) {
+        if (comments.size() > 0) {
             mCommentsAdapter.replaceAll(comments);
-            layouNoNet.setVisibility(View.GONE);
-        } else {
-            layouNoNet.setVisibility(View.VISIBLE);
         }
-    }*/
+    }
 
     @OnClick(R.id.button)
     public void onSendComment() {
         final String cmtContent = editText.getText().toString();
 
-        /*if (ValidateUtils.isCommentAccepted(cmtContent)) {
+        if (ValidateUtils.isCommentAccepted(cmtContent)) {
 
             final String uid = "KGSdIvQ1ESWOJfHPJYqkCeX1juf2";
             final String username = "Nguyễn Phúc Hậu";
 
-            FirebaseManager.bind().USER().child(uid).child("avatar")
+            mCommentsAdapter.add(new Comment());
+
+           /* FirebaseManager.bind().USER().child(uid).child("avatar")
                     .addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
@@ -185,18 +149,10 @@ public class DialogComment extends Dialog {
                         public void onCancelled(DatabaseError databaseError) {
 
                         }
-                    });
-        }*/
+                    });*/
+        }
         editText.clearFocus();
         editText.setText("");
         AppUtils.closeVirtualKeyboard(mOwnerActivity);
-    }
-
-    @OnClick(R.id.layout)
-    public void onReload() {
-        YoYo.with(new FadeInAnimator()).duration(1200)
-                .interpolate(new AccelerateDecelerateInterpolator())
-                .playOn(layouNoNet);
-        onToggleUI(NetworkUtils.isNetworkConnected(getContext()));
     }
 }

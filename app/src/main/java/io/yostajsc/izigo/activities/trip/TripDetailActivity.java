@@ -108,7 +108,7 @@ public class TripDetailActivity extends OwnCoreActivity {
     private String tripId;
     private boolean mIsPublic = false;
     private int mCurrentRoleType = RoleType.GUEST;
-
+    private IgTrip mIgTrip = null;
     private ImageryAdapter albumAdapter = null;
     private TimelineAdapter timelineAdapter = null;
 
@@ -164,7 +164,7 @@ public class TripDetailActivity extends OwnCoreActivity {
         this.rvAlbum.setHasFixedSize(true);
         this.rvAlbum.setRecycledViewPool(new RecyclerView.RecycledViewPool());
         this.rvAlbum.setNestedScrollingEnabled(false);
-        this.rvAlbum.setLayoutManager(new GridLayoutManager(this, 2, GridLayoutManager.HORIZONTAL, false));
+        this.rvAlbum.setLayoutManager(new GridLayoutManager(this, 1, GridLayoutManager.HORIZONTAL, false));
         this.rvAlbum.setItemAnimator(new FadeInUpAnimator());
         this.rvAlbum.addOnItemTouchListener(new RecyclerItemClickListener(this, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
@@ -282,7 +282,9 @@ public class TripDetailActivity extends OwnCoreActivity {
     private void updateUI(final IgTrip igTrip) {
 
         if (igTrip == null) return;
-        // Cache
+
+        mIgTrip = igTrip;
+
         AppConfig.igImages = igTrip.getAlbum();
         this.albumAdapter.replaceAll(igTrip.getAlbum());
 
@@ -305,7 +307,7 @@ public class TripDetailActivity extends OwnCoreActivity {
         DialogComment dialogComment = new DialogComment(this);
         dialogComment.show();
         dialogComment.setTripId(tripId);
-        dialogComment.setTripName(tripId);
+        dialogComment.setTripName(mIgTrip.getName());
     }
 
     @OnClick(R.id.image_view)

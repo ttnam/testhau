@@ -22,7 +22,7 @@ import io.yostajsc.ui.viewholder.ImageryViewHolder;
 
 public class ImageryAdapter extends RecyclerView.Adapter<ImageryViewHolder> {
 
-    private final static int MAX_ITEM = 6;
+    private final static int MAX_ITEM = 3;
     private static boolean isMore = false;
     private static int size = 0;
     private Context mContext;

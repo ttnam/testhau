@@ -1,12 +1,18 @@
 package io.yostajsc.izigo.adapters;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import io.yostajsc.core.utils.DatetimeUtils;
 import io.yostajsc.izigo.R;
+import io.yostajsc.sdk.model.Comment;
 import io.yostajsc.ui.viewholder.CommentViewHolder;
 
 /**
@@ -16,11 +22,11 @@ import io.yostajsc.ui.viewholder.CommentViewHolder;
 public class CommentAdapter extends RecyclerView.Adapter<CommentViewHolder> {
 
     private Context mContext = null;
-    // private Comments mComments = null;
+    private List<Comment> mData = null;
 
     public CommentAdapter(Context context) {
         this.mContext = context;
-//         this.mComments = new Comments();
+        this.mData = new ArrayList<>();
     }
 
     @Override
@@ -31,27 +37,27 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentViewHolder> {
 
     @Override
     public void onBindViewHolder(CommentViewHolder holder, int position) {
-       /* Comment comment = mComments.get(position);
+        Comment comment = mData.get(position);
         holder.bind(
                 comment.getCreatorAvatar(),
                 comment.getCreatorName(),
                 comment.getContent(),
                 DatetimeUtils.getDate(comment.getCreatedTime())
-        );*/
+        );
     }
 
     @Override
     public int getItemCount() {
-        // if (mComments == null)
+        if (mData == null)
             return 0;
-        // return mComments.size();
+        return mData.size();
     }
-/*
-    public void replaceAll(Comments comments) {
-        if (this.mComments == null)
+
+    public void replaceAll(List<Comment> comments) {
+        if (this.mData == null)
             return;
         clear();
-        this.mComments.addAll(comments);
+        this.mData.addAll(comments);
         notifyDataSetChanged();
     }
 
@@ -59,17 +65,17 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentViewHolder> {
         if (position < 0 || position >= getItemCount()) {
             return null;
         }
-        return this.mComments.get(position);
+        return this.mData.get(position);
     }
 
     public int add(@NonNull Comment comment) {
-        this.mComments.add(comment);
-        int index = this.mComments.size() - 1;
+        this.mData.add(comment);
+        int index = this.mData.size() - 1;
         notifyItemChanged(index);
         return index;
     }
 
     public void clear() {
-        this.mComments.clear();
-    }*/
+        this.mData.clear();
+    }
 }

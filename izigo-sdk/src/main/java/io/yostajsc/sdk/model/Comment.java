@@ -12,7 +12,6 @@ import io.yostajsc.sdk.model.trip.IgTrip;
  */
 public class Comment implements Serializable {
 
-
     @PrimaryKey
     @SerializedName("createdTime")
     private String mId;

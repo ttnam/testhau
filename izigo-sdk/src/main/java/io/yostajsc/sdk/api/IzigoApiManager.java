@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import io.yostajsc.sdk.model.Comment;
 import io.yostajsc.sdk.model.Timeline;
 import io.yostajsc.sdk.model.user.IgFriend;
 import io.yostajsc.sdk.model.trip.IgTrip;
@@ -359,32 +360,29 @@ class IzigoApiManager {
         });
     }
 
-    /*public void getComments(String authorization, String tripId,
-                            final CallBack expired,
-                            final CallBackWith<Comments> success,
-                            final CallBackWith<String> fail) {
-        Call<BaseResponse<Comments>> call = service.apiGetComments(authorization, tripId);
-        call.enqueue(new Callback<BaseResponse<Comments>>() {
+    public void getComments(String authorization, String tripId, final IGCallback<List<Comment>, String> callback) {
+        Call<BaseResponse<List<Comment>>> call = service.apiGetComments(authorization, tripId);
+        call.enqueue(new Callback<BaseResponse<List<Comment>>>() {
             @Override
-            public void onResponse(Call<BaseResponse<Comments>> call, Response<BaseResponse<Comments>> response) {
+            public void onResponse(Call<BaseResponse<List<Comment>>> call, Response<BaseResponse<List<Comment>>> response) {
                 if (response.isSuccessful()) {
-                    BaseResponse<Comments> res = response.body();
+                    BaseResponse<List<Comment>> res = response.body();
                     if (res.isSuccessful()) {
-                        success.run(res.data());
+                        callback.onSuccessful(res.data());
                     } else if (res.isExpired()) {
-                        expired.run();
+                        callback.onExpired();
                     } else {
-                        fail.run(res.getDescription());
+                        callback.onFail(res.getDescription());
                     }
                 }
             }
 
             @Override
-            public void onFailure(Call<BaseResponse<Comments>> call, Throwable throwable) {
-                Log.e(TAG, throwable.getMessage());
+            public void onFailure(Call<BaseResponse<List<Comment>>> call, Throwable throwable) {
+                callback.onFail(throwable.getMessage());
             }
         });
-    }*/
+    }
 
     public void getActivities(String authorization, String tripId,
                               final IGCallback<List<Timeline>, String> callback) {

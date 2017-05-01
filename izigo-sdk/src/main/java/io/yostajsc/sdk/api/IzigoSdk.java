@@ -6,6 +6,7 @@ import java.util.List;
 
 import io.yostajsc.core.interfaces.CallBack;
 import io.yostajsc.core.interfaces.CallBackWith;
+import io.yostajsc.sdk.model.Comment;
 import io.yostajsc.sdk.model.Timeline;
 import io.yostajsc.sdk.model.user.IgFriend;
 import io.yostajsc.sdk.model.trip.IgTrip;
@@ -169,6 +170,15 @@ public class IzigoSdk {
             if (IzigoSession.isLoggedIn()) {
                 String auth = IzigoSession.getToken().getToken();
                 IzigoApiManager.connect().getActivities(auth, tripId, callback);
+            } else {
+                callback.onExpired();
+            }
+        }
+
+        public static void getComments(String tripId, final IGCallback<List<Comment>, String> callback) {
+            if (IzigoSession.isLoggedIn()) {
+                String auth = IzigoSession.getToken().getToken();
+                IzigoApiManager.connect().getComments(auth, tripId, callback);
             } else {
                 callback.onExpired();
             }
