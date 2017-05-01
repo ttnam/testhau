@@ -14,7 +14,6 @@ import butterknife.OnClick;
 import io.yostajsc.AppConfig;
 import io.yostajsc.sdk.model.user.IgFriend;
 import io.yostajsc.core.utils.PrefsUtils;
-import io.yostajsc.izigo.activities.core.OwnCoreActivity;
 import io.yostajsc.sdk.api.IzigoSdk;
 import io.yostajsc.sdk.model.IGCallback;
 import io.yostajsc.sdk.model.trip.IgTrip;

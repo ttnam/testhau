@@ -12,7 +12,6 @@ import io.yostajsc.core.designs.tabs.IconViewPagerAdapter;
 import io.yostajsc.core.designs.viewpager.NonSwipeAbleViewPager;
 import io.yostajsc.core.utils.NetworkUtils;
 import io.yostajsc.izigo.R;
-import io.yostajsc.izigo.activities.core.OwnCoreActivity;
 import io.yostajsc.AppConfig;
 import io.yostajsc.izigo.fragments.NotificationsFragment;
 import io.yostajsc.izigo.fragments.OwnTripFragment;

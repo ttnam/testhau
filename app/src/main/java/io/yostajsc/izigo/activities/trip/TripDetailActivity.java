@@ -29,7 +29,7 @@ import io.yostajsc.core.utils.FileUtils;
 import io.yostajsc.sdk.model.trip.IgImage;
 import io.yostajsc.sdk.model.trip.IgTrip;
 import io.yostajsc.core.utils.PrefsUtils;
-import io.yostajsc.izigo.activities.core.OwnCoreActivity;
+import io.yostajsc.izigo.activities.OwnCoreActivity;
 import io.yostajsc.izigo.dialogs.DialogComment;
 import io.yostajsc.constants.RoleType;
 import io.yostajsc.constants.TransferType;

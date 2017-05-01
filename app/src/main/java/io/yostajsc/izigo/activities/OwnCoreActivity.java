@@ -1,4 +1,4 @@
-package io.yostajsc.izigo.activities.core;
+package io.yostajsc.izigo.activities;
 
 import android.content.Intent;
 

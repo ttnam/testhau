@@ -20,7 +20,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.yostajsc.AppConfig;
 import io.yostajsc.izigo.activities.MainActivity;
-import io.yostajsc.izigo.activities.core.OwnCoreActivity;
+import io.yostajsc.izigo.activities.OwnCoreActivity;
 import io.yostajsc.core.utils.ValidateUtils;
 import io.yostajsc.izigo.R;
 import io.yostajsc.sdk.model.user.IgUser;

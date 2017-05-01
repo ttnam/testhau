@@ -22,7 +22,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.yostajsc.core.code.MessageType;
 import io.yostajsc.izigo.R;
-import io.yostajsc.izigo.activities.core.OwnCoreActivity;
 import io.yostajsc.AppConfig;
 import io.yostajsc.core.realm.trip.LocationPick;
 import io.yostajsc.utils.LocationCore;

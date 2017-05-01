@@ -11,7 +11,7 @@ import butterknife.ButterKnife;
 import io.yostajsc.core.code.MessageType;
 import io.yostajsc.core.designs.tabs.IconViewPagerAdapter;
 import io.yostajsc.core.designs.viewpager.NonSwipeAbleViewPager;
-import io.yostajsc.izigo.activities.core.OwnCoreActivity;
+import io.yostajsc.izigo.activities.OwnCoreActivity;
 import io.yostajsc.izigo.fragments.MapsFragment;
 import io.yostajsc.izigo.fragments.TimeLineFragment;
 import io.yostajsc.izigo.R;

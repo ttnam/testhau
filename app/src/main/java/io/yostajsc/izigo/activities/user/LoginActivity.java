@@ -33,7 +33,7 @@ import io.yostajsc.core.interfaces.CallBackWith;
 import io.yostajsc.core.utils.PrefsUtils;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.activities.MainActivity;
-import io.yostajsc.izigo.activities.core.OwnCoreActivity;
+import io.yostajsc.izigo.activities.OwnCoreActivity;
 import io.yostajsc.sdk.api.IzigoSdk;
 import io.yostajsc.AppConfig;
 import io.yostajsc.sdk.model.user.IgUser;

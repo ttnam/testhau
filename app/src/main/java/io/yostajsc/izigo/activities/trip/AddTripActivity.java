@@ -25,7 +25,7 @@ import io.yostajsc.core.utils.DatetimeUtils;
 import io.yostajsc.core.utils.ValidateUtils;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.activities.PickLocationActivity;
-import io.yostajsc.izigo.activities.core.OwnCoreActivity;
+import io.yostajsc.izigo.activities.OwnCoreActivity;
 import io.yostajsc.izigo.dialogs.DialogDatePicker;
 import io.yostajsc.izigo.dialogs.DialogPickTransfer;
 import io.yostajsc.izigo.dialogs.DialogTimePicker;
