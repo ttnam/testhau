@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.yostajsc.izigo.R;
-import io.yostajsc.izigo.models.menu.MenuItem;
+import io.yostajsc.izigo.models.MenuItem;
 
 public class MenuAdapter extends ArrayAdapter<MenuItem> {
 

@@ -1,4 +1,4 @@
-package io.yostajsc.izigo.models.menu;
+package io.yostajsc.izigo.models;
 
 public class MenuItem {
 

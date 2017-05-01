@@ -101,7 +101,7 @@ public class LocationCore implements GoogleApiClient.ConnectionCallbacks, Google
                 final int statusCode = status.getStatusCode();
                 switch (statusCode) {
                     case LocationSettingsStatusCodes.SUCCESS:
-                        // All location settings are satisfied. The client can initialize location
+                        // All ic_vector_location settings are satisfied. The client can initialize ic_vector_location
                         // requests here.
                         break;
                     case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
@@ -130,14 +130,14 @@ public class LocationCore implements GoogleApiClient.ConnectionCallbacks, Google
     }
 
     public boolean isBetter(Location newLocation, Location current) {
-        // A new location is always better than no location
+        // A new ic_vector_location is always better than no ic_vector_location
         if (current == null) {
             return true;
         }
         if (newLocation.distanceTo(current) > 50) {
             return true;
         }
-        // Check whether the new location fix is newer or older
+        // Check whether the new ic_vector_location fix is newer or older
         long timeDelta = newLocation.getTime() - current.getTime();
         return (timeDelta > TIME);
     }

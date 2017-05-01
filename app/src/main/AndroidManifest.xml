@@ -120,15 +120,6 @@
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:name=".activities.SearchActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme" />
-        <activity
-            android:name=".activities.WelcomeActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            android:theme="@style/CoreAppTheme.White" />
-        <activity
             android:name=".activities.trip.AddTripActivity"
             android:launchMode="singleTask"
             android:theme="@style/AppTheme"
@@ -167,7 +158,11 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/CoreAppTheme.White" />
-        <activity android:name=".activities.trip.MapsActivity"></activity>
+        <activity
+            android:name=".activities.trip.MapsActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/CoreAppTheme.White" />
     </application>
 
 </manifest>

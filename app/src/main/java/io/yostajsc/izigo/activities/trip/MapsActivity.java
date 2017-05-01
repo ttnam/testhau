@@ -188,7 +188,7 @@ public class MapsActivity extends OwnCoreActivity
         for (String fbId : mTracks.keySet()) {
             if (dataSnapshot.hasChild(fbId)) {
 
-                // Get list location
+                // Get list ic_vector_location
                 Iterator<DataSnapshot> geoIterator = dataSnapshot
                         .child(fbId)
                         .child("geo")

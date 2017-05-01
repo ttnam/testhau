@@ -41,8 +41,8 @@ public class UserManager {
                 igUser.setEmail(object.getString("picture"));
             if (object.has("timezone"))
                 igUser.setEmail(object.getString("timezone"));
-            if (object.has("location"))
-                igUser.setLocation(object.getJSONObject("location").getString("name"));
+            if (object.has("ic_vector_location"))
+                igUser.setLocation(object.getJSONObject("ic_vector_location").getString("name"));
         } catch (Exception e) {
             e.printStackTrace();
         }
