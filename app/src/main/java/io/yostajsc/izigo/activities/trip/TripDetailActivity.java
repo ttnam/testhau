@@ -23,9 +23,13 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
+import java.util.List;
+
 import butterknife.OnClick;
 import io.yostajsc.core.designs.listeners.RecyclerItemClickListener;
 import io.yostajsc.core.utils.FileUtils;
+import io.yostajsc.izigo.adapters.TimelineAdapter;
+import io.yostajsc.sdk.model.Timeline;
 import io.yostajsc.sdk.model.trip.IgImage;
 import io.yostajsc.sdk.model.trip.IgTrip;
 import io.yostajsc.core.utils.PrefsUtils;
@@ -47,6 +51,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.yostajsc.ui.BottomSheetDialog;
 import jp.wasabeef.recyclerview.animators.FadeInUpAnimator;
+import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.RuntimePermissions;
 
@@ -60,6 +65,9 @@ public class TripDetailActivity extends OwnCoreActivity {
 
     @BindView(R.id.recycler_view)
     RecyclerView rvAlbum;
+
+    @BindView(R.id.recycler_view_time_line)
+    RecyclerView rVTimeLine;
 
     @BindView(R.id.image_view)
     AppCompatImageView imageCover;
@@ -98,9 +106,11 @@ public class TripDetailActivity extends OwnCoreActivity {
     TextView textPublish;
 
     private String tripId;
-    private int mCurrentRoleType = RoleType.GUEST;
-    private ImageryAdapter albumAdapter = null;
     private boolean mIsPublic = false;
+    private int mCurrentRoleType = RoleType.GUEST;
+
+    private ImageryAdapter albumAdapter = null;
+    private TimelineAdapter timelineAdapter = null;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -114,7 +124,6 @@ public class TripDetailActivity extends OwnCoreActivity {
     @Override
     protected void onStart() {
         super.onStart();
-
         tripId = getIntent().getStringExtra(AppConfig.TRIP_ID);
         onApplyData();
     }
@@ -147,6 +156,7 @@ public class TripDetailActivity extends OwnCoreActivity {
 
         UiUtils.onApplyWebViewSetting(webView);
 
+        // Album
         this.albumAdapter = new ImageryAdapter(this);
         this.rvAlbum.setAdapter(this.albumAdapter);
         SnapHelper snapHelper = new LinearSnapHelper();
@@ -162,6 +172,17 @@ public class TripDetailActivity extends OwnCoreActivity {
 
             }
         }));
+
+        // Timeline
+        this.timelineAdapter = new TimelineAdapter(this);
+        UiUtils.onApplyRecyclerView(this.rVTimeLine,
+                this.timelineAdapter, new SlideInUpAnimator(),
+                new CallBackWith<Integer>() {
+                    @Override
+                    public void run(Integer position) {
+
+                    }
+                });
     }
 
     @Override
@@ -195,33 +216,46 @@ public class TripDetailActivity extends OwnCoreActivity {
 
     @Override
     public void onApplyData() {
-        try {
+        if (NetworkUtils.isNetworkConnected(this)) {
 
-            if (NetworkUtils.isNetworkConnected(this)) {
+            IzigoSdk.TripExecutor.increaseTripView(tripId);
 
-                IzigoSdk.TripExecutor.increaseTripView(tripId);
+            IzigoSdk.TripExecutor.getTripDetail(tripId, new IGCallback<IgTrip, String>() {
+                @Override
+                public void onSuccessful(IgTrip igTrip) {
+                    updateUI(igTrip);
+                }
 
-                IzigoSdk.TripExecutor.getTripDetail(tripId, new IGCallback<IgTrip, String>() {
-                    @Override
-                    public void onSuccessful(IgTrip igTrip) {
-                        updateUI(igTrip);
-                    }
+                @Override
+                public void onFail(String error) {
+                    AppConfig.showToast(TripDetailActivity.this, error);
+                }
 
-                    @Override
-                    public void onFail(String error) {
-                        AppConfig.showToast(TripDetailActivity.this, error);
-                    }
+                @Override
+                public void onExpired() {
+                    mOnExpiredCallBack.run();
+                }
+            });
 
-                    @Override
-                    public void onExpired() {
-                        mOnExpiredCallBack.run();
-                    }
-                });
-            } else {
-                onInternetDisConnected();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+
+            IzigoSdk.TripExecutor.getActivities(tripId, new IGCallback<List<Timeline>, String>() {
+                @Override
+                public void onSuccessful(List<Timeline> timelines) {
+                    updateTimeline(timelines);
+                }
+
+                @Override
+                public void onFail(String error) {
+                    AppConfig.showToast(TripDetailActivity.this, error);
+                }
+
+                @Override
+                public void onExpired() {
+                    mOnExpiredCallBack.run();
+                }
+            });
+        } else {
+            onInternetDisConnected();
         }
     }
 
@@ -234,6 +268,15 @@ public class TripDetailActivity extends OwnCoreActivity {
     @OnClick(R.id.layout_album)
     public void openAlbum() {
         startActivity(new Intent(this, TripAlbumActivity.class));
+    }
+
+
+    private void updateTimeline(List<Timeline> timelines) {
+        if (timelines != null && timelines.size() > 0) {
+            this.timelineAdapter.replaceAll(timelines);
+        } else {
+            this.timelineAdapter.clear();
+        }
     }
 
     private void updateUI(final IgTrip igTrip) {

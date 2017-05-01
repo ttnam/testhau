@@ -11,11 +11,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import io.yostajsc.sdk.model.Timeline;
 import io.yostajsc.sdk.model.user.IgFriend;
 import io.yostajsc.sdk.model.trip.IgTrip;
 import io.yostajsc.sdk.model.IGCallback;
 import io.yostajsc.sdk.model.user.IgUser;
-import io.yostajsc.sdk.model.Timelines;
 import io.yostajsc.sdk.model.TripTypePermission;
 import io.yostajsc.sdk.model.token.IgToken;
 import io.yostajsc.sdk.response.BaseResponse;
@@ -387,28 +387,27 @@ class IzigoApiManager {
     }*/
 
     public void getActivities(String authorization, String tripId,
-                              final CallBack expired,
-                              final CallBackWith<Timelines> success,
-                              final CallBackWith<String> fail) {
-        Call<BaseResponse<Timelines>> call = service.apiGetActivities(authorization, tripId);
-        call.enqueue(new Callback<BaseResponse<Timelines>>() {
+                              final IGCallback<List<Timeline>, String> callback) {
+
+        Call<BaseResponse<List<Timeline>>> call = service.apiGetActivities(authorization, tripId);
+        call.enqueue(new Callback<BaseResponse<List<Timeline>>>() {
             @Override
-            public void onResponse(Call<BaseResponse<Timelines>> call, Response<BaseResponse<Timelines>> response) {
+            public void onResponse(Call<BaseResponse<List<Timeline>>> call, Response<BaseResponse<List<Timeline>>> response) {
                 if (response.isSuccessful()) {
-                    BaseResponse<Timelines> res = response.body();
+                    BaseResponse<List<Timeline>> res = response.body();
                     if (res.isSuccessful()) {
-                        success.run(res.data());
+                        callback.onSuccessful(res.data());
                     } else if (res.isExpired()) {
-                        expired.run();
+                        callback.onExpired();
                     } else {
-                        fail.run(res.getDescription());
+                        callback.onFail(res.getDescription());
                     }
                 }
             }
 
             @Override
-            public void onFailure(Call<BaseResponse<Timelines>> call, Throwable throwable) {
-                log(throwable.getMessage());
+            public void onFailure(Call<BaseResponse<List<Timeline>>> call, Throwable throwable) {
+                callback.onFail(throwable.getMessage());
             }
         });
     }

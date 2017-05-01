@@ -6,20 +6,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import io.yostajsc.core.utils.DatetimeUtils;
 import io.yostajsc.izigo.R;
 import io.yostajsc.sdk.model.Timeline;
-import io.yostajsc.sdk.model.Timelines;
 import io.yostajsc.ui.viewholder.TimelineViewHolder;
 
 public class TimelineAdapter extends RecyclerView.Adapter<TimelineViewHolder> {
 
     private Context mContext;
-    private Timelines mTimelines;
+    private List<Timeline> mData;
 
     public TimelineAdapter(Context context) {
         this.mContext = context;
-        this.mTimelines = new Timelines();
+        this.mData = new ArrayList<>();
     }
 
     @Override
@@ -37,7 +39,7 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineViewHolder> {
 
     @Override
     public void onBindViewHolder(final TimelineViewHolder holder, final int position) {
-        Timeline timeline = mTimelines.get(position);
+        Timeline timeline = mData.get(position);
 
         holder.bind(
                 DatetimeUtils.getTime(timeline.getTime()),
@@ -48,29 +50,29 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineViewHolder> {
 
     @Override
     public int getItemCount() {
-        if (mTimelines == null)
+        if (mData == null)
             return 0;
-        return mTimelines.size();
+        return mData.size();
     }
 
-    public void replaceAll(Timelines timelines) {
-        if (mTimelines == null)
-            this.mTimelines = new Timelines();
+    public void replaceAll(List<Timeline> timelines) {
+        if (mData == null)
+            this.mData = new ArrayList<>();
         clear();
-        this.mTimelines.addAll(timelines);
+        this.mData.addAll(timelines);
         notifyDataSetChanged();
     }
 
     public void add(Timeline timeline) {
-        if (this.mTimelines == null)
-            this.mTimelines = new Timelines();
-        this.mTimelines.add(timeline);
+        if (this.mData == null)
+            this.mData = new ArrayList<>();
+        this.mData.add(timeline);
         notifyDataSetChanged();
     }
 
     public void clear() {
-        if (mTimelines != null)
-            mTimelines.clear();
+        if (mData != null)
+            mData.clear();
         notifyDataSetChanged();
     }
 

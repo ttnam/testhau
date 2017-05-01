@@ -6,6 +6,7 @@ import java.util.List;
 
 import io.yostajsc.core.interfaces.CallBack;
 import io.yostajsc.core.interfaces.CallBackWith;
+import io.yostajsc.sdk.model.Timeline;
 import io.yostajsc.sdk.model.user.IgFriend;
 import io.yostajsc.sdk.model.trip.IgTrip;
 import io.yostajsc.core.utils.LogUtils;
@@ -154,10 +155,20 @@ public class IzigoSdk {
                 callback.onExpired();
             }
         }
+
         public static void kickMembers(String tripId, String fbId, final IGCallback<Void, String> callback) {
             if (IzigoSession.isLoggedIn()) {
                 String auth = IzigoSession.getToken().getToken();
                 IzigoApiManager.connect().kickMember(auth, tripId, fbId, callback);
+            } else {
+                callback.onExpired();
+            }
+        }
+
+        public static void getActivities(String tripId, final IGCallback<List<Timeline>, String> callback) {
+            if (IzigoSession.isLoggedIn()) {
+                String auth = IzigoSession.getToken().getToken();
+                IzigoApiManager.connect().getActivities(auth, tripId, callback);
             } else {
                 callback.onExpired();
             }

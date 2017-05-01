@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-import io.yostajsc.core.realm.trip.BaseTripInfo;
+import io.yostajsc.sdk.model.trip.BaseTripInfo;
 import io.yostajsc.sdk.model.trip.IgTrip;
 
 /**

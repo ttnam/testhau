@@ -17,7 +17,7 @@ import io.yostajsc.constants.NotificationType;
 import io.yostajsc.core.interfaces.CallBack;
 import io.yostajsc.sdk.model.trip.IgTrip;
 import io.yostajsc.izigo.R;
-import io.yostajsc.core.realm.trip.BaseTripInfo;
+import io.yostajsc.sdk.model.trip.BaseTripInfo;
 import io.yostajsc.core.glide.CropCircleTransformation;
 
 /**

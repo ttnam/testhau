@@ -3,7 +3,6 @@ package io.yostajsc.sdk.model.trip;
 import com.google.gson.annotations.SerializedName;
 
 import io.realm.annotations.PrimaryKey;
-import io.yostajsc.core.realm.trip.LocationPick;
 
 import java.io.Serializable;
 import java.util.List;

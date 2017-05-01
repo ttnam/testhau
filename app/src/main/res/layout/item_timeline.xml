@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/ic_style_button_round_none_default"
+    android:background="@color/colorWindowBackground"
     android:clickable="true"
     android:orientation="horizontal"
     android:paddingLeft="@dimen/margin_x2"
@@ -19,12 +19,11 @@
 
         <TextView
             android:id="@+id/text_hour"
-            style="@style/CoreAppTheme.TextView_Title.Bold"
+            style="@style/CoreAppTheme.TextView_Title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:gravity="center|end"
-            android:text="08:00" />
+            android:gravity="center|end" />
 
     </LinearLayout>
 
@@ -32,6 +31,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="@dimen/margin_x2"
+            android:layout_gravity="center"
+            android:background="@android:color/holo_blue_dark" />
 
         <android.support.v7.widget.AppCompatImageView
             android:layout_width="@dimen/icon_size_x2"
@@ -44,74 +49,83 @@
 
         <View
             android:layout_width="1dp"
-            android:layout_height="72dp"
+            android:layout_height="@dimen/margin_x7"
             android:layout_gravity="center"
-            android:background="@color/BlueButton" />
+            android:background="@android:color/holo_blue_dark" />
 
     </LinearLayout>
 
-    <LinearLayout
+    <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginLeft="@dimen/margin_x2"
-        android:layout_marginStart="@dimen/margin_x2"
-        android:orientation="vertical">
+        android:layout_marginLeft="@dimen/margin"
+        android:layout_marginStart="@dimen/margin"
+        android:background="@android:color/white"
+        android:padding="@dimen/margin"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="2dp">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:paddingTop="@dimen/margin">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/margin">
 
-            <android.support.v7.widget.AppCompatImageView
-                android:layout_width="@dimen/icon_size_x3"
-                android:layout_height="@dimen/icon_size_x3"
-                android:layout_gravity="center"
-                android:scaleType="centerCrop"
-                app:srcCompat="@drawable/ic_vector_alarm_clock" />
-
-            <TextView
-                android:id="@+id/text_day"
-                style="@style/CoreAppTheme.TextView_Title.Bold"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center|start"
-                android:paddingLeft="@dimen/margin"
-                android:paddingStart="@dimen/margin"
-                android:text="Ngày 22 tháng 11 năm 2016" />
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:layout_width="@dimen/icon_size_x3"
+                    android:layout_height="@dimen/icon_size_x3"
+                    android:layout_gravity="center"
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@drawable/ic_vector_alarm_clock" />
+
+                <TextView
+                    android:id="@+id/text_day"
+                    style="@style/CoreAppTheme.TextView_Title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/margin"
+                    android:layout_marginStart="@dimen/margin"
+                    android:gravity="center|start"
+                    android:maxLines="1"
+                    android:minLines="1" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:layout_width="@dimen/icon_size_x3"
+                    android:layout_height="@dimen/icon_size_x3"
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@drawable/ic_vector_sms" />
+
+                <TextView
+                    android:id="@+id/text_content"
+                    style="@style/CoreAppTheme.TextView_Sub_Title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/margin"
+                    android:layout_marginStart="@dimen/margin"
+                    android:ellipsize="end"
+                    android:gravity="center|start"
+                    android:maxLines="7"
+                    android:minLines="1" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <android.support.v7.widget.AppCompatImageView
-                android:layout_width="@dimen/icon_size_x3"
-                android:layout_height="@dimen/icon_size_x3"
-                android:layout_gravity="center"
-                android:scaleType="centerCrop"
-                app:srcCompat="@drawable/ic_vector_sms" />
-
-            <TextView
-                android:id="@+id/text_content"
-                style="@style/CoreAppTheme.TextView_Sub_Title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:ellipsize="end"
-                android:gravity="center|start"
-                android:maxLines="3"
-                android:minLines="1"
-                android:paddingLeft="@dimen/margin"
-                android:paddingStart="@dimen/margin"
-                android:text="Mình khởi hành vào lúc 6h sáng ngày 18/01, thời tiết rất đẹp, trời trong xanh và khá lạnh. Mình đi theo đường Long Bình từ bên trong Quận 9 đâm thẳng ra cầu Đồng Nai và đi theo đường Quốc lộ 51" />
-
-        </LinearLayout>
-
-    </LinearLayout>
+    </android.support.v7.widget.CardView>
 
 </LinearLayout>

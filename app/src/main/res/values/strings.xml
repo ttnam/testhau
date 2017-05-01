@@ -104,5 +104,6 @@
     <string name="str_share">Share</string>
     <string name="str_photos">Photos</string>
     <string name="str_add_image">Add images</string>
+    <string name="str_activities">Activites</string>
 
 </resources>

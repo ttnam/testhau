@@ -93,6 +93,35 @@
 
         </FrameLayout>
 
+        <TextView
+            style="@style/CoreAppTheme.TextView_Title.Bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/margin"
+            android:background="@android:color/white"
+            android:padding="@dimen/margin_x2"
+            android:text="@string/str_activities" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin"
+            android:background="@color/colorWindowBackground"
+            android:paddingBottom="@dimen/margin"
+            android:paddingLeft="@dimen/margin"
+            android:paddingRight="@dimen/margin">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_view_time_line"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:keepScreenOn="true"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+        </FrameLayout>
+
     </LinearLayout>
 
 </merge>

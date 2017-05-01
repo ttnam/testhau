@@ -1,4 +1,4 @@
-package io.yostajsc.core.realm.trip;
+package io.yostajsc.sdk.model.trip;
 
 import com.google.gson.annotations.SerializedName;
 
