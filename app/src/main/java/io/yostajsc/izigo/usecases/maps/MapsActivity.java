@@ -1,14 +1,17 @@
-package io.yostajsc.izigo.activities.trip;
+package io.yostajsc.izigo.usecases.maps;
 
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.AppCompatImageView;
 import android.view.View;
 import android.widget.ImageView;
@@ -23,6 +26,7 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.firebase.database.DataSnapshot;
 import com.google.maps.android.clustering.Cluster;
 import com.google.maps.android.clustering.ClusterItem;
@@ -30,12 +34,21 @@ import com.google.maps.android.clustering.ClusterManager;
 import com.google.maps.android.clustering.view.DefaultClusterRenderer;
 import com.google.maps.android.ui.IconGenerator;
 
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.yostajsc.AppConfig;
@@ -50,6 +63,7 @@ import io.yostajsc.izigo.activities.OwnCoreActivity;
 import io.yostajsc.izigo.dialogs.DialogActiveMembers;
 import io.yostajsc.izigo.fragments.MultiDrawable;
 import io.yostajsc.izigo.fragments.Person;
+import io.yostajsc.izigo.usecases.DataParser;
 import io.yostajsc.sdk.api.IzigoSdk;
 import io.yostajsc.sdk.cache.IgCache;
 import io.yostajsc.sdk.model.IGCallback;
@@ -71,11 +85,14 @@ public class MapsActivity extends OwnCoreActivity
 
     private boolean mIsFirst = true;
     private GoogleMap mMap = null;
-    private String mTripId = null, mFocus = null;
+    private String mTripId = null, mFocus = null, mOwnFbId = null;
     private List<IgFriend> mMembers = null;
     private HashMap<String, Person> mTracks = null;
     private ClusterManager<Person> mClusterManager;
     private DialogActiveMembers mDialogActiveMembers = null;
+
+    @BindView(R.id.button_direction)
+    FloatingActionButton btnDirection;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,6 +159,8 @@ public class MapsActivity extends OwnCoreActivity
         if (igFriends.size() > 0) {
             mMembers = igFriends;
             mFocus = mMembers.get(0).getFbId();
+            mOwnFbId = mMembers.get(1).getFbId();
+
             for (IgFriend friend : igFriends) {
                 mTracks.put(friend.getFbId(), new Person(
                         friend.getFbId(),
@@ -232,12 +251,12 @@ public class MapsActivity extends OwnCoreActivity
 
         // Convert to cluster
         for (Map.Entry<String, Person> entry : mTracks.entrySet()) {
-
             Person person = entry.getValue();
             if (person.getPosition() != null) {
                 mClusterManager.addItem(person);
                 igImages.add(new IgImage(entry.getKey(), entry.getValue().getAvatar()));
             }
+
         }
         mClusterManager.cluster();
         // Bitmaps caching
@@ -297,9 +316,25 @@ public class MapsActivity extends OwnCoreActivity
     @Override
     public boolean onClusterItemClick(Person person) {
         this.mFocus = person.getId();
+       /* // Click
+
+        LatLng latLng = person.getPosition();
+        direction(mTracks.get(mOwnFbId).getPosition(), latLng, true, new CallBackWith<Info>() {
+            @Override
+            public void run(Info info) {
+                Long d = info.distance;
+            }
+        });*/
+
+        btnDirection.setVisibility(View.VISIBLE);
+
         return false;
     }
 
+    @OnClick(R.id.button_direction)
+    public void showDirection() {
+
+    }
 
     @NeedsPermission({Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION})
     public void askGPS() {
@@ -414,4 +449,130 @@ public class MapsActivity extends OwnCoreActivity
             return cluster.getSize() > 1;
         }
     }
+
+    private class ParserTask extends AsyncTask<Object, Void, String> {
+
+        private boolean draw;
+        private CallBackWith<Info> callback;
+
+        @Override
+        protected String doInBackground(Object... obj) {
+
+            draw = (boolean) obj[1];
+            callback = (CallBackWith<Info>) obj[2];
+
+            String data = "";
+            try {
+                data = downloadUrl((String) obj[0]);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return data;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+
+            JSONObject jObject;
+            List<Route> routes;
+
+            try {
+                jObject = new JSONObject(result);
+
+                DataParser parser = new DataParser();
+                routes = parser.parse(jObject, draw);
+
+                callback.run(routes.get(0).info);
+
+                if (draw)
+                    draw(routes);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+
+        private void draw(List<Route> routes) {
+
+            ArrayList<LatLng> points;
+            PolylineOptions lineOptions = null;
+
+            for (int i = 0; i < routes.size(); i++) {
+                points = new ArrayList<>();
+                lineOptions = new PolylineOptions();
+
+                List<HashMap<String, String>> path = routes.get(i).route;
+
+                for (int j = 0; j < path.size(); j++) {
+                    HashMap<String, String> point = path.get(j);
+
+                    double lat = Double.parseDouble(point.get("lat"));
+                    double lng = Double.parseDouble(point.get("lng"));
+                    LatLng position = new LatLng(lat, lng);
+
+                    points.add(position);
+                }
+
+                lineOptions.addAll(points);
+                lineOptions.width(15);
+                lineOptions.color(Color.RED);
+            }
+
+            if (lineOptions != null) {
+                mMap.addPolyline(lineOptions);
+                mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
+            }
+        }
+
+        private String downloadUrl(String strUrl) throws IOException {
+            String data = "";
+            InputStream iStream = null;
+            HttpURLConnection urlConnection = null;
+            try {
+                URL url = new URL(strUrl);
+
+                urlConnection = (HttpURLConnection) url.openConnection();
+                urlConnection.connect();
+
+                iStream = urlConnection.getInputStream();
+
+                BufferedReader br = new BufferedReader(new InputStreamReader(iStream));
+
+                StringBuffer sb = new StringBuffer();
+
+                String line;
+                while ((line = br.readLine()) != null) {
+                    sb.append(line);
+                }
+
+                data = sb.toString();
+                br.close();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                iStream.close();
+                urlConnection.disconnect();
+            }
+            return data;
+        }
+    }
+
+    private String getUrl(LatLng origin, LatLng dest) {
+        String strOrigin = "origin=" + origin.latitude + "," + origin.longitude;
+        String strDest = "destination=" + dest.latitude + "," + dest.longitude;
+        String parameters = strOrigin + "&" + strDest;
+        return urlGoogleAPI + parameters;
+    }
+
+    private void direction(LatLng origin, LatLng dest, boolean draw, CallBackWith<Info> callback) {
+        String url = getUrl(origin, dest);
+        ParserTask parserTask = new ParserTask();
+        parserTask.execute(url, draw, callback);
+    }
+
+
+    private final String urlGoogleAPI = "https://maps.googleapis.com/maps/api/directions/json?language=vi&";
 }

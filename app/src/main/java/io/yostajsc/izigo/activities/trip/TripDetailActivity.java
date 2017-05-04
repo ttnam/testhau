@@ -29,6 +29,7 @@ import butterknife.OnClick;
 import io.yostajsc.core.designs.listeners.RecyclerItemClickListener;
 import io.yostajsc.core.utils.FileUtils;
 import io.yostajsc.izigo.adapters.TimelineAdapter;
+import io.yostajsc.izigo.usecases.maps.MapsActivity;
 import io.yostajsc.sdk.model.Timeline;
 import io.yostajsc.sdk.model.trip.IgImage;
 import io.yostajsc.sdk.model.trip.IgTrip;

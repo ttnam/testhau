@@ -159,7 +159,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/CoreAppTheme.White" />
         <activity
-            android:name=".activities.trip.MapsActivity"
+            android:name=".usecases.maps.MapsActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/CoreAppTheme.White" />
