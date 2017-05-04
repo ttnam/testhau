@@ -5,12 +5,14 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatImageView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import java.util.HashMap;
@@ -51,6 +53,9 @@ public class ProfileActivity extends OwnCoreActivity {
     @BindView(R.id.layout)
     FrameLayout layout;
 
+    @BindView(R.id.button_logout)
+    Button buttonLogout;
+
     private IgUser mIgUser = null;
 
     @Override
@@ -64,31 +69,36 @@ public class ProfileActivity extends OwnCoreActivity {
     @Override
     public void onApplyData() {
 
+        showProgressBar();
         IzigoSdk.UserExecutor.getInfo(new IGCallback<IgUser, String>() {
             @Override
             public void onSuccessful(IgUser igUser) {
                 mIgUser = igUser;
+                hideProgressBar();
                 updateValue();
             }
 
             @Override
             public void onFail(String error) {
                 AppConfig.showToast(ProfileActivity.this, error);
+                hideProgressBar();
             }
 
             @Override
             public void onExpired() {
-
+                mOnExpiredCallBack.run();
             }
         });
     }
 
     private void showProgressBar() {
         layout.setVisibility(View.VISIBLE);
+        buttonLogout.setEnabled(false);
     }
 
     private void hideProgressBar() {
         layout.setVisibility(View.GONE);
+        buttonLogout.setEnabled(true);
     }
 
     private void updateValue() {
@@ -100,6 +110,7 @@ public class ProfileActivity extends OwnCoreActivity {
 
         Glide.with(ProfileActivity.this)
                 .load(mIgUser.getAvatar())
+                .priority(Priority.IMMEDIATE)
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .into(imageAvatar);
         textEmail.setText(mIgUser.getEmail());

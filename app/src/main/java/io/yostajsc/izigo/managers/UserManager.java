@@ -33,16 +33,10 @@ public class UserManager {
             }
             if (object.has("gender"))
                 igUser.setGender(object.getString("gender"));
-            if (object.has("locale"))
-                igUser.setEmail(object.getString("locale"));
             if (object.has("email"))
                 igUser.setEmail(object.getString("email"));
-            if (object.has("picture"))
-                igUser.setEmail(object.getString("picture"));
-            if (object.has("timezone"))
-                igUser.setEmail(object.getString("timezone"));
-            if (object.has("ic_vector_location"))
-                igUser.setLocation(object.getJSONObject("ic_vector_location").getString("name"));
+            if (object.has("cover"))
+                igUser.setCover(object.getString("cover"));
         } catch (Exception e) {
             e.printStackTrace();
         }

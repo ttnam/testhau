@@ -22,6 +22,8 @@ public class IgUser implements Serializable {
     @SerializedName("name")
     private String name;
 
+    private String cover;
+
     @SerializedName("gender")
     private String gender;
 
@@ -40,6 +42,14 @@ public class IgUser implements Serializable {
 
     public void setAvatar(String avatar) {
         this.avatar = avatar;
+    }
+
+    public String getCover() {
+        return cover;
+    }
+
+    public void setCover(String cover) {
+        this.cover = cover;
     }
 
     public String getEmail() {

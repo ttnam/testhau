@@ -157,7 +157,7 @@ public class LoginActivity extends OwnCoreActivity {
                     AppConfig.getInstance().getFbToken(),   // Facebook token
                     email,                                  // Email
                     fbId,                                   // Facebook id
-                    fireBaseId,                             // Firebase id
+                    fireBaseId,                             // Fire base id
                     AppConfig.getInstance().getFcmKey(),    // Fcm key
                     new CallBack() {
                         @Override

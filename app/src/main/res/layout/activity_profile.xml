@@ -175,7 +175,8 @@
         android:id="@id/layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/transparent_60_white">
+        android:background="@color/transparent_60_white"
+        android:visibility="gone">
 
         <ProgressBar
             android:layout_width="wrap_content"

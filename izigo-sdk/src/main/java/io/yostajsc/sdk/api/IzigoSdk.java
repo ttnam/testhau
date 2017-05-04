@@ -206,7 +206,8 @@ public class IzigoSdk {
             IzigoSession.removeToken();
         }
 
-        public static void login(String fbToken, String email, String fbId, String fireBaseUid, String fcm,
+        public static void login(String fbToken, String email, String fbId,
+                                 String fireBaseUid, String fcm,
                                  final CallBack onSuccess, final CallBackWith<String> onFail) {
             IzigoApiManager.connect().login(fbToken, email, fbId, fireBaseUid, fcm, new IGCallback<IgToken, String>() {
                 @Override

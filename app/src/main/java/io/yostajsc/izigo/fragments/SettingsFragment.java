@@ -25,6 +25,7 @@ public class SettingsFragment extends CoreFragment {
     @OnClick(R.id.layout_profile)
     public void openProfile() {
         startActivity(new Intent(mContext, ProfileActivity.class));
+        getActivity().finish();
     }
 
     @OnClick(R.id.layout_about)
