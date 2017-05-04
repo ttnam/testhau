@@ -181,8 +181,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/layout_notify"
-                style="@style/Style_Menu_Item.Press"
+                style="@style/Style_Menu_Item.NonPress"
                 android:orientation="horizontal">
 
                 <android.support.v7.widget.AppCompatImageView

@@ -10,7 +10,7 @@
         android:id="@id/layout"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
-        app:layoutBackground="@color/colorPrimary"
+        app:layoutBackground="@android:color/white"
         app:layoutTitle="@string/setting_about"
         app:layoutType="title_center" />
 
