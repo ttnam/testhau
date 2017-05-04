@@ -9,6 +9,7 @@ import java.util.Map;
 import io.yostajsc.core.interfaces.CallBack;
 import io.yostajsc.core.interfaces.CallBackWith;
 import io.yostajsc.sdk.model.Comment;
+import io.yostajsc.sdk.model.Notification;
 import io.yostajsc.sdk.model.Timeline;
 import io.yostajsc.sdk.model.user.IgFriend;
 import io.yostajsc.sdk.model.trip.IgTrip;
@@ -271,5 +272,13 @@ public class IzigoSdk {
             }
         }
 
+        public static void getNotifications(final IGCallback<List<Notification>, String> callback) {
+            if (IzigoSession.isLoggedIn()) {
+                String auth = IzigoSession.getToken().getToken();
+                IzigoApiManager.connect().getNotifications(auth, callback);
+            } else {
+                callback.onExpired();
+            }
+        }
     }
 }

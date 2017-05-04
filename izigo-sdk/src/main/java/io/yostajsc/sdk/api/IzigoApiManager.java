@@ -12,6 +12,7 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import io.yostajsc.sdk.model.Comment;
+import io.yostajsc.sdk.model.Notification;
 import io.yostajsc.sdk.model.Timeline;
 import io.yostajsc.sdk.model.user.IgFriend;
 import io.yostajsc.sdk.model.trip.IgTrip;
@@ -511,34 +512,31 @@ class IzigoApiManager {
             }
         });
     }
-/*
 
-    public void getNotification(String authorization, final CallBack expired,
-                                final CallBackWith<Notifications> success, final CallBackWith<String> fail) {
+    public void getNotifications(String authorization, final IGCallback<List<Notification>, String> callback) {
 
-        Call<BaseResponse<Notifications>> call = service.apiGetNotification(authorization);
-        call.enqueue(new Callback<BaseResponse<Notifications>>() {
+        Call<BaseResponse<List<Notification>>> call = service.apiGetNotification(authorization);
+        call.enqueue(new Callback<BaseResponse<List<Notification>>>() {
             @Override
-            public void onResponse(Call<BaseResponse<Notifications>> call, Response<BaseResponse<Notifications>> response) {
+            public void onResponse(Call<BaseResponse<List<Notification>>> call, Response<BaseResponse<List<Notification>>> response) {
                 if (response.isSuccessful()) {
-                    BaseResponse<Notifications> res = response.body();
+                    BaseResponse<List<Notification>> res = response.body();
                     if (res.isSuccessful()) {
-                        success.run(res.data());
+                        callback.onSuccessful(res.data());
                     } else if (res.isExpired()) {
-                        expired.run();
+                        callback.onExpired();
                     } else {
-                        fail.run(res.getDescription());
+                        callback.onFail(res.getDescription());
                     }
                 }
             }
 
             @Override
-            public void onFailure(Call<BaseResponse<Notifications>> call, Throwable throwable) {
-                Log.e(TAG, throwable.getMessage());
+            public void onFailure(Call<BaseResponse<List<Notification>>> call, Throwable throwable) {
+                callback.onFail(throwable.getMessage());
             }
         });
     }
-*/
 
     public void accept(String authorization, String tripId, String notiId, int verify, final CallBack expired,
                        final CallBack success, final CallBackWith<String> fail) {

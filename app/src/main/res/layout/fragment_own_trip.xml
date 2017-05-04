@@ -11,15 +11,25 @@
         android:layout_height="?actionBarSize"
         app:layoutBackground="@android:color/white"
         app:layoutTitle="@string/str_your_trip"
+        app:layoutTitleColor="@color/colorTextColorPrimary"
         app:layoutType="title_left" />
+
+    <include layout="@layout/layout_separate_vertical" />
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginEnd="@dimen/margin_min"
+        android:layout_marginLeft="@dimen/margin_min"
+        android:layout_marginRight="@dimen/margin_min"
+        android:layout_marginStart="@dimen/margin_min"
+        android:layout_marginTop="@dimen/margin_min">
 
         <include layout="@layout/layout_recycler_view" />
 
-        <include layout="@layout/layout_empty" />
+        <include
+            layout="@layout/layout_empty"
+            android:visibility="gone" />
 
     </FrameLayout>
 

@@ -50,7 +50,7 @@ public class NotificationsViewHolder extends RecyclerView.ViewHolder {
         ButterKnife.bind(this, itemView);
     }
 
-    public void bind(IgTrip.BaseUserInfo userInfo, BaseTripInfo tripInfo, @NotificationType int type,
+    public void bind(IgTrip.BaseUserInfo userInfo, BaseTripInfo tripInfo, int type,
                      CallBack yes, CallBack no) {
 
         Glide.with(mContext)

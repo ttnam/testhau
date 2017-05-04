@@ -13,6 +13,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.yostajsc.core.designs.decorations.SpacesItemDecoration;
 import io.yostajsc.core.fragments.CoreFragment;
 import io.yostajsc.core.interfaces.CallBackWith;
 import io.yostajsc.sdk.model.trip.IgTrip;
@@ -43,11 +44,6 @@ public class OwnTripFragment extends CoreFragment {
     private TripAdapter tripAdapter = null;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_own_trip, container, false);
         ButterKnife.bind(this, rootView);
@@ -76,6 +72,7 @@ public class OwnTripFragment extends CoreFragment {
                         startActivity(intent);
                     }
                 });
+        this.rvTrip.addItemDecoration(new SpacesItemDecoration(5));
     }
 
     private void updateUI(List<IgTrip> trips) {

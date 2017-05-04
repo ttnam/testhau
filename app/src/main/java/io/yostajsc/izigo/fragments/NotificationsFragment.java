@@ -7,17 +7,24 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.yostajsc.AppConfig;
 import io.yostajsc.core.designs.decorations.SpacesItemDecoration;
-import io.yostajsc.core.fragments.CoreFragment;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.adapters.NotificationAdapter;
+import io.yostajsc.izigo.fragments.base.BaseFragment;
+import io.yostajsc.sdk.api.IzigoSdk;
+import io.yostajsc.sdk.model.IGCallback;
+import io.yostajsc.sdk.model.Notification;
 import io.yostajsc.utils.UiUtils;
 import jp.wasabeef.recyclerview.animators.SlideInRightAnimator;
 
-public class NotificationsFragment extends CoreFragment {
+public class NotificationsFragment extends BaseFragment {
 
     @BindView(R.id.layout_empty)
     LinearLayout layoutEmpty;
@@ -27,6 +34,9 @@ public class NotificationsFragment extends CoreFragment {
 
     @BindView(R.id.button)
     Button button;
+
+    @BindView(R.id.text_view)
+    TextView textView;
 
     private NotificationAdapter adapter = null;
 
@@ -40,7 +50,6 @@ public class NotificationsFragment extends CoreFragment {
     }
 
     private void onApplyViews() {
-        button.setVisibility(View.GONE);
         this.adapter = new NotificationAdapter(mContext);
         UiUtils.onApplyRecyclerView(rvNotification, this.adapter, new SlideInRightAnimator(), null);
         rvNotification.addItemDecoration(new SpacesItemDecoration(3));
@@ -49,30 +58,39 @@ public class NotificationsFragment extends CoreFragment {
 
     private void onApplyData() {
 
-        /*IzigoApiManager.connect().getNotification(new CallBack() {
+        IzigoSdk.UserExecutor.getNotifications(new IGCallback<List<Notification>, String>() {
             @Override
-            public void run() {
-                // TODO:
-            }
-        }, new CallBackWith<Notifications>() {
-            @Override
-            public void run(Notifications notifications) {
+            public void onSuccessful(List<Notification> notifications) {
                 int size = notifications.size();
                 if (size > 0) {
-                    layoutEmpty.setVisibility(View.INVISIBLE);
-                    rvNotification.setVisibility(View.VISIBLE);
+                    toggleUI(false);
                     adapter.replaceAll(notifications);
                 } else {
-                    layoutEmpty.setVisibility(View.VISIBLE);
-                    rvNotification.setVisibility(View.INVISIBLE);
+                    toggleUI(true);
                 }
             }
-        }, new CallBackWith<String>() {
+
             @Override
-            public void run(String error) {
-                Toast.makeText(mContext, error, Toast.LENGTH_SHORT).show();
+            public void onFail(String error) {
+                AppConfig.showToast(mContext, error);
             }
-        });*/
+
+            @Override
+            public void onExpired() {
+                expired();
+            }
+        });
     }
 
+    private void toggleUI(boolean isEmpty) {
+        if (isEmpty) {
+            button.setVisibility(View.GONE);
+            textView.setText("You got no notifications");
+            layoutEmpty.setVisibility(View.VISIBLE);
+            rvNotification.setVisibility(View.INVISIBLE);
+        } else {
+            rvNotification.setVisibility(View.VISIBLE);
+            layoutEmpty.setVisibility(View.GONE);
+        }
+    }
 }

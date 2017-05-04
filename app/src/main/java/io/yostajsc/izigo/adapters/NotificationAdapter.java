@@ -5,7 +5,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import io.yostajsc.constants.NotificationType;
+import io.yostajsc.core.interfaces.CallBack;
 import io.yostajsc.izigo.R;
+import io.yostajsc.sdk.model.Notification;
 import io.yostajsc.ui.viewholder.NotificationsViewHolder;
 
 /**
@@ -15,11 +22,11 @@ import io.yostajsc.ui.viewholder.NotificationsViewHolder;
 public class NotificationAdapter extends RecyclerView.Adapter<NotificationsViewHolder> {
 
     private Context mContext = null;
-    // private Notifications mNotifications = null;
+    private List<Notification> mData = null;
 
     public NotificationAdapter(Context context) {
         this.mContext = context;
-        // this.mNotifications = new Notifications();
+        this.mData = new ArrayList<>();
     }
 
     @Override
@@ -35,7 +42,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationsViewH
 
     @Override
     public void onBindViewHolder(NotificationsViewHolder holder, final int position) {
-      /*  final Notification notification = mNotifications.get(position);
+        final Notification notification = mData.get(position);
 
         int notiType = notification.getType();
         if (notiType == NotificationType.ACCEPT_JOIN_TRIP) {
@@ -44,12 +51,12 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationsViewH
                     new CallBack() {
                         @Override
                         public void run() {
-                            accept(position, notification.getTrip().getId(), notification.getId(), 1);
+                            // accept(position, notification.getTrip().getId(), notification.getId(), 1);
                         }
                     }, new CallBack() {
                         @Override
                         public void run() {
-                            accept(position, notification.getTrip().getId(), notification.getId(), 0);
+                            // accept(position, notification.getTrip().getId(), notification.getId(), 0);
                         }
                     });
         } else {
@@ -57,32 +64,34 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationsViewH
                     new CallBack() {
                         @Override
                         public void run() {
-                            verify(position, notification.getTrip().getId(), notification.getId(), 1);
+                            // verify(position, notification.getTrip().getId(), notification.getId(), 1);
                         }
                     }, new CallBack() {
                         @Override
                         public void run() {
-                            verify(position, notification.getTrip().getId(), notification.getId(), 0);
+                            // verify(position, notification.getTrip().getId(), notification.getId(), 0);
                         }
                     });
-        }*/
+        }
 
     }
 
     @Override
     public int getItemCount() {
-        // if (mNotifications == null)
+        if (this.mData == null)
             return 0;
-        // return mNotifications.size();
+        return this.mData.size();
     }
 
-    /*public void replaceAll(Notifications notifications) {
-        if (this.mNotifications == null)
-            return;
-        clear();
-        this.mNotifications.addAll(notifications);
+    public void replaceAll(List<Notification> notifications) {
+        this.mData = notifications;
         notifyDataSetChanged();
-    }*/
+    }
+
+    public void clear() {
+        this.mData.clear();
+    }
+
 
     /*public Notification getItem(int position) {
         if (position < 0 || position >= getItemCount()) {
@@ -101,10 +110,6 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationsViewH
         int index = this.mNotifications.size() - 1;
         notifyItemChanged(index);
         return index;
-    }
-
-    public void clear() {
-        this.mNotifications.clear();
     }
 
     private void accept(final int pos, String tripId, String notiId, final int accept) {
