@@ -17,6 +17,7 @@ public class IgToken implements Serializable {
     @SerializedName("expired")
     private long mExpired;
 
+    private String mFbId;
 
     public boolean isExpired() {
         return new Date().after(new Date(mExpired));
@@ -24,5 +25,13 @@ public class IgToken implements Serializable {
 
     public String getToken() {
         return mToken;
+    }
+
+    public String getFbId() {
+        return mFbId;
+    }
+
+    public void setFbId(String mFbId) {
+        this.mFbId = mFbId;
     }
 }

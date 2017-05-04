@@ -209,13 +209,16 @@ public class IzigoSdk {
             IzigoSession.removeToken();
         }
 
-        public static void login(String fbToken, String email, String fbId,
+        public static void login(String fbToken, String email, final String fbId,
                                  String fireBaseUid, String fcm,
                                  final CallBack onSuccess, final CallBackWith<String> onFail) {
             IzigoApiManager.connect().login(fbToken, email, fbId, fireBaseUid, fcm, new IGCallback<IgToken, String>() {
                 @Override
                 public void onSuccessful(IgToken igToken) {
+
+                    igToken.setFbId(fbId);
                     IzigoSession.setToken(igToken);
+
                     onSuccess.run();
                 }
 
@@ -279,6 +282,10 @@ public class IzigoSdk {
             } else {
                 callback.onExpired();
             }
+        }
+
+        public static String getOwnFbId() {
+            return IzigoSession.getToken().getFbId();
         }
     }
 }

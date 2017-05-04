@@ -26,6 +26,7 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.firebase.database.DataSnapshot;
 import com.google.maps.android.clustering.Cluster;
@@ -85,11 +86,12 @@ public class MapsActivity extends OwnCoreActivity
 
     private boolean mIsFirst = true;
     private GoogleMap mMap = null;
-    private String mTripId = null, mFocus = null, mOwnFbId = null;
+    private String mTripId = null, mFocus = null;
     private List<IgFriend> mMembers = null;
     private HashMap<String, Person> mTracks = null;
     private ClusterManager<Person> mClusterManager;
     private DialogActiveMembers mDialogActiveMembers = null;
+    private Polyline mPolyline = null;
 
     @BindView(R.id.button_direction)
     FloatingActionButton btnDirection;
@@ -159,8 +161,6 @@ public class MapsActivity extends OwnCoreActivity
         if (igFriends.size() > 0) {
             mMembers = igFriends;
             mFocus = mMembers.get(0).getFbId();
-            mOwnFbId = mMembers.get(1).getFbId();
-
             for (IgFriend friend : igFriends) {
                 mTracks.put(friend.getFbId(), new Person(
                         friend.getFbId(),
@@ -315,25 +315,29 @@ public class MapsActivity extends OwnCoreActivity
 
     @Override
     public boolean onClusterItemClick(Person person) {
+
         this.mFocus = person.getId();
-       /* // Click
-
-        LatLng latLng = person.getPosition();
-        direction(mTracks.get(mOwnFbId).getPosition(), latLng, true, new CallBackWith<Info>() {
-            @Override
-            public void run(Info info) {
-                Long d = info.distance;
-            }
-        });*/
-
-        btnDirection.setVisibility(View.VISIBLE);
-
+        if (mFocus.equalsIgnoreCase(IzigoSdk.UserExecutor.getOwnFbId())) {
+            this.btnDirection.setVisibility(View.GONE);
+        } else {
+            this.btnDirection.setVisibility(View.VISIBLE);
+        }
         return false;
     }
 
     @OnClick(R.id.button_direction)
     public void showDirection() {
+        String ownFbId = IzigoSdk.UserExecutor.getOwnFbId();
+        direction(
+                mTracks.get(ownFbId).getPosition(), // from
+                mTracks.get(mFocus).getPosition(), // to
+                true,
+                new CallBackWith<Info>() {
+                    @Override
+                    public void run(Info info) {
 
+                    }
+                });
     }
 
     @NeedsPermission({Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION})
@@ -521,8 +525,8 @@ public class MapsActivity extends OwnCoreActivity
             }
 
             if (lineOptions != null) {
-                mMap.addPolyline(lineOptions);
-                mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
+                mPolyline = mMap.addPolyline(lineOptions);
+             //   mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
             }
         }
 
