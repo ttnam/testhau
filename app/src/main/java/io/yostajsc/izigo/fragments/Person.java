@@ -25,13 +25,6 @@ public class Person implements ClusterItem {
         this.mAvatar = avatar;
     }
 
-    public Person(String id, LatLng position, String name, String avatar) {
-        this.mId = id;
-        this.mName = name;
-        this.mPosition = position;
-        this.mAvatar = avatar;
-    }
-
     @Override
     public LatLng getPosition() {
         return mPosition;
@@ -55,10 +48,6 @@ public class Person implements ClusterItem {
 
     public void setLatLng(LatLng latLng) {
         this.mPosition = latLng;
-    }
-
-    public void setLatLng(double lat, double lng) {
-        this.mPosition = new LatLng(lat, lng);
     }
 
     public void setVisible(boolean isVisible) {

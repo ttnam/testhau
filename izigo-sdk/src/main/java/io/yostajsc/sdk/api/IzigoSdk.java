@@ -1,8 +1,10 @@
 package io.yostajsc.sdk.api;
 
 import android.app.Application;
+import android.util.Log;
 
 import java.util.List;
+import java.util.Map;
 
 import io.yostajsc.core.interfaces.CallBack;
 import io.yostajsc.core.interfaces.CallBackWith;
@@ -223,11 +225,20 @@ public class IzigoSdk {
 
                 @Override
                 public void onExpired() {
-
+                    LogUtils.log(TAG, "onExpired");
                 }
             });
         }
 
+        public static void updateInfo(Map<String, String> body,
+                                      final IGCallback<Void, String> callback) {
+            if (IzigoSession.isLoggedIn()) {
+                String auth = IzigoSession.getToken().getToken();
+                IzigoApiManager.connect().updateProfile(auth, body, callback);
+            } else {
+                callback.onExpired();
+            }
+        }
 
         public static void updateFcm(String fcm) {
             if (IzigoSession.isLoggedIn()) {
@@ -239,13 +250,13 @@ public class IzigoSdk {
                     }
 
                     @Override
-                    public void onFail(String s) {
-
+                    public void onFail(String error) {
+                        LogUtils.log(TAG, error);
                     }
 
                     @Override
                     public void onExpired() {
-
+                        LogUtils.log(TAG, "onExpired");
                     }
                 });
             }

@@ -49,9 +49,10 @@
 
     <style name="Style_Menu_Item.NonPress" parent="CoreAppTheme.TextView_Title.Bold">
         <item name="android:layout_height">?actionBarSize</item>
+        <item name="android:layout_width">match_parent</item>
         <item name="android:paddingLeft">@dimen/margin_x2</item>
         <item name="android:paddingRight">@dimen/margin_x2</item>
-        <item name="android:background">@android:color/white</item>
+        <item name="android:background">@drawable/ic_style_button_round_none_default</item>
     </style>
 
     <style name="AccentButton" parent="AppTheme">

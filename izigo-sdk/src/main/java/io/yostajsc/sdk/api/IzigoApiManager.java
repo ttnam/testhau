@@ -334,9 +334,7 @@ class IzigoApiManager {
     }
 
     public void updateProfile(String authorization, Map<String, String> body,
-                              final CallBack expired,
-                              final CallBack success,
-                              final CallBackWith<String> fail) {
+                              final IGCallback<Void, String> callback) {
         Call<BaseResponse> call = service.apiUpdateUserInfo(authorization, body);
         call.enqueue(new Callback<BaseResponse>() {
             @Override
@@ -344,18 +342,18 @@ class IzigoApiManager {
                 if (response.isSuccessful()) {
                     BaseResponse res = response.body();
                     if (res.isSuccessful()) {
-                        success.run();
+                        callback.onSuccessful(null);
                     } else if (res.isExpired()) {
-                        expired.run();
+                        callback.onExpired();
                     } else {
-                        fail.run(res.getDescription());
+                        callback.onFail(res.getDescription());
                     }
                 }
             }
 
             @Override
             public void onFailure(Call<BaseResponse> call, Throwable throwable) {
-                Log.e(TAG, throwable.getMessage());
+                callback.onFail(throwable.getMessage());
             }
         });
     }
