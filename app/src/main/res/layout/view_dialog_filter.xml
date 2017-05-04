@@ -9,7 +9,7 @@
         style="@style/CoreAppTheme.TextView_Title.White"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
+        android:background="@android:color/holo_blue_dark"
         android:gravity="center"
         android:padding="@dimen/margin_x2"
         android:text="@string/all_search_filter" />

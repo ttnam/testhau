@@ -35,7 +35,7 @@ public class NotificationsFragment extends BaseFragment {
     @BindView(R.id.button)
     Button button;
 
-    @BindView(R.id.text_view)
+    @BindView(R.id.text_view_title)
     TextView textView;
 
     private NotificationAdapter adapter = null;
