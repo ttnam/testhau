@@ -6,20 +6,18 @@
     android:orientation="vertical">
 
     <io.yostajsc.ui.OwnToolBar
-        android:id="@id/own_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
         app:layoutBackground="@android:color/white"
         app:layoutTitle="@string/setting"
         app:layoutTitleColor="@color/colorTextColorPrimary"
-        app:layoutType="title_left" />
+        app:layoutType="title_center" />
 
-    <include layout="@layout/layout_shadow" />
+    <include layout="@layout/layout_separate_vertical" />
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/margin"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
@@ -27,9 +25,11 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
+            <include layout="@layout/layout_profile_info" />
+
             <LinearLayout
-                android:id="@+id/layout_profile"
-                style="@style/Style_Menu_Item.Press"
+                style="@style/Style_Menu_Item.NonPress"
+                android:background="@android:color/white"
                 android:orientation="horizontal">
 
                 <android.support.v7.widget.AppCompatImageView
@@ -40,18 +40,63 @@
                     app:srcCompat="@drawable/ic_vector_profile" />
 
                 <TextView
+                    android:id="@+id/text_email"
                     style="@style/CoreAppTheme.TextView_Sub_Title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="@dimen/margin_x2"
-                    android:layout_marginStart="@dimen/margin_x2"
-                    android:text="@string/str_profile" />
+                    android:layout_marginStart="@dimen/margin_x2" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/Style_Menu_Item.NonPress"
+                android:orientation="horizontal">
+
+                <android.support.v7.widget.AppCompatImageView
+                    style="@style/CoreAppTheme.IconClick"
+                    android:layout_width="@dimen/icon_size_x3"
+                    android:layout_height="@dimen/icon_size_x3"
+                    android:layout_gravity="center_vertical"
+                    app:srcCompat="@drawable/ic_vector_male" />
+
+                <TextView
+                    android:id="@+id/text_gender"
+                    style="@style/CoreAppTheme.TextView_Sub_Title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/margin_x2"
+                    android:layout_marginStart="@dimen/margin_x2" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/Style_Menu_Item.NonPress"
+                android:orientation="horizontal">
+
+                <android.support.v7.widget.AppCompatImageView
+                    style="@style/CoreAppTheme.IconClick"
+                    android:layout_width="@dimen/icon_size_x3"
+                    android:layout_height="@dimen/icon_size_x3"
+                    android:layout_gravity="center_vertical"
+                    app:srcCompat="@drawable/ic_vector_clock" />
+
+                <TextView
+                    android:id="@+id/text_member_ship"
+                    style="@style/CoreAppTheme.TextView_Sub_Title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/margin_x2"
+                    android:layout_marginStart="@dimen/margin_x2" />
 
             </LinearLayout>
 
             <LinearLayout
                 style="@style/Style_Menu_Item.Press"
+                android:layout_marginTop="@dimen/margin"
                 android:orientation="horizontal">
 
                 <android.support.v7.widget.AppCompatImageView
@@ -97,29 +142,6 @@
 
             <LinearLayout
                 style="@style/Style_Menu_Item.Press"
-                android:orientation="horizontal">
-
-                <android.support.v7.widget.AppCompatImageView
-                    style="@style/CoreAppTheme.IconClick"
-                    android:layout_width="@dimen/icon_size_x3"
-                    android:layout_height="@dimen/icon_size_x3"
-                    android:layout_gravity="center_vertical"
-                    app:srcCompat="@drawable/ic_vector_facebook" />
-
-                <TextView
-                    style="@style/CoreAppTheme.TextView_Sub_Title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="@dimen/margin_x2"
-                    android:layout_marginStart="@dimen/margin_x2"
-                    android:text="Share on Facebook" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                style="@style/Style_Menu_Item.Press"
-                android:layout_marginTop="@dimen/margin"
                 android:orientation="horizontal">
 
                 <android.support.v7.widget.AppCompatImageView

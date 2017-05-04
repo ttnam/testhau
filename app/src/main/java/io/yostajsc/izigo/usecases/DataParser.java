@@ -48,7 +48,7 @@ public class DataParser {
                         jSteps = ((JSONObject) jLegs.get(j)).getJSONArray("steps");
 
                         for (int k = 0; k < jSteps.length(); k++) {
-                            String polyline = "";
+                            String polyline;
                             polyline = (String) ((JSONObject) ((JSONObject) jSteps.get(k)).get("polyline")).get("points");
                             List<LatLng> list = decodePoly(polyline);
 
@@ -64,9 +64,8 @@ public class DataParser {
                 }
             }
 
-        } catch (JSONException e) {
-            e.printStackTrace();
         } catch (Exception e) {
+            e.printStackTrace();
         }
 
         return routes;

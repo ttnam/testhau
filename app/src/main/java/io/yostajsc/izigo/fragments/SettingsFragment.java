@@ -2,30 +2,95 @@ package io.yostajsc.izigo.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.AppCompatImageView;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.Priority;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.yostajsc.AppConfig;
 import io.yostajsc.core.fragments.CoreFragment;
+import io.yostajsc.core.utils.ValidateUtils;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.activities.WebViewActivity;
-import io.yostajsc.izigo.activities.user.ProfileActivity;
+import io.yostajsc.izigo.activities.user.SplashActivity;
+import io.yostajsc.sdk.api.IzigoSdk;
+import io.yostajsc.sdk.model.IGCallback;
+import io.yostajsc.sdk.model.user.IgUser;
 
 public class SettingsFragment extends CoreFragment {
+
+    @BindView(R.id.text_email)
+    TextView textEmail;
+
+    @BindView(R.id.text_gender)
+    TextView textGender;
+
+    @BindView(R.id.text_member_ship)
+    TextView textMemberShip;
+
+    @BindView(R.id.edit_name)
+    EditText editName;
+
+    @BindView(R.id.image_view)
+    AppCompatImageView imageAvatar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_setting, container, false);
         ButterKnife.bind(this, rootView);
+        onApplyData();
         return rootView;
     }
 
-    @OnClick(R.id.layout_profile)
-    public void openProfile() {
-        startActivity(new Intent(mContext, ProfileActivity.class));
-        getActivity().finish();
+
+    private void onApplyData() {
+        IzigoSdk.UserExecutor.getInfo(new IGCallback<IgUser, String>() {
+            @Override
+            public void onSuccessful(IgUser igUser) {
+                updateValue(igUser);
+            }
+
+            @Override
+            public void onFail(String error) {
+                AppConfig.showToast(mContext, error);
+            }
+
+            @Override
+            public void onExpired() {
+
+            }
+        });
+    }
+
+    private void updateValue(IgUser igUser) {
+        if (igUser == null) {
+            return;
+        }
+        editName.setText(igUser.getFullName());
+        editName.setSelection(editName.getText().length());
+
+        Glide.with(mContext)
+                .load(igUser.getAvatar())
+                .priority(Priority.IMMEDIATE)
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                .into(imageAvatar);
+
+        textEmail.setText(Html.fromHtml(String.format("<b>Email: </b> %s", igUser.getEmail())));
+        textGender.setText(Html.fromHtml(String.format("<b>Gender: </b> %s", igUser.getGender())));
+        textMemberShip.setText(Html.fromHtml(String.format("<b>Membership: </b> %s", igUser.getMemberShip())));
     }
 
     @OnClick(R.id.layout_about)
@@ -33,6 +98,45 @@ public class SettingsFragment extends CoreFragment {
         startActivity(new Intent(mContext, WebViewActivity.class));
         getActivity().finish();
     }
+
+
+    @OnClick(R.id.button_logout)
+    public void logout() {
+        AppConfig.getInstance().logout();
+        startActivity(new Intent(mContext, SplashActivity.class));
+        getActivity().finish();
+    }
+
+    @OnClick(R.id.button)
+    public void onConfirm() {
+
+        String name = editName.getText().toString();
+
+        if (ValidateUtils.canUse(name)) {
+            Map<String, String> map = new HashMap<>();
+            map.put("name", name);
+
+            IzigoSdk.UserExecutor.updateInfo(map, new IGCallback<Void, String>() {
+                @Override
+                public void onSuccessful(Void aVoid) {
+                    AppConfig.showToast(mContext, getString(R.string.str_success));
+                }
+
+                @Override
+                public void onFail(String error) {
+                    AppConfig.showToast(mContext, error);
+                }
+
+                @Override
+                public void onExpired() {
+
+                }
+            });
+        } else {
+            AppConfig.showToast(mContext, getString(R.string.error_message_empty));
+        }
+    }
+
     /*
         @Override
         public void onActivityCreated(@Nullable Bundle savedInstanceState) {

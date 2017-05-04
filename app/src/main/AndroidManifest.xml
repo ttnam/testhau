@@ -114,12 +114,6 @@
             android:theme="@style/CoreAppTheme.White"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:name=".activities.user.ProfileActivity"
-            android:launchMode="singleInstance"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"
-            android:windowSoftInputMode="stateAlwaysHidden" />
-        <activity
             android:name=".activities.trip.AddTripActivity"
             android:launchMode="singleTask"
             android:theme="@style/AppTheme"

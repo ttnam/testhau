@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:orientation="horizontal"
+    android:padding="@dimen/margin_x2">
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@id/image_view"
+        android:layout_width="@dimen/icon_size_x12"
+        android:layout_height="@dimen/icon_size_x12"
+        android:background="@drawable/ic_style_rect_round_corners_dark_gray_none"
+        android:scaleType="centerCrop" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/margin"
+        android:layout_marginStart="@dimen/margin"
+        android:orientation="vertical">
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginBottom="@dimen/margin_min"
+            android:layout_marginTop="@dimen/margin_min"
+            android:layout_weight="1"
+            app:hintEnabled="false">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/edit_name"
+                style="@style/CoreAppTheme.TextView_Title.Bold"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/ic_style_rect_round_corners_gray_none"
+                android:ems="10"
+                android:inputType="text"
+                android:maxLines="1"
+                android:minLines="1"
+                android:padding="@dimen/margin"
+                android:paddingLeft="@dimen/margin_x2"
+                android:paddingRight="@dimen/margin_x2" />
+        </android.support.design.widget.TextInputLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/margin_min"
+            android:layout_marginTop="@dimen/margin_min"
+            android:layout_weight="1"
+            android:weightSum="2">
+
+            <Button
+                android:id="@id/button"
+                style="@style/CoreAppTheme.TextView_Sub_Title.Bold.White"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginEnd="@dimen/margin_min"
+                android:layout_marginRight="@dimen/margin_min"
+                android:layout_weight="1"
+                android:background="@drawable/ic_style_button_round_corners_accent_dark"
+                android:text="@string/str_update" />
+
+            <Button
+                android:id="@+id/button_logout"
+                style="@style/CoreAppTheme.TextView_Sub_Title.Bold.White"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/margin_min"
+                android:layout_marginStart="@dimen/margin_min"
+                android:layout_weight="1"
+                android:background="@drawable/ic_style_button_round_corners_red"
+                android:text="@string/str_logout" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</LinearLayout>
