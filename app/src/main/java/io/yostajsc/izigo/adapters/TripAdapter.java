@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 
 import io.yostajsc.core.utils.DatetimeUtils;
 import io.yostajsc.izigo.R;
-import io.yostajsc.sdk.model.trip.TripModel;
+import io.yostajsc.sdk.model.trip.IgTripModel;
 import io.yostajsc.ui.viewholder.TripViewHolder;
 
 /**
@@ -19,7 +19,7 @@ import io.yostajsc.ui.viewholder.TripViewHolder;
 public class TripAdapter extends RecyclerView.Adapter<TripViewHolder> {
 
     private Context mContext = null;
-    private SparseArray<TripModel> mList;
+    private SparseArray<IgTripModel> mList;
 
     public TripAdapter(Context context) {
         this.mContext = context;
@@ -33,7 +33,7 @@ public class TripAdapter extends RecyclerView.Adapter<TripViewHolder> {
 
     @Override
     public void onBindViewHolder(TripViewHolder holder, int position) {
-        TripModel trip = mList.get(position);
+        IgTripModel trip = mList.get(position);
         holder.bind(
                 trip.getCoverUrl(), // cover
                 trip.getName(), // name
@@ -49,14 +49,14 @@ public class TripAdapter extends RecyclerView.Adapter<TripViewHolder> {
         return mList.size();
     }
 
-    public TripModel getItem(int position) {
+    public IgTripModel getItem(int position) {
         if (position < 0 || position >= getItemCount()) {
             return null;
         }
         return this.mList.get(position);
     }
 
-    public void add(@NonNull TripModel newTrip) {
+    public void add(@NonNull IgTripModel newTrip) {
         this.mList.put(this.mList.size(), newTrip);
         notifyDataSetChanged();
     }

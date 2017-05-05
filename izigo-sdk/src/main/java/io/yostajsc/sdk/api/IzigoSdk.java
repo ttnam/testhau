@@ -1,7 +1,6 @@
 package io.yostajsc.sdk.api;
 
 import android.app.Application;
-import android.util.Log;
 
 import java.util.List;
 import java.util.Map;
@@ -15,7 +14,7 @@ import io.yostajsc.sdk.model.user.IgFriend;
 import io.yostajsc.sdk.model.trip.IgTrip;
 import io.yostajsc.core.utils.LogUtils;
 import io.yostajsc.sdk.consts.IgError;
-import io.yostajsc.sdk.model.IGCallback;
+import io.yostajsc.sdk.model.IgCallback;
 import io.yostajsc.sdk.model.user.IgUser;
 import io.yostajsc.sdk.model.token.IgToken;
 import io.yostajsc.sdk.model.TripTypePermission;
@@ -65,7 +64,7 @@ public class IzigoSdk {
 
         private final static String TAG = TripExecutor.class.getSimpleName();
 
-        public static void publishTrip(String tripId, boolean isPublish, IGCallback<Void, String> callback) {
+        public static void publishTrip(String tripId, boolean isPublish, IgCallback<Void, String> callback) {
             if (IzigoSession.isLoggedIn()) {
                 String auth = IzigoSession.getToken().getToken();
                 IzigoApiManager.connect().updateTripInfo(
@@ -79,7 +78,7 @@ public class IzigoSdk {
             }
         }
 
-        public static void changeCover(String tripId, String url, IGCallback<Void, String> callback) {
+        public static void changeCover(String tripId, String url, IgCallback<Void, String> callback) {
             if (IzigoSession.isLoggedIn()) {
                 String auth = IzigoSession.getToken().getToken();
                 IzigoApiManager.connect().updateTripInfo(
@@ -92,7 +91,7 @@ public class IzigoSdk {
             }
         }
 
-        public static void changeName(String tripId, String name, IGCallback<Void, String> callback) {
+        public static void changeName(String tripId, String name, IgCallback<Void, String> callback) {
             if (IzigoSession.isLoggedIn()) {
                 String auth = IzigoSession.getToken().getToken();
                 IzigoApiManager.connect().updateTripInfo(
@@ -115,7 +114,7 @@ public class IzigoSdk {
             }
         }
 
-        public static void getPublishTrip(final IGCallback<List<IgTrip>, String> callback) {
+        public static void getPublishTrip(final IgCallback<List<IgTrip>, String> callback) {
             if (IzigoSession.isLoggedIn()) {
                 String auth = IzigoSession.getToken().getToken();
                 IzigoApiManager.connect().getAllPublicTrips(auth, callback);
@@ -124,7 +123,7 @@ public class IzigoSdk {
             }
         }
 
-        public static void getOwnTrip(final IGCallback<List<IgTrip>, String> callback) {
+        public static void getOwnTrip(final IgCallback<List<IgTrip>, String> callback) {
             if (IzigoSession.isLoggedIn()) {
                 String auth = IzigoSession.getToken().getToken();
                 IzigoApiManager.connect().getAllOwnTripsList(auth, callback);
@@ -133,7 +132,7 @@ public class IzigoSdk {
             }
         }
 
-        public static void getTripDetail(String tripId, final IGCallback<IgTrip, String> callback) {
+        public static void getTripDetail(String tripId, final IgCallback<IgTrip, String> callback) {
             if (IzigoSession.isLoggedIn()) {
                 String auth = IzigoSession.getToken().getToken();
                 IzigoApiManager.connect().getTripDetail(auth, tripId, callback);
@@ -142,7 +141,7 @@ public class IzigoSdk {
             }
         }
 
-        public static void getMembers(String tripId, final IGCallback<List<IgFriend>, String> callback) {
+        public static void getMembers(String tripId, final IgCallback<List<IgFriend>, String> callback) {
             if (IzigoSession.isLoggedIn()) {
                 String auth = IzigoSession.getToken().getToken();
                 IzigoApiManager.connect().getMembers(auth, tripId, callback);
@@ -151,7 +150,7 @@ public class IzigoSdk {
             }
         }
 
-        public static void addMembers(String tripId, String fbId, final IGCallback<Void, String> callback) {
+        public static void addMembers(String tripId, String fbId, final IgCallback<Void, String> callback) {
             if (IzigoSession.isLoggedIn()) {
                 String auth = IzigoSession.getToken().getToken();
                 IzigoApiManager.connect().addMembers(auth, tripId, fbId, callback);
@@ -160,7 +159,7 @@ public class IzigoSdk {
             }
         }
 
-        public static void kickMembers(String tripId, String fbId, final IGCallback<Void, String> callback) {
+        public static void kickMembers(String tripId, String fbId, final IgCallback<Void, String> callback) {
             if (IzigoSession.isLoggedIn()) {
                 String auth = IzigoSession.getToken().getToken();
                 IzigoApiManager.connect().kickMember(auth, tripId, fbId, callback);
@@ -169,7 +168,7 @@ public class IzigoSdk {
             }
         }
 
-        public static void getActivities(String tripId, final IGCallback<List<Timeline>, String> callback) {
+        public static void getActivities(String tripId, final IgCallback<List<Timeline>, String> callback) {
             if (IzigoSession.isLoggedIn()) {
                 String auth = IzigoSession.getToken().getToken();
                 IzigoApiManager.connect().getActivities(auth, tripId, callback);
@@ -178,7 +177,7 @@ public class IzigoSdk {
             }
         }
 
-        public static void getComments(String tripId, final IGCallback<List<Comment>, String> callback) {
+        public static void getComments(String tripId, final IgCallback<List<Comment>, String> callback) {
             if (IzigoSession.isLoggedIn()) {
                 String auth = IzigoSession.getToken().getToken();
                 IzigoApiManager.connect().getComments(auth, tripId, callback);
@@ -192,7 +191,7 @@ public class IzigoSdk {
 
         private final static String TAG = UserExecutor.class.getSimpleName();
 
-        public static void getInfo(final IGCallback<IgUser, String> callback) {
+        public static void getInfo(final IgCallback<IgUser, String> callback) {
             if (IzigoSession.isLoggedIn()) {
                 String auth = IzigoSession.getToken().getToken();
                 IzigoApiManager.connect().getUserInfo(auth, callback);
@@ -212,7 +211,7 @@ public class IzigoSdk {
         public static void login(String fbToken, String email, final String fbId,
                                  String fireBaseUid, String fcm,
                                  final CallBack onSuccess, final CallBackWith<String> onFail) {
-            IzigoApiManager.connect().login(fbToken, email, fbId, fireBaseUid, fcm, new IGCallback<IgToken, String>() {
+            IzigoApiManager.connect().login(fbToken, email, fbId, fireBaseUid, fcm, new IgCallback<IgToken, String>() {
                 @Override
                 public void onSuccessful(IgToken igToken) {
 
@@ -235,7 +234,7 @@ public class IzigoSdk {
         }
 
         public static void updateInfo(Map<String, String> body,
-                                      final IGCallback<Void, String> callback) {
+                                      final IgCallback<Void, String> callback) {
             if (IzigoSession.isLoggedIn()) {
                 String auth = IzigoSession.getToken().getToken();
                 IzigoApiManager.connect().updateProfile(auth, body, callback);
@@ -247,7 +246,7 @@ public class IzigoSdk {
         public static void updateFcm(String fcm) {
             if (IzigoSession.isLoggedIn()) {
                 String auth = IzigoSession.getToken().getToken();
-                IzigoApiManager.connect().updateFcm(auth, fcm, new IGCallback<Void, String>() {
+                IzigoApiManager.connect().updateFcm(auth, fcm, new IgCallback<Void, String>() {
                     @Override
                     public void onSuccessful(Void aVoid) {
 
@@ -266,7 +265,7 @@ public class IzigoSdk {
             }
         }
 
-        public static void getFriends(String fbToken, final IGCallback<List<IgFriend>, String> callback) {
+        public static void getFriends(String fbToken, final IgCallback<List<IgFriend>, String> callback) {
             if (IzigoSession.isLoggedIn()) {
                 String auth = IzigoSession.getToken().getToken();
                 IzigoApiManager.connect().getFriendsList(auth, fbToken, callback);
@@ -275,7 +274,7 @@ public class IzigoSdk {
             }
         }
 
-        public static void getNotifications(final IGCallback<List<Notification>, String> callback) {
+        public static void getNotifications(final IgCallback<List<Notification>, String> callback) {
             if (IzigoSession.isLoggedIn()) {
                 String auth = IzigoSession.getToken().getToken();
                 IzigoApiManager.connect().getNotifications(auth, callback);

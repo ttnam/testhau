@@ -23,7 +23,7 @@ import io.yostajsc.izigo.activities.trip.TripDetailActivity;
 import io.yostajsc.izigo.adapters.TripAdapter;
 import io.yostajsc.AppConfig;
 import io.yostajsc.sdk.api.IzigoSdk;
-import io.yostajsc.sdk.model.IGCallback;
+import io.yostajsc.sdk.model.IgCallback;
 import io.yostajsc.utils.UiUtils;
 import io.yostajsc.ui.OwnToolBar;
 import butterknife.BindView;
@@ -90,7 +90,7 @@ public class TripFragment extends CoreFragment {
 
         if (NetworkUtils.isNetworkConnected(mContext)) {
 
-            IzigoSdk.TripExecutor.getPublishTrip(new IGCallback<List<IgTrip>, String>() {
+            IzigoSdk.TripExecutor.getPublishTrip(new IgCallback<List<IgTrip>, String>() {
                 @Override
                 public void onSuccessful(List<IgTrip> publicTrips) {
                     processingUiUpdate(publicTrips);

@@ -31,15 +31,14 @@
                 android:textSize="@dimen/text_size_v2_5" />
 
             <TextView
-                android:id="@+id/text_publish"
+                android:id="@+id/text_status"
                 style="@style/CoreAppTheme.TextView_Sub_Title.Bold.White"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="@dimen/margin"
                 android:layout_marginStart="@dimen/margin"
-                android:background="@drawable/ic_style_button_round_corners_green"
-                android:clickable="true"
+                android:background="@drawable/ic_style_rect_round_corners_light_green"
                 android:gravity="center"
                 android:paddingBottom="@dimen/margin"
                 android:paddingLeft="@dimen/margin_x2"

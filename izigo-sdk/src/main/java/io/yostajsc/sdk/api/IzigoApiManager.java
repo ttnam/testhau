@@ -16,7 +16,7 @@ import io.yostajsc.sdk.model.Notification;
 import io.yostajsc.sdk.model.Timeline;
 import io.yostajsc.sdk.model.user.IgFriend;
 import io.yostajsc.sdk.model.trip.IgTrip;
-import io.yostajsc.sdk.model.IGCallback;
+import io.yostajsc.sdk.model.IgCallback;
 import io.yostajsc.sdk.model.user.IgUser;
 import io.yostajsc.sdk.model.TripTypePermission;
 import io.yostajsc.sdk.model.token.IgToken;
@@ -93,7 +93,7 @@ class IzigoApiManager {
     }
 
     public void login(String fbToken, String email, String fbId, String fireBaseUid, String fcm,
-                      final IGCallback<IgToken, String> callback) {
+                      final IgCallback<IgToken, String> callback) {
 
         Call<BaseResponse<IgToken>> call = service.apiLogin(fbToken, email, fbId, fireBaseUid, fcm);
 
@@ -118,7 +118,7 @@ class IzigoApiManager {
         });
     }
 
-    public void getAllPublicTrips(String authorization, final IGCallback<List<IgTrip>, String> callback) {
+    public void getAllPublicTrips(String authorization, final IgCallback<List<IgTrip>, String> callback) {
         try {
             Call<BaseResponse<List<IgTrip>>> call = service.apiGetAllPublicTrips(authorization);
             call.enqueue(new Callback<BaseResponse<List<IgTrip>>>() {
@@ -148,7 +148,7 @@ class IzigoApiManager {
     }
 
 
-    public void getAllOwnTripsList(String authorization, final IGCallback<List<IgTrip>, String> callback) {
+    public void getAllOwnTripsList(String authorization, final IgCallback<List<IgTrip>, String> callback) {
         try {
             Call<BaseResponse<List<IgTrip>>> call = service.apiGetAllOwnTrips(authorization);
             call.enqueue(new Callback<BaseResponse<List<IgTrip>>>() {
@@ -177,7 +177,7 @@ class IzigoApiManager {
         }
     }
 
-    public void updateFcm(String authorization, String fcm, final IGCallback<Void, String> callback) {
+    public void updateFcm(String authorization, String fcm, final IgCallback<Void, String> callback) {
         Call<BaseResponse> call = service.apiUpdateFcm(authorization, fcm);
         call.enqueue(new Callback<BaseResponse>() {
             @Override
@@ -196,7 +196,7 @@ class IzigoApiManager {
         });
     }
 
-    public void getTripDetail(String authorization, String tripId, final IGCallback<IgTrip, String> callback) {
+    public void getTripDetail(String authorization, String tripId, final IgCallback<IgTrip, String> callback) {
 
         Call<BaseResponse<IgTrip>> call = service.apiGetTripDetail(authorization, tripId);
 
@@ -223,7 +223,7 @@ class IzigoApiManager {
         });
     }
 
-    public void getUserInfo(String authorization, final IGCallback<IgUser, String> callback) {
+    public void getUserInfo(String authorization, final IgCallback<IgUser, String> callback) {
 
         Call<BaseResponse<IgUser>> call = service.apiGetUserInfo(authorization);
         call.enqueue(new Callback<BaseResponse<IgUser>>() {
@@ -280,7 +280,7 @@ class IzigoApiManager {
         });
     }
 
-    public void getFriendsList(String authorization, String fbAccessToken, final IGCallback<List<IgFriend>, String> callback) {
+    public void getFriendsList(String authorization, String fbAccessToken, final IgCallback<List<IgFriend>, String> callback) {
 
         Call<BaseResponse<List<IgFriend>>> call = service.apiGetFriendsList(authorization, fbAccessToken);
 
@@ -335,7 +335,7 @@ class IzigoApiManager {
     }
 
     public void updateProfile(String authorization, Map<String, String> body,
-                              final IGCallback<Void, String> callback) {
+                              final IgCallback<Void, String> callback) {
         Call<BaseResponse> call = service.apiUpdateUserInfo(authorization, body);
         call.enqueue(new Callback<BaseResponse>() {
             @Override
@@ -359,7 +359,7 @@ class IzigoApiManager {
         });
     }
 
-    public void getComments(String authorization, String tripId, final IGCallback<List<Comment>, String> callback) {
+    public void getComments(String authorization, String tripId, final IgCallback<List<Comment>, String> callback) {
         Call<BaseResponse<List<Comment>>> call = service.apiGetComments(authorization, tripId);
         call.enqueue(new Callback<BaseResponse<List<Comment>>>() {
             @Override
@@ -384,7 +384,7 @@ class IzigoApiManager {
     }
 
     public void getActivities(String authorization, String tripId,
-                              final IGCallback<List<Timeline>, String> callback) {
+                              final IgCallback<List<Timeline>, String> callback) {
 
         Call<BaseResponse<List<Timeline>>> call = service.apiGetActivities(authorization, tripId);
         call.enqueue(new Callback<BaseResponse<List<Timeline>>>() {
@@ -409,7 +409,7 @@ class IzigoApiManager {
         });
     }
 
-    public void getMembers(String authorization, String tripId, final IGCallback<List<IgFriend>, String> callback) {
+    public void getMembers(String authorization, String tripId, final IgCallback<List<IgFriend>, String> callback) {
         Call<BaseResponse<List<IgFriend>>> call = service.apiGetMembers(authorization, tripId);
         call.enqueue(new Callback<BaseResponse<List<IgFriend>>>() {
             @Override
@@ -456,7 +456,7 @@ class IzigoApiManager {
     }
 
     public void updateTripInfo(String authorization, String tripId, String data, int type,
-                               final IGCallback<Void, String> callback) {
+                               final IgCallback<Void, String> callback) {
 
         Call<BaseResponse<String>> call = service.apiUpdateTripCover(authorization, tripId, data);
 
@@ -513,7 +513,7 @@ class IzigoApiManager {
         });
     }
 
-    public void getNotifications(String authorization, final IGCallback<List<Notification>, String> callback) {
+    public void getNotifications(String authorization, final IgCallback<List<Notification>, String> callback) {
 
         Call<BaseResponse<List<Notification>>> call = service.apiGetNotification(authorization);
         call.enqueue(new Callback<BaseResponse<List<Notification>>>() {
@@ -593,7 +593,7 @@ class IzigoApiManager {
     }
 
     public void addMembers(String authorization, String tripId, String fbId,
-                           final IGCallback<Void, String> callback) {
+                           final IgCallback<Void, String> callback) {
 
         Call<BaseResponse<String>> call = service.apiAddMember(authorization, tripId, fbId);
 
@@ -620,7 +620,7 @@ class IzigoApiManager {
     }
 
     public void kickMember(String authorization, String tripId, String fbId,
-                           final IGCallback<Void, String> callback) {
+                           final IgCallback<Void, String> callback) {
 
         Call<BaseResponse<String>> call = service.apiKickMember(authorization, tripId, fbId);
 

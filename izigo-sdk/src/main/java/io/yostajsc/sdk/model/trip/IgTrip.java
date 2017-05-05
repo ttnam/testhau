@@ -11,7 +11,7 @@ import java.util.List;
  * Created by Phuc-Hau Nguyen on 2/20/2017.
  */
 
-public class IgTrip implements TripModel, Serializable {
+public class IgTrip implements IgTripModel, Serializable {
 
     public static final String TRIP_ID = "mId";
 
@@ -32,7 +32,7 @@ public class IgTrip implements TripModel, Serializable {
     private LocationPick mDepart;
 
     @SerializedName("status")
-    private String mStatus;
+    private int mStatus;
 
     @SerializedName("description")
     private String mDescription;
@@ -137,6 +137,10 @@ public class IgTrip implements TripModel, Serializable {
     @Override
     public long getDurationTimeInMillis() {
         return getArriveTime() - getDepartTime();
+    }
+
+    public int getStatus() {
+        return mStatus;
     }
 
     public class BaseUserInfo implements Serializable {

@@ -27,7 +27,7 @@ import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.activities.WebViewActivity;
 import io.yostajsc.izigo.activities.user.SplashActivity;
 import io.yostajsc.sdk.api.IzigoSdk;
-import io.yostajsc.sdk.model.IGCallback;
+import io.yostajsc.sdk.model.IgCallback;
 import io.yostajsc.sdk.model.user.IgUser;
 
 public class SettingsFragment extends CoreFragment {
@@ -57,7 +57,7 @@ public class SettingsFragment extends CoreFragment {
 
 
     private void onApplyData() {
-        IzigoSdk.UserExecutor.getInfo(new IGCallback<IgUser, String>() {
+        IzigoSdk.UserExecutor.getInfo(new IgCallback<IgUser, String>() {
             @Override
             public void onSuccessful(IgUser igUser) {
                 updateValue(igUser);
@@ -115,7 +115,7 @@ public class SettingsFragment extends CoreFragment {
             Map<String, String> map = new HashMap<>();
             map.put("name", name);
 
-            IzigoSdk.UserExecutor.updateInfo(map, new IGCallback<Void, String>() {
+            IzigoSdk.UserExecutor.updateInfo(map, new IgCallback<Void, String>() {
                 @Override
                 public void onSuccessful(Void aVoid) {
                     AppConfig.showToast(mContext, getString(R.string.str_success));

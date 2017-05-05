@@ -25,7 +25,7 @@ import io.yostajsc.izigo.activities.trip.TripDetailActivity;
 import io.yostajsc.izigo.adapters.TripAdapter;
 import io.yostajsc.AppConfig;
 import io.yostajsc.sdk.api.IzigoSdk;
-import io.yostajsc.sdk.model.IGCallback;
+import io.yostajsc.sdk.model.IgCallback;
 import io.yostajsc.utils.UiUtils;
 import io.yostajsc.ui.OwnToolBar;
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
@@ -93,7 +93,7 @@ public class OwnTripFragment extends CoreFragment {
 
     private void loadFromServer() {
 
-        IzigoSdk.TripExecutor.getOwnTrip(new IGCallback<List<IgTrip>, String>() {
+        IzigoSdk.TripExecutor.getOwnTrip(new IgCallback<List<IgTrip>, String>() {
             @Override
             public void onSuccessful(List<IgTrip> trips) {
                 updateUI(trips);

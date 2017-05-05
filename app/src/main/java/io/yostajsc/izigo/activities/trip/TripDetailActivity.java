@@ -46,7 +46,7 @@ import io.yostajsc.izigo.dialogs.DialogPickTransfer;
 import io.yostajsc.izigo.adapters.ImageryAdapter;
 import io.yostajsc.AppConfig;
 import io.yostajsc.sdk.api.IzigoSdk;
-import io.yostajsc.sdk.model.IGCallback;
+import io.yostajsc.sdk.model.IgCallback;
 import io.yostajsc.utils.UiUtils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -103,8 +103,8 @@ public class TripDetailActivity extends OwnCoreActivity {
     @BindView(R.id.text_edit)
     TextView textEdit;
 
-    @BindView(R.id.text_publish)
-    TextView textPublish;
+    @BindView(R.id.text_status)
+    TextView textStatus;
 
     private String tripId;
     private boolean mIsPublic = false;
@@ -140,7 +140,7 @@ public class TripDetailActivity extends OwnCoreActivity {
         TripDetailActivityView.unbind();
         super.onDestroy();
     }
-
+/*
     @OnClick(R.id.text_publish)
     public void onMakePublish() {
         mIsPublic = !mIsPublic;
@@ -150,7 +150,7 @@ public class TripDetailActivity extends OwnCoreActivity {
                 AppConfig.showToast(TripDetailActivity.this, error);
             }
         }, mOnExpiredCallBack);
-    }
+    }*/
 
     @Override
     public void onApplyViews() {
@@ -221,7 +221,7 @@ public class TripDetailActivity extends OwnCoreActivity {
 
             IzigoSdk.TripExecutor.increaseTripView(tripId);
 
-            IzigoSdk.TripExecutor.getTripDetail(tripId, new IGCallback<IgTrip, String>() {
+            IzigoSdk.TripExecutor.getTripDetail(tripId, new IgCallback<IgTrip, String>() {
                 @Override
                 public void onSuccessful(IgTrip igTrip) {
                     updateUI(igTrip);
@@ -239,7 +239,7 @@ public class TripDetailActivity extends OwnCoreActivity {
             });
 
 
-            IzigoSdk.TripExecutor.getActivities(tripId, new IGCallback<List<Timeline>, String>() {
+            IzigoSdk.TripExecutor.getActivities(tripId, new IgCallback<List<Timeline>, String>() {
                 @Override
                 public void onSuccessful(List<Timeline> timelines) {
                     updateTimeline(timelines);
@@ -285,16 +285,17 @@ public class TripDetailActivity extends OwnCoreActivity {
         if (igTrip == null) return;
 
         mIgTrip = igTrip;
+        int sta = mIgTrip.getStatus();
 
         AppConfig.igImages = igTrip.getAlbum();
         this.albumAdapter.replaceAll(igTrip.getAlbum());
-
         this.mIsPublic = igTrip.isPublished();
         this.mCurrentRoleType = igTrip.getRole();
-        TripDetailActivityView.setPublishMode(mIsPublic);                               // Publish
+        // TripDetailActivityView.setPublishMode(mIsPublic);                               // Publish
         TripDetailActivityView.switchMode(mCurrentRoleType);                            // Mode, is publish
         TripDetailActivityView.setTripName(igTrip.getName());                           // IgTrip name
         TripDetailActivityView.setVehicle(igTrip.getTransfer());                        // Transfer
+        TripDetailActivityView.setTripStatus(igTrip.getStatus());                       // Status
         TripDetailActivityView.setTripCover(igTrip.getCoverUrl());                      // Cover
         TripDetailActivityView.setOwnerName(igTrip.getCreatorName());                   // Own name
         TripDetailActivityView.setOwnerAvatar(igTrip.getCreatorAvatar());               // Avatar

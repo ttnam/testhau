@@ -13,9 +13,10 @@ import io.yostajsc.core.interfaces.CallBack;
 import io.yostajsc.core.interfaces.CallBackWith;
 import io.yostajsc.core.utils.DatetimeUtils;
 import io.yostajsc.izigo.R;
-import io.yostajsc.sdk.model.IGCallback;
+import io.yostajsc.sdk.model.IgCallback;
 import io.yostajsc.sdk.api.IzigoSdk;
 import io.yostajsc.firebase.FirebaseExecutor;
+import io.yostajsc.sdk.model.trip.IgTripStatus;
 import io.yostajsc.utils.UiUtils;
 import io.yostajsc.core.glide.CropCircleTransformation;
 
@@ -80,6 +81,25 @@ public class TripDetailActivityView {
         }
     }
 
+    public static void setTripStatus(int status) {
+        try {
+            if (mInstance == null)
+                throw new Exception(ERROR_UN_BINDED);
+            if (status == IgTripStatus.PREPARED) {
+                mActivity.textStatus.setText("Dự định");
+                mActivity.textStatus.setBackgroundDrawable(mActivity.getResources().getDrawable(R.drawable.ic_style_rect_round_corners_light_blue_none));
+            } else if (status == IgTripStatus.ONGOING) {
+                mActivity.textStatus.setText("Đang đi");
+                mActivity.textStatus.setBackgroundDrawable(mActivity.getResources().getDrawable(R.drawable.ic_style_rect_round_corners_light_green));
+            } else if (status == IgTripStatus.FINISHED) {
+                mActivity.textStatus.setText("Kết thúc");
+                mActivity.textStatus.setBackgroundDrawable(mActivity.getResources().getDrawable(R.drawable.ic_style_rect_round_corners_light_red_none));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void showTripDescription(String content) {
         try {
             if (mInstance == null)
@@ -129,11 +149,11 @@ public class TripDetailActivityView {
                 case RoleType.MEMBER:
                 case RoleType.GUEST:
                     mActivity.textEdit.setVisibility(View.GONE);
-                    mActivity.textPublish.setClickable(false);
+                    // mActivity.textPublish.setClickable(false);
                     break;
                 case RoleType.ADMIN: {
                     mActivity.textEdit.setVisibility(View.VISIBLE);
-                    mActivity.textPublish.setClickable(true);
+                    // mActivity.textPublish.setClickable(true);
                     mActivity.registerForContextMenu(mActivity.imageCover);
                     break;
                 }
@@ -153,7 +173,7 @@ public class TripDetailActivityView {
             e.printStackTrace();
         }
     }
-
+/*
     public static void setPublishMode(boolean publishMode) {
         try {
             if (mInstance == null)
@@ -165,7 +185,7 @@ public class TripDetailActivityView {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
     public static void unbind() {
         mActivity = null;
@@ -180,7 +200,7 @@ public class TripDetailActivityView {
             @Override
             public void run(Uri uri) {
 
-                IzigoSdk.TripExecutor.changeCover(tripId, uri.toString(), new IGCallback<Void, String>() {
+                IzigoSdk.TripExecutor.changeCover(tripId, uri.toString(), new IgCallback<Void, String>() {
                     @Override
                     public void onSuccessful(Void aVoid) {
 
@@ -205,10 +225,10 @@ public class TripDetailActivityView {
                                    final boolean mIsPublic,
                                    final CallBackWith<String> fail,
                                    final CallBack expired) {
-        IzigoSdk.TripExecutor.publishTrip(tripId, mIsPublic, new IGCallback<Void, String>() {
+        IzigoSdk.TripExecutor.publishTrip(tripId, mIsPublic, new IgCallback<Void, String>() {
             @Override
             public void onSuccessful(Void aVoid) {
-                setPublishMode(mIsPublic);
+                // setPublishMode(mIsPublic);
             }
 
             @Override

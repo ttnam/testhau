@@ -15,7 +15,7 @@ import io.yostajsc.AppConfig;
 import io.yostajsc.sdk.model.user.IgFriend;
 import io.yostajsc.core.utils.PrefsUtils;
 import io.yostajsc.sdk.api.IzigoSdk;
-import io.yostajsc.sdk.model.IGCallback;
+import io.yostajsc.sdk.model.IgCallback;
 import io.yostajsc.sdk.model.trip.IgTrip;
 import io.yostajsc.core.code.MessageType;
 import io.yostajsc.core.interfaces.CallBackWith;
@@ -72,7 +72,7 @@ public class MembersActivity extends OwnCoreActivity {
     public void onApplyData() {
         super.onApplyData();
 
-        IzigoSdk.UserExecutor.getFriends(AppConfig.getInstance().getFbToken(), new IGCallback<List<IgFriend>, String>() {
+        IzigoSdk.UserExecutor.getFriends(AppConfig.getInstance().getFbToken(), new IgCallback<List<IgFriend>, String>() {
             @Override
             public void onSuccessful(List<IgFriend> friends) {
                 friendAdapter.replaceAll(friends);
@@ -92,7 +92,7 @@ public class MembersActivity extends OwnCoreActivity {
 
     private void getMemberList() {
 
-        IzigoSdk.TripExecutor.getMembers(mTripId, new IGCallback<List<IgFriend>, String>() {
+        IzigoSdk.TripExecutor.getMembers(mTripId, new IgCallback<List<IgFriend>, String>() {
             @Override
             public void onSuccessful(List<IgFriend> friends) {
                 memberAdapter.replaceAll(friends);
@@ -112,7 +112,7 @@ public class MembersActivity extends OwnCoreActivity {
 
     private void addMember(String fbId) {
 
-        IzigoSdk.TripExecutor.addMembers(mTripId, fbId, new IGCallback<Void, String>() {
+        IzigoSdk.TripExecutor.addMembers(mTripId, fbId, new IgCallback<Void, String>() {
             @Override
             public void onSuccessful(Void aVoid) {
                 AppConfig.showToast(MembersActivity.this, "Lời mời đã được gửi đi");
@@ -170,7 +170,7 @@ public class MembersActivity extends OwnCoreActivity {
     private void kick(int pos) {
 
         IzigoSdk.TripExecutor.kickMembers(mTripId,
-                memberAdapter.getItem(pos).getFbId(), new IGCallback<Void, String>() {
+                memberAdapter.getItem(pos).getFbId(), new IgCallback<Void, String>() {
                     @Override
                     public void onSuccessful(Void aVoid) {
                         AppConfig.showToast(MembersActivity.this, "Bạn đã xoá khỏi group thành công");

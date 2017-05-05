@@ -19,7 +19,7 @@ import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.adapters.NotificationAdapter;
 import io.yostajsc.izigo.fragments.base.BaseFragment;
 import io.yostajsc.sdk.api.IzigoSdk;
-import io.yostajsc.sdk.model.IGCallback;
+import io.yostajsc.sdk.model.IgCallback;
 import io.yostajsc.sdk.model.Notification;
 import io.yostajsc.utils.UiUtils;
 import jp.wasabeef.recyclerview.animators.SlideInRightAnimator;
@@ -58,7 +58,7 @@ public class NotificationsFragment extends BaseFragment {
 
     private void onApplyData() {
 
-        IzigoSdk.UserExecutor.getNotifications(new IGCallback<List<Notification>, String>() {
+        IzigoSdk.UserExecutor.getNotifications(new IgCallback<List<Notification>, String>() {
             @Override
             public void onSuccessful(List<Notification> notifications) {
                 int size = notifications.size();

@@ -24,7 +24,7 @@ import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.adapters.CommentAdapter;
 import io.yostajsc.sdk.api.IzigoSdk;
 import io.yostajsc.sdk.model.Comment;
-import io.yostajsc.sdk.model.IGCallback;
+import io.yostajsc.sdk.model.IgCallback;
 import io.yostajsc.utils.UiUtils;
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 
@@ -92,7 +92,7 @@ public class DialogComment extends Dialog {
     public void setTripId(String tripId) {
         if (TextUtils.isEmpty(tripId))
             return;
-        IzigoSdk.TripExecutor.getComments(tripId, new IGCallback<List<Comment>, String>() {
+        IzigoSdk.TripExecutor.getComments(tripId, new IgCallback<List<Comment>, String>() {
             @Override
             public void onSuccessful(List<Comment> comments) {
                 updateUI(comments);

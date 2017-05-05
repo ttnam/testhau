@@ -4,7 +4,7 @@ package io.yostajsc.sdk.model.trip;
  * Created by nphau on 4/7/17.
  */
 
-public interface TripModel {
+public interface IgTripModel {
 
     String getId();
 

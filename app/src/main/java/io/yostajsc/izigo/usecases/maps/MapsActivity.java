@@ -67,7 +67,7 @@ import io.yostajsc.izigo.fragments.Person;
 import io.yostajsc.izigo.usecases.DataParser;
 import io.yostajsc.sdk.api.IzigoSdk;
 import io.yostajsc.sdk.cache.IgCache;
-import io.yostajsc.sdk.model.IGCallback;
+import io.yostajsc.sdk.model.IgCallback;
 import io.yostajsc.sdk.model.trip.IgImage;
 import io.yostajsc.sdk.model.trip.IgTrip;
 import io.yostajsc.sdk.model.user.IgFriend;
@@ -123,7 +123,7 @@ public class MapsActivity extends OwnCoreActivity
 
         if (NetworkUtils.isNetworkConnected(this)) {
 
-            IzigoSdk.TripExecutor.getMembers(mTripId, new IGCallback<List<IgFriend>, String>() {
+            IzigoSdk.TripExecutor.getMembers(mTripId, new IgCallback<List<IgFriend>, String>() {
                 @Override
                 public void onSuccessful(List<IgFriend> igFriends) {
                     onReceiveMembers(igFriends);
