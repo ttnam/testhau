@@ -12,6 +12,7 @@
         android:layout_height="?actionBarSize"
         app:layoutBackground="@android:color/white"
         app:layoutTitle="@string/setting_about"
+        app:layoutTitleColor="@color/colorTextColorPrimary"
         app:layoutType="title_center" />
 
     <WebView
