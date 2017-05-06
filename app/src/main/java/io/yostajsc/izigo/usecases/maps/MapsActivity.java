@@ -37,7 +37,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -81,7 +80,6 @@ public class MapsActivity extends OwnCoreActivity implements
     private ClusterManager<Person> mClusterManager = null;
     private DialogActiveMembers mDialogActiveMembers = null;
     private Polyline mPolyline = null;
-    private List<IgImage> igImages = null;
 
     @BindView(R.id.button_direction)
     FloatingActionButton btnDirection;
@@ -191,82 +189,118 @@ public class MapsActivity extends OwnCoreActivity implements
     }
 
     private void registerDataChangeListener() {
-        FirebaseManager.inject().registerListenerOnTrack(mTripId, new CallBackWith<DataSnapshot>() {
-            @Override
-            public void run(DataSnapshot dataSnapshot) {
-                onLocationsChange(dataSnapshot);
-            }
-        }, new CallBackWith<String>() {
-            @Override
-            public void run(String error) {
-                AppConfig.showToast(MapsActivity.this, error);
-            }
-        });
+        FirebaseManager.inject().registerListenerOnTrack(mTripId,
+                new CallBackWith<DataSnapshot>() {
+                    @Override
+                    public void run(DataSnapshot dataSnapshot) {
+                        onChildAdded(dataSnapshot);
+                    }
+                }, new CallBackWith<DataSnapshot>() {
+                    @Override
+                    public void run(DataSnapshot dataSnapshot) {
+                        onChildChanged(dataSnapshot);
+                    }
+                }, new CallBackWith<String>() {
+                    @Override
+                    public void run(String error) {
+                        AppConfig.showToast(MapsActivity.this, error);
+                    }
+                });
     }
 
-    private void onLocationsChange(DataSnapshot dataSnapshot) {
+    private void onChildAdded(DataSnapshot dataSnapshot) {
 
-        for (String fbId : mTracks.keySet()) {
+        String fbId = dataSnapshot.getKey();
 
-            if (dataSnapshot.hasChild(fbId)) {
+        Iterator<DataSnapshot> geoIterator = dataSnapshot
+                .child("geo")
+                .getChildren().iterator();
 
-                Iterator<DataSnapshot> geoIterator = dataSnapshot
-                        .child(fbId)
-                        .child("geo")
-                        .getChildren().iterator();
-
-                String[] dataChild = null;
-                String key = "";
-                boolean gpsStatus = true;
-                while (geoIterator.hasNext()) {
-                    DataSnapshot geoData = geoIterator.next();
-                    String[] dataChildT = ((String) geoData.getValue()).split(", ");
-                    if (dataChildT.length == 3) {
-                        if (dataChildT[2].equalsIgnoreCase("1")) {
-                            key = geoData.getKey();
-                            dataChild = dataChildT;
-                        }
-                        if (!geoIterator.hasNext())
-                            gpsStatus = dataChildT[2].equalsIgnoreCase("1");
-                    }
+        String[] dataChild = null;
+        String key = "";
+        boolean gpsStatus = true;
+        while (geoIterator.hasNext()) {
+            DataSnapshot geoData = geoIterator.next();
+            String[] dataChildT = ((String) geoData.getValue()).split(", ");
+            if (dataChildT.length == 3) {
+                if (dataChildT[2].equalsIgnoreCase("1")) {
+                    key = geoData.getKey();
+                    dataChild = dataChildT;
                 }
-
-                if (dataChild == null)
-                    return;
-
-                this.mTracks.get(fbId).setVisible(gpsStatus);                // Is visible
-                this.mTracks.get(fbId).setLatLng(new LatLng(
-                        Double.parseDouble(dataChild[0]),               // Lat
-                        Double.parseDouble(dataChild[1])));             // Lng
-                this.mTracks.get(fbId).setUpdateAt(Long.parseLong(key));     // Time update
-
+                if (!geoIterator.hasNext())
+                    gpsStatus = dataChildT[2].equalsIgnoreCase("1");
             }
         }
 
-        this.mClusterManager.clearItems();
+        if (dataChild == null)
+            return;
 
-        // Call caching
-        if (igImages == null)
-            igImages = new ArrayList<>();
+        // Update
+        this.mTracks.get(fbId).setVisible(gpsStatus);               // Is visible
+        this.mTracks.get(fbId).setLatLng(new LatLng(
+                Double.parseDouble(dataChild[0]),                   // Lat
+                Double.parseDouble(dataChild[1])));                 // Lng
+        this.mTracks.get(fbId).setUpdateAt(Long.parseLong(key));    // Time update
 
-        igImages.clear();
+        // Show maps
+        Person person = this.mTracks.get(fbId);
+        if (person.getPosition() != null) {
 
-        // Convert to cluster
-        for (Map.Entry<String, Person> entry : mTracks.entrySet()) {
-            Person person = entry.getValue();
-            if (person.getPosition() != null) {
-                mClusterManager.addItem(person);
-                igImages.add(new IgImage(entry.getKey(), entry.getValue().getAvatar()));
+            // Download avatar
+            IgCache.BitmapsCache.askForMemory().cache(new CallBack() {
+                @Override
+                public void run() {
+
+                }
+            }, new IgImage(person.getId(), person.getAvatar()));
+
+            // Add new cluster Item
+            mClusterManager.addItem(person);
+            mClusterManager.cluster();
+        }
+    }
+
+    private void onChildChanged(DataSnapshot dataSnapshot) {
+
+        String fbId = dataSnapshot.getKey();
+
+        Iterator<DataSnapshot> geoIterator = dataSnapshot
+                .child("geo")
+                .getChildren().iterator();
+
+        String[] dataChild = null;
+        String key = "";
+        boolean gpsStatus = true;
+        while (geoIterator.hasNext()) {
+            DataSnapshot geoData = geoIterator.next();
+            String[] dataChildT = ((String) geoData.getValue()).split(", ");
+            if (dataChildT.length == 3) {
+                if (dataChildT[2].equalsIgnoreCase("1")) {
+                    key = geoData.getKey();
+                    dataChild = dataChildT;
+                }
+                if (!geoIterator.hasNext())
+                    gpsStatus = dataChildT[2].equalsIgnoreCase("1");
             }
         }
+
+        if (dataChild == null)
+            return;
+
+        // Remove the old one
+        mClusterManager.removeItem(this.mTracks.get(fbId));
         mClusterManager.cluster();
-        // Bitmaps caching
-        IgCache.BitmapsCache.askForMemory().cache(new CallBack() {
-            @Override
-            public void run() {
 
-            }
-        }, igImages.toArray(new IgImage[mTracks.size()]));
+        // Update the new one
+        this.mTracks.get(fbId).setVisible(gpsStatus);               // Is visible
+        this.mTracks.get(fbId).setLatLng(new LatLng(
+                Double.parseDouble(dataChild[0]),                   // Lat
+                Double.parseDouble(dataChild[1])));                 // Lng
+        this.mTracks.get(fbId).setUpdateAt(Long.parseLong(key));    // Time update
+
+        // Update maps
+        mClusterManager.addItem(this.mTracks.get(fbId));
+        mClusterManager.cluster();
     }
 
     @Override
@@ -324,7 +358,7 @@ public class MapsActivity extends OwnCoreActivity implements
         // Animate camera to the bounds
         mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(new LatLngBounds(
                 latLngBounds.southwest,
-                latLngBounds.northeast), 150));
+                latLngBounds.northeast), 180));
 
         return true;
     }

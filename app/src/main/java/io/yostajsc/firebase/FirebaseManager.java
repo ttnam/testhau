@@ -1,10 +1,15 @@
 package io.yostajsc.firebase;
 
+import android.util.Log;
+
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.Calendar;
 
 import io.yostajsc.core.interfaces.CallBackWith;
 
@@ -21,7 +26,7 @@ public class FirebaseManager {
     private static FirebaseManager mInstance = null;
 
     // Track
-    private static ValueEventListener mOnValueChangeOnTrack = null;
+    private static ChildEventListener mOnValueChangeOnTrack = null;
 
     private FirebaseManager() {
         if (this.mReference == null) {
@@ -52,10 +57,39 @@ public class FirebaseManager {
 
     public void registerListenerOnTrack(
             String tripId,
-            final CallBackWith<DataSnapshot> onSuccessful,
+            final CallBackWith<DataSnapshot> onChildAdded,
+            final CallBackWith<DataSnapshot> onChildChanged,
             final CallBackWith<String> onCancelled) {
 
-        mOnValueChangeOnTrack = TRACK().child(tripId).addValueEventListener(new ValueEventListener() {
+        mOnValueChangeOnTrack = TRACK().child(tripId).addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                onChildAdded.run(dataSnapshot);
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                onChildChanged.run(dataSnapshot);
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                onCancelled.run(databaseError.getMessage());
+            }
+        });
+
+
+        /*mOnValueChangeOnTrack = TRACK().child(tripId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
@@ -67,7 +101,7 @@ public class FirebaseManager {
             public void onCancelled(DatabaseError databaseError) {
                 onCancelled.run(databaseError.getMessage());
             }
-        });
+        });*/
     }
 
     public void unregisterListenerOnTrack() {
