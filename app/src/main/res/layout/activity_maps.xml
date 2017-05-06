@@ -40,24 +40,31 @@
 
     </LinearLayout>
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/button_direction"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|start"
-        android:layout_margin="@dimen/margin_x2"
-        android:visibility="gone"
-        app:backgroundTint="@android:color/holo_blue_dark"
-        app:fabSize="normal"
-        app:srcCompat="@drawable/ic_vector_direction" />
+        android:layout_margin="@dimen/margin"
+        android:orientation="vertical">
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/margin_x2"
-        app:fabSize="normal"
-        app:srcCompat="@drawable/ic_vector_user_group" />
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/button_direction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:backgroundTint="@android:color/holo_blue_dark"
+            app:fabSize="normal"
+            app:srcCompat="@drawable/ic_vector_direction" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin"
+            app:fabSize="normal"
+            app:srcCompat="@drawable/ic_vector_user_group" />
+
+    </LinearLayout>
+
 
 </FrameLayout>

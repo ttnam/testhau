@@ -15,6 +15,8 @@ public class Person implements ClusterItem {
     private String mAvatar;
     private boolean mIsVisible;
     private long mUpdateAt;
+    private String distance;
+    private String time;
 
     public Person() {
     }
@@ -56,5 +58,21 @@ public class Person implements ClusterItem {
 
     public void setUpdateAt(long updateAt) {
         this.mUpdateAt = updateAt;
+    }
+
+    public String getDistance() {
+        return distance;
+    }
+
+    public void setDistance(String distance) {
+        this.distance = distance;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 }

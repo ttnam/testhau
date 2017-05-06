@@ -4,17 +4,16 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.AppCompatImageView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -27,7 +26,6 @@ import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
-import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.firebase.database.DataSnapshot;
 import com.google.maps.android.clustering.Cluster;
 import com.google.maps.android.clustering.ClusterItem;
@@ -35,14 +33,6 @@ import com.google.maps.android.clustering.ClusterManager;
 import com.google.maps.android.clustering.view.DefaultClusterRenderer;
 import com.google.maps.android.ui.IconGenerator;
 
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -64,14 +54,14 @@ import io.yostajsc.izigo.activities.OwnCoreActivity;
 import io.yostajsc.izigo.dialogs.DialogActiveMembers;
 import io.yostajsc.izigo.fragments.MultiDrawable;
 import io.yostajsc.izigo.fragments.Person;
-import io.yostajsc.izigo.usecases.DataParser;
+import io.yostajsc.utils.maps.Info;
 import io.yostajsc.sdk.api.IzigoSdk;
 import io.yostajsc.sdk.cache.IgCache;
 import io.yostajsc.sdk.model.IgCallback;
 import io.yostajsc.sdk.model.trip.IgImage;
 import io.yostajsc.sdk.model.trip.IgTrip;
 import io.yostajsc.sdk.model.user.IgFriend;
-import io.yostajsc.utils.LocationUtils;
+import io.yostajsc.utils.maps.MapUtils;
 import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.RuntimePermissions;
 
@@ -87,9 +77,9 @@ public class MapsActivity extends OwnCoreActivity
     private boolean mIsFirst = true;
     private GoogleMap mMap = null;
     private String mTripId = null, mFocus = null;
-    private List<IgFriend> mMembers = null;
     private HashMap<String, Person> mTracks = null;
-    private ClusterManager<Person> mClusterManager;
+    private SupportMapFragment mapFragment = null;
+    private ClusterManager<Person> mClusterManager = null;
     private DialogActiveMembers mDialogActiveMembers = null;
     private Polyline mPolyline = null;
 
@@ -114,10 +104,7 @@ public class MapsActivity extends OwnCoreActivity
     @Override
     public void onApplyData() {
         super.onApplyData();
-
         this.mTracks = new HashMap<>();
-        this.mMembers = new ArrayList<>();
-
         mTripId = PrefsUtils.inject(this).getString(IgTrip.TRIP_ID);
         AppConfig.getInstance().startLocationServer(mTripId);
 
@@ -145,22 +132,20 @@ public class MapsActivity extends OwnCoreActivity
     @Override
     public void onApplyViews() {
         super.onApplyViews();
-        SupportMapFragment mapFragment
-                = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
-        this.mDialogActiveMembers = new DialogActiveMembers(this, new CallBackWith<IgFriend>() {
+        this.mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        this.mapFragment.getMapAsync(this);
+        this.mDialogActiveMembers = new DialogActiveMembers(this, new CallBackWith<String>() {
             @Override
-            public void run(IgFriend igFriend) {
-                mFocus = igFriend.getFbId();
-                mMap.moveCamera(CameraUpdateFactory.newLatLng(mTracks.get(mFocus).getPosition()));
+            public void run(String fbId) {
+                mFocus = fbId;
+                MapUtils.Map.moveCameraSmoothly(mMap, mTracks.get(mFocus).getPosition());
             }
         });
     }
 
     private void onReceiveMembers(List<IgFriend> igFriends) {
         if (igFriends.size() > 0) {
-            mMembers = igFriends;
-            mFocus = mMembers.get(0).getFbId();
+            mFocus = igFriends.get(0).getFbId();
             for (IgFriend friend : igFriends) {
                 mTracks.put(friend.getFbId(), new Person(
                         friend.getFbId(),
@@ -175,10 +160,27 @@ public class MapsActivity extends OwnCoreActivity
         }
     }
 
+    private String fbTemp;
+
     @OnClick(R.id.button)
     public void showActiveMembersList() {
         mDialogActiveMembers.show();
-        mDialogActiveMembers.setData(mMembers);
+
+        LatLng latLngOwn = mTracks.get(IzigoSdk.UserExecutor.getOwnFbId()).getPosition();
+
+        for (final String fbId : mTracks.keySet()) {
+
+            fbTemp = fbId;
+            LatLng latLng = mTracks.get(fbTemp).getPosition();
+            MapUtils.Map.direction(mMap, latLngOwn, latLng, false, new CallBackWith<Info>() {
+                @Override
+                public void run(Info info) {
+                    mTracks.get(fbTemp).setDistance(info.strDistance);
+                    mTracks.get(fbTemp).setTime(info.strDuration);
+                    mDialogActiveMembers.setData(mTracks.values().toArray(new Person[mTracks.values().size()]));
+                }
+            });
+        }
     }
 
     @Override
@@ -231,9 +233,6 @@ public class MapsActivity extends OwnCoreActivity
 
             }
         }
-
-        // mMap.moveCamera(CameraUpdateFactory.newLatLng(mTracks.get(mFocus).getPosition()));
-
         if (mTracks.size() > 0)
             makeCluster();
     }
@@ -278,6 +277,7 @@ public class MapsActivity extends OwnCoreActivity
         this.mMap = googleMap;
         this.mMap.setMaxZoomPreference(15f);
         this.mMap.setMinZoomPreference(4f);
+        this.mMap.setMyLocationEnabled(true);
         this.mMap.setOnMyLocationChangeListener(this);
         this.mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, R.raw.map_style));
         this.mMap.getUiSettings().setMyLocationButtonEnabled(true);
@@ -287,6 +287,21 @@ public class MapsActivity extends OwnCoreActivity
         this.mMap.getUiSettings().setScrollGesturesEnabled(true);
         this.mMap.getUiSettings().setZoomGesturesEnabled(true);
 
+        if (mapFragment.getView() != null &&
+                mapFragment.getView().findViewById(Integer.parseInt("1")) != null) {
+            // Get the button view
+            View locationButton = ((View) mapFragment.getView()
+                    .findViewById(Integer.parseInt("1"))
+                    .getParent()).findViewById(Integer.parseInt("2"));
+            // and next place it, on bottom right (as Google Maps app)
+            RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams)
+                    locationButton.getLayoutParams();
+            // position on right bottom
+            layoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP, 0);
+            layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
+            layoutParams.setMargins(0, 0, 30, 30);
+        }
+
         // Cluster renderer
         this.mClusterManager = new ClusterManager<>(this, mMap);
         this.mClusterManager.setRenderer(new PersonRenderer(this));
@@ -295,7 +310,6 @@ public class MapsActivity extends OwnCoreActivity
         this.mClusterManager.setOnClusterClickListener(this);
         this.mClusterManager.setOnClusterItemClickListener(this);
     }
-
 
     @Override
     public boolean onClusterClick(Cluster<Person> cluster) {
@@ -328,7 +342,7 @@ public class MapsActivity extends OwnCoreActivity
     @OnClick(R.id.button_direction)
     public void showDirection() {
         String ownFbId = IzigoSdk.UserExecutor.getOwnFbId();
-        direction(
+        MapUtils.Map.direction(mMap,
                 mTracks.get(ownFbId).getPosition(), // from
                 mTracks.get(mFocus).getPosition(), // to
                 true,
@@ -342,8 +356,8 @@ public class MapsActivity extends OwnCoreActivity
 
     @NeedsPermission({Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION})
     public void askGPS() {
-        if (!LocationUtils.Gps.connect().isEnable())
-            LocationUtils.Gps.request(this).askGPS();
+        if (!MapUtils.Gps.connect().isEnable())
+            MapUtils.Gps.request(this).askGPS();
     }
 
     @Override
@@ -351,7 +365,6 @@ public class MapsActivity extends OwnCoreActivity
         super.onGpsOff();
         MapsActivityPermissionsDispatcher.askGPSWithCheck(this);
     }
-
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -454,129 +467,4 @@ public class MapsActivity extends OwnCoreActivity
         }
     }
 
-    private class ParserTask extends AsyncTask<Object, Void, String> {
-
-        private boolean draw;
-        private CallBackWith<Info> callback;
-
-        @Override
-        protected String doInBackground(Object... obj) {
-
-            draw = (boolean) obj[1];
-            callback = (CallBackWith<Info>) obj[2];
-
-            String data = "";
-            try {
-                data = downloadUrl((String) obj[0]);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return data;
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            super.onPostExecute(result);
-
-            JSONObject jObject;
-            List<Route> routes;
-
-            try {
-                jObject = new JSONObject(result);
-
-                DataParser parser = new DataParser();
-                routes = parser.parse(jObject, draw);
-
-                callback.run(routes.get(0).info);
-
-                if (draw)
-                    draw(routes);
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-
-
-        private void draw(List<Route> routes) {
-
-            ArrayList<LatLng> points;
-            PolylineOptions lineOptions = null;
-
-            for (int i = 0; i < routes.size(); i++) {
-                points = new ArrayList<>();
-                lineOptions = new PolylineOptions();
-
-                List<HashMap<String, String>> path = routes.get(i).route;
-
-                for (int j = 0; j < path.size(); j++) {
-                    HashMap<String, String> point = path.get(j);
-
-                    double lat = Double.parseDouble(point.get("lat"));
-                    double lng = Double.parseDouble(point.get("lng"));
-                    LatLng position = new LatLng(lat, lng);
-
-                    points.add(position);
-                }
-
-                lineOptions.addAll(points);
-                lineOptions.width(15);
-                lineOptions.color(Color.RED);
-            }
-
-            if (lineOptions != null) {
-                mPolyline = mMap.addPolyline(lineOptions);
-             //   mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
-            }
-        }
-
-        private String downloadUrl(String strUrl) throws IOException {
-            String data = "";
-            InputStream iStream = null;
-            HttpURLConnection urlConnection = null;
-            try {
-                URL url = new URL(strUrl);
-
-                urlConnection = (HttpURLConnection) url.openConnection();
-                urlConnection.connect();
-
-                iStream = urlConnection.getInputStream();
-
-                BufferedReader br = new BufferedReader(new InputStreamReader(iStream));
-
-                StringBuffer sb = new StringBuffer();
-
-                String line;
-                while ((line = br.readLine()) != null) {
-                    sb.append(line);
-                }
-
-                data = sb.toString();
-                br.close();
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            } finally {
-                iStream.close();
-                urlConnection.disconnect();
-            }
-            return data;
-        }
-    }
-
-    private String getUrl(LatLng origin, LatLng dest) {
-        String strOrigin = "origin=" + origin.latitude + "," + origin.longitude;
-        String strDest = "destination=" + dest.latitude + "," + dest.longitude;
-        String parameters = strOrigin + "&" + strDest;
-        return urlGoogleAPI + parameters;
-    }
-
-    private void direction(LatLng origin, LatLng dest, boolean draw, CallBackWith<Info> callback) {
-        String url = getUrl(origin, dest);
-        ParserTask parserTask = new ParserTask();
-        parserTask.execute(url, draw, callback);
-    }
-
-
-    private final String urlGoogleAPI = "https://maps.googleapis.com/maps/api/directions/json?language=vi&";
 }

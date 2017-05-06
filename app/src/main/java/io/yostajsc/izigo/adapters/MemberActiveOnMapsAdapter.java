@@ -9,10 +9,11 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import io.yostajsc.izigo.R;
-import io.yostajsc.sdk.model.user.IgFriend;
+import io.yostajsc.izigo.fragments.Person;
 import io.yostajsc.ui.viewholder.ActiveMemberOnMapsViewHolder;
 
 /**
@@ -22,7 +23,7 @@ import io.yostajsc.ui.viewholder.ActiveMemberOnMapsViewHolder;
 public class MemberActiveOnMapsAdapter extends RecyclerView.Adapter<ActiveMemberOnMapsViewHolder> {
 
     private Context mContext = null;
-    private List<IgFriend> mList = null;
+    private List<Person> mList = null;
 
 
     public MemberActiveOnMapsAdapter(Context context) {
@@ -40,33 +41,36 @@ public class MemberActiveOnMapsAdapter extends RecyclerView.Adapter<ActiveMember
 
     @Override
     public void onBindViewHolder(ActiveMemberOnMapsViewHolder holder, int position) {
-        IgFriend friend = mList.get(position);
-        holder.bind(friend.getAvatar(), friend.getName(), "5km");
+        Person person = mList.get(position);
+        holder.bind(person.getAvatar(), person.getName(), person.getDistance(), person.getTime());
     }
 
     @Override
     public int getItemCount() {
-        if(mList == null)
+        if (mList == null)
             return 0;
         return mList.size();
     }
 
-    public IgFriend getItem(int position) {
+    public Person getItem(int position) {
         if (position < 0 || position >= getItemCount()) {
             return null;
         }
         return this.mList.get(position);
     }
 
-    public void add(IgFriend trip) {
-        this.mList.add(trip);
+    public void add(Person person) {
+        this.mList.add(person);
         notifyDataSetChanged();
     }
 
-    public void replaceAll(List<IgFriend> friends) {
-        if(friends == null)
+    public void replaceAll(Person[] person) {
+        if (person == null)
             return;
-        this.mList = friends;
+        if (this.mList == null)
+            this.mList = new ArrayList<>();
+        this.mList.clear();
+        Collections.addAll(mList, person);
         notifyDataSetChanged();
     }
 

@@ -10,6 +10,7 @@ import java.util.Calendar;
 
 import io.yostajsc.core.utils.PrefsUtils;
 import io.yostajsc.AppConfig;
+import io.yostajsc.utils.maps.MapUtils;
 
 /**
  * Created by nphau on 3/21/17.
@@ -30,7 +31,7 @@ public class LocationListener implements android.location.LocationListener {
     @Override
     public void onLocationChanged(final Location location) {
 
-        if (LocationCore.make().isBetter(location, mLastLocation)) {
+        if (MapUtils.Map.isBetter(location, mLastLocation)) {
 
             mLastLocation = location;
 

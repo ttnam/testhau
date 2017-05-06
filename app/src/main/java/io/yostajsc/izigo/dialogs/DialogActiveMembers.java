@@ -20,6 +20,7 @@ import io.yostajsc.core.interfaces.CallBackWith;
 import io.yostajsc.core.utils.DimensionUtil;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.adapters.MemberActiveOnMapsAdapter;
+import io.yostajsc.izigo.fragments.Person;
 import io.yostajsc.sdk.model.user.IgFriend;
 
 /**
@@ -32,11 +33,11 @@ public class DialogActiveMembers extends Dialog {
 
     private MemberActiveOnMapsAdapter adapter = null;
 
-    private CallBackWith<IgFriend> mOnItemClick = null;
+    private CallBackWith<String> mOnItemClick = null;
 
     private Activity mOwnerActivity = null;
 
-    public DialogActiveMembers(Context context, CallBackWith<IgFriend> onItemClick) {
+    public DialogActiveMembers(Context context, CallBackWith<String> onItemClick) {
         super(context, R.style.CoreAppTheme_Dialog);
 
         this.mOwnerActivity = (context instanceof Activity) ? (Activity) context : null;
@@ -80,15 +81,15 @@ public class DialogActiveMembers extends Dialog {
         this.recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(mOwnerActivity, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                mOnItemClick.run(adapter.getItem(position));
+                mOnItemClick.run(adapter.getItem(position).getId());
                 dismiss();
             }
         }));
     }
 
-    public void setData(List<IgFriend> realms) {
-        if (realms == null)
+    public void setData(Person[] people) {
+        if (people == null)
             return;
-        adapter.replaceAll(realms);
+        adapter.replaceAll(people);
     }
 }

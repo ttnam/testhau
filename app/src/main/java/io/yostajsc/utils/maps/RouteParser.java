@@ -1,25 +1,21 @@
-package io.yostajsc.izigo.usecases;
+package io.yostajsc.utils.maps;
 
 import com.google.android.gms.maps.model.LatLng;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import io.yostajsc.izigo.usecases.maps.Info;
-import io.yostajsc.izigo.usecases.maps.Route;
-
 /**
  * Created by nphau on 5/4/17.
  */
 
-public class DataParser {
+public class RouteParser {
 
-    public DataParser() {
+    public RouteParser() {
     }
 
     public List<Route> parse(JSONObject jObject, boolean draw) {

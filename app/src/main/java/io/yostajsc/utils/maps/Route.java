@@ -1,4 +1,4 @@
-package io.yostajsc.izigo.usecases.maps;
+package io.yostajsc.utils.maps;
 
 import java.util.HashMap;
 import java.util.List;

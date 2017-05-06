@@ -24,7 +24,7 @@ import io.yostajsc.core.code.MessageType;
 import io.yostajsc.izigo.R;
 import io.yostajsc.AppConfig;
 import io.yostajsc.sdk.model.trip.LocationPick;
-import io.yostajsc.utils.LocationUtils;
+import io.yostajsc.utils.maps.MapUtils;
 import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.RuntimePermissions;
 
@@ -78,7 +78,7 @@ public class PickLocationActivity extends OwnCoreActivity implements GoogleMap.O
                 locationName = place.getName().toString();
                 LatLng latLng = place.getLatLng();
                 currLatLng = latLng;
-                LocationUtils.Map.addShowCustomMarker(mMap, latLng);
+                MapUtils.Map.addShowCustomMarker(mMap, latLng);
                 autocompleteFragment.setText(locationName);
             }
 
@@ -101,8 +101,8 @@ public class PickLocationActivity extends OwnCoreActivity implements GoogleMap.O
         switch (requestCode) {
             case MessageType.USER_GPS:
                 if (resultCode != Activity.RESULT_OK) {
-                    currLatLng = LocationUtils.Map.populateLocalStationParams(this);
-                    LocationUtils.Map.addShowCustomMarker(mMap, currLatLng);
+                    currLatLng = MapUtils.Map.populateLocalStationParams(this);
+                    MapUtils.Map.addShowCustomMarker(mMap, currLatLng);
                 }
                 break;
             default:
@@ -119,7 +119,7 @@ public class PickLocationActivity extends OwnCoreActivity implements GoogleMap.O
     @Override
     protected void onResume() {
         super.onResume();
-        LocationUtils.Gps.connect().askGPS();
+        MapUtils.Gps.connect().askGPS();
     }
 
     @Override
@@ -139,10 +139,10 @@ public class PickLocationActivity extends OwnCoreActivity implements GoogleMap.O
 
     @Override
     public void onMyLocationChange(Location location) {
-        if (LocationUtils.Map.isBetter(location, currLocation)) {
+        if (MapUtils.Map.isBetter(location, currLocation)) {
             currLocation = location;
             currLatLng = new LatLng(currLocation.getLatitude(), currLocation.getLongitude());
-            LocationUtils.Map.addShowCustomMarker(mMap, currLatLng);
+            MapUtils.Map.addShowCustomMarker(mMap, currLatLng);
         }
     }
 

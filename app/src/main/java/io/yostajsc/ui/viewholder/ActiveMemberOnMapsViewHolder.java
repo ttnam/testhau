@@ -30,10 +30,6 @@ public class ActiveMemberOnMapsViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.text_view_distance)
     TextView textDistance;
 
-
-    @BindView(R.id.image_close)
-    AppCompatImageView imageClose;
-
     private Context mContext;
 
     public ActiveMemberOnMapsViewHolder(View itemView) {
@@ -42,7 +38,8 @@ public class ActiveMemberOnMapsViewHolder extends RecyclerView.ViewHolder {
         this.mContext = itemView.getContext();
     }
 
-    public void bind(@NonNull String avatar, @NonNull String name, @NonNull String distance) {
+    public void bind(@NonNull String avatar, @NonNull String name,
+                     String distance, String time) {
 
         Glide.with(mContext)
                 .load(avatar)
@@ -51,8 +48,11 @@ public class ActiveMemberOnMapsViewHolder extends RecyclerView.ViewHolder {
                 .into(imageAvatar);
 
         this.textName.setText(name);
-        this.textDistance.setText(distance);
-        imageClose.setVisibility(View.GONE);
+        if (distance == null || time == null) {
+            this.textDistance.setVisibility(View.GONE);
+        } else {
+            this.textDistance.setText(distance + " - " + time);
+        }
     }
 
 }

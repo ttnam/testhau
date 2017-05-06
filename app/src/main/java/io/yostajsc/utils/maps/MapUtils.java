@@ -1,4 +1,4 @@
-package io.yostajsc.utils;
+package io.yostajsc.utils.maps;
 
 
 import android.app.Activity;
@@ -30,6 +30,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import io.yostajsc.AppConfig;
 import io.yostajsc.core.code.MessageType;
+import io.yostajsc.core.interfaces.CallBackWith;
 
 import static android.content.Context.LOCATION_SERVICE;
 
@@ -37,9 +38,10 @@ import static android.content.Context.LOCATION_SERVICE;
  * Created by Phuc-Hau Nguyen on 12/27/2016.
  */
 
-public class LocationUtils {
+public class MapUtils {
 
-    private static String TAG = LocationUtils.class.getSimpleName();
+    private static String TAG = MapUtils.class.getSimpleName();
+    private static final String urlGoogleAPI = "https://maps.googleapis.com/maps/api/directions/json?language=vi&";
 
     private static final int MIN_TIME = 1000 * 60;
     private static final int MIN_DISTANCE = 10;
@@ -246,6 +248,7 @@ public class LocationUtils {
             return (newLocation.distanceTo(current) >= MIN_DISTANCE ||
                     (newLocation.getTime() - current.getTime() > MIN_TIME));
         }
+
         public static LatLng populateLocalStationParams(Context context) {
             LocationManager lm = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
             Location location = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
@@ -255,6 +258,18 @@ public class LocationUtils {
             return new LatLng(0, 0);
         }
 
+        private static String getUrl(LatLng origin, LatLng dest) {
+            String strOrigin = "origin=" + origin.latitude + "," + origin.longitude;
+            String strDest = "destination=" + dest.latitude + "," + dest.longitude;
+            String parameters = strOrigin + "&" + strDest;
+            return urlGoogleAPI + parameters;
+        }
+
+        public static void direction(GoogleMap mMap, LatLng origin, LatLng dest, boolean draw, CallBackWith<Info> callback) {
+            String url = getUrl(origin, dest);
+            RouteParserTask parserTask = new RouteParserTask(mMap);
+            parserTask.execute(url, draw, callback);
+        }
     }
 
     public static LatLng getLatLng(@NonNull Location location) {
