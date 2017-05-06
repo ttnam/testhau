@@ -44,4 +44,11 @@
 
     </LinearLayout>
 
+    <View
+        android:id="@id/icon_view"
+        android:layout_width="@dimen/icon_size_x2"
+        android:layout_height="@dimen/icon_size_x2"
+        android:layout_gravity="center"
+        android:background="@drawable/ic_style_circle_blue_none" />
+
 </LinearLayout>

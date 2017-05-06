@@ -19,6 +19,7 @@ public class Person implements ClusterItem {
     private String time;
 
     public Person() {
+
     }
 
     public Person(String id, String name, String avatar) {
@@ -74,5 +75,9 @@ public class Person implements ClusterItem {
 
     public void setTime(String time) {
         this.time = time;
+    }
+
+    public boolean isVisible() {
+        return mIsVisible;
     }
 }

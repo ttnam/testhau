@@ -42,7 +42,7 @@ public class MemberActiveOnMapsAdapter extends RecyclerView.Adapter<ActiveMember
     @Override
     public void onBindViewHolder(ActiveMemberOnMapsViewHolder holder, int position) {
         Person person = mList.get(position);
-        holder.bind(person.getAvatar(), person.getName(), person.getDistance(), person.getTime());
+        holder.bind(person.getAvatar(), person.getName(), person.getDistance(), person.getTime(), person.isVisible());
     }
 
     @Override
