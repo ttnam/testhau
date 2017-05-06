@@ -1,6 +1,7 @@
 package io.yostajsc.sdk.api;
 
 import android.app.Application;
+import android.util.Log;
 
 import java.util.List;
 import java.util.Map;

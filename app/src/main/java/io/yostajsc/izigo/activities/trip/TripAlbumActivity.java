@@ -15,9 +15,6 @@ import android.support.v7.widget.SnapHelper;
 import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -25,6 +22,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.yostajsc.AppConfig;
+import io.yostajsc.constants.RoleType;
 import io.yostajsc.core.code.MessageType;
 import io.yostajsc.core.designs.listeners.RecyclerItemClickListener;
 import io.yostajsc.core.interfaces.CoreActivity;
@@ -45,12 +43,6 @@ public class TripAlbumActivity extends CoreActivity {
 
     @BindView(R.id.recycler_view)
     RecyclerView rvAlbum;
-
-    @BindView(R.id.layout_empty)
-    LinearLayout layoutEmpty;
-
-    @BindView(R.id.button)
-    Button button;
 
     private ImageryOnlyAdapter albumAdapter = null;
 
@@ -88,7 +80,6 @@ public class TripAlbumActivity extends CoreActivity {
             }
         }));
         registerForContextMenu(btnRight);
-        button.setText(getString(R.string.str_add_image));
     }
 
     @OnClick(R.id.button_left)
@@ -97,7 +88,7 @@ public class TripAlbumActivity extends CoreActivity {
         super.onBackPressed();
     }
 
-    @OnClick({R.id.button_right, R.id.button})
+    @OnClick(R.id.button_right)
     public void addImage() {
         btnRight.performLongClick();
     }
@@ -113,8 +104,10 @@ public class TripAlbumActivity extends CoreActivity {
         super.onApplyData();
         if (AppConfig.igImages.size() > 0) {
             this.albumAdapter.replaceAll(AppConfig.igImages);
-            showUi();
         }
+
+        int role = getIntent().getIntExtra(AppConfig.KEY_USER_ROLE, -1);
+        btnRight.setVisibility(role == RoleType.GUEST ? View.INVISIBLE : View.VISIBLE);
     }
 
     @NeedsPermission({Manifest.permission.WRITE_EXTERNAL_STORAGE,
@@ -143,7 +136,6 @@ public class TripAlbumActivity extends CoreActivity {
                         for (String url : res) {
                             albumAdapter.add(new IgImage(url));
                         }
-                        showUi();
                     }
 
                     break;
@@ -152,7 +144,6 @@ public class TripAlbumActivity extends CoreActivity {
                         Bitmap photo = (Bitmap) data.getExtras().get("data");
                         Uri tempUri = FileUtils.getImageUri(TripAlbumActivity.this, photo);
                         albumAdapter.add(new IgImage(tempUri.toString()));
-                        showUi();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -160,11 +151,6 @@ public class TripAlbumActivity extends CoreActivity {
                 }
             }
         }
-    }
-
-    private void showUi() {
-        this.rvAlbum.setVisibility(View.VISIBLE);
-        this.layoutEmpty.setVisibility(View.GONE);
     }
 
     @Override

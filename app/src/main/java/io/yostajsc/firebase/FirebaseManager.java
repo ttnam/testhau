@@ -16,7 +16,6 @@ public class FirebaseManager {
     public static final String FIRE_BASE_TOKEN = "FIRE_BASE_TOKEN";
     private static final String FIRE_BASE_TRIP = "TRIP";
     private static final String FIRE_BASE_TRACK = "TRACK";
-    private static final String FIRE_BASE_LOCATION = "LOCATION";
 
     private DatabaseReference mReference = null;
     private static FirebaseManager mInstance = null;
@@ -46,9 +45,6 @@ public class FirebaseManager {
         return this.mReference.child(FIRE_BASE_TRIP);
     }
 
-    public DatabaseReference LOCATION() {
-        return this.mReference.child(FIRE_BASE_LOCATION);
-    }
 
     public DatabaseReference TRACK() {
         return this.mReference.child(FIRE_BASE_TRACK);

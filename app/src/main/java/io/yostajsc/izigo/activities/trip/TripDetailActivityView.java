@@ -87,12 +87,20 @@ public class TripDetailActivityView {
                 throw new Exception(ERROR_UN_BINDED);
             if (status == IgTripStatus.PREPARED) {
                 mActivity.textStatus.setText("Dự định");
+                mActivity.layoutMaps.setVisibility(View.VISIBLE);
+                mActivity.layoutMaps.setEnabled(false);
+                mActivity.layoutHistory.setVisibility(View.GONE);
                 mActivity.textStatus.setBackgroundDrawable(mActivity.getResources().getDrawable(R.drawable.ic_style_rect_round_corners_light_blue_none));
             } else if (status == IgTripStatus.ONGOING) {
                 mActivity.textStatus.setText("Đang đi");
+                mActivity.layoutMaps.setEnabled(true);
+                mActivity.layoutMaps.setVisibility(View.VISIBLE);
+                mActivity.layoutHistory.setVisibility(View.GONE);
                 mActivity.textStatus.setBackgroundDrawable(mActivity.getResources().getDrawable(R.drawable.ic_style_rect_round_corners_light_green));
             } else if (status == IgTripStatus.FINISHED) {
                 mActivity.textStatus.setText("Kết thúc");
+                mActivity.layoutMaps.setVisibility(View.GONE);
+                mActivity.layoutHistory.setVisibility(View.VISIBLE);
                 mActivity.textStatus.setBackgroundDrawable(mActivity.getResources().getDrawable(R.drawable.ic_style_rect_round_corners_light_red_none));
             }
         } catch (Exception e) {

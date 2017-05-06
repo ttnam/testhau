@@ -66,8 +66,7 @@ import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.RuntimePermissions;
 
 @RuntimePermissions
-public class MapsActivity extends OwnCoreActivity
-        implements
+public class MapsActivity extends OwnCoreActivity implements
         OnMapReadyCallback, GoogleMap.OnMyLocationChangeListener,
         ClusterManager.OnClusterClickListener<Person>,
         ClusterManager.OnClusterItemClickListener<Person> {
@@ -82,6 +81,7 @@ public class MapsActivity extends OwnCoreActivity
     private ClusterManager<Person> mClusterManager = null;
     private DialogActiveMembers mDialogActiveMembers = null;
     private Polyline mPolyline = null;
+    private List<IgImage> igImages = null;
 
     @BindView(R.id.button_direction)
     FloatingActionButton btnDirection;
@@ -207,9 +207,9 @@ public class MapsActivity extends OwnCoreActivity
     private void onLocationsChange(DataSnapshot dataSnapshot) {
 
         for (String fbId : mTracks.keySet()) {
+
             if (dataSnapshot.hasChild(fbId)) {
 
-                // Get list ic_vector_location
                 Iterator<DataSnapshot> geoIterator = dataSnapshot
                         .child(fbId)
                         .child("geo")
@@ -217,7 +217,7 @@ public class MapsActivity extends OwnCoreActivity
 
                 String[] dataChild = null;
                 String key = "";
-                boolean statusGPS = true;
+                boolean gpsStatus = true;
                 while (geoIterator.hasNext()) {
                     DataSnapshot geoData = geoIterator.next();
                     String[] dataChildT = ((String) geoData.getValue()).split(", ");
@@ -227,51 +227,29 @@ public class MapsActivity extends OwnCoreActivity
                             dataChild = dataChildT;
                         }
                         if (!geoIterator.hasNext())
-                            statusGPS = dataChildT[2].equalsIgnoreCase("1");
+                            gpsStatus = dataChildT[2].equalsIgnoreCase("1");
                     }
                 }
 
                 if (dataChild == null)
                     return;
 
-                mTracks.get(fbId).setLatLng(new LatLng(
-                        Double.parseDouble(dataChild[0]),                            // Lat
-                        Double.parseDouble(dataChild[1])));                          // Lng
-                mTracks.get(fbId).setUpdateAt(Long.parseLong(key));                  // Time update
-                mTracks.get(fbId).setVisible(statusGPS);    // Is visible
-
-               /* DataSnapshot geoData = null;
-                while (geoIterator.hasNext())
-                    geoData = geoIterator.next();
-
-                if (geoData == null)
-                    return;
-
-                String[] dataChild = ((String) geoData.getValue()).split(", ");
-                if (dataChild.length < 3)
-                    return;
-                mTracks.get(fbId).setLatLng(new LatLng(
-                        Double.parseDouble(dataChild[0]),                            // Lat
-                        Double.parseDouble(dataChild[1])));                          // Lng
-                mTracks.get(fbId).setUpdateAt(Long.parseLong(geoData.getKey()));     // Time update
-                mTracks.get(fbId).setVisible(dataChild[2].equalsIgnoreCase("1"));    // Is visible*/
+                this.mTracks.get(fbId).setVisible(gpsStatus);                // Is visible
+                this.mTracks.get(fbId).setLatLng(new LatLng(
+                        Double.parseDouble(dataChild[0]),               // Lat
+                        Double.parseDouble(dataChild[1])));             // Lng
+                this.mTracks.get(fbId).setUpdateAt(Long.parseLong(key));     // Time update
 
             }
         }
-        if (mTracks.size() > 0)
-            makeCluster();
-    }
-
-    private void makeCluster() {
-
-        // Not initialize yet
-        if (mClusterManager == null)
-            return;
 
         this.mClusterManager.clearItems();
 
         // Call caching
-        List<IgImage> igImages = new ArrayList<>();
+        if (igImages == null)
+            igImages = new ArrayList<>();
+
+        igImages.clear();
 
         // Convert to cluster
         for (Map.Entry<String, Person> entry : mTracks.entrySet()) {
@@ -280,7 +258,6 @@ public class MapsActivity extends OwnCoreActivity
                 mClusterManager.addItem(person);
                 igImages.add(new IgImage(entry.getKey(), entry.getValue().getAvatar()));
             }
-
         }
         mClusterManager.cluster();
         // Bitmaps caching

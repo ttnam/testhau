@@ -18,6 +18,7 @@ import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -106,8 +107,13 @@ public class TripDetailActivity extends OwnCoreActivity {
     @BindView(R.id.text_status)
     TextView textStatus;
 
+    @BindView(R.id.layout_maps)
+    FrameLayout layoutMaps;
+
+    @BindView(R.id.layout_history)
+    FrameLayout layoutHistory;
+
     private String tripId;
-    private boolean mIsPublic = false;
     private int mCurrentRoleType = RoleType.GUEST;
     private IgTrip mIgTrip = null;
     private ImageryAdapter albumAdapter = null;
@@ -170,7 +176,9 @@ public class TripDetailActivity extends OwnCoreActivity {
         this.rvAlbum.addOnItemTouchListener(new RecyclerItemClickListener(this, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-
+                Intent intent = new Intent(TripDetailActivity.this, TripAlbumActivity.class);
+                intent.putExtra(AppConfig.KEY_USER_ROLE, mIgTrip.getRole());
+                startActivity(intent);
             }
         }));
 
@@ -266,12 +274,6 @@ public class TripDetailActivity extends OwnCoreActivity {
         onApplyData();
     }
 
-    @OnClick(R.id.layout_album)
-    public void openAlbum() {
-        startActivity(new Intent(this, TripAlbumActivity.class));
-    }
-
-
     private void updateTimeline(List<Timeline> timelines) {
         if (timelines != null && timelines.size() > 0) {
             this.timelineAdapter.replaceAll(timelines);
@@ -285,11 +287,9 @@ public class TripDetailActivity extends OwnCoreActivity {
         if (igTrip == null) return;
 
         mIgTrip = igTrip;
-        int sta = mIgTrip.getStatus();
 
         AppConfig.igImages = igTrip.getAlbum();
         this.albumAdapter.replaceAll(igTrip.getAlbum());
-        this.mIsPublic = igTrip.isPublished();
         this.mCurrentRoleType = igTrip.getRole();
         // TripDetailActivityView.setPublishMode(mIsPublic);                               // Publish
         TripDetailActivityView.switchMode(mCurrentRoleType);                            // Mode, is publish
@@ -355,7 +355,7 @@ public class TripDetailActivity extends OwnCoreActivity {
         }
     }*/
 
-    @OnClick(R.id.layout_activity)
+    @OnClick(R.id.layout_maps)
     public void loadActivity() {
         PrefsUtils.inject(this).save(IgTrip.TRIP_ID, tripId);
         Intent intent = new Intent(TripDetailActivity.this, MapsActivity.class);

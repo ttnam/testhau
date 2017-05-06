@@ -54,11 +54,10 @@
         <include layout="@layout/item_web_vew" />
 
         <LinearLayout
-            android:id="@+id/layout_album"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin"
-            android:background="@drawable/ic_style_button_round_none_default"
+            android:background="@android:color/white"
             android:clickable="true"
             android:orientation="horizontal">
 
