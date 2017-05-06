@@ -23,10 +23,13 @@ import com.google.android.gms.location.LocationSettingsResult;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
-import io.yostajsc.core.code.MessageType;
+import com.google.android.gms.maps.model.MarkerOptions;
+
 import io.yostajsc.AppConfig;
+import io.yostajsc.core.code.MessageType;
 
 import static android.content.Context.LOCATION_SERVICE;
 
@@ -38,7 +41,9 @@ public class LocationUtils {
 
     private static String TAG = LocationUtils.class.getSimpleName();
 
-    public static final double RADIUS_OF_EARTH_METERS = 6371009.0;
+    private static final int MIN_TIME = 1000 * 60;
+    private static final int MIN_DISTANCE = 10;
+    private static final double RADIUS_OF_EARTH_METERS = 6371009.0;
 
     public static class Gps implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
@@ -190,19 +195,7 @@ public class LocationUtils {
 
     public static class Map {
 
-        private static Map mInstance = null;
-
-        private Map() {
-
-        }
-
-        public static Map request() {
-            if (mInstance == null)
-                mInstance = new Map();
-            return mInstance;
-        }
-
-        public void moveCameraSmoothly(final GoogleMap map, final LatLng latLng, boolean isSmoothly) {
+        public static void moveCameraSmoothly(final GoogleMap map, final LatLng latLng, boolean isSmoothly) {
 
             map.moveCamera(CameraUpdateFactory.newCameraPosition(new CameraPosition(latLng, 13f, 0, 0)));
 
@@ -219,11 +212,49 @@ public class LocationUtils {
             }
         }
 
-        private void moveCamera(final GoogleMap map, final LatLng latLng) {
+        public static void moveCameraSmoothly(final GoogleMap map, final LatLng latLng) {
+            map.moveCamera(CameraUpdateFactory.newCameraPosition(new CameraPosition(latLng, 13f, 0, 0)));
+            Handler handler = new Handler();
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    moveCamera(map, latLng);
+                }
+            });
+        }
+
+        private static void moveCamera(final GoogleMap map, final LatLng latLng) {
             map.animateCamera(CameraUpdateFactory.scrollBy(
                     (float) latLng.latitude, (float) latLng.longitude),
                     3000, null);
         }
+
+        public static void addShowCustomMarker(final GoogleMap map, final LatLng latLng) {
+            map.addMarker(
+                    new MarkerOptions()
+                            .position(latLng)
+                            .draggable(false)
+                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+            moveCameraSmoothly(map, latLng, true);
+        }
+
+        public static boolean isBetter(Location newLocation, Location current) {
+            if (current == null)
+                return true;
+            if (newLocation == null)
+                return false;
+            return (newLocation.distanceTo(current) >= MIN_DISTANCE ||
+                    (newLocation.getTime() - current.getTime() > MIN_TIME));
+        }
+        public static LatLng populateLocalStationParams(Context context) {
+            LocationManager lm = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+            Location location = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+            if (location != null) {
+                return new LatLng(location.getLatitude(), location.getLongitude());
+            }
+            return new LatLng(0, 0);
+        }
+
     }
 
     public static LatLng getLatLng(@NonNull Location location) {
@@ -244,15 +275,4 @@ public class LocationUtils {
                 radius.latitude, radius.longitude, result);
         return result[0];
     }
-
-    public static boolean isAccepted(Location old, Location news) {
-        if (news == null || old == null) {
-            return false;
-        }
-        float distance = news.distanceTo(old);
-        Log.e("distance", distance + "");
-
-        return distance > 30;
-    }
-
 }

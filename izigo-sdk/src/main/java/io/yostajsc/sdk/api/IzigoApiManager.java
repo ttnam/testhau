@@ -218,7 +218,6 @@ class IzigoApiManager {
             @Override
             public void onFailure(Call<BaseResponse<IgTrip>> call, Throwable throwable) {
                 callback.onFail(throwable.getMessage());
-                Log.e(TAG, throwable.getMessage());
             }
         });
     }
