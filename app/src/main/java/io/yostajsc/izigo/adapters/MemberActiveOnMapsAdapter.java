@@ -25,7 +25,6 @@ public class MemberActiveOnMapsAdapter extends RecyclerView.Adapter<ActiveMember
     private Context mContext = null;
     private List<Person> mList = null;
 
-
     public MemberActiveOnMapsAdapter(Context context) {
         this.mContext = context;
         this.mList = new ArrayList<>();

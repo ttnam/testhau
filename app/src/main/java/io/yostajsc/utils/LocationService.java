@@ -17,8 +17,8 @@ public class LocationService extends Service {
     private static final String TAG = LocationService.class.getSimpleName();
 
     private LocationManager mLocationManager = null;
-    private static final int LOCATION_INTERVAL = 1000 * 30; // mil
-    private static final float LOCATION_DISTANCE = 10f; // m
+    private static final int LOCATION_INTERVAL = 1000 * 10 * 60; // mil
+    private static final float LOCATION_DISTANCE = 500f; // m
 
     private LocationListener[] listeners = new LocationListener[]{
             new LocationListener(LocationManager.GPS_PROVIDER),
@@ -54,7 +54,6 @@ public class LocationService extends Service {
         } catch (Exception ex) {
             Log.e(TAG, ex.getMessage());
         }
-        Log.e(TAG, "START");
     }
 
     @Override

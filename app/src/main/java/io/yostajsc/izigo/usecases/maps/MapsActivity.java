@@ -215,7 +215,32 @@ public class MapsActivity extends OwnCoreActivity
                         .child("geo")
                         .getChildren().iterator();
 
-                DataSnapshot geoData = null;
+                String[] dataChild = null;
+                String key = "";
+                boolean statusGPS = true;
+                while (geoIterator.hasNext()) {
+                    DataSnapshot geoData = geoIterator.next();
+                    String[] dataChildT = ((String) geoData.getValue()).split(", ");
+                    if (dataChildT.length == 3) {
+                        if (dataChildT[2].equalsIgnoreCase("1")) {
+                            key = geoData.getKey();
+                            dataChild = dataChildT;
+                        }
+                        if (!geoIterator.hasNext())
+                            statusGPS = dataChildT[2].equalsIgnoreCase("1");
+                    }
+                }
+
+                if (dataChild == null)
+                    return;
+
+                mTracks.get(fbId).setLatLng(new LatLng(
+                        Double.parseDouble(dataChild[0]),                            // Lat
+                        Double.parseDouble(dataChild[1])));                          // Lng
+                mTracks.get(fbId).setUpdateAt(Long.parseLong(key));                  // Time update
+                mTracks.get(fbId).setVisible(statusGPS);    // Is visible
+
+               /* DataSnapshot geoData = null;
                 while (geoIterator.hasNext())
                     geoData = geoIterator.next();
 
@@ -229,7 +254,7 @@ public class MapsActivity extends OwnCoreActivity
                         Double.parseDouble(dataChild[0]),                            // Lat
                         Double.parseDouble(dataChild[1])));                          // Lng
                 mTracks.get(fbId).setUpdateAt(Long.parseLong(geoData.getKey()));     // Time update
-                mTracks.get(fbId).setVisible(dataChild[2].equalsIgnoreCase("1"));    // Is visible
+                mTracks.get(fbId).setVisible(dataChild[2].equalsIgnoreCase("1"));    // Is visible*/
 
             }
         }
