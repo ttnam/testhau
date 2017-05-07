@@ -27,6 +27,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
 
 import io.yostajsc.AppConfig;
 import io.yostajsc.core.code.MessageType;
@@ -197,38 +198,23 @@ public class MapUtils {
 
     public static class Map {
 
-        public static void moveCameraSmoothly(final GoogleMap map, final LatLng latLng, boolean isSmoothly) {
-
-            map.moveCamera(CameraUpdateFactory.newCameraPosition(new CameraPosition(latLng, 13f, 0, 0)));
-
-            if (isSmoothly) {
-                Handler handler = new Handler();
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        moveCamera(map, latLng);
-                    }
-                });
-            } else {
-                moveCamera(map, latLng);
-            }
-        }
-
-        public static void moveCameraSmoothly(final GoogleMap map, final LatLng latLng) {
-            map.moveCamera(CameraUpdateFactory.newCameraPosition(new CameraPosition(latLng, 13f, 0, 0)));
+        public static void moveCameraSmoothly(final GoogleMap map, final LatLng latLng, final int timeInMills) {
+            map.moveCamera(CameraUpdateFactory.newCameraPosition(new CameraPosition(latLng,
+                    map.getCameraPosition().zoom,
+                    map.getCameraPosition().tilt,
+                    map.getCameraPosition().bearing)));
             Handler handler = new Handler();
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    moveCamera(map, latLng);
+                    moveCamera(map, latLng, timeInMills);
                 }
             });
         }
 
-        private static void moveCamera(final GoogleMap map, final LatLng latLng) {
-            map.animateCamera(CameraUpdateFactory.scrollBy(
-                    (float) latLng.latitude, (float) latLng.longitude),
-                    3000, null);
+        private static void moveCamera(final GoogleMap map, final LatLng latLng, int timeInMills) {
+            map.animateCamera(CameraUpdateFactory.scrollBy((float) latLng.latitude, (float) latLng.longitude),
+                    timeInMills, null);
         }
 
         public static void addShowCustomMarker(final GoogleMap map, final LatLng latLng) {
@@ -237,7 +223,7 @@ public class MapUtils {
                             .position(latLng)
                             .draggable(false)
                             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
-            moveCameraSmoothly(map, latLng, true);
+            moveCameraSmoothly(map, latLng, 500);
         }
 
         public static boolean isBetter(Location newLocation, Location current) {
@@ -265,10 +251,11 @@ public class MapUtils {
             return urlGoogleAPI + parameters;
         }
 
-        public static void direction(GoogleMap mMap, LatLng origin, LatLng dest, boolean draw, CallBackWith<Info> callback) {
+        public static void direction(GoogleMap mMap, LatLng origin, LatLng dest, boolean draw,
+                                     CallBackWith<Info> callback, CallBackWith<Polyline> polyline) {
             String url = getUrl(origin, dest);
-            RouteParserTask parserTask = new RouteParserTask(mMap);
-            parserTask.execute(url, draw, callback);
+            RouteParserTask parserTask = new RouteParserTask(mMap, callback, polyline);
+            parserTask.execute(url, draw);
         }
     }
 

@@ -7,6 +7,7 @@ import com.google.maps.android.clustering.ClusterItem;
  * Created by nphau on 4/12/17.
  */
 
+
 public class Person implements ClusterItem {
 
     private String mId;
@@ -26,6 +27,16 @@ public class Person implements ClusterItem {
         this.mId = id;
         this.mName = name;
         this.mAvatar = avatar;
+    }
+
+    @Override
+    public String getTitle() {
+        return getId();
+    }
+
+    @Override
+    public String getSnippet() {
+        return null;
     }
 
     @Override

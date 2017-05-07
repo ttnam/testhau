@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
 import org.json.JSONObject;
@@ -30,17 +31,19 @@ public class RouteParserTask extends AsyncTask<Object, Void, String> {
     private boolean draw = false;
 
     private GoogleMap mMap = null;
-    private CallBackWith<Info> callback;
+    private CallBackWith<Info> mCallback = null;
+    private CallBackWith<Polyline> mPolyline = null;
 
-    public RouteParserTask(GoogleMap map) {
+    public RouteParserTask(GoogleMap map, CallBackWith<Info> callback, CallBackWith<Polyline> polyline) {
         this.mMap = map;
+        this.mCallback = callback;
+        this.mPolyline = polyline;
     }
 
     @Override
     protected String doInBackground(Object... obj) {
 
         draw = (boolean) obj[1];
-        callback = (CallBackWith<Info>) obj[2];
 
         String data = "";
         try {
@@ -64,10 +67,14 @@ public class RouteParserTask extends AsyncTask<Object, Void, String> {
             RouteParser parser = new RouteParser();
             routes = parser.parse(jObject, draw);
 
-            callback.run(routes.get(0).info);
+            mCallback.run(routes.get(0).info);
 
-            if (draw)
-                draw(routes);
+            if (draw) {
+                Polyline polyline = draw(routes);
+                if (mPolyline != null) {
+                    mPolyline.run(polyline);
+                }
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -75,7 +82,7 @@ public class RouteParserTask extends AsyncTask<Object, Void, String> {
     }
 
 
-    private void draw(List<Route> routes) {
+    private Polyline draw(List<Route> routes) {
 
         ArrayList<LatLng> points;
         PolylineOptions lineOptions = null;
@@ -100,10 +107,11 @@ public class RouteParserTask extends AsyncTask<Object, Void, String> {
             lineOptions.width(15);
             lineOptions.color(Color.RED);
         }
-
+        Polyline polyline = null;
         if (lineOptions != null) {
-            mMap.addPolyline(lineOptions);
+            polyline = mMap.addPolyline(lineOptions);
         }
+        return polyline;
     }
 
     private String downloadUrl(String strUrl) throws IOException {

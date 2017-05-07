@@ -1,4 +1,4 @@
-package io.yostajsc.izigo.services.fcm;
+package io.yostajsc.izigo.usecases.maps.services.fcm;
 
 import android.util.Log;
 

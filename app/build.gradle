@@ -120,7 +120,8 @@ dependencies {
 
 
     compile 'com.facebook.android:facebook-android-sdk:[4,5)'
-    compile 'com.google.maps.android:android-maps-utils:0.4.4'
+    compile 'com.google.maps.android:android-maps-utils:0.5+'
+
     compile 'com.jakewharton:butterknife:8.5.1'
     compile 'com.firebaseui:firebase-ui-database:1.0.1'
     compile 'com.firebase:firebase-client-android:2.3.1'

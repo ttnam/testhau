@@ -34,6 +34,7 @@ import com.google.maps.android.clustering.view.DefaultClusterRenderer;
 import com.google.maps.android.ui.IconGenerator;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -65,10 +66,8 @@ import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.RuntimePermissions;
 
 @RuntimePermissions
-public class MapsActivity extends OwnCoreActivity implements
-        OnMapReadyCallback, GoogleMap.OnMyLocationChangeListener,
-        ClusterManager.OnClusterClickListener<Person>,
-        ClusterManager.OnClusterItemClickListener<Person> {
+public class MapsActivity extends OwnCoreActivity implements OnMapReadyCallback, GoogleMap.OnMyLocationChangeListener,
+        ClusterManager.OnClusterClickListener<Person> {
 
     private static final String TAG = MapsActivity.class.getSimpleName();
 
@@ -80,6 +79,7 @@ public class MapsActivity extends OwnCoreActivity implements
     private ClusterManager<Person> mClusterManager = null;
     private DialogActiveMembers mDialogActiveMembers = null;
     private Polyline mPolyline = null;
+    private boolean isDraw = false;
 
     @BindView(R.id.button_direction)
     FloatingActionButton btnDirection;
@@ -136,7 +136,7 @@ public class MapsActivity extends OwnCoreActivity implements
             @Override
             public void run(String fbId) {
                 mFocus = fbId;
-                MapUtils.Map.moveCameraSmoothly(mMap, mTracks.get(mFocus).getPosition());
+                MapUtils.Map.moveCameraSmoothly(mMap, mTracks.get(mFocus).getPosition(), 500);
             }
         });
     }
@@ -177,7 +177,7 @@ public class MapsActivity extends OwnCoreActivity implements
                     mTracks.get(fbTemp).setTime(info.strDuration);
                     mDialogActiveMembers.setData(mTracks.values().toArray(new Person[mTracks.values().size()]));
                 }
-            });
+            }, null);
         }
     }
 
@@ -287,20 +287,14 @@ public class MapsActivity extends OwnCoreActivity implements
         if (dataChild == null)
             return;
 
-        // Remove the old one
-        mClusterManager.removeItem(this.mTracks.get(fbId));
-        mClusterManager.cluster();
-
         // Update the new one
-        this.mTracks.get(fbId).setVisible(gpsStatus);               // Is visible
-        this.mTracks.get(fbId).setLatLng(new LatLng(
-                Double.parseDouble(dataChild[0]),                   // Lat
-                Double.parseDouble(dataChild[1])));                 // Lng
         this.mTracks.get(fbId).setUpdateAt(Long.parseLong(key));    // Time update
+        this.mTracks.get(fbId).setVisible(gpsStatus);               // Is visible
+        this.mTracks.get(fbId).setLatLng(
+                new LatLng(Double.parseDouble(dataChild[0]), Double.parseDouble(dataChild[1]))
+        );
+        reloadMarker(this.mTracks.get(fbId));
 
-        // Update maps
-        mClusterManager.addItem(this.mTracks.get(fbId));
-        mClusterManager.cluster();
     }
 
     @Override
@@ -313,6 +307,7 @@ public class MapsActivity extends OwnCoreActivity implements
         this.mMap = googleMap;
         this.mMap.setMaxZoomPreference(15f);
         this.mMap.setMinZoomPreference(4f);
+        this.mMap.setTrafficEnabled(true);
         this.mMap.setMyLocationEnabled(true);
         this.mMap.setOnMyLocationChangeListener(this);
         this.mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, R.raw.map_style));
@@ -323,10 +318,10 @@ public class MapsActivity extends OwnCoreActivity implements
         this.mMap.getUiSettings().setScrollGesturesEnabled(true);
         this.mMap.getUiSettings().setZoomGesturesEnabled(true);
 
-        if (mapFragment.getView() != null &&
-                mapFragment.getView().findViewById(Integer.parseInt("1")) != null) {
+        if (this.mapFragment.getView() != null &&
+                this.mapFragment.getView().findViewById(Integer.parseInt("1")) != null) {
             // Get the button view
-            View locationButton = ((View) mapFragment.getView()
+            View locationButton = ((View) this.mapFragment.getView()
                     .findViewById(Integer.parseInt("1"))
                     .getParent()).findViewById(Integer.parseInt("2"));
             // and next place it, on bottom right (as Google Maps app)
@@ -339,12 +334,28 @@ public class MapsActivity extends OwnCoreActivity implements
         }
 
         // Cluster renderer
-        this.mClusterManager = new ClusterManager<>(this, mMap);
+        this.mClusterManager = new ClusterManager<>(this, this.mMap);
         this.mClusterManager.setRenderer(new PersonRenderer(this));
-        this.mMap.setOnCameraIdleListener(mClusterManager);
-        this.mMap.setOnMarkerClickListener(mClusterManager);
         this.mClusterManager.setOnClusterClickListener(this);
-        this.mClusterManager.setOnClusterItemClickListener(this);
+        this.mMap.setOnCameraIdleListener(this.mClusterManager);
+        this.mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+
+                MapUtils.Map.moveCameraSmoothly(mMap, marker.getPosition(), 500);
+
+                mFocus = marker.getTitle();
+
+                if (mFocus.equalsIgnoreCase(IzigoSdk.UserExecutor.getOwnFbId())) {
+                    btnDirection.setVisibility(View.GONE);
+                    isDraw = false;
+                    mPolyline.remove();
+                } else {
+                    btnDirection.setVisibility(View.VISIBLE);
+                }
+                return true;
+            }
+        });
     }
 
     @Override
@@ -356,28 +367,22 @@ public class MapsActivity extends OwnCoreActivity implements
         // Get the LatLngBounds
         final LatLngBounds latLngBounds = builder.build();
         // Animate camera to the bounds
-        mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(new LatLngBounds(
-                latLngBounds.southwest,
-                latLngBounds.northeast), 180));
+        this.mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(
+                new LatLngBounds(latLngBounds.southwest, latLngBounds.northeast), 180));
 
         return true;
     }
 
-    @Override
-    public boolean onClusterItemClick(Person person) {
-
-        this.mFocus = person.getId();
-        if (mFocus.equalsIgnoreCase(IzigoSdk.UserExecutor.getOwnFbId())) {
-            this.btnDirection.setVisibility(View.GONE);
-        } else {
-            this.btnDirection.setVisibility(View.VISIBLE);
-        }
-        return false;
-    }
-
     @OnClick(R.id.button_direction)
     public void showDirection() {
+
+        isDraw = true;
+
         String ownFbId = IzigoSdk.UserExecutor.getOwnFbId();
+
+        if (mPolyline != null)
+            mPolyline.remove();
+
         MapUtils.Map.direction(mMap,
                 mTracks.get(ownFbId).getPosition(), // from
                 mTracks.get(mFocus).getPosition(), // to
@@ -386,6 +391,37 @@ public class MapsActivity extends OwnCoreActivity implements
                     @Override
                     public void run(Info info) {
 
+                    }
+                }, new CallBackWith<Polyline>() {
+                    @Override
+                    public void run(Polyline polyline) {
+                        mPolyline = polyline;
+                    }
+                });
+    }
+
+    private void showDirection(String fbId) {
+        String ownFbId = IzigoSdk.UserExecutor.getOwnFbId();
+
+        if (!mFocus.equalsIgnoreCase(fbId))
+            return;
+
+        if (mPolyline != null)
+            mPolyline.remove();
+
+        MapUtils.Map.direction(mMap,
+                mTracks.get(ownFbId).getPosition(), // from
+                mTracks.get(mFocus).getPosition(), // to
+                true,
+                new CallBackWith<Info>() {
+                    @Override
+                    public void run(Info info) {
+
+                    }
+                }, new CallBackWith<Polyline>() {
+                    @Override
+                    public void run(Polyline polyline) {
+                        mPolyline = polyline;
                     }
                 });
     }
@@ -501,6 +537,19 @@ public class MapsActivity extends OwnCoreActivity implements
         protected boolean shouldRenderAsCluster(Cluster cluster) {
             return cluster.getSize() > 1;
         }
+
     }
 
+    public void reloadMarker(Person person) {
+        Collection<Marker> markers = mClusterManager.getMarkerCollection().getMarkers();
+        String strId = person.getId();
+        for (Marker marker : markers) {
+            if (strId.equalsIgnoreCase(marker.getTitle())) {
+                marker.setPosition(person.getPosition());
+                if (isDraw)
+                    showDirection(marker.getTitle());
+                break;
+            }
+        }
+    }
 }
