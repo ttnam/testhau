@@ -13,8 +13,8 @@ import java.util.Collections;
 import java.util.List;
 
 import io.yostajsc.izigo.R;
-import io.yostajsc.izigo.fragments.Person;
-import io.yostajsc.ui.viewholder.ActiveMemberOnMapsViewHolder;
+import io.yostajsc.izigo.usecase.map.Person;
+import io.yostajsc.izigo.ui.viewholder.ActiveMemberOnMapsViewHolder;
 
 /**
  * Created by Phuc-Hau Nguyen on 10/14/2016.

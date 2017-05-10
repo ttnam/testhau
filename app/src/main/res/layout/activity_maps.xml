@@ -5,12 +5,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <io.yostajsc.ui.OwnToolBar
+    <io.yostajsc.izigo.ui.OwnToolBar
+        android:id="@id/own_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layoutBackground="@android:color/white"
         app:layoutTitle="@string/str_your_trip"
-        app:layoutTitleColor="@color/colorTextColorPrimary"
+        app:layoutTitleColor="@android:color/holo_blue_dark"
         app:layoutType="title_center" />
 
     <LinearLayout

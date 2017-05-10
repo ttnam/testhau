@@ -31,6 +31,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.FieldMap;
 
 /**
  * Created by Phuc-Hau Nguyen on 11/9/2016.
@@ -92,10 +93,9 @@ class IzigoApiManager {
         return mInstance;
     }
 
-    public void login(String fbToken, String email, String fbId, String fireBaseUid, String fcm,
-                      final IgCallback<IgToken, String> callback) {
+    void login(String fbToken, @FieldMap Map<String, String> fields, final IgCallback<IgToken, String> callback) {
 
-        Call<BaseResponse<IgToken>> call = service.apiLogin(fbToken, email, fbId, fireBaseUid, fcm);
+        Call<BaseResponse<IgToken>> call = service.login(fbToken, fields);
 
         call.enqueue(new Callback<BaseResponse<IgToken>>() {
             @Override
@@ -335,7 +335,7 @@ class IzigoApiManager {
 
     public void updateProfile(String authorization, Map<String, String> body,
                               final IgCallback<Void, String> callback) {
-        Call<BaseResponse> call = service.apiUpdateUserInfo(authorization, body);
+        Call<BaseResponse> call = service.updateUserInfo(authorization, body);
         call.enqueue(new Callback<BaseResponse>() {
             @Override
             public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {

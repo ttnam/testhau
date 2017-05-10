@@ -28,16 +28,13 @@ interface IzigoApiInterface {
 
     @FormUrlEncoded
     @POST("api/user/login")
-    Call<BaseResponse<IgToken>> apiLogin(@Header("fbToken") String fbToken,
-                                         @Field("email") String email,
-                                         @Field("fbId") String fbId,
-                                         @Field("firebaseUid") String firebaseUid,
-                                         @Field("fcm") String fcm);
+    Call<BaseResponse<IgToken>> login(@Header("fbToken") String fbToken,
+                                      @FieldMap Map<String, String> fields);
 
     @FormUrlEncoded
     @PUT("api/user")
-    Call<BaseResponse> apiUpdateUserInfo(@Header("authorization") String authorization,
-                                         @FieldMap Map<String, String> fieldsFieldMap);
+    Call<BaseResponse> updateUserInfo(@Header("authorization") String authorization,
+                                      @FieldMap Map<String, String> fields);
 
     @GET("api/trips")
     Call<BaseResponse<List<IgTrip>>> apiGetAllPublicTrips(@Header("authorization") String authorization);

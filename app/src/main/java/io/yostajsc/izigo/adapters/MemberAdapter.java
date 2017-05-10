@@ -14,7 +14,7 @@ import io.yostajsc.core.interfaces.CallBackWith;
 import io.yostajsc.core.interfaces.ItemClick;
 import io.yostajsc.sdk.model.user.IgFriend;
 import io.yostajsc.izigo.R;
-import io.yostajsc.ui.viewholder.MemberViewHolder;
+import io.yostajsc.izigo.ui.viewholder.MemberViewHolder;
 
 /**
  * Created by Phuc-Hau Nguyen on 10/14/2016.

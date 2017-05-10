@@ -16,7 +16,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.yostajsc.AppConfig;
+import io.yostajsc.izigo.AppConfig;
 import io.yostajsc.core.interfaces.CallBackWith;
 import io.yostajsc.core.utils.AppUtils;
 import io.yostajsc.core.utils.NetworkUtils;
@@ -25,7 +25,7 @@ import io.yostajsc.izigo.adapters.CommentAdapter;
 import io.yostajsc.sdk.api.IzigoSdk;
 import io.yostajsc.sdk.model.IgComment;
 import io.yostajsc.sdk.model.IgCallback;
-import io.yostajsc.utils.UiUtils;
+import io.yostajsc.izigo.utils.UiUtils;
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 
 /**

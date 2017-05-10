@@ -1,7 +1,9 @@
 package io.yostajsc.sdk.api;
 
 import android.app.Application;
+import android.util.Log;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -19,6 +21,7 @@ import io.yostajsc.sdk.model.user.IgUser;
 import io.yostajsc.sdk.model.token.IgToken;
 import io.yostajsc.sdk.model.TripTypePermission;
 import io.yostajsc.core.utils.PrefsUtils;
+import retrofit2.http.Field;
 
 /**
  * Created by nphau on 4/26/17.
@@ -230,12 +233,22 @@ public class IzigoSdk {
         }
 
         public static void login(String fbToken, String email, final String fbId,
-                                 String fireBaseUid, String fcm, final String avatar, final String name,
+                                 String fireBaseUid, String fcm,
+                                 final String avatar, final String name, String gender,
                                  final CallBack onSuccess, final CallBackWith<String> onFail) {
-            IzigoApiManager.connect().login(fbToken, email, fbId, fireBaseUid, fcm, new IgCallback<IgToken, String>() {
+
+            Map<String, String> fields = new HashMap<>();
+            fields.put("fcm", fcm);
+            fields.put("name", name);
+            fields.put("fbId", fbId);
+            fields.put("email", email);
+            fields.put("avatar", avatar);
+            fields.put("gender", gender);
+            fields.put("firebaseUid", fireBaseUid);
+
+            IzigoApiManager.connect().login(fbToken, fields, new IgCallback<IgToken, String>() {
                 @Override
                 public void onSuccessful(IgToken igToken) {
-
                     igToken.setFbId(fbId);
                     igToken.setAvatar(avatar);
                     igToken.setName(name);

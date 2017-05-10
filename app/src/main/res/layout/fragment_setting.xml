@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <io.yostajsc.ui.OwnToolBar
+    <io.yostajsc.izigo.ui.OwnToolBar
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
         app:layoutBackground="@android:color/white"

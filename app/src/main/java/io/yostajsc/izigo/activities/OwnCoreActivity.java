@@ -11,8 +11,8 @@ import io.yostajsc.core.dialogs.DialogNoNet;
 import io.yostajsc.core.interfaces.CallBack;
 import io.yostajsc.core.interfaces.CoreActivity;
 import io.yostajsc.izigo.R;
-import io.yostajsc.izigo.activities.user.LoginActivity;
-import io.yostajsc.AppConfig;
+import io.yostajsc.izigo.usecase.user.LoginActivity;
+import io.yostajsc.izigo.AppConfig;
 
 /**
  * Created by nphau on 4/10/17.
