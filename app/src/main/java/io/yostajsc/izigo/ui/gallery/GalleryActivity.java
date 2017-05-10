@@ -1,4 +1,4 @@
-package io.yostajsc.ui.gallery;
+package io.yostajsc.izigo.ui.gallery;
 
 import android.Manifest;
 import android.app.Activity;
@@ -17,7 +17,6 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.yostajsc.core.code.MessageType;
 import io.yostajsc.core.interfaces.CallBackWith;
 import io.yostajsc.izigo.R;
 import jp.wasabeef.recyclerview.animators.FadeInUpAnimator;
