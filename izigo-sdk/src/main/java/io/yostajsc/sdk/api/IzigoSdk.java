@@ -3,12 +3,13 @@ package io.yostajsc.sdk.api;
 import android.app.Application;
 import android.util.Log;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import io.yostajsc.core.interfaces.CallBack;
 import io.yostajsc.core.interfaces.CallBackWith;
-import io.yostajsc.sdk.model.Comment;
+import io.yostajsc.sdk.model.IgComment;
 import io.yostajsc.sdk.model.Notification;
 import io.yostajsc.sdk.model.Timeline;
 import io.yostajsc.sdk.model.user.IgFriend;
@@ -20,6 +21,7 @@ import io.yostajsc.sdk.model.user.IgUser;
 import io.yostajsc.sdk.model.token.IgToken;
 import io.yostajsc.sdk.model.TripTypePermission;
 import io.yostajsc.core.utils.PrefsUtils;
+import retrofit2.http.Field;
 
 /**
  * Created by nphau on 4/26/17.
@@ -178,12 +180,33 @@ public class IzigoSdk {
             }
         }
 
-        public static void getComments(String tripId, final IgCallback<List<Comment>, String> callback) {
+        public static void getComments(String tripId, final IgCallback<List<IgComment>, String> callback) {
             if (IzigoSession.isLoggedIn()) {
-                String auth = IzigoSession.getToken().getToken();
-                IzigoApiManager.connect().getComments(auth, tripId, callback);
+                IzigoApiManager.connect().getComments(IzigoSession.getToken().getToken(), tripId, callback);
             } else {
                 callback.onExpired();
+            }
+        }
+
+        public static void addComment(String tripId, String content, final CallBackWith<String> onFail) {
+            if (IzigoSession.isLoggedIn()) {
+                String auth = IzigoSession.getToken().getToken();
+                IzigoApiManager.connect().addComment(auth, tripId, content, new IgCallback<Void, String>() {
+                    @Override
+                    public void onSuccessful(Void aVoid) {
+
+                    }
+
+                    @Override
+                    public void onFail(String error) {
+                        onFail.run(error);
+                    }
+
+                    @Override
+                    public void onExpired() {
+
+                    }
+                });
             }
         }
     }
@@ -211,14 +234,25 @@ public class IzigoSdk {
 
         public static void login(String fbToken, String email, final String fbId,
                                  String fireBaseUid, String fcm,
+                                 final String avatar, final String name, String gender,
                                  final CallBack onSuccess, final CallBackWith<String> onFail) {
-            IzigoApiManager.connect().login(fbToken, email, fbId, fireBaseUid, fcm, new IgCallback<IgToken, String>() {
+
+            Map<String, String> fields = new HashMap<>();
+            fields.put("fcm", fcm);
+            fields.put("name", name);
+            fields.put("fbId", fbId);
+            fields.put("email", email);
+            fields.put("avatar", avatar);
+            fields.put("gender", gender);
+            fields.put("firebaseUid", fireBaseUid);
+
+            IzigoApiManager.connect().login(fbToken, fields, new IgCallback<IgToken, String>() {
                 @Override
                 public void onSuccessful(IgToken igToken) {
-
                     igToken.setFbId(fbId);
+                    igToken.setAvatar(avatar);
+                    igToken.setName(name);
                     IzigoSession.setToken(igToken);
-
                     onSuccess.run();
                 }
 
@@ -286,6 +320,16 @@ public class IzigoSdk {
 
         public static String getOwnFbId() {
             return IzigoSession.getToken().getFbId();
+        }
+
+        public static String getOwnName() {
+            IgToken igToken = IzigoSession.getToken();
+            return igToken.getName();
+        }
+
+        public static String getOwnAvatar() {
+            IgToken igToken = IzigoSession.getToken();
+            return igToken.getAvatar();
         }
     }
 }

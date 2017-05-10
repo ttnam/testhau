@@ -23,7 +23,7 @@
 
     <TextView
         android:id="@+id/text_creator_name"
-        style="@style/CoreAppTheme.TextView_Title.Bold"
+        style="@style/CoreAppTheme.TextView_Sub_Title.Bold"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_gravity="center"

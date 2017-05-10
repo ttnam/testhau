@@ -9,11 +9,11 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.yostajsc.constants.NotificationType;
+import io.yostajsc.izigo.constants.NotificationType;
 import io.yostajsc.core.interfaces.CallBack;
 import io.yostajsc.izigo.R;
 import io.yostajsc.sdk.model.Notification;
-import io.yostajsc.ui.viewholder.NotificationsViewHolder;
+import io.yostajsc.izigo.usecase.notification.viewholder.NotificationsViewHolder;
 
 /**
  * Created by Phuc-Hau Nguyen on 10/14/2016.

@@ -10,8 +10,6 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
-import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.yostajsc.core.designs.decorations.SpacesItemDecoration;
@@ -20,8 +18,7 @@ import io.yostajsc.core.interfaces.CallBackWith;
 import io.yostajsc.core.utils.DimensionUtil;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.adapters.MemberActiveOnMapsAdapter;
-import io.yostajsc.izigo.fragments.Person;
-import io.yostajsc.sdk.model.user.IgFriend;
+import io.yostajsc.izigo.usecase.map.Person;
 
 /**
  * Created by Phuc-Hau Nguyen on 8/31/2016.

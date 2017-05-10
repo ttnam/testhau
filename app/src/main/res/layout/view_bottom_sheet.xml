@@ -66,24 +66,4 @@
             android:text="Thay đổi nội dung mô tả" />
     </LinearLayout>
 
-    <LinearLayout
-        style="@style/Style_Menu_Item.Press"
-        android:clickable="true"
-        android:orientation="horizontal">
-
-        <android.support.v7.widget.AppCompatImageView
-            android:layout_width="@dimen/icon_size_x4"
-            android:layout_height="@dimen/icon_size_x4"
-            android:layout_gravity="center"
-            android:padding="@dimen/margin"
-            app:srcCompat="@drawable/ic_vector_close_red" />
-
-        <TextView
-            style="@style/CoreAppTheme.TextView_Sub_Title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Xoá" />
-    </LinearLayout>
-
 </LinearLayout>

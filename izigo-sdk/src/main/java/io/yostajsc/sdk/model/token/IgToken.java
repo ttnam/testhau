@@ -18,6 +18,8 @@ public class IgToken implements Serializable {
     private long mExpired;
 
     private String mFbId;
+    private String mAvatar;
+    private String mName;
 
     public boolean isExpired() {
         return new Date().after(new Date(mExpired));
@@ -31,7 +33,23 @@ public class IgToken implements Serializable {
         return mFbId;
     }
 
-    public void setFbId(String mFbId) {
-        this.mFbId = mFbId;
+    public void setFbId(String fbId) {
+        this.mFbId = fbId;
+    }
+
+    public String getAvatar() {
+        return mAvatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.mAvatar = avatar;
+    }
+
+    public String getName() {
+        return mName;
+    }
+
+    public void setName(String mName) {
+        this.mName = mName;
     }
 }

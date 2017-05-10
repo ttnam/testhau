@@ -1,70 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <fragment
-        android:id="@+id/map"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
+    <io.yostajsc.izigo.ui.OwnToolBar
+        android:id="@id/own_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content"
+        app:layoutBackground="@android:color/white"
+        app:layoutTitle="@string/str_your_trip"
+        app:layoutTitleColor="@android:color/holo_blue_dark"
+        app:layoutType="title_center" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_gravity="center"
+        android:background="@color/transparent_60_white"
+        android:orientation="vertical"
+        android:padding="@dimen/margin"
+        android:visibility="gone">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            style="@style/CoreAppTheme.TextView_Sub_Title.Bold"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:background="@color/transparent_60_white"
-            android:orientation="vertical"
-            android:padding="@dimen/margin">
+            android:text="Closest meeting" />
 
-            <TextView
-                style="@style/CoreAppTheme.TextView_Sub_Title.Bold"
+        <TextView
+            style="@style/CoreAppTheme.TextView_Sub_Title.Bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="2km away" />
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <fragment
+            android:id="@+id/map"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|start"
+            android:layout_margin="@dimen/margin"
+            android:orientation="vertical">
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/button_direction"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="Closest meeting" />
+                android:visibility="gone"
+                app:backgroundTint="@android:color/holo_blue_dark"
+                app:fabSize="normal"
+                app:srcCompat="@drawable/ic_vector_direction" />
 
-            <TextView
-                style="@style/CoreAppTheme.TextView_Sub_Title.Bold"
+            <android.support.design.widget.FloatingActionButton
+                android:id="@id/button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="2km away" />
+                android:layout_marginTop="@dimen/margin"
+                app:fabSize="normal"
+                app:srcCompat="@drawable/ic_vector_user_group" />
+
         </LinearLayout>
 
-    </LinearLayout>
+    </FrameLayout>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|start"
-        android:layout_margin="@dimen/margin"
-        android:orientation="vertical">
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/button_direction"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            app:backgroundTint="@android:color/holo_blue_dark"
-            app:fabSize="normal"
-            app:srcCompat="@drawable/ic_vector_direction" />
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@id/button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin"
-            app:fabSize="normal"
-            app:srcCompat="@drawable/ic_vector_user_group" />
-
-    </LinearLayout>
-
-
-</FrameLayout>
+</LinearLayout>

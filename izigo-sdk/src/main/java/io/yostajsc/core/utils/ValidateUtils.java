@@ -39,14 +39,6 @@ public class ValidateUtils {
         return true;
     }
 
-    public static boolean isCommentAccepted(String text) {
-        for (IValidate cmt : commentValidates) {
-            if (!cmt.IsValid(text))
-                return false;
-        }
-        return true;
-    }
-
     public static boolean canUse(String... values) {
         for (String str : values) {
             if (str == null || str.equals("") || str.length() < 1) {

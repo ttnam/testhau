@@ -19,7 +19,7 @@
 
             <TextView
                 android:id="@+id/text_name"
-                style="@style/CoreAppTheme.TextView_Title.Bold"
+                style="@style/CoreAppTheme.TextView_Title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -53,31 +53,15 @@
 
         <include layout="@layout/item_web_vew" />
 
-        <LinearLayout
+        <TextView
+            style="@style/CoreAppTheme.TextView_Sub_Title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/margin_min"
             android:background="@android:color/white"
-            android:clickable="true"
-            android:orientation="horizontal">
-
-            <TextView
-                style="@style/CoreAppTheme.TextView_Title.Bold"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:padding="@dimen/margin"
-                android:text="@string/str_photos" />
-
-            <android.support.v7.widget.AppCompatImageView
-                android:layout_width="@dimen/icon_size_x3"
-                android:layout_height="@dimen/icon_size_x3"
-                android:layout_gravity="center"
-                android:layout_margin="@dimen/margin"
-                app:srcCompat="@drawable/ic_vector_next" />
-
-        </LinearLayout>
+            android:padding="@dimen/margin"
+            android:text="@string/str_photos" />
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -92,19 +76,19 @@
         </FrameLayout>
 
         <TextView
-            style="@style/CoreAppTheme.TextView_Title.Bold"
+            style="@style/CoreAppTheme.TextView_Sub_Title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="@dimen/margin"
+            android:layout_marginTop="@dimen/margin_min"
             android:background="@android:color/white"
-            android:padding="@dimen/margin_x2"
+            android:padding="@dimen/margin"
             android:text="@string/str_activities" />
 
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin"
+            android:layout_marginTop="@dimen/margin_min"
             android:background="@color/colorWindowBackground"
             android:paddingBottom="@dimen/margin"
             android:paddingLeft="@dimen/margin"

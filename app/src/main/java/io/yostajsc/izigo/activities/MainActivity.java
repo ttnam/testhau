@@ -7,16 +7,16 @@ import android.support.design.widget.TabLayout;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.yostajsc.constants.PageType;
+import io.yostajsc.izigo.constants.PageType;
 import io.yostajsc.core.designs.tabs.IconViewPagerAdapter;
 import io.yostajsc.core.designs.viewpager.NonSwipeAbleViewPager;
 import io.yostajsc.core.utils.NetworkUtils;
 import io.yostajsc.izigo.R;
-import io.yostajsc.AppConfig;
-import io.yostajsc.izigo.fragments.NotificationsFragment;
-import io.yostajsc.izigo.fragments.OwnTripFragment;
-import io.yostajsc.izigo.fragments.SettingsFragment;
-import io.yostajsc.izigo.fragments.TripFragment;
+import io.yostajsc.izigo.AppConfig;
+import io.yostajsc.izigo.usecase.notification.NotificationsFragment;
+import io.yostajsc.izigo.usecase.trip.fragment.OwnTripFragment;
+import io.yostajsc.izigo.usecase.user.SettingsFragment;
+import io.yostajsc.izigo.usecase.trip.fragment.TripFragment;
 
 public class MainActivity extends OwnCoreActivity {
 

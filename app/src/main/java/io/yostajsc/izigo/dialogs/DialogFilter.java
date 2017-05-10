@@ -17,7 +17,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.yostajsc.constants.TransferType;
+import io.yostajsc.izigo.constants.TransferType;
 import io.yostajsc.izigo.R;
 
 /**

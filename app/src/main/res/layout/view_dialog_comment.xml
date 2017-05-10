@@ -12,7 +12,7 @@
 
         <TextView
             android:id="@+id/text_trip_name"
-            style="@style/CoreAppTheme.TextView_Title.Bold"
+            style="@style/CoreAppTheme.TextView_Title"
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
             android:gravity="center"

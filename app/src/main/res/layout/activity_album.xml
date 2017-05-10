@@ -20,7 +20,7 @@
             app:srcCompat="@drawable/ic_vector_back_blue" />
 
         <TextView
-            style="@style/CoreAppTheme.TextView_Title.Bold"
+            style="@style/CoreAppTheme.TextView_Title"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"

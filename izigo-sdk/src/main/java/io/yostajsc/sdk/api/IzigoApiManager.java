@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-import io.yostajsc.sdk.model.Comment;
+import io.yostajsc.sdk.model.IgComment;
 import io.yostajsc.sdk.model.Notification;
 import io.yostajsc.sdk.model.Timeline;
 import io.yostajsc.sdk.model.user.IgFriend;
@@ -31,6 +31,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.FieldMap;
 
 /**
  * Created by Phuc-Hau Nguyen on 11/9/2016.
@@ -92,10 +93,9 @@ class IzigoApiManager {
         return mInstance;
     }
 
-    public void login(String fbToken, String email, String fbId, String fireBaseUid, String fcm,
-                      final IgCallback<IgToken, String> callback) {
+    void login(String fbToken, @FieldMap Map<String, String> fields, final IgCallback<IgToken, String> callback) {
 
-        Call<BaseResponse<IgToken>> call = service.apiLogin(fbToken, email, fbId, fireBaseUid, fcm);
+        Call<BaseResponse<IgToken>> call = service.login(fbToken, fields);
 
         call.enqueue(new Callback<BaseResponse<IgToken>>() {
             @Override
@@ -254,7 +254,7 @@ class IzigoApiManager {
                             final CallBack expired,
                             final CallBackWith<String> success,
                             final CallBackWith<String> fail) {
-        Call<BaseResponse<String>> call = service.apiCreateTrips(authorization, groupName, arrive, depart, description,
+        Call<BaseResponse<String>> call = service.addTrip(authorization, groupName, arrive, depart, description,
                 is_published, status, transfer);
         call.enqueue(new Callback<BaseResponse<String>>() {
             @Override
@@ -335,7 +335,7 @@ class IzigoApiManager {
 
     public void updateProfile(String authorization, Map<String, String> body,
                               final IgCallback<Void, String> callback) {
-        Call<BaseResponse> call = service.apiUpdateUserInfo(authorization, body);
+        Call<BaseResponse> call = service.updateUserInfo(authorization, body);
         call.enqueue(new Callback<BaseResponse>() {
             @Override
             public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
@@ -358,13 +358,13 @@ class IzigoApiManager {
         });
     }
 
-    public void getComments(String authorization, String tripId, final IgCallback<List<Comment>, String> callback) {
-        Call<BaseResponse<List<Comment>>> call = service.apiGetComments(authorization, tripId);
-        call.enqueue(new Callback<BaseResponse<List<Comment>>>() {
+    public void getComments(String authorization, String tripId, final IgCallback<List<IgComment>, String> callback) {
+        Call<BaseResponse<List<IgComment>>> call = service.apiGetComments(authorization, tripId);
+        call.enqueue(new Callback<BaseResponse<List<IgComment>>>() {
             @Override
-            public void onResponse(Call<BaseResponse<List<Comment>>> call, Response<BaseResponse<List<Comment>>> response) {
+            public void onResponse(Call<BaseResponse<List<IgComment>>> call, Response<BaseResponse<List<IgComment>>> response) {
                 if (response.isSuccessful()) {
-                    BaseResponse<List<Comment>> res = response.body();
+                    BaseResponse<List<IgComment>> res = response.body();
                     if (res.isSuccessful()) {
                         callback.onSuccessful(res.data());
                     } else if (res.isExpired()) {
@@ -376,7 +376,7 @@ class IzigoApiManager {
             }
 
             @Override
-            public void onFailure(Call<BaseResponse<List<Comment>>> call, Throwable throwable) {
+            public void onFailure(Call<BaseResponse<List<IgComment>>> call, Throwable throwable) {
                 callback.onFail(throwable.getMessage());
             }
         });
@@ -645,7 +645,34 @@ class IzigoApiManager {
         });
     }
 
-    private void log(String msg) {
+
+    void addComment(String authorization, String tripId, String content,
+                    final IgCallback<Void, String> callback) {
+
+        Call<BaseResponse> call = service.addComment(authorization, tripId, content);
+        call.enqueue(new Callback<BaseResponse>() {
+            @Override
+            public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
+                if (response.isSuccessful()) {
+                    BaseResponse res = response.body();
+                    if (res.isSuccessful()) {
+                        callback.onSuccessful(null);
+                    } else if (res.isExpired()) {
+                        callback.onExpired();
+                    } else {
+                        callback.onFail(res.getDescription());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BaseResponse> call, Throwable throwable) {
+                callback.onFail(throwable.getMessage());
+            }
+        });
+    }
+
+    void log(String msg) {
         Log.e(TAG, msg);
     }
 }
