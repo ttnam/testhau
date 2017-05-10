@@ -5,46 +5,27 @@
     android:layout_height="wrap_content"
     android:background="@color/colorWindowBackground"
     android:orientation="horizontal"
-    android:paddingLeft="@dimen/margin_x2"
-    android:paddingRight="@dimen/margin_x2">
+    android:paddingLeft="@dimen/margin"
+    android:paddingRight="@dimen/margin">
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginEnd="@dimen/margin"
-        android:layout_marginRight="@dimen/margin"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/text_hour"
-            style="@style/CoreAppTheme.TextView_Title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center|end" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin"
         android:orientation="vertical">
 
         <android.support.v7.widget.AppCompatImageView
             android:layout_width="@dimen/icon_size_x2"
             android:layout_height="@dimen/icon_size_x2"
             android:layout_gravity="center"
-            android:layout_marginBottom="@dimen/margin"
-            android:layout_marginTop="@dimen/margin"
             android:scaleType="centerCrop"
-            app:srcCompat="@drawable/ic_style_circle_blue_none" />
+            app:srcCompat="@drawable/ic_circle_check" />
 
         <View
             android:layout_width="1dp"
-            android:layout_height="@dimen/margin_x7"
+            android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:background="@android:color/holo_blue_dark" />
+            android:background="#f17372" />
 
     </LinearLayout>
 
@@ -54,7 +35,7 @@
         android:layout_gravity="center"
         android:layout_margin="@dimen/margin"
         android:background="@android:color/white"
-        android:padding="@dimen/margin"
+        android:padding="@dimen/margin_min"
         app:cardCornerRadius="5dp"
         app:cardElevation="2dp">
 
@@ -66,7 +47,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
                 <android.support.v7.widget.AppCompatImageView
@@ -77,7 +58,7 @@
                     app:srcCompat="@drawable/ic_vector_alarm_clock" />
 
                 <TextView
-                    android:id="@+id/text_day"
+                    android:id="@+id/text_time"
                     style="@style/CoreAppTheme.TextView_Title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -92,7 +73,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
                 <android.support.v7.widget.AppCompatImageView

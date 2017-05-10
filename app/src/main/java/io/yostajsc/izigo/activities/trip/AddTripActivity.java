@@ -250,7 +250,7 @@ public class AddTripActivity extends OwnCoreActivity {
         }
         progressBar.setVisibility(View.VISIBLE);
 /*
-        IzigoApiManager.connect().createTrips(groupName, to.toString(), from.toString(), description,
+        IzigoApiManager.connect().addTrip(groupName, to.toString(), from.toString(), description,
                 0,
                 0, 1, new CallBack() {
                     @Override

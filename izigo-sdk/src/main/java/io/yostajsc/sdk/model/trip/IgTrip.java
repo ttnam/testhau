@@ -38,7 +38,7 @@ public class IgTrip implements IgTripModel, Serializable {
     private String mDescription;
 
     @SerializedName("from")
-    private BaseUserInfo mCreator;
+    private IgBaseUserInfo mCreator;
 
     @SerializedName("album")
     private List<IgImage> mAlbum;
@@ -141,26 +141,6 @@ public class IgTrip implements IgTripModel, Serializable {
 
     public int getStatus() {
         return mStatus;
-    }
-
-    public class BaseUserInfo implements Serializable {
-
-        @SerializedName("avatar")
-        private String avatar;
-
-        @SerializedName("fbId")
-        private String fbId;
-
-        @SerializedName("name")
-        private String name;
-
-        public String getAvatar() {
-            return avatar;
-        }
-
-        public String getName() {
-            return name;
-        }
     }
 
 }

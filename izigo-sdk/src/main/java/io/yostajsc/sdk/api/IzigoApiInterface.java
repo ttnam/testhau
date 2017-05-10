@@ -8,7 +8,7 @@ import io.yostajsc.sdk.model.user.IgFriend;
 import io.yostajsc.sdk.model.trip.IgTrip;
 import io.yostajsc.sdk.model.user.IgUser;
 import io.yostajsc.sdk.model.Notification;
-import io.yostajsc.sdk.model.Comment;
+import io.yostajsc.sdk.model.IgComment;
 import io.yostajsc.sdk.model.token.IgToken;
 import io.yostajsc.sdk.response.BaseResponse;
 import retrofit2.Call;
@@ -59,14 +59,20 @@ interface IzigoApiInterface {
 
     @FormUrlEncoded
     @POST("api/trips")
-    Call<BaseResponse<String>> apiCreateTrips(@Header("authorization") String authorization,
-                                              @Field("name") String groupName,
-                                              @Field("arrive") String arrive,
-                                              @Field("depart") String depart,
-                                              @Field("description") String description,
-                                              @Field("is_published") int is_published,
-                                              @Field("status") int status,
-                                              @Field("transfer") int transfer);
+    Call<BaseResponse<String>> addTrip(@Header("authorization") String authorization,
+                                       @Field("name") String groupName,
+                                       @Field("arrive") String arrive,
+                                       @Field("depart") String depart,
+                                       @Field("description") String description,
+                                       @Field("is_published") int is_published,
+                                       @Field("status") int status,
+                                       @Field("transfer") int transfer);
+
+    @FormUrlEncoded
+    @POST("api/trips/{id}/comment")
+    Call<BaseResponse> addComment(@Header("authorization") String authorization,
+                                  @Path("id") String tripId,
+                                  @Field("content") String content);
 
     @GET("api/user/friends")
     Call<BaseResponse<List<IgFriend>>> apiGetFriendsList(@Header("authorization") String authorization,
@@ -77,8 +83,8 @@ interface IzigoApiInterface {
                                                  @Path("id") String id);
 
     @GET("api/trips/{id}/comment")
-    Call<BaseResponse<List<Comment>>> apiGetComments(@Header("authorization") String authorization,
-                                                     @Path("id") String tripId);
+    Call<BaseResponse<List<IgComment>>> apiGetComments(@Header("authorization") String authorization,
+                                                       @Path("id") String tripId);
 
     @GET("api/trips/{id}/activity")
     Call<BaseResponse<List<Timeline>>> apiGetActivities(@Header("authorization") String authorization,
@@ -86,7 +92,7 @@ interface IzigoApiInterface {
 
     @GET("api/trips/{id}/members")
     Call<BaseResponse<List<IgFriend>>> apiGetMembers(@Header("authorization") String authorization,
-                                                   @Path("id") String tripId);
+                                                     @Path("id") String tripId);
 
     @PUT("api/trips/{id}/view")
     Call<BaseResponse<String>> apiUpdateView(@Header("authorization") String authorization,

@@ -7,10 +7,10 @@
         android:layout_height="wrap_content"
         android:background="@android:color/white"
         android:orientation="horizontal"
-        android:paddingTop="@dimen/margin"
         android:paddingBottom="@dimen/margin"
         android:paddingLeft="@dimen/margin_x2"
         android:paddingRight="@dimen/margin_x2"
+        android:paddingTop="@dimen/margin"
         android:weightSum="2">
 
         <LinearLayout
@@ -21,7 +21,7 @@
 
             <TextView
                 android:id="@+id/text_from"
-                style="@style/CoreAppTheme.TextView_Title"
+                style="@style/CoreAppTheme.TextView_Sub_Title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -60,7 +60,7 @@
 
             <TextView
                 android:id="@+id/text_to"
-                style="@style/CoreAppTheme.TextView_Title"
+                style="@style/CoreAppTheme.TextView_Sub_Title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

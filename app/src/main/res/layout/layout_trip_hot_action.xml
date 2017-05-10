@@ -36,8 +36,8 @@
                 android:layout_gravity="center"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:minLines="1"
-                android:text="Show map" />
+                android:text="Show map"
+                android:textSize="@dimen/text_size" />
         </LinearLayout>
 
     </FrameLayout>
@@ -105,8 +105,8 @@
                 android:layout_gravity="center"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:minLines="1"
-                android:text="Comment" />
+                android:text="Comment"
+                android:textSize="@dimen/text_size" />
 
         </LinearLayout>
 
@@ -143,8 +143,8 @@
                 android:layout_gravity="center"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:minLines="1"
-                android:text="Motor" />
+                android:text="Motor"
+                android:textSize="@dimen/text_size" />
         </LinearLayout>
 
     </FrameLayout>
@@ -177,8 +177,8 @@
                 android:layout_gravity="center"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:minLines="1"
-                android:text="+4 More" />
+                android:text="+4 More"
+                android:textSize="@dimen/text_size" />
         </LinearLayout>
 
     </FrameLayout>

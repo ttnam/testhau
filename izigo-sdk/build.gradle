@@ -30,5 +30,7 @@ dependencies {
     compile 'jp.wasabeef:recyclerview-animators:2.2.3'
     compile 'com.daimajia.easing:library:1.0.1@aar'
     compile 'com.nineoldandroids:library:2.4.0'
+    compile 'io.reactivex:rxjava:1.1.8'
+    compile 'io.reactivex:rxandroid:1.2.1'
     compile "com.android.support:design:$rootProject.googleLibraryVersion"
 }

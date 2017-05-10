@@ -3,10 +3,12 @@ package io.yostajsc.ui.viewholder;
 import android.content.Context;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -40,15 +42,18 @@ public class CommentViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void bind(String avatar, String name, String content, String createdTime) {
-
-        Glide.with(mContext)
-                .load(avatar)
-                .bitmapTransform(new CropCircleTransformation(mContext))
-                .into(mImageAvatar);
-
-        textName.setText(name);
-        textContent.setText(content);
-        textTime.setText(createdTime);
+        if (!TextUtils.isEmpty(avatar))
+            Glide.with(mContext)
+                    .load(avatar)
+                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                    .bitmapTransform(new CropCircleTransformation(mContext))
+                    .into(mImageAvatar);
+        if (!TextUtils.isEmpty(name))
+            textName.setText(name);
+        if (!TextUtils.isEmpty(content))
+            textContent.setText(content);
+        if (!TextUtils.isEmpty(createdTime))
+            textTime.setText(createdTime);
     }
 
 }

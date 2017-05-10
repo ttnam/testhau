@@ -159,6 +159,8 @@ public class LoginActivity extends OwnCoreActivity {
                     fbId,                                   // Facebook id
                     fireBaseId,                             // Fire base id
                     AppConfig.getInstance().getFcmKey(),    // Fcm key
+                    igUser.getAvatar(),
+                    igUser.getName(),
                     new CallBack() {
                         @Override
                         public void run() {

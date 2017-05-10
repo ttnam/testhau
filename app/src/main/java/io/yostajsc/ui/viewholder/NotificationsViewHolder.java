@@ -15,6 +15,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.yostajsc.constants.NotificationType;
 import io.yostajsc.core.interfaces.CallBack;
+import io.yostajsc.sdk.model.trip.IgBaseUserInfo;
 import io.yostajsc.sdk.model.trip.IgTrip;
 import io.yostajsc.izigo.R;
 import io.yostajsc.sdk.model.trip.BaseTripInfo;
@@ -50,7 +51,7 @@ public class NotificationsViewHolder extends RecyclerView.ViewHolder {
         ButterKnife.bind(this, itemView);
     }
 
-    public void bind(IgTrip.BaseUserInfo userInfo, BaseTripInfo tripInfo, int type,
+    public void bind(IgBaseUserInfo userInfo, BaseTripInfo tripInfo, int type,
                      CallBack yes, CallBack no) {
 
         Glide.with(mContext)

@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 
 import io.yostajsc.sdk.model.trip.BaseTripInfo;
+import io.yostajsc.sdk.model.trip.IgBaseUserInfo;
 import io.yostajsc.sdk.model.trip.IgTrip;
 
 /**
@@ -22,13 +23,14 @@ public class Notification implements Serializable {
     @SerializedName("id")
     private String mId;
 
-    public IgTrip.BaseUserInfo getFrom() {
+    public IgBaseUserInfo getFrom() {
         return mContent.getFrom();
     }
 
     public BaseTripInfo getTrip() {
         return mContent.getTrip();
     }
+
     public int getType() {
         return mType;
     }

@@ -31,13 +31,13 @@ public class AppConfig extends Application {
 
     public static final String TAG = AppConfig.class.getSimpleName();
 
-    public static final String AUTHORIZATION = "AUTHORIZATION";
-    public static final String TRIP_ID = "TRIP_ID";
     public static final String FB_ID = "FB_ID";
+    public static final String TRIP_ID = "TRIP_ID";
+    public static final String PAGE_ID = "PAGE_ID";
     public static final String KEY_USER_ROLE = "KEY_USER_ROLE";
+    public static final String AUTHORIZATION = "AUTHORIZATION";
     public static final String KEY_PICK_LOCATION = "KEY_PICK_LOCATION";
     public static final String PARAMETERS = "id, first_name, last_name, email, cover, gender, birthday, location";
-    public static final String PAGE_ID = "PAGE_ID";
 
     public static List<IgImage> igImages = new ArrayList<>();
 
@@ -68,14 +68,19 @@ public class AppConfig extends Application {
     }
 
     private void onApplyRealm() {
-        Realm.init(this);
-        final RealmConfiguration configuration = new RealmConfiguration
-                .Builder()
-                .name("izigo.realm")
-                .schemaVersion(1)
-                .build();
-        Realm.setDefaultConfiguration(configuration);
-        Realm.getInstance(configuration);
+        try {
+            Realm.init(this);
+            final RealmConfiguration configuration = new RealmConfiguration
+                    .Builder()
+                    .deleteRealmIfMigrationNeeded()
+                    .name("izigo.realm")
+                    .schemaVersion(42)
+                    .build();
+            Realm.setDefaultConfiguration(configuration);
+            Realm.getInstance(configuration);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

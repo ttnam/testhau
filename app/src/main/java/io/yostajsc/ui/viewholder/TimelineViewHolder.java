@@ -18,11 +18,8 @@ public class TimelineViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.text_content)
     TextView textContent;
 
-    @BindView(R.id.text_day)
-    TextView textDay;
-
-    @BindView(R.id.text_hour)
-    TextView textHour;
+    @BindView(R.id.text_time)
+    TextView textTime;
 
     public TimelineViewHolder(View itemView) {
         super(itemView);
@@ -30,8 +27,8 @@ public class TimelineViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void bind(String hour, String day, String content) {
-        this.textDay.setText(day);
+        this.textTime.setText(String.format("%s, %s", hour, day));
         this.textContent.setText(content);
-        this.textHour.setText(hour);
     }
+
 }
