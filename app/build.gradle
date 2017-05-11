@@ -61,10 +61,6 @@ android {
         exclude 'META-INF/NOTICE.txt'
         exclude 'META-INF/LICENSE-FIREBASE.txt'
     }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_7
-        targetCompatibility JavaVersion.VERSION_1_7
-    }
     lintOptions {
         checkReleaseBuilds false
         abortOnError false
@@ -72,15 +68,8 @@ android {
     dataBinding {
         enabled = true
     }
-    splits { // Screen density split settings
-        density {
-            enable false // Enable or disable the density split mechanism
-            exclude "ldpi", "tvdpi", "xxxhdpi", "400dpi", "560dpi"
-        }
-    }
     dexOptions {
-        javaMaxHeapSize "4g"
-        jumboMode true
+        javaMaxHeapSize "12g"
     }
 }
 
@@ -94,7 +83,6 @@ dependencies {
     compile "com.android.support:recyclerview-v7:$rootProject.googleLibraryVersion"
     compile "com.android.support:support-annotations:$rootProject.googleLibraryVersion"
 
-    compile "com.google.firebase:firebase-core:$rootProject.firebaseVersion"
     compile "com.google.firebase:firebase-auth:$rootProject.firebaseVersion"
     compile "com.google.firebase:firebase-crash:$rootProject.firebaseVersion"
     compile "com.google.firebase:firebase-storage:$rootProject.firebaseVersion"
@@ -102,18 +90,13 @@ dependencies {
     compile "com.google.firebase:firebase-messaging:$rootProject.firebaseVersion"
 
     compile "org.greenrobot:eventbus:$rootProject.eventBusVersion"
-    compile "com.google.android.gms:play-services-auth:$rootProject.googlePlayServicesVersion"
-    compile "com.google.android.gms:play-services-plus:$rootProject.googlePlayServicesVersion"
     compile "com.google.android.gms:play-services-maps:$rootProject.googlePlayServicesVersion"
     compile "com.google.android.gms:play-services-places:$rootProject.googlePlayServicesVersion"
     compile "com.google.android.gms:play-services-location:$rootProject.googlePlayServicesVersion"
 
-
     compile 'com.facebook.android:facebook-android-sdk:[4,5)'
     compile 'com.google.maps.android:android-maps-utils:0.5+'
 
-    compile 'com.firebaseui:firebase-ui-database:1.0.1'
-    compile 'com.firebase:firebase-client-android:2.3.1'
     compile 'com.github.hotchemi:permissionsdispatcher:2.3.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
     compile 'com.jakewharton:butterknife:8.5.1'

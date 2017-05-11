@@ -5,6 +5,7 @@ import android.content.res.TypedArray;
 import android.support.annotation.ColorRes;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.AppCompatImageView;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,16 +14,13 @@ import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.yostajsc.core.R;
+import io.yostajsc.izigo.R;
 
 /**
  * Created by Phuc-Hau Nguyen on 12/2/2016.
  */
 
 public class OwnToolBar extends RelativeLayout {
-
-    public static final int TYPE_TITLE_CENTER = R.layout.layout_tool_bar;
-    public static final int TYPE_TITLE_LEFT = R.layout.layout_tool_bar_lr;
 
     @BindView(R.id.text_view)
     TextView tvTitle;
@@ -42,7 +40,8 @@ public class OwnToolBar extends RelativeLayout {
         TypedArray array = context.getTheme().obtainStyledAttributes(attrs, R.styleable.OwnToolBar, 0, 0);
         try {
             int layout = array.getInteger(R.styleable.OwnToolBar_layoutType, 0);
-            ButterKnife.bind(this, LayoutInflater.from(context).inflate((layout == 0) ? TYPE_TITLE_CENTER : TYPE_TITLE_LEFT, this, true));
+            ButterKnife.bind(this, LayoutInflater.from(context).inflate((layout == 0) ?
+                    R.layout.layout_tool_bar : R.layout.layout_tool_bar_lr, this, true));
 
             getRootView().setBackgroundColor(array.getColor(
                     R.styleable.OwnToolBar_layoutBackground,
@@ -53,9 +52,8 @@ public class OwnToolBar extends RelativeLayout {
                     getResources().getColor(android.R.color.white)));
 
             String title = array.getString(R.styleable.OwnToolBar_layoutTitle);
-            if (title != null && title.length() > 1 && !title.equals("")) {
+            if (!TextUtils.isEmpty(title))
                 setTitle(title);
-            }
         } finally {
             array.recycle();
         }
