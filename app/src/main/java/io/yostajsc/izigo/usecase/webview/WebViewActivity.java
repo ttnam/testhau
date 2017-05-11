@@ -13,7 +13,7 @@ import butterknife.ButterKnife;
 import io.yostajsc.core.utils.NetworkUtils;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.main.OwnCoreActivity;
-import io.yostajsc.izigo.ui.OwnToolBar;
+import io.yostajsc.core.customview.OwnToolBar;
 
 public class WebViewActivity extends OwnCoreActivity {
 

@@ -14,7 +14,7 @@ import java.util.List;
 
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.usecase.map.model.Person;
-import io.yostajsc.izigo.ui.viewholder.ActiveMemberOnMapsViewHolder;
+import io.yostajsc.izigo.usecase.customview.viewholder.ActiveMemberOnMapsViewHolder;
 
 /**
  * Created by Phuc-Hau Nguyen on 10/14/2016.

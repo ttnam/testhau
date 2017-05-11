@@ -149,7 +149,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/CoreAppTheme.White" />
         <activity
-            android:name=".ui.gallery.GalleryActivity"
+            android:name=".usecase.customview.gallery.GalleryActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/CoreAppTheme.White" />

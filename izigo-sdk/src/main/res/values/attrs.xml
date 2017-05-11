@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="OwnToolBar">
+        <attr name="layoutType" format="enum">
+            <enum name="title_center" value="0" />
+            <enum name="title_left" value="1" />
+        </attr>
+        <attr name="layoutBackground" format="color" />
+        <attr name="layoutTitle" format="string" />
+        <attr name="layoutTitleColor" format="color" />
+    </declare-styleable>
+
+</resources>

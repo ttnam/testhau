@@ -22,7 +22,7 @@ import io.yostajsc.core.interfaces.CallBackWith;
 import io.yostajsc.core.interfaces.ItemClick;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.adapters.MemberAdapter;
-import io.yostajsc.izigo.ui.OwnToolBar;
+import io.yostajsc.core.customview.OwnToolBar;
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 
 public class MembersActivity extends OwnCoreActivity {

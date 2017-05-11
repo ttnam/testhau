@@ -52,7 +52,7 @@ import io.yostajsc.sdk.model.IgCallback;
 import io.yostajsc.izigo.utils.UiUtils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.yostajsc.izigo.ui.BottomSheetDialog;
+import io.yostajsc.izigo.usecase.customview.BottomSheetDialog;
 import jp.wasabeef.recyclerview.animators.FadeInUpAnimator;
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 import permissions.dispatcher.NeedsPermission;

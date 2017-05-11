@@ -13,7 +13,7 @@ import java.util.List;
 import io.yostajsc.core.utils.DatetimeUtils;
 import io.yostajsc.izigo.R;
 import io.yostajsc.sdk.model.IgComment;
-import io.yostajsc.izigo.ui.viewholder.CommentViewHolder;
+import io.yostajsc.izigo.usecase.customview.viewholder.CommentViewHolder;
 
 /**
  * Created by Phuc-Hau Nguyen on 10/14/2016.

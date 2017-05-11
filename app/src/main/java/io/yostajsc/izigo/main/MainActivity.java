@@ -9,7 +9,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.yostajsc.izigo.constants.PageType;
 import io.yostajsc.core.designs.tabs.IconViewPagerAdapter;
-import io.yostajsc.core.designs.viewpager.NonSwipeAbleViewPager;
+import io.yostajsc.core.designs.transformer.NonSwipeAbleViewPager;
 import io.yostajsc.core.utils.NetworkUtils;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.AppConfig;
