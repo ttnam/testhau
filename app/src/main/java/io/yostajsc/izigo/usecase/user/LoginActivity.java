@@ -32,13 +32,13 @@ import io.yostajsc.core.interfaces.CallBack;
 import io.yostajsc.core.interfaces.CallBackWith;
 import io.yostajsc.core.utils.PrefsUtils;
 import io.yostajsc.izigo.R;
-import io.yostajsc.izigo.main.MainActivity;
-import io.yostajsc.izigo.main.OwnCoreActivity;
+import io.yostajsc.izigo.usecase.main.MainActivity;
+import io.yostajsc.izigo.usecase.main.OwnCoreActivity;
 import io.yostajsc.sdk.api.IzigoSdk;
 import io.yostajsc.izigo.AppConfig;
 import io.yostajsc.sdk.model.user.IgUser;
-import io.yostajsc.izigo.managers.UserManager;
-import io.yostajsc.izigo.managers.EventManager;
+import io.yostajsc.izigo.manager.UserManager;
+import io.yostajsc.izigo.manager.EventManager;
 
 public class LoginActivity extends OwnCoreActivity {
 
@@ -72,9 +72,9 @@ public class LoginActivity extends OwnCoreActivity {
     private void onFireBaseConfig() {
 
         // Initialize Fire base Auth
-        mAuth = FirebaseAuth.getInstance();
+        this.mAuth = FirebaseAuth.getInstance();
 
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
+        this.mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
@@ -85,37 +85,38 @@ public class LoginActivity extends OwnCoreActivity {
                 }
             }
         };
-        mAuth.addAuthStateListener(mAuthListener);
+        this.mAuth.addAuthStateListener(mAuthListener);
 
     }
 
     private void onFacebookConfig() {
+
         mCallbackManager = CallbackManager.Factory.create();
         loginButton.setReadPermissions("email", "public_profile", "user_friends");
 
-        loginButton.registerCallback(mCallbackManager, EventManager.connect().registerFacebookCallback(new CallBackWith<AccessToken>() {
-            @Override
-            public void run(final AccessToken token) {
-                handleFacebookAccessToken(token);
-                GraphRequest request = GraphRequest.newMeRequest(token,
-                        new GraphRequest.GraphJSONObjectCallback() {
-                            @Override
-                            public void onCompleted(JSONObject object, GraphResponse response) {
-                                igUser = UserManager.inject().getFacebookUserInfo(object);
-                            }
-                        });
-                Bundle parameters = new Bundle();
-                parameters.putString("fields", AppConfig.PARAMETERS);
-                request.setParameters(parameters);
-                request.executeAsync();
-            }
-        }));
+        loginButton.registerCallback(mCallbackManager,
+                EventManager.connect().registerFacebookCallback(new CallBackWith<AccessToken>() {
+                    @Override
+                    public void run(final AccessToken token) {
+                        handleFacebookAccessToken(token);
+                        GraphRequest request = GraphRequest.newMeRequest(token,
+                                new GraphRequest.GraphJSONObjectCallback() {
+                                    @Override
+                                    public void onCompleted(JSONObject object, GraphResponse response) {
+                                        igUser = UserManager.inject().getFacebookUserInfo(object);
+                                    }
+                                });
+                        Bundle parameters = new Bundle();
+                        parameters.putString("fields", AppConfig.PARAMETERS);
+                        request.setParameters(parameters);
+                        request.executeAsync();
+                    }
+                }));
     }
 
     private void handleFacebookAccessToken(AccessToken token) {
-        Log.e(TAG, "handleFacebookAccessToken:" + token.getToken());
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
-        mAuth.signInWithCredential(credential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+        this.mAuth.signInWithCredential(credential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
@@ -135,8 +136,8 @@ public class LoginActivity extends OwnCoreActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        if (mAuthListener != null) {
-            mAuth.removeAuthStateListener(mAuthListener);
+        if (this.mAuthListener != null) {
+            this.mAuth.removeAuthStateListener(mAuthListener);
         }
     }
 
@@ -158,9 +159,9 @@ public class LoginActivity extends OwnCoreActivity {
                     fbId,                                   // Facebook id
                     fireBaseId,                             // Fire base id
                     AppConfig.getInstance().getFcmKey(),    // Fcm key
-                    igUser.getAvatar(),
-                    igUser.getName(),
-                    igUser.getGender(),
+                    igUser.getAvatar(),                     // Avatar
+                    igUser.getName(),                       // Name
+                    igUser.getGender(),                     // Gender
                     new CallBack() {
                         @Override
                         public void run() {

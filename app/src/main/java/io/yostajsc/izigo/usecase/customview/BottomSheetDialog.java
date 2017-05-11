@@ -11,7 +11,7 @@ import android.widget.LinearLayout;
 
 import butterknife.ButterKnife;
 import io.yostajsc.izigo.R;
-import io.yostajsc.izigo.main.MembersActivity;
+import io.yostajsc.izigo.usecase.main.MembersActivity;
 
 /**
  * Created by HenryPhuc on 6/9/2016.

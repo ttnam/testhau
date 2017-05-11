@@ -1,4 +1,4 @@
-package io.yostajsc.izigo.usecase.user;
+package io.yostajsc.izigo.usecase;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,8 +7,9 @@ import android.os.Handler;
 import com.facebook.AccessToken;
 
 import io.yostajsc.izigo.R;
-import io.yostajsc.izigo.main.MainActivity;
-import io.yostajsc.izigo.main.OwnCoreActivity;
+import io.yostajsc.izigo.usecase.main.MainActivity;
+import io.yostajsc.izigo.usecase.main.OwnCoreActivity;
+import io.yostajsc.izigo.usecase.user.LoginActivity;
 import io.yostajsc.sdk.api.IzigoSdk;
 
 public class SplashActivity extends OwnCoreActivity {

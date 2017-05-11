@@ -1,4 +1,4 @@
-package io.yostajsc.izigo.managers;
+package io.yostajsc.izigo.manager;
 
 import android.text.Editable;
 import android.text.TextWatcher;

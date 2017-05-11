@@ -24,6 +24,7 @@ import io.yostajsc.izigo.AppConfig;
 import io.yostajsc.core.fragments.CoreFragment;
 import io.yostajsc.core.utils.ValidateUtils;
 import io.yostajsc.izigo.R;
+import io.yostajsc.izigo.usecase.SplashActivity;
 import io.yostajsc.izigo.usecase.webview.WebViewActivity;
 import io.yostajsc.sdk.api.IzigoSdk;
 import io.yostajsc.sdk.model.IgCallback;

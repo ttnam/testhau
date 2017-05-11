@@ -48,7 +48,7 @@ import io.yostajsc.core.interfaces.CallBackWith;
 import io.yostajsc.core.utils.NetworkUtils;
 import io.yostajsc.izigo.usecase.firebase.FirebaseManager;
 import io.yostajsc.izigo.R;
-import io.yostajsc.izigo.main.OwnCoreActivity;
+import io.yostajsc.izigo.usecase.main.OwnCoreActivity;
 import io.yostajsc.izigo.dialogs.DialogActiveMembers;
 import io.yostajsc.izigo.usecase.customview.OwnToolBar;
 import io.yostajsc.izigo.usecase.map.model.Info;

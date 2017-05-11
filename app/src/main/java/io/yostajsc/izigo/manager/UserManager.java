@@ -1,4 +1,4 @@
-package io.yostajsc.izigo.managers;
+package io.yostajsc.izigo.manager;
 
 import org.json.JSONObject;
 
