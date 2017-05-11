@@ -132,7 +132,7 @@ public class TripDetailActivity extends OwnCoreActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        tripId = getIntent().getStringExtra(AppConfig.TRIP_ID);
+        tripId = getIntent().getStringExtra(IgTrip.TRIP_ID);
         onApplyData();
     }
 
@@ -364,10 +364,8 @@ public class TripDetailActivity extends OwnCoreActivity {
     @NeedsPermission({Manifest.permission.ACCESS_COARSE_LOCATION,
             Manifest.permission.ACCESS_FINE_LOCATION})
     public void loadMaps() {
-        PrefsUtils.inject(this).save(IgTrip.TRIP_ID, tripId);
-        Intent intent = new Intent(TripDetailActivity.this, MapsActivity.class);
-        intent.putExtra(IgTrip.TRIP_ID, tripId);
-        startActivity(intent);
+        AppConfig.getInstance().setCurrentTripId(tripId);
+        startActivity(new Intent(this, MapsActivity.class));
     }
 
     @NeedsPermission({Manifest.permission.READ_EXTERNAL_STORAGE,

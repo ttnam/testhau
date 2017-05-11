@@ -41,6 +41,8 @@ public class LocationService extends Service {
     public void onCreate() {
         super.onCreate();
 
+        Log.e(TAG, "Location service was created");
+
         if (mLocationManager == null) {
             mLocationManager = (LocationManager) getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
         }
@@ -67,6 +69,7 @@ public class LocationService extends Service {
                     Log.e(TAG, ex.getMessage());
                 }
             }
+            Log.e(TAG, "Location service was destroyed");
         }
     }
 }

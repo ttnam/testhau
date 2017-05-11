@@ -68,7 +68,7 @@ public class OwnTripFragment extends CoreFragment {
                     public void run(Integer position) {
                         String tripId = tripAdapter.getItem(position).getId();
                         Intent intent = new Intent(mContext, TripDetailActivity.class);
-                        intent.putExtra(AppConfig.TRIP_ID, tripId);
+                        intent.putExtra(IgTrip.TRIP_ID, tripId);
                         startActivity(intent);
                     }
                 });

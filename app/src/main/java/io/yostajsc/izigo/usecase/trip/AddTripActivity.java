@@ -29,6 +29,7 @@ import io.yostajsc.izigo.dialogs.DialogDatePicker;
 import io.yostajsc.izigo.dialogs.DialogPickTransfer;
 import io.yostajsc.izigo.dialogs.DialogTimePicker;
 import io.yostajsc.izigo.AppConfig;
+import io.yostajsc.sdk.model.trip.IgTrip;
 import io.yostajsc.sdk.model.trip.LocationPick;
 import io.yostajsc.izigo.utils.UiUtils;
 import butterknife.BindView;
@@ -274,7 +275,7 @@ public class AddTripActivity extends OwnCoreActivity {
 
     private void onSuccess(String tripId) {
         Intent intent = new Intent(AddTripActivity.this, TripDetailActivity.class);
-        intent.putExtra(AppConfig.TRIP_ID, tripId);
+        intent.putExtra(IgTrip.TRIP_ID, tripId);
         startActivity(intent);
         finish();
     }

@@ -22,6 +22,7 @@ import io.yostajsc.core.utils.PrefsUtils;
 import io.yostajsc.sdk.model.trip.IgImage;
 import io.yostajsc.izigo.usecase.firebase.FirebaseManager;
 import io.yostajsc.izigo.usecase.location.LocationService;
+import io.yostajsc.sdk.model.trip.IgTrip;
 
 /**
  * Created by Phuc-Hau Nguyen on 11/9/2016.
@@ -29,10 +30,10 @@ import io.yostajsc.izigo.usecase.location.LocationService;
 
 public class AppConfig extends Application {
 
-    public static final String TAG = AppConfig.class.getSimpleName();
+    private static final String TAG = AppConfig.class.getSimpleName();
 
     public static final String FB_ID = "FB_ID";
-    public static final String TRIP_ID = "TRIP_ID";
+
     public static final String PAGE_ID = "PAGE_ID";
     public static final String KEY_USER_ROLE = "KEY_USER_ROLE";
     public static final String AUTHORIZATION = "AUTHORIZATION";
@@ -106,8 +107,7 @@ public class AppConfig extends Application {
         LoginManager.getInstance().logOut();
     }
 
-    public void startLocationServer(String tripId) {
-        PrefsUtils.inject(this).save(AppConfig.TRIP_ID, tripId);
+    public void startLocationServer() {
         startService(new Intent(this, LocationService.class));
     }
 
@@ -121,5 +121,14 @@ public class AppConfig extends Application {
 
     public String getFcmKey() {
         return PrefsUtils.inject(this).getString(FirebaseManager.FIRE_BASE_TOKEN);
+    }
+
+
+    public String getCurrentTripId() {
+        return PrefsUtils.inject(AppConfig.getInstance()).getString(IgTrip.TRIP_ID);
+    }
+
+    public void setCurrentTripId(String tripId) {
+        PrefsUtils.inject(this).save(IgTrip.TRIP_ID, tripId);
     }
 }

@@ -72,7 +72,7 @@ public class MapsActivity extends OwnCoreActivity implements OnMapReadyCallback,
 
     private GoogleMap mMap = null;
     private boolean mIsFirst = true, mIsDraw = false;
-    private String mTripId = null, mFocus = null, fbTemp = null;
+    private String mFocus = null, fbTemp = null;
     private HashMap<String, Person> mTracks = new HashMap<>();
     private SupportMapFragment mapFragment = null;
     private ClusterManager<Person> mClusterManager = null;
@@ -95,33 +95,6 @@ public class MapsActivity extends OwnCoreActivity implements OnMapReadyCallback,
     }
 
     @Override
-    public void onApplyData() {
-        super.onApplyData();
-        mTripId = PrefsUtils.inject(this).getString(IgTrip.TRIP_ID);
-        AppConfig.getInstance().startLocationServer(mTripId);
-
-        if (NetworkUtils.isNetworkConnected(this)) {
-
-            IzigoSdk.TripExecutor.getMembers(mTripId, new IgCallback<List<IgFriend>, String>() {
-                @Override
-                public void onSuccessful(List<IgFriend> igFriends) {
-                    onReceiveMembers(igFriends);
-                }
-
-                @Override
-                public void onFail(String error) {
-                    AppConfig.showToast(MapsActivity.this, error);
-                }
-
-                @Override
-                public void onExpired() {
-                    expired();
-                }
-            });
-        }
-    }
-
-    @Override
     public void onApplyViews() {
         super.onApplyViews();
 
@@ -141,6 +114,35 @@ public class MapsActivity extends OwnCoreActivity implements OnMapReadyCallback,
             }
         });
     }
+
+    @Override
+    public void onApplyData() {
+        super.onApplyData();
+
+        AppConfig.getInstance().startLocationServer();
+
+        if (NetworkUtils.isNetworkConnected(this)) {
+
+            IzigoSdk.TripExecutor.getMembers(AppConfig.getInstance().getCurrentTripId(),
+                    new IgCallback<List<IgFriend>, String>() {
+                        @Override
+                        public void onSuccessful(List<IgFriend> igFriends) {
+                            onReceiveMembers(igFriends);
+                        }
+
+                        @Override
+                        public void onFail(String error) {
+                            AppConfig.showToast(MapsActivity.this, error);
+                        }
+
+                        @Override
+                        public void onExpired() {
+                            expired();
+                        }
+                    });
+        }
+    }
+
 
     private void onReceiveMembers(List<IgFriend> igFriends) {
         if (igFriends.size() > 0) {
@@ -297,7 +299,7 @@ public class MapsActivity extends OwnCoreActivity implements OnMapReadyCallback,
 
     @NeedsPermission({Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION})
     public void enableMyLocation() {
-        
+
         if (!MapUtils.Gps.connect().isEnable())
             MapUtils.Gps.request(this).askGPS();
 
@@ -351,9 +353,10 @@ public class MapsActivity extends OwnCoreActivity implements OnMapReadyCallback,
         return true;
     }
 
-
     private void registerDataChangeListener() {
-        FirebaseManager.inject().registerListenerOnTrack(mTripId,
+
+        FirebaseManager.inject().registerListenerOnTrack(
+                AppConfig.getInstance().getCurrentTripId(),
                 new CallBackWith<DataSnapshot>() {
                     @Override
                     public void run(DataSnapshot dataSnapshot) {
@@ -460,7 +463,6 @@ public class MapsActivity extends OwnCoreActivity implements OnMapReadyCallback,
         reloadMarker(this.mTracks.get(fbId));
 
     }
-
 
     private class PersonRenderer extends DefaultClusterRenderer<Person> {
 
