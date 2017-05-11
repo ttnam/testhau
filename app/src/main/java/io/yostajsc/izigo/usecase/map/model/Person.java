@@ -1,4 +1,4 @@
-package io.yostajsc.izigo.usecase.map;
+package io.yostajsc.izigo.usecase.map.model;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.google.maps.android.clustering.ClusterItem;

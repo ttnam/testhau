@@ -18,7 +18,7 @@ import io.yostajsc.core.interfaces.CallBackWith;
 import io.yostajsc.core.utils.DimensionUtil;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.adapters.MemberActiveOnMapsAdapter;
-import io.yostajsc.izigo.usecase.map.Person;
+import io.yostajsc.izigo.usecase.map.model.Person;
 
 /**
  * Created by Phuc-Hau Nguyen on 8/31/2016.

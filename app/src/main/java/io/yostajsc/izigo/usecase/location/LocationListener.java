@@ -10,7 +10,7 @@ import java.util.Calendar;
 
 import io.yostajsc.core.utils.PrefsUtils;
 import io.yostajsc.izigo.AppConfig;
-import io.yostajsc.izigo.usecase.map.MapUtils;
+import io.yostajsc.izigo.usecase.map.utils.MapUtils;
 
 /**
  * Created by nphau on 3/21/17.

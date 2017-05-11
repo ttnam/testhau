@@ -9,7 +9,7 @@ import org.greenrobot.eventbus.EventBus;
 import io.yostajsc.core.code.MessageInfo;
 import io.yostajsc.core.code.MessageType;
 import io.yostajsc.core.utils.NetworkUtils;
-import io.yostajsc.izigo.usecase.map.MapUtils;
+import io.yostajsc.izigo.usecase.map.utils.MapUtils;
 
 /**
  * Created by Phuc-Hau Nguyen on 7/22/2016.

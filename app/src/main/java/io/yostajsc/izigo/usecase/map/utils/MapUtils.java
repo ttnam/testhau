@@ -1,5 +1,4 @@
-package io.yostajsc.izigo.usecase.map;
-
+package io.yostajsc.izigo.usecase.map.utils;
 
 import android.app.Activity;
 import android.content.Context;
@@ -32,6 +31,8 @@ import com.google.android.gms.maps.model.Polyline;
 import io.yostajsc.izigo.AppConfig;
 import io.yostajsc.core.code.MessageType;
 import io.yostajsc.core.interfaces.CallBackWith;
+import io.yostajsc.izigo.usecase.map.RouteParserTask;
+import io.yostajsc.izigo.usecase.map.model.Info;
 
 import static android.content.Context.LOCATION_SERVICE;
 

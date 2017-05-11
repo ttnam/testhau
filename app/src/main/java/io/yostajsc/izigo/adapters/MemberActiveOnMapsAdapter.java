@@ -13,7 +13,7 @@ import java.util.Collections;
 import java.util.List;
 
 import io.yostajsc.izigo.R;
-import io.yostajsc.izigo.usecase.map.Person;
+import io.yostajsc.izigo.usecase.map.model.Person;
 import io.yostajsc.izigo.ui.viewholder.ActiveMemberOnMapsViewHolder;
 
 /**

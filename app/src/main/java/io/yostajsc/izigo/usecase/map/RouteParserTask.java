@@ -21,6 +21,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import io.yostajsc.core.interfaces.CallBackWith;
+import io.yostajsc.izigo.usecase.map.model.Info;
+import io.yostajsc.izigo.usecase.map.model.Route;
 
 /**
  * Created by nphau on 5/6/17.

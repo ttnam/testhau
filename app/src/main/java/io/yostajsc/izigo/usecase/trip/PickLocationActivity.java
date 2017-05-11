@@ -26,7 +26,7 @@ import io.yostajsc.izigo.AppConfig;
 import io.yostajsc.izigo.activities.OwnCoreActivity;
 import io.yostajsc.izigo.activities.PickLocationActivityPermissionsDispatcher;
 import io.yostajsc.sdk.model.trip.LocationPick;
-import io.yostajsc.izigo.usecase.map.MapUtils;
+import io.yostajsc.izigo.usecase.map.utils.MapUtils;
 import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.RuntimePermissions;
 
