@@ -1,10 +1,7 @@
 package io.yostajsc.izigo;
 
-import android.app.Activity;
 import android.app.Application;
-import android.content.Context;
 import android.content.Intent;
-import android.widget.Toast;
 
 import com.facebook.AccessToken;
 import com.facebook.FacebookSdk;
@@ -92,14 +89,6 @@ public class AppConfig extends Application {
 
     private void onApplyFont() {
         FontUtils.overrideFont(this, "SERIF", "fonts/Roboto-Regular.ttf");
-    }
-
-    public static void showToast(Activity activity, String message) {
-        Toast.makeText(activity, message, Toast.LENGTH_SHORT).show();
-    }
-
-    public static void showToast(Context context, String message) {
-        Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
     }
 
     public void logout() {

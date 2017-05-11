@@ -41,6 +41,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.yostajsc.core.utils.ToastUtils;
 import io.yostajsc.izigo.AppConfig;
 import io.yostajsc.core.code.MessageType;
 import io.yostajsc.core.interfaces.CallBack;
@@ -130,7 +131,7 @@ public class MapsActivity extends OwnCoreActivity implements OnMapReadyCallback,
 
                         @Override
                         public void onFail(String error) {
-                            AppConfig.showToast(MapsActivity.this, error);
+                            ToastUtils.showToast(MapsActivity.this, error);
                         }
 
                         @Override
@@ -155,7 +156,7 @@ public class MapsActivity extends OwnCoreActivity implements OnMapReadyCallback,
             // Register fire base data change listener
             registerDataChangeListener();
         } else {
-            AppConfig.showToast(this, "Chưa có thành viên nào!");
+            ToastUtils.showToast(this, "Chưa có thành viên nào!");
         }
     }
 
@@ -368,7 +369,7 @@ public class MapsActivity extends OwnCoreActivity implements OnMapReadyCallback,
                 }, new CallBackWith<String>() {
                     @Override
                     public void run(String error) {
-                        AppConfig.showToast(MapsActivity.this, error);
+                        ToastUtils.showToast(MapsActivity.this, error);
                     }
                 });
     }

@@ -66,10 +66,10 @@ public class MainActivity extends OwnCoreActivity {
 
     private void onApplyViewPager() {
         IconViewPagerAdapter adapter = new IconViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFrag(tripFragment);
-        adapter.addFrag(ownTripFragment);
-        adapter.addFrag(notificationsFragment);
-        adapter.addFrag(settingsFragment);
+        adapter.addFrag(this.tripFragment);
+        adapter.addFrag(this.ownTripFragment);
+        adapter.addFrag(this.notificationsFragment);
+        adapter.addFrag(this.settingsFragment);
         this.mViewPager.setAdapter(adapter);
     }
 

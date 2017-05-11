@@ -13,6 +13,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.yostajsc.core.utils.ToastUtils;
 import io.yostajsc.izigo.AppConfig;
 import io.yostajsc.core.designs.decorations.SpacesItemDecoration;
 import io.yostajsc.izigo.R;
@@ -72,7 +73,7 @@ public class NotificationsFragment extends BaseFragment {
 
             @Override
             public void onFail(String error) {
-                AppConfig.showToast(mContext, error);
+                ToastUtils.showToast(mContext, error);
             }
 
             @Override

@@ -10,12 +10,14 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.Window;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.yostajsc.core.utils.ToastUtils;
 import io.yostajsc.izigo.AppConfig;
 import io.yostajsc.core.interfaces.CallBackWith;
 import io.yostajsc.core.utils.AppUtils;
@@ -104,7 +106,7 @@ public class DialogComment extends Dialog {
 
             @Override
             public void onFail(String error) {
-                AppConfig.showToast(getContext(), error);
+                ToastUtils.showToast(getContext(), error);
             }
 
             @Override
@@ -138,7 +140,7 @@ public class DialogComment extends Dialog {
         IzigoSdk.TripExecutor.addComment(mTripId, content, new CallBackWith<String>() {
             @Override
             public void run(String error) {
-                AppConfig.showToast(mOwnerActivity, error);
+                ToastUtils.showToast(mOwnerActivity, error);
             }
         });
 

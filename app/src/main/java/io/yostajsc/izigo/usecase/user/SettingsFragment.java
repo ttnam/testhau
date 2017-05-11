@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatImageView;
 import android.text.Html;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,9 +21,9 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.yostajsc.core.utils.ToastUtils;
 import io.yostajsc.izigo.AppConfig;
 import io.yostajsc.core.fragments.CoreFragment;
-import io.yostajsc.core.utils.ValidateUtils;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.usecase.SplashActivity;
 import io.yostajsc.izigo.usecase.webview.WebViewActivity;
@@ -65,7 +66,7 @@ public class SettingsFragment extends CoreFragment {
 
             @Override
             public void onFail(String error) {
-                AppConfig.showToast(mContext, error);
+                ToastUtils.showToast(mContext, error);
             }
 
             @Override
@@ -111,19 +112,19 @@ public class SettingsFragment extends CoreFragment {
 
         String name = editName.getText().toString();
 
-        if (ValidateUtils.canUse(name)) {
+        if (!TextUtils.isEmpty(name)) {
             Map<String, String> map = new HashMap<>();
             map.put("name", name);
 
             IzigoSdk.UserExecutor.updateInfo(map, new IgCallback<Void, String>() {
                 @Override
                 public void onSuccessful(Void aVoid) {
-                    AppConfig.showToast(mContext, getString(R.string.str_success));
+                    ToastUtils.showToast(mContext, getString(R.string.str_success));
                 }
 
                 @Override
                 public void onFail(String error) {
-                    AppConfig.showToast(mContext, error);
+                    ToastUtils.showToast(mContext, error);
                 }
 
                 @Override
@@ -132,7 +133,7 @@ public class SettingsFragment extends CoreFragment {
                 }
             });
         } else {
-            AppConfig.showToast(mContext, getString(R.string.error_message_empty));
+            ToastUtils.showToast(mContext, getString(R.string.error_message_empty));
         }
     }
 

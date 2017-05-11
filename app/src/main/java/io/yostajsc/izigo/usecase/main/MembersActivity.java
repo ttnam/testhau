@@ -11,6 +11,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.yostajsc.core.utils.ToastUtils;
 import io.yostajsc.izigo.AppConfig;
 import io.yostajsc.sdk.model.user.IgFriend;
 import io.yostajsc.core.utils.PrefsUtils;
@@ -80,7 +81,7 @@ public class MembersActivity extends OwnCoreActivity {
 
             @Override
             public void onFail(String error) {
-                AppConfig.showToast(MembersActivity.this, error);
+                ToastUtils.showToast(MembersActivity.this, error);
             }
 
             @Override
@@ -100,7 +101,7 @@ public class MembersActivity extends OwnCoreActivity {
 
             @Override
             public void onFail(String error) {
-                AppConfig.showToast(MembersActivity.this, error);
+                ToastUtils.showToast(MembersActivity.this, error);
             }
 
             @Override
@@ -115,13 +116,13 @@ public class MembersActivity extends OwnCoreActivity {
         IzigoSdk.TripExecutor.addMembers(mTripId, fbId, new IgCallback<Void, String>() {
             @Override
             public void onSuccessful(Void aVoid) {
-                AppConfig.showToast(MembersActivity.this, "Lời mời đã được gửi đi");
+                ToastUtils.showToast(MembersActivity.this, "Lời mời đã được gửi đi");
                 getMemberList();
             }
 
             @Override
             public void onFail(String error) {
-                AppConfig.showToast(MembersActivity.this, error);
+                ToastUtils.showToast(MembersActivity.this, error);
             }
 
             @Override
@@ -173,13 +174,13 @@ public class MembersActivity extends OwnCoreActivity {
                 memberAdapter.getItem(pos).getFbId(), new IgCallback<Void, String>() {
                     @Override
                     public void onSuccessful(Void aVoid) {
-                        AppConfig.showToast(MembersActivity.this, "Bạn đã xoá khỏi group thành công");
+                        ToastUtils.showToast(MembersActivity.this, "Bạn đã xoá khỏi group thành công");
                         getMemberList();
                     }
 
                     @Override
                     public void onFail(String error) {
-                        AppConfig.showToast(MembersActivity.this, error);
+                        ToastUtils.showToast(MembersActivity.this, error);
                     }
 
                     @Override

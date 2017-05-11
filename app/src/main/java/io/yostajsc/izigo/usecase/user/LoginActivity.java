@@ -31,6 +31,7 @@ import butterknife.OnClick;
 import io.yostajsc.core.interfaces.CallBack;
 import io.yostajsc.core.interfaces.CallBackWith;
 import io.yostajsc.core.utils.PrefsUtils;
+import io.yostajsc.core.utils.ToastUtils;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.usecase.main.MainActivity;
 import io.yostajsc.izigo.usecase.main.OwnCoreActivity;
@@ -174,7 +175,7 @@ public class LoginActivity extends OwnCoreActivity {
                         @Override
                         public void run(String error) {
                             onReset();
-                            AppConfig.showToast(LoginActivity.this, error);
+                            ToastUtils.showToast(LoginActivity.this, error);
                         }
                     });
         }

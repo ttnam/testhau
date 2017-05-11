@@ -16,6 +16,7 @@ import butterknife.OnClick;
 import io.yostajsc.core.designs.decorations.SpacesItemDecoration;
 import io.yostajsc.core.fragments.CoreFragment;
 import io.yostajsc.core.interfaces.CallBackWith;
+import io.yostajsc.core.utils.ToastUtils;
 import io.yostajsc.sdk.model.trip.IgTrip;
 import io.yostajsc.core.utils.NetworkUtils;
 import io.yostajsc.izigo.R;
@@ -101,7 +102,7 @@ public class OwnTripFragment extends CoreFragment {
 
             @Override
             public void onFail(String error) {
-                AppConfig.showToast(mContext, error);
+                ToastUtils.showToast(mContext, error);
             }
 
             @Override

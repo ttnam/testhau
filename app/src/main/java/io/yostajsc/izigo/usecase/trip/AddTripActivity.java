@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.widget.AppCompatImageView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.ProgressBar;
@@ -18,11 +19,11 @@ import android.widget.Toast;
 import java.text.DecimalFormat;
 import java.util.Calendar;
 
+import io.yostajsc.core.utils.ToastUtils;
 import io.yostajsc.izigo.constants.TransferType;
 import io.yostajsc.core.interfaces.CallBackWith;
 import io.yostajsc.core.code.MessageType;
 import io.yostajsc.core.utils.DatetimeUtils;
-import io.yostajsc.core.utils.ValidateUtils;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.usecase.main.OwnCoreActivity;
 import io.yostajsc.izigo.dialogs.DialogDatePicker;
@@ -228,8 +229,11 @@ public class AddTripActivity extends OwnCoreActivity {
         String departName = textDepart.getText().toString();
         String description = editDescription.getText().toString();
 
-        if (!ValidateUtils.canUse(groupName, arriveName, departName, description)) {
-            Toast.makeText(this, getString(R.string.error_message_empty), Toast.LENGTH_SHORT).show();
+        if (TextUtils.isEmpty(groupName) ||
+                TextUtils.isEmpty(arriveName) ||
+                TextUtils.isEmpty(departName) ||
+                TextUtils.isEmpty(description)) {
+            ToastUtils.showToast(this, getString(R.string.error_message_empty));
             return;
         }
 

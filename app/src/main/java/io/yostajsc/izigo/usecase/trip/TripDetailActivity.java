@@ -30,6 +30,7 @@ import butterknife.OnClick;
 import io.yostajsc.core.designs.listeners.RecyclerItemClickListener;
 import io.yostajsc.core.interfaces.CallBack;
 import io.yostajsc.core.utils.FileUtils;
+import io.yostajsc.core.utils.ToastUtils;
 import io.yostajsc.izigo.usecase.trip.adapter.TimelineAdapter;
 import io.yostajsc.izigo.usecase.map.MapsActivity;
 import io.yostajsc.sdk.model.Timeline;
@@ -238,7 +239,7 @@ public class TripDetailActivity extends OwnCoreActivity {
 
                 @Override
                 public void onFail(String error) {
-                    AppConfig.showToast(TripDetailActivity.this, error);
+                    ToastUtils.showToast(TripDetailActivity.this, error);
                 }
 
                 @Override
@@ -256,7 +257,7 @@ public class TripDetailActivity extends OwnCoreActivity {
 
                 @Override
                 public void onFail(String error) {
-                    AppConfig.showToast(TripDetailActivity.this, error);
+                    ToastUtils.showToast(TripDetailActivity.this, error);
                 }
 
                 @Override
@@ -413,7 +414,7 @@ public class TripDetailActivity extends OwnCoreActivity {
                             TripDetailActivityView.changeTripCover(tripId, fileUri, new CallBackWith<String>() {
                                 @Override
                                 public void run(String error) {
-                                    AppConfig.showToast(TripDetailActivity.this, error);
+                                    ToastUtils.showToast(TripDetailActivity.this, error);
                                 }
                             }, new CallBack() {
                                 @Override

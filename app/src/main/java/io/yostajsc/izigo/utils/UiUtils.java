@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -12,7 +13,6 @@ import android.widget.TextView;
 import io.yostajsc.izigo.constants.TransferType;
 import io.yostajsc.core.designs.listeners.RecyclerItemClickListener;
 import io.yostajsc.core.interfaces.CallBackWith;
-import io.yostajsc.core.utils.ValidateUtils;
 import io.yostajsc.izigo.R;
 
 /**
@@ -100,7 +100,7 @@ public class UiUtils {
     public static void showTextCenterInWebView(WebView webView, String text) {
         String prefix = "<html><body><p style=\"text-align: justify\">";
         String postfix = "</p></body></html>";
-        if (ValidateUtils.canUse(text)) {
+        if (!TextUtils.isEmpty(text)) {
             webView.loadData(prefix + text + postfix, "text/html; charset=utf-8", "utf-8");
             webView.setVisibility(View.VISIBLE);
         } else {
