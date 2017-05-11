@@ -1,4 +1,4 @@
-package io.yostajsc.izigo.activities;
+package io.yostajsc.izigo.main;
 
 import android.content.Intent;
 
@@ -8,7 +8,6 @@ import org.greenrobot.eventbus.Subscribe;
 import io.yostajsc.core.code.MessageInfo;
 import io.yostajsc.core.code.MessageType;
 import io.yostajsc.core.dialogs.DialogNoNet;
-import io.yostajsc.core.interfaces.CallBack;
 import io.yostajsc.core.interfaces.CoreActivity;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.usecase.user.LoginActivity;
@@ -21,13 +20,6 @@ import io.yostajsc.izigo.AppConfig;
 public class OwnCoreActivity extends CoreActivity {
 
     private DialogNoNet mDialogNoNet = null;
-
-    protected CallBack mOnExpiredCallBack = new CallBack() {
-        @Override
-        public void run() {
-            onExpired();
-        }
-    };
 
     @Override
     public void onApplyViews() {
@@ -56,7 +48,7 @@ public class OwnCoreActivity extends CoreActivity {
         EventBus.getDefault().unregister(this);
     }
 
-    protected void onExpired() {
+    protected void expired() {
         AppConfig.getInstance().logout();
         startActivity(new Intent(this, LoginActivity.class));
         finish();
@@ -107,7 +99,7 @@ public class OwnCoreActivity extends CoreActivity {
             this.mDialogNoNet = new DialogNoNet(this);
             this.mDialogNoNet.setIcon(R.drawable.ic_launcher_sad);
         }
-        if(this.mDialogNoNet.isShowing())
+        if (this.mDialogNoNet.isShowing())
             return;
         this.mDialogNoNet.show();
     }

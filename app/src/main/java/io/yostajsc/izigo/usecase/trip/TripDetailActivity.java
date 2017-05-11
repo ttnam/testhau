@@ -28,14 +28,15 @@ import java.util.List;
 
 import butterknife.OnClick;
 import io.yostajsc.core.designs.listeners.RecyclerItemClickListener;
+import io.yostajsc.core.interfaces.CallBack;
 import io.yostajsc.core.utils.FileUtils;
-import io.yostajsc.izigo.adapters.TimelineAdapter;
+import io.yostajsc.izigo.usecase.trip.adapter.TimelineAdapter;
 import io.yostajsc.izigo.usecase.map.MapsActivity;
 import io.yostajsc.sdk.model.Timeline;
 import io.yostajsc.sdk.model.trip.IgImage;
 import io.yostajsc.sdk.model.trip.IgTrip;
 import io.yostajsc.core.utils.PrefsUtils;
-import io.yostajsc.izigo.activities.OwnCoreActivity;
+import io.yostajsc.izigo.main.OwnCoreActivity;
 import io.yostajsc.izigo.dialogs.DialogComment;
 import io.yostajsc.izigo.constants.RoleType;
 import io.yostajsc.izigo.constants.TransferType;
@@ -242,7 +243,7 @@ public class TripDetailActivity extends OwnCoreActivity {
 
                 @Override
                 public void onExpired() {
-                    mOnExpiredCallBack.run();
+                    expired();
                 }
             });
 
@@ -260,7 +261,7 @@ public class TripDetailActivity extends OwnCoreActivity {
 
                 @Override
                 public void onExpired() {
-                    mOnExpiredCallBack.run();
+                    expired();
                 }
             });
         } else {
@@ -416,7 +417,12 @@ public class TripDetailActivity extends OwnCoreActivity {
                                 public void run(String error) {
                                     AppConfig.showToast(TripDetailActivity.this, error);
                                 }
-                            }, mOnExpiredCallBack);
+                            }, new CallBack() {
+                                @Override
+                                public void run() {
+                                    expired();
+                                }
+                            });
 
                         }
                     } catch (Exception e) {

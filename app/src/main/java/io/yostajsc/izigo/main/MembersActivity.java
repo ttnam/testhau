@@ -1,4 +1,4 @@
-package io.yostajsc.izigo.activities;
+package io.yostajsc.izigo.main;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -85,7 +85,7 @@ public class MembersActivity extends OwnCoreActivity {
 
             @Override
             public void onExpired() {
-                mOnExpiredCallBack.run();
+                expired();
             }
         });
     }
@@ -105,7 +105,7 @@ public class MembersActivity extends OwnCoreActivity {
 
             @Override
             public void onExpired() {
-                mOnExpiredCallBack.run();
+                expired();
             }
         });
     }
@@ -126,7 +126,7 @@ public class MembersActivity extends OwnCoreActivity {
 
             @Override
             public void onExpired() {
-                mOnExpiredCallBack.run();
+                expired();
             }
         });
     }
@@ -184,7 +184,7 @@ public class MembersActivity extends OwnCoreActivity {
 
                     @Override
                     public void onExpired() {
-                        mOnExpiredCallBack.run();
+                        expired();
                     }
                 });
     }

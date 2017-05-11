@@ -7,8 +7,8 @@ import android.os.Handler;
 import com.facebook.AccessToken;
 
 import io.yostajsc.izigo.R;
-import io.yostajsc.izigo.activities.MainActivity;
-import io.yostajsc.izigo.activities.OwnCoreActivity;
+import io.yostajsc.izigo.main.MainActivity;
+import io.yostajsc.izigo.main.OwnCoreActivity;
 import io.yostajsc.sdk.api.IzigoSdk;
 
 public class SplashActivity extends OwnCoreActivity {

@@ -13,7 +13,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.AppCompatImageView;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -50,7 +49,7 @@ import io.yostajsc.core.utils.NetworkUtils;
 import io.yostajsc.core.utils.PrefsUtils;
 import io.yostajsc.izigo.usecase.firebase.FirebaseManager;
 import io.yostajsc.izigo.R;
-import io.yostajsc.izigo.activities.OwnCoreActivity;
+import io.yostajsc.izigo.main.OwnCoreActivity;
 import io.yostajsc.izigo.dialogs.DialogActiveMembers;
 import io.yostajsc.izigo.ui.OwnToolBar;
 import io.yostajsc.izigo.usecase.map.model.Info;
@@ -67,19 +66,18 @@ import permissions.dispatcher.RuntimePermissions;
 
 @RuntimePermissions
 public class MapsActivity extends OwnCoreActivity implements OnMapReadyCallback, GoogleMap.OnMyLocationChangeListener,
-        ClusterManager.OnClusterClickListener<Person> {
+        ClusterManager.OnClusterClickListener<Person>, GoogleMap.OnMarkerClickListener, DialogActiveMembers.OnItemSelectListener {
 
     private static final String TAG = MapsActivity.class.getSimpleName();
 
-    private boolean mIsFirst = true;
     private GoogleMap mMap = null;
-    private String mTripId = null, mFocus = null;
-    private HashMap<String, Person> mTracks = null;
+    private boolean mIsFirst = true, mIsDraw = false;
+    private String mTripId = null, mFocus = null, fbTemp = null;
+    private HashMap<String, Person> mTracks = new HashMap<>();
     private SupportMapFragment mapFragment = null;
     private ClusterManager<Person> mClusterManager = null;
     private DialogActiveMembers mDialogActiveMembers = null;
     private Polyline mPolyline = null;
-    private boolean isDraw = false;
 
     @BindView(R.id.own_toolbar)
     OwnToolBar ownToolbar;
@@ -97,15 +95,8 @@ public class MapsActivity extends OwnCoreActivity implements OnMapReadyCallback,
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-        MapsActivityPermissionsDispatcher.askGPSWithCheck(this);
-    }
-
-    @Override
     public void onApplyData() {
         super.onApplyData();
-        this.mTracks = new HashMap<>();
         mTripId = PrefsUtils.inject(this).getString(IgTrip.TRIP_ID);
         AppConfig.getInstance().startLocationServer(mTripId);
 
@@ -124,7 +115,7 @@ public class MapsActivity extends OwnCoreActivity implements OnMapReadyCallback,
 
                 @Override
                 public void onExpired() {
-
+                    expired();
                 }
             });
         }
@@ -133,15 +124,11 @@ public class MapsActivity extends OwnCoreActivity implements OnMapReadyCallback,
     @Override
     public void onApplyViews() {
         super.onApplyViews();
+
         this.mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         this.mapFragment.getMapAsync(this);
-        this.mDialogActiveMembers = new DialogActiveMembers(this, new CallBackWith<String>() {
-            @Override
-            public void run(String fbId) {
-                mFocus = fbId;
-                MapUtils.Map.moveCameraSmoothly(mMap, mTracks.get(mFocus).getPosition(), 500);
-            }
-        });
+
+        this.mDialogActiveMembers = new DialogActiveMembers(this, this);
         this.ownToolbar.setBinding(R.drawable.ic_vector_back_blue, R.drawable.ic_vector_bell_notif, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -172,8 +159,6 @@ public class MapsActivity extends OwnCoreActivity implements OnMapReadyCallback,
         }
     }
 
-    private String fbTemp;
-
     @OnClick(R.id.button)
     public void showActiveMembersList() {
         mDialogActiveMembers.show();
@@ -201,6 +186,171 @@ public class MapsActivity extends OwnCoreActivity implements OnMapReadyCallback,
         AppConfig.getInstance().stopLocationService();
         FirebaseManager.inject().unregisterListenerOnTrack();
     }
+
+    @Override
+    public void selected(String fbId) {
+        mFocus = fbId;
+        MapUtils.Map.moveCameraSmoothly(mMap, mTracks.get(mFocus).getPosition(), 500);
+    }
+
+    @Override
+    public void onMyLocationChange(Location location) {
+
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+
+        this.mMap = googleMap;
+
+        // Ask permission to enable location
+        MapsActivityPermissionsDispatcher.enableMyLocationWithCheck(this);
+
+        this.mMap.setTrafficEnabled(true);
+        this.mMap.setMinZoomPreference(5f);
+        this.mMap.setMaxZoomPreference(14f);
+        this.mMap.setOnMarkerClickListener(this);
+        this.mMap.setOnMyLocationChangeListener(this);
+        this.mMap.getUiSettings().setCompassEnabled(true);
+        this.mMap.getUiSettings().setMapToolbarEnabled(false);
+        this.mMap.getUiSettings().setZoomGesturesEnabled(true);
+        this.mMap.getUiSettings().setRotateGesturesEnabled(true);
+        this.mMap.getUiSettings().setScrollGesturesEnabled(true);
+
+        this.mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, R.raw.map_style));
+
+        // Cluster renderer
+        this.mClusterManager = new ClusterManager<>(this, this.mMap);
+        this.mClusterManager.setRenderer(new PersonRenderer(this));
+        this.mClusterManager.setOnClusterClickListener(this);
+        this.mMap.setOnCameraIdleListener(this.mClusterManager);
+
+    }
+
+    @Override
+    public boolean onClusterClick(Cluster<Person> cluster) {
+        LatLngBounds.Builder builder = LatLngBounds.builder();
+        for (ClusterItem item : cluster.getItems()) {
+            builder.include(item.getPosition());
+        }
+        // Get the LatLngBounds
+        final LatLngBounds latLngBounds = builder.build();
+        // Animate camera to the bounds
+        this.mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(
+                new LatLngBounds(latLngBounds.southwest, latLngBounds.northeast), 180));
+
+        return true;
+    }
+
+    @OnClick(R.id.button_direction)
+    public void showDirection() {
+
+        mIsDraw = true;
+
+        String ownFbId = IzigoSdk.UserExecutor.getOwnFbId();
+
+        if (mPolyline != null)
+            mPolyline.remove();
+
+        MapUtils.Map.direction(mMap,
+                mTracks.get(ownFbId).getPosition(), // from
+                mTracks.get(mFocus).getPosition(), // to
+                true,
+                new CallBackWith<Info>() {
+                    @Override
+                    public void run(Info info) {
+
+                    }
+                }, new CallBackWith<Polyline>() {
+                    @Override
+                    public void run(Polyline polyline) {
+                        mPolyline = polyline;
+                    }
+                });
+    }
+
+    private void showDirection(String fbId) {
+        String ownFbId = IzigoSdk.UserExecutor.getOwnFbId();
+
+        if (!mFocus.equalsIgnoreCase(fbId))
+            return;
+
+        if (mPolyline != null)
+            mPolyline.remove();
+
+        MapUtils.Map.direction(mMap,
+                mTracks.get(ownFbId).getPosition(), // from
+                mTracks.get(mFocus).getPosition(), // to
+                true,
+                new CallBackWith<Info>() {
+                    @Override
+                    public void run(Info info) {
+
+                    }
+                }, new CallBackWith<Polyline>() {
+                    @Override
+                    public void run(Polyline polyline) {
+                        mPolyline = polyline;
+                    }
+                });
+    }
+
+    @NeedsPermission({Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION})
+    public void enableMyLocation() {
+        
+        if (!MapUtils.Gps.connect().isEnable())
+            MapUtils.Gps.request(this).askGPS();
+
+        mMap.setMyLocationEnabled(true);
+        mMap.getUiSettings().setMyLocationButtonEnabled(true);
+        MapUtils.Map.setLocationButtonPosition(this.mapFragment, MapUtils.Map.Position.BOTTOM_RIGHT);
+    }
+
+    @Override
+    protected void onGpsOff() {
+        super.onGpsOff();
+        MapsActivityPermissionsDispatcher.askGPSWithCheck(this);
+    }
+
+    @NeedsPermission({Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION})
+    public void askGPS() {
+        if (!MapUtils.Gps.connect().isEnable())
+            MapUtils.Gps.request(this).askGPS();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        MapsActivityPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == MessageType.USER_GPS) {
+            if (resultCode != RESULT_OK) {
+                MapsActivityPermissionsDispatcher.askGPSWithCheck(this);
+            }
+        }
+    }
+
+    @Override
+    public boolean onMarkerClick(Marker marker) {
+
+        MapUtils.Map.moveCameraSmoothly(mMap, marker.getPosition(), 500);
+
+        mFocus = marker.getTitle();
+        if (mFocus.equalsIgnoreCase(IzigoSdk.UserExecutor.getOwnFbId())) {
+            btnDirection.setVisibility(View.GONE);
+            mIsDraw = false;
+            if (mPolyline != null)
+                mPolyline.remove();
+        } else {
+            btnDirection.setVisibility(View.VISIBLE);
+        }
+        return true;
+    }
+
 
     private void registerDataChangeListener() {
         FirebaseManager.inject().registerListenerOnTrack(mTripId,
@@ -311,162 +461,6 @@ public class MapsActivity extends OwnCoreActivity implements OnMapReadyCallback,
 
     }
 
-    @Override
-    public void onMyLocationChange(Location location) {
-
-    }
-
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        this.mMap = googleMap;
-        this.mMap.setMaxZoomPreference(15f);
-        this.mMap.setMinZoomPreference(4f);
-        this.mMap.setTrafficEnabled(true);
-        this.mMap.setMyLocationEnabled(true);
-        this.mMap.setOnMyLocationChangeListener(this);
-        this.mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, R.raw.map_style));
-        this.mMap.getUiSettings().setMyLocationButtonEnabled(true);
-        this.mMap.getUiSettings().setCompassEnabled(true);
-        this.mMap.getUiSettings().setMapToolbarEnabled(false);
-        this.mMap.getUiSettings().setRotateGesturesEnabled(true);
-        this.mMap.getUiSettings().setScrollGesturesEnabled(true);
-        this.mMap.getUiSettings().setZoomGesturesEnabled(true);
-
-        if (this.mapFragment.getView() != null &&
-                this.mapFragment.getView().findViewById(Integer.parseInt("1")) != null) {
-            // Get the button view
-            View locationButton = ((View) this.mapFragment.getView()
-                    .findViewById(Integer.parseInt("1"))
-                    .getParent()).findViewById(Integer.parseInt("2"));
-            // and next place it, on bottom right (as Google Maps app)
-            RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams)
-                    locationButton.getLayoutParams();
-            // position on right bottom
-            layoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP, 0);
-            layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
-            layoutParams.setMargins(0, 0, 30, 30);
-        }
-
-        // Cluster renderer
-        this.mClusterManager = new ClusterManager<>(this, this.mMap);
-        this.mClusterManager.setRenderer(new PersonRenderer(this));
-        this.mClusterManager.setOnClusterClickListener(this);
-        this.mMap.setOnCameraIdleListener(this.mClusterManager);
-        this.mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-            @Override
-            public boolean onMarkerClick(Marker marker) {
-
-                MapUtils.Map.moveCameraSmoothly(mMap, marker.getPosition(), 500);
-
-                mFocus = marker.getTitle();
-
-                if (mFocus.equalsIgnoreCase(IzigoSdk.UserExecutor.getOwnFbId())) {
-                    btnDirection.setVisibility(View.GONE);
-                    isDraw = false;
-                    mPolyline.remove();
-                } else {
-                    btnDirection.setVisibility(View.VISIBLE);
-                }
-                return true;
-            }
-        });
-    }
-
-    @Override
-    public boolean onClusterClick(Cluster<Person> cluster) {
-        LatLngBounds.Builder builder = LatLngBounds.builder();
-        for (ClusterItem item : cluster.getItems()) {
-            builder.include(item.getPosition());
-        }
-        // Get the LatLngBounds
-        final LatLngBounds latLngBounds = builder.build();
-        // Animate camera to the bounds
-        this.mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(
-                new LatLngBounds(latLngBounds.southwest, latLngBounds.northeast), 180));
-
-        return true;
-    }
-
-    @OnClick(R.id.button_direction)
-    public void showDirection() {
-
-        isDraw = true;
-
-        String ownFbId = IzigoSdk.UserExecutor.getOwnFbId();
-
-        if (mPolyline != null)
-            mPolyline.remove();
-
-        MapUtils.Map.direction(mMap,
-                mTracks.get(ownFbId).getPosition(), // from
-                mTracks.get(mFocus).getPosition(), // to
-                true,
-                new CallBackWith<Info>() {
-                    @Override
-                    public void run(Info info) {
-
-                    }
-                }, new CallBackWith<Polyline>() {
-                    @Override
-                    public void run(Polyline polyline) {
-                        mPolyline = polyline;
-                    }
-                });
-    }
-
-    private void showDirection(String fbId) {
-        String ownFbId = IzigoSdk.UserExecutor.getOwnFbId();
-
-        if (!mFocus.equalsIgnoreCase(fbId))
-            return;
-
-        if (mPolyline != null)
-            mPolyline.remove();
-
-        MapUtils.Map.direction(mMap,
-                mTracks.get(ownFbId).getPosition(), // from
-                mTracks.get(mFocus).getPosition(), // to
-                true,
-                new CallBackWith<Info>() {
-                    @Override
-                    public void run(Info info) {
-
-                    }
-                }, new CallBackWith<Polyline>() {
-                    @Override
-                    public void run(Polyline polyline) {
-                        mPolyline = polyline;
-                    }
-                });
-    }
-
-    @NeedsPermission({Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION})
-    public void askGPS() {
-        if (!MapUtils.Gps.connect().isEnable())
-            MapUtils.Gps.request(this).askGPS();
-    }
-
-    @Override
-    protected void onGpsOff() {
-        super.onGpsOff();
-        MapsActivityPermissionsDispatcher.askGPSWithCheck(this);
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        MapsActivityPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == MessageType.USER_GPS) {
-            if (resultCode != RESULT_OK) {
-                MapsActivityPermissionsDispatcher.askGPSWithCheck(this);
-            }
-        }
-    }
 
     private class PersonRenderer extends DefaultClusterRenderer<Person> {
 
@@ -560,7 +554,7 @@ public class MapsActivity extends OwnCoreActivity implements OnMapReadyCallback,
         for (Marker marker : markers) {
             if (strId.equalsIgnoreCase(marker.getTitle())) {
                 marker.setPosition(person.getPosition());
-                if (isDraw)
+                if (mIsDraw)
                     showDirection(marker.getTitle());
                 break;
             }

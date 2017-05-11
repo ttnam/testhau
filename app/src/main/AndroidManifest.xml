@@ -94,7 +94,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.MainActivity"
+            android:name=".main.MainActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
@@ -125,7 +125,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".activities.MembersActivity"
+            android:name=".main.MembersActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity

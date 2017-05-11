@@ -6,9 +6,12 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.view.View;
+import android.widget.RelativeLayout;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -22,15 +25,20 @@ import com.google.android.gms.location.LocationSettingsResult;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+
 import io.yostajsc.izigo.AppConfig;
 import io.yostajsc.core.code.MessageType;
 import io.yostajsc.core.interfaces.CallBackWith;
+import io.yostajsc.izigo.constants.PageType;
 import io.yostajsc.izigo.usecase.map.RouteParserTask;
 import io.yostajsc.izigo.usecase.map.model.Info;
 
@@ -43,6 +51,7 @@ import static android.content.Context.LOCATION_SERVICE;
 public class MapUtils {
 
     private static String TAG = MapUtils.class.getSimpleName();
+
     private static final String urlGoogleAPI = "https://maps.googleapis.com/maps/api/directions/json?language=vi&";
 
     private static final int MIN_TIME = 1000 * 60;
@@ -258,6 +267,33 @@ public class MapUtils {
             RouteParserTask parserTask = new RouteParserTask(mMap, callback, polyline);
             parserTask.execute(url, draw);
         }
+
+        public static void setLocationButtonPosition(SupportMapFragment mapFragment, @Position int position) {
+
+            if (mapFragment.getView() != null &&
+                    mapFragment.getView().findViewById(Integer.parseInt("1")) != null) {
+                // Get the button view
+                View locationButton = ((View) mapFragment.getView()
+                        .findViewById(Integer.parseInt("1"))
+                        .getParent()).findViewById(Integer.parseInt("2"));
+                // and next place it, on bottom right (as Google Maps app)
+                RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams)
+                        locationButton.getLayoutParams();
+                // position on right bottom
+                if (position == Position.BOTTOM_RIGHT) {
+                    layoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP, 0);
+                    layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
+                    layoutParams.setMargins(0, 0, 30, 30);
+                }
+            }
+        }
+
+        @Retention(RetentionPolicy.SOURCE)
+        @IntDef({Position.BOTTOM_RIGHT})
+        public @interface Position {
+            int BOTTOM_RIGHT = 2;
+        }
+
     }
 
     public static LatLng getLatLng(@NonNull Location location) {
@@ -278,4 +314,6 @@ public class MapUtils {
                 radius.latitude, radius.longitude, result);
         return result[0];
     }
+
+
 }

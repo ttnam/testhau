@@ -17,10 +17,10 @@ import io.yostajsc.core.interfaces.CallBackWith;
 import io.yostajsc.sdk.model.trip.IgTrip;
 import io.yostajsc.core.utils.NetworkUtils;
 import io.yostajsc.izigo.R;
-import io.yostajsc.izigo.activities.MainActivity;
+import io.yostajsc.izigo.main.MainActivity;
 import io.yostajsc.izigo.dialogs.DialogFilter;
 import io.yostajsc.izigo.usecase.trip.TripDetailActivity;
-import io.yostajsc.izigo.adapters.TripAdapter;
+import io.yostajsc.izigo.usecase.trip.adapter.TripAdapter;
 import io.yostajsc.izigo.AppConfig;
 import io.yostajsc.sdk.api.IzigoSdk;
 import io.yostajsc.sdk.model.IgCallback;
@@ -45,7 +45,7 @@ public class TripFragment extends CoreFragment {
     private CallBack mOnExpired = new CallBack() {
         @Override
         public void run() {
-            ((MainActivity) getActivity()).onExpired();
+            ((MainActivity) getActivity()).expired();
         }
     };
 

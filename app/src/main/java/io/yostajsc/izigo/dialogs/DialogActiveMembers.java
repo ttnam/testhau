@@ -14,7 +14,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.yostajsc.core.designs.decorations.SpacesItemDecoration;
 import io.yostajsc.core.designs.listeners.RecyclerItemClickListener;
-import io.yostajsc.core.interfaces.CallBackWith;
 import io.yostajsc.core.utils.DimensionUtil;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.adapters.MemberActiveOnMapsAdapter;
@@ -28,20 +27,18 @@ public class DialogActiveMembers extends Dialog {
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
 
-    private MemberActiveOnMapsAdapter adapter = null;
-
-    private CallBackWith<String> mOnItemClick = null;
-
     private Activity mOwnerActivity = null;
+    private MemberActiveOnMapsAdapter adapter = null;
+    private OnItemSelectListener mOnItemSelected = null;
 
-    public DialogActiveMembers(Context context, CallBackWith<String> onItemClick) {
+    public DialogActiveMembers(Context context, OnItemSelectListener onItemSelected) {
         super(context, R.style.CoreAppTheme_Dialog);
 
         this.mOwnerActivity = (context instanceof Activity) ? (Activity) context : null;
         if (this.mOwnerActivity != null)
             setOwnerActivity(mOwnerActivity);
 
-        this.mOnItemClick = onItemClick;
+        this.mOnItemSelected = onItemSelected;
     }
 
     @Override
@@ -78,7 +75,7 @@ public class DialogActiveMembers extends Dialog {
         this.recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(mOwnerActivity, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                mOnItemClick.run(adapter.getItem(position).getId());
+                mOnItemSelected.selected(adapter.getItem(position).getId());
                 dismiss();
             }
         }));
@@ -88,5 +85,9 @@ public class DialogActiveMembers extends Dialog {
         if (people == null)
             return;
         adapter.replaceAll(people);
+    }
+
+    public interface OnItemSelectListener {
+        void selected(String s);
     }
 }

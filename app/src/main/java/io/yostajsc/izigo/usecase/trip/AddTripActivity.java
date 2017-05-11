@@ -24,7 +24,7 @@ import io.yostajsc.core.code.MessageType;
 import io.yostajsc.core.utils.DatetimeUtils;
 import io.yostajsc.core.utils.ValidateUtils;
 import io.yostajsc.izigo.R;
-import io.yostajsc.izigo.activities.OwnCoreActivity;
+import io.yostajsc.izigo.main.OwnCoreActivity;
 import io.yostajsc.izigo.dialogs.DialogDatePicker;
 import io.yostajsc.izigo.dialogs.DialogPickTransfer;
 import io.yostajsc.izigo.dialogs.DialogTimePicker;
@@ -255,7 +255,7 @@ public class AddTripActivity extends OwnCoreActivity {
                     @Override
                     public void run() {
                         hideProgress();
-                        onExpired();
+                        expired();
                     }
                 }, new CallBackWith<String>() {
                     @Override

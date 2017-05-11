@@ -1,4 +1,4 @@
-package io.yostajsc.izigo.ui.viewholder;
+package io.yostajsc.izigo.usecase.trip.viewholder;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;

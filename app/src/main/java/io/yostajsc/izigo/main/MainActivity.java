@@ -1,4 +1,4 @@
-package io.yostajsc.izigo.activities;
+package io.yostajsc.izigo.main;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -95,7 +95,7 @@ public class MainActivity extends OwnCoreActivity {
     }
 
     @Override
-    public void onExpired() {
-        super.onExpired();
+    public void expired() {
+        super.expired();
     }
 }
