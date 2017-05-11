@@ -6,7 +6,7 @@
     android:background="@android:color/white"
     android:orientation="vertical">
 
-    <io.yostajsc.core.customview.OwnToolBar
+    <io.yostajsc.izigo.usecase.customview.OwnToolBar
         android:id="@id/layout"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
