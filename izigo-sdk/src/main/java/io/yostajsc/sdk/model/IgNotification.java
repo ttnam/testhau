@@ -6,13 +6,12 @@ import java.io.Serializable;
 
 import io.yostajsc.sdk.model.trip.BaseTripInfo;
 import io.yostajsc.sdk.model.trip.IgBaseUserInfo;
-import io.yostajsc.sdk.model.trip.IgTrip;
 
 /**
  * Created by nphau on 3/19/17.
  */
 
-public class Notification implements Serializable {
+public class IgNotification implements Serializable {
 
     @SerializedName("content")
     private NotificationContent mContent;

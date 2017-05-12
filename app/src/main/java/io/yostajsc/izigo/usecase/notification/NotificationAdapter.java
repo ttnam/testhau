@@ -1,4 +1,4 @@
-package io.yostajsc.izigo.adapters;
+package io.yostajsc.izigo.usecase.notification;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -12,7 +12,7 @@ import java.util.List;
 import io.yostajsc.izigo.constants.NotificationType;
 import io.yostajsc.core.interfaces.CallBack;
 import io.yostajsc.izigo.R;
-import io.yostajsc.sdk.model.Notification;
+import io.yostajsc.sdk.model.IgNotification;
 import io.yostajsc.izigo.usecase.notification.viewholder.NotificationsViewHolder;
 
 /**
@@ -22,7 +22,7 @@ import io.yostajsc.izigo.usecase.notification.viewholder.NotificationsViewHolder
 public class NotificationAdapter extends RecyclerView.Adapter<NotificationsViewHolder> {
 
     private Context mContext = null;
-    private List<Notification> mData = null;
+    private List<IgNotification> mData = null;
 
     public NotificationAdapter(Context context) {
         this.mContext = context;
@@ -42,34 +42,34 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationsViewH
 
     @Override
     public void onBindViewHolder(NotificationsViewHolder holder, final int position) {
-        final Notification notification = mData.get(position);
+        final IgNotification igNotification = mData.get(position);
 
-        int notiType = notification.getType();
+        int notiType = igNotification.getType();
         if (notiType == NotificationType.ACCEPT_JOIN_TRIP) {
 
-            holder.bind(notification.getFrom(), notification.getTrip(), notification.getType(),
+            holder.bind(igNotification.getFrom(), igNotification.getTrip(), igNotification.getType(),
                     new CallBack() {
                         @Override
                         public void run() {
-                            // accept(position, notification.getTrip().getId(), notification.getId(), 1);
+                            // accept(position, igNotification.getTrip().getId(), igNotification.getId(), 1);
                         }
                     }, new CallBack() {
                         @Override
                         public void run() {
-                            // accept(position, notification.getTrip().getId(), notification.getId(), 0);
+                            // accept(position, igNotification.getTrip().getId(), igNotification.getId(), 0);
                         }
                     });
         } else {
-            holder.bind(notification.getFrom(), notification.getTrip(), notification.getType(),
+            holder.bind(igNotification.getFrom(), igNotification.getTrip(), igNotification.getType(),
                     new CallBack() {
                         @Override
                         public void run() {
-                            // verify(position, notification.getTrip().getId(), notification.getId(), 1);
+                            // verify(position, igNotification.getTrip().getId(), igNotification.getId(), 1);
                         }
                     }, new CallBack() {
                         @Override
                         public void run() {
-                            // verify(position, notification.getTrip().getId(), notification.getId(), 0);
+                            // verify(position, igNotification.getTrip().getId(), igNotification.getId(), 0);
                         }
                     });
         }
@@ -83,8 +83,8 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationsViewH
         return this.mData.size();
     }
 
-    public void replaceAll(List<Notification> notifications) {
-        this.mData = notifications;
+    public void replaceAll(List<IgNotification> igNotifications) {
+        this.mData = igNotifications;
         notifyDataSetChanged();
     }
 
@@ -93,7 +93,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationsViewH
     }
 
 
-    /*public Notification getItem(int position) {
+    /*public IgNotification getItem(int position) {
         if (position < 0 || position >= getItemCount()) {
             return null;
         }
@@ -105,7 +105,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationsViewH
         notifyDataSetChanged();
     }
 
-    public int add(@NonNull Notification notification) {
+    public int add(@NonNull IgNotification notification) {
         this.mNotifications.add(notification);
         int index = this.mNotifications.size() - 1;
         notifyItemChanged(index);

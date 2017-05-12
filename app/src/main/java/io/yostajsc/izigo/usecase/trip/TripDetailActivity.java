@@ -37,7 +37,7 @@ import io.yostajsc.sdk.model.Timeline;
 import io.yostajsc.sdk.model.trip.IgImage;
 import io.yostajsc.sdk.model.trip.IgTrip;
 import io.yostajsc.core.utils.PrefsUtils;
-import io.yostajsc.izigo.usecase.main.OwnCoreActivity;
+import io.yostajsc.izigo.usecase.OwnCoreActivity;
 import io.yostajsc.izigo.dialogs.DialogComment;
 import io.yostajsc.izigo.constants.RoleType;
 import io.yostajsc.izigo.constants.TransferType;

@@ -1,4 +1,4 @@
-package io.yostajsc.izigo.usecase.main;
+package io.yostajsc.izigo.usecase;
 
 import android.content.Intent;
 import android.os.Bundle;

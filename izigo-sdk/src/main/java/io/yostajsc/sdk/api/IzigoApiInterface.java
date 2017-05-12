@@ -3,11 +3,11 @@ package io.yostajsc.sdk.api;
 import java.util.List;
 import java.util.Map;
 
+import io.yostajsc.sdk.model.IgNotification;
 import io.yostajsc.sdk.model.Timeline;
 import io.yostajsc.sdk.model.user.IgFriend;
 import io.yostajsc.sdk.model.trip.IgTrip;
 import io.yostajsc.sdk.model.user.IgUser;
-import io.yostajsc.sdk.model.Notification;
 import io.yostajsc.sdk.model.IgComment;
 import io.yostajsc.sdk.model.token.IgToken;
 import io.yostajsc.sdk.response.BaseResponse;
@@ -118,7 +118,7 @@ interface IzigoApiInterface {
                                             @Path("id") String tripId);
 
     @GET("api/notification")
-    Call<BaseResponse<List<Notification>>> apiGetNotification(@Header("authorization") String authorization);
+    Call<BaseResponse<List<IgNotification>>> apiGetNotification(@Header("authorization") String authorization);
 
     @FormUrlEncoded
     @PUT("api/trips/{id}/apiAccept")

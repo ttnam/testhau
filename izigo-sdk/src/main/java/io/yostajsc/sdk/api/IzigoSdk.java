@@ -1,7 +1,6 @@
 package io.yostajsc.sdk.api;
 
 import android.app.Application;
-import android.util.Log;
 
 import java.util.HashMap;
 import java.util.List;
@@ -10,7 +9,7 @@ import java.util.Map;
 import io.yostajsc.core.interfaces.CallBack;
 import io.yostajsc.core.interfaces.CallBackWith;
 import io.yostajsc.sdk.model.IgComment;
-import io.yostajsc.sdk.model.Notification;
+import io.yostajsc.sdk.model.IgNotification;
 import io.yostajsc.sdk.model.Timeline;
 import io.yostajsc.sdk.model.user.IgFriend;
 import io.yostajsc.sdk.model.trip.IgTrip;
@@ -21,7 +20,6 @@ import io.yostajsc.sdk.model.user.IgUser;
 import io.yostajsc.sdk.model.token.IgToken;
 import io.yostajsc.sdk.model.TripTypePermission;
 import io.yostajsc.core.utils.PrefsUtils;
-import retrofit2.http.Field;
 
 /**
  * Created by nphau on 4/26/17.
@@ -309,7 +307,7 @@ public class IzigoSdk {
             }
         }
 
-        public static void getNotifications(final IgCallback<List<Notification>, String> callback) {
+        public static void getNotifications(final IgCallback<List<IgNotification>, String> callback) {
             if (IzigoSession.isLoggedIn()) {
                 String auth = IzigoSession.getToken().getToken();
                 IzigoApiManager.connect().getNotifications(auth, callback);

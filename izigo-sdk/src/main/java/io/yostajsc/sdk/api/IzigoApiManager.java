@@ -12,7 +12,7 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import io.yostajsc.sdk.model.IgComment;
-import io.yostajsc.sdk.model.Notification;
+import io.yostajsc.sdk.model.IgNotification;
 import io.yostajsc.sdk.model.Timeline;
 import io.yostajsc.sdk.model.user.IgFriend;
 import io.yostajsc.sdk.model.trip.IgTrip;
@@ -512,14 +512,14 @@ class IzigoApiManager {
         });
     }
 
-    public void getNotifications(String authorization, final IgCallback<List<Notification>, String> callback) {
+    public void getNotifications(String authorization, final IgCallback<List<IgNotification>, String> callback) {
 
-        Call<BaseResponse<List<Notification>>> call = service.apiGetNotification(authorization);
-        call.enqueue(new Callback<BaseResponse<List<Notification>>>() {
+        Call<BaseResponse<List<IgNotification>>> call = service.apiGetNotification(authorization);
+        call.enqueue(new Callback<BaseResponse<List<IgNotification>>>() {
             @Override
-            public void onResponse(Call<BaseResponse<List<Notification>>> call, Response<BaseResponse<List<Notification>>> response) {
+            public void onResponse(Call<BaseResponse<List<IgNotification>>> call, Response<BaseResponse<List<IgNotification>>> response) {
                 if (response.isSuccessful()) {
-                    BaseResponse<List<Notification>> res = response.body();
+                    BaseResponse<List<IgNotification>> res = response.body();
                     if (res.isSuccessful()) {
                         callback.onSuccessful(res.data());
                     } else if (res.isExpired()) {
@@ -531,7 +531,7 @@ class IzigoApiManager {
             }
 
             @Override
-            public void onFailure(Call<BaseResponse<List<Notification>>> call, Throwable throwable) {
+            public void onFailure(Call<BaseResponse<List<IgNotification>>> call, Throwable throwable) {
                 callback.onFail(throwable.getMessage());
             }
         });

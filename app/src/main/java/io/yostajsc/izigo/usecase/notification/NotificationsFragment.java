@@ -14,14 +14,12 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.yostajsc.core.utils.ToastUtils;
-import io.yostajsc.izigo.AppConfig;
 import io.yostajsc.core.designs.decorations.SpacesItemDecoration;
 import io.yostajsc.izigo.R;
-import io.yostajsc.izigo.adapters.NotificationAdapter;
 import io.yostajsc.izigo.usecase.base.BaseFragment;
 import io.yostajsc.sdk.api.IzigoSdk;
 import io.yostajsc.sdk.model.IgCallback;
-import io.yostajsc.sdk.model.Notification;
+import io.yostajsc.sdk.model.IgNotification;
 import io.yostajsc.izigo.utils.UiUtils;
 import jp.wasabeef.recyclerview.animators.SlideInRightAnimator;
 
@@ -59,13 +57,13 @@ public class NotificationsFragment extends BaseFragment {
 
     private void onApplyData() {
 
-        IzigoSdk.UserExecutor.getNotifications(new IgCallback<List<Notification>, String>() {
+        IzigoSdk.UserExecutor.getNotifications(new IgCallback<List<IgNotification>, String>() {
             @Override
-            public void onSuccessful(List<Notification> notifications) {
-                int size = notifications.size();
+            public void onSuccessful(List<IgNotification> igNotifications) {
+                int size = igNotifications.size();
                 if (size > 0) {
                     toggleUI(false);
-                    adapter.replaceAll(notifications);
+                    adapter.replaceAll(igNotifications);
                 } else {
                     toggleUI(true);
                 }

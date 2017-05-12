@@ -25,7 +25,7 @@ import io.yostajsc.core.interfaces.CallBackWith;
 import io.yostajsc.core.code.MessageType;
 import io.yostajsc.core.utils.DatetimeUtils;
 import io.yostajsc.izigo.R;
-import io.yostajsc.izigo.usecase.main.OwnCoreActivity;
+import io.yostajsc.izigo.usecase.OwnCoreActivity;
 import io.yostajsc.izigo.dialogs.DialogDatePicker;
 import io.yostajsc.izigo.dialogs.DialogPickTransfer;
 import io.yostajsc.izigo.dialogs.DialogTimePicker;

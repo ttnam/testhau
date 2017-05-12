@@ -49,15 +49,17 @@ import io.yostajsc.core.interfaces.CallBackWith;
 import io.yostajsc.core.utils.NetworkUtils;
 import io.yostajsc.izigo.usecase.firebase.FirebaseManager;
 import io.yostajsc.izigo.R;
-import io.yostajsc.izigo.usecase.main.OwnCoreActivity;
+import io.yostajsc.izigo.usecase.OwnCoreActivity;
 import io.yostajsc.izigo.dialogs.DialogActiveMembers;
 import io.yostajsc.izigo.usecase.customview.OwnToolBar;
 import io.yostajsc.izigo.usecase.map.model.Info;
 import io.yostajsc.izigo.usecase.map.model.Person;
 import io.yostajsc.izigo.usecase.map.utils.MapUtils;
+import io.yostajsc.izigo.usecase.notification.DialogNotification;
 import io.yostajsc.sdk.api.IzigoSdk;
 import io.yostajsc.sdk.cache.IgCache;
 import io.yostajsc.sdk.model.IgCallback;
+import io.yostajsc.sdk.model.IgNotification;
 import io.yostajsc.sdk.model.trip.IgImage;
 import io.yostajsc.sdk.model.user.IgFriend;
 import permissions.dispatcher.NeedsPermission;
@@ -77,6 +79,7 @@ public class MapsActivity extends OwnCoreActivity implements OnMapReadyCallback,
     private ClusterManager<Person> mClusterManager = null;
     private DialogActiveMembers mDialogActiveMembers = null;
     private Polyline mPolyline = null;
+    private List<IgNotification> notifications = new ArrayList<>();
 
     @BindView(R.id.own_toolbar)
     OwnToolBar ownToolbar;
@@ -109,7 +112,13 @@ public class MapsActivity extends OwnCoreActivity implements OnMapReadyCallback,
         }, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                DialogNotification dialogNotification = new DialogNotification(MapsActivity.this, null);
+                dialogNotification.show();
 
+                for (int i = 0; i < 10; i++){
+                    notifications.add(new IgNotification());
+                }
+                dialogNotification.setData(notifications);
             }
         });
     }

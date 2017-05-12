@@ -7,8 +7,6 @@ import android.os.Handler;
 import com.facebook.AccessToken;
 
 import io.yostajsc.izigo.R;
-import io.yostajsc.izigo.usecase.main.MainActivity;
-import io.yostajsc.izigo.usecase.main.OwnCoreActivity;
 import io.yostajsc.izigo.usecase.user.LoginActivity;
 import io.yostajsc.sdk.api.IzigoSdk;
 

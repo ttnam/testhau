@@ -12,7 +12,6 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import io.yostajsc.izigo.constants.NotificationType;
 import io.yostajsc.core.interfaces.CallBack;
 import io.yostajsc.sdk.model.trip.IgBaseUserInfo;
@@ -27,20 +26,14 @@ public class NotificationsViewHolder extends RecyclerView.ViewHolder {
 
     private Context mContext;
 
-    @BindView(R.id.image_avatar)
-    AppCompatImageView imageAvatar;
-
-    @BindView(R.id.image_cover)
-    AppCompatImageView imageCover;
+    @BindView(R.id.image_view)
+    AppCompatImageView imageView;
 
     @BindView(R.id.text_view)
     TextView textView;
 
-    @BindView(R.id.text_yes)
-    TextView textYes;
-
-    @BindView(R.id.text_no)
-    TextView textNo;
+    @BindView(R.id.text_view_more)
+    TextView textViewMore;
 
     private CallBack yesAction, noAction;
 
@@ -53,16 +46,16 @@ public class NotificationsViewHolder extends RecyclerView.ViewHolder {
     public void bind(IgBaseUserInfo userInfo, BaseTripInfo tripInfo, int type,
                      CallBack yes, CallBack no) {
 
-        Glide.with(mContext)
+     /*   Glide.with(mContext)
                 .load(tripInfo.getCover())
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                .into(this.imageCover);
+                .into(this.imageView);*/
 
         Glide.with(mContext)
                 .load(userInfo.getAvatar())
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .bitmapTransform(new CropCircleTransformation(mContext))
-                .into(this.imageAvatar);
+                .into(this.imageView);
 
         String prefix = "<b>";
         String postfix = "</b>";
@@ -86,7 +79,7 @@ public class NotificationsViewHolder extends RecyclerView.ViewHolder {
         this.noAction = no;
         this.yesAction = yes;
     }
-
+/*
     @OnClick(R.id.text_yes)
     public void yes() {
         yesAction.run();
@@ -95,6 +88,6 @@ public class NotificationsViewHolder extends RecyclerView.ViewHolder {
     @OnClick(R.id.text_no)
     public void no() {
         noAction.run();
-    }
+    }*/
 
 }
