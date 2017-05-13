@@ -13,7 +13,7 @@ import io.yostajsc.core.designs.transformer.NonSwipeAbleViewPager;
 import io.yostajsc.core.utils.NetworkUtils;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.AppConfig;
-import io.yostajsc.izigo.usecase.notification.NotificationsFragment;
+import io.yostajsc.izigo.usecase.notification.NotificationFragment;
 import io.yostajsc.izigo.usecase.trip.fragment.OwnTripFragment;
 import io.yostajsc.izigo.usecase.user.SettingsFragment;
 import io.yostajsc.izigo.usecase.trip.fragment.TripFragment;
@@ -29,7 +29,7 @@ public class MainActivity extends OwnCoreActivity {
     private TripFragment tripFragment = new TripFragment();
     private OwnTripFragment ownTripFragment = new OwnTripFragment();
     private SettingsFragment settingsFragment = new SettingsFragment();
-    private NotificationsFragment notificationsFragment = new NotificationsFragment();
+    private NotificationFragment notificationFragment = new NotificationFragment();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -68,7 +68,7 @@ public class MainActivity extends OwnCoreActivity {
         IconViewPagerAdapter adapter = new IconViewPagerAdapter(getSupportFragmentManager());
         adapter.addFrag(this.tripFragment);
         adapter.addFrag(this.ownTripFragment);
-        adapter.addFrag(this.notificationsFragment);
+        adapter.addFrag(this.notificationFragment);
         adapter.addFrag(this.settingsFragment);
         this.mViewPager.setAdapter(adapter);
     }

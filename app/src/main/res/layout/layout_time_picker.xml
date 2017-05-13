@@ -61,20 +61,39 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin"
+            android:layout_marginStart="@dimen/margin"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/text_depart"
-                style="@style/CoreAppTheme.TextView_Title.Bold"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin"
-                android:layout_marginStart="@dimen/margin"
                 android:background="@drawable/ic_style_button_round_corners_dark_default"
-                android:clickable="true"
-                android:gravity="center"
-                android:hint="@string/str_depart"
-                android:padding="@dimen/margin" />
+                android:orientation="horizontal"
+                android:padding="@dimen/margin">
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:layout_width="@dimen/icon_size_x3"
+                    android:layout_height="@dimen/icon_size_x3"
+                    android:layout_gravity="center"
+                    android:scaleType="centerInside"
+                    app:srcCompat="@drawable/ic_vector_location_blue" />
+
+                <TextView
+                    android:id="@+id/text_depart"
+                    style="@style/CoreAppTheme.TextView_Title.Bold"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/margin"
+                    android:layout_marginStart="@dimen/margin"
+                    android:background="@drawable/ic_style_button_round_corners_dark_default"
+                    android:clickable="true"
+                    android:gravity="center|start"
+                    android:hint="@string/str_depart"
+                    android:textColor="@android:color/holo_blue_dark" />
+
+            </LinearLayout>
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -89,8 +108,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginLeft="@dimen/margin"
-                    android:layout_marginStart="@dimen/margin"
                     android:layout_weight="1"
                     android:background="@drawable/ic_style_button_round_corners_dark_default"
                     android:clickable="true"
@@ -101,7 +118,8 @@
                     android:paddingBottom="@dimen/margin"
                     android:paddingLeft="@dimen/margin_x2"
                     android:paddingRight="@dimen/margin_x2"
-                    android:paddingTop="@dimen/margin" />
+                    android:paddingTop="@dimen/margin"
+                    android:textColor="@android:color/holo_blue_dark" />
 
                 <TextView
                     android:id="@+id/text_depart_time"
@@ -120,7 +138,8 @@
                     android:paddingBottom="@dimen/margin"
                     android:paddingLeft="@dimen/margin_x2"
                     android:paddingRight="@dimen/margin_x2"
-                    android:paddingTop="@dimen/margin" />
+                    android:paddingTop="@dimen/margin"
+                    android:textColor="@android:color/holo_blue_dark" />
 
             </LinearLayout>
 
@@ -151,33 +170,52 @@
                 android:layout_height="0dp"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:background="@color/BlueButton" />
+                android:background="@android:color/holo_red_dark" />
 
             <android.support.v7.widget.AppCompatImageView
                 android:layout_width="@dimen/icon_size_x2"
                 android:layout_height="@dimen/icon_size_x2"
                 android:layout_gravity="center"
-                app:srcCompat="@drawable/ic_style_circle_blue_none" />
+                app:srcCompat="@drawable/ic_style_circle_red_none" />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin"
+            android:layout_marginStart="@dimen/margin"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/text_arrive"
-                style="@style/CoreAppTheme.TextView_Title.Bold"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin"
-                android:layout_marginStart="@dimen/margin"
                 android:background="@drawable/ic_style_button_round_corners_dark_default"
-                android:clickable="true"
-                android:gravity="center"
-                android:hint="@string/str_arrive"
-                android:padding="@dimen/margin" />
+                android:orientation="horizontal"
+                android:padding="@dimen/margin">
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:layout_width="@dimen/icon_size_x3"
+                    android:layout_height="@dimen/icon_size_x3"
+                    android:layout_gravity="center"
+                    android:scaleType="centerInside"
+                    app:srcCompat="@drawable/ic_vector_location_red" />
+
+                <TextView
+                    android:id="@+id/text_arrive"
+                    style="@style/CoreAppTheme.TextView_Title.Bold"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/margin"
+                    android:layout_marginStart="@dimen/margin"
+                    android:background="@drawable/ic_style_button_round_corners_dark_default"
+                    android:clickable="true"
+                    android:gravity="center|start"
+                    android:hint="@string/str_arrive"
+                    android:textColor="@android:color/holo_red_dark" />
+
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -192,8 +230,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginLeft="@dimen/margin"
-                    android:layout_marginStart="@dimen/margin"
                     android:layout_weight="1"
                     android:background="@drawable/ic_style_button_round_corners_dark_default"
                     android:clickable="true"
@@ -202,7 +238,8 @@
                     android:paddingBottom="@dimen/margin"
                     android:paddingLeft="@dimen/margin_x2"
                     android:paddingRight="@dimen/margin_x2"
-                    android:paddingTop="@dimen/margin" />
+                    android:paddingTop="@dimen/margin"
+                    android:textColor="@android:color/holo_red_dark" />
 
                 <TextView
                     android:id="@+id/text_arrive_time"
@@ -219,7 +256,8 @@
                     android:paddingBottom="@dimen/margin"
                     android:paddingLeft="@dimen/margin_x2"
                     android:paddingRight="@dimen/margin_x2"
-                    android:paddingTop="@dimen/margin" />
+                    android:paddingTop="@dimen/margin"
+                    android:textColor="@android:color/holo_red_dark" />
 
             </LinearLayout>
 

@@ -23,7 +23,7 @@ import io.yostajsc.sdk.model.IgNotification;
 import io.yostajsc.izigo.utils.UiUtils;
 import jp.wasabeef.recyclerview.animators.SlideInRightAnimator;
 
-public class NotificationsFragment extends BaseFragment {
+public class NotificationFragment extends BaseFragment {
 
     @BindView(R.id.layout_empty)
     LinearLayout layoutEmpty;

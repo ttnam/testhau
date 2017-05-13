@@ -25,9 +25,7 @@
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:ellipsize="end"
-                android:maxLength="150"
-                android:maxLines="2"
-                android:minLines="1"
+                android:maxLines="3"
                 android:textSize="@dimen/text_size_v2_5" />
 
             <TextView

@@ -77,11 +77,12 @@ public class OwnTripFragment extends CoreFragment {
 
     private void updateUI(List<IgTrip> trips) {
         try {
+            this.tripAdapter.clear();
             int size = trips.size();
             if (size > 0) {
                 layoutEmpty.setVisibility(View.GONE);
                 for (int i = 0; i < size; i++) {
-                    tripAdapter.add(trips.get(i));
+                    this.tripAdapter.add(trips.get(i));
                 }
             } else {
                 layoutEmpty.setVisibility(View.VISIBLE);

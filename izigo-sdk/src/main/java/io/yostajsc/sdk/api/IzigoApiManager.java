@@ -507,9 +507,9 @@ class IzigoApiManager {
         });
     }
 
-    public void getNotifications(String authorization, final IgCallback<List<IgNotification>, String> callback) {
+    public void getNotification(String authorization, final IgCallback<List<IgNotification>, String> callback) {
 
-        Call<BaseResponse<List<IgNotification>>> call = service.apiGetNotification(authorization);
+        Call<BaseResponse<List<IgNotification>>> call = service.getNotification(authorization);
         call.enqueue(new Callback<BaseResponse<List<IgNotification>>>() {
             @Override
             public void onResponse(Call<BaseResponse<List<IgNotification>>> call, Response<BaseResponse<List<IgNotification>>> response) {
@@ -535,7 +535,7 @@ class IzigoApiManager {
     public void accept(String authorization, String tripId, String notiId, int verify, final CallBack expired,
                        final CallBack success, final CallBackWith<String> fail) {
 
-        Call<BaseResponse<String>> call = service.apiAccept(authorization, tripId, notiId, verify);
+        Call<BaseResponse<String>> call = service.accept(authorization, tripId, notiId, verify);
 
         call.enqueue(new Callback<BaseResponse<String>>() {
             @Override

@@ -120,15 +120,17 @@ interface IzigoApiInterface {
     Call<BaseResponse<String>> apiJoinGroup(@Header("authorization") String authorization,
                                             @Path("id") String tripId);
 
+
     @GET("api/notification")
-    Call<BaseResponse<List<IgNotification>>> apiGetNotification(@Header("authorization") String authorization);
+    Call<BaseResponse<List<IgNotification>>> getNotification(
+            @Header("authorization") String authorization);
 
     @FormUrlEncoded
-    @PUT("api/trips/{id}/apiAccept")
-    Call<BaseResponse<String>> apiAccept(@Header("authorization") String authorization,
-                                         @Path("id") String tripId,
-                                         @Field("notiId") String notyId,
-                                         @Field("apiVerify") int verify);
+    @PUT("api/trips/{id}/accept")
+    Call<BaseResponse<String>> accept(@Header("authorization") String authorization,
+                                      @Path("id") String tripId,
+                                      @Field("notiId") String notyId,
+                                      @Field("apiVerify") int verify);
 
     @FormUrlEncoded
     @PUT("api/trips/{id}/add")
