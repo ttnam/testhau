@@ -1,4 +1,4 @@
-package io.yostajsc.izigo.usecase.map.service.receiver;
+package io.yostajsc.izigo.usecase.service.receiver;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

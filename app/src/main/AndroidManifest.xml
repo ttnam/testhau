@@ -36,7 +36,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <receiver android:name=".usecase.map.service.receiver.NetworkReceiver">
+        <receiver android:name=".usecase.service.receiver.NetworkReceiver">
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
                 <action android:name="android.net.wifi.WIFI_STATE_CHANGED" />
@@ -61,7 +61,7 @@
             android:value="@string/google_maps_key" />
 
         <service
-            android:name=".usecase.map.service.fcm.FirebaseMessagingService"
+            android:name=".usecase.service.fcm.FirebaseMessagingService"
             android:enabled="true"
             android:exported="false">
             <intent-filter>
@@ -73,7 +73,7 @@
             android:enabled="true"
             android:exported="false" />
         <service
-            android:name=".usecase.map.service.fcm.FirebaseInstanceIDService"
+            android:name=".usecase.service.fcm.FirebaseInstanceIDService"
             android:enabled="true"
             android:exported="false">
             <intent-filter>

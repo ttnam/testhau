@@ -50,7 +50,7 @@
     <string name="message_later"> Later </string>
     <string name="message_new_comment"> Leave a new comment </string>
 
-    <!--Timeline Activity-->
+    <!--IgTimeline Activity-->
     <string name="str_time_line">Nhật kí</string>
     <string name="str_create_new_ac">Thêm nhật kí</string>
 

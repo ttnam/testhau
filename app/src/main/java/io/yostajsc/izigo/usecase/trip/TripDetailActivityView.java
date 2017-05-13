@@ -155,14 +155,28 @@ public class TripDetailActivityView {
                 throw new Exception(ERROR_UNBOUND);
             switch (roleType) {
                 case RoleType.MEMBER:
+                    mActivity.textEdit.setVisibility(View.GONE);
+                    mActivity.switchPublish.setVisibility(View.GONE);
+                    mActivity.buttonAction.setBackgroundDrawable(mActivity.getResources().
+                            getDrawable(R.drawable.ic_style_button_round_none_accent));
+                    mActivity.buttonAction.setText("Danh sách thành viên");
+                    mActivity.buttonAction.setVisibility(View.VISIBLE);
+                    break;
                 case RoleType.GUEST:
                     mActivity.textEdit.setVisibility(View.GONE);
                     mActivity.switchPublish.setVisibility(View.GONE);
+                    mActivity.buttonAction.setText("Xin đi chung");
+                    mActivity.buttonAction.setVisibility(View.VISIBLE);
                     break;
                 case RoleType.ADMIN: {
                     mActivity.textEdit.setVisibility(View.VISIBLE);
                     mActivity.switchPublish.setVisibility(View.VISIBLE);
                     mActivity.registerForContextMenu(mActivity.imageCover);
+                    mActivity.buttonAction.setVisibility(View.VISIBLE);
+                    mActivity.buttonAction.setBackgroundDrawable(mActivity.getResources().
+                            getDrawable(R.drawable.ic_style_button_round_none_accent));
+                    mActivity.buttonAction.setText("Danh sách thành viên");
+                    mActivity.buttonAction.setVisibility(View.VISIBLE);
                     break;
                 }
             }

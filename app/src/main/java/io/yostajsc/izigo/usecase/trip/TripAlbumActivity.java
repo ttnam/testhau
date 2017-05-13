@@ -83,7 +83,7 @@ public class TripAlbumActivity extends CoreActivity {
         registerForContextMenu(btnRight);
     }
 
-    @OnClick(R.id.button_left)
+    @OnClick({R.id.button_left, R.id.button})
     @Override
     public void onBackPressed() {
         Intent intent = new Intent();

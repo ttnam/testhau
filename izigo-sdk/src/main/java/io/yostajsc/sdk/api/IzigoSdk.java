@@ -10,7 +10,7 @@ import io.yostajsc.core.interfaces.CallBack;
 import io.yostajsc.core.interfaces.CallBackWith;
 import io.yostajsc.sdk.model.IgComment;
 import io.yostajsc.sdk.model.IgNotification;
-import io.yostajsc.sdk.model.Timeline;
+import io.yostajsc.sdk.model.IgTimeline;
 import io.yostajsc.sdk.model.user.IgFriend;
 import io.yostajsc.sdk.model.trip.IgTrip;
 import io.yostajsc.core.utils.LogUtils;
@@ -169,7 +169,7 @@ public class IzigoSdk {
             }
         }
 
-        public static void getActivities(String tripId, final IgCallback<List<Timeline>, String> callback) {
+        public static void getActivities(String tripId, final IgCallback<List<IgTimeline>, String> callback) {
             if (IzigoSession.isLoggedIn()) {
                 String auth = IzigoSession.getToken().getToken();
                 IzigoApiManager.connect().getActivities(auth, tripId, callback);
@@ -213,6 +213,13 @@ public class IzigoSdk {
             if (IzigoSession.isLoggedIn()) {
                 String auth = IzigoSession.getToken().getToken();
                 IzigoApiManager.connect().addTrip(auth, groupName, arrive, depart, description, transfer, callback);
+            }
+        }
+
+        public static void join(String tripId, final IgCallback<Void, String> callback) {
+            if (IzigoSession.isLoggedIn()) {
+                String auth = IzigoSession.getToken().getToken();
+                IzigoApiManager.connect().join(auth, tripId, callback);
             }
         }
     }

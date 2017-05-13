@@ -1,4 +1,4 @@
-package io.yostajsc.izigo.usecase.map.service.fcm;
+package io.yostajsc.izigo.usecase.service.fcm;
 
 /**
  * Copyright 2016 Google Inc. All Rights Reserved.

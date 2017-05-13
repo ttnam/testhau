@@ -50,6 +50,9 @@ public class IgNotification implements Serializable {
         @SerializedName("trip")
         private BaseTripInfo trip;
 
+        @SerializedName("message")
+        private String mMessage;
+
         public IgBaseUserInfo getFrom() {
             return from;
         }
@@ -57,5 +60,9 @@ public class IgNotification implements Serializable {
         public BaseTripInfo getTrip() {
             return trip;
         }
+    }
+
+    public String getMessage() {
+        return mContent.mMessage;
     }
 }

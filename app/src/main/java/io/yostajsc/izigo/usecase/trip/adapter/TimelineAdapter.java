@@ -11,13 +11,13 @@ import java.util.List;
 
 import io.yostajsc.core.utils.DatetimeUtils;
 import io.yostajsc.izigo.R;
-import io.yostajsc.sdk.model.Timeline;
+import io.yostajsc.sdk.model.IgTimeline;
 import io.yostajsc.izigo.usecase.trip.viewholder.TimelineViewHolder;
 
 public class TimelineAdapter extends RecyclerView.Adapter<TimelineViewHolder> {
 
     private Context mContext;
-    private List<Timeline> mData;
+    private List<IgTimeline> mData;
 
     public TimelineAdapter(Context context) {
         this.mContext = context;
@@ -39,7 +39,7 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineViewHolder> {
 
     @Override
     public void onBindViewHolder(final TimelineViewHolder holder, final int position) {
-        Timeline timeline = mData.get(position);
+        IgTimeline timeline = mData.get(position);
 
         holder.bind(
                 DatetimeUtils.getTime(timeline.getTime()),
@@ -55,7 +55,7 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineViewHolder> {
         return mData.size();
     }
 
-    public void replaceAll(List<Timeline> timelines) {
+    public void replaceAll(List<IgTimeline> timelines) {
         if (mData == null)
             this.mData = new ArrayList<>();
         clear();
@@ -63,7 +63,7 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineViewHolder> {
         notifyDataSetChanged();
     }
 
-    public void add(Timeline timeline) {
+    public void add(IgTimeline timeline) {
         if (this.mData == null)
             this.mData = new ArrayList<>();
         this.mData.add(timeline);

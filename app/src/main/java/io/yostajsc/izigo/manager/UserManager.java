@@ -29,7 +29,7 @@ public class UserManager {
             igUser.setFbId(id);
             if (object.has("first_name") && object.has("last_name")) {
                 igUser.setName(
-                        object.getString("first_name") + object.getString("last_name"));
+                        object.getString("first_name") + " " + object.getString("last_name"));
             }
             if (object.has("gender"))
                 igUser.setGender(object.getString("gender"));

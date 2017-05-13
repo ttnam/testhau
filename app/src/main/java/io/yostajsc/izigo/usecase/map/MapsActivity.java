@@ -330,13 +330,15 @@ public class MapsActivity extends OwnCoreActivity implements OnMapReadyCallback,
         MapUtils.Map.moveCameraSmoothly(mMap, marker.getPosition(), 500);
 
         mFocus = marker.getTitle();
-        if (mFocus.equalsIgnoreCase(IzigoSdk.UserExecutor.getOwnFbId())) {
-            btnDirection.setVisibility(View.GONE);
-            mIsDraw = false;
-            if (mPolyline != null)
-                mPolyline.remove();
-        } else {
-            btnDirection.setVisibility(View.VISIBLE);
+        if (mFocus != null) {
+            if (mFocus.equalsIgnoreCase(IzigoSdk.UserExecutor.getOwnFbId())) {
+                btnDirection.setVisibility(View.GONE);
+                mIsDraw = false;
+                if (mPolyline != null)
+                    mPolyline.remove();
+            } else {
+                btnDirection.setVisibility(View.VISIBLE);
+            }
         }
         return true;
     }

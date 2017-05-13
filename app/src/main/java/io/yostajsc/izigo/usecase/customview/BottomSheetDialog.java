@@ -33,7 +33,6 @@ public class BottomSheetDialog extends android.support.design.widget.BottomSheet
         }
     };
 
-    LinearLayout mLayoutMember;
     LinearLayout mLayoutShare;
 
     private Context mContext = null;
@@ -57,22 +56,22 @@ public class BottomSheetDialog extends android.support.design.widget.BottomSheet
     }
 
     private void onApplyView(View contentView) {
-        mLayoutMember = (LinearLayout) contentView.findViewById(R.id.layout_member);
+        // mLayoutMember = (LinearLayout) contentView.findViewById(R.id.layout_member);
         // mLayoutShare = (LinearLayout) contentView.findViewById(R.id.layout_share);
     }
 
     private void onApplyEvent() {
 
-        mLayoutMember.setOnClickListener(new View.OnClickListener() {
+/*        mLayoutMember.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               /* Intent email = new Intent(Intent.ACTION_SEND);
+               *//* Intent email = new Intent(Intent.ACTION_SEND);
                 email.setType("message/rfc822");
-                startActivity(Intent.createChooser(email, "Choose an Email client"));*/
+                startActivity(Intent.createChooser(email, "Choose an Email client"));*//*
                 startActivity(new Intent(mContext, MembersActivity.class));
                 dismiss();
             }
-        });
+        });*/
        /* mLayoutShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

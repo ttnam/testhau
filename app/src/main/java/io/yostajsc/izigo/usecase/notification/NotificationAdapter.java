@@ -9,15 +9,16 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.yostajsc.core.utils.DatetimeUtils;
 import io.yostajsc.izigo.R;
+import io.yostajsc.izigo.usecase.notification.viewholder.NotificationVH;
 import io.yostajsc.sdk.model.IgNotification;
-import io.yostajsc.izigo.usecase.notification.viewholder.NotificationsViewHolder;
 
 /**
  * Created by Phuc-Hau Nguyen on 10/14/2016.
  */
 
-public class NotificationAdapter extends RecyclerView.Adapter<NotificationsViewHolder> {
+public class NotificationAdapter extends RecyclerView.Adapter<NotificationVH> {
 
     private Context mContext = null;
     private List<IgNotification> mData = null;
@@ -28,32 +29,32 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationsViewH
     }
 
     @Override
-    public NotificationsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public NotificationVH onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemLayoutView = LayoutInflater.from(mContext).inflate(R.layout.item_notification, null);
 
         itemLayoutView.setLayoutParams(new RecyclerView.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT));
 
-        return new NotificationsViewHolder(itemLayoutView);
+        return new NotificationVH(itemLayoutView);
     }
 
     @Override
-    public void onBindViewHolder(NotificationsViewHolder holder, final int position) {
+    public void onBindViewHolder(NotificationVH holder, final int position) {
         final IgNotification igNotification = mData.get(position);
 
         int notiType = igNotification.getType();
         // if (notiType == NotificationType.ACCEPT_JOIN_TRIP) {
-        String name = null, avatar = null, tripName = null;
+        String cover = null, avatar = null;
         if (igNotification.getFrom() != null) {
-            name = igNotification.getFrom().getName();
             avatar = igNotification.getFrom().getAvatar();
         }
         if (igNotification.getTrip() != null) {
-            tripName = igNotification.getTrip().getName();
+            cover = igNotification.getTrip().getCover();
         }
 
-        holder.bind(name, avatar, tripName, igNotification.getType(), null, null);
+        holder.bind(avatar, igNotification.getMessage(), igNotification.getId(), cover);
+
                     /*new CallBack() {
                         @Override
                         public void run() {

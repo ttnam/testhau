@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import io.yostajsc.sdk.model.IgNotification;
-import io.yostajsc.sdk.model.Timeline;
+import io.yostajsc.sdk.model.IgTimeline;
 import io.yostajsc.sdk.model.user.IgFriend;
 import io.yostajsc.sdk.model.trip.IgTrip;
 import io.yostajsc.sdk.model.user.IgUser;
@@ -87,8 +87,8 @@ interface IzigoApiInterface {
                                                        @Path("id") String tripId);
 
     @GET("api/trips/{id}/activity")
-    Call<BaseResponse<List<Timeline>>> apiGetActivities(@Header("authorization") String authorization,
-                                                        @Path("id") String tripId);
+    Call<BaseResponse<List<IgTimeline>>> apiGetActivities(@Header("authorization") String authorization,
+                                                          @Path("id") String tripId);
 
     @GET("api/trips/{id}/members")
     Call<BaseResponse<List<IgFriend>>> apiGetMembers(@Header("authorization") String authorization,

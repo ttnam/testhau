@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -8,47 +9,64 @@
 
     <include layout="@layout/layout_separate_vertical" />
 
-    <android.support.v4.widget.NestedScrollView
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
 
-        <LinearLayout
+        <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:paddingBottom="@dimen/margin_x4">
+            android:layout_marginBottom="?actionBarSize">
 
-            <FrameLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/margin_x4">
 
-                <android.support.v7.widget.AppCompatImageView
-                    android:id="@id/image_view"
+                <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/image_height_v3"
-                    android:scaleType="centerCrop" />
+                    android:layout_height="wrap_content">
 
-                <TextView
-                    android:id="@+id/text_edit"
-                    style="@style/CoreAppTheme.TextView_Sub_Title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="top|end"
-                    android:background="@drawable/ic_style_rect_round_corners_white_none"
-                    android:paddingBottom="@dimen/margin"
-                    android:paddingLeft="@dimen/margin_x2"
-                    android:paddingRight="@dimen/margin_x2"
-                    android:paddingTop="@dimen/margin"
-                    android:text="@string/str_edit"
-                    android:visibility="gone" />
+                    <android.support.v7.widget.AppCompatImageView
+                        android:id="@id/image_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/image_height_v3"
+                        android:scaleType="centerCrop" />
 
-            </FrameLayout>
+                    <TextView
+                        android:id="@+id/text_edit"
+                        style="@style/CoreAppTheme.TextView_Sub_Title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="top|end"
+                        android:background="@drawable/ic_style_rect_round_corners_white_none"
+                        android:paddingBottom="@dimen/margin"
+                        android:paddingLeft="@dimen/margin_x2"
+                        android:paddingRight="@dimen/margin_x2"
+                        android:paddingTop="@dimen/margin"
+                        android:text="@string/str_edit"
+                        android:visibility="gone" />
 
-            <include layout="@layout/layout_trip_body" />
+                </FrameLayout>
 
-        </LinearLayout>
+                <include layout="@layout/layout_trip_body" />
 
-    </android.support.v4.widget.NestedScrollView>
+            </LinearLayout>
+
+        </android.support.v4.widget.NestedScrollView>
+
+        <Button
+            android:id="@+id/button_action"
+            style="@style/CoreAppTheme.TextView_Title.White"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="@drawable/ic_style_button_round_none_red"
+            android:visibility="gone" />
+
+    </FrameLayout>
+
 
 </LinearLayout>

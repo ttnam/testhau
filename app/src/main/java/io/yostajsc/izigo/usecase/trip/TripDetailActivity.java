@@ -19,6 +19,7 @@ import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -33,9 +34,10 @@ import butterknife.OnClick;
 import io.yostajsc.core.designs.listeners.RecyclerItemClickListener;
 import io.yostajsc.core.interfaces.CallBack;
 import io.yostajsc.core.utils.ToastUtils;
+import io.yostajsc.izigo.usecase.MembersActivity;
 import io.yostajsc.izigo.usecase.trip.adapter.TimelineAdapter;
 import io.yostajsc.izigo.usecase.map.MapsActivity;
-import io.yostajsc.sdk.model.Timeline;
+import io.yostajsc.sdk.model.IgTimeline;
 import io.yostajsc.sdk.model.trip.IgImage;
 import io.yostajsc.sdk.model.trip.IgTrip;
 import io.yostajsc.core.utils.PrefsUtils;
@@ -120,6 +122,9 @@ public class TripDetailActivity extends OwnCoreActivity {
     @BindView(R.id.switch_publish)
     Switch switchPublish;
 
+    @BindView(R.id.button_action)
+    Button buttonAction;
+
     private String tripId;
     private int mCurrentRoleType = RoleType.GUEST;
     private IgTrip mIgTrip = null;
@@ -173,7 +178,7 @@ public class TripDetailActivity extends OwnCoreActivity {
             }
         }));
 
-        // Timeline
+        // IgTimeline
         this.timelineAdapter = new TimelineAdapter(this);
         UiUtils.onApplyRecyclerView(this.rVTimeLine,
                 this.timelineAdapter, new SlideInUpAnimator(),
@@ -238,9 +243,9 @@ public class TripDetailActivity extends OwnCoreActivity {
             });
 
 
-            IzigoSdk.TripExecutor.getActivities(tripId, new IgCallback<List<Timeline>, String>() {
+            IzigoSdk.TripExecutor.getActivities(tripId, new IgCallback<List<IgTimeline>, String>() {
                 @Override
-                public void onSuccessful(List<Timeline> timelines) {
+                public void onSuccessful(List<IgTimeline> timelines) {
                     updateTimeline(timelines);
                 }
 
@@ -266,7 +271,7 @@ public class TripDetailActivity extends OwnCoreActivity {
         Log.e(TAG, "onInternetConnected");
     }
 
-    private void updateTimeline(List<Timeline> timelines) {
+    private void updateTimeline(List<IgTimeline> timelines) {
         if (timelines != null && timelines.size() > 0) {
             this.timelineAdapter.replaceAll(timelines);
         } else {
@@ -355,26 +360,30 @@ public class TripDetailActivity extends OwnCoreActivity {
         startActivityForResult(intent, MessageType.PICK_IMAGE);
     }
 
-/*
-    @OnClick(R.id.button)
-    public void actionLink() {
+
+    @OnClick(R.id.button_action)
+    public void makeAction() {
         if (mCurrentRoleType == RoleType.GUEST) {
-            IzigoApiManager.connect().apiJoinGroup(tripId, new CallBack() {
+            IzigoSdk.TripExecutor.join(tripId, new IgCallback<Void, String>() {
                 @Override
-                public void run() {
-                    Toast.makeText(TripDetailActivity.this, "Thành công", Toast.LENGTH_SHORT).show();
+                public void onSuccessful(Void aVoid) {
+                    ToastUtils.showToast(TripDetailActivity.this, "Đã gửi request.");
                 }
-            }, new CallBackWith<String>() {
+
                 @Override
-                public void run(String error) {
-                    AppConfig.showToast(TripDetailActivity.this, error);
+                public void onFail(String error) {
+                    ToastUtils.showToast(TripDetailActivity.this, error);
                 }
-            }, mOnExpiredCallBack);
+
+                @Override
+                public void onExpired() {
+                    expired();
+                }
+            });
         } else {
-            startActivity(new Intent(this, MapsActivity.class));
-            finish();
+            startActivity(new Intent(TripDetailActivity.this, MembersActivity.class));
         }
-    }*/
+    }
 
     @OnClick(R.id.layout_maps)
     public void loadActivity() {

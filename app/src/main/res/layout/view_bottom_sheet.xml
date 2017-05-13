@@ -7,26 +7,6 @@
     android:orientation="vertical">
 
     <LinearLayout
-        android:id="@+id/layout_member"
-        style="@style/Style_Menu_Item.Press"
-        android:orientation="horizontal">
-
-        <android.support.v7.widget.AppCompatImageView
-            android:layout_width="@dimen/icon_size_x4"
-            android:layout_height="@dimen/icon_size_x4"
-            android:layout_gravity="center"
-            android:padding="@dimen/margin"
-            app:srcCompat="@drawable/ic_vector_profile" />
-
-        <TextView
-            style="@style/CoreAppTheme.TextView_Sub_Title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/str_member_manager" />
-    </LinearLayout>
-
-    <LinearLayout
         style="@style/Style_Menu_Item.Press"
         android:clickable="true"
         android:orientation="horizontal">

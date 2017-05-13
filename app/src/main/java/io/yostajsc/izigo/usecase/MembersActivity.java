@@ -189,12 +189,12 @@ public class MembersActivity extends OwnCoreActivity {
                     }
                 });
     }
+
     @OnClick(R.id.button_add_friend)
     public void onAddFriends() {
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("image");
-        // intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-        // intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         startActivity(Intent.createChooser(intent, getString(R.string.str_send_invite)));
     }
 

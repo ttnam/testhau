@@ -40,6 +40,21 @@
 
     <include layout="@layout/layout_shadow" />
 
-    <include layout="@layout/layout_recycler_view" />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <include layout="@layout/layout_recycler_view" />
+    </FrameLayout>
+
+
+    <Button
+        android:id="@id/button"
+        style="@style/CoreAppTheme.TextView_Title.White"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_style_button_round_none_accent"
+        android:text="@android:string/ok" />
 
 </LinearLayout>

@@ -9,7 +9,7 @@ import io.realm.annotations.PrimaryKey;
 /**
  * Created by Phuc-Hau Nguyen on 8/25/2016.
  */
-public class Timeline implements Serializable {
+public class IgTimeline implements Serializable {
 
 
     @PrimaryKey

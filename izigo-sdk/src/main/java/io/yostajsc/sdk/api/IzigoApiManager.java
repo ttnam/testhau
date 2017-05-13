@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit;
 
 import io.yostajsc.sdk.model.IgComment;
 import io.yostajsc.sdk.model.IgNotification;
-import io.yostajsc.sdk.model.Timeline;
+import io.yostajsc.sdk.model.IgTimeline;
 import io.yostajsc.sdk.model.user.IgFriend;
 import io.yostajsc.sdk.model.trip.IgTrip;
 import io.yostajsc.sdk.model.IgCallback;
@@ -378,14 +378,14 @@ class IzigoApiManager {
     }
 
     public void getActivities(String authorization, String tripId,
-                              final IgCallback<List<Timeline>, String> callback) {
+                              final IgCallback<List<IgTimeline>, String> callback) {
 
-        Call<BaseResponse<List<Timeline>>> call = service.apiGetActivities(authorization, tripId);
-        call.enqueue(new Callback<BaseResponse<List<Timeline>>>() {
+        Call<BaseResponse<List<IgTimeline>>> call = service.apiGetActivities(authorization, tripId);
+        call.enqueue(new Callback<BaseResponse<List<IgTimeline>>>() {
             @Override
-            public void onResponse(Call<BaseResponse<List<Timeline>>> call, Response<BaseResponse<List<Timeline>>> response) {
+            public void onResponse(Call<BaseResponse<List<IgTimeline>>> call, Response<BaseResponse<List<IgTimeline>>> response) {
                 if (response.isSuccessful()) {
-                    BaseResponse<List<Timeline>> res = response.body();
+                    BaseResponse<List<IgTimeline>> res = response.body();
                     if (res.isSuccessful()) {
                         callback.onSuccessful(res.data());
                     } else if (res.isExpired()) {
@@ -397,7 +397,7 @@ class IzigoApiManager {
             }
 
             @Override
-            public void onFailure(Call<BaseResponse<List<Timeline>>> call, Throwable throwable) {
+            public void onFailure(Call<BaseResponse<List<IgTimeline>>> call, Throwable throwable) {
                 callback.onFail(throwable.getMessage());
             }
         });
@@ -482,7 +482,8 @@ class IzigoApiManager {
         });
     }
 
-    public void join(String authorization, String tripId, final CallBack success, final CallBackWith<String> fail, final CallBack expired) {
+    public void join(String authorization, String tripId, final IgCallback<Void, String> callback) {
+
 
         Call<BaseResponse<String>> call = service.apiJoinGroup(authorization, tripId);
         call.enqueue(new Callback<BaseResponse<String>>() {
@@ -490,13 +491,12 @@ class IzigoApiManager {
             public void onResponse(Call<BaseResponse<String>> call, Response<BaseResponse<String>> response) {
                 if (response.isSuccessful()) {
                     BaseResponse<String> res = response.body();
-                    if (res.isSuccessful()) {
-                        success.run();
-                    } else if (res.isExpired()) {
-                        expired.run();
-                    } else {
-                        fail.run(res.getDescription());
-                    }
+                    if (res.isSuccessful())
+                        callback.onSuccessful(null);
+                    else if (res.isExpired())
+                        callback.onExpired();
+                    else
+                        callback.onFail(res.getDescription());
                 }
             }
 

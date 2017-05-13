@@ -151,12 +151,12 @@ public class AddTripActivity extends OwnCoreActivity {
         AddTripActivityHelper.getInstance().selectDate(new AddTripActivityHelper.OnReceiveDate() {
             @Override
             public void date(Integer day, Integer month, Integer year, String result) {
-                if (view.getId() == R.id.text_depart_time) {
+                if (view.getId() == R.id.text_depart_date) {
                     from.setDay(day);
                     from.setMonth(month);
                     from.setYear(month);
                     textDepartDate.setText(result);
-                } else if (view.getId() == R.id.text_arrive_time) {
+                } else if (view.getId() == R.id.text_arrive_date) {
                     to.setDay(day);
                     to.setMonth(month);
                     to.setYear(month);

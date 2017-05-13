@@ -15,7 +15,7 @@ public class IgComment implements Serializable {
 
     @PrimaryKey
     @SerializedName("id")
-    private long mId;
+    private String mId;
 
     @SerializedName("content")
     private String mContent;
@@ -26,10 +26,10 @@ public class IgComment implements Serializable {
     public IgComment(String mContent) {
         this.mContent = mContent;
         this.mCreator = new IgBaseUserInfo();
-        setId(Calendar.getInstance().getTimeInMillis());
+        setId(Calendar.getInstance().getTimeInMillis() + "");
     }
 
-    public long getCreatedTime() {
+    public String getCreatedTime() {
         return this.mId;
     }
 
@@ -45,7 +45,7 @@ public class IgComment implements Serializable {
         return this.mCreator.getAvatar();
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.mId = id;
     }
 

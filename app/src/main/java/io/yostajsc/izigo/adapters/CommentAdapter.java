@@ -45,7 +45,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentViewHolder> {
                 comment.getCreatorAvatar(),
                 comment.getCreatorName(),
                 comment.getContent(),
-                DatetimeUtils.getDate(comment.getCreatedTime())
+                DatetimeUtils.getDate(Long.valueOf(comment.getCreatedTime()))
         );
     }
 

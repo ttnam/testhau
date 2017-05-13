@@ -8,7 +8,7 @@ public interface IgCallback<S, F> {
 
     void onSuccessful(S s);
 
-    void onFail(F f);
+    void onFail(F error);
 
     void onExpired();
 }
