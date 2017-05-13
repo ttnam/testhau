@@ -75,8 +75,8 @@ interface IzigoApiInterface {
                                   @Field("content") String content);
 
     @GET("api/user/friends")
-    Call<BaseResponse<List<IgFriend>>> apiGetFriendsList(@Header("authorization") String authorization,
-                                                         @Header("fbToken") String fbAccessToken);
+    Call<BaseResponse<List<IgFriend>>> getFriendsList(@Header("authorization") String authorization,
+                                                      @Header("fbToken") String fbAccessToken);
 
     @GET("api/group/{id}")
     Call<BaseResponse<String>> apiGetGroupDetail(@Header("authorization") String authorization,

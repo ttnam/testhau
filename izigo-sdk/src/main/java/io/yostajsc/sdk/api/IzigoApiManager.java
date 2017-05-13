@@ -276,7 +276,7 @@ class IzigoApiManager {
 
     public void getFriendsList(String authorization, String fbAccessToken, final IgCallback<List<IgFriend>, String> callback) {
 
-        Call<BaseResponse<List<IgFriend>>> call = service.apiGetFriendsList(authorization, fbAccessToken);
+        Call<BaseResponse<List<IgFriend>>> call = service.getFriendsList(authorization, fbAccessToken);
 
         call.enqueue(new Callback<BaseResponse<List<IgFriend>>>() {
             @Override
