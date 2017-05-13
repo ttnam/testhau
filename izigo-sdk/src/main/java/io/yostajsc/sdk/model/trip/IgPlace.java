@@ -112,7 +112,7 @@ public class IgPlace implements Serializable {
         if (mYYYY != -1 && mMM != -1 && mDD != -1 && mM != -1) {
             setTime(mYYYY, mMM, mDD, mH, mM);
         }
-        if (time < 0)
+        if (time <= 0)
             return Calendar.getInstance().getTimeInMillis();
         return time;
     }

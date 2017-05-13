@@ -14,10 +14,8 @@ import butterknife.OnClick;
 import io.yostajsc.core.utils.ToastUtils;
 import io.yostajsc.izigo.AppConfig;
 import io.yostajsc.sdk.model.user.IgFriend;
-import io.yostajsc.core.utils.PrefsUtils;
 import io.yostajsc.sdk.api.IzigoSdk;
 import io.yostajsc.sdk.model.IgCallback;
-import io.yostajsc.sdk.model.trip.IgTrip;
 import io.yostajsc.core.code.MessageType;
 import io.yostajsc.core.interfaces.CallBackWith;
 import io.yostajsc.core.interfaces.ItemClick;
@@ -38,7 +36,6 @@ public class MembersActivity extends OwnCoreActivity {
     @BindView(R.id.recycler_view_curr_member)
     RecyclerView rvMembers;
 
-    private String mTripId;
     private MemberAdapter friendAdapter = null, memberAdapter = null;
 
     @Override
@@ -65,7 +62,6 @@ public class MembersActivity extends OwnCoreActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        mTripId = PrefsUtils.inject(this).getString(IgTrip.TRIP_ID);
         getMemberList();
     }
 
@@ -93,7 +89,7 @@ public class MembersActivity extends OwnCoreActivity {
 
     private void getMemberList() {
 
-        IzigoSdk.TripExecutor.getMembers(mTripId, new IgCallback<List<IgFriend>, String>() {
+        IzigoSdk.TripExecutor.getMembers(AppConfig.getInstance().getCurrentTripId(), new IgCallback<List<IgFriend>, String>() {
             @Override
             public void onSuccessful(List<IgFriend> friends) {
                 memberAdapter.replaceAll(friends);
@@ -113,7 +109,7 @@ public class MembersActivity extends OwnCoreActivity {
 
     private void addMember(String fbId) {
 
-        IzigoSdk.TripExecutor.addMembers(mTripId, fbId, new IgCallback<Void, String>() {
+        IzigoSdk.TripExecutor.addMembers(AppConfig.getInstance().getCurrentTripId(), fbId, new IgCallback<Void, String>() {
             @Override
             public void onSuccessful(Void aVoid) {
                 ToastUtils.showToast(MembersActivity.this, "Lời mời đã được gửi đi");
@@ -170,7 +166,7 @@ public class MembersActivity extends OwnCoreActivity {
 
     private void kick(int pos) {
 
-        IzigoSdk.TripExecutor.kickMembers(mTripId,
+        IzigoSdk.TripExecutor.kickMembers(AppConfig.getInstance().getCurrentTripId(),
                 memberAdapter.getItem(pos).getFbId(), new IgCallback<Void, String>() {
                     @Override
                     public void onSuccessful(Void aVoid) {

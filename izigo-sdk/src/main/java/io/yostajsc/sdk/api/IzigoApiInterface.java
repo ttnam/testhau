@@ -91,8 +91,8 @@ interface IzigoApiInterface {
                                                           @Path("id") String tripId);
 
     @GET("api/trips/{id}/members")
-    Call<BaseResponse<List<IgFriend>>> apiGetMembers(@Header("authorization") String authorization,
-                                                     @Path("id") String tripId);
+    Call<BaseResponse<List<IgFriend>>> getMembers(@Header("authorization") String authorization,
+                                                  @Path("id") String tripId);
 
     @PUT("api/trips/{id}/view")
     Call<BaseResponse<String>> apiUpdateView(@Header("authorization") String authorization,
@@ -117,8 +117,8 @@ interface IzigoApiInterface {
                                        @Field("is_published") String cover);
 
     @PUT("api/trips/{id}/join")
-    Call<BaseResponse<String>> apiJoinGroup(@Header("authorization") String authorization,
-                                            @Path("id") String tripId);
+    Call<BaseResponse<String>> join(@Header("authorization") String authorization,
+                                    @Path("id") String tripId);
 
 
     @GET("api/notification")

@@ -404,7 +404,7 @@ class IzigoApiManager {
     }
 
     public void getMembers(String authorization, String tripId, final IgCallback<List<IgFriend>, String> callback) {
-        Call<BaseResponse<List<IgFriend>>> call = service.apiGetMembers(authorization, tripId);
+        Call<BaseResponse<List<IgFriend>>> call = service.getMembers(authorization, tripId);
         call.enqueue(new Callback<BaseResponse<List<IgFriend>>>() {
             @Override
             public void onResponse(Call<BaseResponse<List<IgFriend>>> call, Response<BaseResponse<List<IgFriend>>> response) {
@@ -485,7 +485,7 @@ class IzigoApiManager {
     public void join(String authorization, String tripId, final IgCallback<Void, String> callback) {
 
 
-        Call<BaseResponse<String>> call = service.apiJoinGroup(authorization, tripId);
+        Call<BaseResponse<String>> call = service.join(authorization, tripId);
         call.enqueue(new Callback<BaseResponse<String>>() {
             @Override
             public void onResponse(Call<BaseResponse<String>> call, Response<BaseResponse<String>> response) {
@@ -502,7 +502,7 @@ class IzigoApiManager {
 
             @Override
             public void onFailure(Call<BaseResponse<String>> call, Throwable throwable) {
-                Log.e(TAG, throwable.getMessage());
+                callback.onFail(throwable.getMessage());
             }
         });
     }

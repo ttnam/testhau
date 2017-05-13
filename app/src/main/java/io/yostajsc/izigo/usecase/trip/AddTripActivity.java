@@ -9,7 +9,6 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.widget.AppCompatImageView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -135,11 +134,11 @@ public class AddTripActivity extends OwnCoreActivity {
             public void time(Integer hour, Integer minute, String result) {
                 if (view.getId() == R.id.text_depart_time) {
                     from.setHour(hour);
-                    from.setMinute(hour);
+                    from.setMinute(minute);
                     textDepartTime.setText(result);
                 } else if (view.getId() == R.id.text_arrive_time) {
                     to.setHour(hour);
-                    to.setMinute(hour);
+                    to.setMinute(minute);
                     textArriveTime.setText(result);
                 }
             }
@@ -154,12 +153,12 @@ public class AddTripActivity extends OwnCoreActivity {
                 if (view.getId() == R.id.text_depart_date) {
                     from.setDay(day);
                     from.setMonth(month);
-                    from.setYear(month);
+                    from.setYear(year);
                     textDepartDate.setText(result);
                 } else if (view.getId() == R.id.text_arrive_date) {
                     to.setDay(day);
                     to.setMonth(month);
-                    to.setYear(month);
+                    to.setYear(year);
                     textArriveDate.setText(result);
                 }
             }
