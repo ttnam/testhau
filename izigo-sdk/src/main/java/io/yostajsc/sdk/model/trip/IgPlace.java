@@ -23,6 +23,8 @@ public class IgPlace implements Serializable {
     @SerializedName("time")
     private long time;
 
+    private int mYYYY = -1, mMM = -1, mDD = -1, mH = -1, mM = -1;
+
     public IgPlace() {
 
     }
@@ -44,16 +46,17 @@ public class IgPlace implements Serializable {
         return name;
     }
 
-    public long getTime() {
-        return time;
-    }
-
     public double getLat() {
         return lat;
     }
 
     public double getLng() {
         return lng;
+    }
+
+    public void setLatLng(double lat, double lng) {
+        setLat(lat);
+        setLng(lng);
     }
 
     public void setLat(double lat) {
@@ -72,6 +75,46 @@ public class IgPlace implements Serializable {
         Calendar calendar = Calendar.getInstance();
         calendar.set(yyyy, m, d, h, min);
         this.time = calendar.getTimeInMillis();
+    }
+
+    public void setYear(int year) {
+        mYYYY = year;
+    }
+
+    public void setDate(int year, int month, int day) {
+        setDay(day);
+        setMonth(month);
+        setYear(year);
+    }
+
+    public void setTime(int hour, int minute) {
+        setHour(hour);
+        setMinute(minute);
+    }
+
+    public void setMonth(int month) {
+        mMM = month;
+    }
+
+    public void setDay(int day) {
+        mDD = day;
+    }
+
+    public void setHour(int hour) {
+        mH = hour;
+    }
+
+    public void setMinute(int minute) {
+        mM = minute;
+    }
+
+    public long getTime() {
+        if (mYYYY != -1 && mMM != -1 && mDD != -1 && mM != -1) {
+            setTime(mYYYY, mMM, mDD, mH, mM);
+        }
+        if (time < 0)
+            return Calendar.getInstance().getTimeInMillis();
+        return time;
     }
 
     @Override

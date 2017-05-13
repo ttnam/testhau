@@ -111,7 +111,8 @@ public class RouteParserTask extends AsyncTask<Object, Void, String> {
         }
         Polyline polyline = null;
         if (lineOptions != null) {
-            polyline = mMap.addPolyline(lineOptions);
+            if (mMap != null)
+                polyline = mMap.addPolyline(lineOptions);
         }
         return polyline;
     }

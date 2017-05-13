@@ -20,6 +20,7 @@ import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 /**
  * Created by Phuc-Hau Nguyen on 11/9/2016.
@@ -39,8 +40,12 @@ interface IzigoApiInterface {
     @GET("api/trips")
     Call<BaseResponse<List<IgTrip>>> apiGetAllPublicTrips(@Header("authorization") String authorization);
 
+    // type: 0 == admin, type 1 == not admin
     @GET("api/trips/own")
-    Call<BaseResponse<List<IgTrip>>> apiGetAllOwnTrips(@Header("authorization") String authorization);
+    Call<BaseResponse<List<IgTrip>>> apiGetAllOwnTrips(
+            @Header("authorization") String authorization,
+            @Query("type") int type
+    );
 
     @FormUrlEncoded
     @PUT("api/user")
@@ -61,8 +66,6 @@ interface IzigoApiInterface {
                                        @Field("arrive") String arrive,
                                        @Field("depart") String depart,
                                        @Field("description") String description,
-                                       @Field("is_published") int is_published,
-                                       @Field("status") int status,
                                        @Field("transfer") int transfer);
 
     @FormUrlEncoded

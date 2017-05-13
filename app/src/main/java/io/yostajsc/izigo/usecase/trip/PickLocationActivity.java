@@ -3,7 +3,6 @@ package io.yostajsc.izigo.usecase.trip;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
-import android.location.Location;
 import android.os.Bundle;
 import android.view.View;
 
@@ -12,6 +11,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 
 import butterknife.ButterKnife;
@@ -26,16 +26,11 @@ import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.RuntimePermissions;
 
 @RuntimePermissions
-public class PickLocationActivity extends OwnCoreActivity implements GoogleMap.OnMapClickListener,
-        GoogleMap.OnMapLongClickListener, OnMapReadyCallback, GoogleMap.OnMarkerClickListener,
-        GoogleMap.OnMyLocationChangeListener {
+public class PickLocationActivity extends OwnCoreActivity implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
     private final static String TAG = PickLocationActivity.class.getSimpleName();
 
     private GoogleMap mMap;
-    private String locationName = "";
-    private LatLng currLatLng = new LatLng(0, 0);
-    private Location currLocation = null;
     private IgPlace igLocation = new IgPlace();
     private MyPlaceSelector myPlaceSelector = null;
     private SupportMapFragment mapFragment = null;
@@ -52,9 +47,9 @@ public class PickLocationActivity extends OwnCoreActivity implements GoogleMap.O
     public void onApplyViews() {
 
         // Setup map view
-        mapFragment = (SupportMapFragment) getSupportFragmentManager()
+        this.mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map_view);
-        mapFragment.getMapAsync(this);
+        this.mapFragment.getMapAsync(this);
 
         // Place auto complete fragment
         this.myPlaceSelector = (MyPlaceSelector) getFragmentManager().findFragmentById(R.id.map_place);
@@ -69,9 +64,13 @@ public class PickLocationActivity extends OwnCoreActivity implements GoogleMap.O
         this.myPlaceSelector.setOnPlaceSelectedListener(new MyPlaceSelector.OnPlaceSelecteListener() {
             @Override
             public void select(Place place) {
-                locationName = place.getName().toString();
+
+                mMap.clear();
+                igLocation.setName(place.getName().toString());
+
                 LatLng latLng = place.getLatLng();
-                currLatLng = latLng;
+                igLocation.setLatLng(latLng.latitude, latLng.longitude);
+
                 MapUtils.Map.addShowCustomMarker(mMap, latLng);
                 myPlaceSelector.setText(place.getName().toString());
             }
@@ -88,10 +87,8 @@ public class PickLocationActivity extends OwnCoreActivity implements GoogleMap.O
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
             case MessageType.USER_GPS:
-                if (resultCode != Activity.RESULT_OK) {
-                    currLatLng = MapUtils.Map.populateLocalStationParams(this);
-                    MapUtils.Map.addShowCustomMarker(mMap, currLatLng);
-                }
+                if (resultCode != Activity.RESULT_OK)
+                    PickLocationActivityPermissionsDispatcher.requestLocationWithCheck(PickLocationActivity.this);
                 break;
             default:
                 super.onActivityResult(requestCode, resultCode, data);
@@ -112,57 +109,30 @@ public class PickLocationActivity extends OwnCoreActivity implements GoogleMap.O
     }
 
     @Override
-    public void onMapClick(LatLng latLng) {
-        this.currLatLng = latLng;
-    }
-
-    @Override
-    public void onMapLongClick(LatLng latLng) {
-
-    }
-
-    @Override
     public boolean onMarkerClick(Marker marker) {
         return false;
     }
 
     @Override
-    public void onMyLocationChange(Location location) {
-        if (MapUtils.Map.isBetter(location, currLocation)) {
-            currLocation = location;
-            currLatLng = new LatLng(currLocation.getLatitude(), currLocation.getLongitude());
-            MapUtils.Map.addShowCustomMarker(mMap, currLatLng);
-        }
+    protected void onGpsOff() {
+        super.onGpsOff();
+        PickLocationActivityPermissionsDispatcher.requestLocationWithCheck(PickLocationActivity.this);
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
         this.mMap = googleMap;
-
-        PickLocationActivityPermissionsDispatcher.requestLocationWithCheck(this);
-
         this.mMap.setMaxZoomPreference(15.0f);
-        this.mMap.setOnMapClickListener(this);
-        this.mMap.setOnMarkerClickListener(this);
-        this.mMap.setOnMapLongClickListener(this);
-        this.mMap.setOnMyLocationChangeListener(this);
-        this.mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-        this.mMap.getUiSettings().setMyLocationButtonEnabled(true);
-        this.mMap.getUiSettings().setCompassEnabled(true);
-        this.mMap.getUiSettings().setRotateGesturesEnabled(true);
-        this.mMap.getUiSettings().setScrollGesturesEnabled(true);
-        this.mMap.getUiSettings().setTiltGesturesEnabled(true);
-        this.mMap.getUiSettings().setZoomControlsEnabled(true);
-        this.mMap.getUiSettings().setZoomGesturesEnabled(true);
+        this.mMap.setMinZoomPreference(5.0f);
+        this.mMap.getUiSettings().setMapToolbarEnabled(false);
+        this.mMap.getUiSettings().setMyLocationButtonEnabled(false);
+        this.mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, R.raw.map_style));
+        PickLocationActivityPermissionsDispatcher.requestLocationWithCheck(this);
     }
 
     @OnClick({R.id.button, R.id.image_view})
     public void pick() {
         Intent intent = new Intent();
-        igLocation.setName(locationName);
-        igLocation.setLat(currLatLng.latitude);
-        igLocation.setLng(currLatLng.longitude);
-        igLocation.setName(locationName);
         intent.putExtra(AppConfig.KEY_PICK_LOCATION, igLocation);
         setResult(Activity.RESULT_OK, intent);
         finish();

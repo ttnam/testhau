@@ -148,9 +148,9 @@ class IzigoApiManager {
     }
 
 
-    public void getAllOwnTripsList(String authorization, final IgCallback<List<IgTrip>, String> callback) {
+    public void getAllOwnTripsList(String authorization, int type, final IgCallback<List<IgTrip>, String> callback) {
         try {
-            Call<BaseResponse<List<IgTrip>>> call = service.apiGetAllOwnTrips(authorization);
+            Call<BaseResponse<List<IgTrip>>> call = service.apiGetAllOwnTrips(authorization, type);
             call.enqueue(new Callback<BaseResponse<List<IgTrip>>>() {
                 @Override
                 public void onResponse(Call<BaseResponse<List<IgTrip>>> call, Response<BaseResponse<List<IgTrip>>> response) {
@@ -249,32 +249,27 @@ class IzigoApiManager {
 
     }
 
-    public void createTrips(String authorization, String groupName, String arrive, String depart, String description,
-                            int is_published, int status, int transfer,
-                            final CallBack expired,
-                            final CallBackWith<String> success,
-                            final CallBackWith<String> fail) {
-        Call<BaseResponse<String>> call = service.addTrip(authorization, groupName, arrive, depart, description,
-                is_published, status, transfer);
+    public void addTrip(String authorization, String groupName, String arrive, String depart, String description, int transfer,
+                        final IgCallback<String, String> callback) {
+        Call<BaseResponse<String>> call = service.addTrip(authorization, groupName, arrive, depart, description, transfer);
         call.enqueue(new Callback<BaseResponse<String>>() {
             @Override
             public void onResponse(Call<BaseResponse<String>> call, Response<BaseResponse<String>> response) {
 
                 if (response.isSuccessful()) {
                     BaseResponse<String> res = response.body();
-                    if (res.isExpired()) {
-                        expired.run();
-                    } else if (res.isSuccessful()) {
-                        success.run(res.data());
-                    } else {
-                        fail.run(res.getDescription());
-                    }
+                    if (res.isExpired())
+                        callback.onExpired();
+                    else if (res.isSuccessful())
+                        callback.onSuccessful(res.data());
+                    else
+                        callback.onFail(res.getDescription());
                 }
             }
 
             @Override
             public void onFailure(Call<BaseResponse<String>> call, Throwable throwable) {
-                Log.e(TAG, throwable.getMessage());
+                callback.onFail(throwable.getMessage());
             }
         });
     }

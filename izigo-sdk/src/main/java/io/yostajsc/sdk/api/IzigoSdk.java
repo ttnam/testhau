@@ -124,10 +124,10 @@ public class IzigoSdk {
             }
         }
 
-        public static void getOwnTrip(final IgCallback<List<IgTrip>, String> callback) {
+        public static void getOwnTrip(int type, final IgCallback<List<IgTrip>, String> callback) {
             if (IzigoSession.isLoggedIn()) {
                 String auth = IzigoSession.getToken().getToken();
-                IzigoApiManager.connect().getAllOwnTripsList(auth, callback);
+                IzigoApiManager.connect().getAllOwnTripsList(auth, type, callback);
             } else {
                 callback.onExpired();
             }
@@ -205,6 +205,14 @@ public class IzigoSdk {
 
                     }
                 });
+            }
+        }
+
+        public static void addTrip(String groupName, String arrive, String depart, String description, int transfer,
+                                   final IgCallback<String, String> callback) {
+            if (IzigoSession.isLoggedIn()) {
+                String auth = IzigoSession.getToken().getToken();
+                IzigoApiManager.connect().addTrip(auth, groupName, arrive, depart, description, transfer, callback);
             }
         }
     }

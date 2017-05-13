@@ -40,6 +40,6 @@
         style="@style/CoreAppTheme.TextView_Title.Bold.White"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/ic_style_button_round_none_theme"
+        android:background="@drawable/ic_style_button_round_none_accent"
         android:text="OK" />
 </LinearLayout>

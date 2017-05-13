@@ -93,7 +93,7 @@ public class OwnTripFragment extends CoreFragment {
 
     private void loadFromServer() {
 
-        IzigoSdk.TripExecutor.getOwnTrip(new IgCallback<List<IgTrip>, String>() {
+        IzigoSdk.TripExecutor.getOwnTrip(0, new IgCallback<List<IgTrip>, String>() {
             @Override
             public void onSuccessful(List<IgTrip> trips) {
                 updateUI(trips);

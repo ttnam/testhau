@@ -9,10 +9,13 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.widget.AppCompatImageView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.maps.model.LatLng;
 
 import io.yostajsc.core.utils.ToastUtils;
 import io.yostajsc.izigo.constants.TransferType;
@@ -22,6 +25,10 @@ import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.usecase.OwnCoreActivity;
 import io.yostajsc.izigo.dialogs.DialogPickTransfer;
 import io.yostajsc.izigo.AppConfig;
+import io.yostajsc.izigo.usecase.map.model.Info;
+import io.yostajsc.izigo.usecase.map.utils.MapUtils;
+import io.yostajsc.sdk.api.IzigoSdk;
+import io.yostajsc.sdk.model.IgCallback;
 import io.yostajsc.sdk.model.trip.IgPlace;
 import io.yostajsc.sdk.model.trip.IgTrip;
 import io.yostajsc.izigo.utils.UiUtils;
@@ -31,14 +38,11 @@ import butterknife.OnClick;
 import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.RuntimePermissions;
 
-import static io.yostajsc.izigo.usecase.trip.AddTripDefine.DAY;
-import static io.yostajsc.izigo.usecase.trip.AddTripDefine.HOUR;
-import static io.yostajsc.izigo.usecase.trip.AddTripDefine.MINUTE;
-import static io.yostajsc.izigo.usecase.trip.AddTripDefine.MONTH;
-import static io.yostajsc.izigo.usecase.trip.AddTripDefine.YEAR;
-
 @RuntimePermissions
 public class AddTripActivity extends OwnCoreActivity {
+
+
+    private static String TAG = AddTripActivity.class.getSimpleName();
 
     @BindView(R.id.text_view_trip_name)
     TextInputEditText textGroupName;
@@ -51,6 +55,9 @@ public class AddTripActivity extends OwnCoreActivity {
 
     @BindView(R.id.text_depart)
     TextView textDepart;
+
+    @BindView(R.id.text_view)
+    TextView textViewDes;
 
     @BindView(R.id.text_arrive_time)
     TextView textArriveTime;
@@ -70,9 +77,8 @@ public class AddTripActivity extends OwnCoreActivity {
     @BindView(R.id.progress_bar)
     ProgressBar progressBar;
 
-
+    private int mTransferType = 0;
     private IgPlace from = new IgPlace(), to = new IgPlace();
-    private int[] arriveTime = new int[5], departTime = new int[5];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,22 +92,29 @@ public class AddTripActivity extends OwnCoreActivity {
     protected void onResume() {
         super.onResume();
 
-        AddTripActivityHelper.tickTimeUpdate(  // Arrive
-                arriveTime,
-                textArriveDate,
-                textArriveTime);
-        AddTripActivityHelper.tickTimeUpdate( // Depart
-                departTime,
-                textDepartDate,
-                textDepartTime);
+        AddTripActivityHelper.tickTimeUpdate(new AddTripActivityHelper.OnReceiveDate() {
+            @Override
+            public void date(Integer day, Integer month, Integer year, String result) {
+                textArriveDate.setText(result);
+                textDepartDate.setText(result);
+                from.setDate(year, month, day);
+                to.setDate(year, month, day);
+            }
+        }, new AddTripActivityHelper.OnReceiveTime() {
+            @Override
+            public void time(Integer hour, Integer minute, String result) {
+                textArriveTime.setText(result);
+                textDepartTime.setText(result);
+                from.setTime(hour, minute);
+                to.setTime(hour, minute);
+            }
+        });
     }
 
     @OnClick({R.id.text_arrive, R.id.text_depart})
     public void pickArriveLocation(View view) {
-        if (view.getId() == R.id.text_arrive)
-            AddTripActivityPermissionsDispatcher.pickLocationWithCheck(this, MessageType.PICK_LOCATION_TO);
-        else
-            AddTripActivityPermissionsDispatcher.pickLocationWithCheck(this, MessageType.PICK_LOCATION_FROM);
+        AddTripActivityPermissionsDispatcher.pickLocationWithCheck(this,
+                (view.getId() == R.id.text_arrive) ? MessageType.PICK_LOCATION_TO : MessageType.PICK_LOCATION_FROM);
     }
 
     @Override
@@ -119,28 +132,14 @@ public class AddTripActivity extends OwnCoreActivity {
     public void pickDepartTime(final View view) {
         AddTripActivityHelper.getInstance().selectTime(new AddTripActivityHelper.OnReceiveTime() {
             @Override
-            public void hour(Integer hour) {
+            public void time(Integer hour, Integer minute, String result) {
                 if (view.getId() == R.id.text_depart_time) {
-                    departTime[HOUR] = hour;
-                } else if (view.getId() == R.id.text_arrive_time) {
-                    arriveTime[HOUR] = hour;
-                }
-            }
-
-            @Override
-            public void minute(Integer minute) {
-                if (view.getId() == R.id.text_depart_time) {
-                    departTime[MINUTE] = minute;
-                } else if (view.getId() == R.id.text_arrive_time) {
-                    arriveTime[MINUTE] = minute;
-                }
-            }
-
-            @Override
-            public void text(String result) {
-                if (view.getId() == R.id.text_depart_time) {
+                    from.setHour(hour);
+                    from.setMinute(hour);
                     textDepartTime.setText(result);
                 } else if (view.getId() == R.id.text_arrive_time) {
+                    to.setHour(hour);
+                    to.setMinute(hour);
                     textArriveTime.setText(result);
                 }
             }
@@ -149,55 +148,47 @@ public class AddTripActivity extends OwnCoreActivity {
 
     @OnClick({R.id.text_depart_date, R.id.text_arrive_date})
     public void pickDepartDate(final View view) {
-        AddTripActivityHelper.getInstance().selectDate(
-                new AddTripActivityHelper.OnReceiveDate() {
-                    @Override
-                    public void day(Integer day) {
-                        if (view.getId() == R.id.text_depart_date) {
-                            departTime[DAY] = day;
-                        } else if (view.getId() == R.id.text_arrive_date) {
-                            arriveTime[DAY] = day;
-                        }
-                    }
-
-                    @Override
-                    public void month(Integer month) {
-                        if (view.getId() == R.id.text_depart_date) {
-                            departTime[MONTH] = month;
-                        } else if (view.getId() == R.id.text_arrive_date) {
-                            arriveTime[MONTH] = month;
-                        }
-                    }
-
-                    @Override
-                    public void year(Integer year) {
-                        if (view.getId() == R.id.text_depart_date) {
-                            departTime[YEAR] = year;
-                        } else if (view.getId() == R.id.text_arrive_date) {
-                            arriveTime[YEAR] = year;
-                        }
-                    }
-
-                    @Override
-                    public void text(String result) {
-                        if (view.getId() == R.id.text_depart_date) {
-                            textDepartDate.setText(result);
-                        } else if (view.getId() == R.id.text_arrive_date) {
-                            textArriveDate.setText(result);
-                        }
-                    }
-                });
+        AddTripActivityHelper.getInstance().selectDate(new AddTripActivityHelper.OnReceiveDate() {
+            @Override
+            public void date(Integer day, Integer month, Integer year, String result) {
+                if (view.getId() == R.id.text_depart_time) {
+                    from.setDay(day);
+                    from.setMonth(month);
+                    from.setYear(month);
+                    textDepartDate.setText(result);
+                } else if (view.getId() == R.id.text_arrive_time) {
+                    to.setDay(day);
+                    to.setMonth(month);
+                    to.setYear(month);
+                    textArriveDate.setText(result);
+                }
+            }
+        });
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == Activity.RESULT_OK && requestCode == MessageType.PICK_LOCATION_FROM) {
-            from = (IgPlace) data.getSerializableExtra(AppConfig.KEY_PICK_LOCATION);
-            textDepart.setText(from.getName());
-        } else if (resultCode == Activity.RESULT_OK && requestCode == MessageType.PICK_LOCATION_TO) {
-            to = (IgPlace) data.getSerializableExtra(AppConfig.KEY_PICK_LOCATION);
-            textArrive.setText(to.getName());
+
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == MessageType.PICK_LOCATION_FROM) {
+                from = (IgPlace) data.getSerializableExtra(AppConfig.KEY_PICK_LOCATION);
+                textDepart.setText(from.getName());
+            } else if (requestCode == MessageType.PICK_LOCATION_TO) {
+                to = (IgPlace) data.getSerializableExtra(AppConfig.KEY_PICK_LOCATION);
+                textArrive.setText(to.getName());
+            }
+
+            MapUtils.Map.direction(null,
+                    new LatLng(from.getLat(), from.getLng()),
+                    new LatLng(to.getLat(), to.getLng()), false, new CallBackWith<Info>() {
+                        @Override
+                        public void run(Info info) {
+                            textViewDes.setText(String.format("Dự tính: %s - %s",
+                                    info.strDistance,
+                                    info.strDuration));
+                        }
+                    }, null);
         }
     }
 
@@ -207,6 +198,7 @@ public class AddTripActivity extends OwnCoreActivity {
         dialogPickTransfer.setDialogResult(new CallBackWith<Integer>() {
             @Override
             public void run(@TransferType Integer type) {
+                mTransferType = type;
                 UiUtils.showTransfer(type, imageView);
             }
         });
@@ -234,44 +226,32 @@ public class AddTripActivity extends OwnCoreActivity {
             return;
         }
 
-        from.setTime(departTime[YEAR], departTime[MONTH], departTime[DAY],
-                departTime[HOUR], departTime[MINUTE]);
-
-        to.setTime(arriveTime[YEAR], arriveTime[MONTH], arriveTime[DAY],
-                arriveTime[HOUR], arriveTime[MINUTE]);
-
-        if (from.getTime() <= System.currentTimeMillis()) {
-            Toast.makeText(this, "Thời gian đi không hợp lệ", Toast.LENGTH_SHORT).show();
+        if (from.getTime() < System.currentTimeMillis() || to.getTime() <= from.getTime() || to.getTime() < System.currentTimeMillis()) {
+            Toast.makeText(this, getString(R.string.str_invalid_time), Toast.LENGTH_SHORT).show();
             return;
         }
 
-        if (to.getTime() <= from.getTime()) {
-            Toast.makeText(this, "Thời gian đến không hợp lệ", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        progressBar.setVisibility(View.VISIBLE);
-/*
-        IzigoApiManager.connect().addTrip(groupName, to.toString(), from.toString(), description,
-                0,
-                0, 1, new CallBack() {
-                    @Override
-                    public void run() {
-                        hideProgress();
-                        expired();
-                    }
-                }, new CallBackWith<String>() {
-                    @Override
-                    public void run(String groupId) {
-                        hideProgress();
-                        onSuccess(groupId);
-                    }
-                }, new CallBackWith<String>() {
-                    @Override
-                    public void run(String error) {
-                        hideProgress();
-                        Toast.makeText(AddTripActivity.this, error, Toast.LENGTH_SHORT).show();
-                    }
-                });*/
+        showProgress();
+
+        IzigoSdk.TripExecutor.addTrip(groupName, to.toString(), from.toString(), description, mTransferType, new IgCallback<String, String>() {
+            @Override
+            public void onSuccessful(String groupId) {
+                hideProgress();
+                onSuccess(groupId);
+            }
+
+            @Override
+            public void onFail(String error) {
+                hideProgress();
+                ToastUtils.showToast(AddTripActivity.this, error);
+            }
+
+            @Override
+            public void onExpired() {
+                hideProgress();
+                expired();
+            }
+        });
     }
 
     private void onSuccess(String tripId) {
@@ -283,6 +263,10 @@ public class AddTripActivity extends OwnCoreActivity {
 
     private void hideProgress() {
         progressBar.setVisibility(View.GONE);
+    }
+
+    private void showProgress() {
+        progressBar.setVisibility(View.VISIBLE);
     }
 
     @Override
