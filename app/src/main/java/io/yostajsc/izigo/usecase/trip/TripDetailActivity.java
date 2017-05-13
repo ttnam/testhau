@@ -14,22 +14,24 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearSnapHelper;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SnapHelper;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.FrameLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.OnClick;
 import io.yostajsc.core.designs.listeners.RecyclerItemClickListener;
 import io.yostajsc.core.interfaces.CallBack;
-import io.yostajsc.core.utils.FileUtils;
 import io.yostajsc.core.utils.ToastUtils;
 import io.yostajsc.izigo.usecase.trip.adapter.TimelineAdapter;
 import io.yostajsc.izigo.usecase.map.MapsActivity;
@@ -115,6 +117,9 @@ public class TripDetailActivity extends OwnCoreActivity {
     @BindView(R.id.layout_history)
     FrameLayout layoutHistory;
 
+    @BindView(R.id.switch_publish)
+    Switch switchPublish;
+
     private String tripId;
     private int mCurrentRoleType = RoleType.GUEST;
     private IgTrip mIgTrip = null;
@@ -126,15 +131,12 @@ public class TripDetailActivity extends OwnCoreActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trip_detail);
         ButterKnife.bind(this);
-        TripDetailActivityView.bind(this);
         onApplyViews();
-    }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
         tripId = getIntent().getStringExtra(IgTrip.TRIP_ID);
         onApplyData();
+
+        TripDetailActivityView.bind(this);
     }
 
     @Override
@@ -148,17 +150,6 @@ public class TripDetailActivity extends OwnCoreActivity {
         TripDetailActivityView.unbind();
         super.onDestroy();
     }
-/*
-    @OnClick(R.id.text_publish)
-    public void onMakePublish() {
-        mIsPublic = !mIsPublic;
-        TripDetailActivityView.publishTrip(tripId, mIsPublic, new CallBackWith<String>() {
-            @Override
-            public void run(String error) {
-                AppConfig.showToast(TripDetailActivity.this, error);
-            }
-        }, mOnExpiredCallBack);
-    }*/
 
     @Override
     public void onApplyViews() {
@@ -178,9 +169,7 @@ public class TripDetailActivity extends OwnCoreActivity {
         this.rvAlbum.addOnItemTouchListener(new RecyclerItemClickListener(this, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                Intent intent = new Intent(TripDetailActivity.this, TripAlbumActivity.class);
-                intent.putExtra(AppConfig.KEY_USER_ROLE, mIgTrip.getRole());
-                startActivity(intent);
+                showAlbumActivity();
             }
         }));
 
@@ -274,6 +263,7 @@ public class TripDetailActivity extends OwnCoreActivity {
     public void onInternetConnected() {
         super.onInternetConnected();
         onApplyData();
+        Log.e(TAG, "onInternetConnected");
     }
 
     private void updateTimeline(List<Timeline> timelines) {
@@ -293,7 +283,7 @@ public class TripDetailActivity extends OwnCoreActivity {
         AppConfig.igImages = igTrip.getAlbum();
         this.albumAdapter.replaceAll(igTrip.getAlbum());
         this.mCurrentRoleType = igTrip.getRole();
-        // TripDetailActivityView.setPublishMode(mIsPublic);                               // Publish
+        TripDetailActivityView.isPublish(igTrip.isPublished());                         // is publish
         TripDetailActivityView.switchMode(mCurrentRoleType);                            // Mode, is publish
         TripDetailActivityView.setTripName(igTrip.getName());                           // IgTrip name
         TripDetailActivityView.setVehicle(igTrip.getTransfer());                        // Transfer
@@ -336,6 +326,35 @@ public class TripDetailActivity extends OwnCoreActivity {
             dialogPickTransfer.show();
         }
     }
+
+    @OnClick(R.id.switch_publish)
+    public void togglePublish() {
+
+        IzigoSdk.TripExecutor.publishTrip(tripId, switchPublish.isChecked(), new IgCallback<Void, String>() {
+            @Override
+            public void onSuccessful(Void aVoid) {
+                ToastUtils.showToast(TripDetailActivity.this, getString(R.string.str_success));
+            }
+
+            @Override
+            public void onFail(String error) {
+                ToastUtils.showToast(TripDetailActivity.this, error);
+            }
+
+            @Override
+            public void onExpired() {
+                expired();
+            }
+        });
+    }
+
+    @OnClick(R.id.layout_show_album)
+    public void showAlbumActivity() {
+        Intent intent = new Intent(this, TripAlbumActivity.class);
+        intent.putExtra(AppConfig.KEY_USER_ROLE, mIgTrip.getRole());
+        startActivityForResult(intent, MessageType.PICK_IMAGE);
+    }
+
 /*
     @OnClick(R.id.button)
     public void actionLink() {
@@ -398,7 +417,7 @@ public class TripDetailActivity extends OwnCoreActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
-                case MessageType.FROM_GALLERY: {
+                case MessageType.FROM_GALLERY:
                     try {
                         Uri fileUri = data.getData();
                         Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), fileUri);
@@ -428,18 +447,17 @@ public class TripDetailActivity extends OwnCoreActivity {
                         e.printStackTrace();
                     }
                     break;
-                }
-                case MessageType.TAKE_PHOTO: {
-                    try {
-                        Bitmap photo = (Bitmap) data.getExtras().get("data");
-                        Uri tempUri = FileUtils.getImageUri(TripDetailActivity.this, photo);
-                        albumAdapter.add(new IgImage(tempUri.toString()));
+                case MessageType.TAKE_PHOTO:
 
-                    } catch (Exception e) {
-                        e.printStackTrace();
+                    break;
+                case MessageType.PICK_IMAGE:
+                    ArrayList<String> res = data.getStringArrayListExtra("PICK_IMAGE");
+                    if (res.size() > 0) {
+                        for (String url : res) {
+                            albumAdapter.add(new IgImage(url));
+                        }
                     }
                     break;
-                }
             }
         }
     }

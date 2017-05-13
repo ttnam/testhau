@@ -90,11 +90,7 @@ public class GalleryActivity extends AppCompatActivity {
     }
 
     private void updateUI(int size) {
-        if (size > 0) {
-            buttonRight.setVisibility(View.VISIBLE);
-        } else {
-            buttonRight.setVisibility(View.INVISIBLE);
-        }
+        buttonRight.setVisibility((size > 0) ? View.VISIBLE : View.INVISIBLE);
         textView.setText(String.format("%d/%d", size, total));
     }
 

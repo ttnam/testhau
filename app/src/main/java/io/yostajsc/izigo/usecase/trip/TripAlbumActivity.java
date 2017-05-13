@@ -2,6 +2,7 @@ package io.yostajsc.izigo.usecase.trip;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.IntentSender;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -85,6 +86,9 @@ public class TripAlbumActivity extends CoreActivity {
     @OnClick(R.id.button_left)
     @Override
     public void onBackPressed() {
+        Intent intent = new Intent();
+        intent.putStringArrayListExtra("PICK_IMAGE", albumAdapter.getAllInListString());
+        setResult(RESULT_OK, intent);
         super.onBackPressed();
     }
 
@@ -137,7 +141,6 @@ public class TripAlbumActivity extends CoreActivity {
                             albumAdapter.add(new IgImage(url));
                         }
                     }
-
                     break;
                 case MessageType.TAKE_PHOTO: {
                     try {

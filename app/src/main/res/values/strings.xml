@@ -106,5 +106,6 @@
     <string name="str_activities">Activities</string>
 
     <string name="str_invalid_time">Time invalid</string>
+    <string name="memories">Memories</string>
 
 </resources>

@@ -157,11 +157,11 @@ public class TripDetailActivityView {
                 case RoleType.MEMBER:
                 case RoleType.GUEST:
                     mActivity.textEdit.setVisibility(View.GONE);
-                    // mActivity.textPublish.setClickable(false);
+                    mActivity.switchPublish.setVisibility(View.GONE);
                     break;
                 case RoleType.ADMIN: {
                     mActivity.textEdit.setVisibility(View.VISIBLE);
-                    // mActivity.textPublish.setClickable(true);
+                    mActivity.switchPublish.setVisibility(View.VISIBLE);
                     mActivity.registerForContextMenu(mActivity.imageCover);
                     break;
                 }
@@ -181,19 +181,6 @@ public class TripDetailActivityView {
             e.printStackTrace();
         }
     }
-/*
-    public static void setPublishMode(boolean publishMode) {
-        try {
-            if (mInstance == null)
-                throw new Exception(ERROR_UNBOUND);
-            mActivity.textPublish.setText(
-                    publishMode ?
-                            mResources.getString(R.string.str_published) :
-                            mResources.getString(R.string.str_private));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }*/
 
     public static void unbind() {
         mActivity = null;
@@ -249,5 +236,15 @@ public class TripDetailActivityView {
                 expired.run();
             }
         });
+    }
+
+    public static void isPublish(boolean published) {
+        try {
+            if (mInstance == null)
+                throw new Exception(ERROR_UNBOUND);
+            mActivity.switchPublish.setChecked(published);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

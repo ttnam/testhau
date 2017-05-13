@@ -62,5 +62,17 @@ public class ImageryOnlyAdapter extends RecyclerView.Adapter<ImageryViewHolder> 
         notifyDataSetChanged();
     }
 
+
+    public List<IgImage> getAll() {
+        return this.mUrls;
+    }
+
+    public ArrayList<String> getAllInListString() {
+        ArrayList<String> res = new ArrayList<>();
+        for (IgImage igImage : mUrls) {
+            res.add(igImage.getUrl());
+        }
+        return res;
+    }
 }
 
