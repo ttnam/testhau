@@ -26,7 +26,7 @@ import io.yostajsc.core.glide.CropCircleTransformation;
 
 public class TripDetailActivityView {
 
-    private static final String ERROR_UN_BINDED = "You must bind first!";
+    private static final String ERROR_UNBOUND = "You must bind first!";
 
     private static TripDetailActivity mActivity = null;
     private static TripDetailActivityView mInstance = null;
@@ -45,7 +45,7 @@ public class TripDetailActivityView {
     public static void setOwnerAvatar(String url) {
         try {
             if (mInstance == null)
-                throw new Exception(ERROR_UN_BINDED);
+                throw new Exception(ERROR_UNBOUND);
             Glide.with(mActivity)
                     .load(url)
                     .diskCacheStrategy(DiskCacheStrategy.SOURCE)
@@ -60,7 +60,7 @@ public class TripDetailActivityView {
     public static void setTripCover(String url) {
         try {
             if (mInstance == null)
-                throw new Exception(ERROR_UN_BINDED);
+                throw new Exception(ERROR_UNBOUND);
             Glide.with(mActivity).load(url)
                     .priority(Priority.IMMEDIATE)
                     .animate(R.anim.anim_fade_in)
@@ -74,7 +74,7 @@ public class TripDetailActivityView {
     public static void setVehicle(int transfer) {
         try {
             if (mInstance == null)
-                throw new Exception(ERROR_UN_BINDED);
+                throw new Exception(ERROR_UNBOUND);
             UiUtils.showTransfer(transfer, mActivity.imageVehicle, mActivity.textVehicle);
         } catch (Exception e) {
             e.printStackTrace();
@@ -84,7 +84,7 @@ public class TripDetailActivityView {
     public static void setTripStatus(int status) {
         try {
             if (mInstance == null)
-                throw new Exception(ERROR_UN_BINDED);
+                throw new Exception(ERROR_UNBOUND);
             if (status == IgTripStatus.PREPARED) {
                 mActivity.textStatus.setText("Dự định");
                 mActivity.layoutMaps.setVisibility(View.VISIBLE);
@@ -111,7 +111,7 @@ public class TripDetailActivityView {
     public static void showTripDescription(String content) {
         try {
             if (mInstance == null)
-                throw new Exception(ERROR_UN_BINDED);
+                throw new Exception(ERROR_UNBOUND);
             UiUtils.showTextCenterInWebView(mActivity.webView, content);
         } catch (Exception e) {
             e.printStackTrace();
@@ -121,7 +121,7 @@ public class TripDetailActivityView {
     public static void setTripName(String name) {
         try {
             if (mInstance == null)
-                throw new Exception(ERROR_UN_BINDED);
+                throw new Exception(ERROR_UNBOUND);
             mActivity.textTripName.setText(name);
         } catch (Exception e) {
             e.printStackTrace();
@@ -131,7 +131,7 @@ public class TripDetailActivityView {
     public static void setOwnerName(String name) {
         try {
             if (mInstance == null)
-                throw new Exception(ERROR_UN_BINDED);
+                throw new Exception(ERROR_UNBOUND);
             mActivity.textCreatorName.setText(name);
         } catch (Exception e) {
             e.printStackTrace();
@@ -141,7 +141,7 @@ public class TripDetailActivityView {
     public static void setTime(long depart, long arrive) {
         try {
             if (mInstance == null)
-                throw new Exception(ERROR_UN_BINDED);
+                throw new Exception(ERROR_UNBOUND);
             mActivity.textTimeStart.setText(DatetimeUtils.getDate(depart));
             mActivity.textTimeEnd.setText(DatetimeUtils.getDate(arrive));
         } catch (Exception e) {
@@ -152,7 +152,7 @@ public class TripDetailActivityView {
     public static void switchMode(int roleType) {
         try {
             if (mInstance == null)
-                throw new Exception(ERROR_UN_BINDED);
+                throw new Exception(ERROR_UNBOUND);
             switch (roleType) {
                 case RoleType.MEMBER:
                 case RoleType.GUEST:
@@ -174,7 +174,7 @@ public class TripDetailActivityView {
     public static void setFromTo(String from, String to) {
         try {
             if (mInstance == null)
-                throw new Exception(ERROR_UN_BINDED);
+                throw new Exception(ERROR_UNBOUND);
             mActivity.textFrom.setText(from);
             mActivity.textTo.setText(to);
         } catch (Exception e) {
@@ -185,7 +185,7 @@ public class TripDetailActivityView {
     public static void setPublishMode(boolean publishMode) {
         try {
             if (mInstance == null)
-                throw new Exception(ERROR_UN_BINDED);
+                throw new Exception(ERROR_UNBOUND);
             mActivity.textPublish.setText(
                     publishMode ?
                             mResources.getString(R.string.str_published) :

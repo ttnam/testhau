@@ -72,13 +72,17 @@ public class MapsActivity extends OwnCoreActivity implements OnMapReadyCallback,
     private static final String TAG = MapsActivity.class.getSimpleName();
 
     private GoogleMap mMap = null;
-    private boolean mIsFirst = true, mIsDraw = false;
+
+    private Polyline mPolyline = null;
     private String mFocus = null, fbTemp = null;
-    private HashMap<String, Person> mTracks = new HashMap<>();
+    private boolean mIsFirst = true, mIsDraw = false;
+
     private SupportMapFragment mapFragment = null;
     private ClusterManager<Person> mClusterManager = null;
     private DialogActiveMembers mDialogActiveMembers = null;
-    private Polyline mPolyline = null;
+
+    private DialogNotification dialogNotification = null;
+    private HashMap<String, Person> mTracks = new HashMap<>();
     private List<IgNotification> notifications = new ArrayList<>();
 
     @BindView(R.id.own_toolbar)
@@ -112,13 +116,7 @@ public class MapsActivity extends OwnCoreActivity implements OnMapReadyCallback,
         }, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogNotification dialogNotification = new DialogNotification(MapsActivity.this, null);
-                dialogNotification.show();
-
-                for (int i = 0; i < 10; i++){
-                    notifications.add(new IgNotification());
-                }
-                dialogNotification.setData(notifications);
+                loadNotifications();
             }
         });
     }
@@ -148,24 +146,6 @@ public class MapsActivity extends OwnCoreActivity implements OnMapReadyCallback,
                             expired();
                         }
                     });
-        }
-    }
-
-
-    private void onReceiveMembers(List<IgFriend> igFriends) {
-        if (igFriends.size() > 0) {
-            mFocus = igFriends.get(0).getFbId();
-            for (IgFriend friend : igFriends) {
-                mTracks.put(friend.getFbId(), new Person(
-                        friend.getFbId(),
-                        friend.getName(),
-                        friend.getAvatar()
-                ));
-            }
-            // Register fire base data change listener
-            registerDataChangeListener();
-        } else {
-            ToastUtils.showToast(this, "Chưa có thành viên nào!");
         }
     }
 
@@ -307,25 +287,25 @@ public class MapsActivity extends OwnCoreActivity implements OnMapReadyCallback,
 
     @NeedsPermission({Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION})
     public void enableMyLocation() {
-
         if (!MapUtils.Gps.connect().isEnable())
             MapUtils.Gps.request(this).askGPS();
-
-        mMap.setMyLocationEnabled(true);
-        mMap.getUiSettings().setMyLocationButtonEnabled(true);
-        MapUtils.Map.setLocationButtonPosition(this.mapFragment, MapUtils.Map.Position.BOTTOM_RIGHT);
-    }
-
-    @Override
-    protected void onGpsOff() {
-        super.onGpsOff();
-        MapsActivityPermissionsDispatcher.askGPSWithCheck(this);
+        else {
+            mMap.setMyLocationEnabled(true);
+            mMap.getUiSettings().setMyLocationButtonEnabled(true);
+            MapUtils.Map.setLocationButtonPosition(this.mapFragment, MapUtils.Map.Position.BOTTOM_RIGHT);
+        }
     }
 
     @NeedsPermission({Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION})
     public void askGPS() {
         if (!MapUtils.Gps.connect().isEnable())
             MapUtils.Gps.request(this).askGPS();
+    }
+
+    @Override
+    protected void onGpsOff() {
+        super.onGpsOff();
+        MapsActivityPermissionsDispatcher.askGPSWithCheck(this);
     }
 
     @Override
@@ -558,7 +538,7 @@ public class MapsActivity extends OwnCoreActivity implements OnMapReadyCallback,
 
     }
 
-    public void reloadMarker(Person person) {
+    private void reloadMarker(Person person) {
         Collection<Marker> markers = mClusterManager.getMarkerCollection().getMarkers();
         String strId = person.getId();
         for (Marker marker : markers) {
@@ -570,4 +550,32 @@ public class MapsActivity extends OwnCoreActivity implements OnMapReadyCallback,
             }
         }
     }
+
+    private void onReceiveMembers(List<IgFriend> igFriends) {
+        if (igFriends.size() > 0) {
+            mFocus = igFriends.get(0).getFbId();
+            for (IgFriend friend : igFriends) {
+                mTracks.put(friend.getFbId(), new Person(
+                        friend.getFbId(),
+                        friend.getName(),
+                        friend.getAvatar()
+                ));
+            }
+            // Register fire base data change listener
+            registerDataChangeListener();
+        } else {
+            ToastUtils.showToast(this, "Chưa có thành viên nào!");
+        }
+    }
+
+    private void loadNotifications() {
+        dialogNotification = new DialogNotification(MapsActivity.this, null);
+        dialogNotification.show();
+
+        for (int i = 0; i < 100; i++) {
+            notifications.add(new IgNotification());
+        }
+        dialogNotification.setData(notifications);
+    }
+
 }

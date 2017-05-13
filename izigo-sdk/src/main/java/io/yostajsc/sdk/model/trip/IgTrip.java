@@ -26,10 +26,10 @@ public class IgTrip implements IgTripModel, Serializable {
     private String mCover;
 
     @SerializedName("arrive")
-    private LocationPick mArrive;
+    private IgPlace mArrive;
 
     @SerializedName("depart")
-    private LocationPick mDepart;
+    private IgPlace mDepart;
 
     @SerializedName("status")
     private int mStatus;

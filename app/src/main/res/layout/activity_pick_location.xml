@@ -21,10 +21,10 @@
             app:srcCompat="@drawable/ic_vector_back_blue" />
 
         <fragment
-            android:id="@id/map_place"
-            android:name="com.google.android.gms.location.places.ui.PlaceAutocompleteFragment"
+            android:id="@+id/map_place"
+            android:name="io.yostajsc.izigo.usecase.trip.MyPlaceSelector"
             android:layout_width="match_parent"
-            android:layout_height="?actionBarSize" />
+            android:layout_height="match_parent" />
 
     </LinearLayout>
 

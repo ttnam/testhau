@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
@@ -43,28 +44,25 @@ public class NotificationsViewHolder extends RecyclerView.ViewHolder {
         ButterKnife.bind(this, itemView);
     }
 
-    public void bind(IgBaseUserInfo userInfo, BaseTripInfo tripInfo, int type,
+    public void bind(String name, String avatar, String tripName, int type,
                      CallBack yes, CallBack no) {
 
-     /*   Glide.with(mContext)
-                .load(tripInfo.getCover())
-                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                .into(this.imageView);*/
+        if (!TextUtils.isEmpty(avatar)) {
+            Glide.with(mContext)
+                    .load(avatar)
+                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                    .bitmapTransform(new CropCircleTransformation(mContext))
+                    .into(this.imageView);
+        }
 
-        Glide.with(mContext)
-                .load(userInfo.getAvatar())
-                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                .bitmapTransform(new CropCircleTransformation(mContext))
-                .into(this.imageView);
 
         String prefix = "<b>";
         String postfix = "</b>";
 
-        String tripName = prefix + tripInfo.getName() + postfix;
-        String from = prefix + userInfo.getName() + postfix;
+        tripName = prefix + tripName + postfix;
+        String from = prefix + name + postfix;
 
         switch (type) {
-
             case NotificationType.ACCEPT_JOIN_TRIP:
                 textView.setText(from + " thêm bạn vào trip " + tripName);
                 break;

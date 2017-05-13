@@ -14,7 +14,7 @@ import io.yostajsc.sdk.model.trip.IgBaseUserInfo;
 public class IgNotification implements Serializable {
 
     @SerializedName("content")
-    private NotificationContent mContent;
+    private Content mContent;
 
     @SerializedName("type")
     private int mType;
@@ -23,10 +23,14 @@ public class IgNotification implements Serializable {
     private String mId;
 
     public IgBaseUserInfo getFrom() {
+        if (mContent == null)
+            return null;
         return mContent.getFrom();
     }
 
     public BaseTripInfo getTrip() {
+        if (mContent == null)
+            return null;
         return mContent.getTrip();
     }
 
@@ -36,5 +40,22 @@ public class IgNotification implements Serializable {
 
     public String getId() {
         return mId;
+    }
+
+    public class Content implements Serializable {
+
+        @SerializedName("from")
+        private IgBaseUserInfo from;
+
+        @SerializedName("trip")
+        private BaseTripInfo trip;
+
+        public IgBaseUserInfo getFrom() {
+            return from;
+        }
+
+        public BaseTripInfo getTrip() {
+            return trip;
+        }
     }
 }

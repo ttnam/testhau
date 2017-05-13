@@ -9,8 +9,6 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.yostajsc.izigo.constants.NotificationType;
-import io.yostajsc.core.interfaces.CallBack;
 import io.yostajsc.izigo.R;
 import io.yostajsc.sdk.model.IgNotification;
 import io.yostajsc.izigo.usecase.notification.viewholder.NotificationsViewHolder;
@@ -45,10 +43,18 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationsViewH
         final IgNotification igNotification = mData.get(position);
 
         int notiType = igNotification.getType();
-        if (notiType == NotificationType.ACCEPT_JOIN_TRIP) {
+        // if (notiType == NotificationType.ACCEPT_JOIN_TRIP) {
+        String name = null, avatar = null, tripName = null;
+        if (igNotification.getFrom() != null) {
+            name = igNotification.getFrom().getName();
+            avatar = igNotification.getFrom().getAvatar();
+        }
+        if (igNotification.getTrip() != null) {
+            tripName = igNotification.getTrip().getName();
+        }
 
-            holder.bind(igNotification.getFrom(), igNotification.getTrip(), igNotification.getType(),
-                    new CallBack() {
+        holder.bind(name, avatar, tripName, igNotification.getType(), null, null);
+                    /*new CallBack() {
                         @Override
                         public void run() {
                             // accept(position, igNotification.getTrip().getId(), igNotification.getId(), 1);
@@ -58,8 +64,8 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationsViewH
                         public void run() {
                             // accept(position, igNotification.getTrip().getId(), igNotification.getId(), 0);
                         }
-                    });
-        } else {
+                    });*/
+        /*} else {
             holder.bind(igNotification.getFrom(), igNotification.getTrip(), igNotification.getType(),
                     new CallBack() {
                         @Override
@@ -72,7 +78,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationsViewH
                             // verify(position, igNotification.getTrip().getId(), igNotification.getId(), 0);
                         }
                     });
-        }
+        }*/
 
     }
 

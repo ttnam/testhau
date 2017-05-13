@@ -5,13 +5,11 @@ import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 import java.util.Calendar;
 
-import io.realm.RealmObject;
-
 /**
  * Created by Phuc-Hau Nguyen on 3/9/2017.
  */
 
-public class LocationPick extends RealmObject implements Serializable {
+public class IgPlace implements Serializable {
 
     @SerializedName("lat")
     private double lat;
@@ -25,16 +23,17 @@ public class LocationPick extends RealmObject implements Serializable {
     @SerializedName("time")
     private long time;
 
-    public LocationPick() {
+    public IgPlace() {
+
     }
 
-    public LocationPick(int yyyy, int m, int d, int h, int min) {
+    public IgPlace(int yyyy, int m, int d, int h, int min) {
         Calendar calendar = Calendar.getInstance();
         calendar.set(yyyy, m, d, h, min);
         this.time = calendar.getTimeInMillis();
     }
 
-    public LocationPick(String name, int yyyy, int m, int d, int h, int min) {
+    public IgPlace(String name, int yyyy, int m, int d, int h, int min) {
         Calendar calendar = Calendar.getInstance();
         calendar.set(yyyy, m, d, h, min);
         this.time = calendar.getTimeInMillis();

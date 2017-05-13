@@ -58,8 +58,8 @@ public class DialogNotification extends Dialog {
         if (window != null) {
             WindowManager.LayoutParams params = window.getAttributes();
             params.windowAnimations = R.style.CoreAppTheme_AnimDialog_Grow;
-            params.width = DimensionUtil.getScreenWidth(mOwnerActivity) * 4 / 5;
-            params.height = WindowManager.LayoutParams.WRAP_CONTENT;
+            params.width = WindowManager.LayoutParams.WRAP_CONTENT;
+            params.height = WindowManager.LayoutParams.MATCH_PARENT;
             window.setAttributes(params);
         }
         setCancelable(false);
@@ -71,7 +71,7 @@ public class DialogNotification extends Dialog {
         this.adapter = new NotificationAdapter(mOwnerActivity);
         this.recyclerView.setAdapter(adapter);
         this.recyclerView.setHasFixedSize(true);
-        this.recyclerView.addItemDecoration(new SpacesItemDecoration(3));
+        this.recyclerView.addItemDecoration(new SpacesItemDecoration(5));
         this.recyclerView.setLayoutManager(new LinearLayoutManager(mOwnerActivity));
         this.recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(mOwnerActivity, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
@@ -86,6 +86,7 @@ public class DialogNotification extends Dialog {
             return;
         adapter.replaceAll(igNoti);
     }
+
     public interface OnItemSelectListener {
         void selected(String s);
     }
