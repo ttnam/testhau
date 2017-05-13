@@ -44,7 +44,6 @@ public class NotificationFragment extends BaseFragment {
         View rootView = inflater.inflate(R.layout.fragment_notification, container, false);
         ButterKnife.bind(this, rootView);
         onApplyViews();
-        onApplyData();
         return rootView;
     }
 
@@ -54,12 +53,18 @@ public class NotificationFragment extends BaseFragment {
         rvNotification.addItemDecoration(new SpacesItemDecoration(3));
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        onApplyData();
+    }
 
     private void onApplyData() {
 
         IzigoSdk.UserExecutor.getNotifications(new IgCallback<List<IgNotification>, String>() {
             @Override
             public void onSuccessful(List<IgNotification> igNotifications) {
+                adapter.clear();
                 int size = igNotifications.size();
                 if (size > 0) {
                     toggleUI(false);

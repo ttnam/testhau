@@ -532,8 +532,8 @@ class IzigoApiManager {
         });
     }
 
-    public void accept(String authorization, String tripId, String notiId, int verify, final CallBack expired,
-                       final CallBack success, final CallBackWith<String> fail) {
+    public void accept(String authorization, String tripId, String notiId, int verify,
+                       final IgCallback<Void, String> callback) {
 
         Call<BaseResponse<String>> call = service.accept(authorization, tripId, notiId, verify);
 
@@ -543,26 +543,26 @@ class IzigoApiManager {
                 if (response.isSuccessful()) {
                     BaseResponse<String> res = response.body();
                     if (res.isSuccessful()) {
-                        success.run();
+                        callback.onSuccessful(null);
                     } else if (res.isExpired()) {
-                        expired.run();
+                        callback.onExpired();
                     } else {
-                        fail.run(res.getDescription());
+                        callback.onFail(res.getDescription());
                     }
                 }
             }
 
             @Override
             public void onFailure(Call<BaseResponse<String>> call, Throwable throwable) {
-                Log.e(TAG, throwable.getMessage());
+                callback.onFail(throwable.getMessage());
             }
         });
     }
 
-    public void verify(String authorization, String tripId, String notiId, int verify, final CallBack expired,
-                       final CallBack success, final CallBackWith<String> fail) {
+    public void verify(String authorization, String tripId, String notiId, int verify,
+                       final IgCallback<Void, String> callback) {
 
-        Call<BaseResponse<String>> call = service.apiVerify(authorization, tripId, notiId, verify);
+        Call<BaseResponse<String>> call = service.verify(authorization, tripId, notiId, verify);
 
         call.enqueue(new Callback<BaseResponse<String>>() {
             @Override
@@ -570,18 +570,18 @@ class IzigoApiManager {
                 if (response.isSuccessful()) {
                     BaseResponse<String> res = response.body();
                     if (res.isSuccessful()) {
-                        success.run();
+                        callback.onSuccessful(null);
                     } else if (res.isExpired()) {
-                        expired.run();
+                        callback.onExpired();
                     } else {
-                        fail.run(res.getDescription());
+                        callback.onFail(res.getDescription());
                     }
                 }
             }
 
             @Override
             public void onFailure(Call<BaseResponse<String>> call, Throwable throwable) {
-                Log.e(TAG, throwable.getMessage());
+                callback.onFail(throwable.getMessage());
             }
         });
     }

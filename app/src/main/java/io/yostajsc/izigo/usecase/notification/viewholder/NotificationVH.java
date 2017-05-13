@@ -24,7 +24,7 @@ import io.yostajsc.core.glide.CropCircleTransformation;
  */
 public class NotificationVH extends RecyclerView.ViewHolder {
 
-    private Context mContext;
+    protected Context mContext;
 
     @BindView(R.id.image_view)
     AppCompatImageView imageView;
@@ -40,7 +40,7 @@ public class NotificationVH extends RecyclerView.ViewHolder {
 
     public NotificationVH(View itemView) {
         super(itemView);
-        mContext = itemView.getContext();
+        this.mContext = itemView.getContext();
         ButterKnife.bind(this, itemView);
     }
 

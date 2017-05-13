@@ -130,8 +130,7 @@ interface IzigoApiInterface {
     Call<BaseResponse<String>> accept(@Header("authorization") String authorization,
                                       @Path("id") String tripId,
                                       @Field("notiId") String notyId,
-                                      @Field("apiVerify") int verify);
-
+                                      @Field("verify") int verify);
     @FormUrlEncoded
     @PUT("api/trips/{id}/add")
     Call<BaseResponse<String>> apiAddMember(@Header("authorization") String authorization,
@@ -140,10 +139,10 @@ interface IzigoApiInterface {
 
     @FormUrlEncoded
     @PUT("api/trips/{id}/verify")
-    Call<BaseResponse<String>> apiVerify(@Header("authorization") String authorization,
-                                         @Path("id") String tripId,
-                                         @Field("notiId") String notyId,
-                                         @Field("apiVerify") int verify);
+    Call<BaseResponse<String>> verify(@Header("authorization") String authorization,
+                                      @Path("id") String tripId,
+                                      @Field("notiId") String notyId,
+                                      @Field("verify") int verify);
 
     @FormUrlEncoded
     @PUT("api/trips/{id}/kick")

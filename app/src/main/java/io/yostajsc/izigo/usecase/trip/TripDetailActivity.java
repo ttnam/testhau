@@ -125,7 +125,6 @@ public class TripDetailActivity extends OwnCoreActivity {
     @BindView(R.id.button_action)
     Button buttonAction;
 
-    private String tripId;
     private int mCurrentRoleType = RoleType.GUEST;
     private IgTrip mIgTrip = null;
     private ImageryAdapter albumAdapter = null;
@@ -138,7 +137,6 @@ public class TripDetailActivity extends OwnCoreActivity {
         ButterKnife.bind(this);
         onApplyViews();
 
-        tripId = getIntent().getStringExtra(IgTrip.TRIP_ID);
         onApplyData();
 
         TripDetailActivityView.bind(this);
@@ -214,7 +212,7 @@ public class TripDetailActivity extends OwnCoreActivity {
 
     @OnClick(R.id.layout_more)
     public void showMore() {
-        PrefsUtils.inject(this).save(IgTrip.TRIP_ID, tripId);
+        PrefsUtils.inject(this).save(IgTrip.TRIP_ID, AppConfig.getInstance().getCurrentTripId());
         BottomSheetDialogFragment bottomSheetDialogFragment = new BottomSheetDialog();
         bottomSheetDialogFragment.show(getSupportFragmentManager(), bottomSheetDialogFragment.getTag());
     }
@@ -223,9 +221,9 @@ public class TripDetailActivity extends OwnCoreActivity {
     public void onApplyData() {
         if (NetworkUtils.isNetworkConnected(this)) {
 
-            IzigoSdk.TripExecutor.increaseTripView(tripId);
+            IzigoSdk.TripExecutor.increaseTripView(AppConfig.getInstance().getCurrentTripId());
 
-            IzigoSdk.TripExecutor.getTripDetail(tripId, new IgCallback<IgTrip, String>() {
+            IzigoSdk.TripExecutor.getTripDetail(AppConfig.getInstance().getCurrentTripId(), new IgCallback<IgTrip, String>() {
                 @Override
                 public void onSuccessful(IgTrip igTrip) {
                     updateUI(igTrip);
@@ -243,7 +241,7 @@ public class TripDetailActivity extends OwnCoreActivity {
             });
 
 
-            IzigoSdk.TripExecutor.getActivities(tripId, new IgCallback<List<IgTimeline>, String>() {
+            IzigoSdk.TripExecutor.getActivities(AppConfig.getInstance().getCurrentTripId(), new IgCallback<List<IgTimeline>, String>() {
                 @Override
                 public void onSuccessful(List<IgTimeline> timelines) {
                     updateTimeline(timelines);
@@ -305,7 +303,6 @@ public class TripDetailActivity extends OwnCoreActivity {
     public void loadComment() {
         DialogComment dialogComment = new DialogComment(this);
         dialogComment.show();
-        dialogComment.setTripId(tripId);
         dialogComment.setTripName(mIgTrip.getName());
     }
 
@@ -335,7 +332,7 @@ public class TripDetailActivity extends OwnCoreActivity {
     @OnClick(R.id.switch_publish)
     public void togglePublish() {
 
-        IzigoSdk.TripExecutor.publishTrip(tripId, switchPublish.isChecked(), new IgCallback<Void, String>() {
+        IzigoSdk.TripExecutor.publishTrip(AppConfig.getInstance().getCurrentTripId(), switchPublish.isChecked(), new IgCallback<Void, String>() {
             @Override
             public void onSuccessful(Void aVoid) {
                 ToastUtils.showToast(TripDetailActivity.this, getString(R.string.str_success));
@@ -364,7 +361,7 @@ public class TripDetailActivity extends OwnCoreActivity {
     @OnClick(R.id.button_action)
     public void makeAction() {
         if (mCurrentRoleType == RoleType.GUEST) {
-            IzigoSdk.TripExecutor.join(tripId, new IgCallback<Void, String>() {
+            IzigoSdk.TripExecutor.join(AppConfig.getInstance().getCurrentTripId(), new IgCallback<Void, String>() {
                 @Override
                 public void onSuccessful(Void aVoid) {
                     ToastUtils.showToast(TripDetailActivity.this, "Đã gửi request.");
@@ -386,14 +383,13 @@ public class TripDetailActivity extends OwnCoreActivity {
     }
 
     @OnClick(R.id.layout_maps)
-    public void loadActivity() {
+    public void loadMapViews() {
         TripDetailActivityPermissionsDispatcher.loadMapsWithCheck(this);
     }
 
     @NeedsPermission({Manifest.permission.ACCESS_COARSE_LOCATION,
             Manifest.permission.ACCESS_FINE_LOCATION})
     public void loadMaps() {
-        AppConfig.getInstance().setCurrentTripId(tripId);
         startActivity(new Intent(this, MapsActivity.class));
     }
 
@@ -439,7 +435,7 @@ public class TripDetailActivity extends OwnCoreActivity {
                                     .into(imageCover);
 
                             // Update server
-                            TripDetailActivityView.changeTripCover(tripId, fileUri, new CallBackWith<String>() {
+                            TripDetailActivityView.changeTripCover(AppConfig.getInstance().getCurrentTripId(), fileUri, new CallBackWith<String>() {
                                 @Override
                                 public void run(String error) {
                                     ToastUtils.showToast(TripDetailActivity.this, error);

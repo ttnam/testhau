@@ -69,7 +69,7 @@ public class BottomSheetDialog extends android.support.design.widget.BottomSheet
                 email.setType("message/rfc822");
                 startActivity(Intent.createChooser(email, "Choose an Email client"));*//*
                 startActivity(new Intent(mContext, MembersActivity.class));
-                dismiss();
+                onDismiss();
             }
         });*/
        /* mLayoutShare.setOnClickListener(new View.OnClickListener() {
@@ -87,7 +87,7 @@ public class BottomSheetDialog extends android.support.design.widget.BottomSheet
                         "Xin chao ban! Hay tham gia ... voi toi nha. Hen gap ban tai su kien sap toi.");
                 sendIntent.setType("vnd.android-dir/mms-sms");
                 startActivity(sendIntent);*//*
-                dismiss();
+                onDismiss();
             }
         });*/
        /* layoutGooglePlus.setOnClickListener(new View.OnClickListener() {
@@ -102,7 +102,7 @@ public class BottomSheetDialog extends android.support.design.widget.BottomSheet
                         .getIntent();
 
                 startActivityForResult(shareIntent, 0);
-                dismiss();
+                onDismiss();
             }
         });
         layoutFacebook.setOnClickListener(new View.OnClickListener() {
@@ -115,7 +115,7 @@ public class BottomSheetDialog extends android.support.design.widget.BottomSheet
                         .build();
                 ShareDialog shareDialog = new ShareDialog(mActivity);
                 shareDialog.show(contentFB, ShareDialog.Mode.AUTOMATIC);
-                dismiss();
+                onDismiss();
             }
         });*/
     }

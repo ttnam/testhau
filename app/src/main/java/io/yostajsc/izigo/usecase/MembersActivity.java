@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 
 import java.util.List;
@@ -26,6 +27,7 @@ import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 
 public class MembersActivity extends OwnCoreActivity {
 
+    private static final String TAG = MembersActivity.class.getSimpleName();
 
     @BindView(R.id.recycler_view)
     RecyclerView rvFriends;
@@ -89,6 +91,7 @@ public class MembersActivity extends OwnCoreActivity {
 
     private void getMemberList() {
 
+        Log.e(TAG, AppConfig.getInstance().getCurrentTripId());
         IzigoSdk.TripExecutor.getMembers(AppConfig.getInstance().getCurrentTripId(), new IgCallback<List<IgFriend>, String>() {
             @Override
             public void onSuccessful(List<IgFriend> friends) {

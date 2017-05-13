@@ -1,6 +1,7 @@
 package io.yostajsc.sdk.api;
 
 import android.app.Application;
+import android.util.Log;
 
 import java.util.HashMap;
 import java.util.List;
@@ -118,6 +119,7 @@ public class IzigoSdk {
         public static void getPublishTrip(final IgCallback<List<IgTrip>, String> callback) {
             if (IzigoSession.isLoggedIn()) {
                 String auth = IzigoSession.getToken().getToken();
+                Log.e(TAG, auth);
                 IzigoApiManager.connect().getAllPublicTrips(auth, callback);
             } else {
                 callback.onExpired();
@@ -343,6 +345,24 @@ public class IzigoSdk {
         public static String getOwnAvatar() {
             IgToken igToken = IzigoSession.getToken();
             return igToken.getAvatar();
+        }
+
+        public static void accept(String tripId, String notiId, int verify, final IgCallback<Void, String> callback) {
+            if (IzigoSession.isLoggedIn()) {
+                String auth = IzigoSession.getToken().getToken();
+                IzigoApiManager.connect().accept(auth, tripId, notiId, verify, callback);
+            } else {
+                callback.onExpired();
+            }
+        }
+
+        public static void verify(String tripId, String notiId, int verify, final IgCallback<Void, String> callback) {
+            if (IzigoSession.isLoggedIn()) {
+                String auth = IzigoSession.getToken().getToken();
+                IzigoApiManager.connect().verify(auth, tripId, notiId, verify, callback);
+            } else {
+                callback.onExpired();
+            }
         }
     }
 }

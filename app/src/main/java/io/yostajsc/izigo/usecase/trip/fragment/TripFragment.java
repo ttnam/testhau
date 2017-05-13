@@ -15,6 +15,7 @@ import io.yostajsc.core.fragments.CoreFragment;
 import io.yostajsc.core.interfaces.CallBack;
 import io.yostajsc.core.interfaces.CallBackWith;
 import io.yostajsc.core.utils.ToastUtils;
+import io.yostajsc.izigo.AppConfig;
 import io.yostajsc.sdk.model.trip.IgTrip;
 import io.yostajsc.core.utils.NetworkUtils;
 import io.yostajsc.izigo.R;
@@ -78,9 +79,8 @@ public class TripFragment extends CoreFragment {
                     @Override
                     public void run(Integer position) {
                         final String tripId = tripAdapter.getItem(position).getId();
-                        Intent intent = new Intent(mContext, TripDetailActivity.class);
-                        intent.putExtra(IgTrip.TRIP_ID, tripId);
-                        startActivity(intent);
+                        AppConfig.getInstance().setCurrentTripId(tripId);
+                        startActivity(new Intent(mContext, TripDetailActivity.class));
                     }
                 });
         this.rvTrip.addItemDecoration(new SpacesItemDecoration(5));
