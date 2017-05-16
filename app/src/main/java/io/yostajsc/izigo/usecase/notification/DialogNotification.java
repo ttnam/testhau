@@ -16,7 +16,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.yostajsc.core.designs.decorations.SpacesItemDecoration;
 import io.yostajsc.core.designs.listeners.RecyclerItemClickListener;
-import io.yostajsc.core.utils.DimensionUtil;
 import io.yostajsc.izigo.R;
 import io.yostajsc.sdk.model.IgNotification;
 
@@ -30,16 +29,13 @@ public class DialogNotification extends Dialog {
 
     private Activity mOwnerActivity = null;
     private NotificationAdapter adapter = null;
-    private OnItemSelectListener mOnItemSelected = null;
 
-    public DialogNotification(Context context, OnItemSelectListener onItemSelected) {
+    public DialogNotification(Context context) {
         super(context, R.style.CoreAppTheme_Dialog);
 
         this.mOwnerActivity = (context instanceof Activity) ? (Activity) context : null;
         if (this.mOwnerActivity != null)
             setOwnerActivity(mOwnerActivity);
-
-        this.mOnItemSelected = onItemSelected;
     }
 
     @Override
@@ -85,9 +81,5 @@ public class DialogNotification extends Dialog {
         if (igNoti == null)
             return;
         adapter.replaceAll(igNoti);
-    }
-
-    public interface OnItemSelectListener {
-        void selected(String s);
     }
 }

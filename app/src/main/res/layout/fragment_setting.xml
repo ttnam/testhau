@@ -13,7 +13,7 @@
         app:layoutTitleColor="@color/colorTextColorPrimary"
         app:layoutType="title_center" />
 
-    <include layout="@layout/layout_separate_vertical" />
+    <include layout="@layout/layout_shadow" />
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"

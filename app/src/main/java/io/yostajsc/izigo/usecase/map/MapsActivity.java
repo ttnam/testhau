@@ -468,12 +468,12 @@ public class MapsActivity extends OwnCoreActivity implements OnMapReadyCallback,
             mMultiGenerator = new IconGenerator(getApplicationContext());
 
             // Single profile
-            View singleProfile = getLayoutInflater().inflate(R.layout.layout_marker_profile, null);
+            View singleProfile = getLayoutInflater().inflate(R.layout.layout_single_profile, null);
             mSingleImageView = (AppCompatImageView) singleProfile.findViewById(R.id.image_view);
             mSingleGenerator.setContentView(singleProfile);
 
             // Multi profile
-            View multiProfile = getLayoutInflater().inflate(R.layout.layout_multi_profile, null);
+            View multiProfile = getLayoutInflater().inflate(R.layout.layout_multiple_profile, null);
             mMultiGenerator.setContentView(multiProfile);
             mMultiImageView = (AppCompatImageView) multiProfile.findViewById(R.id.image_view);
 
@@ -565,19 +565,34 @@ public class MapsActivity extends OwnCoreActivity implements OnMapReadyCallback,
             }
             // Register fire base data change listener
             registerDataChangeListener();
-        } else {
-            ToastUtils.showToast(this, "Chưa có thành viên nào!");
         }
     }
 
     private void loadNotifications() {
-        dialogNotification = new DialogNotification(MapsActivity.this, null);
+        dialogNotification = new DialogNotification(MapsActivity.this);
         dialogNotification.show();
 
-        for (int i = 0; i < 100; i++) {
-            notifications.add(new IgNotification());
-        }
-        dialogNotification.setData(notifications);
-    }
+        IzigoSdk.UserExecutor.getNotifications("3;4", new IgCallback<List<IgNotification>, String>() {
+            @Override
+            public void onSuccessful(List<IgNotification> data) {
+                if (data.size() > 0) {
+                    notifications.clear();
+                    for (IgNotification notification : data) {
+                        notifications.add(notification);
+                    }
+                    dialogNotification.setData(notifications);
+                }
+            }
 
+            @Override
+            public void onFail(String error) {
+                ToastUtils.showToast(MapsActivity.this, error);
+            }
+
+            @Override
+            public void onExpired() {
+                expired();
+            }
+        });
+    }
 }

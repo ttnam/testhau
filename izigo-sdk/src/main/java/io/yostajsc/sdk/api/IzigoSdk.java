@@ -324,10 +324,10 @@ public class IzigoSdk {
             }
         }
 
-        public static void getNotifications(final IgCallback<List<IgNotification>, String> callback) {
+        public static void getNotifications(String type, final IgCallback<List<IgNotification>, String> callback) {
             if (IzigoSession.isLoggedIn()) {
                 String auth = IzigoSession.getToken().getToken();
-                IzigoApiManager.connect().getNotification(auth, callback);
+                IzigoApiManager.connect().getNotification(auth, type, callback);
             } else {
                 callback.onExpired();
             }

@@ -1,22 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/colorWindowBackground"
     android:orientation="vertical">
 
-    <LinearLayout
+    <FrameLayout
+        android:id="@+id/layout_change_trip_status"
         style="@style/Style_Menu_Item.Press"
-        android:clickable="true"
-        android:orientation="horizontal">
+        android:clickable="true">
 
-        <android.support.v7.widget.AppCompatImageView
-            android:layout_width="@dimen/icon_size_x4"
-            android:layout_height="@dimen/icon_size_x4"
+        <TextView
+            style="@style/CoreAppTheme.TextView_Sub_Title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:padding="@dimen/margin"
-            app:srcCompat="@drawable/ic_vector_edit" />
+            android:text="Cập nhật trạng thái" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/layout_change_trip_name"
+        style="@style/Style_Menu_Item.Press"
+        android:clickable="true">
 
         <TextView
             style="@style/CoreAppTheme.TextView_Sub_Title"
@@ -24,19 +29,13 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="Đổi tên hành trình" />
-    </LinearLayout>
 
-    <LinearLayout
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/layout_change_trip_discription"
         style="@style/Style_Menu_Item.Press"
-        android:clickable="true"
-        android:orientation="horizontal">
-
-        <android.support.v7.widget.AppCompatImageView
-            android:layout_width="@dimen/icon_size_x4"
-            android:layout_height="@dimen/icon_size_x4"
-            android:layout_gravity="center"
-            android:padding="@dimen/margin"
-            app:srcCompat="@drawable/ic_vector_edit" />
+        android:clickable="true">
 
         <TextView
             style="@style/CoreAppTheme.TextView_Sub_Title"
@@ -44,6 +43,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="Thay đổi nội dung mô tả" />
-    </LinearLayout>
+    </FrameLayout>
 
 </LinearLayout>

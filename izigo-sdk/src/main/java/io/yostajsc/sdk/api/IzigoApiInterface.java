@@ -123,7 +123,8 @@ interface IzigoApiInterface {
 
     @GET("api/notification")
     Call<BaseResponse<List<IgNotification>>> getNotification(
-            @Header("authorization") String authorization);
+            @Header("authorization") String authorization,
+            @Query("type") String type);
 
     @FormUrlEncoded
     @PUT("api/trips/{id}/accept")
@@ -131,6 +132,7 @@ interface IzigoApiInterface {
                                       @Path("id") String tripId,
                                       @Field("notiId") String notyId,
                                       @Field("verify") int verify);
+
     @FormUrlEncoded
     @PUT("api/trips/{id}/add")
     Call<BaseResponse<String>> apiAddMember(@Header("authorization") String authorization,

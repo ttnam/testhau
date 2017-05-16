@@ -2,7 +2,6 @@ package io.yostajsc.izigo.usecase.customview;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.CoordinatorLayout;
@@ -11,7 +10,6 @@ import android.widget.LinearLayout;
 
 import butterknife.ButterKnife;
 import io.yostajsc.izigo.R;
-import io.yostajsc.izigo.usecase.MembersActivity;
 
 /**
  * Created by HenryPhuc on 6/9/2016.
@@ -33,7 +31,7 @@ public class BottomSheetDialog extends android.support.design.widget.BottomSheet
         }
     };
 
-    LinearLayout mLayoutShare;
+    LinearLayout mLayoutUpdateShare;
 
     private Context mContext = null;
 

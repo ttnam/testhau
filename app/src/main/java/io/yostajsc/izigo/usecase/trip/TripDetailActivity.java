@@ -178,14 +178,7 @@ public class TripDetailActivity extends OwnCoreActivity {
 
         // IgTimeline
         this.timelineAdapter = new TimelineAdapter(this);
-        UiUtils.onApplyRecyclerView(this.rVTimeLine,
-                this.timelineAdapter, new SlideInUpAnimator(),
-                new CallBackWith<Integer>() {
-                    @Override
-                    public void run(Integer position) {
-
-                    }
-                });
+        UiUtils.onApplyRecyclerView(this.rVTimeLine, this.timelineAdapter, new SlideInUpAnimator(), null);
     }
 
     @Override

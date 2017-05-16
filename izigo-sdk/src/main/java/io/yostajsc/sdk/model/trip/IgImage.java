@@ -6,15 +6,12 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-import io.realm.annotations.PrimaryKey;
-
 /**
  * Created by nphau on 4/30/17.
  */
 
 public class IgImage implements Serializable {
 
-    @PrimaryKey
     @SerializedName("id")
     private String mId;
 

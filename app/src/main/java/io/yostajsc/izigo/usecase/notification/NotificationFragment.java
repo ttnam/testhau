@@ -61,7 +61,7 @@ public class NotificationFragment extends BaseFragment {
 
     private void onApplyData() {
 
-        IzigoSdk.UserExecutor.getNotifications(new IgCallback<List<IgNotification>, String>() {
+        IzigoSdk.UserExecutor.getNotifications(null, new IgCallback<List<IgNotification>, String>() {
             @Override
             public void onSuccessful(List<IgNotification> igNotifications) {
                 adapter.clear();
