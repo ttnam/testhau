@@ -108,6 +108,38 @@
 
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/margin"
+                android:background="@drawable/ic_style_button_round_none_default"
+                android:clickable="true"
+                android:orientation="vertical"
+                android:padding="@dimen/margin_min">
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:id="@+id/image_vehicle"
+                    android:layout_width="@dimen/icon_size_x5"
+                    android:layout_height="@dimen/icon_size_x5"
+                    android:layout_gravity="center"
+                    android:background="@drawable/ic_style_circle_grey"
+                    android:padding="@dimen/margin"
+                    app:srcCompat="@drawable/ic_vector_motor_bike" />
+
+                <TextView
+                    android:id="@+id/text_vehicle"
+                    style="@style/CoreAppTheme.TextView_Sub_Title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:maxLines="2"
+                    android:text="Phương tiện\ndi chuyển"
+                    android:textSize="@dimen/text_size" />
+
+            </LinearLayout>
+
             <include layout="@layout/layout_trip_duration" />
 
             <include layout="@layout/item_web_vew" />

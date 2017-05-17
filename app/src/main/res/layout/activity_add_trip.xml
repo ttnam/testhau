@@ -29,7 +29,7 @@
             android:gravity="center|start"
             android:maxLines="1"
             android:minLines="1"
-            android:text="@string/str_create_trip" />
+            android:text="@string/str_your_trip" />
 
     </LinearLayout>
 
@@ -68,13 +68,17 @@
                     android:id="@+id/edit_description"
                     style="@style/CoreAppTheme.TextView_Title"
                     android:layout_width="match_parent"
-                    android:layout_height="?actionBarSize"
+                    android:layout_height="wrap_content"
+                    android:gravity="top|start"
                     android:hint="@string/str_trip_description"
-                    android:inputType="text"
-                    android:maxLines="3"
-                    android:minLines="1"
+                    android:inputType="textMultiLine"
+                    android:lines="8"
+                    android:maxLines="10"
+                    android:minLines="6"
                     android:paddingLeft="@dimen/margin"
-                    android:paddingRight="@dimen/margin" />
+                    android:paddingRight="@dimen/margin"
+                    android:scrollbars="vertical" />
+
             </android.support.design.widget.TextInputLayout>
 
             <include layout="@layout/layout_time_picker" />

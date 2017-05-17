@@ -78,6 +78,7 @@ public class AddTripActivity extends OwnCoreActivity {
 
     private int mTransferType = 0;
     private IgPlace from = new IgPlace(), to = new IgPlace();
+    private boolean isEdit = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,26 +89,34 @@ public class AddTripActivity extends OwnCoreActivity {
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-
-        AddTripActivityHelper.tickTimeUpdate(new AddTripActivityHelper.OnReceiveDate() {
-            @Override
-            public void date(Integer day, Integer month, Integer year, String result) {
-                textArriveDate.setText(result);
-                textDepartDate.setText(result);
-                from.setDate(year, month, day);
-                to.setDate(year, month, day);
-            }
-        }, new AddTripActivityHelper.OnReceiveTime() {
-            @Override
-            public void time(Integer hour, Integer minute, String result) {
-                textArriveTime.setText(result);
-                textDepartTime.setText(result);
-                from.setTime(hour, minute);
-                to.setTime(hour, minute);
-            }
-        });
+    protected void onStart() {
+        super.onStart();
+        IgTrip igTrip = (IgTrip) getIntent().getSerializableExtra(IgTrip.TRIP_ID);
+        if (igTrip == null) {
+            AddTripActivityHelper.tickTimeUpdate(new AddTripActivityHelper.OnReceiveDate() {
+                @Override
+                public void date(Integer day, Integer month, Integer year, String result) {
+                    textArriveDate.setText(result);
+                    textDepartDate.setText(result);
+                    from.setDate(year, month, day);
+                    to.setDate(year, month, day);
+                }
+            }, new AddTripActivityHelper.OnReceiveTime() {
+                @Override
+                public void time(Integer hour, Integer minute, String result) {
+                    textArriveTime.setText(result);
+                    textDepartTime.setText(result);
+                    from.setTime(hour, minute);
+                    to.setTime(hour, minute);
+                }
+            });
+            isEdit = false;
+        } else {
+            isEdit = true;
+            textGroupName.setText(igTrip.getName());                // Name
+            editDescription.setText(igTrip.getDescription());       // Description
+            UiUtils.showTransfer(igTrip.getTransfer(), imageView);  // Transfer
+        }
     }
 
     @OnClick({R.id.text_arrive, R.id.text_depart})
@@ -231,26 +240,29 @@ public class AddTripActivity extends OwnCoreActivity {
         }
 
         showProgress();
+        if (isEdit) {
+            finish();
+        } else {
+            IzigoSdk.TripExecutor.addTrip(groupName, to.toString(), from.toString(), description, mTransferType, new IgCallback<String, String>() {
+                @Override
+                public void onSuccessful(String groupId) {
+                    hideProgress();
+                    onSuccess(groupId);
+                }
 
-        IzigoSdk.TripExecutor.addTrip(groupName, to.toString(), from.toString(), description, mTransferType, new IgCallback<String, String>() {
-            @Override
-            public void onSuccessful(String groupId) {
-                hideProgress();
-                onSuccess(groupId);
-            }
+                @Override
+                public void onFail(String error) {
+                    hideProgress();
+                    ToastUtils.showToast(AddTripActivity.this, error);
+                }
 
-            @Override
-            public void onFail(String error) {
-                hideProgress();
-                ToastUtils.showToast(AddTripActivity.this, error);
-            }
-
-            @Override
-            public void onExpired() {
-                hideProgress();
-                expired();
-            }
-        });
+                @Override
+                public void onExpired() {
+                    hideProgress();
+                    expired();
+                }
+            });
+        }
     }
 
     private void onSuccess(String tripId) {

@@ -20,16 +20,14 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.yostajsc.core.code.MessageType;
 import io.yostajsc.core.designs.listeners.RecyclerItemClickListener;
-import io.yostajsc.core.interfaces.CallBackWith;
 import io.yostajsc.core.utils.ToastUtils;
 import io.yostajsc.izigo.AppConfig;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.adapters.ImageryAdapter;
 import io.yostajsc.izigo.constants.RoleType;
-import io.yostajsc.izigo.constants.TransferType;
 import io.yostajsc.izigo.dialogs.DialogComment;
-import io.yostajsc.izigo.dialogs.DialogPickTransfer;
 import io.yostajsc.izigo.usecase.OwnCoreActivity;
 import io.yostajsc.izigo.usecase.map.MapsActivity;
 import io.yostajsc.izigo.usecase.trip.adapter.TimelineAdapter;
@@ -258,23 +256,6 @@ public class TripActivity extends OwnCoreActivity {
         dialogComment.setTripName(mIgTrip.getName());
     }
 
-    @OnClick(R.id.layout_vehicle)
-    public void onTransfer(View view) {
-        closeMenu();
-        if (mIgTrip.getRole() == RoleType.ADMIN) {
-            DialogPickTransfer dialogPickTransfer = new DialogPickTransfer(this);
-            dialogPickTransfer.setDialogResult(new CallBackWith<Integer>() {
-                @Override
-                public void run(@TransferType Integer type) {
-                    TripActivityView.setVehicle(type);
-                }
-            });
-            dialogPickTransfer.show();
-        } else
-            ToastUtils.showToast(this, "Yêu cầu không được chấp nhận, vui lòng liên hệ admin!");
-
-    }
-
     @OnClick(R.id.layout_history)
     public void showMemories() {
         closeMenu();
@@ -307,7 +288,9 @@ public class TripActivity extends OwnCoreActivity {
     public void edit() {
         closeMenu();
         if (mIgTrip.getRole() == RoleType.ADMIN) {
-
+            Intent intent = new Intent(this, AddTripActivity.class);
+            intent.putExtra(IgTrip.TRIP_ID, mIgTrip);
+            startActivityForResult(intent, MessageType.EDIT_TRIP);
         } else
             ToastUtils.showToast(this, "Yêu cầu không được chấp nhận, vui lòng liên hệ admin!");
     }
