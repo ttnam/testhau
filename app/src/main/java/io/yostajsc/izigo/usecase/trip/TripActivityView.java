@@ -120,16 +120,6 @@ public class TripActivityView {
             e.printStackTrace();
         }
     }
-/*
-    public static void setOwnerName(String name) {
-        try {
-            if (mInstance == null)
-                throw new Exception(ERROR_UNBOUND);
-            mActivity.textCreatorName.setText(name);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }*/
 
     public static void setTime(long depart, long arrive) {
         try {
@@ -148,32 +138,15 @@ public class TripActivityView {
                 throw new Exception(ERROR_UNBOUND);
             switch (roleType) {
                 case RoleType.MEMBER:
-                    /*mActivity.textEdit.setVisibility(View.GONE);
-                    mActivity.switchPublish.setVisibility(View.GONE);
-                    mActivity.buttonAction.setBackgroundDrawable(mActivity.getResources().
-                            getDrawable(R.drawable.ic_style_button_round_none_accent));
-                    mActivity.buttonAction.setText("Danh sách thành viên");
-                   */
                     mActivity.buttonPublish.setVisibility(View.GONE);
                     mActivity.button.setVisibility(View.GONE);
                     break;
                 case RoleType.GUEST:
-                    /*mActivity.textEdit.setVisibility(View.GONE);
-                    mActivity.switchPublish.setVisibility(View.GONE);
-                    */
                     mActivity.button.setText("Xin tham gia");
                     mActivity.buttonPublish.setVisibility(View.GONE);
                     mActivity.button.setVisibility(View.VISIBLE);
                     break;
                 case RoleType.ADMIN: {
-                    /*mActivity.textEdit.setVisibility(View.VISIBLE);
-                    mActivity.switchPublish.setVisibility(View.VISIBLE);
-                    mActivity.registerForContextMenu(mActivity.imageCover);
-                    mActivity.buttonAction.setVisibility(View.VISIBLE);
-                    mActivity.buttonAction.setBackgroundDrawable(mActivity.getResources().
-                            getDrawable(R.drawable.ic_style_button_round_none_accent));
-                    mActivity.buttonAction.setText("Danh sách thành viên");
-                  */
                     mActivity.buttonPublish.setVisibility(View.VISIBLE);
                     mActivity.button.setVisibility(View.GONE);
                     break;
@@ -225,28 +198,6 @@ public class TripActivityView {
                     }
                 });
 
-            }
-        });
-    }
-
-    public static void publishTrip(String tripId,
-                                   final boolean mIsPublic,
-                                   final CallBackWith<String> fail,
-                                   final CallBack expired) {
-        IzigoSdk.TripExecutor.publishTrip(tripId, mIsPublic, new IgCallback<Void, String>() {
-            @Override
-            public void onSuccessful(Void aVoid) {
-                // setPublishMode(mIsPublic);
-            }
-
-            @Override
-            public void onFail(String error) {
-                fail.run(error);
-            }
-
-            @Override
-            public void onExpired() {
-                expired.run();
             }
         });
     }

@@ -2,7 +2,6 @@ package io.yostajsc.izigo.usecase.trip;
 
 import android.Manifest;
 import android.content.Intent;
-import android.content.IntentSender;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;

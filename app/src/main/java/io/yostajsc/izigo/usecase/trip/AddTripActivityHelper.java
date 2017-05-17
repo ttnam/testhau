@@ -3,7 +3,6 @@ package io.yostajsc.izigo.usecase.trip;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.widget.DatePicker;
-import android.widget.TextView;
 import android.widget.TimePicker;
 
 import java.text.DecimalFormat;

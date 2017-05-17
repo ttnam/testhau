@@ -14,6 +14,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.Priority;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.gms.maps.model.LatLng;
 
 import io.yostajsc.core.utils.ToastUtils;
@@ -39,7 +42,6 @@ import permissions.dispatcher.RuntimePermissions;
 
 @RuntimePermissions
 public class AddTripActivity extends OwnCoreActivity {
-
 
     private static String TAG = AddTripActivity.class.getSimpleName();
 
@@ -72,6 +74,9 @@ public class AddTripActivity extends OwnCoreActivity {
 
     @BindView(R.id.image_view)
     AppCompatImageView imageView;
+
+    @BindView(R.id.image_trip_cover)
+    AppCompatImageView imageTripCover;
 
     @BindView(R.id.progress_bar)
     ProgressBar progressBar;
@@ -116,6 +121,12 @@ public class AddTripActivity extends OwnCoreActivity {
             textGroupName.setText(igTrip.getName());                // Name
             editDescription.setText(igTrip.getDescription());       // Description
             UiUtils.showTransfer(igTrip.getTransfer(), imageView);  // Transfer
+
+            Glide.with(this).load(igTrip.getCoverUrl())
+                    .priority(Priority.IMMEDIATE)
+                    .animate(R.anim.anim_fade_in)
+                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                    .into(imageTripCover);
         }
     }
 
@@ -211,6 +222,11 @@ public class AddTripActivity extends OwnCoreActivity {
             }
         });
         dialogPickTransfer.show();
+    }
+
+    @OnClick(R.id.image_trip_cover)
+    public void pickImage() {
+        
     }
 
     @OnClick(R.id.button)

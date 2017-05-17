@@ -376,22 +376,23 @@ public class TripActivity extends OwnCoreActivity {
 
     @OnClick(R.id.button_publish)
     public void togglePublish() {
+        IzigoSdk.TripExecutor.publishTrip(AppConfig.getInstance().getCurrentTripId(),
+                buttonPublish.isChecked(),
+                new IgCallback<Void, String>() {
+                    @Override
+                    public void onSuccessful(Void aVoid) {
+                        ToastUtils.showToast(TripActivity.this, getString(R.string.str_success));
+                    }
 
-        IzigoSdk.TripExecutor.publishTrip(AppConfig.getInstance().getCurrentTripId(), buttonPublish.isChecked(), new IgCallback<Void, String>() {
-            @Override
-            public void onSuccessful(Void aVoid) {
-                ToastUtils.showToast(TripActivity.this, getString(R.string.str_success));
-            }
+                    @Override
+                    public void onFail(String error) {
+                        ToastUtils.showToast(TripActivity.this, error);
+                    }
 
-            @Override
-            public void onFail(String error) {
-                ToastUtils.showToast(TripActivity.this, error);
-            }
-
-            @Override
-            public void onExpired() {
-                expired();
-            }
-        });
+                    @Override
+                    public void onExpired() {
+                        expired();
+                    }
+                });
     }
 }

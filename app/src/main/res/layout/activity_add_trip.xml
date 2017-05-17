@@ -33,7 +33,7 @@
 
     </LinearLayout>
 
-    <include layout="@layout/layout_separate_vertical" />
+    <include layout="@layout/layout_shadow" />
 
     <ProgressBar
         android:id="@id/progress_bar"
@@ -53,6 +53,25 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:id="@+id/image_trip_cover"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/image_height_v3"
+                    android:scaleType="centerCrop" />
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:layout_width="@dimen/icon_size_x3"
+                    android:layout_height="@dimen/icon_size_x3"
+                    android:layout_gravity="top|end"
+                    android:layout_margin="@dimen/margin"
+                    app:srcCompat="@drawable/ic_vector_edit" />
+
+            </FrameLayout>
 
             <include layout="@layout/layout_group_header" />
 
