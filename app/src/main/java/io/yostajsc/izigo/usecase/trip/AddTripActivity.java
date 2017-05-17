@@ -143,6 +143,11 @@ public class AddTripActivity extends OwnCoreActivity {
     protected void onStop() {
         super.onStop();
         unregisterForContextMenu(imageTripCover);
+        try {
+            FileUtils.delete(getExternalFilesDir(null));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @OnClick({R.id.text_arrive, R.id.text_depart})

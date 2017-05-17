@@ -120,4 +120,5 @@ public class AppConfig extends Application {
     public void setCurrentTripId(String tripId) {
         PrefsUtils.inject(this).save(IgTrip.TRIP_ID, tripId);
     }
+
 }
