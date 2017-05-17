@@ -2,13 +2,17 @@
 package io.yostajsc.izigo.usecase.trip;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.widget.AppCompatImageView;
 import android.text.TextUtils;
+import android.view.ContextMenu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -19,6 +23,10 @@ import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.gms.maps.model.LatLng;
 
+import java.io.File;
+import java.util.Calendar;
+
+import io.yostajsc.core.utils.FileUtils;
 import io.yostajsc.core.utils.ToastUtils;
 import io.yostajsc.izigo.constants.TransferType;
 import io.yostajsc.core.interfaces.CallBackWith;
@@ -96,6 +104,7 @@ public class AddTripActivity extends OwnCoreActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        registerForContextMenu(imageTripCover);
         IgTrip igTrip = (IgTrip) getIntent().getSerializableExtra(IgTrip.TRIP_ID);
         if (igTrip == null) {
             AddTripActivityHelper.tickTimeUpdate(new AddTripActivityHelper.OnReceiveDate() {
@@ -128,6 +137,12 @@ public class AddTripActivity extends OwnCoreActivity {
                     .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                     .into(imageTripCover);
         }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        unregisterForContextMenu(imageTripCover);
     }
 
     @OnClick({R.id.text_arrive, R.id.text_depart})
@@ -185,32 +200,6 @@ public class AddTripActivity extends OwnCoreActivity {
         });
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (resultCode == Activity.RESULT_OK) {
-            if (requestCode == MessageType.PICK_LOCATION_FROM) {
-                from = (IgPlace) data.getSerializableExtra(AppConfig.KEY_PICK_LOCATION);
-                textDepart.setText(from.getName());
-            } else if (requestCode == MessageType.PICK_LOCATION_TO) {
-                to = (IgPlace) data.getSerializableExtra(AppConfig.KEY_PICK_LOCATION);
-                textArrive.setText(to.getName());
-            }
-
-            MapUtils.Map.direction(null,
-                    new LatLng(from.getLat(), from.getLng()),
-                    new LatLng(to.getLat(), to.getLng()), false, new CallBackWith<Info>() {
-                        @Override
-                        public void run(Info info) {
-                            textViewDes.setText(String.format("Dự tính: %s - %s",
-                                    info.strDistance,
-                                    info.strDuration));
-                        }
-                    }, null);
-        }
-    }
-
     @OnClick(R.id.image_view)
     public void pickTransfer() {
         DialogPickTransfer dialogPickTransfer = new DialogPickTransfer(this);
@@ -226,7 +215,7 @@ public class AddTripActivity extends OwnCoreActivity {
 
     @OnClick(R.id.image_trip_cover)
     public void pickImage() {
-        
+        imageTripCover.performLongClick();
     }
 
     @OnClick(R.id.button)
@@ -281,6 +270,104 @@ public class AddTripActivity extends OwnCoreActivity {
         }
     }
 
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        if (v.getId() == R.id.image_trip_cover) {
+            menu.add(0, v.getId(), 0, "Chọn từ thư viện");
+            menu.add(0, v.getId(), 1, "Chụp từ thiết bị");
+        }
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        int order = item.getOrder();
+        switch (order) {
+            case 0:
+                AddTripActivityPermissionsDispatcher.getImageFromGalleryWithCheck(this);
+            case 1:
+                AddTripActivityPermissionsDispatcher.onTakePhotoWithCheck(this);
+                break;
+        }
+        return super.onContextItemSelected(item);
+    }
+
+    @NeedsPermission({Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE})
+    public void getImageFromGallery() {
+        Intent intent = new Intent();
+        intent.setType("image/jpg");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), MessageType.FROM_GALLERY);
+    }
+
+    @NeedsPermission({Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA})
+    public void onTakePhoto() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(takePictureIntent, MessageType.TAKE_PHOTO);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case MessageType.FROM_GALLERY:
+                    try {
+                        Uri fileUri = data.getData();
+                        if (fileUri == null)
+                            return;
+                        onUriReceiverListener(fileUri, false);
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                case MessageType.TAKE_PHOTO:
+                    try {
+                        Bitmap photo = (Bitmap) data.getExtras().get("data");
+                        Uri tempUri = FileUtils.getImageUri(AddTripActivity.this, photo);
+                        onUriReceiverListener(tempUri, true);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                case MessageType.PICK_LOCATION_FROM:
+                    from = (IgPlace) data.getSerializableExtra(AppConfig.KEY_PICK_LOCATION);
+                    textDepart.setText(from.getName());
+
+                    MapUtils.Map.direction(null,
+                            new LatLng(from.getLat(), from.getLng()),
+                            new LatLng(to.getLat(), to.getLng()), false, new CallBackWith<Info>() {
+                                @Override
+                                public void run(Info info) {
+                                    textViewDes.setText(String.format("Dự tính: %s - %s",
+                                            info.strDistance,
+                                            info.strDuration));
+                                }
+                            }, null);
+                    break;
+                case MessageType.PICK_LOCATION_TO:
+                    to = (IgPlace) data.getSerializableExtra(AppConfig.KEY_PICK_LOCATION);
+                    textArrive.setText(to.getName());
+
+                    MapUtils.Map.direction(null,
+                            new LatLng(from.getLat(), from.getLng()),
+                            new LatLng(to.getLat(), to.getLng()), false, new CallBackWith<Info>() {
+                                @Override
+                                public void run(Info info) {
+                                    textViewDes.setText(String.format("Dự tính: %s - %s",
+                                            info.strDistance,
+                                            info.strDuration));
+                                }
+                            }, null);
+                    break;
+            }
+        }
+    }
+
     private void onSuccess(String tripId) {
         Intent intent = new Intent(AddTripActivity.this, TripActivity.class);
         intent.putExtra(IgTrip.TRIP_ID, tripId);
@@ -304,6 +391,29 @@ public class AddTripActivity extends OwnCoreActivity {
     @Override
     public void onInternetConnected() {
 
+    }
+
+    private void onUriReceiverListener(Uri fileUri, boolean isTakePhoto) {
+
+        File file = FileUtils.getFile(this, fileUri);
+        File mSelectedFile = new File(getExternalFilesDir(null), String.format("%s.jpg",
+                Calendar.getInstance().getTimeInMillis()));
+        try {
+
+            FileUtils.copyFile(file, mSelectedFile);
+
+            if (isTakePhoto) {
+                file.delete();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        Glide.with(this).load(mSelectedFile)
+                .priority(Priority.IMMEDIATE)
+                .animate(R.anim.anim_fade_in)
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                .into(imageTripCover);
     }
 
 }
