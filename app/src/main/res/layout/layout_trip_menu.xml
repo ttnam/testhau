@@ -35,7 +35,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:maxLines="2"
                 android:text="Bản đồ" />
 
         </LinearLayout>
@@ -65,7 +64,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:maxLines="2"
                 android:text="@string/memories" />
 
         </LinearLayout>
@@ -95,9 +93,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:maxLines="2"
-                android:text="Comment"
-                android:textSize="@dimen/text_size" />
+                android:text="Nhận xét" />
 
         </LinearLayout>
 
@@ -188,9 +184,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:maxLines="2"
-                android:text="Chỉnh sửa"
-                android:textSize="@dimen/text_size" />
+                android:text="Chỉnh sửa" />
 
         </LinearLayout>
 
@@ -219,9 +213,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:maxLines="2"
-                android:text="Chia sẻ"
-                android:textSize="@dimen/text_size" />
+                android:text="Chia sẻ" />
 
         </LinearLayout>
 
@@ -250,9 +242,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:maxLines="2"
-                android:text="Xoá"
-                android:textSize="@dimen/text_size" />
+                android:text="Xoá" />
 
         </LinearLayout>
 
@@ -287,8 +277,7 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:maxLines="2"
-                android:text="Download offline"
-                android:textSize="@dimen/text_size" />
+                android:text="Download offline" />
 
         </LinearLayout>
 
