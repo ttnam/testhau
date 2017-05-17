@@ -11,6 +11,16 @@
         android:orientation="vertical"
         android:padding="@dimen/margin">
 
+        <ToggleButton
+            android:id="@+id/button_publish"
+            style="@style/CoreAppTheme.TextView_Title.White"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_toggle_publish_button"
+            android:checked="false"
+            android:textOff="Private"
+            android:textOn="Publish" />
+
         <LinearLayout
             android:id="@+id/layout_maps"
             android:layout_width="match_parent"

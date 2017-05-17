@@ -15,6 +15,7 @@ import android.view.View;
 import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import java.util.List;
 
@@ -90,6 +91,9 @@ public class TripActivity extends OwnCoreActivity {
 
     @BindView(R.id.button)
     Button button;
+
+    @BindView(R.id.button_publish)
+    ToggleButton buttonPublish;
 
     private ImageryAdapter albumAdapter = null;
     private TimelineAdapter timelineAdapter = null;
@@ -339,5 +343,26 @@ public class TripActivity extends OwnCoreActivity {
                 }
             });
         }
+    }
+
+    @OnClick(R.id.button_publish)
+    public void togglePublish() {
+
+        IzigoSdk.TripExecutor.publishTrip(AppConfig.getInstance().getCurrentTripId(), buttonPublish.isChecked(), new IgCallback<Void, String>() {
+            @Override
+            public void onSuccessful(Void aVoid) {
+                ToastUtils.showToast(TripActivity.this, getString(R.string.str_success));
+            }
+
+            @Override
+            public void onFail(String error) {
+                ToastUtils.showToast(TripActivity.this, error);
+            }
+
+            @Override
+            public void onExpired() {
+                expired();
+            }
+        });
     }
 }

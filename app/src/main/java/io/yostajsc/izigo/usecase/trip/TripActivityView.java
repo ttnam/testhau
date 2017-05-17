@@ -154,6 +154,7 @@ public class TripActivityView {
                             getDrawable(R.drawable.ic_style_button_round_none_accent));
                     mActivity.buttonAction.setText("Danh sách thành viên");
                    */
+                    mActivity.buttonPublish.setVisibility(View.GONE);
                     mActivity.button.setVisibility(View.GONE);
                     break;
                 case RoleType.GUEST:
@@ -161,6 +162,7 @@ public class TripActivityView {
                     mActivity.switchPublish.setVisibility(View.GONE);
                     */
                     mActivity.button.setText("Xin tham gia");
+                    mActivity.buttonPublish.setVisibility(View.GONE);
                     mActivity.button.setVisibility(View.VISIBLE);
                     break;
                 case RoleType.ADMIN: {
@@ -172,6 +174,7 @@ public class TripActivityView {
                             getDrawable(R.drawable.ic_style_button_round_none_accent));
                     mActivity.buttonAction.setText("Danh sách thành viên");
                   */
+                    mActivity.buttonPublish.setVisibility(View.VISIBLE);
                     mActivity.button.setVisibility(View.GONE);
                     break;
                 }
@@ -252,7 +255,7 @@ public class TripActivityView {
         try {
             if (mInstance == null)
                 throw new Exception(ERROR_UNBOUND);
-            // mActivity.switchPublish.setChecked(published);
+            mActivity.buttonPublish.setChecked(published);
         } catch (Exception e) {
             e.printStackTrace();
         }
