@@ -138,20 +138,12 @@ public class TripDetailActivity extends OwnCoreActivity {
         onApplyViews();
 
         onApplyData();
-
-        TripDetailActivityView.bind(this);
     }
 
     @Override
     @OnClick(R.id.button_left)
     public void onBackPressed() {
         super.onBackPressed();
-    }
-
-    @Override
-    protected void onDestroy() {
-        TripDetailActivityView.unbind();
-        super.onDestroy();
     }
 
     @Override
@@ -219,7 +211,7 @@ public class TripDetailActivity extends OwnCoreActivity {
             IzigoSdk.TripExecutor.getTripDetail(AppConfig.getInstance().getCurrentTripId(), new IgCallback<IgTrip, String>() {
                 @Override
                 public void onSuccessful(IgTrip igTrip) {
-                    updateUI(igTrip);
+                    // updateUI(igTrip);
                 }
 
                 @Override
@@ -270,28 +262,6 @@ public class TripDetailActivity extends OwnCoreActivity {
         }
     }
 
-    private void updateUI(final IgTrip igTrip) {
-
-        if (igTrip == null) return;
-
-        mIgTrip = igTrip;
-
-        AppConfig.igImages = igTrip.getAlbum();
-        this.albumAdapter.replaceAll(igTrip.getAlbum());
-        this.mCurrentRoleType = igTrip.getRole();
-        TripDetailActivityView.isPublish(igTrip.isPublished());                         // is publish
-        TripDetailActivityView.switchMode(mCurrentRoleType);                            // Mode, is publish
-        TripDetailActivityView.setTripName(igTrip.getName());                           // IgTrip name
-        TripDetailActivityView.setVehicle(igTrip.getTransfer());                        // Transfer
-        TripDetailActivityView.setTripStatus(igTrip.getStatus());                       // Status
-        TripDetailActivityView.setTripCover(igTrip.getCoverUrl());                      // Cover
-        TripDetailActivityView.setOwnerName(igTrip.getCreatorName());                   // Own name
-        TripDetailActivityView.setOwnerAvatar(igTrip.getCreatorAvatar());               // Avatar
-        TripDetailActivityView.setFromTo(igTrip.getFrom(), igTrip.getTo());             // From, To
-        TripDetailActivityView.showTripDescription(igTrip.getDescription());            // Description
-        TripDetailActivityView.setTime(igTrip.getDepartTime(), igTrip.getArriveTime()); // Time
-    }
-
     @OnClick(R.id.layout_comment)
     public void loadComment() {
         DialogComment dialogComment = new DialogComment(this);
@@ -315,7 +285,7 @@ public class TripDetailActivity extends OwnCoreActivity {
             dialogPickTransfer.setDialogResult(new CallBackWith<Integer>() {
                 @Override
                 public void run(@TransferType Integer type) {
-                    TripDetailActivityView.setVehicle(type);
+                    TripActivityView.setVehicle(type);
                 }
             });
             dialogPickTransfer.show();
@@ -428,7 +398,7 @@ public class TripDetailActivity extends OwnCoreActivity {
                                     .into(imageCover);
 
                             // Update server
-                            TripDetailActivityView.changeTripCover(AppConfig.getInstance().getCurrentTripId(), fileUri, new CallBackWith<String>() {
+                            TripActivityView.changeTripCover(AppConfig.getInstance().getCurrentTripId(), fileUri, new CallBackWith<String>() {
                                 @Override
                                 public void run(String error) {
                                     ToastUtils.showToast(TripDetailActivity.this, error);

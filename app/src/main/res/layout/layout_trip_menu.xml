@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
+
+    <LinearLayout
+        android:layout_width="@dimen/icon_size_x13"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="@dimen/margin">
+
+        <LinearLayout
+            android:id="@+id/layout_maps"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/ic_style_button_round_none_default"
+            android:clickable="true"
+            android:orientation="vertical"
+            android:padding="@dimen/margin_min">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:layout_width="@dimen/icon_size_x5"
+                android:layout_height="@dimen/icon_size_x5"
+                android:layout_gravity="center"
+                android:background="@drawable/ic_style_circle_grey"
+                android:padding="@dimen/margin"
+                app:srcCompat="@drawable/ic_vector_location_red" />
+
+            <TextView
+                style="@style/CoreAppTheme.TextView_Sub_Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:maxLines="2"
+                android:text="Bản đồ" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_history"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/margin"
+            android:background="@drawable/ic_style_button_round_none_default"
+            android:clickable="true"
+            android:orientation="vertical"
+            android:padding="@dimen/margin_min">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:layout_width="@dimen/icon_size_x5"
+                android:layout_height="@dimen/icon_size_x5"
+                android:layout_gravity="center"
+                android:background="@drawable/ic_style_circle_grey"
+                android:padding="@dimen/margin"
+                app:srcCompat="@drawable/ic_vector_diagram" />
+
+            <TextView
+                style="@style/CoreAppTheme.TextView_Sub_Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:maxLines="2"
+                android:text="@string/memories" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_comment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/margin"
+            android:background="@drawable/ic_style_button_round_none_default"
+            android:clickable="true"
+            android:orientation="vertical"
+            android:padding="@dimen/margin_min">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:layout_width="@dimen/icon_size_x5"
+                android:layout_height="@dimen/icon_size_x5"
+                android:layout_gravity="center"
+                android:background="@drawable/ic_style_circle_grey"
+                android:padding="@dimen/margin"
+                app:srcCompat="@drawable/ic_vector_comment" />
+
+            <TextView
+                style="@style/CoreAppTheme.TextView_Sub_Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:maxLines="2"
+                android:text="Comment"
+                android:textSize="@dimen/text_size" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_vehicle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/margin"
+            android:background="@drawable/ic_style_button_round_none_default"
+            android:clickable="true"
+            android:orientation="vertical"
+            android:padding="@dimen/margin_min">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/image_vehicle"
+                android:layout_width="@dimen/icon_size_x5"
+                android:layout_height="@dimen/icon_size_x5"
+                android:layout_gravity="center"
+                android:background="@drawable/ic_style_circle_grey"
+                android:padding="@dimen/margin"
+                app:srcCompat="@drawable/ic_vector_motor_bike" />
+
+            <TextView
+                android:id="@+id/text_vehicle"
+                style="@style/CoreAppTheme.TextView_Sub_Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:maxLines="2"
+                android:text="Phương tiện\ndi chuyển"
+                android:textSize="@dimen/text_size" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/margin"
+            android:background="@drawable/ic_style_button_round_none_default"
+            android:clickable="true"
+            android:orientation="vertical"
+            android:padding="@dimen/margin_min">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:layout_width="@dimen/icon_size_x5"
+                android:layout_height="@dimen/icon_size_x5"
+                android:layout_gravity="center"
+                android:background="@drawable/ic_style_circle_grey"
+                android:padding="@dimen/margin"
+                app:srcCompat="@drawable/ic_vector_triangle" />
+
+            <TextView
+                style="@style/CoreAppTheme.TextView_Sub_Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:maxLines="2"
+                android:text="Cập nhật\ntrạng thái"
+                android:textSize="@dimen/text_size" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_save"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/margin"
+            android:background="@drawable/ic_style_button_round_none_default"
+            android:clickable="true"
+            android:orientation="vertical"
+            android:padding="@dimen/margin_min">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:layout_width="@dimen/icon_size_x5"
+                android:layout_height="@dimen/icon_size_x5"
+                android:layout_gravity="center"
+                android:background="@drawable/ic_style_circle_grey"
+                android:padding="@dimen/margin"
+                app:srcCompat="@drawable/ic_vector_download" />
+
+            <TextView
+                style="@style/CoreAppTheme.TextView_Sub_Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:maxLines="2"
+                android:text="Lưu"
+                android:textSize="@dimen/text_size" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/margin"
+            android:background="@drawable/ic_style_button_round_none_default"
+            android:clickable="true"
+            android:orientation="vertical"
+            android:padding="@dimen/margin_min">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:layout_width="@dimen/icon_size_x5"
+                android:layout_height="@dimen/icon_size_x5"
+                android:layout_gravity="center"
+                android:background="@drawable/ic_style_circle_grey"
+                android:padding="@dimen/margin"
+                app:srcCompat="@drawable/ic_vector_input_checked" />
+
+            <TextView
+                style="@style/CoreAppTheme.TextView_Sub_Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:maxLines="2"
+                android:text="Chỉnh sửa"
+                android:textSize="@dimen/text_size" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_share"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/margin"
+            android:background="@drawable/ic_style_button_round_none_default"
+            android:clickable="true"
+            android:orientation="vertical"
+            android:padding="@dimen/margin_min">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:layout_width="@dimen/icon_size_x5"
+                android:layout_height="@dimen/icon_size_x5"
+                android:layout_gravity="center"
+                android:background="@drawable/ic_style_circle_grey"
+                android:padding="@dimen/margin"
+                app:srcCompat="@drawable/ic_vector_share" />
+
+            <TextView
+                style="@style/CoreAppTheme.TextView_Sub_Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:maxLines="2"
+                android:text="Chia sẻ"
+                android:textSize="@dimen/text_size" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_delete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/margin"
+            android:background="@drawable/ic_style_button_round_none_default"
+            android:clickable="true"
+            android:orientation="vertical"
+            android:padding="@dimen/margin_min">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:layout_width="@dimen/icon_size_x5"
+                android:layout_height="@dimen/icon_size_x5"
+                android:layout_gravity="center"
+                android:background="@drawable/ic_style_circle_grey"
+                android:padding="@dimen/margin"
+                app:srcCompat="@drawable/ic_vector_close_red" />
+
+            <TextView
+                style="@style/CoreAppTheme.TextView_Sub_Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:maxLines="2"
+                android:text="Xoá"
+                android:textSize="@dimen/text_size" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</android.support.v4.widget.NestedScrollView>

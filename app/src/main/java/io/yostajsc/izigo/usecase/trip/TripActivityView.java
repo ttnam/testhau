@@ -2,7 +2,6 @@ package io.yostajsc.izigo.usecase.trip;
 
 import android.content.res.Resources;
 import android.net.Uri;
-import android.view.View;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.Priority;
@@ -24,21 +23,21 @@ import io.yostajsc.core.glide.CropCircleTransformation;
  * Created by nphau on 4/7/17.
  */
 
-public class TripDetailActivityView {
+public class TripActivityView {
 
     private static final String ERROR_UNBOUND = "You must bind first!";
 
-    private static TripDetailActivity mActivity = null;
-    private static TripDetailActivityView mInstance = null;
+    private static TripActivity mActivity = null;
+    private static TripActivityView mInstance = null;
     private static Resources mResources = null;
 
-    private TripDetailActivityView(TripDetailActivity activity) {
+    private TripActivityView(TripActivity activity) {
         mActivity = activity;
         mResources = mActivity.getResources();
     }
 
-    public static synchronized TripDetailActivityView bind(TripDetailActivity activity) {
-        mInstance = new TripDetailActivityView(activity);
+    public static synchronized TripActivityView bind(TripActivity activity) {
+        mInstance = new TripActivityView(activity);
         return mInstance;
     }
 
@@ -49,7 +48,8 @@ public class TripDetailActivityView {
             Glide.with(mActivity)
                     .load(url)
                     .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                    .animate(R.anim.anim_down_from_top)
+                    .animate(R.anim.anim_fade_in)
+                    .error(R.drawable.ic_profile_holder)
                     .bitmapTransform(new CropCircleTransformation(mActivity))
                     .into(mActivity.imageCreatorAvatar);
         } catch (Exception e) {
@@ -65,7 +65,7 @@ public class TripDetailActivityView {
                     .priority(Priority.IMMEDIATE)
                     .animate(R.anim.anim_fade_in)
                     .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                    .into(mActivity.imageCover);
+                    .into(mActivity.imageTripCover);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -87,20 +87,12 @@ public class TripDetailActivityView {
                 throw new Exception(ERROR_UNBOUND);
             if (status == IgTripStatus.PREPARED) {
                 mActivity.textStatus.setText("Dự định");
-                mActivity.layoutMaps.setVisibility(View.VISIBLE);
-                mActivity.layoutMaps.setEnabled(false);
-                mActivity.layoutHistory.setVisibility(View.GONE);
                 mActivity.textStatus.setBackgroundDrawable(mActivity.getResources().getDrawable(R.drawable.ic_style_rect_round_corners_light_blue_none));
             } else if (status == IgTripStatus.ONGOING) {
                 mActivity.textStatus.setText("Đang đi");
-                mActivity.layoutMaps.setEnabled(true);
-                mActivity.layoutMaps.setVisibility(View.VISIBLE);
-                mActivity.layoutHistory.setVisibility(View.GONE);
                 mActivity.textStatus.setBackgroundDrawable(mActivity.getResources().getDrawable(R.drawable.ic_style_rect_round_corners_light_green));
             } else if (status == IgTripStatus.FINISHED) {
                 mActivity.textStatus.setText("Kết thúc");
-                mActivity.layoutMaps.setVisibility(View.GONE);
-                mActivity.layoutHistory.setVisibility(View.VISIBLE);
                 mActivity.textStatus.setBackgroundDrawable(mActivity.getResources().getDrawable(R.drawable.ic_style_rect_round_corners_light_red_none));
             }
         } catch (Exception e) {
@@ -127,7 +119,7 @@ public class TripDetailActivityView {
             e.printStackTrace();
         }
     }
-
+/*
     public static void setOwnerName(String name) {
         try {
             if (mInstance == null)
@@ -136,7 +128,7 @@ public class TripDetailActivityView {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
     public static void setTime(long depart, long arrive) {
         try {
@@ -155,28 +147,28 @@ public class TripDetailActivityView {
                 throw new Exception(ERROR_UNBOUND);
             switch (roleType) {
                 case RoleType.MEMBER:
-                    mActivity.textEdit.setVisibility(View.GONE);
+                    /*mActivity.textEdit.setVisibility(View.GONE);
                     mActivity.switchPublish.setVisibility(View.GONE);
                     mActivity.buttonAction.setBackgroundDrawable(mActivity.getResources().
                             getDrawable(R.drawable.ic_style_button_round_none_accent));
                     mActivity.buttonAction.setText("Danh sách thành viên");
-                    mActivity.buttonAction.setVisibility(View.VISIBLE);
+                    mActivity.buttonAction.setVisibility(View.VISIBLE);*/
                     break;
                 case RoleType.GUEST:
-                    mActivity.textEdit.setVisibility(View.GONE);
+                    /*mActivity.textEdit.setVisibility(View.GONE);
                     mActivity.switchPublish.setVisibility(View.GONE);
                     mActivity.buttonAction.setText("Xin đi chung");
-                    mActivity.buttonAction.setVisibility(View.VISIBLE);
+                    mActivity.buttonAction.setVisibility(View.VISIBLE);*/
                     break;
                 case RoleType.ADMIN: {
-                    mActivity.textEdit.setVisibility(View.VISIBLE);
+                    /*mActivity.textEdit.setVisibility(View.VISIBLE);
                     mActivity.switchPublish.setVisibility(View.VISIBLE);
                     mActivity.registerForContextMenu(mActivity.imageCover);
                     mActivity.buttonAction.setVisibility(View.VISIBLE);
                     mActivity.buttonAction.setBackgroundDrawable(mActivity.getResources().
                             getDrawable(R.drawable.ic_style_button_round_none_accent));
                     mActivity.buttonAction.setText("Danh sách thành viên");
-                    mActivity.buttonAction.setVisibility(View.VISIBLE);
+                    mActivity.buttonAction.setVisibility(View.VISIBLE);*/
                     break;
                 }
             }
@@ -256,7 +248,7 @@ public class TripDetailActivityView {
         try {
             if (mInstance == null)
                 throw new Exception(ERROR_UNBOUND);
-            mActivity.switchPublish.setChecked(published);
+            // mActivity.switchPublish.setChecked(published);
         } catch (Exception e) {
             e.printStackTrace();
         }

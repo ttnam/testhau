@@ -35,7 +35,6 @@
         android:label="@string/all_app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <receiver android:name=".usecase.service.receiver.NetworkReceiver">
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
@@ -56,7 +55,6 @@
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/colorAccent" />
-
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
@@ -137,12 +135,12 @@
             <meta-data
                 android:name="android.app.shortcuts"
                 android:resource="@xml/shortcuts" />
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
         <activity
             android:name=".usecase.trip.TripAlbumActivity"
@@ -156,6 +154,11 @@
             android:theme="@style/CoreAppTheme.White" />
         <activity
             android:name=".usecase.map.MapsActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/CoreAppTheme.White" />
+        <activity
+            android:name=".usecase.trip.TripActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/CoreAppTheme.White" />

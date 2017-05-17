@@ -88,7 +88,7 @@ public class AppConfig extends Application {
     }
 
     private void onApplyFont() {
-        FontUtils.overrideFont(this, "SERIF", "fonts/Roboto-Regular.ttf");
+        FontUtils.overrideFont(this, "SERIF", "fonts/Nunito-Regular.ttf");
     }
 
     public void logout() {

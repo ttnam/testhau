@@ -17,6 +17,8 @@ import io.yostajsc.core.designs.decorations.SpacesItemDecoration;
 import io.yostajsc.core.fragments.CoreFragment;
 import io.yostajsc.core.interfaces.CallBackWith;
 import io.yostajsc.core.utils.ToastUtils;
+import io.yostajsc.izigo.AppConfig;
+import io.yostajsc.izigo.usecase.trip.TripActivity;
 import io.yostajsc.sdk.model.trip.IgTrip;
 import io.yostajsc.core.utils.NetworkUtils;
 import io.yostajsc.izigo.R;
@@ -66,10 +68,10 @@ public class OwnTripFragment extends CoreFragment {
                 new CallBackWith<Integer>() {
                     @Override
                     public void run(Integer position) {
-                        String tripId = tripAdapter.getItem(position).getId();
-                        Intent intent = new Intent(mContext, TripDetailActivity.class);
-                        intent.putExtra(IgTrip.TRIP_ID, tripId);
-                        startActivity(intent);
+                        AppConfig.getInstance().setCurrentTripId(
+                                tripAdapter.getItem(position).getId()
+                        );
+                        startActivity(new Intent(mContext, TripActivity.class));
                     }
                 });
         this.rvTrip.addItemDecoration(new SpacesItemDecoration(5));

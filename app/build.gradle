@@ -94,12 +94,12 @@ dependencies {
     compile "com.google.android.gms:play-services-places:$rootProject.googlePlayServicesVersion"
     compile "com.google.android.gms:play-services-location:$rootProject.googlePlayServicesVersion"
 
-    compile 'com.facebook.android:facebook-android-sdk:[4,5)'
-    compile 'com.google.maps.android:android-maps-utils:0.5+'
 
+    compile 'com.facebook.android:facebook-android-sdk:[4,5)'
+    compile 'com.google.maps.android:android-maps-utils:0.5'
     compile 'com.github.hotchemi:permissionsdispatcher:2.3.1'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
     compile 'com.jakewharton:butterknife:8.5.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
     annotationProcessor 'com.github.hotchemi:permissionsdispatcher-processor:2.3.1'
 }
 apply plugin: 'com.google.gms.google-services'
