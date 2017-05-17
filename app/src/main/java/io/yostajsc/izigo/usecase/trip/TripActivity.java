@@ -228,9 +228,9 @@ public class TripActivity extends OwnCoreActivity {
 
     @OnClick(R.id.layout_show_album)
     public void showAlbumActivity() {
-        /*Intent intent = new Intent(this, TripAlbumActivity.class);
+        Intent intent = new Intent(this, TripAlbumActivity.class);
         intent.putExtra(AppConfig.KEY_USER_ROLE, mIgTrip.getRole());
-        startActivityForResult(intent, MessageType.PICK_IMAGE);*/
+        startActivityForResult(intent, MessageType.PICK_IMAGE);
     }
 
     @OnClick(R.id.layout_maps)
@@ -332,7 +332,6 @@ public class TripActivity extends OwnCoreActivity {
             ToastUtils.showToast(this, "Yêu cầu không được chấp nhận, vui lòng liên hệ admin!");
     }
 
-
     @OnClick(R.id.layout_members)
     public void members() {
         closeMenu();
@@ -342,7 +341,6 @@ public class TripActivity extends OwnCoreActivity {
         }
         startActivity(new Intent(this, MembersActivity.class));
     }
-
 
     @OnClick(R.id.layout_save)
     public void save() {

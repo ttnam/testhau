@@ -266,7 +266,7 @@ public class AddTripActivity extends OwnCoreActivity {
     }
 
     private void onSuccess(String tripId) {
-        Intent intent = new Intent(AddTripActivity.this, TripDetailActivity.class);
+        Intent intent = new Intent(AddTripActivity.this, TripActivity.class);
         intent.putExtra(IgTrip.TRIP_ID, tripId);
         startActivity(intent);
         finish();
