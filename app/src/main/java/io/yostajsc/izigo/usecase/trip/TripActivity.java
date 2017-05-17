@@ -13,6 +13,7 @@ import android.support.v7.widget.SnapHelper;
 import android.view.Gravity;
 import android.view.View;
 import android.webkit.WebView;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.List;
@@ -28,6 +29,7 @@ import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.adapters.ImageryAdapter;
 import io.yostajsc.izigo.constants.RoleType;
 import io.yostajsc.izigo.dialogs.DialogComment;
+import io.yostajsc.izigo.usecase.MembersActivity;
 import io.yostajsc.izigo.usecase.OwnCoreActivity;
 import io.yostajsc.izigo.usecase.map.MapsActivity;
 import io.yostajsc.izigo.usecase.trip.adapter.TimelineAdapter;
@@ -80,14 +82,14 @@ public class TripActivity extends OwnCoreActivity {
     @BindView(R.id.image_vehicle)
     AppCompatImageView imageVehicle;
 
-    @BindView(R.id.text_vehicle)
-    TextView textVehicle;
-
     @BindView(R.id.recycler_view)
     RecyclerView rvAlbum;
 
     @BindView(R.id.recycler_view_time_line)
     RecyclerView rVTimeLine;
+
+    @BindView(R.id.button)
+    Button button;
 
     private ImageryAdapter albumAdapter = null;
     private TimelineAdapter timelineAdapter = null;
@@ -295,6 +297,18 @@ public class TripActivity extends OwnCoreActivity {
             ToastUtils.showToast(this, "Yêu cầu không được chấp nhận, vui lòng liên hệ admin!");
     }
 
+
+    @OnClick(R.id.layout_members)
+    public void members() {
+        closeMenu();
+        if (mIgTrip.getRole() == RoleType.GUEST) {
+            ToastUtils.showToast(this, "Yêu cầu không được chấp nhận, vui lòng liên hệ admin!");
+            return;
+        }
+        startActivity(new Intent(this, MembersActivity.class));
+    }
+
+
     @OnClick(R.id.layout_save)
     public void save() {
         closeMenu();
@@ -303,5 +317,27 @@ public class TripActivity extends OwnCoreActivity {
     @OnClick(R.id.layout_share)
     public void share() {
         closeMenu();
+    }
+
+    @OnClick(R.id.button)
+    public void extraFunction() {
+        if (mIgTrip.getRole() == RoleType.GUEST) {
+            IzigoSdk.TripExecutor.join(AppConfig.getInstance().getCurrentTripId(), new IgCallback<Void, String>() {
+                @Override
+                public void onSuccessful(Void aVoid) {
+                    ToastUtils.showToast(TripActivity.this, "Đã gửi yêu cầu. Vui lòng chờ admin xác nhận.");
+                }
+
+                @Override
+                public void onFail(String error) {
+                    ToastUtils.showToast(TripActivity.this, error);
+                }
+
+                @Override
+                public void onExpired() {
+                    expired();
+                }
+            });
+        }
     }
 }

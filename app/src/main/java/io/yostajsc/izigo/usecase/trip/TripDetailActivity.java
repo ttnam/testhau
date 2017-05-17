@@ -83,17 +83,11 @@ public class TripDetailActivity extends OwnCoreActivity {
     @BindView(R.id.text_name)
     TextView textTripName;
 
-    @BindView(R.id.text_creator_name)
-    TextView textCreatorName;
-
     @BindView(R.id.image_creator_avatar)
     AppCompatImageView imageCreatorAvatar;
 
     @BindView(R.id.image_vehicle)
     AppCompatImageView imageVehicle;
-
-    @BindView(R.id.text_vehicle)
-    TextView textVehicle;
 
     @BindView(R.id.text_time_start)
     TextView textTimeStart;
@@ -107,9 +101,6 @@ public class TripDetailActivity extends OwnCoreActivity {
     @BindView(R.id.text_to)
     TextView textTo;
 
-    @BindView(R.id.text_edit)
-    TextView textEdit;
-
     @BindView(R.id.text_status)
     TextView textStatus;
 
@@ -118,12 +109,12 @@ public class TripDetailActivity extends OwnCoreActivity {
 
     @BindView(R.id.layout_history)
     FrameLayout layoutHistory;
-
+/*
     @BindView(R.id.switch_publish)
     Switch switchPublish;
 
     @BindView(R.id.button_action)
-    Button buttonAction;
+    Button buttonAction;*/
 
     private int mCurrentRoleType = RoleType.GUEST;
     private IgTrip mIgTrip = null;
@@ -133,7 +124,7 @@ public class TripDetailActivity extends OwnCoreActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_trip_detail);
+        //setContentView(R.layout.activity_trip_detail);
         ButterKnife.bind(this);
         onApplyViews();
 
@@ -195,12 +186,12 @@ public class TripDetailActivity extends OwnCoreActivity {
         return super.onContextItemSelected(item);
     }
 
-    @OnClick(R.id.layout_more)
+    /*@OnClick(R.id.layout_more)
     public void showMore() {
         PrefsUtils.inject(this).save(IgTrip.TRIP_ID, AppConfig.getInstance().getCurrentTripId());
         BottomSheetDialogFragment bottomSheetDialogFragment = new BottomSheetDialog();
         bottomSheetDialogFragment.show(getSupportFragmentManager(), bottomSheetDialogFragment.getTag());
-    }
+    }*/
 
     @Override
     public void onApplyData() {
@@ -276,7 +267,7 @@ public class TripDetailActivity extends OwnCoreActivity {
         }
     }
 
-    @OnClick(R.id.layout_vehicle)
+   /* @OnClick(R.id.layout_vehicle)
     public void onTransfer(View view) {
         if (!view.isClickable())
             return;
@@ -290,7 +281,8 @@ public class TripDetailActivity extends OwnCoreActivity {
             });
             dialogPickTransfer.show();
         }
-    }
+    }*/
+/*
 
     @OnClick(R.id.switch_publish)
     public void togglePublish() {
@@ -312,6 +304,7 @@ public class TripDetailActivity extends OwnCoreActivity {
             }
         });
     }
+*/
 
     @OnClick(R.id.layout_show_album)
     public void showAlbumActivity() {
@@ -320,7 +313,7 @@ public class TripDetailActivity extends OwnCoreActivity {
         startActivityForResult(intent, MessageType.PICK_IMAGE);
     }
 
-
+/*
     @OnClick(R.id.button_action)
     public void makeAction() {
         if (mCurrentRoleType == RoleType.GUEST) {
@@ -343,7 +336,7 @@ public class TripDetailActivity extends OwnCoreActivity {
         } else {
             startActivity(new Intent(TripDetailActivity.this, MembersActivity.class));
         }
-    }
+    }*/
 
     @OnClick(R.id.layout_maps)
     public void loadMapViews() {

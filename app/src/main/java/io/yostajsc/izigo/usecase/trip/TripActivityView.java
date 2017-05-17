@@ -2,6 +2,7 @@ package io.yostajsc.izigo.usecase.trip;
 
 import android.content.res.Resources;
 import android.net.Uri;
+import android.view.View;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.Priority;
@@ -75,7 +76,7 @@ public class TripActivityView {
         try {
             if (mInstance == null)
                 throw new Exception(ERROR_UNBOUND);
-            UiUtils.showTransfer(transfer, mActivity.imageVehicle, mActivity.textVehicle);
+            UiUtils.showTransfer(transfer, mActivity.imageVehicle);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -152,13 +153,15 @@ public class TripActivityView {
                     mActivity.buttonAction.setBackgroundDrawable(mActivity.getResources().
                             getDrawable(R.drawable.ic_style_button_round_none_accent));
                     mActivity.buttonAction.setText("Danh sách thành viên");
-                    mActivity.buttonAction.setVisibility(View.VISIBLE);*/
+                   */
+                    mActivity.button.setVisibility(View.GONE);
                     break;
                 case RoleType.GUEST:
                     /*mActivity.textEdit.setVisibility(View.GONE);
                     mActivity.switchPublish.setVisibility(View.GONE);
-                    mActivity.buttonAction.setText("Xin đi chung");
-                    mActivity.buttonAction.setVisibility(View.VISIBLE);*/
+                    */
+                    mActivity.button.setText("Xin tham gia");
+                    mActivity.button.setVisibility(View.VISIBLE);
                     break;
                 case RoleType.ADMIN: {
                     /*mActivity.textEdit.setVisibility(View.VISIBLE);
@@ -168,7 +171,8 @@ public class TripActivityView {
                     mActivity.buttonAction.setBackgroundDrawable(mActivity.getResources().
                             getDrawable(R.drawable.ic_style_button_round_none_accent));
                     mActivity.buttonAction.setText("Danh sách thành viên");
-                    mActivity.buttonAction.setVisibility(View.VISIBLE);*/
+                  */
+                    mActivity.button.setVisibility(View.GONE);
                     break;
                 }
             }

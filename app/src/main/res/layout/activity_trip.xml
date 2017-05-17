@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <include layout="@layout/fragment_trips" />
+    <include layout="@layout/layout_trip_body" />
 
     <android.support.design.widget.NavigationView
         android:layout_width="@dimen/icon_size_x13"

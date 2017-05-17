@@ -80,23 +80,6 @@ public class UiUtils {
         }
     }
 
-    public static void showTransfer(int type, AppCompatImageView imageView, TextView textView) {
-        switch (type) {
-            case TransferType.BUS:
-                imageView.setImageResource(R.drawable.ic_vector_bus_dark);
-                textView.setText("Bus");
-                break;
-            case TransferType.MOTORBIKE:
-                imageView.setImageResource(R.drawable.ic_vector_motor_bike_dark);
-                textView.setText("Motorbike");
-                break;
-            case TransferType.WALK:
-                imageView.setImageResource(R.drawable.ic_vector_walk_dark);
-                textView.setText("Walk");
-                break;
-        }
-    }
-
     public static void showTextCenterInWebView(WebView webView, String text) {
         String prefix = "<html><body><p style=\"text-align: justify\">";
         String postfix = "</p></body></html>";
