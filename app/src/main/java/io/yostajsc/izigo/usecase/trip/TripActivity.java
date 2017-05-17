@@ -30,6 +30,7 @@ import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.adapters.ImageryAdapter;
 import io.yostajsc.izigo.constants.RoleType;
 import io.yostajsc.izigo.dialogs.DialogComment;
+import io.yostajsc.izigo.dialogs.DialogTripStatus;
 import io.yostajsc.izigo.usecase.MembersActivity;
 import io.yostajsc.izigo.usecase.OwnCoreActivity;
 import io.yostajsc.izigo.usecase.map.MapsActivity;
@@ -148,10 +149,11 @@ public class TripActivity extends OwnCoreActivity {
     public void onApplyData() {
         super.onApplyData();
 
-        IzigoSdk.TripExecutor.getTripDetail(AppConfig.getInstance().getCurrentTripId(), new IgCallback<IgTrip, String>() {
+        updateTripDetail();
+        IzigoSdk.TripExecutor.getActivities(AppConfig.getInstance().getCurrentTripId(), new IgCallback<List<IgTimeline>, String>() {
             @Override
-            public void onSuccessful(IgTrip igTrip) {
-                updateUI(igTrip);
+            public void onSuccessful(List<IgTimeline> timelines) {
+                updateTimeline(timelines);
             }
 
             @Override
@@ -164,10 +166,13 @@ public class TripActivity extends OwnCoreActivity {
                 expired();
             }
         });
-        IzigoSdk.TripExecutor.getActivities(AppConfig.getInstance().getCurrentTripId(), new IgCallback<List<IgTimeline>, String>() {
+    }
+
+    private void updateTripDetail() {
+        IzigoSdk.TripExecutor.getTripDetail(AppConfig.getInstance().getCurrentTripId(), new IgCallback<IgTrip, String>() {
             @Override
-            public void onSuccessful(List<IgTimeline> timelines) {
-                updateTimeline(timelines);
+            public void onSuccessful(IgTrip igTrip) {
+                updateUI(igTrip);
             }
 
             @Override
@@ -276,7 +281,33 @@ public class TripActivity extends OwnCoreActivity {
     public void status() {
         closeMenu();
         if (mIgTrip.getRole() == RoleType.ADMIN) {
+            DialogTripStatus dialogTripStatus = new DialogTripStatus(this, new DialogTripStatus.OnSelectListener() {
+                @Override
+                public void select(int type) {
 
+                    IzigoSdk.TripExecutor.changeStatus(
+                            AppConfig.getInstance().getCurrentTripId(), type + "", new IgCallback<Void, String>() {
+                                @Override
+                                public void onSuccessful(Void aVoid) {
+                                    ToastUtils.showToast(TripActivity.this, getString(R.string.str_success));
+                                    updateTripDetail();
+                                }
+
+                                @Override
+                                public void onFail(String error) {
+                                    ToastUtils.showToast(TripActivity.this, error);
+                                }
+
+                                @Override
+                                public void onExpired() {
+                                    expired();
+                                }
+                            });
+
+                }
+            });
+            dialogTripStatus.show();
+            dialogTripStatus.setCurrentStatus(mIgTrip.getStatus());
         } else
             ToastUtils.showToast(this, "Yêu cầu không được chấp nhận, vui lòng liên hệ admin!");
     }

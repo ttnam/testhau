@@ -21,7 +21,6 @@ import io.yostajsc.izigo.R;
  */
 public class DialogPickTransfer extends Dialog {
 
-
     @BindView(R.id.button_people)
     AppCompatImageView buttonPeople;
 

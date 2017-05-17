@@ -110,11 +110,17 @@ interface IzigoApiInterface {
                                           @Path("id") String tripId,
                                           @Field("name") String cover);
 
+    @FormUrlEncoded
+    @PUT("api/trips/{id}")
+    Call<BaseResponse<String>> changeStatus(@Header("authorization") String authorization,
+                                          @Path("id") String tripId,
+                                          @Field("status") String status);
+
     @PUT("api/trips/{id}")
     @FormUrlEncoded
     Call<BaseResponse<String>> publish(@Header("authorization") String authorization,
                                        @Path("id") String tripId,
-                                       @Field("is_published") String cover);
+                                       @Field("is_published") String publish);
 
     @PUT("api/trips/{id}/join")
     Call<BaseResponse<String>> join(@Header("authorization") String authorization,

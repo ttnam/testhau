@@ -19,7 +19,8 @@
             android:background="@drawable/ic_toggle_publish_button"
             android:checked="false"
             android:textOff="Private"
-            android:textOn="Publish" />
+            android:textOn="Publish"
+            android:visibility="gone" />
 
         <LinearLayout
             android:id="@+id/layout_maps"

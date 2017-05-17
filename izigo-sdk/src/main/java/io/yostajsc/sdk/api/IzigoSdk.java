@@ -73,7 +73,7 @@ public class IzigoSdk {
                         auth,
                         tripId,
                         isPublish ? "1" : "0",
-                        TripTypePermission.STATUS,
+                        TripTypePermission.IS_PUBLISH,
                         callback);
             } else {
                 callback.onExpired();
@@ -101,6 +101,19 @@ public class IzigoSdk {
                         tripId,
                         name,
                         TripTypePermission.NAME,
+                        callback);
+            } else {
+                callback.onExpired();
+            }
+        }
+        public static void changeStatus(String tripId, String status, IgCallback<Void, String> callback) {
+            if (IzigoSession.isLoggedIn()) {
+                String auth = IzigoSession.getToken().getToken();
+                IzigoApiManager.connect().updateTripInfo(
+                        auth,
+                        tripId,
+                        status,
+                        TripTypePermission.STATUS,
                         callback);
             } else {
                 callback.onExpired();

@@ -456,8 +456,11 @@ class IzigoApiManager {
 
         if (type == TripTypePermission.NAME) {
             call = service.changeName(authorization, tripId, data);
-        } else if (type == TripTypePermission.STATUS) {
+        } else if (type == TripTypePermission.IS_PUBLISH) {
             call = service.publish(authorization, tripId, data);
+        }
+        else if (type == TripTypePermission.STATUS) {
+            call = service.changeStatus(authorization, tripId, data);
         }
         call.enqueue(new Callback<BaseResponse<String>>() {
             @Override
