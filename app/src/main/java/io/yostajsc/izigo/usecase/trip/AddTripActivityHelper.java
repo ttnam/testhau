@@ -9,8 +9,8 @@ import java.text.DecimalFormat;
 import java.util.Calendar;
 
 import io.yostajsc.core.utils.DatetimeUtils;
-import io.yostajsc.izigo.dialogs.DialogDatePicker;
-import io.yostajsc.izigo.dialogs.DialogTimePicker;
+import io.yostajsc.izigo.usecase.trip.dialog.DialogDatePicker;
+import io.yostajsc.izigo.usecase.trip.dialog.DialogTimePicker;
 
 /**
  * Created by nphau on 5/12/17.

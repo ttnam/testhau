@@ -1,14 +1,11 @@
-package io.yostajsc.izigo.dialogs;
+package io.yostajsc.izigo.usecase.trip.dialog;
 
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v7.widget.AppCompatImageView;
 import android.view.Window;
 import android.view.WindowManager;
-
-import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.yostajsc.izigo.constants.TransferType;
@@ -20,15 +17,6 @@ import io.yostajsc.izigo.R;
  * Created by Phuc-Hau Nguyen on 8/31/2016.
  */
 public class DialogPickTransfer extends Dialog {
-
-    @BindView(R.id.button_people)
-    AppCompatImageView buttonPeople;
-
-    @BindView(R.id.button_bicycle)
-    AppCompatImageView buttonBicycle;
-
-    @BindView(R.id.button_bus)
-    AppCompatImageView buttonBus;
 
     @TransferType
     private int mTransfer = TransferType.MOTORBIKE;

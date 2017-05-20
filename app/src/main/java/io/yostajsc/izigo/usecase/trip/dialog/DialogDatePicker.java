@@ -1,4 +1,4 @@
-package io.yostajsc.izigo.dialogs;
+package io.yostajsc.izigo.usecase.trip.dialog;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
@@ -25,8 +25,7 @@ public class DialogDatePicker extends DatePickerDialog {
 
     }
 
-    public void onDateChanged(DatePicker view, int year,
-                              int month, int day) {
+    public void onDateChanged(DatePicker view, int year, int month, int day) {
         updateTitle(year, month);
     }
 
@@ -34,13 +33,7 @@ public class DialogDatePicker extends DatePickerDialog {
         Calendar mCalendar = Calendar.getInstance();
         mCalendar.set(Calendar.YEAR, year);
         mCalendar.set(Calendar.MONTH, month);
-//       mCalendar.set(Calendar.DAY_OF_MONTH, day);
         mDatePicker.setTitle(getFormat().format(mCalendar.getTime()));
-    }
-
-    public DatePickerDialog getPicker() {
-
-        return this.mDatePicker;
     }
 
     /*

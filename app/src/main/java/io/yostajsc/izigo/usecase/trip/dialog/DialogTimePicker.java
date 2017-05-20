@@ -1,4 +1,4 @@
-package io.yostajsc.izigo.dialogs;
+package io.yostajsc.izigo.usecase.trip.dialog;
 
 import android.app.TimePickerDialog;
 import android.content.Context;

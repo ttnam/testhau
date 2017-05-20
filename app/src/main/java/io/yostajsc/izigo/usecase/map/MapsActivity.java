@@ -52,7 +52,7 @@ import io.yostajsc.core.utils.NetworkUtils;
 import io.yostajsc.izigo.usecase.firebase.FirebaseManager;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.usecase.OwnCoreActivity;
-import io.yostajsc.izigo.dialogs.DialogActiveMembers;
+import io.yostajsc.izigo.usecase.trip.dialog.DialogActiveMembers;
 import io.yostajsc.izigo.usecase.customview.OwnToolBar;
 import io.yostajsc.izigo.usecase.map.model.Info;
 import io.yostajsc.izigo.usecase.map.model.Person;

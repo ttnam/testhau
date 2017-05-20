@@ -21,7 +21,7 @@ import io.yostajsc.sdk.model.trip.IgTrip;
 import io.yostajsc.core.utils.NetworkUtils;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.usecase.MainActivity;
-import io.yostajsc.izigo.dialogs.DialogFilter;
+import io.yostajsc.izigo.usecase.trip.dialog.DialogFilter;
 import io.yostajsc.izigo.usecase.trip.adapter.TripAdapter;
 import io.yostajsc.sdk.api.IzigoSdk;
 import io.yostajsc.sdk.model.IgCallback;

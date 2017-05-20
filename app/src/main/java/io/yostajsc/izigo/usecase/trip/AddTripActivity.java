@@ -33,7 +33,7 @@ import io.yostajsc.core.interfaces.CallBackWith;
 import io.yostajsc.core.code.MessageType;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.usecase.OwnCoreActivity;
-import io.yostajsc.izigo.dialogs.DialogPickTransfer;
+import io.yostajsc.izigo.usecase.trip.dialog.DialogPickTransfer;
 import io.yostajsc.izigo.AppConfig;
 import io.yostajsc.izigo.usecase.map.model.Info;
 import io.yostajsc.izigo.usecase.map.utils.MapUtils;
