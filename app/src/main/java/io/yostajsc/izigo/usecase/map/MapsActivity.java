@@ -10,7 +10,9 @@ import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.AppCompatImageView;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -91,6 +93,10 @@ public class MapsActivity extends OwnCoreActivity implements OnMapReadyCallback,
     @BindView(R.id.button_direction)
     FloatingActionButton btnDirection;
 
+    @BindView(R.id.drawer_layout)
+    DrawerLayout drawerLayout;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -108,7 +114,7 @@ public class MapsActivity extends OwnCoreActivity implements OnMapReadyCallback,
         this.mapFragment.getMapAsync(this);
 
         this.mDialogActiveMembers = new DialogActiveMembers(this, this);
-        this.ownToolbar.setBinding(R.drawable.ic_vector_back_blue, R.drawable.ic_vector_bell_notif, new View.OnClickListener() {
+        this.ownToolbar.setBinding(R.drawable.ic_vector_back_blue, R.drawable.ic_vector_menu_blue, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();
@@ -116,7 +122,7 @@ public class MapsActivity extends OwnCoreActivity implements OnMapReadyCallback,
         }, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadNotifications();
+                openMenu();
             }
         });
     }
@@ -146,27 +152,6 @@ public class MapsActivity extends OwnCoreActivity implements OnMapReadyCallback,
                             expired();
                         }
                     });
-        }
-    }
-
-    @OnClick(R.id.button)
-    public void showActiveMembersList() {
-        mDialogActiveMembers.show();
-
-        LatLng latLngOwn = mTracks.get(IzigoSdk.UserExecutor.getOwnFbId()).getPosition();
-
-        for (final String fbId : mTracks.keySet()) {
-
-            fbTemp = fbId;
-            LatLng latLng = mTracks.get(fbTemp).getPosition();
-            MapUtils.Map.direction(mMap, latLngOwn, latLng, false, new CallBackWith<Info>() {
-                @Override
-                public void run(Info info) {
-                    mTracks.get(fbTemp).setDistance(info.strDistance);
-                    mTracks.get(fbTemp).setTime(info.strDuration);
-                    mDialogActiveMembers.setData(mTracks.values().toArray(new Person[mTracks.values().size()]));
-                }
-            }, null);
         }
     }
 
@@ -568,7 +553,9 @@ public class MapsActivity extends OwnCoreActivity implements OnMapReadyCallback,
         }
     }
 
-    private void loadNotifications() {
+    @OnClick(R.id.layout_notification)
+    public void loadNotifications() {
+        closeMenu();
         dialogNotification = new DialogNotification(MapsActivity.this);
         dialogNotification.show();
 
@@ -594,5 +581,44 @@ public class MapsActivity extends OwnCoreActivity implements OnMapReadyCallback,
                 expired();
             }
         });
+    }
+
+    @OnClick(R.id.layout_members)
+    public void showActiveMembersList() {
+
+        closeMenu();
+
+        mDialogActiveMembers.show();
+
+        LatLng latLngOwn = mTracks.get(IzigoSdk.UserExecutor.getOwnFbId()).getPosition();
+
+        for (final String fbId : mTracks.keySet()) {
+
+            fbTemp = fbId;
+            LatLng latLng = mTracks.get(fbTemp).getPosition();
+            MapUtils.Map.direction(mMap, latLngOwn, latLng, false, new CallBackWith<Info>() {
+                @Override
+                public void run(Info info) {
+                    mTracks.get(fbTemp).setDistance(info.strDistance);
+                    mTracks.get(fbTemp).setTime(info.strDuration);
+                    mDialogActiveMembers.setData(mTracks.values().toArray(new Person[mTracks.values().size()]));
+                }
+            }, null);
+        }
+    }
+
+    @OnClick(R.id.layout_setting)
+    public void setting() {
+        closeMenu();
+        DialogMapSetting dialogMapSetting = new DialogMapSetting(this);
+        dialogMapSetting.show();
+    }
+
+    public void openMenu() {
+        drawerLayout.openDrawer(Gravity.END);
+    }
+
+    private void closeMenu() {
+        drawerLayout.closeDrawers();
     }
 }

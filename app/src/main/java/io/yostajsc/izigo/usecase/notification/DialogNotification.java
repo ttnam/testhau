@@ -55,7 +55,7 @@ public class DialogNotification extends Dialog {
             WindowManager.LayoutParams params = window.getAttributes();
             params.windowAnimations = R.style.CoreAppTheme_AnimDialog_Grow;
             params.width = WindowManager.LayoutParams.WRAP_CONTENT;
-            params.height = WindowManager.LayoutParams.MATCH_PARENT;
+            params.height = WindowManager.LayoutParams.WRAP_CONTENT;
             window.setAttributes(params);
         }
         setCancelable(false);
@@ -77,9 +77,9 @@ public class DialogNotification extends Dialog {
         }));
     }
 
-    public void setData(List<IgNotification> igNoti) {
-        if (igNoti == null)
+    public void setData(List<IgNotification> igNotifications) {
+        if (igNotifications == null)
             return;
-        adapter.replaceAll(igNoti);
+        adapter.replaceAll(igNotifications);
     }
 }

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorWindowBackground"
+    android:orientation="vertical"
+    android:padding="@dimen/margin">
+
+    <LinearLayout
+        style="@style/Style_Menu_Item.NonPress"
+        android:orientation="horizontal">
+
+        <android.support.v7.widget.AppCompatImageView
+            android:layout_width="@dimen/icon_size_x3"
+            android:layout_height="@dimen/icon_size_x3"
+            android:layout_gravity="center"
+            app:srcCompat="@drawable/ic_vector_bell" />
+
+        <TextView
+            style="@style/CoreAppTheme.TextView_Title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/margin_x2"
+            android:layout_marginStart="@dimen/margin_x2"
+            android:layout_weight="1"
+            android:text="Available" />
+
+        <Switch
+            android:id="@+id/switch_available"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginEnd="@dimen/margin"
+            android:layout_marginRight="@dimen/margin"
+            android:checked="true"
+            android:clickable="true"
+            android:enabled="true" />
+
+    </LinearLayout>
+
+
+    <TextView
+        style="@style/CoreAppTheme.TextView_Sub_Title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="@dimen/margin"
+        android:text="Những tuỳ chỉnh này \n chỉ áp dụng cho chuyến đi hiện tại" />
+
+</LinearLayout>

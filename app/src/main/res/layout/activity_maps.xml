@@ -1,93 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <io.yostajsc.izigo.usecase.customview.OwnToolBar
-        android:id="@id/own_toolbar"
-        android:layout_width="match_parent"
+    <include layout="@layout/layout_maps_body" />
+
+    <android.support.design.widget.NavigationView
+        android:layout_width="@dimen/icon_size_x13"
         android:layout_height="wrap_content"
-        app:layoutBackground="@android:color/white"
-        app:layoutTitle="@string/str_your_trip"
-        app:layoutTitleColor="@android:color/holo_blue_dark"
-        app:layoutType="title_center" />
+        android:layout_gravity="center|end"
+        android:background="@android:color/white">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:background="@color/transparent_60_white"
-        android:orientation="horizontal"
-        android:visibility="visible">
+        <include layout="@layout/layout_maps_menu" />
 
-        <android.support.v7.widget.AppCompatImageView
-            android:layout_width="@dimen/icon_size_x5"
-            android:layout_height="@dimen/icon_size_x5"
-            android:layout_gravity="center"
-            android:layout_margin="@dimen/margin"
-            app:srcCompat="@drawable/ic_profile_holder" />
+    </android.support.design.widget.NavigationView>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:orientation="vertical">
-
-            <TextView
-                style="@style/CoreAppTheme.TextView_Sub_Title.Bold"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="Closest meeting" />
-
-            <TextView
-                style="@style/CoreAppTheme.TextView_Sub_Title.Bold"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="2km away" />
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <fragment
-            android:id="@+id/map"
-            android:name="com.google.android.gms.maps.SupportMapFragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|start"
-            android:layout_margin="@dimen/margin"
-            android:orientation="vertical">
-
-            <android.support.design.widget.FloatingActionButton
-                android:id="@+id/button_direction"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:visibility="gone"
-                app:backgroundTint="@android:color/holo_blue_dark"
-                app:fabSize="normal"
-                app:srcCompat="@drawable/ic_vector_direction" />
-
-            <android.support.design.widget.FloatingActionButton
-                android:id="@id/button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin"
-                app:fabSize="normal"
-                app:srcCompat="@drawable/ic_vector_user_group" />
-
-        </LinearLayout>
-
-    </FrameLayout>
-
-</LinearLayout>
+</android.support.v4.widget.DrawerLayout>

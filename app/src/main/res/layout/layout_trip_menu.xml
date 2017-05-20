@@ -245,7 +245,7 @@
                 android:layout_gravity="center"
                 android:background="@drawable/ic_style_circle_grey"
                 android:padding="@dimen/margin"
-                app:srcCompat="@drawable/ic_vector_close_red" />
+                app:srcCompat="@drawable/ic_vector_basket" />
 
             <TextView
                 style="@style/CoreAppTheme.TextView_Sub_Title"
@@ -253,6 +253,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
+                android:textColor="@android:color/holo_red_light"
                 android:text="Xoá" />
 
         </LinearLayout>

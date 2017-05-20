@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="64dp"
+    android:height="64dp"
+    android:viewportHeight="64"
+    android:viewportWidth="64">
+
+    <group
+        android:translateX="232.000000"
+        android:translateY="228.000000">
+        <path
+            android:fillColor="@android:color/holo_red_light"
+            android:pathData="M -207.5 -205.1 L -204.5 -205.1 L -204.5 -181.1 L -207.5 -181.1 Z" />
+        <path
+            android:fillColor="@android:color/holo_red_light"
+            android:pathData="M -201.5 -205.1 L -198.5 -205.1 L -198.5 -181.1 L -201.5 -181.1 Z" />
+        <path
+            android:fillColor="@android:color/holo_red_light"
+            android:pathData="M -195.5 -205.1 L -192.5 -205.1 L -192.5 -181.1 L -195.5 -181.1 Z" />
+        <path
+            android:fillColor="@android:color/holo_red_light"
+            android:pathData="M -219.5 -214.1 L -180.5 -214.1 L -180.5 -211.1 L -219.5 -211.1 Z" />
+        <path
+            android:fillColor="@android:color/holo_red_light"
+            android:pathData="M-192.6-212.6h-2.8v-3c0-0.9-0.7-1.6-1.6-1.6h-6c-0.9,0-1.6,0.7-1.6,1.6v3h-2.8v-3
+c0-2.4,2-4.4,4.4-4.4h6c2.4,0,4.4,2,4.4,4.4V-212.6" />
+        <path
+            android:fillColor="@android:color/holo_red_light"
+            android:pathData="M-191-172.1h-18c-2.4,0-4.5-2-4.7-4.4l-2.8-36l3-0.2l2.8,36c0.1,0.9,0.9,1.6,1.7,1.6h18
+c0.9,0,1.7-0.8,1.7-1.6l2.8-36l3,0.2l-2.8,36C-186.5-174-188.6-172.1-191-172.1" />
+    </group>
+</vector>
