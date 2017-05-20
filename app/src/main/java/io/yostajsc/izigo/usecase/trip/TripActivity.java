@@ -350,6 +350,13 @@ public class TripActivity extends OwnCoreActivity {
     @OnClick(R.id.layout_share)
     public void share() {
         closeMenu();
+
+        String body = "Tham gia " + mIgTrip.getName() + " cùng tôi nha!";
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT, body);
+        sendIntent.setType("text/plain");
+        startActivity(Intent.createChooser(sendIntent, getString(R.string.str_send_invite)));
     }
 
     @OnClick(R.id.button)

@@ -132,7 +132,6 @@ public class IzigoSdk {
         public static void getPublishTrip(final IgCallback<List<IgTrip>, String> callback) {
             if (IzigoSession.isLoggedIn()) {
                 String auth = IzigoSession.getToken().getToken();
-                Log.e(TAG, auth);
                 IzigoApiManager.connect().getAllPublicTrips(auth, callback);
             } else {
                 callback.onExpired();

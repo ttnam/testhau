@@ -78,10 +78,16 @@ public class TripFragment extends CoreFragment {
                 new CallBackWith<Integer>() {
                     @Override
                     public void run(Integer position) {
-                        AppConfig.getInstance().setCurrentTripId(
-                                tripAdapter.getItem(position).getId()
-                        );
-                        startActivity(new Intent(mContext, TripActivity.class));
+                        try {
+                            AppConfig.getInstance().setCurrentTripId(
+                                    tripAdapter.getItem(position).getId()
+                            );
+                            startActivity(new Intent(mContext, TripActivity.class));
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
+
                     }
                 });
         this.rvTrip.addItemDecoration(new SpacesItemDecoration(5));
