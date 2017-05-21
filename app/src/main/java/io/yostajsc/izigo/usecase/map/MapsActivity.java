@@ -27,7 +27,6 @@ import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
-import com.google.firebase.database.DataSnapshot;
 import com.google.maps.android.clustering.Cluster;
 import com.google.maps.android.clustering.ClusterItem;
 import com.google.maps.android.clustering.ClusterManager;
@@ -37,7 +36,6 @@ import com.google.maps.android.ui.IconGenerator;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 
 import butterknife.BindView;
@@ -333,59 +331,31 @@ public class MapsActivity extends OwnCoreActivity implements OnMapReadyCallback,
 
     private void registerDataChangeListener() {
 
-        FirebaseManager.inject().registerListenerOnTrack(
-                AppConfig.getInstance().getCurrentTripId(),
-                new CallBackWith<DataSnapshot>() {
+        FirebaseManager.inject().subscribeLastGps(AppConfig.getInstance().getCurrentTripId(),
+                new FirebaseManager.OnSuccessListener() {
                     @Override
-                    public void run(DataSnapshot dataSnapshot) {
-                        onChildAdded(dataSnapshot);
+                    public void success(String fbId, double lat, double lng, String time, boolean isOnline) {
+                        onChildAdded(fbId, lat, lng, time, isOnline);
                     }
-                }, new CallBackWith<DataSnapshot>() {
+                }, new FirebaseManager.OnSuccessListener() {
                     @Override
-                    public void run(DataSnapshot dataSnapshot) {
-                        onChildChanged(dataSnapshot);
+                    public void success(String fbId, double lat, double lng, String time, boolean isOnline) {
+                        onChildChanged(fbId, lat, lng, time, isOnline);
                     }
-                }, new CallBackWith<String>() {
+                }, new FirebaseManager.OnFailureListener() {
                     @Override
-                    public void run(String error) {
+                    public void error(String error) {
                         ToastUtils.showToast(MapsActivity.this, error);
                     }
                 });
     }
 
-    private void onChildAdded(DataSnapshot dataSnapshot) {
-
-        String fbId = dataSnapshot.getKey();
-
-        Iterator<DataSnapshot> geoIterator = dataSnapshot
-                .child("geo")
-                .getChildren().iterator();
-
-        String[] dataChild = null;
-        String key = "";
-        boolean gpsStatus = true;
-        while (geoIterator.hasNext()) {
-            DataSnapshot geoData = geoIterator.next();
-            String[] dataChildT = ((String) geoData.getValue()).split(", ");
-            if (dataChildT.length == 3) {
-                if (dataChildT[2].equalsIgnoreCase("1")) {
-                    key = geoData.getKey();
-                    dataChild = dataChildT;
-                }
-                if (!geoIterator.hasNext())
-                    gpsStatus = dataChildT[2].equalsIgnoreCase("1");
-            }
-        }
-
-        if (dataChild == null)
-            return;
+    private void onChildAdded(String fbId, double lat, double lng, String time, boolean isOnline) {
 
         // Update
-        this.mTracks.get(fbId).setVisible(gpsStatus);               // Is visible
-        this.mTracks.get(fbId).setLatLng(new LatLng(
-                Double.parseDouble(dataChild[0]),                   // Lat
-                Double.parseDouble(dataChild[1])));                 // Lng
-        this.mTracks.get(fbId).setUpdateAt(Long.parseLong(key));    // Time update
+        this.mTracks.get(fbId).setVisible(isOnline);                // Is online
+        this.mTracks.get(fbId).setLatLng(new LatLng(lat, lng));     // Location
+        this.mTracks.get(fbId).setUpdateAt(Long.parseLong(time));   // Time
 
         // Show maps
         Person person = this.mTracks.get(fbId);
@@ -405,41 +375,12 @@ public class MapsActivity extends OwnCoreActivity implements OnMapReadyCallback,
         }
     }
 
-    private void onChildChanged(DataSnapshot dataSnapshot) {
-
-        String fbId = dataSnapshot.getKey();
-
-        Iterator<DataSnapshot> geoIterator = dataSnapshot
-                .child("geo")
-                .getChildren().iterator();
-
-        String[] dataChild = null;
-        String key = "";
-        boolean gpsStatus = true;
-        while (geoIterator.hasNext()) {
-            DataSnapshot geoData = geoIterator.next();
-            String[] dataChildT = ((String) geoData.getValue()).split(", ");
-            if (dataChildT.length == 3) {
-                if (dataChildT[2].equalsIgnoreCase("1")) {
-                    key = geoData.getKey();
-                    dataChild = dataChildT;
-                }
-                if (!geoIterator.hasNext())
-                    gpsStatus = dataChildT[2].equalsIgnoreCase("1");
-            }
-        }
-
-        if (dataChild == null)
-            return;
-
+    private void onChildChanged(String fbId, double lat, double lng, String time, boolean isOnline) {
         // Update the new one
-        this.mTracks.get(fbId).setUpdateAt(Long.parseLong(key));    // Time update
-        this.mTracks.get(fbId).setVisible(gpsStatus);               // Is visible
-        this.mTracks.get(fbId).setLatLng(
-                new LatLng(Double.parseDouble(dataChild[0]), Double.parseDouble(dataChild[1]))
-        );
+        this.mTracks.get(fbId).setVisible(isOnline);                // Is online
+        this.mTracks.get(fbId).setLatLng(new LatLng(lat, lng));     // Location
+        this.mTracks.get(fbId).setUpdateAt(Long.parseLong(time));   // Time
         reloadMarker(this.mTracks.get(fbId));
-
     }
 
     private class PersonRenderer extends DefaultClusterRenderer<Person> {
@@ -617,7 +558,6 @@ public class MapsActivity extends OwnCoreActivity implements OnMapReadyCallback,
         closeMenu();
         dialogMapSetting.show();
     }
-
 
     @Override
     public void run(boolean isOnline) {

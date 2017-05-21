@@ -44,7 +44,7 @@ public class PrefsUtils {
         return value;
     }
 
-    public boolean getBoolen(String key) {
+    public boolean getBoolean(String key) {
         boolean value = false;
         if (preferences != null && preferences.contains(key))
             value = preferences.getBoolean(key, false);

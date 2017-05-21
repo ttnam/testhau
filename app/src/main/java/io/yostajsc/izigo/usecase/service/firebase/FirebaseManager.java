@@ -19,8 +19,7 @@ public class FirebaseManager {
     private DatabaseReference mReference = null;
     private static FirebaseManager mInstance = null;
 
-    // Track
-    private static ChildEventListener mOnValueChangeOnTrack = null;
+    private static ChildEventListener mOnLastGpsListener = null;
 
     private FirebaseManager() {
         if (this.mReference == null) {
@@ -39,21 +38,59 @@ public class FirebaseManager {
         return this.mReference.child(FIRE_BASE_TRACK);
     }
 
-    public void registerListenerOnTrack(
-            String tripId,
-            final CallBackWith<DataSnapshot> onChildAdded,
-            final CallBackWith<DataSnapshot> onChildChanged,
-            final CallBackWith<String> onCancelled) {
 
-        mOnValueChangeOnTrack = TRACK().child(tripId).addChildEventListener(new ChildEventListener() {
+    public void unregisterListenerOnTrack() {
+        if (mOnLastGpsListener != null)
+            TRACK().removeEventListener(mOnLastGpsListener);
+    }
+
+    public void subscribeLastGps(String tripId,
+                                 final OnSuccessListener onChildAdded,
+                                 final OnSuccessListener onChildChanged,
+                                 final OnFailureListener onFailure) {
+
+        mOnLastGpsListener = TRACK().child(tripId).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                onChildAdded.run(dataSnapshot);
+
+                String fbId = dataSnapshot.getKey();
+
+                String[] dataChild = null;
+                if (dataSnapshot.hasChild("lastGps"))
+                    dataChild = ((String) dataSnapshot.child("lastGps").getValue()).split(", ");
+
+                long isOnline = 0;
+                if (dataSnapshot.hasChild("isOnline"))
+                    isOnline = ((Long) dataSnapshot.child("isOnline").getValue());
+
+                if (dataChild != null) {
+                    onChildAdded.success(
+                            fbId,
+                            Double.valueOf(dataChild[0]),
+                            Double.valueOf(dataChild[1]),
+                            dataChild[2], isOnline == 1);
+                }
             }
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                onChildChanged.run(dataSnapshot);
+                String fbId = dataSnapshot.getKey();
+
+                String[] dataChild = null;
+                if (dataSnapshot.hasChild("lastGps"))
+                    dataChild = ((String) dataSnapshot.child("lastGps").getValue()).split(", ");
+
+                long isOnline = 0;
+                if (dataSnapshot.hasChild("isOnline"))
+                    isOnline = ((Long) dataSnapshot.child("isOnline").getValue());
+
+                if (dataChild != null) {
+                    onChildChanged.success(
+                            fbId,
+                            Double.valueOf(dataChild[0]),
+                            Double.valueOf(dataChild[1]),
+                            dataChild[2], isOnline == 1);
+                }
             }
 
             @Override
@@ -68,14 +105,16 @@ public class FirebaseManager {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                onCancelled.run(databaseError.getMessage());
+                onFailure.error(databaseError.getMessage());
             }
         });
-
     }
 
-    public void unregisterListenerOnTrack() {
-        if (mOnValueChangeOnTrack != null)
-            TRACK().removeEventListener(mOnValueChangeOnTrack);
+    public interface OnFailureListener {
+        void error(String error);
+    }
+
+    public interface OnSuccessListener {
+        void success(String fbId, double lat, double lng, String time, boolean isOnline);
     }
 }

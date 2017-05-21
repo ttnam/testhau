@@ -3,6 +3,7 @@ package io.yostajsc.izigo.usecase.service.location;
 import android.location.Location;
 import android.os.Bundle;
 import android.text.TextUtils;
+
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 

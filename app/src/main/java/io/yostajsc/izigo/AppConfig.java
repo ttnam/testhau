@@ -126,6 +126,6 @@ public class AppConfig extends Application {
     }
 
     public boolean isAvailable() {
-        return PrefsUtils.inject(this).getBoolen(IS_AVAILABLE);
+        return PrefsUtils.inject(this).getBoolean(IS_AVAILABLE);
     }
 }

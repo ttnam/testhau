@@ -12,6 +12,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.yostajsc.core.utils.DimensionUtil;
+import io.yostajsc.izigo.AppConfig;
 import io.yostajsc.izigo.R;
 
 /**
@@ -67,6 +68,12 @@ public class DialogMapSetting extends Dialog {
             e.printStackTrace();
         }
 
+    }
+
+    @Override
+    public void show() {
+        super.show();
+        switchAvailable.setChecked(AppConfig.getInstance().isAvailable());
     }
 
     public interface OnOnlineListener {
