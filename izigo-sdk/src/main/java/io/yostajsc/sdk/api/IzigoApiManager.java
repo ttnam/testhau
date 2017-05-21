@@ -1,16 +1,20 @@
 package io.yostajsc.sdk.api;
 
+import android.content.Context;
+import android.net.Uri;
 import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.SocketTimeoutException;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import io.yostajsc.core.utils.FileUtils;
 import io.yostajsc.sdk.model.IgComment;
 import io.yostajsc.sdk.model.IgNotification;
 import io.yostajsc.sdk.model.IgTimeline;
@@ -24,7 +28,10 @@ import io.yostajsc.sdk.response.BaseResponse;
 import io.yostajsc.core.interfaces.CallBack;
 import io.yostajsc.core.interfaces.CallBackWith;
 import okhttp3.Interceptor;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
+import okhttp3.RequestBody;
 import retrofit2.Response;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -458,8 +465,7 @@ class IzigoApiManager {
             call = service.changeName(authorization, tripId, data);
         } else if (type == TripTypePermission.IS_PUBLISH) {
             call = service.publish(authorization, tripId, data);
-        }
-        else if (type == TripTypePermission.STATUS) {
+        } else if (type == TripTypePermission.STATUS) {
             call = service.changeStatus(authorization, tripId, data);
         }
         call.enqueue(new Callback<BaseResponse<String>>() {
@@ -666,6 +672,85 @@ class IzigoApiManager {
             @Override
             public void onFailure(Call<BaseResponse> call, Throwable throwable) {
                 callback.onFail(throwable.getMessage());
+            }
+        });
+    }
+
+    public void uploadAlbum(Context context, String authorization, String tripId, Uri[] uris,
+                            final IgCallback<Void, String> callback) {
+        int size = uris.length;
+        MultipartBody.Part[] imagesParts = new MultipartBody.Part[size];
+
+        for (int i = 0; i < size; i++) {
+            File file = FileUtils.getFile(context, uris[i]);
+            RequestBody requestFile =
+                    RequestBody.create(
+                            MediaType.parse(context.getContentResolver()
+                                    .getType(uris[i])),
+                            file
+                    );
+            imagesParts[i] = MultipartBody.Part.createFormData(i + "", file.getName(), requestFile);
+        }
+        RequestBody rTripId = RequestBody.create(okhttp3.MultipartBody.FORM, tripId);
+
+        Call<BaseResponse> call = service.uploadImages(authorization, rTripId, imagesParts);
+        call.enqueue(new Callback<BaseResponse>() {
+            @Override
+            public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
+                if (response.isSuccessful()) {
+                    BaseResponse res = response.body();
+                    if (res.isSuccessful()) {
+                        callback.onSuccessful(null);
+                    } else if (res.isExpired()) {
+                        callback.onExpired();
+                    } else {
+                        callback.onFail(res.getDescription());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BaseResponse> call, Throwable throwable) {
+                callback.onFail(throwable.getMessage());
+            }
+        });
+    }
+
+    public void uploadCover(Context context, String authorization, String tripId, Uri fileUri,
+                            final IgCallback<Void, String> callback) {
+
+        File file = FileUtils.getFile(context, fileUri);
+        RequestBody requestFile =
+                RequestBody.create(
+                        MediaType.parse(context.getContentResolver().getType(fileUri)),
+                        file
+                );
+
+        MultipartBody.Part body =
+                MultipartBody.Part.createFormData("cover", file.getName(), requestFile);
+
+        RequestBody rTripId = RequestBody.create(okhttp3.MultipartBody.FORM, tripId);
+
+        Call<BaseResponse> call = service.uploadCover(authorization, rTripId, body);
+        call.enqueue(new Callback<BaseResponse>() {
+            @Override
+            public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
+                if (response.isSuccessful()) {
+                    BaseResponse res = response.body();
+                    if (res.isSuccessful()) {
+                        callback.onSuccessful(null);
+                    } else if (res.isExpired()) {
+                        callback.onExpired();
+                    } else {
+                        callback.onFail(res.getDescription());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BaseResponse> call, Throwable throwable) {
+                callback.onFail(throwable.getMessage());
+                log(throwable.getMessage());
             }
         });
     }
