@@ -1,4 +1,4 @@
-package io.yostajsc.izigo.usecase.firebase;
+package io.yostajsc.izigo.usecase.service.firebase;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -14,7 +14,6 @@ import io.yostajsc.core.interfaces.CallBackWith;
 public class FirebaseManager {
 
     public static final String FIRE_BASE_TOKEN = "FIRE_BASE_TOKEN";
-    private static final String FIRE_BASE_TRIP = "TRIP";
     private static final String FIRE_BASE_TRACK = "TRACK";
 
     private DatabaseReference mReference = null;
@@ -35,16 +34,6 @@ public class FirebaseManager {
         }
         return mInstance;
     }
-
-    // DatabaseReference
-    public DatabaseReference COMMENT(String tripId) {
-        return TRIP().child(tripId).child("comment");
-    }
-
-    public DatabaseReference TRIP() {
-        return this.mReference.child(FIRE_BASE_TRIP);
-    }
-
 
     public DatabaseReference TRACK() {
         return this.mReference.child(FIRE_BASE_TRACK);
@@ -83,20 +72,6 @@ public class FirebaseManager {
             }
         });
 
-
-        /*mOnValueChangeOnTrack = TRACK().child(tripId).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    onSuccessful.run(dataSnapshot);
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                onCancelled.run(databaseError.getMessage());
-            }
-        });*/
     }
 
     public void unregisterListenerOnTrack() {

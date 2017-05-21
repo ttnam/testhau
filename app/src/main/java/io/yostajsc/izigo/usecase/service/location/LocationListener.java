@@ -1,10 +1,8 @@
-package io.yostajsc.izigo.usecase.location;
+package io.yostajsc.izigo.usecase.service.location;
 
 import android.location.Location;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
-
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -22,11 +20,8 @@ public class LocationListener implements android.location.LocationListener {
 
     private static final String TAG = LocationListener.class.getSimpleName();
 
-
     private DatabaseReference mDatabase;
     private Location mLastLocation;
-
-    private String mTripId = null, mOwnFbId = null;
 
     public LocationListener(String provider) {
         mLastLocation = new Location(provider);
@@ -36,26 +31,27 @@ public class LocationListener implements android.location.LocationListener {
     @Override
     public void onLocationChanged(final Location location) {
 
+        String mTripId = AppConfig.getInstance().getCurrentTripId();
+        if (TextUtils.isEmpty(mTripId))
+            return;
+
+        String mOwnFbId = IzigoSdk.UserExecutor.getOwnFbId();
+        if (TextUtils.isEmpty(mOwnFbId))
+            return;
+
+        // is better
         if (MapUtils.Map.isBetter(location, mLastLocation)) {
 
             mLastLocation = location;
 
-            mTripId = AppConfig.getInstance().getCurrentTripId();
-            if (TextUtils.isEmpty(mTripId))
-                return;
-
-            mOwnFbId = IzigoSdk.UserExecutor.getOwnFbId();
-            if (TextUtils.isEmpty(mOwnFbId))
-                return;
-
-
             mDatabase.child("TRACK/" + mTripId + "/" + mOwnFbId +
-                    "/geo/" + Calendar.getInstance().getTimeInMillis())
-                    .setValue(
-                            location.getLatitude() + ", " +
-                                    location.getLongitude() + ", 1");
+                    "/geo/" + Calendar.getInstance().getTimeInMillis()).setValue(
+                    mLastLocation.getLatitude() + ", " + mLastLocation.getLongitude());
+        }
 
-            Log.e(TAG, mLastLocation.toString());
+        if (AppConfig.getInstance().isAvailable()) {
+            mDatabase.child("TRACK/" + mTripId + "/" + mOwnFbId + "/lastGps").setValue(
+                    location.getLatitude() + ", " + location.getLongitude() + ", " + Calendar.getInstance().getTimeInMillis());
         }
     }
 

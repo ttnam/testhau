@@ -17,19 +17,22 @@ import io.yostajsc.izigo.R;
 /**
  * Created by Phuc-Hau Nguyen on 8/31/2016.
  */
+
 public class DialogMapSetting extends Dialog {
 
     @BindView(R.id.switch_available)
     Switch switchAvailable;
 
     private Activity mOwnerActivity = null;
+    private OnOnlineListener mListener = null;
 
-    public DialogMapSetting(Context context) {
+    public DialogMapSetting(Context context, OnOnlineListener listener) {
         super(context, R.style.CoreAppTheme_Dialog);
 
         this.mOwnerActivity = (context instanceof Activity) ? (Activity) context : null;
         if (this.mOwnerActivity != null)
             setOwnerActivity(mOwnerActivity);
+        this.mListener = listener;
     }
 
     @Override
@@ -56,8 +59,17 @@ public class DialogMapSetting extends Dialog {
 
     @OnClick(R.id.switch_available)
     public void selectOngoing() {
-        if (switchAvailable.isChecked()) {
-
+        try {
+            if (mListener == null)
+                return;
+            mListener.run(switchAvailable.isChecked());
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
+    }
+
+    public interface OnOnlineListener {
+        void run(boolean isOnline);
     }
 }

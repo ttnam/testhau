@@ -68,7 +68,7 @@
             </intent-filter>
         </service>
         <service
-            android:name=".usecase.location.LocationService"
+            android:name=".usecase.service.location.LocationService"
             android:enabled="true"
             android:exported="false" />
         <service

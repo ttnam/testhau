@@ -1,4 +1,4 @@
-package io.yostajsc.izigo.usecase.location;
+package io.yostajsc.izigo.usecase.service.location;
 
 import android.app.Service;
 import android.content.Context;

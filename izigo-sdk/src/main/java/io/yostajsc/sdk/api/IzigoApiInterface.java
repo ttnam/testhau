@@ -11,14 +11,18 @@ import io.yostajsc.sdk.model.user.IgUser;
 import io.yostajsc.sdk.model.IgComment;
 import io.yostajsc.sdk.model.token.IgToken;
 import io.yostajsc.sdk.response.BaseResponse;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -113,8 +117,8 @@ interface IzigoApiInterface {
     @FormUrlEncoded
     @PUT("api/trips/{id}")
     Call<BaseResponse<String>> changeStatus(@Header("authorization") String authorization,
-                                          @Path("id") String tripId,
-                                          @Field("status") String status);
+                                            @Path("id") String tripId,
+                                            @Field("status") String status);
 
     @PUT("api/trips/{id}")
     @FormUrlEncoded
@@ -157,4 +161,16 @@ interface IzigoApiInterface {
     Call<BaseResponse<String>> apiKickMember(@Header("authorization") String authorization,
                                              @Path("id") String tripId,
                                              @Field("fbId") String fbId);
+
+    @Multipart
+    @POST("api/trip/album")
+    Call<BaseResponse> uploadImages(
+            @Header("authorization") String authorization,
+            @Part("tripId") RequestBody tripId, @Part MultipartBody.Part[] images);
+
+    @Multipart
+    @POST("api/trip/cover")
+    Call<BaseResponse> uploadCover(
+            @Header("authorization") String authorization,
+            @Part("tripId") RequestBody tripId, @Part MultipartBody.Part image);
 }

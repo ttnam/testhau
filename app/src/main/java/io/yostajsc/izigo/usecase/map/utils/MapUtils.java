@@ -54,8 +54,8 @@ public class MapUtils {
 
     private static final String urlGoogleAPI = "https://maps.googleapis.com/maps/api/directions/json?language=vi&";
 
-    private static final int MIN_TIME = 1000 * 60;
-    private static final int MIN_DISTANCE = 10;
+    private static final int MIN_TIME = 1000 * 60 * 5;
+    private static final int MIN_DISTANCE = 100;
     private static final double RADIUS_OF_EARTH_METERS = 6371009.0;
 
     public static class Gps implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {

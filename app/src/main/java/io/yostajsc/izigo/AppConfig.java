@@ -17,8 +17,8 @@ import io.realm.RealmConfiguration;
 import io.yostajsc.core.utils.FontUtils;
 import io.yostajsc.core.utils.PrefsUtils;
 import io.yostajsc.sdk.model.trip.IgImage;
-import io.yostajsc.izigo.usecase.firebase.FirebaseManager;
-import io.yostajsc.izigo.usecase.location.LocationService;
+import io.yostajsc.izigo.usecase.service.firebase.FirebaseManager;
+import io.yostajsc.izigo.usecase.service.location.LocationService;
 import io.yostajsc.sdk.model.trip.IgTrip;
 
 /**
@@ -30,8 +30,8 @@ public class AppConfig extends Application {
     private static final String TAG = AppConfig.class.getSimpleName();
 
     public static final String FB_ID = "FB_ID";
-
     public static final String PAGE_ID = "PAGE_ID";
+    public static final String IS_AVAILABLE = "IS_AVAILABLE";
     public static final String KEY_USER_ROLE = "KEY_USER_ROLE";
     public static final String AUTHORIZATION = "AUTHORIZATION";
     public static final String KEY_PICK_LOCATION = "KEY_PICK_LOCATION";
@@ -121,4 +121,11 @@ public class AppConfig extends Application {
         PrefsUtils.inject(this).save(IgTrip.TRIP_ID, tripId);
     }
 
+    public void setAvailable(boolean available) {
+        PrefsUtils.inject(this).save(IS_AVAILABLE, available);
+    }
+
+    public boolean isAvailable() {
+        return PrefsUtils.inject(this).getBoolen(IS_AVAILABLE);
+    }
 }

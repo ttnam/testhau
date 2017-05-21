@@ -44,11 +44,27 @@ public class PrefsUtils {
         return value;
     }
 
+    public boolean getBoolen(String key) {
+        boolean value = false;
+        if (preferences != null && preferences.contains(key))
+            value = preferences.getBoolean(key, false);
+        return value;
+    }
+
     public boolean save(String key, int value) {
         if (preferences == null) return false;
 
         SharedPreferences.Editor editor = preferences.edit();
         editor.putInt(key, value);
+        editor.apply();
+        return true;
+    }
+
+    public boolean save(String key, boolean value) {
+        if (preferences == null) return false;
+
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putBoolean(key, value);
         editor.apply();
         return true;
     }

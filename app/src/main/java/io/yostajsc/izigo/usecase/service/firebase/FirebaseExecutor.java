@@ -1,4 +1,4 @@
-package io.yostajsc.izigo.usecase.firebase;
+package io.yostajsc.izigo.usecase.service.firebase;
 
 import android.net.Uri;
 import android.support.annotation.NonNull;
@@ -19,7 +19,7 @@ public class FirebaseExecutor {
     public static class TripExecutor {
 
         public static void changeCover(String tripId, Uri uri, final CallBackWith<Uri> callBack) {
-            FirebaseStorage
+            /*FirebaseStorage
                     .getInstance()
                     .getReference()
                     .child("images/covers/" + tripId)
@@ -29,7 +29,13 @@ public class FirebaseExecutor {
                     Uri webUri = task.getResult().getDownloadUrl();
                     callBack.run(webUri);
                 }
-            });
+            });*/
+        }
+
+
+        public static void online(String tripId, String fbId, boolean isOnline) {
+            FirebaseManager.inject().TRACK().child(tripId + "/" + fbId + "/isOnline")
+                    .setValue(isOnline ? 1 : 0);
         }
     }
 }

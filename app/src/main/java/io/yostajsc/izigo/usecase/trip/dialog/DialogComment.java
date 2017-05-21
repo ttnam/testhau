@@ -10,7 +10,6 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.Window;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -18,12 +17,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.yostajsc.core.utils.ToastUtils;
-import io.yostajsc.izigo.AppConfig;
 import io.yostajsc.core.interfaces.CallBackWith;
 import io.yostajsc.core.utils.AppUtils;
 import io.yostajsc.core.utils.NetworkUtils;
 import io.yostajsc.izigo.R;
-import io.yostajsc.izigo.adapters.CommentAdapter;
+import io.yostajsc.izigo.usecase.trip.adapter.CommentAdapter;
 import io.yostajsc.sdk.api.IzigoSdk;
 import io.yostajsc.sdk.model.IgComment;
 import io.yostajsc.sdk.model.IgCallback;

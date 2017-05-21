@@ -49,7 +49,8 @@ import io.yostajsc.core.code.MessageType;
 import io.yostajsc.core.interfaces.CallBack;
 import io.yostajsc.core.interfaces.CallBackWith;
 import io.yostajsc.core.utils.NetworkUtils;
-import io.yostajsc.izigo.usecase.firebase.FirebaseManager;
+import io.yostajsc.izigo.usecase.service.firebase.FirebaseExecutor;
+import io.yostajsc.izigo.usecase.service.firebase.FirebaseManager;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.usecase.OwnCoreActivity;
 import io.yostajsc.izigo.usecase.trip.dialog.DialogActiveMembers;
@@ -69,7 +70,7 @@ import permissions.dispatcher.RuntimePermissions;
 
 @RuntimePermissions
 public class MapsActivity extends OwnCoreActivity implements OnMapReadyCallback, GoogleMap.OnMyLocationChangeListener,
-        ClusterManager.OnClusterClickListener<Person>, GoogleMap.OnMarkerClickListener, DialogActiveMembers.OnItemSelectListener {
+        ClusterManager.OnClusterClickListener<Person>, GoogleMap.OnMarkerClickListener, DialogActiveMembers.OnItemSelectListener, DialogMapSetting.OnOnlineListener {
 
     private static final String TAG = MapsActivity.class.getSimpleName();
 
@@ -80,10 +81,10 @@ public class MapsActivity extends OwnCoreActivity implements OnMapReadyCallback,
     private boolean mIsFirst = true, mIsDraw = false;
 
     private SupportMapFragment mapFragment = null;
+    private DialogMapSetting dialogMapSetting = null;
+    private DialogNotification dialogNotification = null;
     private ClusterManager<Person> mClusterManager = null;
     private DialogActiveMembers mDialogActiveMembers = null;
-
-    private DialogNotification dialogNotification = null;
     private HashMap<String, Person> mTracks = new HashMap<>();
     private List<IgNotification> notifications = new ArrayList<>();
 
@@ -114,6 +115,8 @@ public class MapsActivity extends OwnCoreActivity implements OnMapReadyCallback,
         this.mapFragment.getMapAsync(this);
 
         this.mDialogActiveMembers = new DialogActiveMembers(this, this);
+        dialogMapSetting = new DialogMapSetting(this, this);
+
         this.ownToolbar.setBinding(R.drawable.ic_vector_back_blue, R.drawable.ic_vector_menu_blue, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -588,14 +591,16 @@ public class MapsActivity extends OwnCoreActivity implements OnMapReadyCallback,
 
         closeMenu();
 
-        mDialogActiveMembers.show();
-
         LatLng latLngOwn = mTracks.get(IzigoSdk.UserExecutor.getOwnFbId()).getPosition();
+
+        mDialogActiveMembers.show();
 
         for (final String fbId : mTracks.keySet()) {
 
             fbTemp = fbId;
             LatLng latLng = mTracks.get(fbTemp).getPosition();
+            if (latLng == null)
+                return;
             MapUtils.Map.direction(mMap, latLngOwn, latLng, false, new CallBackWith<Info>() {
                 @Override
                 public void run(Info info) {
@@ -610,8 +615,17 @@ public class MapsActivity extends OwnCoreActivity implements OnMapReadyCallback,
     @OnClick(R.id.layout_setting)
     public void setting() {
         closeMenu();
-        DialogMapSetting dialogMapSetting = new DialogMapSetting(this);
         dialogMapSetting.show();
+    }
+
+
+    @Override
+    public void run(boolean isOnline) {
+        AppConfig.getInstance().setAvailable(isOnline);
+        FirebaseExecutor.TripExecutor.online(
+                AppConfig.getInstance().getCurrentTripId(),
+                IzigoSdk.UserExecutor.getOwnFbId(),
+                isOnline);
     }
 
     public void openMenu() {

@@ -1,4 +1,4 @@
-package io.yostajsc.izigo.adapters;
+package io.yostajsc.izigo.usecase.trip.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;

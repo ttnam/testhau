@@ -21,7 +21,7 @@ import io.yostajsc.core.code.MessageType;
 import io.yostajsc.core.interfaces.CallBackWith;
 import io.yostajsc.core.interfaces.ItemClick;
 import io.yostajsc.izigo.R;
-import io.yostajsc.izigo.adapters.MemberAdapter;
+import io.yostajsc.izigo.usecase.trip.adapter.MemberAdapter;
 import io.yostajsc.izigo.usecase.customview.OwnToolBar;
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 
