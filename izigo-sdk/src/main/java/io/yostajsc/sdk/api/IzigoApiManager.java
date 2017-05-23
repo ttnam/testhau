@@ -48,7 +48,7 @@ class IzigoApiManager {
 
     private static final String TAG = IzigoApiManager.class.getSimpleName();
 
-    private static String SERVER_DOMAIN = "http://izigo2.jelasticlw.com.br/";
+    private static String SERVER_DOMAIN = "http://13.58.11.25:8080/";
 
     private static final int CONNECT_TIME_OUT = 60;
     private static final int READ_TIME_OUT = 60;
