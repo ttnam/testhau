@@ -1,6 +1,7 @@
 package io.yostajsc.izigo.usecase.trip;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -29,6 +30,7 @@ import io.yostajsc.core.CoreActivity;
 import io.yostajsc.core.utils.FileUtils;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.adapters.ImageryOnlyAdapter;
+import io.yostajsc.sdk.api.IzigoSdk;
 import io.yostajsc.sdk.model.trip.IgImage;
 import io.yostajsc.izigo.usecase.customview.gallery.GalleryActivity;
 import jp.wasabeef.recyclerview.animators.FadeInUpAnimator;
@@ -86,9 +88,9 @@ public class TripAlbumActivity extends CoreActivity {
     @Override
     public void onBackPressed() {
         Intent intent = new Intent();
-        intent.putStringArrayListExtra("PICK_IMAGE", albumAdapter.getAllInListString());
+        intent.putStringArrayListExtra("MULTI_IMAGE", albumAdapter.getAllInListString());
         setResult(RESULT_OK, intent);
-        super.onBackPressed();
+        finish();
     }
 
     @OnClick(R.id.button_right)
@@ -134,9 +136,9 @@ public class TripAlbumActivity extends CoreActivity {
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
                 case MessageType.FROM_MULTI_GALLERY:
-                    ArrayList<String> res = data.getStringArrayListExtra("MULTI_IMAGE");
-                    if (res.size() > 0) {
-                        for (String url : res) {
+                    ArrayList<String> urls = data.getStringArrayListExtra("MULTI_IMAGE");
+                    if (urls != null && urls.size() > 0) {
+                        for (String url : urls) {
                             albumAdapter.add(new IgImage(url));
                         }
                     }

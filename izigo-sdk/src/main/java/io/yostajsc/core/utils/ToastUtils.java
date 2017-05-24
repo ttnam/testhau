@@ -18,4 +18,11 @@ public class ToastUtils {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
     }
 
+    public static void showToast(Context context, int resource) {
+        try {
+            Toast.makeText(context, context.getString(resource), Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

@@ -163,10 +163,11 @@ interface IzigoApiInterface {
                                              @Field("fbId") String fbId);
 
     @Multipart
-    @POST("api/trip/album")
+    @POST("api/trips/{id}/album")
     Call<BaseResponse> uploadImages(
             @Header("authorization") String authorization,
-            @Part("tripId") RequestBody tripId, @Part MultipartBody.Part[] images);
+            @Path("id") String tripId,
+            @Part MultipartBody.Part[] images);
 
     @Multipart
     @POST("api/trip/cover")

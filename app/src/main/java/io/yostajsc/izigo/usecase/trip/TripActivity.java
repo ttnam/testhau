@@ -2,6 +2,8 @@ package io.yostajsc.izigo.usecase.trip;
 
 import android.Manifest;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.widget.DrawerLayout;
@@ -17,6 +19,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -24,6 +28,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.yostajsc.core.code.MessageType;
 import io.yostajsc.core.designs.listeners.RecyclerItemClickListener;
+import io.yostajsc.core.utils.FileUtils;
 import io.yostajsc.core.utils.ToastUtils;
 import io.yostajsc.izigo.AppConfig;
 import io.yostajsc.izigo.R;
@@ -39,6 +44,7 @@ import io.yostajsc.izigo.utils.UiUtils;
 import io.yostajsc.sdk.api.IzigoSdk;
 import io.yostajsc.sdk.model.IgCallback;
 import io.yostajsc.sdk.model.IgTimeline;
+import io.yostajsc.sdk.model.trip.IgImage;
 import io.yostajsc.sdk.model.trip.IgTrip;
 import io.yostajsc.sdk.model.trip.IgTripStatus;
 import jp.wasabeef.recyclerview.animators.FadeInUpAnimator;
@@ -230,7 +236,7 @@ public class TripActivity extends OwnCoreActivity {
     public void showAlbumActivity() {
         Intent intent = new Intent(this, TripAlbumActivity.class);
         intent.putExtra(AppConfig.KEY_USER_ROLE, mIgTrip.getRole());
-        startActivityForResult(intent, MessageType.PICK_IMAGE);
+        startActivityForResult(intent, MessageType.FROM_MULTI_GALLERY);
     }
 
     @OnClick(R.id.layout_maps)
@@ -256,6 +262,45 @@ public class TripActivity extends OwnCoreActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         TripActivityPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case MessageType.FROM_MULTI_GALLERY:
+                    ArrayList<String> urls = data.getStringArrayListExtra("MULTI_IMAGE");
+                    if (urls != null && urls.size() > 0) {
+                        for (String url : urls) {
+                            albumAdapter.add(new IgImage(url));
+                        }
+                        upload(urls);
+                    }
+
+                    break;
+            }
+        }
+    }
+
+    private void upload(ArrayList<String> urls) {
+        IzigoSdk.TripExecutor.uploadAlbum(
+                TripActivity.this,
+                mIgTrip.getId(), urls, new IgCallback<Void, String>() {
+                    @Override
+                    public void onSuccessful(Void aVoid) {
+                        ToastUtils.showToast(TripActivity.this, R.string.str_success);
+                    }
+
+                    @Override
+                    public void onFail(String error) {
+                        ToastUtils.showToast(TripActivity.this, error);
+                    }
+
+                    @Override
+                    public void onExpired() {
+                        expired();
+                    }
+                });
     }
 
     @OnClick(R.id.layout_comment)

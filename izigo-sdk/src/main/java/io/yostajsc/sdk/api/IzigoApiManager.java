@@ -10,6 +10,7 @@ import com.google.gson.GsonBuilder;
 import java.io.File;
 import java.io.IOException;
 import java.net.SocketTimeoutException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -676,44 +677,49 @@ class IzigoApiManager {
         });
     }
 
-    public void uploadAlbum(Context context, String authorization, String tripId, Uri[] uris,
-                            final IgCallback<Void, String> callback) {
-        int size = uris.length;
-        MultipartBody.Part[] imagesParts = new MultipartBody.Part[size];
+    void uploadAlbum(Context context, String authorization, String tripId, ArrayList<String> urls,
+                     final IgCallback<Void, String> callback) {
 
-        for (int i = 0; i < size; i++) {
-            File file = FileUtils.getFile(context, uris[i]);
-            RequestBody requestFile =
-                    RequestBody.create(
-                            MediaType.parse(context.getContentResolver()
-                                    .getType(uris[i])),
-                            file
-                    );
-            imagesParts[i] = MultipartBody.Part.createFormData(i + "", file.getName(), requestFile);
-        }
-        RequestBody rTripId = RequestBody.create(okhttp3.MultipartBody.FORM, tripId);
+        try {
+            int size = urls.size();
 
-        Call<BaseResponse> call = service.uploadImages(authorization, rTripId, imagesParts);
-        call.enqueue(new Callback<BaseResponse>() {
-            @Override
-            public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
-                if (response.isSuccessful()) {
-                    BaseResponse res = response.body();
-                    if (res.isSuccessful()) {
-                        callback.onSuccessful(null);
-                    } else if (res.isExpired()) {
-                        callback.onExpired();
-                    } else {
-                        callback.onFail(res.getDescription());
+            MultipartBody.Part[] imagesParts = new MultipartBody.Part[size];
+
+            for (int i = 0; i < size; i++) {
+                File file = new File(urls.get(i));
+                RequestBody requestFile =
+                        RequestBody.create(
+                                MediaType.parse(context.getContentResolver()
+                                        .getType(Uri.parse(urls.get(i)))),
+                                file
+                        );
+                imagesParts[i] = MultipartBody.Part.createFormData(i + "", file.getName(), requestFile);
+            }
+
+            Call<BaseResponse> call = service.uploadImages(authorization, tripId, imagesParts);
+            call.enqueue(new Callback<BaseResponse>() {
+                @Override
+                public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
+                    if (response.isSuccessful()) {
+                        BaseResponse res = response.body();
+                        if (res.isSuccessful()) {
+                            callback.onSuccessful(null);
+                        } else if (res.isExpired()) {
+                            callback.onExpired();
+                        } else {
+                            callback.onFail(res.getDescription());
+                        }
                     }
                 }
-            }
 
-            @Override
-            public void onFailure(Call<BaseResponse> call, Throwable throwable) {
-                callback.onFail(throwable.getMessage());
-            }
-        });
+                @Override
+                public void onFailure(Call<BaseResponse> call, Throwable throwable) {
+                    callback.onFail(throwable.getMessage());
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void uploadCover(Context context, String authorization, String tripId, Uri fileUri,

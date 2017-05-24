@@ -1,8 +1,11 @@
 package io.yostajsc.sdk.api;
 
 import android.app.Application;
+import android.content.Context;
+import android.net.Uri;
 import android.util.Log;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -106,6 +109,7 @@ public class IzigoSdk {
                 callback.onExpired();
             }
         }
+
         public static void changeStatus(String tripId, String status, IgCallback<Void, String> callback) {
             if (IzigoSession.isLoggedIn()) {
                 String auth = IzigoSession.getToken().getToken();
@@ -234,6 +238,24 @@ public class IzigoSdk {
             if (IzigoSession.isLoggedIn()) {
                 String auth = IzigoSession.getToken().getToken();
                 IzigoApiManager.connect().join(auth, tripId, callback);
+            }
+        }
+
+        public static void uploadAlbum(Context context, String tripId, ArrayList<String> urls,
+                                       final IgCallback<Void, String> callback) {
+            try {
+                if (urls != null && urls.size() > 0) {
+                    Uri[] uris = new Uri[urls.size()];
+                    for (int i = 0; i < urls.size(); i++) {
+                        uris[i] = Uri.parse(urls.get(i));
+                    }
+                    if (IzigoSession.isLoggedIn()) {
+                        String auth = IzigoSession.getToken().getToken();
+                        IzigoApiManager.connect().uploadAlbum(context, auth, tripId, urls, callback);
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
     }
