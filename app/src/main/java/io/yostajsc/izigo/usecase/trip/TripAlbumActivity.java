@@ -84,13 +84,10 @@ public class TripAlbumActivity extends CoreActivity {
         registerForContextMenu(btnRight);
     }
 
-    @OnClick({R.id.button_left, R.id.button})
+    @OnClick(R.id.button_left)
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent();
-        intent.putStringArrayListExtra("MULTI_IMAGE", albumAdapter.getAllInListString());
-        setResult(RESULT_OK, intent);
-        finish();
+        super.onBackPressed();
     }
 
     @OnClick(R.id.button_right)
@@ -137,11 +134,10 @@ public class TripAlbumActivity extends CoreActivity {
             switch (requestCode) {
                 case MessageType.FROM_MULTI_GALLERY:
                     ArrayList<String> urls = data.getStringArrayListExtra("MULTI_IMAGE");
-                    if (urls != null && urls.size() > 0) {
-                        for (String url : urls) {
-                            albumAdapter.add(new IgImage(url));
-                        }
-                    }
+                    Intent intent = new Intent();
+                    intent.putStringArrayListExtra("MULTI_IMAGE", urls);
+                    setResult(RESULT_OK, intent);
+                    finish();
                     break;
                 case MessageType.TAKE_PHOTO: {
                     try {

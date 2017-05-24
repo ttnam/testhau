@@ -689,8 +689,7 @@ class IzigoApiManager {
                 File file = new File(urls.get(i));
                 RequestBody requestFile =
                         RequestBody.create(
-                                MediaType.parse(context.getContentResolver()
-                                        .getType(Uri.parse(urls.get(i)))),
+                                MediaType.parse(FileUtils.getMimeType(file)),
                                 file
                         );
                 imagesParts[i] = MultipartBody.Part.createFormData(i + "", file.getName(), requestFile);

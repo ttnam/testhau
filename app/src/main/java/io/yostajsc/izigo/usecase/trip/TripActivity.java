@@ -285,7 +285,7 @@ public class TripActivity extends OwnCoreActivity {
     private void upload(ArrayList<String> urls) {
         IzigoSdk.TripExecutor.uploadAlbum(
                 TripActivity.this,
-                mIgTrip.getId(), urls, new IgCallback<Void, String>() {
+                AppConfig.getInstance().getCurrentTripId(), urls, new IgCallback<Void, String>() {
                     @Override
                     public void onSuccessful(Void aVoid) {
                         ToastUtils.showToast(TripActivity.this, R.string.str_success);

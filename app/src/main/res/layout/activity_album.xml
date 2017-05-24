@@ -48,13 +48,4 @@
         <include layout="@layout/layout_recycler_view" />
     </FrameLayout>
 
-
-    <Button
-        android:id="@id/button"
-        style="@style/CoreAppTheme.TextView_Title.White"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/ic_style_button_round_none_accent"
-        android:text="@android:string/ok" />
-
 </LinearLayout>
