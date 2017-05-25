@@ -1,4 +1,4 @@
-package io.yostajsc.sdk.gallery;
+package io.yostajsc.izigo.usecase.trip;
 
 import android.Manifest;
 import android.app.Activity;

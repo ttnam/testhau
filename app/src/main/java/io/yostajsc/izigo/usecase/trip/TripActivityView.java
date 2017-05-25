@@ -1,7 +1,4 @@
 package io.yostajsc.izigo.usecase.trip;
-
-import android.content.res.Resources;
-import android.net.Uri;
 import android.view.View;
 
 import com.bumptech.glide.Glide;
@@ -9,13 +6,8 @@ import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import io.yostajsc.izigo.constants.RoleType;
-import io.yostajsc.sdk.consts.CallBack;
-import io.yostajsc.sdk.consts.CallBackWith;
 import io.yostajsc.sdk.utils.DatetimeUtils;
 import io.yostajsc.izigo.R;
-import io.yostajsc.sdk.api.model.IgCallback;
-import io.yostajsc.sdk.api.IzigoSdk;
-import io.yostajsc.izigo.usecase.service.firebase.FirebaseExecutor;
 import io.yostajsc.sdk.api.model.trip.IgTripStatus;
 import io.yostajsc.izigo.utils.UiUtils;
 import io.yostajsc.sdk.glide.CropCircleTransformation;
@@ -30,11 +22,9 @@ public class TripActivityView {
 
     private static TripActivity mActivity = null;
     private static TripActivityView mInstance = null;
-    private static Resources mResources = null;
 
     private TripActivityView(TripActivity activity) {
         mActivity = activity;
-        mResources = mActivity.getResources();
     }
 
     public static synchronized TripActivityView bind(TripActivity activity) {
@@ -170,7 +160,6 @@ public class TripActivityView {
 
     public static void unbind() {
         mActivity = null;
-        mResources = null;
         mInstance = null;
     }
 

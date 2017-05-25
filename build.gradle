@@ -31,7 +31,7 @@ ext {
     glideVersion = '3.7.0'
     eventBusVersion = '3.0.0'
     gsonVersion = '2.8.0'
-    retrofitVersion = '2.0.2'
+    retrofitVersion = '2.3.0'
 
 }
 task clean(type: Delete) {

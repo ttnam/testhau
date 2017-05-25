@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.jakewharton.butterknife'
 
 android {
 
@@ -14,19 +15,6 @@ android {
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled true
     }
-
-    signingConfigs {
-        config {
-            keyAlias 'izigo'
-            v2SigningEnabled false
-        }
-        release {
-            storeFile file(KEYSTORE_FILE)
-            storePassword KEYSTORE_PASSWORD
-            keyAlias KEYSTORE_ALIAS
-            keyPassword KEY_PASSWORD
-        }
-    }
     aaptOptions {
         additionalParameters "--no-version-vectors"
     }
@@ -35,7 +23,6 @@ android {
             minifyEnabled true // Enables code shrinking for the release build type.
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             debuggable false
-            signingConfig signingConfigs.config
             zipAlignEnabled true
         }
     }
@@ -67,8 +54,12 @@ dependencies {
     compile "com.android.support:cardview-v7:$rootProject.googleLibraryVersion"
     compile "com.android.support:appcompat-v7:$rootProject.googleLibraryVersion"
     compile "com.android.support:recyclerview-v7:$rootProject.googleLibraryVersion"
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
     compile "com.android.support:support-annotations:$rootProject.googleLibraryVersion"
+    compile 'com.github.hotchemi:permissionsdispatcher:2.4.0'
     compile "com.google.firebase:firebase-auth:$rootProject.firebaseVersion"
+    compile 'com.jakewharton:butterknife:8.6.0'
+    annotationProcessor 'com.github.hotchemi:permissionsdispatcher-processor:2.4.0'
     compile "com.google.firebase:firebase-crash:$rootProject.firebaseVersion"
     compile "com.google.firebase:firebase-database:$rootProject.firebaseVersion"
     compile "com.google.firebase:firebase-messaging:$rootProject.firebaseVersion"

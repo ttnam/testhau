@@ -1,4 +1,4 @@
-package io.yostajsc.sdk.gallery;
+package io.yostajsc.izigo.usecase.trip;
 
 import android.content.Context;
 import android.support.v7.widget.AppCompatImageView;

@@ -22,5 +22,11 @@
   public *;
 }
 
-# for DexGuard only
--keepresourcexmlelements manifest/application/meta-data@value=GlideModule
+##--------------- Retrofit ----------
+-dontwarn okio.**
+-dontwarn retrofit2.Platform$Java8
+##------------------------------------------
+-ignorewarnings
+-keep class * {
+    public private *;
+}

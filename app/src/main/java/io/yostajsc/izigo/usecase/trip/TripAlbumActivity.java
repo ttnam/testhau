@@ -1,12 +1,14 @@
 package io.yostajsc.izigo.usecase.trip;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearSnapHelper;
@@ -35,7 +37,6 @@ import io.yostajsc.sdk.utils.FileUtils;
 import io.yostajsc.izigo.R;
 import io.yostajsc.sdk.api.cache.IgCache;
 import io.yostajsc.sdk.api.model.trip.IgImage;
-import io.yostajsc.sdk.gallery.GalleryActivity;
 import jp.wasabeef.recyclerview.animators.FadeInUpAnimator;
 import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.RuntimePermissions;
@@ -149,10 +150,7 @@ public class TripAlbumActivity extends CoreActivity {
                 case MessageType.FROM_MULTI_GALLERY:
                     ArrayList<String> urls = data.getStringArrayListExtra("MULTI_IMAGE");
                     if (urls != null && urls.size() > 0) {
-                        Intent intent = new Intent();
-                        intent.putStringArrayListExtra("MULTI_IMAGE", urls);
-                        setResult(RESULT_OK, intent);
-                        finish();
+                        confirmUpload(urls);
                     }
                     break;
                 case MessageType.TAKE_PHOTO: {
@@ -189,5 +187,29 @@ public class TripAlbumActivity extends CoreActivity {
         super.onCreateContextMenu(menu, v, menuInfo);
         menu.add(0, v.getId(), 0, "Chọn từ thư viện");
         menu.add(0, v.getId(), 1, "Chụp từ thiết bị");
+    }
+
+    private void confirmUpload(ArrayList<String> urls) {
+        new AlertDialog.Builder(this)
+                .setMessage("Are you sure, You wanted to upload these photos")
+                .setPositiveButton(android.R.string.yes,
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface arg0, int arg1) {
+                                ToastUtils.showToast(TripAlbumActivity.this, "Yes");
+                            }
+                        })
+                .setNegativeButton(android.R.string.no,
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                ToastUtils.showToast(TripAlbumActivity.this, "No");
+                            }
+                        }).show();
+
+        /*Intent intent = new Intent();
+        intent.putStringArrayListExtra("MULTI_IMAGE", urls);
+        setResult(RESULT_OK, intent);
+        finish();*/
     }
 }
