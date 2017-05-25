@@ -174,8 +174,7 @@ public class TripAlbumActivity extends CoreActivity {
         int order = item.getOrder();
         switch (order) {
             case 0:
-                startActivityForResult(
-                        new Intent(TripAlbumActivity.this, GalleryActivity.class),
+                startActivityForResult(new Intent(TripAlbumActivity.this, GalleryActivity.class),
                         MessageType.FROM_MULTI_GALLERY);
                 break;
             case 1:

@@ -16,16 +16,8 @@ import io.yostajsc.sdk.R;
 
 public class LayoutSelector {
 
-    @LayoutRes
-    private int mBaseType;
-
-
     private LayoutSelector() {
 
-    }
-
-    private LayoutSelector(int type) {
-        mBaseType = type;
     }
 
     private static class Factory {

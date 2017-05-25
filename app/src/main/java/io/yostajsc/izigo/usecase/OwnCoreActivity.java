@@ -4,6 +4,7 @@ import android.content.Intent;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.usecase.user.LoginActivity;
 import io.yostajsc.izigo.AppConfig;
@@ -57,31 +58,31 @@ public class OwnCoreActivity extends CoreActivity {
     public void onMessageEvent(MessageInfo info) {
         int code = info.getMessage();
         switch (code) {
+            case MessageType.GPS_ON:
+                onGpsOn();
+                break;
+            case MessageType.GPS_OFF:
+                onGpsOff();
+                break;
+            case MessageType.USER_GPS:
+                break;
+            case MessageType.LOAD_DONE:
+                break;
+            case MessageType.TAKE_PHOTO:
+                break;
+            case MessageType.FROM_GALLERY:
+                break;
+            case MessageType.PICK_LOCATION_TO:
+                break;
+            case MessageType.PICK_LOCATION_FROM:
+                break;
+            case MessageType.ITEM_CLICK_INVITED:
+                break;
             case MessageType.INTERNET_CONNECTED:
                 onInternetConnected();
                 break;
             case MessageType.INTERNET_NO_CONNECTED:
                 onInternetDisConnected();
-                break;
-            case MessageType.FROM_GALLERY:
-                break;
-            case MessageType.ITEM_CLICK_INVITED:
-                break;
-            case MessageType.LOAD_DONE:
-                break;
-            case MessageType.PICK_LOCATION_FROM:
-                break;
-            case MessageType.PICK_LOCATION_TO:
-                break;
-            case MessageType.TAKE_PHOTO:
-                break;
-            case MessageType.USER_GPS:
-                break;
-            case MessageType.GPS_OFF:
-                onGpsOff();
-                break;
-            case MessageType.GPS_ON:
-                onGpsOn();
                 break;
         }
     }

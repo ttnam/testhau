@@ -76,13 +76,4 @@ public class EventManager {
         };
     }
 
-    public CompoundButton.OnCheckedChangeListener addCheckedChangeListener(final CallBackWith<Boolean> callBack) {
-        return new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                callBack.run(isChecked);
-            }
-        };
-    }
-
 }
