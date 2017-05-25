@@ -2,7 +2,6 @@ package io.yostajsc.izigo.usecase.trip;
 
 import android.Manifest;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -13,7 +12,6 @@ import android.support.v7.widget.LinearSnapHelper;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SnapHelper;
 import android.view.Gravity;
-import android.view.View;
 import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.TextView;
@@ -26,13 +24,13 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.yostajsc.core.code.MessageType;
-import io.yostajsc.core.designs.listeners.RecyclerItemClickListener;
-import io.yostajsc.core.utils.FileUtils;
-import io.yostajsc.core.utils.ToastUtils;
-import io.yostajsc.izigo.AppConfig;
 import io.yostajsc.izigo.R;
-import io.yostajsc.izigo.adapters.ImageryAdapter;
+import io.yostajsc.sdk.consts.MessageType;
+import io.yostajsc.sdk.utils.FileUtils;
+import io.yostajsc.sdk.utils.ToastUtils;
+import io.yostajsc.izigo.AppConfig;
+import io.yostajsc.sdk.gallery.OnClickListener;
+import io.yostajsc.sdk.gallery.SelectorImageryAdapter;
 import io.yostajsc.izigo.constants.RoleType;
 import io.yostajsc.izigo.usecase.trip.dialog.DialogComment;
 import io.yostajsc.izigo.usecase.trip.dialog.DialogTripStatus;
@@ -42,11 +40,11 @@ import io.yostajsc.izigo.usecase.map.MapsActivity;
 import io.yostajsc.izigo.usecase.trip.adapter.TimelineAdapter;
 import io.yostajsc.izigo.utils.UiUtils;
 import io.yostajsc.sdk.api.IzigoSdk;
-import io.yostajsc.sdk.model.IgCallback;
-import io.yostajsc.sdk.model.IgTimeline;
-import io.yostajsc.sdk.model.trip.IgImage;
-import io.yostajsc.sdk.model.trip.IgTrip;
-import io.yostajsc.sdk.model.trip.IgTripStatus;
+import io.yostajsc.sdk.api.model.IgCallback;
+import io.yostajsc.sdk.api.model.IgTimeline;
+import io.yostajsc.sdk.api.model.trip.IgImage;
+import io.yostajsc.sdk.api.model.trip.IgTrip;
+import io.yostajsc.sdk.api.model.trip.IgTripStatus;
 import jp.wasabeef.recyclerview.animators.FadeInUpAnimator;
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 import permissions.dispatcher.NeedsPermission;
@@ -102,7 +100,7 @@ public class TripActivity extends OwnCoreActivity {
     @BindView(R.id.button_publish)
     ToggleButton buttonPublish;
 
-    private ImageryAdapter albumAdapter = null;
+    private SelectorImageryAdapter albumAdapter = null;
     private TimelineAdapter timelineAdapter = null;
 
     private IgTrip mIgTrip = null;
@@ -129,7 +127,12 @@ public class TripActivity extends OwnCoreActivity {
         UiUtils.onApplyWebViewSetting(webView);
 
         // Album
-        this.albumAdapter = new ImageryAdapter(this);
+        this.albumAdapter = new SelectorImageryAdapter(this, new OnClickListener() {
+            @Override
+            public void onClick() {
+                ToastUtils.showToast(TripActivity.this, "onClick");
+            }
+        });
         this.rvAlbum.setAdapter(this.albumAdapter);
         SnapHelper snapHelper = new LinearSnapHelper();
         snapHelper.attachToRecyclerView(this.rvAlbum);
@@ -138,13 +141,6 @@ public class TripActivity extends OwnCoreActivity {
         this.rvAlbum.setNestedScrollingEnabled(false);
         this.rvAlbum.setLayoutManager(new GridLayoutManager(this, 1, GridLayoutManager.HORIZONTAL, false));
         this.rvAlbum.setItemAnimator(new FadeInUpAnimator());
-        this.rvAlbum.addOnItemTouchListener(new RecyclerItemClickListener(this, new RecyclerItemClickListener.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-
-            }
-        }));
-
         // IgTimeline
         this.timelineAdapter = new TimelineAdapter(this);
         UiUtils.onApplyRecyclerView(this.rVTimeLine, this.timelineAdapter, new SlideInUpAnimator(), null);
@@ -206,8 +202,12 @@ public class TripActivity extends OwnCoreActivity {
         if (igTrip == null) return;
 
         mIgTrip = igTrip;
-        AppConfig.igImages = igTrip.getAlbum();
-        this.albumAdapter.replaceAll(igTrip.getAlbum());
+        if (igTrip.getAlbum() != null && igTrip.getAlbum().size() > 0) {
+            for (IgImage igImage : igTrip.getAlbum()) {
+                this.albumAdapter.add(
+                        new SelectorImageryAdapter.Imagery(igImage.getUrl()));
+            }
+        }
 
         TripActivityView.setTripName(igTrip.getName());
         TripActivityView.setVehicle(igTrip.getTransfer());                        // Transfer
@@ -269,23 +269,27 @@ public class TripActivity extends OwnCoreActivity {
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
                 case MessageType.FROM_MULTI_GALLERY:
-                    ArrayList<String> urls = data.getStringArrayListExtra("MULTI_IMAGE");
+                   /* ArrayList<String> urls = data.getStringArrayListExtra("MULTI_IMAGE");
                     if (urls != null && urls.size() > 0) {
                         for (String url : urls) {
                             albumAdapter.add(new IgImage(url));
                         }
                         upload(urls);
-                    }
+                    }*/
 
+                    // TODO:
                     break;
             }
         }
     }
 
     private void upload(ArrayList<String> urls) {
-        IzigoSdk.TripExecutor.uploadAlbum(
-                TripActivity.this,
-                AppConfig.getInstance().getCurrentTripId(), urls, new IgCallback<Void, String>() {
+        List<File> files = new ArrayList<>();
+        for (String url : urls)
+            files.add(FileUtils.getFile(this, Uri.parse(url)));
+
+        IzigoSdk.TripExecutor.uploadAlbum(AppConfig.getInstance().getCurrentTripId(), files,
+                new IgCallback<Void, String>() {
                     @Override
                     public void onSuccessful(Void aVoid) {
                         ToastUtils.showToast(TripActivity.this, R.string.str_success);

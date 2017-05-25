@@ -10,8 +10,9 @@ import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.login.LoginResult;
 
-import io.yostajsc.core.interfaces.CallBack;
-import io.yostajsc.core.interfaces.CallBackWith;
+import io.yostajsc.sdk.consts.CallBack;
+import io.yostajsc.sdk.consts.CallBackWith;
+
 
 /**
  * Created by Phuc-Hau Nguyen on 2/16/2017.

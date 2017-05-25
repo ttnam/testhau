@@ -12,9 +12,9 @@ import android.view.WindowManager;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.yostajsc.core.designs.decorations.SpacesItemDecoration;
-import io.yostajsc.core.designs.listeners.RecyclerItemClickListener;
-import io.yostajsc.core.utils.DimensionUtil;
+import io.yostajsc.sdk.designs.decorations.SpacesItemDecoration;
+import io.yostajsc.sdk.designs.listeners.RecyclerItemClickListener;
+import io.yostajsc.sdk.utils.DimensionUtil;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.usecase.trip.adapter.MemberActiveOnMapsAdapter;
 import io.yostajsc.izigo.usecase.map.model.Person;

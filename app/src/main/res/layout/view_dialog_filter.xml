@@ -31,7 +31,7 @@
             android:padding="@dimen/margin"
             android:text="Sắp xếp theo" />
 
-        <com.yosta.materialspinner.MaterialSpinner
+        <io.yostajsc.sdk.spinner.MaterialSpinner
             android:id="@+id/spinner_sort_by"
             style="@style/CoreAppTheme.TextView_Sub_Title"
             android:layout_width="match_parent"
@@ -60,7 +60,7 @@
             android:padding="@dimen/margin"
             android:text="Thời gian" />
 
-        <com.yosta.materialspinner.MaterialSpinner
+        <io.yostajsc.sdk.spinner.MaterialSpinner
             android:id="@+id/spinner_during_time"
             style="@style/CoreAppTheme.TextView_Sub_Title"
             android:layout_width="match_parent"

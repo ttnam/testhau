@@ -3,17 +3,18 @@ package io.yostajsc.sdk.api;
 import java.util.List;
 import java.util.Map;
 
-import io.yostajsc.sdk.model.IgNotification;
-import io.yostajsc.sdk.model.IgTimeline;
-import io.yostajsc.sdk.model.user.IgFriend;
-import io.yostajsc.sdk.model.trip.IgTrip;
-import io.yostajsc.sdk.model.user.IgUser;
-import io.yostajsc.sdk.model.IgComment;
-import io.yostajsc.sdk.model.token.IgToken;
-import io.yostajsc.sdk.response.BaseResponse;
+import io.yostajsc.sdk.api.model.IgNotification;
+import io.yostajsc.sdk.api.model.IgTimeline;
+import io.yostajsc.sdk.api.model.user.IgFriend;
+import io.yostajsc.sdk.api.model.trip.IgTrip;
+import io.yostajsc.sdk.api.model.user.IgUser;
+import io.yostajsc.sdk.api.model.IgComment;
+import io.yostajsc.sdk.api.model.token.IgToken;
+import io.yostajsc.sdk.api.response.BaseResponse;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
+import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
@@ -169,9 +170,15 @@ interface IzigoApiInterface {
             @Path("id") String tripId,
             @Part MultipartBody.Part[] images);
 
+    @FormUrlEncoded
+    @DELETE("api/trips/{triId}/album")
+    Call<BaseResponse> deleteImage(@Header("authorization") String authorization,
+                                   @Path("triId") String tripId, @Field("id") String imageId);
+
     @Multipart
-    @POST("api/trip/cover")
+    @POST("api/trips/{tripId}/cover")
     Call<BaseResponse> uploadCover(
             @Header("authorization") String authorization,
-            @Part("tripId") RequestBody tripId, @Part MultipartBody.Part image);
+            @Part("tripId") RequestBody tripId,
+            @Part MultipartBody.Part image);
 }

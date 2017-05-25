@@ -16,12 +16,12 @@ import com.google.android.gms.maps.model.Marker;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.yostajsc.core.code.MessageType;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.AppConfig;
 import io.yostajsc.izigo.usecase.OwnCoreActivity;
-import io.yostajsc.sdk.model.trip.IgPlace;
+import io.yostajsc.sdk.api.model.trip.IgPlace;
 import io.yostajsc.izigo.usecase.map.utils.MapUtils;
+import io.yostajsc.sdk.consts.MessageType;
 import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.RuntimePermissions;
 

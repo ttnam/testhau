@@ -4,14 +4,13 @@ import android.content.Intent;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-
-import io.yostajsc.core.code.MessageInfo;
-import io.yostajsc.core.code.MessageType;
-import io.yostajsc.core.dialogs.DialogNoNet;
-import io.yostajsc.core.CoreActivity;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.usecase.user.LoginActivity;
 import io.yostajsc.izigo.AppConfig;
+import io.yostajsc.sdk.CoreActivity;
+import io.yostajsc.sdk.consts.MessageInfo;
+import io.yostajsc.sdk.consts.MessageType;
+import io.yostajsc.sdk.dialog.DialogNoNet;
 
 /**
  * Created by nphau on 4/10/17.

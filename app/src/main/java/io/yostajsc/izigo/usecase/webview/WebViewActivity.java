@@ -10,10 +10,10 @@ import android.webkit.WebViewClient;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.yostajsc.core.utils.NetworkUtils;
+import io.yostajsc.sdk.utils.NetworkUtils;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.usecase.OwnCoreActivity;
-import io.yostajsc.izigo.usecase.customview.OwnToolBar;
+import io.yostajsc.izigo.usecase.view.OwnToolBar;
 
 public class WebViewActivity extends OwnCoreActivity {
 

@@ -13,13 +13,13 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.yostajsc.core.utils.ToastUtils;
-import io.yostajsc.core.designs.decorations.SpacesItemDecoration;
+import io.yostajsc.sdk.utils.ToastUtils;
+import io.yostajsc.sdk.designs.decorations.SpacesItemDecoration;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.usecase.base.BaseFragment;
 import io.yostajsc.sdk.api.IzigoSdk;
-import io.yostajsc.sdk.model.IgCallback;
-import io.yostajsc.sdk.model.IgNotification;
+import io.yostajsc.sdk.api.model.IgCallback;
+import io.yostajsc.sdk.api.model.IgNotification;
 import io.yostajsc.izigo.utils.UiUtils;
 import jp.wasabeef.recyclerview.animators.SlideInRightAnimator;
 

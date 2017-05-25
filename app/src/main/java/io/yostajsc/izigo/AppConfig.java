@@ -9,17 +9,11 @@ import com.facebook.login.LoginManager;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.iid.FirebaseInstanceId;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import io.realm.Realm;
-import io.realm.RealmConfiguration;
-import io.yostajsc.core.utils.FontUtils;
-import io.yostajsc.core.utils.PrefsUtils;
-import io.yostajsc.sdk.model.trip.IgImage;
+import io.yostajsc.sdk.utils.FontUtils;
+import io.yostajsc.sdk.utils.PrefsUtils;
 import io.yostajsc.izigo.usecase.service.firebase.FirebaseManager;
 import io.yostajsc.izigo.usecase.service.location.LocationService;
-import io.yostajsc.sdk.model.trip.IgTrip;
+import io.yostajsc.sdk.api.model.trip.IgTrip;
 
 /**
  * Created by Phuc-Hau Nguyen on 11/9/2016.
@@ -37,8 +31,6 @@ public class AppConfig extends Application {
     public static final String KEY_PICK_LOCATION = "KEY_PICK_LOCATION";
     public static final String PARAMETERS = "id, first_name, last_name, email, cover, gender, birthday, location";
 
-    public static List<IgImage> igImages = new ArrayList<>();
-
     private static AppConfig mInstance;
 
     @Override
@@ -46,7 +38,6 @@ public class AppConfig extends Application {
         super.onCreate();
         mInstance = this;
         onApplyFont();
-        onApplyRealm();
         onApplyFireBase();
         onApplyFacebookSDK();
     }
@@ -65,25 +56,8 @@ public class AppConfig extends Application {
         PrefsUtils.inject(this).save(FirebaseManager.FIRE_BASE_TOKEN, token);
     }
 
-    private void onApplyRealm() {
-        try {
-            Realm.init(this);
-            final RealmConfiguration configuration = new RealmConfiguration
-                    .Builder()
-                    .deleteRealmIfMigrationNeeded()
-                    .name("izigo.realm")
-                    .schemaVersion(42)
-                    .build();
-            Realm.setDefaultConfiguration(configuration);
-            Realm.getInstance(configuration);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     @Override
     public void onTerminate() {
-        Realm.getDefaultInstance().close();
         super.onTerminate();
     }
 

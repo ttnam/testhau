@@ -15,9 +15,9 @@ import java.util.Calendar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.yostajsc.core.utils.DatetimeUtils;
+import io.yostajsc.sdk.utils.DatetimeUtils;
 import io.yostajsc.izigo.R;
-import io.yostajsc.core.glide.CropCircleTransformation;
+import io.yostajsc.sdk.glide.CropCircleTransformation;
 
 /**
  * Created by Phuc-Hau Nguyen on 8/25/2016.

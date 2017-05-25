@@ -6,9 +6,9 @@ import android.content.Intent;
 
 import org.greenrobot.eventbus.EventBus;
 
-import io.yostajsc.core.code.MessageInfo;
-import io.yostajsc.core.code.MessageType;
-import io.yostajsc.core.utils.NetworkUtils;
+import io.yostajsc.sdk.consts.MessageInfo;
+import io.yostajsc.sdk.consts.MessageType;
+import io.yostajsc.sdk.utils.NetworkUtils;
 import io.yostajsc.izigo.usecase.map.utils.MapUtils;
 
 /**

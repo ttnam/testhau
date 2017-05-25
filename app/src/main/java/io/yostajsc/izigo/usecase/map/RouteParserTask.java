@@ -19,10 +19,9 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
-import io.yostajsc.core.interfaces.CallBackWith;
 import io.yostajsc.izigo.usecase.map.model.Info;
 import io.yostajsc.izigo.usecase.map.model.Route;
+import io.yostajsc.sdk.consts.CallBackWith;
 
 /**
  * Created by nphau on 5/6/17.

@@ -8,7 +8,7 @@ import android.widget.TimePicker;
 import java.text.DecimalFormat;
 import java.util.Calendar;
 
-import io.yostajsc.core.utils.DatetimeUtils;
+import io.yostajsc.sdk.utils.DatetimeUtils;
 import io.yostajsc.izigo.usecase.trip.dialog.DialogDatePicker;
 import io.yostajsc.izigo.usecase.trip.dialog.DialogTimePicker;
 

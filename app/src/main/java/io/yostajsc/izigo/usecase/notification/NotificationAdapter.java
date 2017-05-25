@@ -9,14 +9,14 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.yostajsc.core.utils.ToastUtils;
+import io.yostajsc.sdk.utils.ToastUtils;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.constants.NotificationType;
 import io.yostajsc.izigo.usecase.notification.viewholder.ActionNotificationVH;
 import io.yostajsc.izigo.usecase.notification.viewholder.NotificationVH;
 import io.yostajsc.sdk.api.IzigoSdk;
-import io.yostajsc.sdk.model.IgCallback;
-import io.yostajsc.sdk.model.IgNotification;
+import io.yostajsc.sdk.api.model.IgCallback;
+import io.yostajsc.sdk.api.model.IgNotification;
 
 /**
  * Created by Phuc-Hau Nguyen on 10/14/2016.

@@ -14,10 +14,10 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.yostajsc.core.designs.decorations.SpacesItemDecoration;
-import io.yostajsc.core.designs.listeners.RecyclerItemClickListener;
+import io.yostajsc.sdk.designs.decorations.SpacesItemDecoration;
+import io.yostajsc.sdk.designs.listeners.RecyclerItemClickListener;
 import io.yostajsc.izigo.R;
-import io.yostajsc.sdk.model.IgNotification;
+import io.yostajsc.sdk.api.model.IgNotification;
 
 /**
  * Created by Phuc-Hau Nguyen on 8/31/2016.

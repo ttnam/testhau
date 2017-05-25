@@ -10,11 +10,11 @@ import android.widget.FrameLayout;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.yostajsc.sdk.model.trip.IgImage;
-import io.yostajsc.core.utils.DimensionUtil;
+import io.yostajsc.sdk.api.model.trip.IgImage;
+import io.yostajsc.sdk.utils.DimensionUtil;
 import io.yostajsc.izigo.R;
-import io.yostajsc.izigo.usecase.customview.viewholder.ImageryNormalViewHolder;
-import io.yostajsc.izigo.usecase.customview.viewholder.ImageryViewHolder;
+import io.yostajsc.izigo.usecase.view.viewholder.ImageryNormalViewHolder;
+import io.yostajsc.izigo.usecase.view.viewholder.ImageryViewHolder;
 
 public class ImageryOnlyAdapter extends RecyclerView.Adapter<ImageryViewHolder> {
 
@@ -28,7 +28,7 @@ public class ImageryOnlyAdapter extends RecyclerView.Adapter<ImageryViewHolder> 
 
     @Override
     public ImageryViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemLayoutView = LayoutInflater.from(mContext).inflate(R.layout.item_imagery, null);
+        View itemLayoutView = LayoutInflater.from(mContext).inflate(R.layout.item_imagery_normal, null);
         int width = (int) (DimensionUtil.getScreenWidth(mContext) / 3.0f);
         itemLayoutView.setLayoutParams(new FrameLayout.LayoutParams(width, width));
         return new ImageryNormalViewHolder(itemLayoutView);

@@ -1,1 +1,1 @@
-include ':app', ':materialspinner', ':izigo-sdk'
+include ':app', ':izigo-sdk'

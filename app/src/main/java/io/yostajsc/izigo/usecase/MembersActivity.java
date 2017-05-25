@@ -12,17 +12,17 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.yostajsc.core.utils.ToastUtils;
+import io.yostajsc.sdk.consts.CallBackWith;
+import io.yostajsc.sdk.consts.ItemClick;
+import io.yostajsc.sdk.consts.MessageType;
+import io.yostajsc.sdk.utils.ToastUtils;
 import io.yostajsc.izigo.AppConfig;
-import io.yostajsc.sdk.model.user.IgFriend;
+import io.yostajsc.sdk.api.model.user.IgFriend;
 import io.yostajsc.sdk.api.IzigoSdk;
-import io.yostajsc.sdk.model.IgCallback;
-import io.yostajsc.core.code.MessageType;
-import io.yostajsc.core.interfaces.CallBackWith;
-import io.yostajsc.core.interfaces.ItemClick;
+import io.yostajsc.sdk.api.model.IgCallback;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.usecase.trip.adapter.MemberAdapter;
-import io.yostajsc.izigo.usecase.customview.OwnToolBar;
+import io.yostajsc.izigo.usecase.view.OwnToolBar;
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 
 public class MembersActivity extends OwnCoreActivity {

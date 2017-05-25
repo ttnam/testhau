@@ -21,15 +21,15 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.yostajsc.core.utils.ToastUtils;
+import io.yostajsc.sdk.utils.ToastUtils;
 import io.yostajsc.izigo.AppConfig;
-import io.yostajsc.core.fragments.CoreFragment;
+import io.yostajsc.sdk.fragments.CoreFragment;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.usecase.SplashActivity;
 import io.yostajsc.izigo.usecase.webview.WebViewActivity;
 import io.yostajsc.sdk.api.IzigoSdk;
-import io.yostajsc.sdk.model.IgCallback;
-import io.yostajsc.sdk.model.user.IgUser;
+import io.yostajsc.sdk.api.model.IgCallback;
+import io.yostajsc.sdk.api.model.user.IgUser;
 
 public class SettingsFragment extends CoreFragment {
 

@@ -10,10 +10,10 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.yostajsc.core.utils.DatetimeUtils;
+import io.yostajsc.sdk.utils.DatetimeUtils;
 import io.yostajsc.izigo.R;
-import io.yostajsc.sdk.model.IgComment;
-import io.yostajsc.izigo.usecase.customview.viewholder.CommentViewHolder;
+import io.yostajsc.sdk.api.model.IgComment;
+import io.yostajsc.izigo.usecase.view.viewholder.CommentViewHolder;
 
 /**
  * Created by Phuc-Hau Nguyen on 10/14/2016.

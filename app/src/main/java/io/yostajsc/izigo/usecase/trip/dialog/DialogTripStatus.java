@@ -11,9 +11,9 @@ import android.widget.RadioButton;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.yostajsc.core.utils.DimensionUtil;
+import io.yostajsc.sdk.utils.DimensionUtil;
 import io.yostajsc.izigo.R;
-import io.yostajsc.sdk.model.trip.IgTripStatus;
+import io.yostajsc.sdk.api.model.trip.IgTripStatus;
 
 /**
  * Created by Phuc-Hau Nguyen on 8/31/2016.

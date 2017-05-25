@@ -7,8 +7,6 @@ import android.os.Bundle;
 import android.support.v7.widget.AppCompatImageView;
 import android.view.Window;
 
-import com.yosta.materialspinner.MaterialSpinner;
-
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.Arrays;
@@ -19,6 +17,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.yostajsc.izigo.constants.TransferType;
 import io.yostajsc.izigo.R;
+import io.yostajsc.sdk.spinner.MaterialSpinner;
 
 /**
  * Created by Phuc-Hau Nguyen on 8/31/2016.

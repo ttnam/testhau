@@ -1,7 +1,6 @@
 package io.yostajsc.izigo.usecase.trip;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -18,21 +17,25 @@ import android.view.MenuItem;
 import android.view.View;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.yostajsc.sdk.CoreActivity;
+import io.yostajsc.sdk.consts.MessageType;
+import io.yostajsc.sdk.utils.ToastUtils;
 import io.yostajsc.izigo.AppConfig;
+import io.yostajsc.sdk.gallery.SelectorImageryAdapter;
+import io.yostajsc.sdk.gallery.LayoutViewType;
+import io.yostajsc.sdk.gallery.OnClickListener;
 import io.yostajsc.izigo.constants.RoleType;
-import io.yostajsc.core.code.MessageType;
-import io.yostajsc.core.designs.listeners.RecyclerItemClickListener;
-import io.yostajsc.core.CoreActivity;
-import io.yostajsc.core.utils.FileUtils;
+import io.yostajsc.sdk.designs.listeners.RecyclerItemClickListener;
+import io.yostajsc.sdk.utils.FileUtils;
 import io.yostajsc.izigo.R;
-import io.yostajsc.izigo.adapters.ImageryOnlyAdapter;
-import io.yostajsc.sdk.api.IzigoSdk;
-import io.yostajsc.sdk.model.trip.IgImage;
-import io.yostajsc.izigo.usecase.customview.gallery.GalleryActivity;
+import io.yostajsc.sdk.api.cache.IgCache;
+import io.yostajsc.sdk.api.model.trip.IgImage;
+import io.yostajsc.izigo.usecase.view.gallery.GalleryActivity;
 import jp.wasabeef.recyclerview.animators.FadeInUpAnimator;
 import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.RuntimePermissions;
@@ -46,7 +49,7 @@ public class TripAlbumActivity extends CoreActivity {
     @BindView(R.id.recycler_view)
     RecyclerView rvAlbum;
 
-    private ImageryOnlyAdapter albumAdapter = null;
+    private SelectorImageryAdapter albumAdapter = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +68,12 @@ public class TripAlbumActivity extends CoreActivity {
     @Override
     public void onApplyViews() {
         super.onApplyViews();
-        this.albumAdapter = new ImageryOnlyAdapter(this);
+        this.albumAdapter = new SelectorImageryAdapter(this, new OnClickListener() {
+            @Override
+            public void onClick() {
+                ToastUtils.showToast(TripAlbumActivity.this, "onClick");
+            }
+        });
         this.rvAlbum.setAdapter(this.albumAdapter);
         SnapHelper snapHelper = new LinearSnapHelper();
         snapHelper.attachToRecyclerView(this.rvAlbum);
@@ -104,12 +112,18 @@ public class TripAlbumActivity extends CoreActivity {
     @Override
     public void onApplyData() {
         super.onApplyData();
-        if (AppConfig.igImages.size() > 0) {
-            this.albumAdapter.replaceAll(AppConfig.igImages);
-        }
-
         int role = getIntent().getIntExtra(AppConfig.KEY_USER_ROLE, -1);
         btnRight.setVisibility(role == RoleType.GUEST ? View.INVISIBLE : View.VISIBLE);
+        List<IgImage> imageList = IgCache.TripCache.getAlbum();
+        if (imageList != null && imageList.size() > 0) {
+            for (IgImage igImage : imageList) {
+                this.albumAdapter.add(
+                        new SelectorImageryAdapter.Imagery(igImage.getUrl(),
+                                role == RoleType.GUEST ?
+                                        LayoutViewType.NORMAL :
+                                        LayoutViewType.DELETE));
+            }
+        }
     }
 
     @NeedsPermission({Manifest.permission.WRITE_EXTERNAL_STORAGE,
@@ -134,16 +148,18 @@ public class TripAlbumActivity extends CoreActivity {
             switch (requestCode) {
                 case MessageType.FROM_MULTI_GALLERY:
                     ArrayList<String> urls = data.getStringArrayListExtra("MULTI_IMAGE");
-                    Intent intent = new Intent();
-                    intent.putStringArrayListExtra("MULTI_IMAGE", urls);
-                    setResult(RESULT_OK, intent);
-                    finish();
+                    if (urls != null && urls.size() > 0) {
+                        Intent intent = new Intent();
+                        intent.putStringArrayListExtra("MULTI_IMAGE", urls);
+                        setResult(RESULT_OK, intent);
+                        finish();
+                    }
                     break;
                 case MessageType.TAKE_PHOTO: {
                     try {
                         Bitmap photo = (Bitmap) data.getExtras().get("data");
                         Uri tempUri = FileUtils.getImageUri(TripAlbumActivity.this, photo);
-                        albumAdapter.add(new IgImage(tempUri.toString()));
+                        //albumAdapter.add(new IgImage(tempUri.toString()));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

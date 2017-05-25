@@ -1,7 +1,5 @@
 package io.yostajsc.sdk.api;
 
-import android.content.Context;
-import android.net.Uri;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -10,24 +8,23 @@ import com.google.gson.GsonBuilder;
 import java.io.File;
 import java.io.IOException;
 import java.net.SocketTimeoutException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-import io.yostajsc.core.utils.FileUtils;
-import io.yostajsc.sdk.model.IgComment;
-import io.yostajsc.sdk.model.IgNotification;
-import io.yostajsc.sdk.model.IgTimeline;
-import io.yostajsc.sdk.model.user.IgFriend;
-import io.yostajsc.sdk.model.trip.IgTrip;
-import io.yostajsc.sdk.model.IgCallback;
-import io.yostajsc.sdk.model.user.IgUser;
-import io.yostajsc.sdk.model.TripTypePermission;
-import io.yostajsc.sdk.model.token.IgToken;
-import io.yostajsc.sdk.response.BaseResponse;
-import io.yostajsc.core.interfaces.CallBack;
-import io.yostajsc.core.interfaces.CallBackWith;
+import io.yostajsc.sdk.api.model.IgComment;
+import io.yostajsc.sdk.api.model.IgNotification;
+import io.yostajsc.sdk.api.model.IgTimeline;
+import io.yostajsc.sdk.api.model.user.IgFriend;
+import io.yostajsc.sdk.api.model.trip.IgTrip;
+import io.yostajsc.sdk.api.model.IgCallback;
+import io.yostajsc.sdk.api.model.user.IgUser;
+import io.yostajsc.sdk.api.model.TripTypePermission;
+import io.yostajsc.sdk.api.model.token.IgToken;
+import io.yostajsc.sdk.api.response.BaseResponse;
+import io.yostajsc.sdk.consts.CallBack;
+import io.yostajsc.sdk.consts.CallBackWith;
+import io.yostajsc.sdk.utils.FileUtils;
 import okhttp3.Interceptor;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -542,8 +539,8 @@ class IzigoApiManager {
         });
     }
 
-    public void accept(String authorization, String tripId, String notiId, int verify,
-                       final IgCallback<Void, String> callback) {
+    void accept(String authorization, String tripId, String notiId, int verify,
+                final IgCallback<Void, String> callback) {
 
         Call<BaseResponse<String>> call = service.accept(authorization, tripId, notiId, verify);
 
@@ -569,8 +566,8 @@ class IzigoApiManager {
         });
     }
 
-    public void verify(String authorization, String tripId, String notiId, int verify,
-                       final IgCallback<Void, String> callback) {
+    void verify(String authorization, String tripId, String notiId, int verify,
+                final IgCallback<Void, String> callback) {
 
         Call<BaseResponse<String>> call = service.verify(authorization, tripId, notiId, verify);
 
@@ -596,8 +593,8 @@ class IzigoApiManager {
         });
     }
 
-    public void addMembers(String authorization, String tripId, String fbId,
-                           final IgCallback<Void, String> callback) {
+    void addMembers(String authorization, String tripId, String fbId,
+                    final IgCallback<Void, String> callback) {
 
         Call<BaseResponse<String>> call = service.apiAddMember(authorization, tripId, fbId);
 
@@ -623,8 +620,8 @@ class IzigoApiManager {
         });
     }
 
-    public void kickMember(String authorization, String tripId, String fbId,
-                           final IgCallback<Void, String> callback) {
+    void kickMember(String authorization, String tripId, String fbId,
+                    final IgCallback<Void, String> callback) {
 
         Call<BaseResponse<String>> call = service.apiKickMember(authorization, tripId, fbId);
 
@@ -677,21 +674,47 @@ class IzigoApiManager {
         });
     }
 
-    void uploadAlbum(Context context, String authorization, String tripId, ArrayList<String> urls,
+    void deleteImage(String authorization, String tripId, String imageId,
+                     final IgCallback<Void, String> callback) {
+
+        Call<BaseResponse> call = service.deleteImage(authorization, tripId, imageId);
+        call.enqueue(new Callback<BaseResponse>() {
+            @Override
+            public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
+                if (response.isSuccessful()) {
+                    BaseResponse res = response.body();
+                    if (res.isSuccessful()) {
+                        callback.onSuccessful(null);
+                    } else if (res.isExpired()) {
+                        callback.onExpired();
+                    } else {
+                        callback.onFail(res.getDescription());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BaseResponse> call, Throwable throwable) {
+                callback.onFail(throwable.getMessage());
+            }
+        });
+    }
+
+    void uploadAlbum(String authorization, String tripId, List<File> files,
                      final IgCallback<Void, String> callback) {
 
         try {
-            int size = urls.size();
+            if (files == null || files.size() < 1)
+                return;
 
-            MultipartBody.Part[] imagesParts = new MultipartBody.Part[size];
+            MultipartBody.Part[] imagesParts = new MultipartBody.Part[files.size()];
 
-            for (int i = 0; i < size; i++) {
-                File file = new File(urls.get(i));
-                RequestBody requestFile =
-                        RequestBody.create(
-                                MediaType.parse(FileUtils.getMimeType(file)),
-                                file
-                        );
+            File file;
+            for (int i = 0; i < files.size(); i++) {
+                file = files.get(i);
+                RequestBody requestFile = RequestBody.create(
+                        MediaType.parse(FileUtils.getMimeType(file)), file);
+
                 imagesParts[i] = MultipartBody.Part.createFormData(i + "", file.getName(), requestFile);
             }
 
@@ -721,15 +744,12 @@ class IzigoApiManager {
         }
     }
 
-    public void uploadCover(Context context, String authorization, String tripId, Uri fileUri,
-                            final IgCallback<Void, String> callback) {
+    void uploadCover(String authorization, File file, String mimeType, String tripId,
+                     final IgCallback<Void, String> callback) {
 
-        File file = FileUtils.getFile(context, fileUri);
-        RequestBody requestFile =
-                RequestBody.create(
-                        MediaType.parse(context.getContentResolver().getType(fileUri)),
-                        file
-                );
+        if (file == null)
+            return;
+        RequestBody requestFile = RequestBody.create(MediaType.parse(mimeType), file);
 
         MultipartBody.Part body =
                 MultipartBody.Part.createFormData("cover", file.getName(), requestFile);

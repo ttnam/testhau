@@ -1,29 +1,27 @@
 package io.yostajsc.sdk.api;
 
 import android.app.Application;
-import android.content.Context;
-import android.net.Uri;
-import android.util.Log;
 
-import java.util.ArrayList;
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import io.yostajsc.core.interfaces.CallBack;
-import io.yostajsc.core.interfaces.CallBackWith;
-import io.yostajsc.sdk.model.IgComment;
-import io.yostajsc.sdk.model.IgNotification;
-import io.yostajsc.sdk.model.IgTimeline;
-import io.yostajsc.sdk.model.user.IgFriend;
-import io.yostajsc.sdk.model.trip.IgTrip;
-import io.yostajsc.core.utils.LogUtils;
+import io.yostajsc.sdk.consts.CallBack;
+import io.yostajsc.sdk.consts.CallBackWith;
+import io.yostajsc.sdk.api.cache.IgCache;
+import io.yostajsc.sdk.api.model.IgComment;
+import io.yostajsc.sdk.api.model.IgNotification;
+import io.yostajsc.sdk.api.model.IgTimeline;
+import io.yostajsc.sdk.api.model.user.IgFriend;
+import io.yostajsc.sdk.api.model.trip.IgTrip;
 import io.yostajsc.sdk.consts.IgError;
-import io.yostajsc.sdk.model.IgCallback;
-import io.yostajsc.sdk.model.user.IgUser;
-import io.yostajsc.sdk.model.token.IgToken;
-import io.yostajsc.sdk.model.TripTypePermission;
-import io.yostajsc.core.utils.PrefsUtils;
+import io.yostajsc.sdk.api.model.IgCallback;
+import io.yostajsc.sdk.api.model.user.IgUser;
+import io.yostajsc.sdk.api.model.token.IgToken;
+import io.yostajsc.sdk.api.model.TripTypePermission;
+import io.yostajsc.sdk.utils.LogUtils;
+import io.yostajsc.sdk.utils.PrefsUtils;
 
 /**
  * Created by nphau on 4/26/17.
@@ -63,7 +61,6 @@ public class IzigoSdk {
             PrefsUtils.inject(mApplication).removes();
         }
     }
-
 
     public static class TripExecutor {
 
@@ -154,7 +151,23 @@ public class IzigoSdk {
         public static void getTripDetail(String tripId, final IgCallback<IgTrip, String> callback) {
             if (IzigoSession.isLoggedIn()) {
                 String auth = IzigoSession.getToken().getToken();
-                IzigoApiManager.connect().getTripDetail(auth, tripId, callback);
+                IzigoApiManager.connect().getTripDetail(auth, tripId, new IgCallback<IgTrip, String>() {
+                    @Override
+                    public void onSuccessful(IgTrip igTrip) {
+                        IgCache.TripCache.cacheAlbum(igTrip.getAlbum());
+                        callback.onSuccessful(igTrip);
+                    }
+
+                    @Override
+                    public void onFail(String error) {
+                        callback.onFail(error);
+                    }
+
+                    @Override
+                    public void onExpired() {
+                        callback.onExpired();
+                    }
+                });
             } else {
                 callback.onExpired();
             }
@@ -241,21 +254,28 @@ public class IzigoSdk {
             }
         }
 
-        public static void uploadAlbum(Context context, String tripId, ArrayList<String> urls,
-                                       final IgCallback<Void, String> callback) {
+        public static void uploadAlbum(String tripId, List<File> files, final IgCallback<Void, String> callback) {
             try {
-                if (urls != null && urls.size() > 0) {
-                    Uri[] uris = new Uri[urls.size()];
-                    for (int i = 0; i < urls.size(); i++) {
-                        uris[i] = Uri.parse(urls.get(i));
-                    }
-                    if (IzigoSession.isLoggedIn()) {
-                        String auth = IzigoSession.getToken().getToken();
-                        IzigoApiManager.connect().uploadAlbum(context, auth, tripId, urls, callback);
-                    }
+                if (IzigoSession.isLoggedIn()) {
+                    String auth = IzigoSession.getToken().getToken();
+                    IzigoApiManager.connect().uploadAlbum(auth, tripId, files, callback);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
+            }
+        }
+
+        public static void deleteImage(String tripId, String imageId, final IgCallback<Void, String> callback) {
+            if (IzigoSession.isLoggedIn()) {
+                String auth = IzigoSession.getToken().getToken();
+                IzigoApiManager.connect().deleteImage(auth, tripId, imageId, callback);
+            }
+        }
+
+        public static void uploadCover(File file, String mimeType, String tripId, final IgCallback<Void, String> callback) {
+            if (IzigoSession.isLoggedIn()) {
+                String auth = IzigoSession.getToken().getToken();
+                IzigoApiManager.connect().uploadCover(auth, file, mimeType, tripId, callback);
             }
         }
     }

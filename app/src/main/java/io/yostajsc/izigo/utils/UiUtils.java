@@ -8,11 +8,10 @@ import android.text.TextUtils;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.widget.TextView;
 
 import io.yostajsc.izigo.constants.TransferType;
-import io.yostajsc.core.designs.listeners.RecyclerItemClickListener;
-import io.yostajsc.core.interfaces.CallBackWith;
+import io.yostajsc.sdk.consts.CallBackWith;
+import io.yostajsc.sdk.designs.listeners.RecyclerItemClickListener;
 import io.yostajsc.izigo.R;
 
 /**

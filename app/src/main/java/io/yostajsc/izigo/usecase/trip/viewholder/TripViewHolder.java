@@ -11,7 +11,7 @@ import com.bumptech.glide.Glide;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.yostajsc.core.utils.DimensionUtil;
+import io.yostajsc.sdk.utils.DimensionUtil;
 import io.yostajsc.izigo.R;
 
 /**

@@ -9,16 +9,16 @@ import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import io.yostajsc.izigo.constants.RoleType;
-import io.yostajsc.core.interfaces.CallBack;
-import io.yostajsc.core.interfaces.CallBackWith;
-import io.yostajsc.core.utils.DatetimeUtils;
+import io.yostajsc.sdk.consts.CallBack;
+import io.yostajsc.sdk.consts.CallBackWith;
+import io.yostajsc.sdk.utils.DatetimeUtils;
 import io.yostajsc.izigo.R;
-import io.yostajsc.sdk.model.IgCallback;
+import io.yostajsc.sdk.api.model.IgCallback;
 import io.yostajsc.sdk.api.IzigoSdk;
 import io.yostajsc.izigo.usecase.service.firebase.FirebaseExecutor;
-import io.yostajsc.sdk.model.trip.IgTripStatus;
+import io.yostajsc.sdk.api.model.trip.IgTripStatus;
 import io.yostajsc.izigo.utils.UiUtils;
-import io.yostajsc.core.glide.CropCircleTransformation;
+import io.yostajsc.sdk.glide.CropCircleTransformation;
 
 /**
  * Created by nphau on 4/7/17.
@@ -172,34 +172,6 @@ public class TripActivityView {
         mActivity = null;
         mResources = null;
         mInstance = null;
-    }
-
-
-    public static void changeTripCover(final String tripId, Uri uri, final CallBackWith<String> fail, final CallBack expired) {
-
-        FirebaseExecutor.TripExecutor.changeCover(tripId, uri, new CallBackWith<Uri>() {
-            @Override
-            public void run(Uri uri) {
-
-                IzigoSdk.TripExecutor.changeCover(tripId, uri.toString(), new IgCallback<Void, String>() {
-                    @Override
-                    public void onSuccessful(Void aVoid) {
-
-                    }
-
-                    @Override
-                    public void onFail(String error) {
-                        fail.run(error);
-                    }
-
-                    @Override
-                    public void onExpired() {
-                        expired.run();
-                    }
-                });
-
-            }
-        });
     }
 
     public static void isPublish(boolean published) {

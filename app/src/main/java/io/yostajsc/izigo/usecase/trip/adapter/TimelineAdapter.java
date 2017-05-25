@@ -9,9 +9,9 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.yostajsc.core.utils.DatetimeUtils;
+import io.yostajsc.sdk.utils.DatetimeUtils;
 import io.yostajsc.izigo.R;
-import io.yostajsc.sdk.model.IgTimeline;
+import io.yostajsc.sdk.api.model.IgTimeline;
 import io.yostajsc.izigo.usecase.trip.viewholder.TimelineViewHolder;
 
 public class TimelineAdapter extends RecyclerView.Adapter<TimelineViewHolder> {

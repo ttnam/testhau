@@ -36,11 +36,10 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 import io.yostajsc.izigo.AppConfig;
-import io.yostajsc.core.code.MessageType;
-import io.yostajsc.core.interfaces.CallBackWith;
-import io.yostajsc.izigo.constants.PageType;
 import io.yostajsc.izigo.usecase.map.RouteParserTask;
 import io.yostajsc.izigo.usecase.map.model.Info;
+import io.yostajsc.sdk.consts.CallBackWith;
+import io.yostajsc.sdk.consts.MessageType;
 
 import static android.content.Context.LOCATION_SERVICE;
 

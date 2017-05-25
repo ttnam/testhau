@@ -10,11 +10,11 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.yostajsc.core.interfaces.CallBackWith;
-import io.yostajsc.core.interfaces.ItemClick;
-import io.yostajsc.sdk.model.user.IgFriend;
+import io.yostajsc.sdk.api.model.user.IgFriend;
 import io.yostajsc.izigo.R;
-import io.yostajsc.izigo.usecase.customview.viewholder.MemberViewHolder;
+import io.yostajsc.izigo.usecase.view.viewholder.MemberViewHolder;
+import io.yostajsc.sdk.consts.CallBackWith;
+import io.yostajsc.sdk.consts.ItemClick;
 
 /**
  * Created by Phuc-Hau Nguyen on 10/14/2016.

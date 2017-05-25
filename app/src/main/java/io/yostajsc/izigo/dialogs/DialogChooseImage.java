@@ -10,9 +10,9 @@ import org.greenrobot.eventbus.EventBus;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.yostajsc.core.code.MessageInfo;
-import io.yostajsc.core.code.MessageType;
 import io.yostajsc.izigo.R;
+import io.yostajsc.sdk.consts.MessageInfo;
+import io.yostajsc.sdk.consts.MessageType;
 
 /**
  * Created by Phuc-Hau Nguyen on 8/31/2016.
