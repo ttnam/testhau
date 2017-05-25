@@ -1,4 +1,4 @@
-package io.yostajsc.izigo.usecase.view.gallery;
+package io.yostajsc.sdk.gallery;
 
 import android.content.Context;
 import android.support.v7.widget.AppCompatImageView;
@@ -16,11 +16,9 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
+import io.yostajsc.sdk.R;
 import io.yostajsc.sdk.consts.CallBackWith;
 import io.yostajsc.sdk.utils.DimensionUtil;
-import io.yostajsc.izigo.R;
 
 public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryViewHolder> {
 
@@ -108,17 +106,15 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryV
 
     class GalleryViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.image_view)
-        AppCompatImageView imageView;
-
-        @BindView(R.id.layout)
         View layout;
+        AppCompatImageView imageView;
 
         boolean isSelected = false;
 
         GalleryViewHolder(View itemView) {
             super(itemView);
-            ButterKnife.bind(this, itemView);
+            imageView = (AppCompatImageView) itemView.findViewById(R.id.image_view);
+            layout = itemView.findViewById(R.id.layout);
         }
 
         void bind(String url) {

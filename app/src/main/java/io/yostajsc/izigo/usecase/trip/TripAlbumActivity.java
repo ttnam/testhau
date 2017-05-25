@@ -35,7 +35,7 @@ import io.yostajsc.sdk.utils.FileUtils;
 import io.yostajsc.izigo.R;
 import io.yostajsc.sdk.api.cache.IgCache;
 import io.yostajsc.sdk.api.model.trip.IgImage;
-import io.yostajsc.izigo.usecase.view.gallery.GalleryActivity;
+import io.yostajsc.sdk.gallery.GalleryActivity;
 import jp.wasabeef.recyclerview.animators.FadeInUpAnimator;
 import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.RuntimePermissions;

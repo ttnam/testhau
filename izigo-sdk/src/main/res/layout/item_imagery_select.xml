@@ -11,7 +11,7 @@
         android:scaleType="centerCrop" />
 
     <View
-        android:id="@+id/layout"
+        android:id="@id/layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/ic_style_rect_round_none_none_blue"

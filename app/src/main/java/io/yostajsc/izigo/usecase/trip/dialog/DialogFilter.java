@@ -15,7 +15,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.yostajsc.izigo.constants.TransferType;
+import io.yostajsc.izigo.usecase.trip.TransferType;
 import io.yostajsc.izigo.R;
 import io.yostajsc.sdk.spinner.MaterialSpinner;
 

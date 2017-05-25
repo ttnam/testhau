@@ -9,7 +9,7 @@ import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 
-import io.yostajsc.izigo.constants.TransferType;
+import io.yostajsc.izigo.usecase.trip.TransferType;
 import io.yostajsc.sdk.consts.CallBackWith;
 import io.yostajsc.sdk.designs.listeners.RecyclerItemClickListener;
 import io.yostajsc.izigo.R;

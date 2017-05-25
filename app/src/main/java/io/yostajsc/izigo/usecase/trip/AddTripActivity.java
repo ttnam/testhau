@@ -30,7 +30,6 @@ import io.yostajsc.sdk.consts.CallBackWith;
 import io.yostajsc.sdk.consts.MessageType;
 import io.yostajsc.sdk.utils.FileUtils;
 import io.yostajsc.sdk.utils.ToastUtils;
-import io.yostajsc.izigo.constants.TransferType;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.usecase.OwnCoreActivity;
 import io.yostajsc.izigo.usecase.trip.dialog.DialogPickTransfer;

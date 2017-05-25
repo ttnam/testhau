@@ -1,4 +1,4 @@
-package io.yostajsc.izigo.constants;
+package io.yostajsc.izigo.usecase.trip;
 
 import android.support.annotation.IntDef;
 

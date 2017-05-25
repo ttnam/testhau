@@ -8,7 +8,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.yostajsc.izigo.constants.TransferType;
+import io.yostajsc.izigo.usecase.trip.TransferType;
 import io.yostajsc.sdk.consts.CallBackWith;
 import io.yostajsc.sdk.utils.DimensionUtil;
 import io.yostajsc.izigo.R;
