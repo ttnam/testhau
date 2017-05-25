@@ -1,0 +1,4 @@
+alias: izigo
+Name: Phuc Henry
+pass: nphau@1995
+City: Ho Chi Minh city
