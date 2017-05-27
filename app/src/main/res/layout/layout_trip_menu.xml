@@ -38,7 +38,7 @@
                 android:layout_gravity="center"
                 android:background="@drawable/ic_style_circle_grey"
                 android:padding="@dimen/margin"
-                app:srcCompat="@drawable/ic_vector_location_red" />
+                app:srcCompat="@drawable/ic_vector_marker_red" />
 
             <TextView
                 style="@style/CoreAppTheme.TextView_Sub_Title"

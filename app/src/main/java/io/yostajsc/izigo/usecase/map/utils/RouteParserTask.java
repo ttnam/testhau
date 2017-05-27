@@ -1,4 +1,4 @@
-package io.yostajsc.izigo.usecase.map;
+package io.yostajsc.izigo.usecase.map.utils;
 
 import android.graphics.Color;
 import android.os.AsyncTask;
@@ -19,9 +19,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import io.yostajsc.izigo.usecase.map.model.Info;
-import io.yostajsc.izigo.usecase.map.model.Route;
-import io.yostajsc.sdk.consts.CallBackWith;
 
 /**
  * Created by nphau on 5/6/17.
@@ -32,13 +29,11 @@ public class RouteParserTask extends AsyncTask<Object, Void, String> {
     private boolean draw = false;
 
     private GoogleMap mMap = null;
-    private CallBackWith<Info> mCallback = null;
-    private CallBackWith<Polyline> mPolyline = null;
+    private OnDirectionCallBack mCallback = null;
 
-    public RouteParserTask(GoogleMap map, CallBackWith<Info> callback, CallBackWith<Polyline> polyline) {
+    public RouteParserTask(GoogleMap map, OnDirectionCallBack callback) {
         this.mMap = map;
         this.mCallback = callback;
-        this.mPolyline = polyline;
     }
 
     @Override
@@ -68,14 +63,11 @@ public class RouteParserTask extends AsyncTask<Object, Void, String> {
             RouteParser parser = new RouteParser();
             routes = parser.parse(jObject, draw);
 
-            mCallback.run(routes.get(0).info);
-
+            Polyline polyline = null;
             if (draw) {
-                Polyline polyline = draw(routes);
-                if (mPolyline != null) {
-                    mPolyline.run(polyline);
-                }
+                polyline = draw(routes);
             }
+            mCallback.onSuccess(routes.get(0).info, polyline);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -147,5 +139,9 @@ public class RouteParserTask extends AsyncTask<Object, Void, String> {
             urlConnection.disconnect();
         }
         return data;
+    }
+
+    public static interface OnDirectionCallBack {
+        void onSuccess(Info info, Polyline polyline);
     }
 }

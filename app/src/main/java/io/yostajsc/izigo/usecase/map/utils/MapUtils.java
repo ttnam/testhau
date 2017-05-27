@@ -1,7 +1,9 @@
 package io.yostajsc.izigo.usecase.map.utils;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -9,6 +11,7 @@ import android.os.Handler;
 import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -30,14 +33,11 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.model.Polyline;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 import io.yostajsc.izigo.AppConfig;
-import io.yostajsc.izigo.usecase.map.RouteParserTask;
-import io.yostajsc.izigo.usecase.map.model.Info;
 import io.yostajsc.sdk.consts.CallBackWith;
 import io.yostajsc.sdk.consts.MessageType;
 
@@ -145,14 +145,16 @@ public class MapUtils {
         public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
         }
 
-        public LatLng getLastKnownLocation(Context context) {
+        public void getLastKnownLocation(Context context, OnGetLastKnownLocation callback) {
 
-            Location location = null;
-            double latitude = 0, longitude = 0;
             try {
 
-
                 LocationManager locationManager = (LocationManager) context.getSystemService(LOCATION_SERVICE);
+
+                if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                        && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    return;
+                }
 
                 // getting GPS status
                 boolean isGPSEnabled = locationManager
@@ -162,45 +164,32 @@ public class MapUtils {
                 boolean isNetworkEnabled = locationManager
                         .isProviderEnabled(LocationManager.NETWORK_PROVIDER);
 
-                if (!isGPSEnabled && !isNetworkEnabled) {
-                    // no network provider is enabled
-                } else {
-                    if (isNetworkEnabled) {
-                        locationManager.requestLocationUpdates(
-                                LocationManager.NETWORK_PROVIDER,
-                                5000,
-                                10f, (android.location.LocationListener) this);
-                        Log.d("Network", "Network Enabled");
-                        location = locationManager
-                                .getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-                        if (location != null) {
-                            latitude = location.getLatitude();
-                            longitude = location.getLongitude();
-                        }
+                // if GPS Enabled get lat/long using GPS Services
+                if (isGPSEnabled) {
+                    Location location = locationManager
+                            .getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                    if (location != null) {
+                        callback.onReceive(new LatLng(
+                                location.getLatitude(),
+                                location.getLongitude())
+                        );
+                        return;
                     }
-                    // if GPS Enabled get lat/long using GPS Services
-                    if (isGPSEnabled) {
-                        if (location == null) {
-                            locationManager.requestLocationUpdates(
-                                    LocationManager.GPS_PROVIDER,
-                                    5000,
-                                    10f, (android.location.LocationListener) this);
-                            Log.d("GPS", "GPS Enabled");
-                            location = locationManager
-                                    .getLastKnownLocation(LocationManager.GPS_PROVIDER);
-                            if (location != null) {
-                                latitude = location.getLatitude();
-                                longitude = location.getLongitude();
-                            }
-                        }
-                    }
+                }
+
+                if (isNetworkEnabled) {
+                    Location location = locationManager
+                            .getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+                    if (location != null)
+                        callback.onReceive(new LatLng(
+                                location.getLatitude(),
+                                location.getLongitude())
+                        );
                 }
 
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
-            return new LatLng(latitude, longitude);
         }
 
     }
@@ -260,11 +249,11 @@ public class MapUtils {
             return urlGoogleAPI + parameters;
         }
 
-        public static void direction(GoogleMap mMap, LatLng origin, LatLng dest, boolean draw,
-                                     CallBackWith<Info> callback, CallBackWith<Polyline> polyline) {
+        public static void direction(GoogleMap mMap, LatLng origin, LatLng dest, boolean isDraw,
+                                     RouteParserTask.OnDirectionCallBack callback) {
             String url = getUrl(origin, dest);
-            RouteParserTask parserTask = new RouteParserTask(mMap, callback, polyline);
-            parserTask.execute(url, draw);
+            RouteParserTask parserTask = new RouteParserTask(mMap, callback);
+            parserTask.execute(url, isDraw);
         }
 
         public static void setLocationButtonPosition(SupportMapFragment mapFragment, @Position int position) {
@@ -314,5 +303,8 @@ public class MapUtils {
         return result[0];
     }
 
+    public interface OnGetLastKnownLocation {
+        void onReceive(LatLng latlng);
+    }
 
 }

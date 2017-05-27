@@ -14,6 +14,7 @@ import java.util.concurrent.TimeUnit;
 
 import io.yostajsc.sdk.api.model.IgComment;
 import io.yostajsc.sdk.api.model.IgNotification;
+import io.yostajsc.sdk.api.model.IgSuggestion;
 import io.yostajsc.sdk.api.model.IgTimeline;
 import io.yostajsc.sdk.api.model.user.IgFriend;
 import io.yostajsc.sdk.api.model.trip.IgTrip;
@@ -46,7 +47,7 @@ class IzigoApiManager {
 
     private static final String TAG = IzigoApiManager.class.getSimpleName();
 
-    private static String SERVER_DOMAIN = "http://13.58.11.25:8080/";
+    private static String SERVER_DOMAIN = "http://13.58.11.25:8080/api/";
 
     private static final int CONNECT_TIME_OUT = 60;
     private static final int READ_TIME_OUT = 60;
@@ -107,10 +108,12 @@ class IzigoApiManager {
             public void onResponse(Call<BaseResponse<IgToken>> call, Response<BaseResponse<IgToken>> response) {
                 if (response.isSuccessful()) {
                     BaseResponse<IgToken> loginRes = response.body();
-                    if (loginRes.isSuccessful()) {
-                        callback.onSuccessful(loginRes.data());
-                    } else {
-                        callback.onFail(loginRes.getDescription());
+                    if (loginRes != null) {
+                        if (loginRes.isSuccessful()) {
+                            callback.onSuccessful(loginRes.data());
+                        } else {
+                            callback.onFail(loginRes.getDescription());
+                        }
                     }
                 }
             }
@@ -118,7 +121,6 @@ class IzigoApiManager {
             @Override
             public void onFailure(Call<BaseResponse<IgToken>> call, Throwable throwable) {
                 callback.onFail(throwable.getMessage());
-                log(throwable.getMessage());
             }
         });
     }
@@ -131,12 +133,14 @@ class IzigoApiManager {
                 public void onResponse(Call<BaseResponse<List<IgTrip>>> call, Response<BaseResponse<List<IgTrip>>> response) {
                     if (response.isSuccessful()) {
                         BaseResponse<List<IgTrip>> res = response.body();
-                        if (res.isSuccessful()) {
-                            callback.onSuccessful(res.data());
-                        } else if (res.isExpired()) {
-                            callback.onExpired();
-                        } else {
-                            callback.onFail(res.getDescription());
+                        if (res != null) {
+                            if (res.isSuccessful()) {
+                                callback.onSuccessful(res.data());
+                            } else if (res.isExpired()) {
+                                callback.onExpired();
+                            } else {
+                                callback.onFail(res.getDescription());
+                            }
                         }
                     }
                 }
@@ -144,11 +148,10 @@ class IzigoApiManager {
                 @Override
                 public void onFailure(Call<BaseResponse<List<IgTrip>>> call, Throwable throwable) {
                     callback.onFail(throwable.getMessage());
-                    log(throwable.getMessage());
                 }
             });
         } catch (Exception e) {
-            log(e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -174,15 +177,14 @@ class IzigoApiManager {
                 @Override
                 public void onFailure(Call<BaseResponse<List<IgTrip>>> call, Throwable throwable) {
                     callback.onFail(throwable.getMessage());
-                    log(throwable.getMessage());
                 }
             });
         } catch (Exception e) {
-            log(e.getMessage());
+            e.printStackTrace();
         }
     }
 
-    public void updateFcm(String authorization, String fcm, final IgCallback<Void, String> callback) {
+    void updateFcm(String authorization, String fcm, final IgCallback<Void, String> callback) {
         Call<BaseResponse> call = service.apiUpdateFcm(authorization, fcm);
         call.enqueue(new Callback<BaseResponse>() {
             @Override
@@ -196,12 +198,11 @@ class IzigoApiManager {
             @Override
             public void onFailure(Call<BaseResponse> call, Throwable throwable) {
                 callback.onFail(throwable.getMessage());
-                log(throwable.getMessage());
             }
         });
     }
 
-    public void getTripDetail(String authorization, String tripId, final IgCallback<IgTrip, String> callback) {
+    void getTripDetail(String authorization, String tripId, final IgCallback<IgTrip, String> callback) {
 
         Call<BaseResponse<IgTrip>> call = service.apiGetTripDetail(authorization, tripId);
 
@@ -247,7 +248,6 @@ class IzigoApiManager {
 
             @Override
             public void onFailure(Call<BaseResponse<IgUser>> call, Throwable throwable) {
-                log(throwable.getMessage());
                 callback.onFail(throwable.getMessage());
             }
         });
@@ -432,7 +432,7 @@ class IzigoApiManager {
         });
     }
 
-    public void apiTrackingTripView(String authorization, String tripId) {
+    void apiTrackingTripView(String authorization, String tripId) {
 
         Call<BaseResponse<String>> call = service.apiUpdateView(authorization, tripId);
 
@@ -442,20 +442,20 @@ class IzigoApiManager {
                 if (response.isSuccessful()) {
                     BaseResponse<String> res = response.body();
                     if (!res.isSuccessful()) {
-                        log(res.data());
+                        Log.e(TAG, res.data());
                     }
                 }
             }
 
             @Override
             public void onFailure(Call<BaseResponse<String>> call, Throwable throwable) {
-                log(throwable.getMessage());
+                Log.e(TAG, throwable.getMessage());
             }
         });
     }
 
-    public void updateTripInfo(String authorization, String tripId, String data, int type,
-                               final IgCallback<Void, String> callback) {
+    void updateTripInfo(String authorization, String tripId, String data, int type,
+                        final IgCallback<Void, String> callback) {
 
         Call<BaseResponse<String>> call = service.apiUpdateTripCover(authorization, tripId, data);
 
@@ -484,7 +484,6 @@ class IzigoApiManager {
             @Override
             public void onFailure(Call<BaseResponse<String>> call, Throwable throwable) {
                 callback.onFail(throwable.getMessage());
-                log(throwable.getMessage());
             }
         });
     }
@@ -762,8 +761,36 @@ class IzigoApiManager {
             public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
                 if (response.isSuccessful()) {
                     BaseResponse res = response.body();
+                    if (res != null) {
+                        if (res.isSuccessful()) {
+                            callback.onSuccessful(null);
+                        } else if (res.isExpired()) {
+                            callback.onExpired();
+                        } else {
+                            callback.onFail(res.getDescription());
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BaseResponse> call, Throwable throwable) {
+                callback.onFail(throwable.getMessage());
+            }
+        });
+    }
+
+
+    void getSuggestion(String authorization, double lat, double lng, final IgCallback<List<IgSuggestion>, String> callback) {
+
+        Call<BaseResponse<List<IgSuggestion>>> call = service.getSuggestion(authorization, lat, lng);
+        call.enqueue(new Callback<BaseResponse<List<IgSuggestion>>>() {
+            @Override
+            public void onResponse(Call<BaseResponse<List<IgSuggestion>>> call, Response<BaseResponse<List<IgSuggestion>>> response) {
+                BaseResponse<List<IgSuggestion>> res = response.body();
+                if (res != null) {
                     if (res.isSuccessful()) {
-                        callback.onSuccessful(null);
+                        callback.onSuccessful(res.data());
                     } else if (res.isExpired()) {
                         callback.onExpired();
                     } else {
@@ -773,14 +800,9 @@ class IzigoApiManager {
             }
 
             @Override
-            public void onFailure(Call<BaseResponse> call, Throwable throwable) {
+            public void onFailure(Call<BaseResponse<List<IgSuggestion>>> call, Throwable throwable) {
                 callback.onFail(throwable.getMessage());
-                log(throwable.getMessage());
             }
         });
-    }
-
-    void log(String msg) {
-        Log.e(TAG, msg);
     }
 }

@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import io.yostajsc.sdk.api.model.IgSuggestion;
 import io.yostajsc.sdk.consts.CallBack;
 import io.yostajsc.sdk.consts.CallBackWith;
 import io.yostajsc.sdk.api.cache.IgCache;
@@ -276,6 +277,13 @@ public class IzigoSdk {
             if (IzigoSession.isLoggedIn()) {
                 String auth = IzigoSession.getToken().getToken();
                 IzigoApiManager.connect().uploadCover(auth, file, mimeType, tripId, callback);
+            }
+        }
+
+        public static void getSuggestion(double lat, double lng, final IgCallback<List<IgSuggestion>, String> callback) {
+            if (IzigoSession.isLoggedIn()) {
+                String auth = IzigoSession.getToken().getToken();
+                IzigoApiManager.connect().getSuggestion(auth, lat, lng, callback);
             }
         }
     }

@@ -22,10 +22,12 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Polyline;
 
 import java.io.File;
 import java.util.Calendar;
 
+import io.yostajsc.izigo.usecase.map.utils.RouteParserTask;
 import io.yostajsc.sdk.consts.CallBackWith;
 import io.yostajsc.sdk.consts.MessageType;
 import io.yostajsc.sdk.utils.FileUtils;
@@ -34,7 +36,7 @@ import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.usecase.OwnCoreActivity;
 import io.yostajsc.izigo.usecase.trip.dialog.DialogPickTransfer;
 import io.yostajsc.izigo.AppConfig;
-import io.yostajsc.izigo.usecase.map.model.Info;
+import io.yostajsc.izigo.usecase.map.utils.Info;
 import io.yostajsc.izigo.usecase.map.utils.MapUtils;
 import io.yostajsc.sdk.api.IzigoSdk;
 import io.yostajsc.sdk.api.model.IgCallback;
@@ -344,14 +346,14 @@ public class AddTripActivity extends OwnCoreActivity {
 
                     MapUtils.Map.direction(null,
                             new LatLng(from.getLat(), from.getLng()),
-                            new LatLng(to.getLat(), to.getLng()), false, new CallBackWith<Info>() {
+                            new LatLng(to.getLat(), to.getLng()), false, new RouteParserTask.OnDirectionCallBack() {
                                 @Override
-                                public void run(Info info) {
+                                public void onSuccess(Info info, Polyline polyline) {
                                     textViewDes.setText(String.format("Dự tính: %s - %s",
                                             info.strDistance,
                                             info.strDuration));
                                 }
-                            }, null);
+                            });
                     break;
                 case MessageType.PICK_LOCATION_TO:
                     to = (IgPlace) data.getSerializableExtra(AppConfig.KEY_PICK_LOCATION);
@@ -359,14 +361,14 @@ public class AddTripActivity extends OwnCoreActivity {
 
                     MapUtils.Map.direction(null,
                             new LatLng(from.getLat(), from.getLng()),
-                            new LatLng(to.getLat(), to.getLng()), false, new CallBackWith<Info>() {
+                            new LatLng(to.getLat(), to.getLng()), false, new RouteParserTask.OnDirectionCallBack() {
                                 @Override
-                                public void run(Info info) {
+                                public void onSuccess(Info info, Polyline polyline) {
                                     textViewDes.setText(String.format("Dự tính: %s - %s",
                                             info.strDistance,
                                             info.strDuration));
                                 }
-                            }, null);
+                            });
                     break;
             }
         }

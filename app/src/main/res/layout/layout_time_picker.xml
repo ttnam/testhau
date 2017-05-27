@@ -77,7 +77,7 @@
                     android:layout_height="@dimen/icon_size_x3"
                     android:layout_gravity="center"
                     android:scaleType="centerInside"
-                    app:srcCompat="@drawable/ic_vector_location_blue" />
+                    app:srcCompat="@drawable/ic_vector_marker_blue" />
 
                 <TextView
                     android:id="@+id/text_depart"
@@ -199,7 +199,7 @@
                     android:layout_height="@dimen/icon_size_x3"
                     android:layout_gravity="center"
                     android:scaleType="centerInside"
-                    app:srcCompat="@drawable/ic_vector_location_red" />
+                    app:srcCompat="@drawable/ic_vector_marker_red" />
 
                 <TextView
                     android:id="@+id/text_arrive"

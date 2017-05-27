@@ -1,4 +1,4 @@
-package io.yostajsc.izigo.usecase.map;
+package io.yostajsc.izigo.usecase.map.utils;
 
 import com.google.android.gms.maps.model.LatLng;
 
@@ -8,9 +8,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
-import io.yostajsc.izigo.usecase.map.model.Info;
-import io.yostajsc.izigo.usecase.map.model.Route;
 
 /**
  * Created by nphau on 5/4/17.

@@ -1,4 +1,4 @@
-package io.yostajsc.izigo.usecase.map.model;
+package io.yostajsc.izigo.usecase.map.utils;
 
 /**
  * Created by nphau on 5/4/17.
