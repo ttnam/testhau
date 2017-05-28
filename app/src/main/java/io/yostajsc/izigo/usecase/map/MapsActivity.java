@@ -40,6 +40,7 @@ import com.google.maps.android.ui.IconGenerator;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -96,9 +97,9 @@ public class MapsActivity extends OwnCoreActivity implements OnMapReadyCallback,
     private DialogNotification mDialogNotification = null;
     private ClusterManager<Person> mClusterManager = null;
     private DialogActiveMembers mDialogActiveMembers = null;
-    private HashMap<String, Person> mTracks = new HashMap<>();
-    private HashMap<Marker, IgSuggestion> mSuggestions = new HashMap<>();
     private List<IgNotification> notifications = new ArrayList<>();
+    private HashMap<Marker, IgSuggestion> mSuggestions = new HashMap<>();
+    private LinkedHashMap<String, Person> mTracks = new LinkedHashMap<>();
 
     @BindView(R.id.own_toolbar)
     OwnToolBar ownToolbar;
@@ -392,6 +393,8 @@ public class MapsActivity extends OwnCoreActivity implements OnMapReadyCallback,
         closeMenu();
 
         LatLng latLngOwn = mTracks.get(IzigoSdk.UserExecutor.getOwnFbId()).getPosition();
+        if (latLngOwn == null)
+            return;
 
         mDialogActiveMembers.show();
 
@@ -401,7 +404,7 @@ public class MapsActivity extends OwnCoreActivity implements OnMapReadyCallback,
             LatLng latLng = mTracks.get(fbTemp).getPosition();
             if (latLng == null)
                 return;
-            MapUtils.Map.direction(mMap, latLngOwn, latLng, false, new RouteParserTask.OnDirectionCallBack() {
+            MapUtils.Map.direction(latLngOwn, latLng, new RouteParserTask.OnDirectionCallBack() {
                 @Override
                 public void onSuccess(Info info, Polyline polyline) {
                     mTracks.get(fbTemp).setDistance(info.strDistance);
@@ -613,6 +616,7 @@ public class MapsActivity extends OwnCoreActivity implements OnMapReadyCallback,
     private void onReceiveMembers(List<IgFriend> igFriends) {
         if (igFriends.size() > 0) {
             mFocus = igFriends.get(0).getFbId();
+            mTracks.clear();
             for (IgFriend friend : igFriends) {
                 mTracks.put(friend.getFbId(), new Person(
                         friend.getFbId(),

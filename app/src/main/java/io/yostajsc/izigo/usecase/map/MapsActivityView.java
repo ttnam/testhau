@@ -66,7 +66,7 @@ public class MapsActivityView {
             if (!TextUtils.isEmpty(type)) {
                 mActivity.textSuggestType.setText(type);
             }
-            MapUtils.Map.direction(from, to, false, new RouteParserTask.OnDirectionCallBack() {
+            MapUtils.Map.direction(from, to, new RouteParserTask.OnDirectionCallBack() {
                 @Override
                 public void onSuccess(Info info, Polyline polyline) {
                     if (!TextUtils.isEmpty(info.strDistance)) {

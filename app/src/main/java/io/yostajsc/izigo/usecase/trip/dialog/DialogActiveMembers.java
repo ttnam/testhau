@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.yostajsc.sdk.designs.decorations.SpacesItemDecoration;
 import io.yostajsc.sdk.designs.listeners.RecyclerItemClickListener;
@@ -24,8 +23,7 @@ import io.yostajsc.izigo.usecase.map.model.Person;
  */
 public class DialogActiveMembers extends Dialog {
 
-    @BindView(R.id.recycler_view)
-    RecyclerView recyclerView;
+    private RecyclerView recyclerView;
 
     private Activity mOwnerActivity = null;
     private MemberActiveOnMapsAdapter adapter = null;
@@ -67,6 +65,7 @@ public class DialogActiveMembers extends Dialog {
     }
 
     private void onApplyViews() {
+        this.recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         this.adapter = new MemberActiveOnMapsAdapter(mOwnerActivity);
         this.recyclerView.setAdapter(adapter);
         this.recyclerView.setHasFixedSize(true);
