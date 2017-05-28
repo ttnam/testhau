@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:clickable="true"
     app:cardCornerRadius="3dp"
     app:cardElevation="3dp">
 
@@ -66,17 +67,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginLeft="@dimen/margin"
-                android:layout_marginStart="@dimen/margin"
-                android:text="1km"
                 android:maxLines="1" />
 
             <android.support.v7.widget.AppCompatImageView
                 android:layout_width="@dimen/icon_size_x3"
                 android:layout_height="@dimen/icon_size_x3"
                 android:layout_gravity="center"
-                android:layout_marginLeft="@dimen/margin_x2"
-                android:layout_marginStart="@dimen/margin_x2"
+                android:layout_marginLeft="@dimen/margin"
+                android:layout_marginStart="@dimen/margin"
                 app:srcCompat="@drawable/ic_vector_tag" />
 
             <TextView
@@ -85,8 +83,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginLeft="@dimen/margin"
-                android:layout_marginStart="@dimen/margin"
                 android:maxLines="1" />
 
         </LinearLayout>

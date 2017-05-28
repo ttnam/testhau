@@ -10,10 +10,9 @@
         android:id="@id/layout"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
-        app:layoutBackground="@android:color/white"
-        app:layoutTitle="@string/setting_about"
-        app:layoutTitleColor="@color/colorTextColorPrimary"
-        app:layoutType="title_center" />
+        app:layoutBackground="@android:color/holo_blue_dark"
+        app:layoutTitleColor="@android:color/white"
+        app:layoutType="title_left" />
 
     <WebView
         android:id="@id/web_view"

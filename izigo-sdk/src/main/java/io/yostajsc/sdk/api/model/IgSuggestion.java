@@ -35,16 +35,20 @@ public class IgSuggestion implements Serializable {
     }
 
 
+    public String getId() {
+        return mId;
+    }
+
     public double getLat() {
         if (mLocation == null)
             return 0;
-        return Long.valueOf(mLocation.split(", ")[0]);
+        return Double.parseDouble(mLocation.split(", ")[0]);
     }
 
     public double getLng() {
         if (mLocation == null)
             return 0;
-        return Long.valueOf(mLocation.split(", ")[1]);
+        return Double.parseDouble(mLocation.split(", ")[1]);
     }
 
     public String getLink() {

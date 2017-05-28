@@ -31,6 +31,11 @@ public class RouteParserTask extends AsyncTask<Object, Void, String> {
     private GoogleMap mMap = null;
     private OnDirectionCallBack mCallback = null;
 
+    public RouteParserTask(OnDirectionCallBack callback) {
+        this.mMap = null;
+        this.mCallback = callback;
+    }
+
     public RouteParserTask(GoogleMap map, OnDirectionCallBack callback) {
         this.mMap = map;
         this.mCallback = callback;

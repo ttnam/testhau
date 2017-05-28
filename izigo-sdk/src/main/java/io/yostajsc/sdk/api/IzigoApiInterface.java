@@ -128,7 +128,6 @@ interface IzigoApiInterface {
     Call<BaseResponse<String>> join(@Header("authorization") String authorization,
                                     @Path("id") String tripId);
 
-
     @GET("notification")
     Call<BaseResponse<List<IgNotification>>> getNotification(
             @Header("authorization") String authorization,
@@ -137,7 +136,7 @@ interface IzigoApiInterface {
     @GET("suggestion")
     Call<BaseResponse<List<IgSuggestion>>> getSuggestion(@Header("authorization") String authorization,
                                                          @Query("lat") double lat,
-                                                         @Query("long") double lng);
+                                                         @Query("lng") double lng);
 
     @FormUrlEncoded
     @PUT("trips/{id}/accept")

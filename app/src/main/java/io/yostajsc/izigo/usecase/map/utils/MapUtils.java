@@ -32,6 +32,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.lang.annotation.Retention;
@@ -215,13 +216,20 @@ public class MapUtils {
                     timeInMills, null);
         }
 
-        public static void addShowCustomMarker(final GoogleMap map, final LatLng latLng) {
-            map.addMarker(
-                    new MarkerOptions()
-                            .position(latLng)
-                            .draggable(false)
+        public static Marker addMarker(final GoogleMap map, final LatLng latLng, final String title, final int timeInMills) {
+            Marker marker = map.addMarker(
+                    new MarkerOptions().position(latLng).draggable(false).title(title)
                             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
-            moveCameraSmoothly(map, latLng, 500);
+            moveCameraSmoothly(map, latLng, timeInMills);
+            return marker;
+        }
+
+        public static Marker addMarker(final GoogleMap map, final LatLng latLng, final int timeInMills) {
+            Marker marker = map.addMarker(
+                    new MarkerOptions().position(latLng).draggable(false)
+                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+            moveCameraSmoothly(map, latLng, timeInMills);
+            return marker;
         }
 
         public static boolean isBetter(Location newLocation, Location current) {
@@ -253,6 +261,13 @@ public class MapUtils {
                                      RouteParserTask.OnDirectionCallBack callback) {
             String url = getUrl(origin, dest);
             RouteParserTask parserTask = new RouteParserTask(mMap, callback);
+            parserTask.execute(url, isDraw);
+        }
+
+        public static void direction(LatLng origin, LatLng dest, boolean isDraw,
+                                     RouteParserTask.OnDirectionCallBack callback) {
+            String url = getUrl(origin, dest);
+            RouteParserTask parserTask = new RouteParserTask(callback);
             parserTask.execute(url, isDraw);
         }
 

@@ -96,7 +96,9 @@ public class SettingsFragment extends CoreFragment {
 
     @OnClick(R.id.layout_about)
     public void AboutSetting() {
-        startActivity(new Intent(mContext, WebViewActivity.class));
+        Intent intent = new Intent(mContext, WebViewActivity.class);
+        intent.putExtra("WEB_LINK", "https://izigovn.firebaseapp.com");
+        startActivity(intent);
     }
 
 

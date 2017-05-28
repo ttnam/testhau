@@ -71,7 +71,7 @@ public class PickLocationActivity extends OwnCoreActivity implements OnMapReadyC
                 LatLng latLng = place.getLatLng();
                 igLocation.setLatLng(latLng.latitude, latLng.longitude);
 
-                MapUtils.Map.addShowCustomMarker(mMap, latLng);
+                MapUtils.Map.addMarker(mMap, latLng, 500);
                 myPlaceSelector.setText(place.getName().toString());
             }
         });

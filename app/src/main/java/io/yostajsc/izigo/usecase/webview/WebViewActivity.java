@@ -3,14 +3,13 @@ package io.yostajsc.izigo.usecase.webview;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.KeyEvent;
-import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.yostajsc.sdk.utils.NetworkUtils;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.usecase.OwnCoreActivity;
 import io.yostajsc.izigo.usecase.view.OwnToolBar;
@@ -32,6 +31,16 @@ public class WebViewActivity extends OwnCoreActivity {
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        String url = getIntent().getStringExtra("WEB_LINK");
+        if (!TextUtils.isEmpty(url)) {
+            webView.loadUrl(url);
+            mOwnToolbar.setTitle(url);
+        }
+    }
+
+    @Override
     public void onApplyViews() {
         webView.setBackgroundColor(Color.TRANSPARENT);
         webView.getSettings().setJavaScriptEnabled(true);
@@ -40,13 +49,6 @@ public class WebViewActivity extends OwnCoreActivity {
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 view.loadUrl(url);
                 return false;
-            }
-        });
-
-        mOwnToolbar.setOnlyLeft(R.drawable.ic_vector_back_white, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
             }
         });
     }
@@ -66,26 +68,9 @@ public class WebViewActivity extends OwnCoreActivity {
         super.onBackPressed();
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (NetworkUtils.isNetworkConnected(this))
-            loadWebsite();
-    }
-
-    @Override
-    public void onInternetConnected() {
-        super.onInternetConnected();
-        loadWebsite();
-    }
-
     private void onClose() {
         webView.clearCache(true);
         webView.clearHistory();
         webView.freeMemory();
-    }
-
-    private void loadWebsite() {
-        webView.loadUrl("https://izigovn.firebaseapp.com");
     }
 }
