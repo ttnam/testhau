@@ -79,11 +79,10 @@ public class LoginActivity extends OwnCoreActivity {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user != null) {
-                    Log.e(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
-                } else {
-                    Log.e(TAG, "onAuthStateChanged");
-                }
+                if (user != null)
+                    Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
+                else
+                    Log.d(TAG, "onAuthStateChanged");
             }
         };
         this.mAuth.addAuthStateListener(mAuthListener);

@@ -1,11 +1,14 @@
 package io.yostajsc.izigo.usecase.service.location;
 
+import android.Manifest;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.location.LocationManager;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 
 /**
@@ -41,12 +44,13 @@ public class LocationService extends Service {
     public void onCreate() {
         super.onCreate();
 
-        Log.e(TAG, "Location service was created");
-
         if (mLocationManager == null) {
             mLocationManager = (LocationManager) getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
         }
         try {
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                return;
+            }
             mLocationManager.requestLocationUpdates(
                     LocationManager.NETWORK_PROVIDER, LOCATION_INTERVAL, LOCATION_DISTANCE,
                     listeners[1]);
@@ -69,7 +73,6 @@ public class LocationService extends Service {
                     Log.e(TAG, ex.getMessage());
                 }
             }
-            Log.e(TAG, "Location service was destroyed");
         }
     }
 }

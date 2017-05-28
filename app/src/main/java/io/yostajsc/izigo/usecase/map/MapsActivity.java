@@ -14,7 +14,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.CardView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
@@ -207,7 +206,7 @@ public class MapsActivity extends OwnCoreActivity implements OnMapReadyCallback,
 
         this.mMap.setTrafficEnabled(true);
         this.mMap.setMinZoomPreference(5f);
-        this.mMap.setMaxZoomPreference(14f);
+        // this.mMap.setMaxZoomPreference(14f);
         this.mMap.setOnMapClickListener(this);
         this.mMap.setOnMarkerClickListener(this);
         this.mMap.setOnMyLocationChangeListener(this);
@@ -417,45 +416,52 @@ public class MapsActivity extends OwnCoreActivity implements OnMapReadyCallback,
 
     @Override
     public void onMapClick(LatLng latLng) {
-        mIsSuggestion = false;
-        for (Map.Entry<Marker, IgSuggestion> entry : mSuggestions.entrySet()) {
-            entry.getKey().remove();
-        }
-        layoutSuggestion.setVisibility(View.GONE);
+        btnDirection.setVisibility(View.GONE);
+        mIsDraw = false;
+        if (mPolyline != null)
+            mPolyline.remove();
     }
 
     @OnClick(R.id.layout_suggestion)
     public void showSuggestion() {
         closeMenu();
-        mIsSuggestion = true;
-        if (MapUtils.Gps.connect().isEnable()) {
-            MapUtils.Gps.connect().getLastKnownLocation(getApplicationContext(), new MapUtils.OnGetLastKnownLocation() {
-                @Override
-                public void onReceive(LatLng latlng) {
-                    if (latlng != null) {
-                        mOwnLatLng = latlng;
-                        IzigoSdk.TripExecutor.getSuggestion(latlng.latitude, latlng.longitude,
-                                new IgCallback<List<IgSuggestion>, String>() {
-                                    @Override
-                                    public void onSuccessful(List<IgSuggestion> igSuggestions) {
-                                        showSuggestion(igSuggestions);
-                                    }
-
-                                    @Override
-                                    public void onFail(String error) {
-                                        LogUtils.log(TAG, error);
-                                    }
-
-                                    @Override
-                                    public void onExpired() {
-                                        expired();
-                                    }
-                                });
-                    }
-                }
-            });
+        if (mIsSuggestion) {
+            mIsSuggestion = false;
+            for (Map.Entry<Marker, IgSuggestion> entry : mSuggestions.entrySet()) {
+                entry.getKey().remove();
+            }
+            layoutSuggestion.setVisibility(View.GONE);
         } else {
-            MapUtils.Gps.connect().askGPS();
+            if (MapUtils.Gps.connect().isEnable()) {
+                mIsSuggestion = true;
+                MapUtils.Gps.connect().getLastKnownLocation(getApplicationContext(), new MapUtils.OnGetLastKnownLocation() {
+                    @Override
+                    public void onReceive(LatLng latlng) {
+                        if (latlng != null) {
+                            mOwnLatLng = latlng;
+                            IzigoSdk.TripExecutor.getSuggestion(latlng.latitude, latlng.longitude,
+                                    new IgCallback<List<IgSuggestion>, String>() {
+                                        @Override
+                                        public void onSuccessful(List<IgSuggestion> igSuggestions) {
+                                            showSuggestion(igSuggestions);
+                                        }
+
+                                        @Override
+                                        public void onFail(String error) {
+                                            LogUtils.log(TAG, error);
+                                        }
+
+                                        @Override
+                                        public void onExpired() {
+                                            expired();
+                                        }
+                                    });
+                        }
+                    }
+                });
+            } else {
+                MapUtils.Gps.connect().askGPS();
+            }
         }
     }
 
