@@ -11,9 +11,9 @@ public class SelectorImageryAdapter extends RecyclerView.Adapter<ImageNormalView
 
     private Context mContext = null;
     private List<ImageryModel> mUrls = null;
-    private OnClickListener mOnClickListener = null;
+    private ImageNormalViewHolder.OnClick mOnClickListener = null;
 
-    public SelectorImageryAdapter(Context context, OnClickListener onClickListener) {
+    public SelectorImageryAdapter(Context context, ImageNormalViewHolder.OnClick onClickListener) {
         this.mContext = context;
         this.mUrls = new ArrayList<>();
         this.mOnClickListener = onClickListener;
@@ -57,6 +57,19 @@ public class SelectorImageryAdapter extends RecyclerView.Adapter<ImageNormalView
         notifyDataSetChanged();
     }
 
+    public void remove(int position) {
+        if (this.mUrls == null)
+            return;
+        mUrls.remove(position);
+        notifyDataSetChanged();
+    }
+
+    public String getId(int position) {
+        if (this.mUrls == null)
+            return "";
+        return mUrls.get(position).getId();
+    }
+
     public void addAll(List<ImageryModel> images) {
         if (this.mUrls == null)
             this.mUrls = new ArrayList<>();
@@ -71,19 +84,24 @@ public class SelectorImageryAdapter extends RecyclerView.Adapter<ImageNormalView
 
 
     private interface ImageryModel {
+
         String getUrl();
 
         @LayoutViewType
         int getType();
+
+        String getId();
     }
 
     public static class Imagery implements ImageryModel {
 
+        private String mId;
         private String mUrl;
 
         private int mType = LayoutViewType.NORMAL;
 
-        public Imagery(String url, @LayoutViewType int type) {
+        public Imagery(String id, String url, @LayoutViewType int type) {
+            this.mId = id;
             this.mUrl = url;
             this.mType = type;
         }
@@ -105,6 +123,11 @@ public class SelectorImageryAdapter extends RecyclerView.Adapter<ImageNormalView
         @Override
         public int getType() {
             return mType;
+        }
+
+        @Override
+        public String getId() {
+            return mId;
         }
     }
 

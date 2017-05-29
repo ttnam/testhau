@@ -4,6 +4,7 @@ import android.app.Application;
 import android.util.Log;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,6 +23,7 @@ import io.yostajsc.sdk.api.model.IgCallback;
 import io.yostajsc.sdk.api.model.user.IgUser;
 import io.yostajsc.sdk.api.model.token.IgToken;
 import io.yostajsc.sdk.api.model.TripTypePermission;
+import io.yostajsc.sdk.utils.FileUtils;
 import io.yostajsc.sdk.utils.LogUtils;
 import io.yostajsc.sdk.utils.PrefsUtils;
 
@@ -48,7 +50,6 @@ public class IzigoSdk {
 
         private static boolean isLoggedIn() {
             IgToken token = getToken();
-            Log.e("getToken", token.getToken());
             return token != null && !token.isExpired();
         }
 

@@ -20,6 +20,7 @@ import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.HTTP;
 import retrofit2.http.Header;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
@@ -147,9 +148,9 @@ interface IzigoApiInterface {
 
     @FormUrlEncoded
     @PUT("trips/{id}/add")
-    Call<BaseResponse<String>> apiAddMember(@Header("authorization") String authorization,
-                                            @Path("id") String tripId,
-                                            @Field("fbId") String fbId);
+    Call<BaseResponse<String>> addMember(@Header("authorization") String authorization,
+                                         @Path("id") String tripId,
+                                         @Field("fbId") String fbId);
 
     @FormUrlEncoded
     @PUT("trips/{id}/verify")
@@ -160,19 +161,18 @@ interface IzigoApiInterface {
 
     @FormUrlEncoded
     @PUT("trips/{id}/kick")
-    Call<BaseResponse<String>> apiKickMember(@Header("authorization") String authorization,
-                                             @Path("id") String tripId,
-                                             @Field("fbId") String fbId);
+    Call<BaseResponse<String>> kick(@Header("authorization") String authorization,
+                                    @Path("id") String tripId,
+                                    @Field("fbId") String fbId);
 
     @Multipart
     @POST("trips/{id}/album")
     Call<BaseResponse> uploadImages(
-            @Header("authorization") String authorization,
-            @Path("id") String tripId,
+            @Header("authorization") String authorization, @Path("id") String tripId,
             @Part MultipartBody.Part[] images);
 
     @FormUrlEncoded
-    @DELETE("trips/{triId}/album")
+    @HTTP(method = "DELETE", path = "trips/{triId}/album", hasBody = true)
     Call<BaseResponse> deleteImage(@Header("authorization") String authorization,
                                    @Path("triId") String tripId, @Field("id") String imageId);
 

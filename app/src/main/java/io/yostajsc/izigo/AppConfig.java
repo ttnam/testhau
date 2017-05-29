@@ -3,12 +3,14 @@ package io.yostajsc.izigo;
 import android.app.Application;
 import android.content.Intent;
 
+import com.crashlytics.android.Crashlytics;
 import com.facebook.AccessToken;
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.iid.FirebaseInstanceId;
 
+import io.fabric.sdk.android.Fabric;
 import io.yostajsc.sdk.utils.FontUtils;
 import io.yostajsc.sdk.utils.PrefsUtils;
 import io.yostajsc.izigo.usecase.service.firebase.FirebaseManager;
@@ -36,6 +38,7 @@ public class AppConfig extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        Fabric.with(this, new Crashlytics());
         mInstance = this;
         onApplyFont();
         onApplyFireBase();

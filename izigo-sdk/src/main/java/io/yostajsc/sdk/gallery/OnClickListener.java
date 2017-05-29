@@ -5,5 +5,5 @@ package io.yostajsc.sdk.gallery;
  */
 
 public interface OnClickListener {
-    void onClick();
+    void onClick(String id);
 }

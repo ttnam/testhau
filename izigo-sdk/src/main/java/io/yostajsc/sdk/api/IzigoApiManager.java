@@ -595,7 +595,7 @@ class IzigoApiManager {
     void addMembers(String authorization, String tripId, String fbId,
                     final IgCallback<Void, String> callback) {
 
-        Call<BaseResponse<String>> call = service.apiAddMember(authorization, tripId, fbId);
+        Call<BaseResponse<String>> call = service.addMember(authorization, tripId, fbId);
 
         call.enqueue(new Callback<BaseResponse<String>>() {
             @Override
@@ -622,7 +622,7 @@ class IzigoApiManager {
     void kickMember(String authorization, String tripId, String fbId,
                     final IgCallback<Void, String> callback) {
 
-        Call<BaseResponse<String>> call = service.apiKickMember(authorization, tripId, fbId);
+        Call<BaseResponse<String>> call = service.kick(authorization, tripId, fbId);
 
         call.enqueue(new Callback<BaseResponse<String>>() {
             @Override
@@ -675,28 +675,33 @@ class IzigoApiManager {
 
     void deleteImage(String authorization, String tripId, String imageId,
                      final IgCallback<Void, String> callback) {
-
-        Call<BaseResponse> call = service.deleteImage(authorization, tripId, imageId);
-        call.enqueue(new Callback<BaseResponse>() {
-            @Override
-            public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
-                if (response.isSuccessful()) {
-                    BaseResponse res = response.body();
-                    if (res.isSuccessful()) {
-                        callback.onSuccessful(null);
-                    } else if (res.isExpired()) {
-                        callback.onExpired();
-                    } else {
-                        callback.onFail(res.getDescription());
+        try {
+            Call<BaseResponse> call = service.deleteImage(authorization, tripId, imageId);
+            call.enqueue(new Callback<BaseResponse>() {
+                @Override
+                public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
+                    if (response.isSuccessful()) {
+                        BaseResponse res = response.body();
+                        if (res != null) {
+                            if (res.isSuccessful()) {
+                                callback.onSuccessful(null);
+                            } else if (res.isExpired()) {
+                                callback.onExpired();
+                            } else {
+                                callback.onFail(res.getDescription());
+                            }
+                        }
                     }
                 }
-            }
 
-            @Override
-            public void onFailure(Call<BaseResponse> call, Throwable throwable) {
-                callback.onFail(throwable.getMessage());
-            }
-        });
+                @Override
+                public void onFailure(Call<BaseResponse> call, Throwable throwable) {
+                    callback.onFail(throwable.getMessage());
+                }
+            });
+        } catch (Exception e) {
+            callback.onFail(e.getMessage());
+        }
     }
 
     void uploadAlbum(String authorization, String tripId, List<File> files,

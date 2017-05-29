@@ -20,13 +20,13 @@ public class ImageDeleteViewHolder extends ImageNormalViewHolder {
             @Override
             public void onClick(View v) {
                 if (mOnClickListener != null)
-                    mOnClickListener.onClick();
+                    mOnClickListener.onClick(getAdapterPosition());
             }
         });
     }
 
     @Override
-    public void setOnClickListener(OnClickListener onClickListener) {
+    public void setOnClickListener(OnClick onClickListener) {
         mOnClickListener = onClickListener;
     }
 

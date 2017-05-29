@@ -50,9 +50,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginBottom="@dimen/margin"
             android:orientation="horizontal"
-            android:padding="@dimen/margin_x2">
+            android:padding="@dimen/margin">
 
             <android.support.v7.widget.AppCompatImageView
                 android:layout_width="@dimen/icon_size_x2"

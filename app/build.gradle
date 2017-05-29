@@ -1,4 +1,19 @@
+buildscript {
+    repositories {
+        maven { url 'https://maven.fabric.io/public' }
+    }
+
+    dependencies {
+        classpath 'io.fabric.tools:gradle:1.+'
+    }
+}
 apply plugin: 'com.android.application'
+apply plugin: 'io.fabric'
+
+repositories {
+    maven { url 'https://maven.fabric.io/public' }
+}
+
 apply plugin: 'com.jakewharton.butterknife'
 
 android {
@@ -10,7 +25,7 @@ android {
         applicationId 'io.yostajsc.izigo'
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
-        versionCode 2
+        versionCode 3
         versionName "1.0"
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled true
@@ -60,7 +75,6 @@ dependencies {
     compile "com.google.firebase:firebase-auth:$rootProject.firebaseVersion"
     compile 'com.jakewharton:butterknife:8.6.0'
     annotationProcessor 'com.github.hotchemi:permissionsdispatcher-processor:2.4.0'
-    compile "com.google.firebase:firebase-crash:$rootProject.firebaseVersion"
     compile "com.google.firebase:firebase-database:$rootProject.firebaseVersion"
     compile "com.google.firebase:firebase-messaging:$rootProject.firebaseVersion"
     compile "org.greenrobot:eventbus:$rootProject.eventBusVersion"
@@ -69,5 +83,8 @@ dependencies {
     compile "com.google.android.gms:play-services-location:$rootProject.googlePlayServicesVersion"
     compile 'com.facebook.android:facebook-android-sdk:[4,5)'
     compile 'com.google.maps.android:android-maps-utils:0.5'
+    compile('com.crashlytics.sdk.android:crashlytics:2.6.8@aar') {
+        transitive = true;
+    }
 }
 apply plugin: 'com.google.gms.google-services'

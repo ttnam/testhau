@@ -2,7 +2,6 @@ package io.yostajsc.izigo.usecase.trip;
 
 import android.Manifest;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.widget.DrawerLayout;
@@ -17,8 +16,6 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
-import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -26,10 +23,9 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.yostajsc.izigo.R;
 import io.yostajsc.sdk.consts.MessageType;
-import io.yostajsc.sdk.utils.FileUtils;
+import io.yostajsc.sdk.gallery.ImageNormalViewHolder;
 import io.yostajsc.sdk.utils.ToastUtils;
 import io.yostajsc.izigo.AppConfig;
-import io.yostajsc.sdk.gallery.OnClickListener;
 import io.yostajsc.sdk.gallery.SelectorImageryAdapter;
 import io.yostajsc.izigo.constants.RoleType;
 import io.yostajsc.izigo.usecase.trip.dialog.DialogComment;
@@ -112,7 +108,6 @@ public class TripActivity extends OwnCoreActivity {
         ButterKnife.bind(this);
         TripActivityView.bind(this);
         onApplyViews();
-        onApplyData();
     }
 
     @Override
@@ -127,10 +122,10 @@ public class TripActivity extends OwnCoreActivity {
         UiUtils.onApplyWebViewSetting(webView);
 
         // Album
-        this.albumAdapter = new SelectorImageryAdapter(this, new OnClickListener() {
+        this.albumAdapter = new SelectorImageryAdapter(this, new ImageNormalViewHolder.OnClick() {
             @Override
-            public void onClick() {
-                ToastUtils.showToast(TripActivity.this, "onClick");
+            public void onClick(int position) {
+                showAlbumActivity();
             }
         });
         this.rvAlbum.setAdapter(this.albumAdapter);
@@ -141,16 +136,20 @@ public class TripActivity extends OwnCoreActivity {
         this.rvAlbum.setNestedScrollingEnabled(false);
         this.rvAlbum.setLayoutManager(new GridLayoutManager(this, 1, GridLayoutManager.HORIZONTAL, false));
         this.rvAlbum.setItemAnimator(new FadeInUpAnimator());
-        // IgTimeline
         this.timelineAdapter = new TimelineAdapter(this);
         UiUtils.onApplyRecyclerView(this.rVTimeLine, this.timelineAdapter, new SlideInUpAnimator(), null);
 
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        onApplyData();
+    }
+
+    @Override
     public void onApplyData() {
         super.onApplyData();
-
         updateTripDetail();
         IzigoSdk.TripExecutor.getActivities(AppConfig.getInstance().getCurrentTripId(), new IgCallback<List<IgTimeline>, String>() {
             @Override
@@ -170,23 +169,24 @@ public class TripActivity extends OwnCoreActivity {
         });
     }
 
-    private void updateTripDetail() {
-        IzigoSdk.TripExecutor.getTripDetail(AppConfig.getInstance().getCurrentTripId(), new IgCallback<IgTrip, String>() {
-            @Override
-            public void onSuccessful(IgTrip igTrip) {
-                updateUI(igTrip);
-            }
+    void updateTripDetail() {
+        IzigoSdk.TripExecutor.getTripDetail(AppConfig.getInstance().getCurrentTripId(),
+                new IgCallback<IgTrip, String>() {
+                    @Override
+                    public void onSuccessful(IgTrip igTrip) {
+                        updateUI(igTrip);
+                    }
 
-            @Override
-            public void onFail(String error) {
-                ToastUtils.showToast(TripActivity.this, error);
-            }
+                    @Override
+                    public void onFail(String error) {
+                        ToastUtils.showToast(TripActivity.this, error);
+                    }
 
-            @Override
-            public void onExpired() {
-                expired();
-            }
-        });
+                    @Override
+                    public void onExpired() {
+                        expired();
+                    }
+                });
     }
 
     private void updateTimeline(List<IgTimeline> timelines) {
@@ -203,6 +203,7 @@ public class TripActivity extends OwnCoreActivity {
 
         mIgTrip = igTrip;
         if (igTrip.getAlbum() != null && igTrip.getAlbum().size() > 0) {
+            this.albumAdapter.clear();
             for (IgImage igImage : igTrip.getAlbum()) {
                 this.albumAdapter.add(
                         new SelectorImageryAdapter.Imagery(igImage.getUrl()));
@@ -236,7 +237,7 @@ public class TripActivity extends OwnCoreActivity {
     public void showAlbumActivity() {
         Intent intent = new Intent(this, TripAlbumActivity.class);
         intent.putExtra(AppConfig.KEY_USER_ROLE, mIgTrip.getRole());
-        startActivityForResult(intent, MessageType.FROM_MULTI_GALLERY);
+        startActivity(intent);
     }
 
     @OnClick(R.id.layout_maps)
@@ -264,49 +265,6 @@ public class TripActivity extends OwnCoreActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         TripActivityPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == RESULT_OK) {
-            switch (requestCode) {
-                case MessageType.FROM_MULTI_GALLERY:
-                   /* ArrayList<String> urls = data.getStringArrayListExtra("MULTI_IMAGE");
-                    if (urls != null && urls.size() > 0) {
-                        for (String url : urls) {
-                            albumAdapter.add(new IgImage(url));
-                        }
-                        upload(urls);
-                    }*/
-
-                    // TODO:
-                    break;
-            }
-        }
-    }
-
-    private void upload(ArrayList<String> urls) {
-        List<File> files = new ArrayList<>();
-        for (String url : urls)
-            files.add(FileUtils.getFile(this, Uri.parse(url)));
-
-        IzigoSdk.TripExecutor.uploadAlbum(AppConfig.getInstance().getCurrentTripId(), files,
-                new IgCallback<Void, String>() {
-                    @Override
-                    public void onSuccessful(Void aVoid) {
-                        ToastUtils.showToast(TripActivity.this, R.string.str_success);
-                    }
-
-                    @Override
-                    public void onFail(String error) {
-                        ToastUtils.showToast(TripActivity.this, error);
-                    }
-
-                    @Override
-                    public void onExpired() {
-                        expired();
-                    }
-                });
     }
 
     @OnClick(R.id.layout_comment)

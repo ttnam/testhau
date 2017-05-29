@@ -156,6 +156,9 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/CoreAppTheme.White" />
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="87f26721f5460d909d04dba3f4dbd0df99b00175" />
     </application>
 
 </manifest>

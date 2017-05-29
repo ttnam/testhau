@@ -20,7 +20,7 @@ public class ImageNormalViewHolder extends RecyclerView.ViewHolder {
 
     protected Context mContext;
     protected AppCompatImageView imageView;
-    protected OnClickListener mOnClickListener = null;
+    OnClick mOnClickListener = null;
 
     public ImageNormalViewHolder(View itemView) {
         super(itemView);
@@ -28,18 +28,18 @@ public class ImageNormalViewHolder extends RecyclerView.ViewHolder {
         imageView = (AppCompatImageView) itemView.findViewById(R.id.image_view);
     }
 
-    public void setOnClickListener(OnClickListener onClickListener) {
+    public void setOnClickListener(OnClick onClickListener) {
         mOnClickListener = onClickListener;
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (mOnClickListener != null)
-                    mOnClickListener.onClick();
+                    mOnClickListener.onClick(getAdapterPosition());
             }
         });
     }
 
-    public void bind(String url, OnClickListener onClickListener) {
+    public void bind(String url, OnClick onClickListener) {
         if (!TextUtils.isEmpty(url)) {
             Glide.with(mContext)
                     .load(url)
@@ -54,4 +54,7 @@ public class ImageNormalViewHolder extends RecyclerView.ViewHolder {
             imageView.setImageBitmap(bitmap);
     }
 
+    public interface OnClick {
+        void onClick(int position);
+    }
 }
