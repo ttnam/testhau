@@ -45,6 +45,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="@dimen/margin_x2"
         android:layout_marginStart="@dimen/margin_x2"
-        android:gravity="center|start" />
+        android:ellipsize="end"
+        android:gravity="center|start"
+        android:maxLines="1" />
 
 </RelativeLayout>

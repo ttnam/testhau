@@ -344,9 +344,10 @@ public class AddTripActivity extends OwnCoreActivity {
                     from = (IgPlace) data.getSerializableExtra(AppConfig.KEY_PICK_LOCATION);
                     textDepart.setText(from.getName());
 
-                    MapUtils.Map.direction(null,
+                    MapUtils.Map.direction(
                             new LatLng(from.getLat(), from.getLng()),
-                            new LatLng(to.getLat(), to.getLng()), false, new RouteParserTask.OnDirectionCallBack() {
+                            new LatLng(to.getLat(), to.getLng()),
+                            new RouteParserTask.OnDirectionCallBack() {
                                 @Override
                                 public void onSuccess(Info info, Polyline polyline) {
                                     textViewDes.setText(String.format("Dự tính: %s - %s",
@@ -359,9 +360,10 @@ public class AddTripActivity extends OwnCoreActivity {
                     to = (IgPlace) data.getSerializableExtra(AppConfig.KEY_PICK_LOCATION);
                     textArrive.setText(to.getName());
 
-                    MapUtils.Map.direction(null,
+                    MapUtils.Map.direction(
                             new LatLng(from.getLat(), from.getLng()),
-                            new LatLng(to.getLat(), to.getLng()), false, new RouteParserTask.OnDirectionCallBack() {
+                            new LatLng(to.getLat(), to.getLng()),
+                            new RouteParserTask.OnDirectionCallBack() {
                                 @Override
                                 public void onSuccess(Info info, Polyline polyline) {
                                     textViewDes.setText(String.format("Dự tính: %s - %s",

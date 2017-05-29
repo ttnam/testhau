@@ -242,6 +242,8 @@ public class TripActivity extends OwnCoreActivity {
     @OnClick(R.id.layout_maps)
     public void loadMapViews() {
         closeMenu();
+        if (mIgTrip == null)
+            return;
         if (mIgTrip.getRole() == RoleType.GUEST) {
             ToastUtils.showToast(this, "Yêu cầu không được chấp nhận, vui lòng liên hệ admin!");
             return;

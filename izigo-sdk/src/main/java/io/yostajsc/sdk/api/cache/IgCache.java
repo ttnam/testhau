@@ -101,21 +101,15 @@ public class IgCache {
             mBitmapCaching = null;
         }
 
-        public void cache(@NonNull CallBack onSuccessful, IgImage... cachingItems) {
+        public void cache(IgImage... cachingItems) {
             try {
-                new BitmapWorkerTask(onSuccessful).execute(cachingItems);
+                new BitmapWorkerTask().execute(cachingItems);
             } catch (Exception e) {
                 LogUtils.log(TAG, e.getMessage());
             }
         }
 
         private class BitmapWorkerTask extends AsyncTask<IgImage, Void, Boolean> {
-
-            private CallBack mOnSuccess = null;
-
-            public BitmapWorkerTask(@NonNull CallBack callBack) {
-                mOnSuccess = callBack;
-            }
 
             @Override
             protected Boolean doInBackground(IgImage... cachingItems) {
@@ -147,14 +141,6 @@ public class IgCache {
                     return false;
                 }
                 return true;
-            }
-
-            @Override
-            protected void onPostExecute(Boolean isSuccessful) {
-                super.onPostExecute(isSuccessful);
-                if (isSuccessful) {
-                    mOnSuccess.run();
-                }
             }
         }
     }

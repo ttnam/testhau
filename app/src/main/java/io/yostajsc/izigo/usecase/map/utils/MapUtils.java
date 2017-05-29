@@ -257,24 +257,18 @@ public class MapUtils {
             return urlGoogleAPI + parameters;
         }
 
-        public static void direction(GoogleMap mMap, LatLng origin, LatLng dest, boolean isDraw,
-                                     RouteParserTask.OnDirectionCallBack callback) {
+        public static void direction(GoogleMap mMap, LatLng origin, LatLng dest, RouteParserTask.OnDirectionCallBack callback) {
             String url = getUrl(origin, dest);
             RouteParserTask parserTask = new RouteParserTask(mMap, callback);
-            parserTask.execute(url, isDraw);
+            parserTask.execute(url, true);
         }
 
-        public static void direction(LatLng origin, LatLng dest, boolean isDraw,
-                                     RouteParserTask.OnDirectionCallBack callback) {
-            String url = getUrl(origin, dest);
-            RouteParserTask parserTask = new RouteParserTask(callback);
-            parserTask.execute(url, isDraw);
-        }
         public static void direction(LatLng origin, LatLng dest, RouteParserTask.OnDirectionCallBack callback) {
             String url = getUrl(origin, dest);
             RouteParserTask parserTask = new RouteParserTask(callback);
             parserTask.execute(url, false);
         }
+
         public static void setLocationButtonPosition(SupportMapFragment mapFragment, @Position int position) {
 
             if (mapFragment.getView() != null &&

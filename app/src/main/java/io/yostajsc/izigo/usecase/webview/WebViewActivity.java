@@ -43,7 +43,9 @@ public class WebViewActivity extends OwnCoreActivity {
     @Override
     public void onApplyViews() {
         webView.setBackgroundColor(Color.TRANSPARENT);
-        webView.getSettings().setJavaScriptEnabled(true);
+        webView.getSettings().setSupportZoom(false);
+        webView.getSettings().setJavaScriptEnabled(false);
+        webView.getSettings().setBuiltInZoomControls(false);
         webView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {

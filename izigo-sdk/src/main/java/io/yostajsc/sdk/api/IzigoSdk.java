@@ -1,6 +1,7 @@
 package io.yostajsc.sdk.api;
 
 import android.app.Application;
+import android.util.Log;
 
 import java.io.File;
 import java.util.HashMap;
@@ -47,6 +48,7 @@ public class IzigoSdk {
 
         private static boolean isLoggedIn() {
             IgToken token = getToken();
+            Log.e("getToken", token.getToken());
             return token != null && !token.isExpired();
         }
 

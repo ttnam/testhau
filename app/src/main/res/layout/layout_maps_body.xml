@@ -42,13 +42,13 @@
 
         </LinearLayout>
 
-        <include
+        <io.yostajsc.izigo.usecase.map.SuggestionView
             android:id="@+id/layout_suggestions"
-            layout="@layout/item_map_suggestion"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/image_height_v1"
             android:layout_gravity="bottom"
             android:layout_margin="@dimen/margin_x2"
+            android:clickable="true"
             android:visibility="gone" />
 
     </FrameLayout>

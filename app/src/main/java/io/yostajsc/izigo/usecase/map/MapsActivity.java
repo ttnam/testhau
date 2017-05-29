@@ -12,7 +12,6 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.AppCompatImageView;
-import android.support.v7.widget.CardView;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
@@ -49,7 +48,6 @@ import butterknife.OnClick;
 import io.yostajsc.izigo.usecase.map.utils.RouteParserTask;
 import io.yostajsc.izigo.usecase.webview.WebViewActivity;
 import io.yostajsc.sdk.api.model.IgSuggestion;
-import io.yostajsc.sdk.consts.CallBack;
 import io.yostajsc.sdk.consts.MessageType;
 import io.yostajsc.sdk.utils.LogUtils;
 import io.yostajsc.sdk.utils.ToastUtils;
@@ -76,7 +74,6 @@ import permissions.dispatcher.RuntimePermissions;
 
 @RuntimePermissions
 public class MapsActivity extends OwnCoreActivity implements OnMapReadyCallback,
-        GoogleMap.OnMyLocationChangeListener,
         ClusterManager.OnClusterClickListener<Person>,
         GoogleMap.OnMarkerClickListener, DialogActiveMembers.OnItemSelectListener,
         DialogMapSetting.OnOnlineListener, GoogleMap.OnMapClickListener {
@@ -125,7 +122,7 @@ public class MapsActivity extends OwnCoreActivity implements OnMapReadyCallback,
     TextView textSuggestDistance;
 
     @BindView(R.id.layout_suggestions)
-    CardView layoutSuggestion;
+    SuggestionView layoutSuggestion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -192,11 +189,6 @@ public class MapsActivity extends OwnCoreActivity implements OnMapReadyCallback,
     }
 
     @Override
-    public void onMyLocationChange(Location location) {
-
-    }
-
-    @Override
     public void onMapReady(GoogleMap googleMap) {
 
         this.mMap = googleMap;
@@ -209,7 +201,6 @@ public class MapsActivity extends OwnCoreActivity implements OnMapReadyCallback,
         // this.mMap.setMaxZoomPreference(14f);
         this.mMap.setOnMapClickListener(this);
         this.mMap.setOnMarkerClickListener(this);
-        this.mMap.setOnMyLocationChangeListener(this);
         this.mMap.getUiSettings().setCompassEnabled(true);
         this.mMap.getUiSettings().setMapToolbarEnabled(false);
         this.mMap.getUiSettings().setZoomGesturesEnabled(true);
@@ -241,20 +232,14 @@ public class MapsActivity extends OwnCoreActivity implements OnMapReadyCallback,
         return true;
     }
 
-    @OnClick(R.id.button_direction)
-    public void showDirection() {
-
-        mIsDraw = true;
-
-        String ownFbId = IzigoSdk.UserExecutor.getOwnFbId();
+    void drawPolyLine() {
 
         if (mPolyline != null)
             mPolyline.remove();
 
-        MapUtils.Map.direction(mMap,
-                mTracks.get(ownFbId).getPosition(), // from
-                mTracks.get(mFocus).getPosition(), // to
-                true, new RouteParserTask.OnDirectionCallBack() {
+        String ownFbId = IzigoSdk.UserExecutor.getOwnFbId();
+        MapUtils.Map.direction(mMap, mTracks.get(ownFbId).getPosition(), mTracks.get(mFocus).getPosition(),
+                new RouteParserTask.OnDirectionCallBack() {
                     @Override
                     public void onSuccess(Info info, Polyline polyline) {
                         mPolyline = polyline;
@@ -262,24 +247,19 @@ public class MapsActivity extends OwnCoreActivity implements OnMapReadyCallback,
                 });
     }
 
-    private void showDirection(String fbId) {
-        String ownFbId = IzigoSdk.UserExecutor.getOwnFbId();
+    @OnClick(R.id.button_direction)
+    public void showDirection() {
+
+        mIsDraw = true;
+        drawPolyLine();
+    }
+
+    void showDirection(String fbId) {
 
         if (!mFocus.equalsIgnoreCase(fbId))
             return;
 
-        if (mPolyline != null)
-            mPolyline.remove();
-
-        MapUtils.Map.direction(mMap,
-                mTracks.get(ownFbId).getPosition(), // from
-                mTracks.get(mFocus).getPosition(), // to
-                true, new RouteParserTask.OnDirectionCallBack() {
-                    @Override
-                    public void onSuccess(Info info, Polyline polyline) {
-                        mPolyline = polyline;
-                    }
-                });
+        drawPolyLine();
     }
 
     @NeedsPermission({Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION})
@@ -324,20 +304,23 @@ public class MapsActivity extends OwnCoreActivity implements OnMapReadyCallback,
     @Override
     public boolean onMarkerClick(Marker marker) {
 
-        if (mIsSuggestion) {
-            IgSuggestion suggestion = mSuggestions.get(marker);
-            if (suggestion != null) {
-                MapsActivityView.setSuggestion(
-                        suggestion.getName(),
-                        suggestion.getCover(),
-                        suggestion.getDescription(),
-                        suggestion.getType(),
-                        mOwnLatLng,
-                        new LatLng(suggestion.getLat(), suggestion.getLng())
-                );
-                layoutSuggestion.setVisibility(View.VISIBLE);
-            }
+        IgSuggestion suggestion = mSuggestions.get(marker);
+
+        if (mIsSuggestion && suggestion != null) {
+            layoutSuggestion.bind(
+                    suggestion.getName(),
+                    suggestion.getCover(),
+                    suggestion.getDescription(),
+                    suggestion.getType(),
+                    suggestion.getLink(),
+                    mOwnLatLng,
+                    new LatLng(suggestion.getLat(), suggestion.getLng())
+            );
+            layoutSuggestion.setVisibility(View.VISIBLE);
         } else {
+
+            hideSuggestion();
+
             MapUtils.Map.moveCameraSmoothly(mMap, marker.getPosition(), 500);
             mFocus = marker.getTitle();
             if (!TextUtils.isEmpty(mFocus)) {
@@ -422,46 +405,49 @@ public class MapsActivity extends OwnCoreActivity implements OnMapReadyCallback,
             mPolyline.remove();
     }
 
+    private void hideSuggestion() {
+        mIsSuggestion = false;
+        for (Map.Entry<Marker, IgSuggestion> entry : mSuggestions.entrySet()) {
+            entry.getKey().remove();
+        }
+        layoutSuggestion.setVisibility(View.GONE);
+    }
+
     @OnClick(R.id.layout_suggestion)
     public void showSuggestion() {
         closeMenu();
         if (mIsSuggestion) {
-            mIsSuggestion = false;
-            for (Map.Entry<Marker, IgSuggestion> entry : mSuggestions.entrySet()) {
-                entry.getKey().remove();
-            }
-            layoutSuggestion.setVisibility(View.GONE);
-        } else {
-            if (MapUtils.Gps.connect().isEnable()) {
-                mIsSuggestion = true;
-                MapUtils.Gps.connect().getLastKnownLocation(getApplicationContext(), new MapUtils.OnGetLastKnownLocation() {
-                    @Override
-                    public void onReceive(LatLng latlng) {
-                        if (latlng != null) {
-                            mOwnLatLng = latlng;
-                            IzigoSdk.TripExecutor.getSuggestion(latlng.latitude, latlng.longitude,
-                                    new IgCallback<List<IgSuggestion>, String>() {
-                                        @Override
-                                        public void onSuccessful(List<IgSuggestion> igSuggestions) {
-                                            showSuggestion(igSuggestions);
-                                        }
+            hideSuggestion();
+            return;
+        }
+        if (MapUtils.Gps.connect().isEnable()) {
+            MapUtils.Gps.connect().getLastKnownLocation(this, new MapUtils.OnGetLastKnownLocation() {
+                @Override
+                public void onReceive(LatLng latlng) {
+                    if (latlng != null) {
+                        mOwnLatLng = latlng;
+                        IzigoSdk.TripExecutor.getSuggestion(latlng.latitude, latlng.longitude,
+                                new IgCallback<List<IgSuggestion>, String>() {
+                                    @Override
+                                    public void onSuccessful(List<IgSuggestion> igSuggestions) {
+                                        showSuggestion(igSuggestions);
+                                    }
 
-                                        @Override
-                                        public void onFail(String error) {
-                                            LogUtils.log(TAG, error);
-                                        }
+                                    @Override
+                                    public void onFail(String error) {
+                                        LogUtils.log(TAG, error);
+                                    }
 
-                                        @Override
-                                        public void onExpired() {
-                                            expired();
-                                        }
-                                    });
-                        }
+                                    @Override
+                                    public void onExpired() {
+                                        expired();
+                                    }
+                                });
                     }
-                });
-            } else {
-                MapUtils.Gps.connect().askGPS();
-            }
+                }
+            });
+        } else {
+            MapUtils.Gps.connect().askGPS();
         }
     }
 
@@ -476,35 +462,62 @@ public class MapsActivity extends OwnCoreActivity implements OnMapReadyCallback,
         AppConfig.getInstance().setAvailable(isOnline);
         FirebaseExecutor.TripExecutor.online(
                 AppConfig.getInstance().getCurrentTripId(),
-                IzigoSdk.UserExecutor.getOwnFbId(),
-                isOnline);
+                IzigoSdk.UserExecutor.getOwnFbId(), isOnline);
     }
 
-    @OnClick(R.id.layout_suggestions)
-    public void openWebView() {
-        Intent intent = new Intent(this, WebViewActivity.class);
-        intent.putExtra("WEB_LINK", "");
-        startActivity(intent);
+    void onReceiveMembers(List<IgFriend> igFriends) {
+        if (igFriends != null && igFriends.size() > 0) {
+            mFocus = igFriends.get(0).getFbId();
+            mTracks.clear();
+            for (IgFriend friend : igFriends) {
+                mTracks.put(friend.getFbId(), new Person(friend.getFbId(),
+                        friend.getName(),
+                        friend.getAvatar()
+                ));
+            }
+            // Register fire base data change listener
+            FirebaseManager.inject()
+                    .subscribeLastGps(AppConfig.getInstance().getCurrentTripId(),
+                            new FirebaseManager.OnSuccessListener() {
+                                @Override
+                                public void success(String fbId, double lat, double lng, String time, boolean isOnline) {
+                                    onChildAdded(fbId, lat, lng, time, isOnline);
+                                }
+                            }, new FirebaseManager.OnSuccessListener() {
+                                @Override
+                                public void success(String fbId, double lat, double lng, String time, boolean isOnline) {
+                                    onChildChanged(fbId, lat, lng, time, isOnline);
+                                }
+                            }, new FirebaseManager.OnFailureListener() {
+                                @Override
+                                public void error(String error) {
+                                    LogUtils.log(TAG, error);
+                                }
+                            });
+        }
     }
 
-    private void onChildAdded(String fbId, double lat, double lng, String time, boolean isOnline) {
-
-        // Update
+    /**
+     * Update tracker list when any members update their locations
+     */
+    void onUpdateListTracker(String fbId, double lat, double lng, String time, boolean isOnline) {
         this.mTracks.get(fbId).setVisible(isOnline);                // Is online
         this.mTracks.get(fbId).setLatLng(new LatLng(lat, lng));     // Location
         this.mTracks.get(fbId).setUpdateAt(Long.parseLong(time));   // Time
+    }
 
-        // Show maps
+    /**
+     * Update when new user come
+     */
+    void onChildAdded(String fbId, double lat, double lng, String time, boolean isOnline) {
+
+        onUpdateListTracker(fbId, lat, lng, time, isOnline);
+
         Person person = this.mTracks.get(fbId);
-        if (person.getPosition() != null) {
+        if (person != null && person.getPosition() != null) {
 
-            // Download avatar
-            IgCache.BitmapsCache.askForMemory().cache(new CallBack() {
-                @Override
-                public void run() {
-
-                }
-            }, new IgImage(person.getId(), person.getAvatar()));
+            // Avatar Caching
+            IgCache.BitmapsCache.askForMemory().cache(new IgImage(person.getId(), person.getAvatar()));
 
             // Add new cluster Item
             mClusterManager.addItem(person);
@@ -512,20 +525,21 @@ public class MapsActivity extends OwnCoreActivity implements OnMapReadyCallback,
         }
     }
 
-    private void onChildChanged(String fbId, double lat, double lng, String time, boolean isOnline) {
-        // Update the new one
-        this.mTracks.get(fbId).setVisible(isOnline);                // Is online
-        this.mTracks.get(fbId).setLatLng(new LatLng(lat, lng));     // Location
-        this.mTracks.get(fbId).setUpdateAt(Long.parseLong(time));   // Time
+    /**
+     * Update when new user change
+     */
+    void onChildChanged(String fbId, double lat, double lng, String time, boolean isOnline) {
+        onUpdateListTracker(fbId, lat, lng, time, isOnline);
         reloadMarker(this.mTracks.get(fbId));
     }
 
     private class PersonRenderer extends DefaultClusterRenderer<Person> {
 
-        private final IconGenerator mSingleGenerator;
-        private final IconGenerator mMultiGenerator;
-        private final ImageView mSingleImageView, mMultiImageView;
-        private int mDimension;
+        int mDimension;
+        final IconGenerator mSingleGenerator;
+        final IconGenerator mMultiGenerator;
+        final ImageView mSingleImageView, mMultiImageView;
+
 
         PersonRenderer(Context context) {
             super(context, mMap, mClusterManager);
@@ -551,8 +565,7 @@ public class MapsActivity extends OwnCoreActivity implements OnMapReadyCallback,
         protected void onClusterItemRendered(Person person, final Marker marker) {
             super.onClusterItemRendered(person, marker);
             try {
-                Bitmap bitmap = IgCache.BitmapsCache.askForMemory().get(person.getId());
-                mSingleImageView.setImageBitmap(bitmap);
+                onRender(person);
                 marker.setIcon(BitmapDescriptorFactory.fromBitmap(mSingleGenerator.makeIcon()));
             } catch (Exception e) {
                 e.printStackTrace();
@@ -562,12 +575,21 @@ public class MapsActivity extends OwnCoreActivity implements OnMapReadyCallback,
         @Override
         protected void onBeforeClusterItemRendered(final Person person, final MarkerOptions markerOptions) {
             try {
-                Bitmap bitmap = IgCache.BitmapsCache.askForMemory().get(person.getId());
-                mSingleImageView.setImageBitmap(bitmap);
+                onRender(person);
                 markerOptions.icon(BitmapDescriptorFactory.fromBitmap(mSingleGenerator.makeIcon()));
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        }
+
+        void onRender(Person person) {
+            if (person == null || TextUtils.isEmpty(person.getId()))
+                return;
+            Bitmap bitmap = IgCache.BitmapsCache.askForMemory().get(person.getId());
+            if (bitmap == null)
+                mSingleImageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_profile_holder));
+            else
+                mSingleImageView.setImageBitmap(bitmap);
         }
 
         @Override
@@ -606,7 +628,7 @@ public class MapsActivity extends OwnCoreActivity implements OnMapReadyCallback,
 
     }
 
-    private void reloadMarker(Person person) {
+    void reloadMarker(Person person) {
         Collection<Marker> markers = mClusterManager.getMarkerCollection().getMarkers();
         String strId = person.getId();
         for (Marker marker : markers) {
@@ -619,48 +641,17 @@ public class MapsActivity extends OwnCoreActivity implements OnMapReadyCallback,
         }
     }
 
-    private void onReceiveMembers(List<IgFriend> igFriends) {
-        if (igFriends.size() > 0) {
-            mFocus = igFriends.get(0).getFbId();
-            mTracks.clear();
-            for (IgFriend friend : igFriends) {
-                mTracks.put(friend.getFbId(), new Person(
-                        friend.getFbId(),
-                        friend.getName(),
-                        friend.getAvatar()
-                ));
-            }
-            // Register fire base data change listener
-            FirebaseManager.inject().subscribeLastGps(AppConfig.getInstance().getCurrentTripId(),
-                    new FirebaseManager.OnSuccessListener() {
-                        @Override
-                        public void success(String fbId, double lat, double lng, String time, boolean isOnline) {
-                            onChildAdded(fbId, lat, lng, time, isOnline);
-                        }
-                    }, new FirebaseManager.OnSuccessListener() {
-                        @Override
-                        public void success(String fbId, double lat, double lng, String time, boolean isOnline) {
-                            onChildChanged(fbId, lat, lng, time, isOnline);
-                        }
-                    }, new FirebaseManager.OnFailureListener() {
-                        @Override
-                        public void error(String error) {
-                            ToastUtils.showToast(MapsActivity.this, error);
-                        }
-                    });
-        }
-    }
-
     public void openMenu() {
         drawerLayout.openDrawer(Gravity.END);
     }
 
-    private void closeMenu() {
+    void closeMenu() {
         drawerLayout.closeDrawers();
     }
 
-    private void showSuggestion(List<IgSuggestion> igSuggestions) {
+    void showSuggestion(List<IgSuggestion> igSuggestions) {
         if (igSuggestions != null && igSuggestions.size() > 0) {
+            mIsSuggestion = true;
             mSuggestions.clear();
             for (IgSuggestion igSuggestion : igSuggestions) {
 
@@ -669,8 +660,15 @@ public class MapsActivity extends OwnCoreActivity implements OnMapReadyCallback,
                 mSuggestions.put(marker, igSuggestion);
             }
         } else {
+            mIsSuggestion = false;
             ToastUtils.showToast(MapsActivity.this, "No suggestion.");
         }
     }
 
+    @OnClick(R.id.layout_suggestions)
+    public void showWebDetail() {
+        Intent intent = new Intent(this, WebViewActivity.class);
+        intent.putExtra("WEB_LINK", layoutSuggestion.getLink());
+        startActivity(intent);
+    }
 }
