@@ -12,7 +12,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.usecase.OwnCoreActivity;
-import io.yostajsc.izigo.usecase.view.OwnToolBar;
+import io.yostajsc.izigo.ui.OwnToolBar;
 
 public class WebViewActivity extends OwnCoreActivity {
 

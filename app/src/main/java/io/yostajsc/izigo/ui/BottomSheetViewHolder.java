@@ -1,4 +1,4 @@
-package io.yostajsc.izigo.usecase.view;
+package io.yostajsc.izigo.ui;
 
 import android.support.annotation.DrawableRes;
 import android.support.v7.widget.AppCompatImageView;

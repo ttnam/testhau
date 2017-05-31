@@ -1,4 +1,4 @@
-package io.yostajsc.izigo.usecase.view.viewholder;
+package io.yostajsc.izigo.usecase.trip.viewholder;
 
 import android.content.Context;
 import android.support.v7.widget.AppCompatImageView;

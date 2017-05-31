@@ -1,4 +1,4 @@
-package io.yostajsc.izigo.usecase.view.viewpagercards;
+package io.yostajsc.izigo.ui.viewpagercards;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

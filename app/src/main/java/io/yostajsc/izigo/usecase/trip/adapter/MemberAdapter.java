@@ -12,7 +12,7 @@ import java.util.List;
 
 import io.yostajsc.sdk.api.model.user.IgFriend;
 import io.yostajsc.izigo.R;
-import io.yostajsc.izigo.usecase.view.viewholder.MemberViewHolder;
+import io.yostajsc.izigo.usecase.trip.viewholder.MemberViewHolder;
 import io.yostajsc.sdk.consts.CallBackWith;
 import io.yostajsc.sdk.consts.ItemClick;
 

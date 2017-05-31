@@ -182,8 +182,8 @@ public class TripAlbumActivity extends OwnCoreActivity {
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
-        menu.add(0, v.getId(), 0, "Chọn từ thư viện");
-        menu.add(0, v.getId(), 1, "Chụp từ thiết bị");
+        menu.add(0, v.getId(), 0, getString(R.string.str_from_gallery));
+        menu.add(0, v.getId(), 1, getString(R.string.str_from_camera));
     }
 
     /**

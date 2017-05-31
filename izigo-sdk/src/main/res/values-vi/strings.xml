@@ -1,0 +1,5 @@
+<resources>
+    <string name="str_from_gallery">Chọn từ thư viện</string>
+    <string name="str_from_camera">Chụp từ máy ảnh thiết bị</string>
+    <string name="str_select_photo">Chọn ảnh</string>
+</resources>

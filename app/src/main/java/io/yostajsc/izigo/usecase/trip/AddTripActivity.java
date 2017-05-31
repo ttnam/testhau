@@ -55,10 +55,13 @@ public class AddTripActivity extends OwnCoreActivity {
     private static String TAG = AddTripActivity.class.getSimpleName();
 
     @BindView(R.id.text_view_trip_name)
-    TextInputEditText textGroupName;
+    TextInputEditText textTripName;
 
     @BindView(R.id.edit_description)
     TextInputEditText editDescription;
+
+    @BindView(R.id.text_view)
+    TextView textViewDes;
 
     @BindView(R.id.text_arrive)
     TextView textArrive;
@@ -66,8 +69,8 @@ public class AddTripActivity extends OwnCoreActivity {
     @BindView(R.id.text_depart)
     TextView textDepart;
 
-    @BindView(R.id.text_view)
-    TextView textViewDes;
+    @BindView(R.id.image_view)
+    AppCompatImageView imageView;
 
     @BindView(R.id.text_arrive_time)
     TextView textArriveTime;
@@ -81,9 +84,6 @@ public class AddTripActivity extends OwnCoreActivity {
     @BindView(R.id.text_depart_date)
     TextView textDepartDate;
 
-    @BindView(R.id.image_view)
-    AppCompatImageView imageView;
-
     @BindView(R.id.image_trip_cover)
     AppCompatImageView imageTripCover;
 
@@ -93,6 +93,8 @@ public class AddTripActivity extends OwnCoreActivity {
     private int mTransferType = 0;
     private IgPlace from = new IgPlace(), to = new IgPlace();
     private boolean isEdit = false;
+    private File mSelectedFile = null;
+    private DialogPickTransfer dialogPickTransfer = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,6 +102,7 @@ public class AddTripActivity extends OwnCoreActivity {
         setContentView(R.layout.activity_add_trip);
         ButterKnife.bind(this);
         AddTripActivityHelper.bind(this);
+        dialogPickTransfer = new DialogPickTransfer(this);
     }
 
     @Override
@@ -128,7 +131,7 @@ public class AddTripActivity extends OwnCoreActivity {
             isEdit = false;
         } else {
             isEdit = true;
-            textGroupName.setText(igTrip.getName());                // Name
+            textTripName.setText(igTrip.getName());                // Name
             editDescription.setText(igTrip.getDescription());       // Description
             UiUtils.showTransfer(igTrip.getTransfer(), imageView);  // Transfer
 
@@ -208,7 +211,6 @@ public class AddTripActivity extends OwnCoreActivity {
 
     @OnClick(R.id.image_view)
     public void pickTransfer() {
-        DialogPickTransfer dialogPickTransfer = new DialogPickTransfer(this);
         dialogPickTransfer.setDialogResult(new CallBackWith<Integer>() {
             @Override
             public void run(@TransferType Integer type) {
@@ -233,18 +235,29 @@ public class AddTripActivity extends OwnCoreActivity {
     @OnClick(R.id.button_confirm)
     public void onConfirm() {
 
-        // Group name
-        String groupName = textGroupName.getText().toString();
-        String arriveName = textArrive.getText().toString();
-        String departName = textDepart.getText().toString();
-        String description = editDescription.getText().toString();
-
-        if (TextUtils.isEmpty(groupName) || TextUtils.isEmpty(arriveName) ||
-                TextUtils.isEmpty(departName) || TextUtils.isEmpty(description)) {
-            ToastUtils.showToast(this, getString(R.string.error_message_empty));
+        // Trip name
+        String tripName = textTripName.getText().toString();
+        if (TextUtils.isEmpty(tripName)) {
+            ToastUtils.showToast(this, getString(R.string.str_miss_trip_name));
             return;
         }
 
+        // Destination
+        String arriveName = textArrive.getText().toString();
+        if (TextUtils.isEmpty(arriveName)) {
+            ToastUtils.showToast(this, getString(R.string.str_miss_arrive));
+            return;
+        }
+
+        // Departure
+        String departName = textDepart.getText().toString();
+        if (TextUtils.isEmpty(departName)) {
+            ToastUtils.showToast(this, getString(R.string.str_miss_depart));
+            return;
+        }
+
+        // Description
+        String description = editDescription.getText().toString();
         if (from.getTime() < System.currentTimeMillis() || to.getTime() <= from.getTime() || to.getTime() < System.currentTimeMillis()) {
             Toast.makeText(this, getString(R.string.str_invalid_time), Toast.LENGTH_SHORT).show();
             return;
@@ -254,25 +267,31 @@ public class AddTripActivity extends OwnCoreActivity {
         if (isEdit) {
             finish();
         } else {
-            IzigoSdk.TripExecutor.addTrip(groupName, to.toString(), from.toString(), description, mTransferType, new IgCallback<String, String>() {
-                @Override
-                public void onSuccessful(String groupId) {
-                    hideProgress();
-                    onSuccess(groupId);
-                }
+            IzigoSdk.TripExecutor.addTrip(
+                    tripName,           // Trip name
+                    to.toString(),      // Destination
+                    from.toString(),    // Departure
+                    description,        // Description
+                    mTransferType,      // Type
+                    new IgCallback<String, String>() {
+                        @Override
+                        public void onSuccessful(String groupId) {
+                            hideProgress();
+                            onSuccess(groupId);
+                        }
 
-                @Override
-                public void onFail(String error) {
-                    hideProgress();
-                    ToastUtils.showToast(AddTripActivity.this, error);
-                }
+                        @Override
+                        public void onFail(String error) {
+                            hideProgress();
+                            ToastUtils.showToast(AddTripActivity.this, error);
+                        }
 
-                @Override
-                public void onExpired() {
-                    hideProgress();
-                    expired();
-                }
-            });
+                        @Override
+                        public void onExpired() {
+                            hideProgress();
+                            expired();
+                        }
+                    });
         }
     }
 
@@ -280,8 +299,8 @@ public class AddTripActivity extends OwnCoreActivity {
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
         if (v.getId() == R.id.image_trip_cover) {
-            menu.add(0, v.getId(), 0, "Chọn từ thư viện");
-            menu.add(0, v.getId(), 1, "Chụp từ thiết bị");
+            menu.add(0, v.getId(), 0, getString(R.string.str_from_gallery));
+            menu.add(0, v.getId(), 1, getString(R.string.str_from_camera));
         }
     }
 
@@ -290,9 +309,10 @@ public class AddTripActivity extends OwnCoreActivity {
         int order = item.getOrder();
         switch (order) {
             case 0:
-                AddTripActivityPermissionsDispatcher.getImageFromGalleryWithCheck(this);
+                AddTripActivityPermissionsDispatcher.showGalleryWithCheck(this);
+                break;
             case 1:
-                AddTripActivityPermissionsDispatcher.onTakePhotoWithCheck(this);
+                AddTripActivityPermissionsDispatcher.showCameraWithCheck(this);
                 break;
         }
         return super.onContextItemSelected(item);
@@ -300,16 +320,16 @@ public class AddTripActivity extends OwnCoreActivity {
 
     @NeedsPermission({Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE})
-    public void getImageFromGallery() {
+    public void showGallery() {
         Intent intent = new Intent();
         intent.setType("image/jpg");
         intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Select Picture"), MessageType.FROM_GALLERY);
+        startActivityForResult(Intent.createChooser(intent, getString(R.string.str_select_photo)), MessageType.FROM_GALLERY);
     }
 
     @NeedsPermission({Manifest.permission.WRITE_EXTERNAL_STORAGE,
             Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA})
-    public void onTakePhoto() {
+    public void showCamera() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
             startActivityForResult(takePictureIntent, MessageType.TAKE_PHOTO);
@@ -325,7 +345,7 @@ public class AddTripActivity extends OwnCoreActivity {
                         Uri fileUri = data.getData();
                         if (fileUri == null)
                             return;
-                        onUriReceiverListener(fileUri, false);
+                        processFile(fileUri, false);
 
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -334,8 +354,10 @@ public class AddTripActivity extends OwnCoreActivity {
                 case MessageType.TAKE_PHOTO:
                     try {
                         Bitmap photo = (Bitmap) data.getExtras().get("data");
-                        Uri tempUri = FileUtils.getImageUri(AddTripActivity.this, photo);
-                        onUriReceiverListener(tempUri, true);
+                        Uri fileUri = FileUtils.getImageUri(AddTripActivity.this, photo);
+                        if (fileUri == null)
+                            return;
+                        processFile(fileUri, true);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -401,7 +423,7 @@ public class AddTripActivity extends OwnCoreActivity {
 
     }
 
-    private void onUriReceiverListener(Uri fileUri, boolean isTakePhoto) {
+    void processFile(Uri fileUri, boolean isTakePhoto) {
 
         File file = FileUtils.getFile(this, fileUri);
         File mSelectedFile = new File(getExternalFilesDir(null), String.format("%s.jpg",
@@ -420,6 +442,7 @@ public class AddTripActivity extends OwnCoreActivity {
         Glide.with(this).load(mSelectedFile)
                 .priority(Priority.IMMEDIATE)
                 .animate(R.anim.anim_fade_in)
+                .error(R.drawable.ic_style_rect_round_corners_dark_gray_none)
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .into(imageTripCover);
     }

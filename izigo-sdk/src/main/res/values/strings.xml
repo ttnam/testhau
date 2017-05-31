@@ -1,8 +1,12 @@
 <resources>
-     <string name="message_snack_bar">
+     <string name="message_snack_bar" translatable="false">
         <![CDATA[
             <font color=\"yellow\"> %s </font>
         ]]>
     </string>
-    <string name="internal_storage">Internal storage</string>
+    <string name="internal_storage" translatable="false">Internal storage</string>
+    <string name="str_from_gallery">From gallery</string>
+    <string name="str_from_camera">From camera</string>
+    <string name="str_select_photo">Select photos</string>
+
 </resources>

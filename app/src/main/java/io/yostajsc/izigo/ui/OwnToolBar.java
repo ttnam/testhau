@@ -1,4 +1,4 @@
-package io.yostajsc.izigo.usecase.view;
+package io.yostajsc.izigo.ui;
 
 import android.content.Context;
 import android.content.res.TypedArray;
