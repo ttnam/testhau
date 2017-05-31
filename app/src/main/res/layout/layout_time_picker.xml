@@ -9,7 +9,7 @@
     android:padding="@dimen/margin">
 
     <TextView
-        style="@style/CoreAppTheme.TextView_Title"
+        style="@style/CoreAppTheme.TextView_Title.Bold"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center|start"

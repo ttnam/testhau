@@ -21,15 +21,14 @@
 
             <TextView
                 android:id="@+id/text_from"
-                style="@style/CoreAppTheme.TextView_Sub_Title"
+                style="@style/CoreAppTheme.TextView_Title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_margin="@dimen/margin_min"
                 android:ellipsize="end"
                 android:gravity="center"
-                android:maxLines="1"
-                android:minLines="1"
-                android:text="From" />
+                android:maxLines="1" />
 
             <TextView
                 android:id="@+id/text_time_start"
@@ -40,8 +39,7 @@
                 android:background="@drawable/ic_style_circle_blue_none"
                 android:ellipsize="end"
                 android:gravity="center"
-                android:maxLines="1"
-                android:minLines="1" />
+                android:maxLines="1" />
         </LinearLayout>
 
         <android.support.v7.widget.AppCompatImageView
@@ -63,15 +61,14 @@
 
             <TextView
                 android:id="@+id/text_to"
-                style="@style/CoreAppTheme.TextView_Sub_Title"
+                style="@style/CoreAppTheme.TextView_Title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_margin="@dimen/margin_min"
                 android:ellipsize="end"
                 android:gravity="center"
-                android:maxLines="1"
-                android:minLines="1"
-                android:text="To" />
+                android:maxLines="1" />
 
             <TextView
                 android:id="@+id/text_time_end"
@@ -82,8 +79,7 @@
                 android:background="@drawable/ic_style_circle_blue_none"
                 android:ellipsize="end"
                 android:gravity="center"
-                android:maxLines="1"
-                android:minLines="1" />
+                android:maxLines="1" />
         </LinearLayout>
 
     </LinearLayout>

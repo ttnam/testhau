@@ -219,7 +219,7 @@ public class TripAlbumActivity extends OwnCoreActivity {
 
     void confirmUpload(final ArrayList<String> urls) {
         new AlertDialog.Builder(this)
-                .setMessage("Are you sure, you want to upload these photos?")
+                .setMessage(getString(R.string.str_ask_upload_photo))
                 .setPositiveButton(android.R.string.yes,
                         new DialogInterface.OnClickListener() {
                             @Override

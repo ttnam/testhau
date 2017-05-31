@@ -1,120 +1,137 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/white"
-        android:orientation="horizontal">
-
-        <android.support.v7.widget.AppCompatImageView
-            android:id="@id/button"
-            style="@style/CoreAppTheme.IconClick"
-            android:layout_width="?actionBarSize"
-            android:layout_height="?actionBarSize"
-            android:layout_gravity="center"
-            android:padding="@dimen/margin_x2"
-            app:srcCompat="@drawable/ic_vector_back_blue" />
-
-        <TextView
-            style="@style/CoreAppTheme.TextView_Title.Bold"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:ellipsize="end"
-            android:gravity="center|start"
-            android:maxLines="1"
-            android:minLines="1"
-            android:text="@string/str_your_trip" />
-
-    </LinearLayout>
-
-    <include layout="@layout/layout_shadow" />
-
-    <ProgressBar
-        android:id="@id/progress_bar"
-        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
-        android:indeterminate="true"
-        android:visibility="gone" />
-
-    <android.support.v4.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:orientation="horizontal">
 
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <android.support.v7.widget.AppCompatImageView
-                    android:id="@+id/image_trip_cover"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/image_height_v3"
-                    android:clickable="true"
-                    android:scaleType="centerCrop" />
-
-                <android.support.v7.widget.AppCompatImageView
-                    android:layout_width="@dimen/icon_size_x4"
-                    android:layout_height="@dimen/icon_size_x4"
-                    android:layout_gravity="top|end"
-                    android:layout_margin="@dimen/margin_min"
-                    android:background="@drawable/ic_style_circle_grey"
-                    android:padding="@dimen/margin_min"
-                    app:srcCompat="@drawable/ic_vector_edit" />
-
-            </FrameLayout>
-
-            <include layout="@layout/layout_group_header" />
-
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@id/button"
+                style="@style/CoreAppTheme.IconClick"
+                android:layout_width="?actionBarSize"
+                android:layout_height="?actionBarSize"
                 android:layout_gravity="center"
-                android:background="@android:color/white"
-                android:padding="@dimen/margin"
-                app:hintEnabled="false">
+                android:padding="@dimen/margin_x2"
+                app:srcCompat="@drawable/ic_vector_back_blue" />
 
-                <android.support.design.widget.TextInputEditText
-                    android:id="@+id/edit_description"
-                    style="@style/CoreAppTheme.TextView_Title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="top|start"
-                    android:hint="@string/str_trip_description"
-                    android:inputType="textMultiLine"
-                    android:lines="10"
-                    android:maxLines="12"
-                    android:minLines="6"
-                    android:paddingLeft="@dimen/margin"
-                    android:paddingRight="@dimen/margin"
-                    android:scrollbars="vertical" />
-
-            </android.support.design.widget.TextInputLayout>
-
-            <include layout="@layout/layout_time_picker" />
+            <TextView
+                style="@style/CoreAppTheme.TextView_Title.Bold"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:ellipsize="end"
+                android:gravity="center|start"
+                android:maxLines="1"
+                android:minLines="1"
+                android:text="@string/str_your_trip" />
 
         </LinearLayout>
 
-    </android.support.v4.widget.NestedScrollView>
+        <include layout="@layout/layout_shadow" />
 
-    <Button
-        android:id="@+id/button_confirm"
-        style="@style/CoreAppTheme.TextView_Title.Bold.White"
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <FrameLayout
+                    android:id="@id/layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <android.support.v7.widget.AppCompatImageView
+                        android:id="@+id/image_trip_cover"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/image_height_v3"
+                        android:clickable="true"
+                        android:scaleType="centerCrop" />
+
+                    <android.support.v7.widget.AppCompatImageView
+                        android:layout_width="@dimen/icon_size_x4"
+                        android:layout_height="@dimen/icon_size_x4"
+                        android:layout_gravity="top|end"
+                        android:layout_margin="@dimen/margin_min"
+                        android:background="@drawable/ic_style_circle_grey"
+                        android:padding="@dimen/margin_min"
+                        app:srcCompat="@drawable/ic_vector_edit" />
+
+                </FrameLayout>
+
+                <include layout="@layout/layout_group_header" />
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@android:color/white"
+                    android:padding="@dimen/margin"
+                    app:hintEnabled="false">
+
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/edit_description"
+                        style="@style/CoreAppTheme.TextView_Title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="top|start"
+                        android:hint="@string/str_description"
+                        android:inputType="textMultiLine"
+                        android:lines="10"
+                        android:maxLines="12"
+                        android:minLines="6"
+                        android:paddingLeft="@dimen/margin"
+                        android:paddingRight="@dimen/margin"
+                        android:scrollbars="vertical" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <include layout="@layout/layout_time_picker" />
+
+            </LinearLayout>
+
+        </android.support.v4.widget.NestedScrollView>
+
+        <Button
+            android:id="@+id/button_confirm"
+            style="@style/CoreAppTheme.TextView_Title.Bold.White"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_style_button_round_none_accent"
+            android:text="@string/all_continue" />
+
+    </LinearLayout>
+
+
+    <FrameLayout
+        android:id="@+id/layout_progress"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/ic_style_button_round_none_accent"
-        android:text="@string/all_continue" />
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:background="@color/transparent_60_white"
+        android:visibility="gone">
 
-</LinearLayout>
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@android:color/transparent"
+            android:indeterminate="true"
+            android:visibility="visible" />
+
+    </FrameLayout>
+</FrameLayout>

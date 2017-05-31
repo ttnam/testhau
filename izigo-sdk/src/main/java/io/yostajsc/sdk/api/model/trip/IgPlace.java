@@ -21,25 +21,12 @@ public class IgPlace implements Serializable {
     private String name;
 
     @SerializedName("time")
-    private long time;
+    private long time = -1;
 
     private int mYYYY = -1, mMM = -1, mDD = -1, mH = -1, mM = -1;
 
     public IgPlace() {
 
-    }
-
-    public IgPlace(int yyyy, int m, int d, int h, int min) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(yyyy, m, d, h, min);
-        this.time = calendar.getTimeInMillis();
-    }
-
-    public IgPlace(String name, int yyyy, int m, int d, int h, int min) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(yyyy, m, d, h, min);
-        this.time = calendar.getTimeInMillis();
-        this.name = name;
     }
 
     public String getName() {
@@ -71,9 +58,9 @@ public class IgPlace implements Serializable {
         this.name = name;
     }
 
-    public void setTime(int yyyy, int m, int d, int h, int min) {
+    private void setTime(int yyyy, int mm, int d, int h, int min) {
         Calendar calendar = Calendar.getInstance();
-        calendar.set(yyyy, m, d, h, min);
+        calendar.set(yyyy, mm, d, h, min);
         this.time = calendar.getTimeInMillis();
     }
 
@@ -109,11 +96,12 @@ public class IgPlace implements Serializable {
     }
 
     public long getTime() {
-        if (mYYYY != -1 && mMM != -1 && mDD != -1 && mM != -1) {
-            setTime(mYYYY, mMM, mDD, mH, mM);
+        if (time <= 0) {
+            if (mYYYY != -1 && mMM != -1 && mDD != -1 && mM != -1) {
+                setTime(mYYYY, mMM, mDD, mH, mM);
+                return time;
+            }
         }
-        if (time <= 0)
-            return Calendar.getInstance().getTimeInMillis();
         return time;
     }
 

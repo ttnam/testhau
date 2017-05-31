@@ -98,7 +98,7 @@ public class AddTripActivityHelper {
                 new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        onReceiveDate.date(dayOfMonth, month + 1, year,
+                        onReceiveDate.date(dayOfMonth, month, year,
                                 String.format("%s/%s/%s",
                                         mTimeFormatter.format(dayOfMonth),
                                         mTimeFormatter.format(month + 1),

@@ -14,6 +14,7 @@ import android.text.TextUtils;
 import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,11 +27,14 @@ import com.google.android.gms.maps.model.Polyline;
 
 import java.io.File;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 import io.yostajsc.izigo.usecase.map.utils.RouteParserTask;
 import io.yostajsc.sdk.consts.CallBackWith;
 import io.yostajsc.sdk.consts.MessageType;
 import io.yostajsc.sdk.utils.FileUtils;
+import io.yostajsc.sdk.utils.LogUtils;
 import io.yostajsc.sdk.utils.ToastUtils;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.usecase.OwnCoreActivity;
@@ -87,14 +91,17 @@ public class AddTripActivity extends OwnCoreActivity {
     @BindView(R.id.image_trip_cover)
     AppCompatImageView imageTripCover;
 
-    @BindView(R.id.progress_bar)
-    ProgressBar progressBar;
+    @BindView(R.id.layout_progress)
+    FrameLayout layoutProgress;
+
+    @BindView(R.id.layout)
+    FrameLayout layoutCover;
 
     private int mTransferType = 0;
-    private IgPlace from = new IgPlace(), to = new IgPlace();
     private boolean isEdit = false;
     private File mSelectedFile = null;
     private DialogPickTransfer dialogPickTransfer = null;
+    private IgPlace from = new IgPlace(), to = new IgPlace();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,26 +118,27 @@ public class AddTripActivity extends OwnCoreActivity {
         registerForContextMenu(imageTripCover);
         IgTrip igTrip = (IgTrip) getIntent().getSerializableExtra(IgTrip.TRIP_ID);
         if (igTrip == null) {
-            AddTripActivityHelper.tickTimeUpdate(new AddTripActivityHelper.OnReceiveDate() {
-                @Override
-                public void date(Integer day, Integer month, Integer year, String result) {
-                    textArriveDate.setText(result);
-                    textDepartDate.setText(result);
-                    from.setDate(year, month, day);
-                    to.setDate(year, month, day);
-                }
-            }, new AddTripActivityHelper.OnReceiveTime() {
-                @Override
-                public void time(Integer hour, Integer minute, String result) {
-                    textArriveTime.setText(result);
-                    textDepartTime.setText(result);
-                    from.setTime(hour, minute);
-                    to.setTime(hour, minute);
-                }
-            });
-            isEdit = false;
+            AddTripActivityHelper.tickTimeUpdate(
+                    new AddTripActivityHelper.OnReceiveDate() {
+                        @Override
+                        public void date(Integer day, Integer month, Integer year, String result) {
+                            textArriveDate.setText(result);
+                            textDepartDate.setText(result);
+                            from.setDate(year, month, day);
+                            to.setDate(year, month, day);
+                        }
+                    }, new AddTripActivityHelper.OnReceiveTime() {
+                        @Override
+                        public void time(Integer hour, Integer minute, String result) {
+                            textArriveTime.setText(result);
+                            textDepartTime.setText(result);
+                            from.setTime(hour, minute);
+                            to.setTime(hour, minute);
+                        }
+                    });
+            enableEditMode(false);
         } else {
-            isEdit = true;
+            enableEditMode(true);
             textTripName.setText(igTrip.getName());                // Name
             editDescription.setText(igTrip.getDescription());       // Description
             UiUtils.showTransfer(igTrip.getTransfer(), imageView);  // Transfer
@@ -140,6 +148,16 @@ public class AddTripActivity extends OwnCoreActivity {
                     .animate(R.anim.anim_fade_in)
                     .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                     .into(imageTripCover);
+        }
+    }
+
+    void enableEditMode(boolean isEnable) {
+        if (isEnable) {
+            isEdit = true;
+            layoutCover.setVisibility(View.VISIBLE);
+        } else {
+            isEdit = false;
+            layoutCover.setVisibility(View.GONE);
         }
     }
 
@@ -236,7 +254,7 @@ public class AddTripActivity extends OwnCoreActivity {
     public void onConfirm() {
 
         // Trip name
-        String tripName = textTripName.getText().toString();
+        final String tripName = textTripName.getText().toString();
         if (TextUtils.isEmpty(tripName)) {
             ToastUtils.showToast(this, getString(R.string.str_miss_trip_name));
             return;
@@ -257,41 +275,88 @@ public class AddTripActivity extends OwnCoreActivity {
         }
 
         // Description
-        String description = editDescription.getText().toString();
-        if (from.getTime() < System.currentTimeMillis() || to.getTime() <= from.getTime() || to.getTime() < System.currentTimeMillis()) {
+        final String description = editDescription.getText().toString();
+
+        if (from.getTime() < System.currentTimeMillis() ||
+                to.getTime() <= from.getTime() ||
+                to.getTime() < System.currentTimeMillis()) {
             Toast.makeText(this, getString(R.string.str_invalid_time), Toast.LENGTH_SHORT).show();
             return;
         }
 
+        final Map<String, String> fields = new HashMap<>();
+        fields.put("name", tripName);
+        fields.put("arrive", to.toString());
+        fields.put("depart", from.toString());
+        fields.put("description", description);
+        fields.put("transfer", String.valueOf(mTransferType));
+
         showProgress();
         if (isEdit) {
-            finish();
+            String tripId = AppConfig.getInstance().getCurrentTripId();
+
+            if (mSelectedFile != null) {
+                IzigoSdk.TripExecutor.uploadCover(mSelectedFile, FileUtils.getMimeType(mSelectedFile), tripId, new IgCallback<Void, String>() {
+                    @Override
+                    public void onSuccessful(Void aVoid) {
+                        LogUtils.log("onSuccessful cover");
+                    }
+
+                    @Override
+                    public void onFail(String error) {
+                        hideProgress();
+                        LogUtils.log(error);
+                    }
+
+                    @Override
+                    public void onExpired() {
+                        expired();
+                    }
+                });
+            }
+
+            IzigoSdk.TripExecutor.updateTrip(tripId, fields, new IgCallback<Void, String>() {
+                @Override
+                public void onSuccessful(Void aVoid) {
+                    hideProgress();
+                    ToastUtils.showToast(AddTripActivity.this, R.string.str_success);
+                    finish();
+                }
+
+                @Override
+                public void onFail(String error) {
+                    hideProgress();
+                    ToastUtils.showToast(AddTripActivity.this, error);
+                    LogUtils.log(error);
+                }
+
+                @Override
+                public void onExpired() {
+                    expired();
+                }
+            });
         } else {
-            IzigoSdk.TripExecutor.addTrip(
-                    tripName,           // Trip name
-                    to.toString(),      // Destination
-                    from.toString(),    // Departure
-                    description,        // Description
-                    mTransferType,      // Type
-                    new IgCallback<String, String>() {
-                        @Override
-                        public void onSuccessful(String groupId) {
-                            hideProgress();
-                            onSuccess(groupId);
-                        }
 
-                        @Override
-                        public void onFail(String error) {
-                            hideProgress();
-                            ToastUtils.showToast(AddTripActivity.this, error);
-                        }
+            IzigoSdk.TripExecutor.addTrip(fields, new IgCallback<String, String>() {
+                @Override
+                public void onSuccessful(String groupId) {
+                    hideProgress();
+                    onSuccess(groupId);
+                }
 
-                        @Override
-                        public void onExpired() {
-                            hideProgress();
-                            expired();
-                        }
-                    });
+                @Override
+                public void onFail(String error) {
+                    hideProgress();
+                    ToastUtils.showToast(AddTripActivity.this, error);
+                }
+
+                @Override
+                public void onExpired() {
+                    hideProgress();
+                    expired();
+                }
+            });
+
         }
     }
 
@@ -405,12 +470,12 @@ public class AddTripActivity extends OwnCoreActivity {
         finish();
     }
 
-    private void hideProgress() {
-        progressBar.setVisibility(View.GONE);
+    void hideProgress() {
+        layoutProgress.setVisibility(View.GONE);
     }
 
-    private void showProgress() {
-        progressBar.setVisibility(View.VISIBLE);
+    void showProgress() {
+        layoutProgress.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -426,7 +491,7 @@ public class AddTripActivity extends OwnCoreActivity {
     void processFile(Uri fileUri, boolean isTakePhoto) {
 
         File file = FileUtils.getFile(this, fileUri);
-        File mSelectedFile = new File(getExternalFilesDir(null), String.format("%s.jpg",
+        mSelectedFile = new File(getExternalFilesDir(null), String.format("%s.jpg",
                 Calendar.getInstance().getTimeInMillis()));
         try {
 
@@ -446,5 +511,4 @@ public class AddTripActivity extends OwnCoreActivity {
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .into(imageTripCover);
     }
-
 }

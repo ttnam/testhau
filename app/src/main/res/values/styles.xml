@@ -2,7 +2,6 @@
 <resources>
 
     <style name="AppTheme" parent="CoreAppTheme">
-        <item name="android:typeface">serif</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -10,7 +9,6 @@
 
     <style name="AppTheme.Fullscreen" parent="CoreAppTheme.Fullscreen">
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="android:typeface">serif</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
@@ -55,14 +53,6 @@
         <item name="android:background">@drawable/ic_style_button_round_none_default</item>
     </style>
 
-    <style name="AccentButton" parent="AppTheme">
-        <item name="colorButtonNormal">@color/Red</item>
-        <item name="android:textColorPrimary">@color/colorTextColorPrimary</item>
-        <item name="android:singleLine">true</item>
-        <item name="android:textAllCaps">true</item>
-        <item name="android:colorBackground">@color/colorWindowBackground</item>
-    </style>
-
     <style name="AppTheme.TextInputLayout" parent="@android:style/TextAppearance">
         <item name="android:textColor">@color/colorAccent</item>
     </style>
@@ -70,10 +60,6 @@
     <style name="AppTheme.TextInputEditText" parent="Theme.AppCompat.Light">
         <item name="colorControlNormal">@color/colorPrimary</item>
         <item name="colorControlActivated">@color/colorAccent</item>
-    </style>
-
-    <style name="AppTheme.CircularProgress" parent="Theme.AppCompat.Light">
-        <item name="colorAccent">@color/colorAccent</item>
     </style>
 
 </resources>

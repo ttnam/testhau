@@ -293,9 +293,8 @@ public class TripActivity extends OwnCoreActivity {
             DialogTripStatus dialogTripStatus = new DialogTripStatus(this, new DialogTripStatus.OnSelectListener() {
                 @Override
                 public void select(int type) {
-
-                    IzigoSdk.TripExecutor.changeStatus(
-                            AppConfig.getInstance().getCurrentTripId(), type + "", new IgCallback<Void, String>() {
+                    IzigoSdk.TripExecutor.updateTripStatus(AppConfig.getInstance().getCurrentTripId(), String.valueOf(type),
+                            new IgCallback<Void, String>() {
                                 @Override
                                 public void onSuccessful(Void aVoid) {
                                     ToastUtils.showToast(TripActivity.this, getString(R.string.str_success));
@@ -317,15 +316,6 @@ public class TripActivity extends OwnCoreActivity {
             });
             dialogTripStatus.show();
             dialogTripStatus.setCurrentStatus(mIgTrip.getStatus());
-        } else
-            ToastUtils.showToast(this, "Yêu cầu không được chấp nhận, vui lòng liên hệ admin!");
-    }
-
-    @OnClick(R.id.layout_delete)
-    public void delete() {
-        closeMenu();
-        if (mIgTrip.getRole() == RoleType.ADMIN) {
-
         } else
             ToastUtils.showToast(this, "Yêu cầu không được chấp nhận, vui lòng liên hệ admin!");
     }
@@ -392,7 +382,7 @@ public class TripActivity extends OwnCoreActivity {
 
     @OnClick(R.id.button_publish)
     public void togglePublish() {
-        IzigoSdk.TripExecutor.publishTrip(AppConfig.getInstance().getCurrentTripId(),
+        IzigoSdk.TripExecutor.updateTripPublishStatus(AppConfig.getInstance().getCurrentTripId(),
                 buttonPublish.isChecked(),
                 new IgCallback<Void, String>() {
                     @Override

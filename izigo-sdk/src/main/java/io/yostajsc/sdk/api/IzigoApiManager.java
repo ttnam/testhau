@@ -20,11 +20,8 @@ import io.yostajsc.sdk.api.model.user.IgFriend;
 import io.yostajsc.sdk.api.model.trip.IgTrip;
 import io.yostajsc.sdk.api.model.IgCallback;
 import io.yostajsc.sdk.api.model.user.IgUser;
-import io.yostajsc.sdk.api.model.TripTypePermission;
 import io.yostajsc.sdk.api.model.token.IgToken;
 import io.yostajsc.sdk.api.response.BaseResponse;
-import io.yostajsc.sdk.consts.CallBack;
-import io.yostajsc.sdk.consts.CallBackWith;
 import io.yostajsc.sdk.utils.FileUtils;
 import okhttp3.Interceptor;
 import okhttp3.MediaType;
@@ -125,9 +122,9 @@ class IzigoApiManager {
         });
     }
 
-    public void getAllPublicTrips(String authorization, final IgCallback<List<IgTrip>, String> callback) {
+    void getAllPublicTrips(String authorization, final IgCallback<List<IgTrip>, String> callback) {
         try {
-            Call<BaseResponse<List<IgTrip>>> call = service.apiGetAllPublicTrips(authorization);
+            Call<BaseResponse<List<IgTrip>>> call = service.getAllPublicTrips(authorization);
             call.enqueue(new Callback<BaseResponse<List<IgTrip>>>() {
                 @Override
                 public void onResponse(Call<BaseResponse<List<IgTrip>>> call, Response<BaseResponse<List<IgTrip>>> response) {
@@ -158,7 +155,7 @@ class IzigoApiManager {
 
     public void getAllOwnTripsList(String authorization, int type, final IgCallback<List<IgTrip>, String> callback) {
         try {
-            Call<BaseResponse<List<IgTrip>>> call = service.apiGetAllOwnTrips(authorization, type);
+            Call<BaseResponse<List<IgTrip>>> call = service.getAllOwnTrips(authorization, type);
             call.enqueue(new Callback<BaseResponse<List<IgTrip>>>() {
                 @Override
                 public void onResponse(Call<BaseResponse<List<IgTrip>>> call, Response<BaseResponse<List<IgTrip>>> response) {
@@ -185,7 +182,7 @@ class IzigoApiManager {
     }
 
     void updateFcm(String authorization, String fcm, final IgCallback<Void, String> callback) {
-        Call<BaseResponse> call = service.apiUpdateFcm(authorization, fcm);
+        Call<BaseResponse> call = service.updateFcm(authorization, fcm);
         call.enqueue(new Callback<BaseResponse>() {
             @Override
             public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
@@ -204,7 +201,7 @@ class IzigoApiManager {
 
     void getTripDetail(String authorization, String tripId, final IgCallback<IgTrip, String> callback) {
 
-        Call<BaseResponse<IgTrip>> call = service.apiGetTripDetail(authorization, tripId);
+        Call<BaseResponse<IgTrip>> call = service.getTripDetail(authorization, tripId);
 
         call.enqueue(new Callback<BaseResponse<IgTrip>>() {
             @Override
@@ -228,20 +225,22 @@ class IzigoApiManager {
         });
     }
 
-    public void getUserInfo(String authorization, final IgCallback<IgUser, String> callback) {
+    void getUserInfo(String authorization, final IgCallback<IgUser, String> callback) {
 
-        Call<BaseResponse<IgUser>> call = service.apiGetUserInfo(authorization);
+        Call<BaseResponse<IgUser>> call = service.getUserInfo(authorization);
         call.enqueue(new Callback<BaseResponse<IgUser>>() {
             @Override
             public void onResponse(Call<BaseResponse<IgUser>> call, Response<BaseResponse<IgUser>> response) {
                 if (response.isSuccessful()) {
                     BaseResponse<IgUser> res = response.body();
-                    if (res.isSuccessful()) {
-                        callback.onSuccessful(res.data());
-                    } else if (res.isExpired()) {
-                        callback.onExpired();
-                    } else {
-                        callback.onFail(res.getDescription());
+                    if (res != null) {
+                        if (res.isSuccessful()) {
+                            callback.onSuccessful(res.data());
+                        } else if (res.isExpired()) {
+                            callback.onExpired();
+                        } else {
+                            callback.onFail(res.getDescription());
+                        }
                     }
                 }
             }
@@ -254,21 +253,50 @@ class IzigoApiManager {
 
     }
 
-    public void addTrip(String authorization, String groupName, String arrive, String depart, String description, int transfer,
-                        final IgCallback<String, String> callback) {
-        Call<BaseResponse<String>> call = service.addTrip(authorization, groupName, arrive, depart, description, transfer);
+    void addTrip(String authorization, @FieldMap Map<String, String> fields, final IgCallback<String, String> callback) {
+
+        Call<BaseResponse<String>> call = service.addTrip(authorization, fields);
         call.enqueue(new Callback<BaseResponse<String>>() {
             @Override
             public void onResponse(Call<BaseResponse<String>> call, Response<BaseResponse<String>> response) {
 
                 if (response.isSuccessful()) {
                     BaseResponse<String> res = response.body();
-                    if (res.isExpired())
-                        callback.onExpired();
-                    else if (res.isSuccessful())
-                        callback.onSuccessful(res.data());
-                    else
-                        callback.onFail(res.getDescription());
+                    if (res != null) {
+                        if (res.isExpired())
+                            callback.onExpired();
+                        else if (res.isSuccessful())
+                            callback.onSuccessful(res.data());
+                        else
+                            callback.onFail(res.getDescription());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BaseResponse<String>> call, Throwable throwable) {
+                callback.onFail(throwable.getMessage());
+            }
+        });
+    }
+
+    void updateTrip(String authorization, String tripId, @FieldMap Map<String, String> fields, final IgCallback<Void, String> callback) {
+
+        Call<BaseResponse<String>> call = service.updateTrip(authorization, tripId, fields);
+        call.enqueue(new Callback<BaseResponse<String>>() {
+            @Override
+            public void onResponse(Call<BaseResponse<String>> call, Response<BaseResponse<String>> response) {
+
+                if (response.isSuccessful()) {
+                    BaseResponse<String> res = response.body();
+                    if (res != null) {
+                        if (res.isExpired())
+                            callback.onExpired();
+                        else if (res.isSuccessful())
+                            callback.onSuccessful(null);
+                        else
+                            callback.onFail(res.getDescription());
+                    }
                 }
             }
 
@@ -305,36 +333,8 @@ class IzigoApiManager {
         });
     }
 
-
-    public void getGroupDetail(String authorization, String groupId,
-                               final CallBackWith<String> success,
-                               final CallBackWith<String> fail,
-                               final CallBack expired) {
-        Call<BaseResponse<String>> call = service.apiGetGroupDetail(authorization, groupId);
-        call.enqueue(new Callback<BaseResponse<String>>() {
-            @Override
-            public void onResponse(Call<BaseResponse<String>> call, Response<BaseResponse<String>> response) {
-                if (response.isSuccessful()) {
-                    BaseResponse<String> res = response.body();
-                    if (res.isSuccessful()) {
-                        success.run(res.data());
-                    } else if (res.isExpired()) {
-                        expired.run();
-                    } else {
-                        fail.run(res.getDescription());
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<BaseResponse<String>> call, Throwable throwable) {
-                Log.e(TAG, throwable.getMessage());
-            }
-        });
-    }
-
-    public void updateProfile(String authorization, Map<String, String> body,
-                              final IgCallback<Void, String> callback) {
+    void updateProfile(String authorization, Map<String, String> body,
+                       final IgCallback<Void, String> callback) {
         Call<BaseResponse> call = service.updateUserInfo(authorization, body);
         call.enqueue(new Callback<BaseResponse>() {
             @Override
@@ -359,7 +359,7 @@ class IzigoApiManager {
     }
 
     public void getComments(String authorization, String tripId, final IgCallback<List<IgComment>, String> callback) {
-        Call<BaseResponse<List<IgComment>>> call = service.apiGetComments(authorization, tripId);
+        Call<BaseResponse<List<IgComment>>> call = service.getComments(authorization, tripId);
         call.enqueue(new Callback<BaseResponse<List<IgComment>>>() {
             @Override
             public void onResponse(Call<BaseResponse<List<IgComment>>> call, Response<BaseResponse<List<IgComment>>> response) {
@@ -385,7 +385,7 @@ class IzigoApiManager {
     public void getActivities(String authorization, String tripId,
                               final IgCallback<List<IgTimeline>, String> callback) {
 
-        Call<BaseResponse<List<IgTimeline>>> call = service.apiGetActivities(authorization, tripId);
+        Call<BaseResponse<List<IgTimeline>>> call = service.getActivities(authorization, tripId);
         call.enqueue(new Callback<BaseResponse<List<IgTimeline>>>() {
             @Override
             public void onResponse(Call<BaseResponse<List<IgTimeline>>> call, Response<BaseResponse<List<IgTimeline>>> response) {
@@ -434,7 +434,7 @@ class IzigoApiManager {
 
     void apiTrackingTripView(String authorization, String tripId) {
 
-        Call<BaseResponse<String>> call = service.apiUpdateView(authorization, tripId);
+        Call<BaseResponse<String>> call = service.updateTripView(authorization, tripId);
 
         call.enqueue(new Callback<BaseResponse<String>>() {
             @Override
@@ -454,55 +454,21 @@ class IzigoApiManager {
         });
     }
 
-    void updateTripInfo(String authorization, String tripId, String data, int type,
-                        final IgCallback<Void, String> callback) {
-
-        Call<BaseResponse<String>> call = service.apiUpdateTripCover(authorization, tripId, data);
-
-        if (type == TripTypePermission.NAME) {
-            call = service.changeName(authorization, tripId, data);
-        } else if (type == TripTypePermission.IS_PUBLISH) {
-            call = service.publish(authorization, tripId, data);
-        } else if (type == TripTypePermission.STATUS) {
-            call = service.changeStatus(authorization, tripId, data);
-        }
-        call.enqueue(new Callback<BaseResponse<String>>() {
-            @Override
-            public void onResponse(Call<BaseResponse<String>> call, Response<BaseResponse<String>> response) {
-                if (response.isSuccessful()) {
-                    BaseResponse<String> res = response.body();
-                    if (res.isSuccessful()) {
-                        callback.onSuccessful(null);
-                    } else if (res.isExpired()) {
-                        callback.onExpired();
-                    } else {
-                        callback.onFail(res.getDescription());
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<BaseResponse<String>> call, Throwable throwable) {
-                callback.onFail(throwable.getMessage());
-            }
-        });
-    }
-
-    public void join(String authorization, String tripId, final IgCallback<Void, String> callback) {
-
-
+    void join(String authorization, String tripId, final IgCallback<Void, String> callback) {
         Call<BaseResponse<String>> call = service.join(authorization, tripId);
         call.enqueue(new Callback<BaseResponse<String>>() {
             @Override
             public void onResponse(Call<BaseResponse<String>> call, Response<BaseResponse<String>> response) {
                 if (response.isSuccessful()) {
                     BaseResponse<String> res = response.body();
-                    if (res.isSuccessful())
-                        callback.onSuccessful(null);
-                    else if (res.isExpired())
-                        callback.onExpired();
-                    else
-                        callback.onFail(res.getDescription());
+                    if (res != null) {
+                        if (res.isSuccessful())
+                            callback.onSuccessful(null);
+                        else if (res.isExpired())
+                            callback.onExpired();
+                        else
+                            callback.onFail(res.getDescription());
+                    }
                 }
             }
 
@@ -722,7 +688,7 @@ class IzigoApiManager {
                 imagesParts[i] = MultipartBody.Part.createFormData(i + "", file.getName(), requestFile);
             }
 
-            Call<BaseResponse> call = service.uploadImages(authorization, tripId, imagesParts);
+            Call<BaseResponse> call = service.uploadTripAlbum(authorization, tripId, imagesParts);
             call.enqueue(new Callback<BaseResponse>() {
                 @Override
                 public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
@@ -760,7 +726,7 @@ class IzigoApiManager {
 
         RequestBody rTripId = RequestBody.create(okhttp3.MultipartBody.FORM, tripId);
 
-        Call<BaseResponse> call = service.uploadCover(authorization, rTripId, body);
+        Call<BaseResponse> call = service.uploadTripCover(authorization, rTripId, body);
         call.enqueue(new Callback<BaseResponse>() {
             @Override
             public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {

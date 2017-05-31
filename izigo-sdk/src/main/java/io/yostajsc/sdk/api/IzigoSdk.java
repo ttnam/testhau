@@ -1,10 +1,7 @@
 package io.yostajsc.sdk.api;
 
 import android.app.Application;
-import android.util.Log;
-
 import java.io.File;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,10 +19,9 @@ import io.yostajsc.sdk.consts.IgError;
 import io.yostajsc.sdk.api.model.IgCallback;
 import io.yostajsc.sdk.api.model.user.IgUser;
 import io.yostajsc.sdk.api.model.token.IgToken;
-import io.yostajsc.sdk.api.model.TripTypePermission;
-import io.yostajsc.sdk.utils.FileUtils;
 import io.yostajsc.sdk.utils.LogUtils;
 import io.yostajsc.sdk.utils.PrefsUtils;
+import retrofit2.http.FieldMap;
 
 /**
  * Created by nphau on 4/26/17.
@@ -69,61 +65,6 @@ public class IzigoSdk {
     public static class TripExecutor {
 
         private final static String TAG = TripExecutor.class.getSimpleName();
-
-        public static void publishTrip(String tripId, boolean isPublish, IgCallback<Void, String> callback) {
-            if (IzigoSession.isLoggedIn()) {
-                String auth = IzigoSession.getToken().getToken();
-                IzigoApiManager.connect().updateTripInfo(
-                        auth,
-                        tripId,
-                        isPublish ? "1" : "0",
-                        TripTypePermission.IS_PUBLISH,
-                        callback);
-            } else {
-                callback.onExpired();
-            }
-        }
-
-        public static void changeCover(String tripId, String url, IgCallback<Void, String> callback) {
-            if (IzigoSession.isLoggedIn()) {
-                String auth = IzigoSession.getToken().getToken();
-                IzigoApiManager.connect().updateTripInfo(
-                        auth,
-                        tripId,
-                        url,
-                        TripTypePermission.COVER, callback);
-            } else {
-                callback.onExpired();
-            }
-        }
-
-        public static void changeName(String tripId, String name, IgCallback<Void, String> callback) {
-            if (IzigoSession.isLoggedIn()) {
-                String auth = IzigoSession.getToken().getToken();
-                IzigoApiManager.connect().updateTripInfo(
-                        auth,
-                        tripId,
-                        name,
-                        TripTypePermission.NAME,
-                        callback);
-            } else {
-                callback.onExpired();
-            }
-        }
-
-        public static void changeStatus(String tripId, String status, IgCallback<Void, String> callback) {
-            if (IzigoSession.isLoggedIn()) {
-                String auth = IzigoSession.getToken().getToken();
-                IzigoApiManager.connect().updateTripInfo(
-                        auth,
-                        tripId,
-                        status,
-                        TripTypePermission.STATUS,
-                        callback);
-            } else {
-                callback.onExpired();
-            }
-        }
 
         public static void increaseTripView(String tripId) {
             if (IzigoSession.isLoggedIn()) {
@@ -243,11 +184,37 @@ public class IzigoSdk {
             }
         }
 
-        public static void addTrip(String groupName, String arrive, String depart, String description, int transfer,
-                                   final IgCallback<String, String> callback) {
+        public static void addTrip(@FieldMap Map<String, String> fields, final IgCallback<String, String> callback) {
+
             if (IzigoSession.isLoggedIn()) {
                 String auth = IzigoSession.getToken().getToken();
-                IzigoApiManager.connect().addTrip(auth, groupName, arrive, depart, description, transfer, callback);
+                IzigoApiManager.connect().addTrip(auth, fields, callback);
+            }
+        }
+
+        public static void updateTrip(String tripId, @FieldMap Map<String, String> fields, final IgCallback<Void, String> callback) {
+
+            if (IzigoSession.isLoggedIn()) {
+                String auth = IzigoSession.getToken().getToken();
+                IzigoApiManager.connect().updateTrip(auth, tripId, fields, callback);
+            }
+        }
+
+        public static void updateTripStatus(String tripId, String status, final IgCallback<Void, String> callback) {
+            if (IzigoSession.isLoggedIn()) {
+                String auth = IzigoSession.getToken().getToken();
+                final Map<String, String> fields = new HashMap<>();
+                fields.put("status", status);
+                IzigoApiManager.connect().updateTrip(auth, tripId, fields, callback);
+            }
+        }
+
+        public static void updateTripPublishStatus(String tripId, boolean isPublished, final IgCallback<Void, String> callback) {
+            if (IzigoSession.isLoggedIn()) {
+                String auth = IzigoSession.getToken().getToken();
+                final Map<String, String> fields = new HashMap<>();
+                fields.put("is_published", isPublished ? "1" : "0");
+                IzigoApiManager.connect().updateTrip(auth, tripId, fields, callback);
             }
         }
 
