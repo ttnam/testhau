@@ -34,7 +34,7 @@ import io.yostajsc.izigo.usecase.MembersActivity;
 import io.yostajsc.izigo.usecase.OwnCoreActivity;
 import io.yostajsc.izigo.usecase.map.MapsActivity;
 import io.yostajsc.izigo.usecase.trip.adapter.TimelineAdapter;
-import io.yostajsc.izigo.utils.UiUtils;
+import io.yostajsc.izigo.ui.UiUtils;
 import io.yostajsc.sdk.api.IzigoSdk;
 import io.yostajsc.sdk.api.model.IgCallback;
 import io.yostajsc.sdk.api.model.IgTimeline;
@@ -106,13 +106,13 @@ public class TripActivity extends OwnCoreActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trip);
         ButterKnife.bind(this);
-        TripActivityView.bind(this);
+        TripActivityHelper.bind(this);
         onApplyViews();
     }
 
     @Override
     protected void onDestroy() {
-        TripActivityView.unbind();
+        TripActivityHelper.unbind();
         super.onDestroy();
     }
 
@@ -210,18 +210,18 @@ public class TripActivity extends OwnCoreActivity {
             }
         }
 
-        TripActivityView.setTripName(igTrip.getName());
-        TripActivityView.setVehicle(igTrip.getTransfer());                        // Transfer
-        TripActivityView.setTripStatus(igTrip.getStatus());                       // Status
-        TripActivityView.setTripCover(igTrip.getCoverUrl());
-        TripActivityView.setOwnerAvatar(igTrip.getCreatorAvatar());
-        TripActivityView.setFromTo(igTrip.getFrom(), igTrip.getTo());             // From, To
-        TripActivityView.showTripDescription(igTrip.getDescription());            // Description
-        TripActivityView.setTime(
+        TripActivityHelper.setTripName(igTrip.getName());
+        TripActivityHelper.setVehicle(igTrip.getTransfer());                        // Transfer
+        TripActivityHelper.setTripStatus(igTrip.getStatus());                       // Status
+        TripActivityHelper.setTripCover(igTrip.getCoverUrl());
+        TripActivityHelper.setOwnerAvatar(igTrip.getCreatorAvatar());
+        TripActivityHelper.setFromTo(igTrip.getFrom(), igTrip.getTo());             // From, To
+        TripActivityHelper.showTripDescription(igTrip.getDescription());            // Description
+        TripActivityHelper.setTime(
                 igTrip.getDepartTime(),
                 igTrip.getArriveTime()); // Time
-        TripActivityView.isPublish(igTrip.isPublished());                         // is publish
-        TripActivityView.switchMode(igTrip.getRole());                            // Mode, is publish
+        TripActivityHelper.isPublish(igTrip.isPublished());                         // is publish
+        TripActivityHelper.switchMode(igTrip.getRole());                            // Mode, is publish
     }
 
     @OnClick(R.id.button_open_menu)

@@ -15,13 +15,12 @@ import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Polyline;
 
@@ -46,7 +45,7 @@ import io.yostajsc.sdk.api.IzigoSdk;
 import io.yostajsc.sdk.api.model.IgCallback;
 import io.yostajsc.sdk.api.model.trip.IgPlace;
 import io.yostajsc.sdk.api.model.trip.IgTrip;
-import io.yostajsc.izigo.utils.UiUtils;
+import io.yostajsc.izigo.ui.UiUtils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -143,10 +142,9 @@ public class AddTripActivity extends OwnCoreActivity {
             editDescription.setText(igTrip.getDescription());       // Description
             UiUtils.showTransfer(igTrip.getTransfer(), imageView);  // Transfer
 
-            Glide.with(this).load(igTrip.getCoverUrl())
-                    .priority(Priority.IMMEDIATE)
-                    .animate(R.anim.anim_fade_in)
-                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+            Glide.with(this).clear(imageTripCover);
+            Glide.with(this)
+                    .load(igTrip.getCoverUrl())
                     .into(imageTripCover);
         }
     }
@@ -504,11 +502,14 @@ public class AddTripActivity extends OwnCoreActivity {
             e.printStackTrace();
         }
 
-        Glide.with(this).load(mSelectedFile)
-                .priority(Priority.IMMEDIATE)
-                .animate(R.anim.anim_fade_in)
-                .error(R.drawable.ic_style_rect_round_corners_dark_gray_none)
-                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+        Glide.with(this).clear(imageTripCover);
+        Glide.with(this)
+                .load(mSelectedFile)
+                .apply(new RequestOptions()
+                        .dontAnimate()
+                        .dontTransform()
+                        .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                        .error(R.drawable.ic_style_rect_round_corners_gray_none))
                 .into(imageTripCover);
     }
 }

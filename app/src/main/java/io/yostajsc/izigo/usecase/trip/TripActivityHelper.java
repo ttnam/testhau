@@ -1,68 +1,54 @@
 package io.yostajsc.izigo.usecase.trip;
-import android.view.View;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.Priority;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import android.view.View;
 
 import io.yostajsc.izigo.constants.RoleType;
 import io.yostajsc.sdk.utils.DatetimeUtils;
 import io.yostajsc.izigo.R;
 import io.yostajsc.sdk.api.model.trip.IgTripStatus;
-import io.yostajsc.izigo.utils.UiUtils;
-import io.yostajsc.sdk.glide.CropCircleTransformation;
+import io.yostajsc.izigo.ui.UiUtils;
 
 /**
  * Created by nphau on 4/7/17.
  */
 
-public class TripActivityView {
+public class TripActivityHelper {
 
     private static final String ERROR_UNBOUND = "You must bind first!";
 
     private static TripActivity mActivity = null;
-    private static TripActivityView mInstance = null;
+    private static TripActivityHelper mInstance = null;
 
-    private TripActivityView(TripActivity activity) {
+    private TripActivityHelper(TripActivity activity) {
         mActivity = activity;
     }
 
-    public static synchronized TripActivityView bind(TripActivity activity) {
-        mInstance = new TripActivityView(activity);
+    public static synchronized TripActivityHelper bind(TripActivity activity) {
+        mInstance = new TripActivityHelper(activity);
         return mInstance;
     }
 
-    public static void setOwnerAvatar(String url) {
+    static void setOwnerAvatar(String url) {
         try {
             if (mInstance == null)
                 throw new Exception(ERROR_UNBOUND);
-            Glide.with(mActivity)
-                    .load(url)
-                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                    .animate(R.anim.anim_fade_in)
-                    .error(R.drawable.ic_profile_holder)
-                    .bitmapTransform(new CropCircleTransformation(mActivity))
-                    .into(mActivity.imageCreatorAvatar);
+            UiUtils.showAvatar(mActivity, url, mActivity.imageCreatorAvatar);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public static void setTripCover(String url) {
+    static void setTripCover(String url) {
         try {
             if (mInstance == null)
                 throw new Exception(ERROR_UNBOUND);
-            Glide.with(mActivity).load(url)
-                    .priority(Priority.IMMEDIATE)
-                    .animate(R.anim.anim_fade_in)
-                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                    .into(mActivity.imageTripCover);
+            UiUtils.showImage(mActivity, url, mActivity.imageTripCover);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public static void setVehicle(int transfer) {
+    static void setVehicle(int transfer) {
         try {
             if (mInstance == null)
                 throw new Exception(ERROR_UNBOUND);
@@ -72,7 +58,7 @@ public class TripActivityView {
         }
     }
 
-    public static void setTripStatus(int status) {
+    static void setTripStatus(int status) {
         try {
             if (mInstance == null)
                 throw new Exception(ERROR_UNBOUND);
@@ -91,7 +77,7 @@ public class TripActivityView {
         }
     }
 
-    public static void showTripDescription(String content) {
+    static void showTripDescription(String content) {
         try {
             if (mInstance == null)
                 throw new Exception(ERROR_UNBOUND);
@@ -101,7 +87,7 @@ public class TripActivityView {
         }
     }
 
-    public static void setTripName(String name) {
+    static void setTripName(String name) {
         try {
             if (mInstance == null)
                 throw new Exception(ERROR_UNBOUND);
@@ -111,7 +97,7 @@ public class TripActivityView {
         }
     }
 
-    public static void setTime(long depart, long arrive) {
+    static void setTime(long depart, long arrive) {
         try {
             if (mInstance == null)
                 throw new Exception(ERROR_UNBOUND);
@@ -122,7 +108,7 @@ public class TripActivityView {
         }
     }
 
-    public static void switchMode(int roleType) {
+    static void switchMode(int roleType) {
         try {
             if (mInstance == null)
                 throw new Exception(ERROR_UNBOUND);
@@ -147,7 +133,7 @@ public class TripActivityView {
         }
     }
 
-    public static void setFromTo(String from, String to) {
+     static void setFromTo(String from, String to) {
         try {
             if (mInstance == null)
                 throw new Exception(ERROR_UNBOUND);
@@ -163,7 +149,7 @@ public class TripActivityView {
         mInstance = null;
     }
 
-    public static void isPublish(boolean published) {
+    static void isPublish(boolean published) {
         try {
             if (mInstance == null)
                 throw new Exception(ERROR_UNBOUND);

@@ -1,5 +1,6 @@
-package io.yostajsc.izigo.utils;
+package io.yostajsc.izigo.ui;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,6 +9,12 @@ import android.text.TextUtils;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.widget.ImageView;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.Priority;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 
 import io.yostajsc.izigo.usecase.trip.TransferType;
 import io.yostajsc.sdk.consts.CallBackWith;
@@ -90,4 +97,27 @@ public class UiUtils {
         }
     }
 
+    public static void showImage(Context context, String url, ImageView imageView) {
+        Glide.with(context)
+                .load(url)
+                .apply(new RequestOptions()
+                        .dontTransform()
+                        .dontAnimate()
+                        .priority(Priority.IMMEDIATE)
+                        .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                        .error(R.drawable.ic_style_rect_round_none_gray_none))
+                .into(imageView);
+    }
+
+    public static void showAvatar(Context context, String url, ImageView imageView) {
+        Glide.with(context)
+                .load(url)
+                .apply(new RequestOptions()
+                        .dontAnimate()
+                        .circleCrop()
+                        .priority(Priority.IMMEDIATE)
+                        .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                        .error(R.drawable.ic_profile_holder))
+                .into(imageView);
+    }
 }

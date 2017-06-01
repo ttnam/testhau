@@ -9,10 +9,10 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.yostajsc.sdk.glide.CropCircleTransformation;
 import io.yostajsc.izigo.R;
 
 /**
@@ -41,13 +41,17 @@ public class ActiveMemberOnMapsViewHolder extends RecyclerView.ViewHolder {
         this.mContext = itemView.getContext();
     }
 
-    public void bind(@NonNull String avatar, @NonNull String name,
+    public void bind(@NonNull String url, @NonNull String name,
                      String distance, String time, boolean isVisible) {
 
         Glide.with(mContext)
-                .load(avatar)
-                .bitmapTransform(new CropCircleTransformation(mContext))
-                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                .load(url)
+                .apply(new RequestOptions()
+                        .dontAnimate()
+                        .dontTransform()
+                        .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                        .circleCrop()
+                        .error(io.yostajsc.sdk.R.drawable.ic_style_rect_round_corners_gray_none))
                 .into(imageAvatar);
 
         this.textName.setText(name);

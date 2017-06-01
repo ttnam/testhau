@@ -20,7 +20,7 @@ import io.yostajsc.izigo.usecase.base.BaseFragment;
 import io.yostajsc.sdk.api.IzigoSdk;
 import io.yostajsc.sdk.api.model.IgCallback;
 import io.yostajsc.sdk.api.model.IgNotification;
-import io.yostajsc.izigo.utils.UiUtils;
+import io.yostajsc.izigo.ui.UiUtils;
 import jp.wasabeef.recyclerview.animators.SlideInRightAnimator;
 
 public class NotificationFragment extends BaseFragment {

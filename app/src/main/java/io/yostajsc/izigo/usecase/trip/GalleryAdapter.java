@@ -11,7 +11,9 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -121,7 +123,11 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryV
             if (!TextUtils.isEmpty(url)) {
                 Glide.with(itemView.getContext())
                         .load(url)
-                        .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                        .apply(new RequestOptions()
+                                .dontTransform()
+                                .priority(Priority.IMMEDIATE)
+                                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                                .error(io.yostajsc.izigo.R.drawable.ic_profile_holder))
                         .into(imageView);
             }
         }

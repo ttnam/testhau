@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,6 +22,7 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.yostajsc.izigo.ui.UiUtils;
 import io.yostajsc.sdk.utils.ToastUtils;
 import io.yostajsc.izigo.AppConfig;
 import io.yostajsc.sdk.fragments.CoreFragment;
@@ -83,11 +85,7 @@ public class SettingsFragment extends CoreFragment {
         editName.setText(igUser.getFullName());
         editName.setSelection(editName.getText().length());
 
-        Glide.with(mContext)
-                .load(igUser.getAvatar())
-                .priority(Priority.IMMEDIATE)
-                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                .into(imageAvatar);
+        UiUtils.showAvatar(mContext, igUser.getAvatar(), imageAvatar);
 
         textEmail.setText(Html.fromHtml(String.format("<b>Email: </b> %s", igUser.getEmail())));
         textGender.setText(Html.fromHtml(String.format("<b>Gender: </b> %s", igUser.getGender())));

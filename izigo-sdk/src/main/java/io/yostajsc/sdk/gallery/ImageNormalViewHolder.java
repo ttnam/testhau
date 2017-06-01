@@ -9,6 +9,7 @@ import android.view.View;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 
 import io.yostajsc.sdk.R;
 
@@ -41,9 +42,15 @@ public class ImageNormalViewHolder extends RecyclerView.ViewHolder {
 
     public void bind(String url, OnClick onClickListener) {
         if (!TextUtils.isEmpty(url)) {
+
+            Glide.with(mContext).clear(imageView);
             Glide.with(mContext)
                     .load(url)
-                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                    .apply(new RequestOptions()
+                            .dontAnimate()
+                            .dontTransform()
+                            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                            .error(R.drawable.ic_style_rect_round_corners_gray_none))
                     .into(imageView);
         }
         setOnClickListener(onClickListener);

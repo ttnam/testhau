@@ -8,16 +8,13 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-
 import java.util.Calendar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.yostajsc.sdk.utils.DatetimeUtils;
 import io.yostajsc.izigo.R;
-import io.yostajsc.sdk.glide.CropCircleTransformation;
+import io.yostajsc.izigo.ui.UiUtils;
+import io.yostajsc.sdk.utils.DatetimeUtils;
 
 /**
  * Created by Phuc-Hau Nguyen on 8/25/2016.
@@ -44,25 +41,16 @@ public class NotificationVH extends RecyclerView.ViewHolder {
         ButterKnife.bind(this, itemView);
     }
 
-    public void bind(String avatarUrl, String message, String time, String coverUrl) {
+    public void bind(String url, String message, String time, String coverUrl) {
 
-        if (!TextUtils.isEmpty(avatarUrl)) {
-            Glide.with(mContext)
-                    .load(avatarUrl)
-                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                    .error(R.drawable.ic_profile_holder)
-                    .bitmapTransform(new CropCircleTransformation(mContext))
-                    .into(this.imageView);
+        if (!TextUtils.isEmpty(url)) {
+            UiUtils.showAvatar(mContext, url, imageView);
         }
         if (!TextUtils.isEmpty(coverUrl)) {
-            Glide.with(mContext)
-                    .load(coverUrl)
-                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                    .into(this.imageCover);
+            UiUtils.showImage(mContext, coverUrl, imageCover);
         }
 
         textView.setText(Html.fromHtml(message));
-
         textViewMore.setText(DatetimeUtils.getTimeGap(mContext, Calendar.getInstance().getTimeInMillis() - Long.parseLong(time)));
     }
 

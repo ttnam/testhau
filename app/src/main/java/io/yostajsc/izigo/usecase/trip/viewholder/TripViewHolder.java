@@ -3,14 +3,14 @@ package io.yostajsc.izigo.usecase.trip.viewholder;
 import android.content.Context;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.yostajsc.izigo.ui.UiUtils;
 import io.yostajsc.sdk.utils.DimensionUtil;
 import io.yostajsc.izigo.R;
 
@@ -43,7 +43,10 @@ public class TripViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void bind(String cover, String name, int views, String duration) {
-        Glide.with(mContext).load(cover).into(this.mImageView);
+
+        if (!TextUtils.isEmpty(cover))
+            UiUtils.showImage(mContext, cover, mImageView);
+
         this.mTextTitle.setText(name);
         this.mTextDuration.setText(duration);
         this.textViews.setText(String.valueOf(views));

@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Polyline;
 
@@ -68,9 +69,13 @@ public class SuggestionView extends CardView {
 
             mLink = link;
 
-            Glide.with(getContext()).load(cover)
-                    .priority(Priority.IMMEDIATE)
-                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+            Glide.with(getContext())
+                    .load(cover)
+                    .apply(new RequestOptions()
+                            .dontTransform()
+                            .priority(Priority.IMMEDIATE)
+                            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                            .error(R.drawable.ic_profile_holder))
                     .into(imageCover);
 
             if (!TextUtils.isEmpty(name)) {
