@@ -13,8 +13,8 @@ import java.util.Calendar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.yostajsc.izigo.R;
-import io.yostajsc.izigo.ui.UiUtils;
 import io.yostajsc.sdk.utils.DatetimeUtils;
+import io.yostajsc.sdk.utils.GlideUtils;
 
 /**
  * Created by Phuc-Hau Nguyen on 8/25/2016.
@@ -24,10 +24,10 @@ public class NotificationVH extends RecyclerView.ViewHolder {
     protected Context mContext;
 
     @BindView(R.id.image_view)
-    AppCompatImageView imageView;
+    AppCompatImageView imageViewAvatar;
 
     @BindView(R.id.image_cover)
-    AppCompatImageView imageCover;
+    AppCompatImageView imageViewCover;
 
     @BindView(R.id.text_view)
     TextView textView;
@@ -44,10 +44,10 @@ public class NotificationVH extends RecyclerView.ViewHolder {
     public void bind(String url, String message, String time, String coverUrl) {
 
         if (!TextUtils.isEmpty(url)) {
-            UiUtils.showAvatar(mContext, url, imageView);
+            GlideUtils.showAvatar(url, imageViewAvatar);
         }
         if (!TextUtils.isEmpty(coverUrl)) {
-            UiUtils.showImage(mContext, coverUrl, imageCover);
+            GlideUtils.showImage(coverUrl, imageViewCover);
         }
 
         textView.setText(Html.fromHtml(message));

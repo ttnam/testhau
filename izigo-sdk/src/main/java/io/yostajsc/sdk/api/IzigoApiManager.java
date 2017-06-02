@@ -724,9 +724,7 @@ class IzigoApiManager {
         MultipartBody.Part body =
                 MultipartBody.Part.createFormData("cover", file.getName(), requestFile);
 
-        RequestBody rTripId = RequestBody.create(okhttp3.MultipartBody.FORM, tripId);
-
-        Call<BaseResponse> call = service.uploadTripCover(authorization, rTripId, body);
+        Call<BaseResponse> call = service.uploadTripCover(authorization, tripId, body);
         call.enqueue(new Callback<BaseResponse>() {
             @Override
             public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {

@@ -7,6 +7,7 @@ import io.yostajsc.sdk.utils.DatetimeUtils;
 import io.yostajsc.izigo.R;
 import io.yostajsc.sdk.api.model.trip.IgTripStatus;
 import io.yostajsc.izigo.ui.UiUtils;
+import io.yostajsc.sdk.utils.GlideUtils;
 
 /**
  * Created by nphau on 4/7/17.
@@ -32,7 +33,7 @@ public class TripActivityHelper {
         try {
             if (mInstance == null)
                 throw new Exception(ERROR_UNBOUND);
-            UiUtils.showAvatar(mActivity, url, mActivity.imageCreatorAvatar);
+            GlideUtils.showAvatar(url, mActivity.imageCreatorAvatar);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -42,7 +43,7 @@ public class TripActivityHelper {
         try {
             if (mInstance == null)
                 throw new Exception(ERROR_UNBOUND);
-            UiUtils.showImage(mActivity, url, mActivity.imageTripCover);
+            GlideUtils.showImage(url, mActivity.imageTripCover);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -133,7 +134,7 @@ public class TripActivityHelper {
         }
     }
 
-     static void setFromTo(String from, String to) {
+    static void setFromTo(String from, String to) {
         try {
             if (mInstance == null)
                 throw new Exception(ERROR_UNBOUND);

@@ -138,14 +138,14 @@ interface IzigoApiInterface {
             @Part MultipartBody.Part[] images);
 
     @FormUrlEncoded
-    @HTTP(method = "DELETE", path = "trips/{triId}/album", hasBody = true)
+    @HTTP(method = "DELETE", path = "trips/{tripId}/album", hasBody = true)
     Call<BaseResponse> deleteImage(@Header("authorization") String authorization,
-                                   @Path("triId") String tripId, @Field("id") String imageId);
+                                   @Path("tripId") String tripId, @Field("id") String imageId);
 
     @Multipart
-    @POST("trips/{tripId}/cover")
+    @PUT("trips/{tripId}/cover")
     Call<BaseResponse> uploadTripCover(
             @Header("authorization") String authorization,
-            @Part("tripId") RequestBody tripId,
+            @Path("tripId") String tripId,
             @Part MultipartBody.Part image);
 }

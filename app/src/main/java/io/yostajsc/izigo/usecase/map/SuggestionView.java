@@ -7,10 +7,6 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.Priority;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.RequestOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Polyline;
 
@@ -18,6 +14,7 @@ import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.usecase.map.utils.Info;
 import io.yostajsc.izigo.usecase.map.utils.MapUtils;
 import io.yostajsc.izigo.usecase.map.utils.RouteParserTask;
+import io.yostajsc.sdk.utils.GlideUtils;
 
 /**
  * Created by nphau on 5/28/17.
@@ -69,14 +66,7 @@ public class SuggestionView extends CardView {
 
             mLink = link;
 
-            Glide.with(getContext())
-                    .load(cover)
-                    .apply(new RequestOptions()
-                            .dontTransform()
-                            .priority(Priority.IMMEDIATE)
-                            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-                            .error(R.drawable.ic_profile_holder))
-                    .into(imageCover);
+            GlideUtils.showImage(cover, imageCover);
 
             if (!TextUtils.isEmpty(name)) {
                 textSuggestName.setText(name);

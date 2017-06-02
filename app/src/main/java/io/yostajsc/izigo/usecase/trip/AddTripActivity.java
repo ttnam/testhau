@@ -18,9 +18,6 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.RequestOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Polyline;
 
@@ -33,6 +30,7 @@ import io.yostajsc.izigo.usecase.map.utils.RouteParserTask;
 import io.yostajsc.sdk.consts.CallBackWith;
 import io.yostajsc.sdk.consts.MessageType;
 import io.yostajsc.sdk.utils.FileUtils;
+import io.yostajsc.sdk.utils.GlideUtils;
 import io.yostajsc.sdk.utils.LogUtils;
 import io.yostajsc.sdk.utils.ToastUtils;
 import io.yostajsc.izigo.R;
@@ -141,11 +139,7 @@ public class AddTripActivity extends OwnCoreActivity {
             textTripName.setText(igTrip.getName());                // Name
             editDescription.setText(igTrip.getDescription());       // Description
             UiUtils.showTransfer(igTrip.getTransfer(), imageView);  // Transfer
-
-            Glide.with(this).clear(imageTripCover);
-            Glide.with(this)
-                    .load(igTrip.getCoverUrl())
-                    .into(imageTripCover);
+            GlideUtils.showImage(igTrip.getCoverUrl(), imageTripCover);
         }
     }
 
@@ -502,14 +496,24 @@ public class AddTripActivity extends OwnCoreActivity {
             e.printStackTrace();
         }
 
-        Glide.with(this).clear(imageTripCover);
-        Glide.with(this)
-                .load(mSelectedFile)
-                .apply(new RequestOptions()
-                        .dontAnimate()
-                        .dontTransform()
-                        .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-                        .error(R.drawable.ic_style_rect_round_corners_gray_none))
-                .into(imageTripCover);
+        IzigoSdk.TripExecutor.uploadCover(mSelectedFile,
+                FileUtils.getMimeType(mSelectedFile),
+                AppConfig.getInstance().getCurrentTripId(),
+                new IgCallback<Void, String>() {
+                    @Override
+                    public void onSuccessful(Void aVoid) {
+                        LogUtils.log(TAG, "onSuccessful");
+                    }
+
+                    @Override
+                    public void onFail(String error) {
+                        LogUtils.log(TAG, error);
+                    }
+
+                    @Override
+                    public void onExpired() {
+                        expired();
+                    }
+                });
     }
 }

@@ -7,13 +7,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.RequestOptions;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.yostajsc.izigo.R;
+import io.yostajsc.sdk.utils.GlideUtils;
 
 /**
  * Created by Phuc-Hau Nguyen on 12/1/2016.
@@ -44,15 +41,7 @@ public class ActiveMemberOnMapsViewHolder extends RecyclerView.ViewHolder {
     public void bind(@NonNull String url, @NonNull String name,
                      String distance, String time, boolean isVisible) {
 
-        Glide.with(mContext)
-                .load(url)
-                .apply(new RequestOptions()
-                        .dontAnimate()
-                        .dontTransform()
-                        .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-                        .circleCrop()
-                        .error(io.yostajsc.sdk.R.drawable.ic_style_rect_round_corners_gray_none))
-                .into(imageAvatar);
+        GlideUtils.showAvatar(url, imageAvatar);
 
         this.textName.setText(name);
         if (distance == null || time == null) {
