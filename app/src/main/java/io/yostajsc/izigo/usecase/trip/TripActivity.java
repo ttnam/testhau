@@ -13,6 +13,7 @@ import android.support.v7.widget.SnapHelper;
 import android.view.Gravity;
 import android.webkit.WebView;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
@@ -22,8 +23,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.yostajsc.izigo.R;
+import io.yostajsc.izigo.usecase.trip.dialog.DialogAddActivity;
+import io.yostajsc.sdk.consts.CallBack;
 import io.yostajsc.sdk.consts.MessageType;
 import io.yostajsc.sdk.gallery.ImageNormalViewHolder;
+import io.yostajsc.sdk.utils.LogUtils;
 import io.yostajsc.sdk.utils.ToastUtils;
 import io.yostajsc.izigo.AppConfig;
 import io.yostajsc.sdk.gallery.SelectorImageryAdapter;
@@ -78,6 +82,12 @@ public class TripActivity extends OwnCoreActivity {
     @BindView(R.id.text_from)
     TextView textFrom;
 
+    @BindView(R.id.layout_history)
+    LinearLayout layoutHistory;
+
+    @BindView(R.id.layout_add_activity)
+    LinearLayout layoutAddActivity;
+
     @BindView(R.id.text_to)
     TextView textTo;
 
@@ -97,9 +107,10 @@ public class TripActivity extends OwnCoreActivity {
     ToggleButton buttonPublish;
 
     private SelectorImageryAdapter albumAdapter = null;
-    private TimelineAdapter timelineAdapter = null;
-
+    private DialogAddActivity mDialogAddActivity = null;
     private IgTrip mIgTrip = null;
+
+    public TimelineAdapter timelineAdapter = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -151,22 +162,7 @@ public class TripActivity extends OwnCoreActivity {
     public void onApplyData() {
         super.onApplyData();
         updateTripDetail();
-        IzigoSdk.TripExecutor.getActivities(AppConfig.getInstance().getCurrentTripId(), new IgCallback<List<IgTimeline>, String>() {
-            @Override
-            public void onSuccessful(List<IgTimeline> timelines) {
-                updateTimeline(timelines);
-            }
-
-            @Override
-            public void onFail(String error) {
-                ToastUtils.showToast(TripActivity.this, error);
-            }
-
-            @Override
-            public void onExpired() {
-                expired();
-            }
-        });
+        TripActivityHelper.getActivities();
     }
 
     void updateTripDetail() {
@@ -187,14 +183,6 @@ public class TripActivity extends OwnCoreActivity {
                         expired();
                     }
                 });
-    }
-
-    private void updateTimeline(List<IgTimeline> timelines) {
-        if (timelines != null && timelines.size() > 0) {
-            this.timelineAdapter.replaceAll(timelines);
-        } else {
-            this.timelineAdapter.clear();
-        }
     }
 
     private void updateUI(final IgTrip igTrip) {
@@ -380,6 +368,28 @@ public class TripActivity extends OwnCoreActivity {
         }
     }
 
+    @OnClick(R.id.layout_add_activity)
+    public void addActivity() {
+        closeMenu();
+
+        if (mIgTrip.getRole() != RoleType.ADMIN) {
+            ToastUtils.showToast(this, "Yêu cầu không được chấp nhận, vui lòng liên hệ admin!");
+            return;
+        }
+
+        if (mDialogAddActivity == null)
+            mDialogAddActivity = new DialogAddActivity(this);
+        if (!mDialogAddActivity.isShowing()) {
+            mDialogAddActivity.setDialogResult(new DialogAddActivity.OnReceiveNewActivity() {
+                @Override
+                public void onSuccess(String content, long time) {
+                    TripActivityHelper.addActivity(content, time);
+                }
+            });
+            mDialogAddActivity.show();
+        }
+    }
+
     @OnClick(R.id.button_publish)
     public void togglePublish() {
         IzigoSdk.TripExecutor.updateTripPublishStatus(AppConfig.getInstance().getCurrentTripId(),
@@ -401,4 +411,5 @@ public class TripActivity extends OwnCoreActivity {
                     }
                 });
     }
+
 }

@@ -479,7 +479,7 @@ class IzigoApiManager {
         });
     }
 
-    public void getNotification(String authorization, String type, final IgCallback<List<IgNotification>, String> callback) {
+    void getNotification(String authorization, String type, final IgCallback<List<IgNotification>, String> callback) {
 
         Call<BaseResponse<List<IgNotification>>> call = service.getNotification(authorization, type);
         call.enqueue(new Callback<BaseResponse<List<IgNotification>>>() {
@@ -628,6 +628,34 @@ class IzigoApiManager {
                         callback.onExpired();
                     } else {
                         callback.onFail(res.getDescription());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BaseResponse> call, Throwable throwable) {
+                callback.onFail(throwable.getMessage());
+            }
+        });
+    }
+
+    void addActivity(String authorization, String tripId, String content, long time,
+                     final IgCallback<Void, String> callback) {
+
+        Call<BaseResponse> call = service.addActivity(authorization, tripId, time, content);
+        call.enqueue(new Callback<BaseResponse>() {
+            @Override
+            public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
+                if (response.isSuccessful()) {
+                    BaseResponse res = response.body();
+                    if (res != null) {
+                        if (res.isSuccessful()) {
+                            callback.onSuccessful(null);
+                        } else if (res.isExpired()) {
+                            callback.onExpired();
+                        } else {
+                            callback.onFail(res.getDescription());
+                        }
                     }
                 }
             }

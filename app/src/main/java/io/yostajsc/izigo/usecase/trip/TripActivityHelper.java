@@ -1,13 +1,23 @@
 package io.yostajsc.izigo.usecase.trip;
 
+import android.util.Log;
 import android.view.View;
 
+import java.util.List;
+
+import io.yostajsc.izigo.AppConfig;
 import io.yostajsc.izigo.constants.RoleType;
+import io.yostajsc.sdk.api.IzigoSdk;
+import io.yostajsc.sdk.api.model.IgCallback;
+import io.yostajsc.sdk.api.model.IgTimeline;
+import io.yostajsc.sdk.consts.CallBack;
 import io.yostajsc.sdk.utils.DatetimeUtils;
 import io.yostajsc.izigo.R;
 import io.yostajsc.sdk.api.model.trip.IgTripStatus;
 import io.yostajsc.izigo.customview.UiUtils;
 import io.yostajsc.sdk.utils.GlideUtils;
+import io.yostajsc.sdk.utils.LogUtils;
+import io.yostajsc.sdk.utils.ToastUtils;
 
 /**
  * Created by nphau on 4/7/17.
@@ -65,12 +75,15 @@ public class TripActivityHelper {
                 throw new Exception(ERROR_UNBOUND);
             if (status == IgTripStatus.PREPARED) {
                 mActivity.textStatus.setText("Dự định");
+                mActivity.layoutHistory.setVisibility(View.GONE);
                 mActivity.textStatus.setBackgroundDrawable(mActivity.getResources().getDrawable(R.drawable.ic_style_rect_round_corners_light_blue_none));
             } else if (status == IgTripStatus.ONGOING) {
                 mActivity.textStatus.setText("Đang đi");
+                mActivity.layoutHistory.setVisibility(View.GONE);
                 mActivity.textStatus.setBackgroundDrawable(mActivity.getResources().getDrawable(R.drawable.ic_style_rect_round_corners_light_green));
             } else if (status == IgTripStatus.FINISHED) {
                 mActivity.textStatus.setText("Kết thúc");
+                mActivity.layoutHistory.setVisibility(View.VISIBLE);
                 mActivity.textStatus.setBackgroundDrawable(mActivity.getResources().getDrawable(R.drawable.ic_style_rect_round_corners_light_red_none));
             }
         } catch (Exception e) {
@@ -115,17 +128,20 @@ public class TripActivityHelper {
                 throw new Exception(ERROR_UNBOUND);
             switch (roleType) {
                 case RoleType.MEMBER:
-                    mActivity.buttonPublish.setVisibility(View.GONE);
                     mActivity.button.setVisibility(View.GONE);
+                    mActivity.buttonPublish.setVisibility(View.GONE);
+                    mActivity.layoutAddActivity.setVisibility(View.GONE);
                     break;
                 case RoleType.GUEST:
                     mActivity.button.setText("Xin tham gia");
-                    mActivity.buttonPublish.setVisibility(View.GONE);
                     mActivity.button.setVisibility(View.VISIBLE);
+                    mActivity.buttonPublish.setVisibility(View.GONE);
+                    mActivity.layoutAddActivity.setVisibility(View.GONE);
                     break;
                 case RoleType.ADMIN: {
-                    mActivity.buttonPublish.setVisibility(View.VISIBLE);
                     mActivity.button.setVisibility(View.GONE);
+                    mActivity.buttonPublish.setVisibility(View.VISIBLE);
+                    mActivity.layoutAddActivity.setVisibility(View.VISIBLE);
                     break;
                 }
             }
@@ -158,5 +174,47 @@ public class TripActivityHelper {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    static void addActivity(String content, long time) {
+
+        IzigoSdk.TripExecutor.addActivity(AppConfig.getInstance().getCurrentTripId(), content, time, new IgCallback<Void, String>() {
+            @Override
+            public void onSuccessful(Void aVoid) {
+                getActivities();
+            }
+
+            @Override
+            public void onFail(String error) {
+                LogUtils.log(error);
+            }
+
+            @Override
+            public void onExpired() {
+
+            }
+        });
+    }
+
+    static void getActivities() {
+        IzigoSdk.TripExecutor.getActivities(AppConfig.getInstance().getCurrentTripId(), new IgCallback<List<IgTimeline>, String>() {
+            @Override
+            public void onSuccessful(List<IgTimeline> data) {
+                if (data != null && data.size() > 0) {
+                    mActivity.timelineAdapter.clear();
+                    mActivity.timelineAdapter.replaceAll(data);
+                }
+            }
+
+            @Override
+            public void onFail(String error) {
+                LogUtils.log(error);
+            }
+
+            @Override
+            public void onExpired() {
+
+            }
+        });
     }
 }

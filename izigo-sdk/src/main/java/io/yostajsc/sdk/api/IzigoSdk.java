@@ -1,6 +1,7 @@
 package io.yostajsc.sdk.api;
 
 import android.app.Application;
+
 import java.io.File;
 import java.util.HashMap;
 import java.util.List;
@@ -181,6 +182,14 @@ public class IzigoSdk {
 
                     }
                 });
+            }
+        }
+
+        public static void addActivity(String tripId, String content, long time,
+                                       final IgCallback<Void, String> callback) {
+            if (IzigoSession.isLoggedIn()) {
+                String auth = IzigoSession.getToken().getToken();
+                IzigoApiManager.connect().addActivity(auth, tripId, content, time, callback);
             }
         }
 

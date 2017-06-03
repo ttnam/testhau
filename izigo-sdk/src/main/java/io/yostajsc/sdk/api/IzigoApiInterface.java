@@ -13,7 +13,6 @@ import io.yostajsc.sdk.api.model.IgComment;
 import io.yostajsc.sdk.api.model.token.IgToken;
 import io.yostajsc.sdk.api.response.BaseResponse;
 import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
@@ -83,9 +82,6 @@ interface IzigoApiInterface {
     @GET("trips/{id}/comment")
     Call<BaseResponse<List<IgComment>>> getComments(@Header("authorization") String authorization, @Path("id") String tripId);
 
-    @GET("trips/{id}/activity")
-    Call<BaseResponse<List<IgTimeline>>> getActivities(@Header("authorization") String authorization, @Path("id") String tripId);
-
     @GET("user/friends")
     Call<BaseResponse<List<IgFriend>>> getFriendsList(@Header("authorization") String authorization, @Header("fbToken") String fbAccessToken);
 
@@ -98,32 +94,6 @@ interface IzigoApiInterface {
     Call<BaseResponse<List<IgSuggestion>>> getSuggestion(@Header("authorization") String authorization,
                                                          @Query("lat") double lat,
                                                          @Query("lng") double lng);
-
-    @FormUrlEncoded
-    @PUT("trips/{id}/accept")
-    Call<BaseResponse<String>> accept(@Header("authorization") String authorization,
-                                      @Path("id") String tripId,
-                                      @Field("notiId") String notyId,
-                                      @Field("verify") int verify);
-
-    @FormUrlEncoded
-    @PUT("trips/{id}/add")
-    Call<BaseResponse<String>> addMember(@Header("authorization") String authorization,
-                                         @Path("id") String tripId,
-                                         @Field("fbId") String fbId);
-
-    @FormUrlEncoded
-    @PUT("trips/{id}/verify")
-    Call<BaseResponse<String>> verify(@Header("authorization") String authorization,
-                                      @Path("id") String tripId,
-                                      @Field("notiId") String notyId,
-                                      @Field("verify") int verify);
-
-    @FormUrlEncoded
-    @PUT("trips/{id}/kick")
-    Call<BaseResponse<String>> kick(@Header("authorization") String authorization,
-                                    @Path("id") String tripId,
-                                    @Field("fbId") String fbId);
 
     @Multipart
     @POST("trips/{id}/album")
@@ -152,4 +122,43 @@ interface IzigoApiInterface {
             @Header("authorization") String authorization,
             @Path("tripId") String tripId,
             @Part MultipartBody.Part image);
+
+    @GET("trips/{id}/activity")
+    Call<BaseResponse<List<IgTimeline>>> getActivities(@Header("authorization") String authorization,
+                                                       @Path("id") String tripId);
+
+
+    @POST("trips/{id}/activity")
+    @FormUrlEncoded
+    Call<BaseResponse> addActivity(@Header("authorization") String authorization,
+                                   @Path("id") String tripId,
+                                   @Field("time") long time,
+                                   @Field("content") String content);
+
+    @FormUrlEncoded
+    @PUT("trips/{id}/accept")
+    Call<BaseResponse<String>> accept(@Header("authorization") String authorization,
+                                      @Path("id") String tripId,
+                                      @Field("notiId") String notyId,
+                                      @Field("verify") int verify);
+
+    @FormUrlEncoded
+    @PUT("trips/{id}/add")
+    Call<BaseResponse<String>> addMember(@Header("authorization") String authorization,
+                                         @Path("id") String tripId,
+                                         @Field("fbId") String fbId);
+
+    @FormUrlEncoded
+    @PUT("trips/{id}/verify")
+    Call<BaseResponse<String>> verify(@Header("authorization") String authorization,
+                                      @Path("id") String tripId,
+                                      @Field("notiId") String notyId,
+                                      @Field("verify") int verify);
+
+    @FormUrlEncoded
+    @PUT("trips/{id}/kick")
+    Call<BaseResponse<String>> kick(@Header("authorization") String authorization,
+                                    @Path("id") String tripId,
+                                    @Field("fbId") String fbId);
+
 }
