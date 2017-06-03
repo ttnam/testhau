@@ -25,9 +25,9 @@
     <string name="str_pick_time">Chọn giờ</string>
     <string name="str_pick_date">Chọn ngày</string>
     <string name="str_published">Cộng đồng</string>
-    <string name="str_invalid_time">Thời gian không hợp lệ</string>
     <string name="str_miss_depart">Bạn chưa chọn điểm đi</string>
     <string name="str_miss_arrive">Bạn chưa chọn điểm đến</string>
+    <string name="str_invalid_time">Thời gian không hợp lệ</string>
     <string name="str_miss_trip_name">Bạn chưa đặt tên hành trình</string>
     <string name="str_ask_upload_photo">Bạn có chắc muốn upload các ảnh này không?</string>
     <string name="str_ask_cover_photo">Bạn chưa chọn ảnh đại diện, bạn có muốn tiếp tục không?</string>

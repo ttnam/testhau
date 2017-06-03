@@ -9,22 +9,29 @@
     android:padding="@dimen/margin">
 
     <TextView
+        android:id="@id/text_view"
+        style="@style/CoreAppTheme.TextView_Sub_Title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:maxLines="1"
+        android:padding="@dimen/margin"
+        android:textColor="@android:color/holo_red_dark" />
+
+    <fragment
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/image_height_v3" />
+
+    <TextView
         style="@style/CoreAppTheme.TextView_Title.Bold"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center|start"
         android:padding="@dimen/margin"
-        android:text="Chọn thời gian và địa điểm" />
-
-    <TextView
-        android:id="@id/text_view"
-        style="@style/CoreAppTheme.TextView_Sub_Title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center|start"
-        android:maxLines="1"
-        android:padding="@dimen/margin"
-        android:textColor="@android:color/holo_red_dark" />
+        android:text="@string/str_depart"
+        android:textColor="@android:color/holo_blue_dark" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -54,7 +61,7 @@
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:background="@color/BlueButton" />
+                android:background="@android:color/holo_blue_dark" />
 
         </LinearLayout>
 
@@ -146,6 +153,15 @@
         </LinearLayout>
 
     </LinearLayout>
+
+    <TextView
+        style="@style/CoreAppTheme.TextView_Title.Bold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center|start"
+        android:padding="@dimen/margin"
+        android:text="@string/str_arrive"
+        android:textColor="@android:color/holo_red_dark" />
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -34,7 +34,7 @@ import io.yostajsc.izigo.usecase.MembersActivity;
 import io.yostajsc.izigo.usecase.OwnCoreActivity;
 import io.yostajsc.izigo.usecase.map.MapsActivity;
 import io.yostajsc.izigo.usecase.trip.adapter.TimelineAdapter;
-import io.yostajsc.izigo.ui.UiUtils;
+import io.yostajsc.izigo.customview.UiUtils;
 import io.yostajsc.sdk.api.IzigoSdk;
 import io.yostajsc.sdk.api.model.IgCallback;
 import io.yostajsc.sdk.api.model.IgTimeline;

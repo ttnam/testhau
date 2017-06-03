@@ -6,7 +6,7 @@ import io.yostajsc.izigo.constants.RoleType;
 import io.yostajsc.sdk.utils.DatetimeUtils;
 import io.yostajsc.izigo.R;
 import io.yostajsc.sdk.api.model.trip.IgTripStatus;
-import io.yostajsc.izigo.ui.UiUtils;
+import io.yostajsc.izigo.customview.UiUtils;
 import io.yostajsc.sdk.utils.GlideUtils;
 
 /**

@@ -57,7 +57,7 @@ import io.yostajsc.izigo.usecase.service.firebase.FirebaseManager;
 import io.yostajsc.izigo.R;
 import io.yostajsc.izigo.usecase.OwnCoreActivity;
 import io.yostajsc.izigo.usecase.trip.dialog.DialogActiveMembers;
-import io.yostajsc.izigo.ui.OwnToolBar;
+import io.yostajsc.izigo.customview.OwnToolBar;
 import io.yostajsc.izigo.usecase.map.utils.Info;
 import io.yostajsc.izigo.usecase.map.model.Person;
 import io.yostajsc.izigo.usecase.map.utils.MapUtils;

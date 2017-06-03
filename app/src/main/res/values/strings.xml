@@ -106,9 +106,9 @@
     <string name="str_pick_time">Pick time</string>
     <string name="str_description">Description</string>
     <string name="str_invalid_time">Time invalid</string>
+    <string name="str_miss_trip_name">Please set your trip name</string>
     <string name="str_miss_depart">Please select departure of your trip</string>
     <string name="str_miss_arrive">Please select destination of your trip</string>
-    <string name="str_miss_trip_name">Please set your trip name</string>
     <string name="str_ask_upload_photo">Are you sure, you want to upload these photos?</string>
     <string name="str_ask_cover_photo">You have no cover picture here. Do you want to continue?</string>
 

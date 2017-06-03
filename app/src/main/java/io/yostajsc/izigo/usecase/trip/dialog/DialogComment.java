@@ -25,7 +25,7 @@ import io.yostajsc.izigo.usecase.trip.adapter.CommentAdapter;
 import io.yostajsc.sdk.api.IzigoSdk;
 import io.yostajsc.sdk.api.model.IgComment;
 import io.yostajsc.sdk.api.model.IgCallback;
-import io.yostajsc.izigo.ui.UiUtils;
+import io.yostajsc.izigo.customview.UiUtils;
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 
 /**
