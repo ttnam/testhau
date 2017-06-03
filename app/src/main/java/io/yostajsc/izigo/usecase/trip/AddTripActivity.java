@@ -26,6 +26,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
+import io.yostajsc.izigo.customview.UiUtils;
 import io.yostajsc.izigo.usecase.map.utils.RouteParserTask;
 import io.yostajsc.sdk.consts.CallBackWith;
 import io.yostajsc.sdk.consts.MessageType;
@@ -43,7 +44,6 @@ import io.yostajsc.sdk.api.IzigoSdk;
 import io.yostajsc.sdk.api.model.IgCallback;
 import io.yostajsc.sdk.api.model.trip.IgPlace;
 import io.yostajsc.sdk.api.model.trip.IgTrip;
-import io.yostajsc.izigo.customview.UiUtils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -64,9 +64,26 @@ public class AddTripActivity extends OwnCoreActivity {
     @BindView(R.id.text_view)
     TextView textViewDes;
 
+    @BindView(R.id.text_arrive)
+    TextView textArrive;
+
+    @BindView(R.id.text_depart)
+    TextView textDepart;
+
     @BindView(R.id.image_view)
     AppCompatImageView imageView;
 
+    @BindView(R.id.text_arrive_time)
+    TextView textArriveTime;
+
+    @BindView(R.id.text_arrive_date)
+    TextView textArriveDate;
+
+    @BindView(R.id.text_depart_time)
+    TextView textDepartTime;
+
+    @BindView(R.id.text_depart_date)
+    TextView textDepartDate;
 
     @BindView(R.id.image_trip_cover)
     AppCompatImageView imageTripCover;
@@ -81,6 +98,7 @@ public class AddTripActivity extends OwnCoreActivity {
     private boolean isEdit = false;
     private File mSelectedFile = null;
     private DialogPickTransfer dialogPickTransfer = null;
+    private IgPlace from = new IgPlace(), to = new IgPlace();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -165,7 +183,40 @@ public class AddTripActivity extends OwnCoreActivity {
 
     @OnClick({R.id.text_depart_time, R.id.text_arrive_time})
     public void pickDepartTime(final View view) {
+        AddTripActivityHelper.getInstance().selectTime(new AddTripActivityHelper.OnReceiveTime() {
+            @Override
+            public void time(Integer hour, Integer minute, String result) {
+                if (view.getId() == R.id.text_depart_time) {
+                    from.setHour(hour);
+                    from.setMinute(minute);
+                    textDepartTime.setText(result);
+                } else if (view.getId() == R.id.text_arrive_time) {
+                    to.setHour(hour);
+                    to.setMinute(minute);
+                    textArriveTime.setText(result);
+                }
+            }
+        });
+    }
 
+    @OnClick({R.id.text_depart_date, R.id.text_arrive_date})
+    public void pickDepartDate(final View view) {
+        AddTripActivityHelper.getInstance().selectDate(new AddTripActivityHelper.OnReceiveDate() {
+            @Override
+            public void date(Integer day, Integer month, Integer year, String result) {
+                if (view.getId() == R.id.text_depart_date) {
+                    from.setDay(day);
+                    from.setMonth(month);
+                    from.setYear(year);
+                    textDepartDate.setText(result);
+                } else if (view.getId() == R.id.text_arrive_date) {
+                    to.setDay(day);
+                    to.setMonth(month);
+                    to.setYear(year);
+                    textArriveDate.setText(result);
+                }
+            }
+        });
     }
 
     @OnClick(R.id.image_view)
