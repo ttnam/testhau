@@ -196,7 +196,7 @@ public class MapsActivity extends OwnCoreActivity implements OnMapReadyCallback,
         MapsActivityPermissionsDispatcher.enableMyLocationWithCheck(this);
 
         this.mMap.setTrafficEnabled(true);
-        this.mMap.setMinZoomPreference(5f);
+        this.mMap.setMinZoomPreference(6f);
         // this.mMap.setMaxZoomPreference(14f);
         this.mMap.setOnMapClickListener(this);
         this.mMap.setOnMarkerClickListener(this);

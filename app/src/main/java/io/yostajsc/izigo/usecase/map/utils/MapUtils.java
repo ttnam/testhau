@@ -232,6 +232,14 @@ public class MapUtils {
             return marker;
         }
 
+        public static Marker addMarker(final GoogleMap map, final LatLng latLng, final float zoomLevel) {
+            Marker marker = map.addMarker(
+                    new MarkerOptions().position(latLng).draggable(false)
+                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+            map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoomLevel));
+            return marker;
+        }
+
         public static boolean isBetter(Location newLocation, Location current) {
             if (current == null)
                 return true;

@@ -66,12 +66,6 @@ interface IzigoApiInterface {
     Call<BaseResponse<String>> addTrip(@Header("authorization") String authorization, @FieldMap Map<String, String> fields);
 
     @FormUrlEncoded
-    @PUT("trips/{id}")
-    Call<BaseResponse<String>> updateTrip(@Header("authorization") String authorization,
-                                          @Path("id") String tripId,
-                                          @FieldMap Map<String, String> fields);
-
-    @FormUrlEncoded
     @POST("trips/{id}/comment")
     Call<BaseResponse> addComment(@Header("authorization") String authorization,
                                   @Path("id") String tripId,
@@ -136,6 +130,16 @@ interface IzigoApiInterface {
     Call<BaseResponse> uploadTripAlbum(
             @Header("authorization") String authorization, @Path("id") String tripId,
             @Part MultipartBody.Part[] images);
+
+    /**
+     * All of trip api here
+     * Hack it if you want
+     */
+    @FormUrlEncoded
+    @PUT("trips/{id}")
+    Call<BaseResponse<String>> updateTrip(@Header("authorization") String authorization,
+                                          @Path("id") String tripId,
+                                          @FieldMap Map<String, String> fields);
 
     @FormUrlEncoded
     @HTTP(method = "DELETE", path = "trips/{tripId}/album", hasBody = true)

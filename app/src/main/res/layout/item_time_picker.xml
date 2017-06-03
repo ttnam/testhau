@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:baselineAligned="true"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/text_date"
+        style="@style/CoreAppTheme.TextView_Title.Bold"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:background="@drawable/ic_style_button_round_corners_dark_default"
+        android:clickable="true"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:hint="@string/str_pick_date"
+        android:maxLines="1"
+        android:paddingBottom="@dimen/margin"
+        android:paddingLeft="@dimen/margin_x2"
+        android:paddingRight="@dimen/margin_x2"
+        android:paddingTop="@dimen/margin"
+        android:textColor="@android:color/holo_blue_dark" />
+
+    <TextView
+        android:id="@+id/text_time"
+        style="@style/CoreAppTheme.TextView_Title.Bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="@dimen/margin"
+        android:layout_marginStart="@dimen/margin"
+        android:background="@drawable/ic_style_button_round_corners_dark_default"
+        android:clickable="true"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:hint="@string/str_pick_time"
+        android:maxLines="1"
+        android:paddingBottom="@dimen/margin"
+        android:paddingLeft="@dimen/margin_x2"
+        android:paddingRight="@dimen/margin_x2"
+        android:paddingTop="@dimen/margin"
+        android:textColor="@android:color/holo_blue_dark" />
+
+</LinearLayout>

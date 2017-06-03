@@ -16,14 +16,22 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.MapStyleOptions;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.Polyline;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import io.yostajsc.izigo.customview.UiUtils;
@@ -51,7 +59,7 @@ import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.RuntimePermissions;
 
 @RuntimePermissions
-public class AddTripActivity extends OwnCoreActivity {
+public class AddTripActivity extends OwnCoreActivity implements OnMapReadyCallback {
 
     private static String TAG = AddTripActivity.class.getSimpleName();
 
@@ -73,17 +81,11 @@ public class AddTripActivity extends OwnCoreActivity {
     @BindView(R.id.image_view)
     AppCompatImageView imageView;
 
-    @BindView(R.id.text_arrive_time)
-    TextView textArriveTime;
+    @BindView(R.id.layout_depart_time)
+    CustomTimePicker layoutDepartTime;
 
-    @BindView(R.id.text_arrive_date)
-    TextView textArriveDate;
-
-    @BindView(R.id.text_depart_time)
-    TextView textDepartTime;
-
-    @BindView(R.id.text_depart_date)
-    TextView textDepartDate;
+    @BindView(R.id.layout_arrive_time)
+    CustomTimePicker layoutArriveTime;
 
     @BindView(R.id.image_trip_cover)
     AppCompatImageView imageTripCover;
@@ -100,13 +102,25 @@ public class AddTripActivity extends OwnCoreActivity {
     private DialogPickTransfer dialogPickTransfer = null;
     private IgPlace from = new IgPlace(), to = new IgPlace();
 
+    private GoogleMap mMap = null;
+    private List<Marker> markerList = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_trip);
         ButterKnife.bind(this);
+        onApplyViews();
         AddTripActivityHelper.bind(this);
         dialogPickTransfer = new DialogPickTransfer(this);
+    }
+
+    @Override
+    public void onApplyViews() {
+        super.onApplyViews();
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map_view);
+        mapFragment.getMapAsync(this);
     }
 
     @Override
@@ -114,32 +128,14 @@ public class AddTripActivity extends OwnCoreActivity {
         super.onStart();
         registerForContextMenu(imageTripCover);
         IgTrip igTrip = (IgTrip) getIntent().getSerializableExtra(IgTrip.TRIP_ID);
-        if (igTrip == null) {
-            AddTripActivityHelper.tickTimeUpdate(
-                    new AddTripActivityHelper.OnReceiveDate() {
-                        @Override
-                        public void date(Integer day, Integer month, Integer year, String result) {
-                            textArriveDate.setText(result);
-                            textDepartDate.setText(result);
-                            from.setDate(year, month, day);
-                            to.setDate(year, month, day);
-                        }
-                    }, new AddTripActivityHelper.OnReceiveTime() {
-                        @Override
-                        public void time(Integer hour, Integer minute, String result) {
-                            textArriveTime.setText(result);
-                            textDepartTime.setText(result);
-                            from.setTime(hour, minute);
-                            to.setTime(hour, minute);
-                        }
-                    });
-            enableEditMode(false);
-        } else {
+        if (igTrip != null) {
             enableEditMode(true);
-            textTripName.setText(igTrip.getName());                // Name
-            editDescription.setText(igTrip.getDescription());       // Description
-            UiUtils.showTransfer(igTrip.getTransfer(), imageView);  // Transfer
+            textTripName.setText(igTrip.getName());
+            editDescription.setText(igTrip.getDescription());
+            UiUtils.showTransfer(igTrip.getTransfer(), imageView);
             GlideUtils.showImage(igTrip.getCoverUrl(), imageTripCover);
+        } else {
+            enableEditMode(false);
         }
     }
 
@@ -181,44 +177,6 @@ public class AddTripActivity extends OwnCoreActivity {
         startActivityForResult(new Intent(AddTripActivity.this, PickLocationActivity.class), type);
     }
 
-    @OnClick({R.id.text_depart_time, R.id.text_arrive_time})
-    public void pickDepartTime(final View view) {
-        AddTripActivityHelper.getInstance().selectTime(new AddTripActivityHelper.OnReceiveTime() {
-            @Override
-            public void time(Integer hour, Integer minute, String result) {
-                if (view.getId() == R.id.text_depart_time) {
-                    from.setHour(hour);
-                    from.setMinute(minute);
-                    textDepartTime.setText(result);
-                } else if (view.getId() == R.id.text_arrive_time) {
-                    to.setHour(hour);
-                    to.setMinute(minute);
-                    textArriveTime.setText(result);
-                }
-            }
-        });
-    }
-
-    @OnClick({R.id.text_depart_date, R.id.text_arrive_date})
-    public void pickDepartDate(final View view) {
-        AddTripActivityHelper.getInstance().selectDate(new AddTripActivityHelper.OnReceiveDate() {
-            @Override
-            public void date(Integer day, Integer month, Integer year, String result) {
-                if (view.getId() == R.id.text_depart_date) {
-                    from.setDay(day);
-                    from.setMonth(month);
-                    from.setYear(year);
-                    textDepartDate.setText(result);
-                } else if (view.getId() == R.id.text_arrive_date) {
-                    to.setDay(day);
-                    to.setMonth(month);
-                    to.setYear(year);
-                    textArriveDate.setText(result);
-                }
-            }
-        });
-    }
-
     @OnClick(R.id.image_view)
     public void pickTransfer() {
         dialogPickTransfer.setDialogResult(new CallBackWith<Integer>() {
@@ -251,6 +209,10 @@ public class AddTripActivity extends OwnCoreActivity {
             ToastUtils.showToast(this, getString(R.string.str_miss_trip_name));
             return;
         }
+        if (layoutArriveTime.getPlace().getTime() < layoutDepartTime.getPlace().getTime()) {
+            ToastUtils.showToast(this, getString(R.string.str_invalid_time));
+            return;
+        }
 
         // Destination
         String arriveName = textArrive.getText().toString();
@@ -268,13 +230,6 @@ public class AddTripActivity extends OwnCoreActivity {
 
         // Description
         final String description = editDescription.getText().toString();
-
-        if (from.getTime() < System.currentTimeMillis() ||
-                to.getTime() <= from.getTime() ||
-                to.getTime() < System.currentTimeMillis()) {
-            Toast.makeText(this, getString(R.string.str_invalid_time), Toast.LENGTH_SHORT).show();
-            return;
-        }
 
         final Map<String, String> fields = new HashMap<>();
         fields.put("name", tripName);
@@ -393,6 +348,10 @@ public class AddTripActivity extends OwnCoreActivity {
         }
     }
 
+    LatLng toLatLng = null;
+    LatLng fromLatLng = null;
+    Polyline mPolyline = null;
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
@@ -422,40 +381,55 @@ public class AddTripActivity extends OwnCoreActivity {
                 case MessageType.PICK_LOCATION_FROM:
                     from = (IgPlace) data.getSerializableExtra(AppConfig.KEY_PICK_LOCATION);
                     textDepart.setText(from.getName());
-
-                    MapUtils.Map.direction(
-                            new LatLng(from.getLat(), from.getLng()),
-                            new LatLng(to.getLat(), to.getLng()),
-                            new RouteParserTask.OnDirectionCallBack() {
-                                @Override
-                                public void onSuccess(Info info, Polyline polyline) {
-                                    textViewDes.setText(String.format("Dự tính: %s - %s",
-                                            info.strDistance,
-                                            info.strDuration));
-                                }
-                            });
+                    showMaps();
                     break;
                 case MessageType.PICK_LOCATION_TO:
                     to = (IgPlace) data.getSerializableExtra(AppConfig.KEY_PICK_LOCATION);
                     textArrive.setText(to.getName());
-
-                    MapUtils.Map.direction(
-                            new LatLng(from.getLat(), from.getLng()),
-                            new LatLng(to.getLat(), to.getLng()),
-                            new RouteParserTask.OnDirectionCallBack() {
-                                @Override
-                                public void onSuccess(Info info, Polyline polyline) {
-                                    textViewDes.setText(String.format("Dự tính: %s - %s",
-                                            info.strDistance,
-                                            info.strDuration));
-                                }
-                            });
+                    showMaps();
                     break;
             }
         }
     }
 
-    private void onSuccess(String tripId) {
+    void showMaps() {
+
+        toLatLng = new LatLng(to.getLat(), to.getLng());
+        fromLatLng = new LatLng(from.getLat(), from.getLng());
+
+        if (mPolyline != null)
+            mPolyline.remove();
+
+        for (Marker marker : markerList) {
+            marker.remove();
+        }
+        markerList.clear();
+
+        MapUtils.Map.direction(mMap, fromLatLng, toLatLng,
+                new RouteParserTask.OnDirectionCallBack() {
+                    @Override
+                    public void onSuccess(Info info, Polyline polyline) {
+                        textViewDes.setText(String.format("Dự tính: %s - %s", info.strDistance, info.strDuration));
+
+                        mPolyline = polyline;
+
+                        markerList.add(MapUtils.Map.addMarker(mMap, toLatLng, 12.0f));
+                        markerList.add(MapUtils.Map.addMarker(mMap, fromLatLng, 12.0f));
+
+                        LatLngBounds.Builder builder = LatLngBounds.builder();
+                        for (Marker marker : markerList) {
+                            builder.include(marker.getPosition());
+                        }
+                        final LatLngBounds latLngBounds = builder.build();
+                        mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(
+                                new LatLngBounds(latLngBounds.southwest, latLngBounds.northeast), 180));
+                    }
+                });
+
+    }
+
+    void onSuccess(String tripId) {
+        AppConfig.getInstance().setCurrentTripId(tripId);
         Intent intent = new Intent(AddTripActivity.this, TripActivity.class);
         intent.putExtra(IgTrip.TRIP_ID, tripId);
         startActivity(intent);
@@ -515,5 +489,18 @@ public class AddTripActivity extends OwnCoreActivity {
                         expired();
                     }
                 });
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        this.mMap = googleMap;
+        this.mMap.setTrafficEnabled(true);
+        this.mMap.setMinZoomPreference(6f);
+        this.mMap.getUiSettings().setCompassEnabled(false);
+        this.mMap.getUiSettings().setMapToolbarEnabled(false);
+        this.mMap.getUiSettings().setZoomGesturesEnabled(true);
+        this.mMap.getUiSettings().setRotateGesturesEnabled(true);
+        this.mMap.getUiSettings().setScrollGesturesEnabled(true);
+        this.mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, R.raw.map_style));
     }
 }

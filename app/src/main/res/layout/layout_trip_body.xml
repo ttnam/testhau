@@ -109,7 +109,7 @@
 
             </LinearLayout>
 
-            <include layout="@layout/layout_time_picker" />
+            <include layout="@layout/layout_trip_duration" />
 
             <include layout="@layout/item_web_vew" />
 

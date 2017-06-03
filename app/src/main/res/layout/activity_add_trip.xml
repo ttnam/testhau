@@ -80,7 +80,6 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:background="@android:color/white"
-                    android:padding="@dimen/margin"
                     app:hintEnabled="false">
 
                     <android.support.design.widget.TextInputEditText

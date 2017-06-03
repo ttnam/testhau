@@ -3,10 +3,12 @@ package io.yostajsc.izigo.usecase.trip;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.location.Location;
 import android.os.Bundle;
 import android.view.View;
 
 import com.google.android.gms.location.places.Place;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -26,7 +28,7 @@ import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.RuntimePermissions;
 
 @RuntimePermissions
-public class PickLocationActivity extends OwnCoreActivity implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
+public class PickLocationActivity extends OwnCoreActivity implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener, GoogleMap.OnMyLocationChangeListener {
 
     private final static String TAG = PickLocationActivity.class.getSimpleName();
 
@@ -71,7 +73,7 @@ public class PickLocationActivity extends OwnCoreActivity implements OnMapReadyC
                 LatLng latLng = place.getLatLng();
                 igLocation.setLatLng(latLng.latitude, latLng.longitude);
 
-                MapUtils.Map.addMarker(mMap, latLng, 500);
+                MapUtils.Map.addMarker(mMap, latLng, 12.0f);
                 myPlaceSelector.setText(place.getName().toString());
             }
         });
@@ -105,6 +107,13 @@ public class PickLocationActivity extends OwnCoreActivity implements OnMapReadyC
             mMap.getUiSettings().setMyLocationButtonEnabled(true);
             MapUtils.Map.setLocationButtonPosition(this.mapFragment,
                     MapUtils.Map.Position.BOTTOM_RIGHT);
+
+            MapUtils.Gps.connect().getLastKnownLocation(this, new MapUtils.OnGetLastKnownLocation() {
+                @Override
+                public void onReceive(LatLng latlng) {
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latlng, 12.0f));
+                }
+            });
         }
     }
 
@@ -122,12 +131,17 @@ public class PickLocationActivity extends OwnCoreActivity implements OnMapReadyC
     @Override
     public void onMapReady(GoogleMap googleMap) {
         this.mMap = googleMap;
+        PickLocationActivityPermissionsDispatcher.requestLocationWithCheck(this);
+
         this.mMap.setMaxZoomPreference(15.0f);
         this.mMap.setMinZoomPreference(5.0f);
+        this.mMap.setOnMyLocationChangeListener(this);
+        this.mMap.getUiSettings().setCompassEnabled(true);
         this.mMap.getUiSettings().setMapToolbarEnabled(false);
-        this.mMap.getUiSettings().setMyLocationButtonEnabled(false);
+        this.mMap.getUiSettings().setZoomGesturesEnabled(true);
+        this.mMap.getUiSettings().setRotateGesturesEnabled(true);
+        this.mMap.getUiSettings().setScrollGesturesEnabled(true);
         this.mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, R.raw.map_style));
-        PickLocationActivityPermissionsDispatcher.requestLocationWithCheck(this);
     }
 
     @OnClick({R.id.button, R.id.image_view})
@@ -136,5 +150,10 @@ public class PickLocationActivity extends OwnCoreActivity implements OnMapReadyC
         intent.putExtra(AppConfig.KEY_PICK_LOCATION, igLocation);
         setResult(Activity.RESULT_OK, intent);
         finish();
+    }
+
+    @Override
+    public void onMyLocationChange(Location location) {
+
     }
 }

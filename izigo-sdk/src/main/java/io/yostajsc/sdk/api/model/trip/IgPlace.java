@@ -109,5 +109,4 @@ public class IgPlace implements Serializable {
     public String toString() {
         return lat + ";" + lng + ";" + name + ";" + time;
     }
-
 }
